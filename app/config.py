@@ -1,7 +1,8 @@
 import os
-import random
+import secrets
 from pathlib import Path
 from typing import Optional
+from urllib.parse import quote_plus
 
 from dotenv import load_dotenv
 
@@ -20,7 +21,7 @@ ENVIRONMENT = ENV(os.getenv("ENV", ENV.PRODUCTION.value))
 
 
 def generate_random_secret():
-    return "".join(random.choices("1234567890", k=6))
+    return secrets.token_hex(32)
 
 
 class Settings:
@@ -30,7 +31,7 @@ class Settings:
     JWT_VERIFY_SIGNATURE = os.getenv("JWT_VERIFY_SIGNATURE")
 
     POSTGRES_USER: str = os.getenv("POSTGRES_USER", "admin")
-    POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD", "password")
+    POSTGRES_PASSWORD: str = os.getenv("POSTGRES_PASSWORD", "")
     POSTGRES_SERVER: str = os.getenv("POSTGRES_SERVER", "localhost")
     POSTGRES_PORT: str = os.getenv("POSTGRES_PORT", 5432)
     POSTGRES_DB: str = os.getenv("POSTGRES_DB", "restaurant")
@@ -50,11 +51,17 @@ class Settings:
     def DATABASE_URL(self) -> str:
         if self.DB_BACKEND == "memory":
             return "sqlite://"
-        return f"postgresql://{self.POSTGRES_USER}:{self.POSTGRES_PASSWORD}@{self.POSTGRES_SERVER}:{self.POSTGRES_PORT}/{self.POSTGRES_DB}"
+        if not self.POSTGRES_PASSWORD:
+            raise RuntimeError("POSTGRES_PASSWORD environment variable is required but not set")
+        user = quote_plus(self.POSTGRES_USER)
+        password = quote_plus(self.POSTGRES_PASSWORD)
+        server = quote_plus(self.POSTGRES_SERVER)
+        db = quote_plus(self.POSTGRES_DB)
+        return f"postgresql://{user}:{password}@{server}:{self.POSTGRES_PORT}/{db}"
 
     @property
     def SERVER_URL(self) -> str:
-        return "http://localhost:8091/"
+        return "https://localhost:8091/"
 
     @property
     def SERVERS(self) -> list[dict]:

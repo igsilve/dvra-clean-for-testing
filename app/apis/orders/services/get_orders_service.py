@@ -4,7 +4,7 @@ from apis.auth.utils import RolesBasedAuthChecker, get_current_user
 from apis.orders import schemas
 from db.models import Order, User, UserRole
 from db.session import get_db
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Query
 from sqlalchemy.orm import Session
 from typing_extensions import Annotated
 
@@ -14,8 +14,8 @@ router = APIRouter()
 @router.get("/orders", response_model=List[schemas.Order])
 def get_orders(
     current_user: Annotated[User, Depends(get_current_user)],
-    skip: int = 0,
-    limit: int = 100,
+    skip: int = Query(default=0, ge=0),
+    limit: int = Query(default=50, ge=1, le=100),
     db: Session = Depends(get_db),
     auth=Depends(RolesBasedAuthChecker([UserRole.CUSTOMER])),
 ):

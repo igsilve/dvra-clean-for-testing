@@ -1,15 +1,52 @@
 import base64
+import ipaddress
+import socket
+from urllib.parse import urlparse
 
 import requests
 from apis.menu import schemas
 from db.models import MenuItem, OrderItem
 from fastapi import HTTPException
 
+_MAX_IMAGE_BYTES = 5 * 1024 * 1024  # 5 MB
+
+_PRIVATE_NETWORKS = [
+    ipaddress.ip_network("10.0.0.0/8"),
+    ipaddress.ip_network("172.16.0.0/12"),
+    ipaddress.ip_network("192.168.0.0/16"),
+    ipaddress.ip_network("127.0.0.0/8"),
+    ipaddress.ip_network("169.254.0.0/16"),
+    ipaddress.ip_network("::1/128"),
+    ipaddress.ip_network("fc00::/7"),
+]
+
+
+def _validate_image_url(url: str) -> None:
+    parsed = urlparse(url)
+    if parsed.scheme != "https":
+        raise HTTPException(status_code=400, detail="image_url must use HTTPS")
+    hostname = parsed.hostname
+    if not hostname:
+        raise HTTPException(status_code=400, detail="image_url has no valid hostname")
+    try:
+        resolved = socket.getaddrinfo(hostname, None)
+    except socket.gaierror:
+        raise HTTPException(status_code=400, detail="image_url hostname could not be resolved")
+    for _family, _type, _proto, _canonname, sockaddr in resolved:
+        addr = sockaddr[0]
+        ip = ipaddress.ip_address(addr)
+        if any(ip in net for net in _PRIVATE_NETWORKS) or ip.is_loopback or ip.is_private:
+            raise HTTPException(status_code=400, detail="image_url resolves to a disallowed address")
+
 
 def _image_url_to_base64(image_url: str):
-    response = requests.get(image_url, stream=True)
-    encoded_image = base64.b64encode(response.content).decode()
-
+    _validate_image_url(image_url)
+    response = requests.get(image_url, stream=True, timeout=10)
+    response.raise_for_status()
+    content = response.raw.read(_MAX_IMAGE_BYTES + 1)
+    if len(content) > _MAX_IMAGE_BYTES:
+        raise HTTPException(status_code=400, detail="Image exceeds maximum allowed size")
+    encoded_image = base64.b64encode(content).decode()
     return encoded_image
 
 

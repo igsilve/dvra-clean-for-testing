@@ -1,10 +1,12 @@
 from typing import List
 
+from apis.auth.utils import RolesBasedAuthChecker, get_current_user
 from apis.orders import schemas
-from db.models import Order
+from db.models import Order, User, UserRole
 from db.session import get_db
-from fastapi import APIRouter, Depends, Request
+from fastapi import APIRouter, Depends, Query, Request
 from sqlalchemy.orm import Session
+from typing_extensions import Annotated
 
 router = APIRouter()
 
@@ -15,8 +17,10 @@ router = APIRouter()
     include_in_schema=False,
 )
 def get_orders(
-    skip: int = 0,
-    limit: int = 100,
+    skip: int = Query(default=0, ge=0),
+    limit: int = Query(default=50, ge=1, le=100),
+    current_user: Annotated[User, Depends(get_current_user)] = None,
+    auth=Depends(RolesBasedAuthChecker([UserRole.EMPLOYEE])),
     db: Session = Depends(get_db),
 ):
     """

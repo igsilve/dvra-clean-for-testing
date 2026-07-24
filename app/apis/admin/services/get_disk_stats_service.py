@@ -15,7 +15,6 @@ router = APIRouter()
 )
 def get_disk_usage_stats(
     current_user: Annotated[User, Depends(get_current_user)],
-    parameters: str = "",
     db: Session = Depends(get_db),
 ):
     if current_user.role != UserRole.CHEF.value:
@@ -23,5 +22,5 @@ def get_disk_usage_stats(
             status_code=403, detail="Only Chef is authorized to get current disk stats!"
         )
 
-    usage = get_disk_usage(parameters)
+    usage = get_disk_usage()
     return DiskUsage(output=usage)

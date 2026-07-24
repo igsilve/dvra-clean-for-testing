@@ -6,6 +6,10 @@ from fastapi.openapi.docs import get_redoc_html, get_swagger_ui_html
 from fastapi.staticfiles import StaticFiles
 from init import load_initial_data
 from init_app import init_app
+from startup_checks import assert_db_user_is_restricted, assert_patched_dependencies
+
+assert_patched_dependencies()
+assert_db_user_is_restricted()
 
 
 def setup_static_files_and_docs(app: FastAPI):

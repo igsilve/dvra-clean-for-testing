@@ -1,7 +1,7 @@
 from enum import Enum
 from typing import List, Optional
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class OrderStatus(str, Enum):
@@ -14,16 +14,16 @@ class OrderStatus(str, Enum):
 
 class OrderItem(BaseModel):
     menu_item_id: int
-    quantity: int
+    quantity: int = Field(..., ge=1, le=100)
 
 
 class OrderBase(BaseModel):
-    delivery_address: str
-    phone_number: str
+    delivery_address: str = Field(..., max_length=500)
+    phone_number: str = Field(..., max_length=20)
 
 
 class OrderCreate(OrderBase):
-    items: List[OrderItem] = []
+    items: List[OrderItem] = Field(default=[], max_length=50)
     coupon_id: Optional[int] = None
 
 

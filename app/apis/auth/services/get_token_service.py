@@ -3,8 +3,9 @@ from datetime import timedelta
 from apis.auth.schemas import Token
 from apis.auth.utils import authenticate_user, create_access_token
 from db.session import get_db
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, Request, status
 from fastapi.security import OAuth2PasswordRequestForm
+from rate_limiting import limiter
 from sqlalchemy.orm import Session
 from typing_extensions import Annotated
 
@@ -14,11 +15,14 @@ router = APIRouter()
 
 
 @router.post("/token")
+@limiter.limit("10/minute")
 async def get_token(
     form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
+    request: Request,
     db: Session = Depends(get_db),
 ) -> Token:
-    user = authenticate_user(db, form_data.username, form_data.password)
+    client_ip = request.client.host if request.client else "unknown"
+    user = authenticate_user(db, form_data.username, form_data.password, client_ip=client_ip)
     if not user:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,

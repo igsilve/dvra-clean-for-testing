@@ -1,15 +1,16 @@
 import subprocess
 
 
-def get_disk_usage(parameters: str):
-    command = "df -h " + parameters
-
+def get_disk_usage():
     try:
         result = subprocess.run(
-            command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True
+            ["df", "-h"],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            shell=False,
         )
         usage = result.stdout.strip().decode()
-    except:
+    except Exception:
         raise Exception("An unexpected error was observed")
 
     return usage

@@ -1,7 +1,9 @@
+import secrets
 from datetime import datetime
 
 from apis.auth.schemas import NewPasswordData
 from apis.auth.utils import update_user_password
+from apis.auth.utils.text_code_utils import _hash_reset_code
 from db.models import User
 from db.session import get_db
 from fastapi import APIRouter, Depends, HTTPException, status
@@ -24,25 +26,26 @@ def set_new_password(
     if not user:
         raise HTTPException(
             status_code=400,
-            detail="Invalid username or phone number",
+            detail="Invalid username or reset code",
         )
 
     if not user.reset_password_code:
         raise HTTPException(
             status_code=400,
-            detail="Reset password process was not initiated via /reset-password!",
+            detail="Invalid username or reset code",
         )
 
     if datetime.now() > user.reset_password_code_expiry_date:
         raise HTTPException(
             status_code=400,
-            detail="Reset password code expired!",
+            detail="Invalid username or reset code",
         )
 
-    if user.reset_password_code != data.reset_password_code:
+    hashed_input = _hash_reset_code(data.reset_password_code)
+    if not secrets.compare_digest(user.reset_password_code, hashed_input):
         raise HTTPException(
             status_code=400,
-            detail="Invalid reset password code",
+            detail="Invalid username or reset code",
         )
 
     update_user_password(db, user.username, data.new_password)

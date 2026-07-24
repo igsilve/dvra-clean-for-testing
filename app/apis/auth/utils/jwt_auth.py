@@ -1,4 +1,5 @@
 from apis.auth.schemas import TokenData
+from apis.auth.utils.token_denylist import is_token_revoked
 from apis.auth.utils.utils import get_user_by_username
 from config import Settings
 from db.session import get_db
@@ -10,7 +11,6 @@ from typing_extensions import Annotated
 
 SECRET_KEY = Settings.JWT_SECRET_KEY
 ALGORITHM = "HS256"
-VERIFY_SIGNATURE = False
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
@@ -29,10 +29,12 @@ async def get_current_user(
             token,
             SECRET_KEY,
             algorithms=[ALGORITHM],
-            options={"verify_signature": VERIFY_SIGNATURE},
         )
         username: str = payload.get("sub")
-        if username is None:
+        jti: str = payload.get("jti")
+        if username is None or jti is None:
+            raise credentials_exception
+        if is_token_revoked(jti):
             raise credentials_exception
         token_data = TokenData(username=username)
     except JWTError:

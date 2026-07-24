@@ -4,7 +4,6 @@ from db.models import Order, OrderStatus, User
 from db.session import get_db
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
-from sqlalchemy import text
 from sqlalchemy.orm import Session
 from typing_extensions import Annotated
 
@@ -33,12 +32,13 @@ def get_order_status(
     delivery_data = fetch_order_status_from_delivery_service(order_id)
     status_value = delivery_data["status"]
 
-    raw_sql = f"""
-        UPDATE orders 
-        SET status = '{status_value}'
-        WHERE id = {order_id}
-    """
-    db.execute(text(raw_sql))
+    try:
+        validated_status = OrderStatus(status_value)
+    except ValueError:
+        raise HTTPException(status_code=400, detail="Invalid order status received")
+
+    db_order.status = validated_status
+    db.add(db_order)
     db.commit()
 
     return OrderStatusResponse(

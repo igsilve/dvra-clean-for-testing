@@ -1,14 +1,14 @@
-import random
+import secrets
 import string
 
 from db.models import User
 from sqlalchemy.orm import Session
 
+_REFERRAL_ALPHABET = string.ascii_uppercase + string.digits
+
 
 def _generate_code() -> str:
-    """Generate an 8-character uppercase alphanumeric code."""
-    characters = string.ascii_uppercase + string.digits
-    return "".join(random.choice(characters) for _ in range(8))
+    return "".join(secrets.choice(_REFERRAL_ALPHABET) for _ in range(8))
 
 
 def get_referral_code(db: Session, db_user: User) -> str:

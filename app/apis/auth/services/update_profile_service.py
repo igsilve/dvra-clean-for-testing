@@ -1,6 +1,6 @@
 from typing import Union
 
-from apis.auth.utils import get_current_user, get_user_by_username
+from apis.auth.utils import get_current_user
 from db.models import User
 from db.session import get_db
 from fastapi import APIRouter, Depends, status
@@ -12,7 +12,6 @@ router = APIRouter()
 
 
 class UserUpdate(BaseModel):
-    username: str
     first_name: Union[str, None] = None
     last_name: Union[str, None] = None
     phone_number: Union[str, None] = None
@@ -24,14 +23,12 @@ def update_profile(
     current_user: Annotated[User, Depends(get_current_user)],
     db: Session = Depends(get_db),
 ):
-    db_user = get_user_by_username(db, user.username)
-
     for var, value in user.dict().items():
         if value:
-            setattr(db_user, var, value)
+            setattr(current_user, var, value)
 
-    db.add(db_user)
+    db.add(current_user)
     db.commit()
-    db.refresh(db_user)
+    db.refresh(current_user)
 
-    return db_user
+    return current_user

@@ -33,16 +33,28 @@ class OrderStatus(str, enum.Enum):
 class User(Base):
     __tablename__ = "users"
 
+    # Legal basis: contract performance (Art. 6(1)(b) GDPR) — required for account identity
     id = Column(Integer, primary_key=True, index=True)
     username = Column(String, unique=True, index=True)
     password = Column(String)
     role = Column(Enum(UserRole), default=UserRole.CUSTOMER)
+    # Legal basis: consent (Art. 6(1)(a) GDPR) — optional display name
     first_name = Column(String)
     last_name = Column(String)
+    # Legal basis: contract performance — stored as HMAC-SHA256 pseudonym (T744)
     phone_number = Column(String, unique=True, index=True)
+    # Functional fields — no personal data beyond lookup
     reset_password_code = Column(String, nullable=True)
     reset_password_code_expiry_date = Column(DateTime, nullable=True)
+    # Legal basis: legitimate interest (referral feature) — generated only when feature used
     referral_code = Column(String, unique=True, index=True, nullable=True)
+
+    # Privacy & consent fields (T178, T604, T754)
+    consent_given = Column(Boolean, default=False, nullable=False)
+    consent_given_at = Column(DateTime, nullable=True)
+    consent_withdrawn = Column(Boolean, default=False, nullable=False)
+    consent_withdrawn_at = Column(DateTime, nullable=True)
+    restricted_processing = Column(Boolean, default=False, nullable=False)
 
     orders = relationship("Order", back_populates="user")
 
@@ -55,7 +67,8 @@ class MenuItem(Base):
     description = Column(String)
     price = Column(Float)
     category = Column(String)
-    image_base64 = Column(Text)  # Base64-encoded images
+    # TODO (data minimization): Store as file reference (e.g. S3 key) rather than inline DB blob
+    image_base64 = Column(Text)  # Base64-encoded images — large binary, candidate for externalization
 
     order_items = relationship("OrderItem", back_populates="menu_item")
 
