@@ -1,0 +1,12 @@
+{
+  "cm_id": "T2603",
+  "category": "CF",
+  "library_sourced": false,
+  "content_fields": {
+    "title": "Protect backup archive bits",
+    "url": "https://staging.qa.sdelements.com/bunits/copilot-test/app/dvra-clean-for-testing/tasks/phase/deployment/4552-T2603/",
+    "priority": 7,
+    "output_path": "/Users/isilveira/dvra-clean-for-testing/skills/input-validation/T2603-protect-backup-archive-bits/SKILL.md"
+  },
+  "output_path": "/Users/isilveira/dvra-clean-for-testing/skills/input-validation/T2603-protect-backup-archive-bits/SKILL.md"
+}

@@ -1,0 +1,12 @@
+{
+  "cm_id": "T2665",
+  "category": "IN",
+  "library_sourced": false,
+  "content_fields": {
+    "title": "Protect sensitive data at rest with encryption",
+    "url": "https://staging.qa.sdelements.com/bunits/copilot-test/app/dvra-clean-for-testing/tasks/phase/deployment/4552-T2665/",
+    "priority": 8,
+    "output_path": "/Users/isilveira/dvra-clean-for-testing/skills/cryptography/T2665-protect-sensitive-data-at-rest-with-encr/SKILL.md"
+  },
+  "output_path": "/Users/isilveira/dvra-clean-for-testing/skills/cryptography/T2665-protect-sensitive-data-at-rest-with-encr/SKILL.md"
+}

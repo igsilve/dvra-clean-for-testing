@@ -1,0 +1,12 @@
+{
+  "cm_id": "T279",
+  "category": "IN",
+  "library_sourced": false,
+  "content_fields": {
+    "title": "Avoid dynamically loading any code without proper security considerations",
+    "url": "https://staging.qa.sdelements.com/bunits/copilot-test/app/dvra-clean-for-testing/tasks/phase/development/4552-T279/",
+    "priority": 8,
+    "output_path": "/Users/isilveira/dvra-clean-for-testing/skills/cryptography/T279-avoid-dynamically-loading-any-code-witho/SKILL.md"
+  },
+  "output_path": "/Users/isilveira/dvra-clean-for-testing/skills/cryptography/T279-avoid-dynamically-loading-any-code-witho/SKILL.md"
+}

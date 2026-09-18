@@ -1,0 +1,12 @@
+{
+  "cm_id": "T2105",
+  "category": "IN",
+  "library_sourced": false,
+  "content_fields": {
+    "title": "Enforce the use of client certificate bundles for unprivileged users to access UCP (Docker)",
+    "url": "https://staging.qa.sdelements.com/bunits/copilot-test/app/dvra-clean-for-testing/tasks/phase/deployment/4552-T2105/",
+    "priority": 7,
+    "output_path": "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T2105-enforce-the-use-of-client-certificate-bu/SKILL.md"
+  },
+  "output_path": "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T2105-enforce-the-use-of-client-certificate-bu/SKILL.md"
+}

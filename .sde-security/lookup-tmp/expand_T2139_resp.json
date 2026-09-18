@@ -1,0 +1,200 @@
+{
+  "composite_response": [
+    {
+      "reference_id": "T2139",
+      "http_status_code": 200,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "results": [
+          {
+            "db_id": 9928,
+            "id": "TA9928",
+            "title": "T2139 - SKILL.md - C",
+            "text": "---\nname: prevent-information-exposure-through-apis\ndescription: Use when C code returns full internal records, exposes unapproved API fields, or leaves unregistered handlers reachable; applies explicit route allowlists, response-specific views, and response contract checks.\n---\n# Prevent information exposure through APIs\n\n## What This Skill Does\nThis skill reduces Information Exposure (CWE-200 / P96) in C-based API and service code by replacing full-record or generic response serialization with explicit endpoint response builders, limiting routing to registered handlers only, and validating that success and error payloads match an approved contract before return. Use it when code builds JSON directly from internal structs, reuses database-shaped models as API responses, or still exposes deprecated routes.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| A handler serializes a full internal struct with `snprintf(...)` or similar | Apply an endpoint-specific response builder that emits only approved fields |\n| Routing dispatches requests through ad hoc path matching or fallback handlers | Replace with an explicit `RouteEntry` allowlist and a fixed not-found response for unknown paths |\n| A response may vary by caller role or authorization | Add a per-endpoint field allowlist and validate the final payload against the authorized contract before returning |\n| Error responses include internal details, debug text, or unexpected fields | Replace with a fixed error contract and validate error payload shape too |\n| Code already maps internal records to response views/DTOs and validates payload fields | No action needed |\n\n## Boundaries\n\n### Can Do\n- Replace full-object API responses with explicit view structs or field-by-field response builders\n- Restrict dispatch to registered routes and make unknown routes return one fixed not-found body\n- Add simple contract checks for required and forbidden JSON fields before returning a response\n\n### Cannot Do\n- Infer business-approved fields without an endpoint contract, tests, or clear caller requirements\n- Guarantee JSON correctness or authorization correctness if the application uses custom parsers or undocumented response formats\n- Remove every exposure path outside the API response layer, such as logs, core dumps, or database replication outputs\n\n## Gotchas\n- Hiding fields only in the client or UI: this is wrong because the server still transmits sensitive data to the caller\n- Reusing the internal `UserRecord` shape as the API contract: this is wrong because fields like `password`, `ssn`, or `internal_note` leak unless explicitly excluded\n- Returning different unknown-route or error bodies by code path: this is wrong because route probing and failure details can reveal internal behavior\n\n## Quick Verification\n```bash\n# Confirm secure route allowlisting or fixed not-found handling exists\nrg -n 'RouteEntry|dispatch_route|build_not_found|\"\\{\"error\":\"not found\"\\}\"' .\n\n# Find likely unguarded full-record JSON builders that may expose sensitive fields directly\nrg -n 'snprintf\\s*\\(|sprintf\\s*\\(' . | rg '\"(password|ssn|internal_note|token|secret|email)\"'\n\n# Find direct serialization from internal record fields into API responses\nrg -n 'users?\\[[^]]+\\]\\.(password|ssn|internal_note|email)|->(password|ssn|internal_note|email)' .\n\n# Build and run tests with common C toolchain entry points across project types\nsh -c 'if [ -f Makefile ] || [ -f makefile ]; then make && (make test || true); elif [ -f CMakeLists.txt ]; then cmake -S . -B build && cmake --build build && ctest --test-dir build --output-on-failure; else cc -Wall -Wextra -Werror -o /tmp/verify_c $(find . -maxdepth 3 -name \"*.c\" ! -path \"./build/*\" ! -path \"./.git/*\") && /tmp/verify_c 1 || true; fi'\n```",
+            "type": "Built-in",
+            "ordinal": 3,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-29T01:43:01.897000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-29T01:43:01.897000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 11989,
+            "id": "TA11989",
+            "title": "T2139 - SKILL.md - Go",
+            "text": "---\nname: prevent-information-exposure-through-apis\ndescription: Use when Go code returns API responses that may serialize internal models, expose sensitive fields, or leak internal error details.\n---\n# Prevent information exposure through APIs\n\n## What This Skill Does\nThis skill fixes information exposure in Go APIs by replacing direct serialization of internal structs, database-backed models, and ad hoc error payloads with explicit response schemas, endpoint-specific mappers, safe error types, and server-side allowlist checks. Use it when handlers call `json.Marshal` or `json.NewEncoder(...).Encode(...)` on broad internal objects, return more fields than the endpoint needs, or include raw internal error details in responses.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| A handler marshals an internal model such as `User`, `Account`, or DB record directly | Create a narrow response struct and map only approved fields before `json.Marshal` or `Encode` |\n| An endpoint returns generic maps or whole objects with sensitive fields like `PasswordHash`, `SSN`, `APIKey`, or admin flags | Replace with endpoint-specific response builders and remove broad whole-object response paths |\n| Error responses include raw `err`, stack text, query details, file paths, or reflected input | Replace with a fixed safe error schema such as `ErrorResponse{Code, Message}` and return generic messages |\n| Response fields depend on caller scope or requested fields | Enforce server-side allowlists and authorization checks before copying optional fields into the response |\n| Code already uses explicit external response structs and safe error payloads | No action needed |\n\n## Boundaries\n\n### Can Do\n- Replace direct JSON serialization of internal Go structs with explicit response DTOs\n- Add endpoint-specific builder or mapper functions that copy only approved fields\n- Standardize safe error responses and remove internal details from serialized payloads\n\n### Cannot Do\n- Infer the correct business-level field visibility rules without code or product context\n- Guarantee complete authorization correctness beyond the fields and handlers being changed\n- Prevent exposure from logs, metrics, caches, or other non-API output channels\n\n## Gotchas\n- Reusing the same struct for storage and API output: this often re-exposes sensitive fields later when the model grows\n- Returning `map[string]any` as a \u201cquick fix\u201d: this bypasses schema clarity and makes field exposure easier to reintroduce\n- Hiding fields only on the client side: sensitive data is still exposed if the server already serialized it\n\n## Quick Verification\n```bash\n# Confirm explicit safe response types/builders exist\nrg -n 'type\\s+\\w+(Response|ErrorResponse)\\s+struct|func\\s+(build\\w+|validate\\w+Response)\\s*\\(' .\n\n# Find likely unguarded dangerous JSON serialization of broad/internal objects\nrg -n 'json\\.(Marshal|MarshalIndent)\\s*\\(\\s*([a-zA-Z_][a-zA-Z0-9_]*)\\s*\\)|\\.Encode\\s*\\(\\s*([a-zA-Z_][a-zA-Z0-9_]*)\\s*\\)' . \n\n# Find obvious sensitive fields that must not appear in public response structs or direct JSON tags\nrg -n 'json:\"(password_hash|ssn|api_key|is_admin)\"|PasswordHash|SSN|APIKey|IsAdmin' .\n\n# Build and test with the Go toolchain\ngo build ./...\ngo test ./...\n```",
+            "type": "Built-in",
+            "ordinal": 19,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-08-25T19:07:25.625000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-08-25T19:07:25.625000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9991,
+            "id": "TA9991",
+            "title": "T2139 - SKILL.md - C++",
+            "text": "---\nname: prevent-information-exposure-through-apis\ndescription: Use when C++ API code returns full records, uses generic JSON serialization, leaks sensitive fields, or exposes verbose internal error details.\n---\n\n# Prevent information exposure through APIs\n\n## What This Skill Does\nThis skill reduces information exposure in C++ APIs by replacing full-object responses and generic serialization with endpoint-specific DTOs, explicit serializers, minimal projections, authorization-gated field release, and fixed safe error builders. Apply it when handlers, service methods, or helper functions return domain/persistence objects directly, expose role-sensitive fields, or emit internal details in outward JSON.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| An endpoint returns `UserRecord`, `Account`, or another full domain/persistence object | Introduce an endpoint-specific response DTO and map only approved fields into it |\n| Code serializes API output with a generic `to_json(...)`, object dump, or broad serializer over a full record | Replace with a dedicated serializer such as `serialize_public_user_response(...)` for an approved DTO only |\n| The endpoint needs only a few attributes from a larger record | Add a reduced projection type and build the response from that projection instead of the full object |\n| A field such as email, admin status, or other sensitive data depends on caller permissions | Add server-side authorization before constructing the DTO and return a minimal denial response if unauthorized |\n| The code already uses explicit DTOs, fixed error payloads, and response validation | No action needed |\n\n## Boundaries\n\n### Can Do\n- Replace direct API exposure of domain or persistence objects with endpoint-specific DTOs\n- Introduce explicit serializers, response validation, and minimal error builders\n- Add field-level authorization checks and narrower projections for response paths\n\n### Cannot Do\n- Infer the correct public field set without a product or API contract\n- Guarantee safety if other endpoints still serialize the same internal object directly\n- Fix client-side caches, logs, proxies, or downstream systems that already store leaked data\n\n## Gotchas\n- Using a DTO and then serializing the original record anyway: this bypasses the allowlist and reintroduces leaked fields\n- Removing known sensitive fields from a broad serializer instead of allowlisting DTO fields: new internal fields can be exposed later by accident\n- Returning detailed validation or exception text in error JSON: this leaks stack traces, paths, query details, or internal state even if success responses are minimal\n\n## Quick Verification\n```bash\n# Confirm approved DTO/serializer/guard patterns exist somewhere in the codebase\nrg -n 'struct +(Public.*Response|.*Projection|ErrorResponse)|serialize_(public|user|error)_.*response|try_make_.*response|validate_.*response_schema|make_(forbidden|not_found)_error|is_endpoint_enabled' .\n\n# Find likely unguarded dangerous API-output patterns that bypass the fix\nrg -n 'to_json\\s*\\(\\s*const\\s+[A-Za-z_][A-Za-z0-9_:<>]*Record\\s*&|to_json\\s*\\(\\s*const\\s+[A-Za-z_][A-Za-z0-9_:<>]*(User|Account|Record)\\s*&|nlohmann::json\\s*\\([^)]*(User|Account|Record)|dump\\s*\\(\\s*\\)|std::ostringstream.*(password|ssn|secret|internal_)' .\n\n# Build and test with the project's available C++ toolchain\ncmake -S . -B build && cmake --build build && ctest --test-dir build --output-on-failure\n```",
+            "type": "Built-in",
+            "ordinal": 66,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-29T01:43:04.205000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-29T01:43:04.205000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 12059,
+            "id": "TA12059",
+            "title": "T2139 - SKILL.md - Rust",
+            "text": "---\nname: prevent-information-exposure-through-apis\ndescription: Use when Rust handlers, serializers, or dispatch code expose full internal objects, sensitive fields, broad error details, or unsupported API operations.\n---\n# Prevent information exposure through APIs\n\n## What This Skill Does\nThis skill reduces information exposure in Rust APIs by replacing broad object serialization and generic handler dispatch with explicit response types, field-by-field mapping, minimal error payloads, and allowlisted routing. Apply it when endpoints return internal records directly, serialize structs that contain secrets or internal flags, or expose unsupported operations through catch-all dispatch.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| A handler returns a full model, record, or struct with `serde_json::to_string(...)`, `json!(...)`, `format!(...)`, or framework JSON helpers | Replace it with an endpoint-specific response type and map only approved fields |\n| A struct used in responses contains fields like `password_hash`, `api_key`, tokens, internal IDs, or admin flags | Create a separate public response DTO and stop serializing the internal struct directly |\n| Error responses include debug text, stack traces, or raw internal error objects | Define a minimal error schema such as `code` and `message` and return only contract-approved fields |\n| Request dispatch uses catch-all routing, generic operation lookup, or arbitrary handler resolution | Restrict dispatch to an explicit allowlist of supported handlers and remove obsolete endpoints |\n| Code already uses explicit response structs, minimal errors, and allowlisted routing | No action needed |\n\n## Boundaries\n\n### Can Do\n- Replace direct serialization of internal Rust structs with endpoint-specific response DTOs\n- Tighten error responses to minimal typed schemas\n- Limit reachable API operations by converting generic dispatch to explicit routing\n\n### Cannot Do\n- Infer the correct public contract for every endpoint without product or API requirements\n- Guarantee that all sensitive data is removed if it is embedded in free-form strings or opaque blobs\n- Add framework-specific response validation automatically when the project has no schema or validation layer\n\n## Gotchas\n- Reusing the database model as the response type: this keeps future sensitive fields one derive away from exposure\n- Returning `serde_json::Value` or broad maps as the final response: this makes it easy to leak extra fields outside the intended contract\n- Sanitizing only success payloads: error paths often leak internal details if they return raw error text or debug output\n\n## Quick Verification\n```bash\n# Confirm explicit public response types or minimal error contracts exist\nrg -n 'struct\\s+(Public|.*Response|ErrorResponse)\\b|enum\\s+.*Response\\b|code:\\s*&?'\\''static str|message:\\s*&?'\\''static str' .\n\n# Find likely unguarded full-object serialization or broad response construction\nrg -n 'serde_json::to_string\\(&[A-Za-z_][A-Za-z0-9_]*\\)|serde_json::json!\\(|Json\\(|HttpResponse::Ok\\(\\)\\.json\\(|warp::reply::json\\(|axum::Json\\(' .\n\n# Find direct exposure of common sensitive fields in response-building paths\nrg -n 'password_hash|api_key|secret|token|is_admin|email' .\n\n# Build and run tests across Rust project types\ncargo build --workspace --all-targets && cargo test --workspace --all-targets\n```",
+            "type": "Built-in",
+            "ordinal": 94,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-08-25T19:07:29.294000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-08-25T19:07:29.294000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 8543,
+            "id": "TA8543",
+            "title": "T2139 - SKILL.md - Node.js",
+            "text": "---\nname: prevent-information-exposure-through-apis\ndescription: Prevents APIs from exposing unnecessary or sensitive fields by enforcing strict response schemas and endpoint-specific allow-lists; use when endpoints serialize full entities or leak internal-only data (CWE-200 / P96)\n---\n\n# Prevent information exposure through APIs\n\n## What This Skill Does\nReduces information exposure in APIs by removing unused endpoints, replacing generic entity serialization with explicit response views/DTOs, and enforcing strict, schema-based response shapes so that only allowed fields are ever returned to clients, even when internal objects contain sensitive data.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Endpoint returns full database/entity objects (e.g., `res.json(user)` directly) | Introduce explicit DTOs/response mappers and return only whitelisted fields |\n| Debug/legacy/admin endpoints exist that dump large objects or lists | Remove them, or hard-disable with a generic status (e.g., `410` with no body) |\n| Generic helpers serialize arbitrary objects (e.g., `serializeEntity(entity)`) | Replace with per-endpoint/per-use-case DTO factories that expose minimal data |\n| Responses (including errors) have no defined schema and may include extra fields | Define JSON schemas with `additionalProperties: false` and validate responses before sending |\n| Multiple endpoints expose different views of the same entity | Define per-endpoint field allow-lists and shared filters; add tests that assert disallowed fields never appear |\n\n## Boundaries\n\n### Can Do\n- Detect and refactor API responses that serialize full internal objects into minimal, explicit response models.\n- Add schema-based validation (e.g., Ajv in Node.js) to reject responses that contain unexpected or sensitive fields.\n- Introduce endpoint-specific field allow-lists and shared filters to enforce least-privilege exposure across endpoints.\n\n### Cannot Do\n- Cannot design full business-level authorization rules (who is allowed to see what) beyond field-level whitelisting.\n- Cannot guarantee no information exposure from non-HTTP channels (logs, traces, metrics, message queues) unless those are explicitly handled in code.\n- Cannot fix performance or versioning issues caused by schema changes; human judgment is needed for API evolution and client compatibility.\n\n## Gotchas\n- Returning internal models \u201cfor convenience\u201d: Mapping directly from database/domain models to JSON without a whitelist is risky; always use explicit DTOs or filters even if models \u201clook safe\u201d today, because new fields may be added later and silently exposed.\n- Over-trusting client-side hiding: Relying on the front-end to hide sensitive fields (e.g., not rendering them) is unsafe; once the backend sends a field, any client or attacker can read it from the raw response.\n- Loose schemas: Defining JSON schemas but leaving `additionalProperties: true` (or omitted) still allows accidental sensitive fields to leak; to prevent that, set `additionalProperties: false` and validate every response, including errors.\n\n## Quick Verification\n```bash\n# 1. Hit a previously vulnerable endpoint and inspect fields\ncurl -sS \"http://localhost:3000/api/user?username=alice\" | jq\n\n# Expectation: response only contains explicitly whitelisted fields\n# (e.g., id, username, email, role) and never passwordHash, ssn, apiKey, etc.\n\n# 2. Try to force extra/sensitive fields into a response (during dev/test)\n# For example, temporarily add passwordHash to the payload before sendUserProfile()\n# and confirm Ajv (or equivalent) rejects it with a schema error.\n\n# 3. Probe for removed/disabled debug endpoints\ncurl -i \"http://localhost:3000/api/admin/all-users-debug\"\n\n# Expectation: receives a non-200 with generic status (e.g., 410) and empty body,\n# or the route no longer exists (404) with no bulk data in the body.\n```",
+            "type": "Built-in",
+            "ordinal": 105,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-05-21T11:39:54.030000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-05-21T11:39:54.030000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9362,
+            "id": "TA9362",
+            "title": "T2139 - SKILL.md - Python",
+            "text": "---\nname: prevent-information-exposure-through-apis\ndescription: Prevents APIs from leaking sensitive or internal fields by enforcing minimal, schema-validated responses; use when endpoints return whole objects or lack explicit response shaping.\n---\n\n# Prevent information exposure through APIs\n\n## What This Skill Does\nReduces information exposure in APIs by replacing \"return full object\" patterns and generic serializers with explicit, minimal response shapes, enforcing per-endpoint schemas (including errors), and aligning returned fields with authorization rules. It also removes dead/unused endpoints to shrink attack surface, ensuring clients can't extract sensitive or internal data by calling APIs directly.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| API handler returns `asdict()` / ORM model / full object directly | Introduce a per-endpoint response mapper that only returns needed, non-sensitive fields |\n| Endpoint returns more fields than documented or includes secrets (passwords, API keys, SSNs, tokens, internal flags) | Define a minimal response model and strip/deny sensitive or undocumented fields before serialization |\n| API uses a generic serializer (e.g., `.to_dict()`, `.schema()`, auto-JSON) for responses | Replace with explicit serializers or view-model builders that project only allowed fields |\n| No explicit response schema exists (especially for error responses) | Define and enforce response schemas, rejecting or removing unexpected keys and invalid types |\n| Responses differ based on user role/permissions | Add role/authorization-aware field whitelists and ensure only allowed fields reach the client |\n| Endpoint or route is no longer used or is \"temporarily disabled\" | Remove the handler or return a minimal generic 404/410 without internal details |\n\n## Boundaries\n\n### Can Do\n- Identify and refactor patterns where APIs return full database records or domain objects directly.\n- Introduce explicit per-endpoint response builders / DTOs and central sensitive-field lists.\n- Add or tighten response schemas (including errors) and basic schema validation hooks.\n- Implement whitelist-based field filtering by endpoint and/or role.\n- Suggest removal or hard-disable of unused or debug endpoints that expose internal details.\n\n### Cannot Do\n- Infer business-specific authorization rules or which fields are legally/compliantly sensitive without hints from code or comments.\n- Guarantee no data exposure from third-party libraries, proxies, or layers not visible in the project.\n- Configure infrastructure-level protections (API gateway redaction, WAF rules, logging scrubbing) beyond code changes.\n- Rewrite entire API designs or versions; focuses on hardening existing handlers and serializers.\n- Automatically align with external specs (OpenAPI, GraphQL schema) if they're missing or inconsistent; needs developer confirmation.\n\n## Gotchas\n- Assuming client-side filtering is enough: Hiding fields in the UI does not protect against direct API calls; responses themselves must be safe before serialization.\n- Over-relying on \"blacklist\" removal of sensitive fields: It's easy to forget to add new sensitive attributes. Prefer explicit per-endpoint/role whitelists or schemas as the primary control.\n- Forgetting error and fallback paths: Handlers may leak internal messages, stack traces, or raw records in error responses; define and validate schemas for errors too.\n\n## Quick Verification\n```bash\n# 1. Run tests (adjust command to your project)\npytest -k \"api or information_exposure or user_profile\" -q\n\n# 2. Manually hit a previously vulnerable endpoint\ncurl -i http://localhost:5000/user/1\n\n# Confirm the JSON does NOT contain:\n# - password_hash\n# - ssn\n# - api_key\n# - any undocumented/internal fields\n\n# 3. (If schemas added) Run schema or type checks\nmypy . || true\npytest -k \"schema or response_validation\" -q\n\n# 4. Probe removed/deprecated endpoints\ncurl -i http://localhost:5000/internal/debug-user/1\n# Expect 404/410 with minimal, generic body and no internal details\n```",
+            "type": "Built-in",
+            "ordinal": 179,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:35.392000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:35.392000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9414,
+            "id": "TA9414",
+            "title": "T2139 - SKILL.md - Java",
+            "text": "---\nname: prevent-information-exposure-through-apis\ndescription: Use when API handlers expose sensitive data through full-object serialization, broad error payloads, or callable operations that are not explicitly allowed.\n---\n\n# Prevent information exposure through APIs\n\n## What This Skill Does\nThis skill reduces API data exposure by replacing full-object or database-shaped responses with endpoint-specific response objects, enforcing per-endpoint field allow-lists and response schemas, and rejecting unregistered operations. Use it when handlers serialize entities directly, return overly broad error details, or leave obsolete endpoints callable.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| An endpoint serializes a full entity, record, or ORM model directly | Apply this fix |\n| A response includes fields not required by that endpoint, including nested sensitive fields | Replace with an endpoint-specific response object or explicit field mapping |\n| A route, operation, or handler is callable without an explicit registry or allow-list | Add an allow-list check and reject unregistered operations |\n| Success or error payloads are built dynamically without contract checks | Enforce a per-endpoint response schema before sending |\n| The code already returns only approved fields and validates response shape | No action needed |\n\n## Boundaries\n\n### Can Do\n- Replace direct serialization of domain objects with endpoint-specific DTOs, records, or explicit maps\n- Add per-endpoint allow-lists for callable operations and approved response fields\n- Validate success and error payloads to reject unexpected or missing fields\n\n### Cannot Do\n- Decide business-safe fields without application context or API contract requirements\n- Prevent exposure from unrelated issues such as authorization failures or insecure logging\n- Guarantee all framework-level serializers, plugins, or reflection-based mappers are fully constrained without inspecting their configuration\n\n## Gotchas\n- Removing fields only in one code path: sensitive data often still leaks through error payloads, nested objects, or alternate handlers\n- Using generic `ObjectMapper` or framework auto-serialization on entities: future model changes can silently expand exposed fields\n- Keeping obsolete endpoints undocumented instead of deleted or blocked: hidden routes are still callable and still leak data\n\n## Quick Verification\n```bash\n# Compile and run the sample app\njavac AppVulnerableCode.java && java AppVulnerableCode alice\n\n# Confirm sensitive fields are not present in the fixed response\njava AppFixPythonCode alice | grep -E '\"password\"|\"passwordHash\"|\"ssn\"'\n# Expect no output\n\n# Confirm only approved fields are returned\njava AppFixPythonCode alice\n# Expect JSON with only allowed fields such as id and username\n\n# Confirm unknown operations are rejected in code paths that use an allow-list\n# Example expectation: FORBIDDEN / operation not allowed\n```",
+            "type": "Built-in",
+            "ordinal": 313,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:38.516000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:38.516000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9759,
+            "id": "TA9759",
+            "title": "T2139 - SKILL.md - TypeScript",
+            "text": "---\nname: prevent-information-exposure-through-apis\ndescription: Use when TypeScript API code returns full internal objects, auto-registers routes, or sends responses without strict outbound schemas, causing information exposure.\n---\n# Prevent Information Exposure Through APIs\n\n## What This Skill Does\nThis skill reduces information exposure in TypeScript APIs by replacing broad object returns and generic serialization with endpoint-specific response mappers, explicit field allowlists, and strict outbound schema validation for both success and error payloads. It also limits attack surface by replacing automatic route exposure with an explicit approved route manifest.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| A handler returns a database/entity/internal object with `res.json(...)`, `return ...`, or `JSON.stringify(...)` | Map to a new endpoint-specific response object that includes only approved fields |\n| A response is built from a full object and filtered only on the client | Move filtering to the server and enforce an endpoint field allowlist before serialization |\n| Outbound API payloads or error payloads have no strict schema | Add endpoint-specific strict schemas and validate the final mapped payload before sending |\n| Routes are auto-discovered, auto-bound, or every handler/controller is exposed | Replace with a single explicit route manifest that registers only approved method/path pairs |\n| Code already maps narrow response DTOs, validates strict outbound schemas, and exposes only approved routes | No action needed |\n\n## Boundaries\n\n### Can Do\n- Replace full-object API responses with endpoint-specific mappers in TypeScript code\n- Add strict outbound response validation using per-endpoint schemas for success and error payloads\n- Convert broad route registration to an explicit allowlist-based manifest\n\n### Cannot Do\n- Decide business-level data classification without clear endpoint requirements\n- Guarantee third-party middleware, proxies, or logging layers do not leak sensitive data elsewhere\n- Infer a correct public response contract when the application has no defined API behavior\n\n## Gotchas\n- Reusing input or database schemas for responses: these are often broader than the public contract and can leak internal fields\n- Validating before mapping: this checks the wrong shape; validation must run on the final outbound payload\n- Keeping helper serializers like `JSON.stringify(user)` or `res.json(userRecord)`: these bypass field allowlists and can reintroduce leaks\n\n## Quick Verification\n```bash\n# Confirm secure response mapping / allowlist / schema enforcement exists\nrg -n \"to[A-Z].*Response|map[A-Z].*Response|pickFields|enforceResponseSchema|\\\\.strict\\\\(\\\\)|z\\\\.object\\\\(\" .\n\n# Find unguarded dangerous API responses that may serialize full internal objects\nrg -n \"res\\\\.json\\\\((?!enforceResponseSchema\\\\(|to[A-Z].*Response\\\\(|map[A-Z].*Response\\\\().*\\\\)|JSON\\\\.stringify\\\\((?!to[A-Z].*Response\\\\(|map[A-Z].*Response\\\\().*\\\\)\" .\n\n# Find broad or automatic route exposure patterns that should be replaced with an approved manifest\nrg -n \"fs\\\\.(readdir|readdirSync)|require\\\\(.*controllers|autoload|auto.?register|router\\\\[[\\\"']use[\\\"']\\\\]|app\\\\[[\\\"']use[\\\"']\\\\]\" .\n\n# Build TypeScript project\nnpx tsc --noEmit\n\n# Run project tests if present\nnpm test\n```",
+            "type": "Built-in",
+            "ordinal": 704,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:51.878000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:51.878000-04:00",
+            "active": true
+          }
+        ]
+      }
+    }
+  ]
+}

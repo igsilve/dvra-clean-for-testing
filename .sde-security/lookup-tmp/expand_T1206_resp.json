@@ -1,0 +1,108 @@
+{
+  "composite_response": [
+    {
+      "reference_id": "T1206",
+      "http_status_code": 200,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "results": [
+          {
+            "db_id": 2187,
+            "id": "TA2187",
+            "title": "FedRAMP / Low Baseline",
+            "text": "*** SI-2: System And Information Integrity | Flaw Remediation ***  \nThe organization:\na. Identifies, reports, and corrects information system flaws;\nb. Tests software and firmware updates related to flaw remediation for effectiveness and potential side effects before installation;\nc. Installs security-relevant software and firmware updates [within 30 days of release of updates]; and\nd. Incorporates flaw remediation into the organizational configuration management process.",
+            "type": "Built-in",
+            "ordinal": 10,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-17T16:28:56.835000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T16:44:57.384000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 1675,
+            "id": "TA1675",
+            "title": "FedRAMP / Moderate Baseline",
+            "text": "*** SC-6: System And Communications Protection | Resource Availability ***  \nThe information system protects the availability of resources by allocating [Assignment: organization-defined resources] by [Selection (one or more); priority; quota; [Assignment: organization-defined security safeguards]].\n\n*** SI-2: System And Information Integrity | Flaw Remediation ***  \nThe organization:\na. Identifies, reports, and corrects information system flaws;\n\nb. Tests software and firmware updates related to flaw remediation for effectiveness and potential side effects before installation;\n\nc. Installs security-relevant software and firmware updates [within 30 days of release of updates]; and\n\nd. Incorporates flaw remediation into the organizational configuration management process.",
+            "type": "Built-in",
+            "ordinal": 11,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-15T17:48:59.477000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T15:08:07.097000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 2622,
+            "id": "TA2622",
+            "title": "FedRAMP / High Baseline",
+            "text": "*** SC-6: System And Communications Protection | Resource Availability ***  \nThe information system protects the availability of resources by allocating [Assignment: organization-defined resources] by [Selection (one or more); priority; quota; [Assignment: organization-defined security safeguards]].\n\n*** SI-2: System And Information Integrity | Flaw Remediation ***  \nThe organization:\na. Identifies, reports, and corrects information system flaws;\nb. Tests software and firmware updates related to flaw remediation for effectiveness and potential side effects before installation;\nc. Installs security-relevant software and firmware updates [within thirty (30) days of release of updates]; and\nd. Incorporates flaw remediation into the organizational configuration management process.",
+            "type": "Built-in",
+            "ordinal": 12,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-17T18:34:06.795000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T18:38:15.590000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 8452,
+            "id": "TA8452",
+            "title": "T1206 - SKILL.md - Docker",
+            "text": "---\nname: docker-on-failure-restart-policy-5\ndescription: Use when Docker Compose services must enforce the exact restart value on-failure:5 and reject missing or non-compliant restart settings.\n---\n# Set the 'on-failure' container restart policy to 5 (Docker)\n\n## What This Skill Does\nThis skill fixes Docker Compose service configuration that omits `restart` or uses a non-compliant restart policy. It updates or validates Compose YAML so each intended service has the exact value `restart: on-failure:5`, while preserving other service settings and rejecting alternate modes, missing retry counts, malformed values, or retry limits other than `5`.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| A Docker Compose service is missing the `restart` field | Add `restart: on-failure:5` for the intended service |\n| A service uses `restart: always`, `unless-stopped`, `no`, or any value other than `on-failure:5` | Replace it with the exact value `on-failure:5` |\n| A service uses `restart: on-failure` without a retry count, or `on-failure:N` where `N != 5` | Reject or rewrite it to `on-failure:5`, depending on whether the code validates or generates config |\n| Code generates or rewrites Compose service definitions | Ensure it writes `restart: on-failure:5` exactly and preserves unrelated fields |\n| The service already has `restart: on-failure:5` | No action needed |\n\n## Boundaries\n\n### Can Do\n- Update Compose YAML service definitions to set `restart: on-failure:5`\n- Add validation that requires the `restart` field and exact value `on-failure:5`\n- Preserve other service keys while changing only the restart policy for intended services\n\n### Cannot Do\n- Decide which services are in scope if the application does not define that\n- Guarantee runtime behavior outside the Compose configuration itself\n- Fix Docker Swarm `deploy.restart_policy` settings, which are different from Compose `restart`\n\n## Gotchas\n- Using `on-failure` without `:5`: this is non-compliant because the retry limit is required\n- Accepting `on-failure:3` or any count other than `5`: this still fails the requirement\n- Editing `deploy.restart_policy` instead of service-level `restart`: this changes a different setting and may not fix the actual issue\n\n## Quick Verification\n```bash\n# Show restart values in a compose file\ngrep -n \"restart:\" docker-compose.yaml\n\n# Validate that only the exact required value is present for expected services\npython - <<'PY'\nimport sys, yaml\ndata = yaml.safe_load(open(\"docker-compose.yaml\"))\nservices = data.get(\"services\", {})\nbad = []\nfor name, svc in services.items():\n    if svc.get(\"restart\") != \"on-failure:5\":\n        bad.append((name, svc.get(\"restart\")))\nif bad:\n    print(\"Non-compliant services:\", bad)\n    sys.exit(1)\nprint(\"All services use restart: on-failure:5\")\nPY\n\n# Negative check examples: should find non-compliant values if present\ngrep -nE 'restart:\\s*(\"?always\"?|\"?unless-stopped\"?|\"?on-failure\"?|\"?on-failure:[^5]\"?)' docker-compose.yaml || true\n```",
+            "type": "Built-in",
+            "ordinal": 263,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-05-21T11:39:48.542000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:36.677000-04:00",
+            "active": true
+          }
+        ]
+      }
+    }
+  ]
+}

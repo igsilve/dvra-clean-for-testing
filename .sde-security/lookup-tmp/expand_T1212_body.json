@@ -1,0 +1,11 @@
+{
+  "all_or_none": false,
+  "strict_ref_checking": false,
+  "composite_request": [
+    {
+      "method": "GET",
+      "path": "/api/v2/library/tasks/T1212/amendments/?expand=text",
+      "reference_id": "T1212"
+    }
+  ]
+}

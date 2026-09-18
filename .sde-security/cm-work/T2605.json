@@ -1,0 +1,12 @@
+{
+  "cm_id": "T2605",
+  "category": "IN",
+  "library_sourced": false,
+  "content_fields": {
+    "title": "Validate database traffic",
+    "url": "https://staging.qa.sdelements.com/bunits/copilot-test/app/dvra-clean-for-testing/tasks/phase/deployment/4552-T2605/",
+    "priority": 9,
+    "output_path": "/Users/isilveira/dvra-clean-for-testing/skills/data-security/T2605-validate-database-traffic/SKILL.md"
+  },
+  "output_path": "/Users/isilveira/dvra-clean-for-testing/skills/data-security/T2605-validate-database-traffic/SKILL.md"
+}

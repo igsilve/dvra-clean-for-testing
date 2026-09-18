@@ -1,0 +1,85 @@
+{
+  "composite_response": [
+    {
+      "reference_id": "T1190",
+      "http_status_code": 200,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "results": [
+          {
+            "db_id": 1284,
+            "id": "TA1284",
+            "title": "FedRAMP / Moderate Baseline",
+            "text": "*** AC-6: Access Control | Least Privilege ***  \nThe organization employs the principle of least privilege, allowing only authorized accesses for users (or processes acting on behalf of users) which are necessary to accomplish assigned tasks in accordance with organizational missions and business functions.\n\n*** AC-6 (5): Access Control | Least Privilege | Privileged Accounts ***  \nThe organization restricts privileged accounts on the information system to [Assignment:\norganization-defined personnel or roles].",
+            "type": "Built-in",
+            "ordinal": 11,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-15T17:48:41.906000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T15:07:57.517000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 2286,
+            "id": "TA2286",
+            "title": "FedRAMP / High Baseline",
+            "text": "*** AC-6: Access Control | Least Privilege ***  \nThe organization employs the principle of least privilege, allowing only authorized accesses for users (or processes acting on behalf of users) which are necessary to accomplish assigned tasks in accordance with organizational missions and business functions.\n\n*** AC-6 (5): Access Control | Least Privilege | Privileged Accounts ***  \nThe organization restricts privileged accounts on the information system to [Assignment:\norganization-defined personnel or roles].\n\n*** AC-6 (8): Access Control | Least Privilege | Privilege Levels For Code Execution ***  \nThe information system prevents [any software except software explicitly documented] from executing at higher privilege levels than users executing the software.",
+            "type": "Built-in",
+            "ordinal": 12,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-17T18:26:39.216000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T18:38:06.752000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 8457,
+            "id": "TA8457",
+            "title": "T1190 - SKILL.md - Docker",
+            "text": "---\nname: restrict-linux-kernel-capabilities-within-containers-docker\ndescription: Restrict Linux capabilities and forbid privileged containers in Docker-based apps; Use when code starts or configures containers and may grant excessive kernel privileges\n---\n\n# Restrict Linux Kernel Capabilities within containers (Docker)\n\n## What This Skill Does\nEnforces least-privilege Linux kernel capabilities for containers and forbids privileged containers in Docker-based systems. It focuses on application/orchestration code and Dockerfiles that encourage or rely on `--privileged` or extra capabilities, replacing them with patterns that assume default/reduced capabilities and validate configuration before reaching the container runtime.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Container is documented or expected to run with `--privileged` or full capabilities | Remove privileged requirement, document non-privileged usage, and ensure image runs correctly with default/reduced capabilities (e.g., non-root user, minimal packages) |\n| Application/orchestrator code passes `privileged=true` or extra capabilities (e.g., `cap_add`) to Docker or a container runtime client | Introduce a validator that rejects privileged mode and non-default capabilities; call it in all code paths that start containers |\n| There are multiple components/services that can start containers directly (each calling Docker or Kubernetes APIs) | Introduce a central \"runner\" abstraction/service that applies capability and privileged policy, and route all container-starting calls through it |\n| API endpoints accept user/container specs that include capabilities or privileged flags | Add input validation that normalizes and checks capabilities against an allowed set and rejects privileged requests before invoking any runtime client |\n| Code or configuration only uses Docker defaults, never sets `--privileged`, and does not add extra capabilities | No action needed beyond optional documentation and tests confirming privileged/extra-capability attempts are rejected |\n\n## Boundaries\n\n### Can Do\n- Detect and refactor Dockerfiles that implicitly or explicitly rely on `--privileged` or broad capabilities.\n- Add or improve application-level validation for `privileged` flags and capability lists before calling container runtimes.\n- Introduce or tighten a central runner abstraction that consistently enforces capability and privileged policies across services.\n\n### Cannot Do\n- Modify host-level kernel, Docker daemon, or Kubernetes cluster policies (e.g., PodSecurityPolicy, seccomp, AppArmor) beyond application and image code.\n- Guarantee that operators or external systems won't manually start containers with `--privileged` or extra capabilities outside the application's control.\n- Accurately list \"Docker default\" capabilities for a specific runtime version or distro; humans must confirm exact default sets for their environment.\n\n## Gotchas\n- Assuming dropping capabilities is unsafe: dropping capabilities (even ones not present by default) is always safe and should never be blocked; only adding capabilities or enabling privileged mode must be rejected.\n- Enforcing policy in some code paths only: if any path creates containers without going through the validator/runner abstraction, attackers can bypass restrictions; ensure all container-starting calls share the same enforcement layer.\n- Relying solely on comments or docs (e.g., \"do not run with `--privileged`\") without runtime checks: comments do not prevent misconfiguration; add validators, entrypoints, or integration tests that fail when privileged or extra capabilities are used.\n\n## Quick Verification\n```bash\n# 1) Verify Dockerfile runs correctly without --privileged and with reduced caps\ndocker build -t secure-cap-container .\ndocker run --rm \\\n  --cap-drop=ALL \\\n  --cap-add=NET_BIND_SERVICE \\\n  secure-cap-container\n\n# 2) Confirm privileged container is rejected by orchestration/app code\n# (Replace URL and payload with your API/runner interface)\ncurl -sS -X POST http://127.0.0.1:8080/run-container \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"image\":\"ubuntu:22.04\",\"privileged\":true}' \\\n  -o /dev/null -w \"%{http_code}\\n\"\n\n# Expect: non-2xx status and a clear error about privileged containers being forbidden.\n\n# 3) Confirm non-default capability is rejected by policy\ncurl -sS -X POST http://127.0.0.1:8080/run-container \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"image\":\"ubuntu:22.04\",\"cap_add\":[\"SYS_ADMIN\"]}' \\\n  -o /dev/null -w \"%{http_code}\\n\"\n\n# Expect: non-2xx status and a clear error about unsupported capabilities.\n```",
+            "type": "Built-in",
+            "ordinal": 254,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-05-21T11:39:48.929000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:36.388000-04:00",
+            "active": true
+          }
+        ]
+      }
+    }
+  ]
+}

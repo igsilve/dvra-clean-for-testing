@@ -1,0 +1,12 @@
+{
+  "cm_id": "T2661",
+  "category": "IN",
+  "library_sourced": false,
+  "content_fields": {
+    "title": "Change insecure configuration defaults and remove unnecessary features",
+    "url": "https://staging.qa.sdelements.com/bunits/copilot-test/app/dvra-clean-for-testing/tasks/phase/deployment/4552-T2661/",
+    "priority": 9,
+    "output_path": "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T2661-change-insecure-configuration-defaults-a/SKILL.md"
+  },
+  "output_path": "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T2661-change-insecure-configuration-defaults-a/SKILL.md"
+}

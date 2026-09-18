@@ -1,0 +1,14 @@
+{
+  "all_or_none": false,
+  "strict_ref_checking": false,
+  "composite_request": [
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/4552/tasks/4552-T2610/notes/",
+      "reference_id": "T2610",
+      "body": {
+        "text": "[AI-Noted] Organizational/process requirement: Verify that Transparent Data Encryption is utilized with Enterprise Databases. Not applicable for code fixes."
+      }
+    }
+  ]
+}

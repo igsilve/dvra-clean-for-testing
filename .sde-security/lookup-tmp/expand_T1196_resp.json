@@ -1,0 +1,85 @@
+{
+  "composite_response": [
+    {
+      "reference_id": "T1196",
+      "http_status_code": 200,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "results": [
+          {
+            "db_id": 1516,
+            "id": "TA1516",
+            "title": "FedRAMP / Moderate Baseline",
+            "text": "*** CM-7 (1): Configuration Management | Least Functionality | Periodic Review ***  \nThe organization:\n\n(a)   Reviews the information system [at least monthly] to identify unnecessary and/or nonsecure functions, ports, protocols, and services; and  \n(b)   Disables [Assignment: organization-defined functions, ports, protocols, and services within the information system deemed to be unnecessary and/or nonsecure].\n\n*** CM-7 (2): Configuration Management | Least Functionality | Prevent Program Execution ***  \nThe information system prevents program execution in accordance with [Selection (one or more): [Assignment: organization-defined policies regarding software program usage and restrictions]; rules authorizing the terms and conditions of software program usage].\n\n*** SC-7: System And Communications Protection | Boundary Protection ***  \nThe information system:\n\na. Monitors and controls communications at the external boundary of the system and at key internal boundaries within the system;\n\nb. Implements subnetworks for publicly accessible system components that are [Selection: physically; logically] separated from internal organizational networks; and\n\nc. Connects to external networks or information systems only through managed interfaces consisting of boundary protection devices arranged in accordance with an organizational security architecture.",
+            "type": "Built-in",
+            "ordinal": 11,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-15T17:48:51.085000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T15:08:04.363000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 2485,
+            "id": "TA2485",
+            "title": "FedRAMP / High Baseline",
+            "text": "*** CM-7 (1): Configuration Management | Least Functionality | Periodic Review ***  \nThe organization:  \n (a)   Reviews the information system [at least monthly] to identify unnecessary and/or nonsecure functions, ports, protocols, and services; and  \n (b)   Disables [Assignment: organization-defined functions, ports, protocols, and services within the information system deemed to be unnecessary and/or nonsecure].\n\n*** CM-7 (2): Configuration Management | Least Functionality | Prevent Program Execution ***  \nThe information system prevents program execution in accordance with [Selection (one or more): [Assignment: organization-defined policies regarding software program usage and restrictions]; rules authorizing the terms and conditions of software program usage].\n\n*** SC-7: System And Communications Protection | Boundary Protection ***  \nThe information system:  \n a. Monitors and controls communications at the external boundary of the system and at key internal boundaries within the system;  \n b. Implements subnetworks for publicly accessible system components that are [Selection: physically; logically] separated from internal organizational networks; and  \n c. Connects to external networks or information systems only through managed interfaces consisting of boundary protection devices arranged in accordance with an organizational security architecture.",
+            "type": "Built-in",
+            "ordinal": 12,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-17T18:33:56.143000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T18:38:13.278000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 8442,
+            "id": "TA8442",
+            "title": "T1196 - SKILL.md - Docker",
+            "text": "---\nname: open-only-needed-ports-on-the-containers-docker\ndescription: \"Reduce Docker container exposure by keeping only approved ports in EXPOSE and runtime mappings. Use when containers declare or publish ports the application does not need.\"\n---\n# Open only needed ports on the containers (Docker)\n\n## What This Skill Does\nThis skill reduces container attack surface by removing unnecessary port declarations and published mappings from Dockerfiles and generated container configuration. Use it when a container exposes admin, debug, metrics, legacy, or inherited ports that the application does not actually listen on. The fix is to maintain a single approved list of listening ports, make `EXPOSE` and runtime port mappings match that list exactly, and reject unknown ports, including protocol-qualified values such as `80/tcp` or `5353/udp`.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Dockerfile contains `EXPOSE` entries not used by the application | Remove unneeded ports and keep only the approved ports |\n| Container config or templates generate published port mappings dynamically | Validate generated mappings against the approved port list and reject unknown ports |\n| `EXPOSE` values include protocol suffixes like `/tcp` or `/udp` | Parse and validate port plus protocol consistently against the approved list |\n| Dockerfile inherits stale ports from examples, templates, or older versions | Replace inherited declarations with the current approved ports only |\n| Dockerfile and runtime mappings already match the approved listening ports | No action needed |\n\n## Boundaries\n\n### Can Do\n- Remove unnecessary `EXPOSE` entries from Dockerfiles\n- Align Dockerfile port declarations with an approved application port list\n- Add validation so generated runtime mappings include only approved ports\n\n### Cannot Do\n- Determine the correct application ports without code, config, or team-defined requirements\n- Prevent operators from manually publishing extra ports outside the repository\n- Guarantee a service is unreachable if another proxy, sidecar, or host rule exposes it elsewhere\n\n## Gotchas\n- Treating `EXPOSE` as harmless metadata only: it still signals intended reachability and often gets copied into runtime configuration or review assumptions\n- Validating only bare numbers like `80`: this misses protocol-qualified entries such as `80/tcp` or `5353/udp`\n- Removing `EXPOSE` but leaving `ports:` or `-p` mappings in Compose or run scripts: the container can still be published at runtime\n\n## Quick Verification\n```bash\n# Find Dockerfiles and EXPOSE declarations\nfind . -iname 'Dockerfile*' -o -name '*.dockerfile' | xargs grep -nE '^\\s*EXPOSE\\s+'\n\n# Find common runtime port mappings in Compose files\nfind . \\( -name 'docker-compose*.yml' -o -name 'docker-compose*.yaml' -o -name 'compose.yml' -o -name 'compose.yaml' \\) \\\n  | xargs grep -nE '^\\s*ports:|-\\s*\"[0-9]+:[0-9]+'\n\n# Build and inspect exposed ports declared in the image\ndocker build -t port-check .\ndocker image inspect port-check --format '{{json .Config.ExposedPorts}}'\n\n# Negative test: add an unapproved port such as 9000 and confirm validation or review rejects it\ngrep -R -nE '9000(/tcp|/udp)?|9000:9000' .\n```",
+            "type": "Built-in",
+            "ordinal": 233,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-05-21T11:39:47.760000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:36.002000-04:00",
+            "active": true
+          }
+        ]
+      }
+    }
+  ]
+}

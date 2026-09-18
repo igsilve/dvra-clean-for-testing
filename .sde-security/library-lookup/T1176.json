@@ -1,0 +1,14 @@
+{
+  "cm_id": "T1176",
+  "endpoint": "library/tasks/T1176/amendments/",
+  "http_status": 200,
+  "result": "LIBRARY_SOURCED",
+  "retry_count": 0,
+  "queried_at": "2026-09-17T20:56:13.334819+00:00",
+  "matched_amendments": [
+    {
+      "amendment_id": "TA8447",
+      "technology": "Docker"
+    }
+  ]
+}

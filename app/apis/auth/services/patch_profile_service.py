@@ -4,7 +4,8 @@ from apis.auth.utils import get_current_user, get_user_by_username
 from db.models import User
 from db.session import get_db
 from fastapi import APIRouter, Depends, status
-from pydantic import BaseModel, Extra
+from pydantic import BaseModel
+from pydantic import constr
 from sqlalchemy.orm import Session
 from typing_extensions import Annotated
 
@@ -19,9 +20,15 @@ class UserRead(BaseModel):
     role: str
 
 
-class UserUpdate(BaseModel, extra=Extra.allow):
-    first_name: Union[str, None] = None
-    last_name: Union[str, None] = None
+class UserUpdate(BaseModel):
+    first_name: Union[
+        constr(strip_whitespace=True, min_length=1, max_length=64, regex=r"^[A-Za-z0-9 .,'-]+$"),
+        None,
+    ] = None
+    last_name: Union[
+        constr(strip_whitespace=True, min_length=1, max_length=64, regex=r"^[A-Za-z0-9 .,'-]+$"),
+        None,
+    ] = None
     phone_number: Union[str, None] = None
 
 

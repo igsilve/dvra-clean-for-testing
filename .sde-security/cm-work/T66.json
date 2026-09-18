@@ -1,0 +1,12 @@
+{
+  "cm_id": "T66",
+  "category": "CF",
+  "library_sourced": false,
+  "content_fields": {
+    "title": "Prevent web pages from being loaded inside iFrame",
+    "url": "https://staging.qa.sdelements.com/bunits/copilot-test/app/dvra-clean-for-testing/tasks/phase/development/4552-T66/",
+    "priority": 7,
+    "output_path": "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T66-prevent-web-pages-from-being-loaded-insi/SKILL.md"
+  },
+  "output_path": "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T66-prevent-web-pages-from-being-loaded-insi/SKILL.md"
+}

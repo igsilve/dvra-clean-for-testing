@@ -1,0 +1,12 @@
+{
+  "cm_id": "T4747",
+  "category": "IN",
+  "library_sourced": false,
+  "content_fields": {
+    "title": "Limit container privileges",
+    "url": "https://staging.qa.sdelements.com/bunits/copilot-test/app/dvra-clean-for-testing/tasks/phase/deployment/4552-T4747/",
+    "priority": 10,
+    "output_path": "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T4747-limit-container-privileges/SKILL.md"
+  },
+  "output_path": "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T4747-limit-container-privileges/SKILL.md"
+}

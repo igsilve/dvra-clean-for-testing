@@ -1,0 +1,292 @@
+{
+  "composite_response": [
+    {
+      "reference_id": "T38",
+      "http_status_code": 200,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "results": [
+          {
+            "db_id": 9283,
+            "id": "TA9283",
+            "title": "T38 - SKILL.md - Python",
+            "text": "---\nname: bind-variables-in-sql-statements\ndescription: Fixes SQL injection by replacing string-built queries with bound parameters; use when untrusted data flows into SQL text via concatenation, interpolation, or unsafe ORM/raw SQL APIs.\n---\n\n# Bind variables in SQL statements\n\n## What This Skill Does\nRewrites database access so that untrusted input is always passed as bound parameters instead of being concatenated or interpolated into SQL strings. It targets SQL injection risks (CWE-89) in direct driver calls, raw SQL in ORMs, and stored procedure invocations, and adds strict validation only for parts that cannot be parameterized (like column names or sort directions).\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| SQL query string is built with `+`, `f\"...\"`, `%`, `.format()`, or template literals including untrusted data | Replace with a static SQL template and pass all untrusted values as bound parameters/placeholders |\n| ORM or query builder exposes a \"raw SQL\" or `text()` API and untrusted data is interpolated into the SQL text | Use the ORM's parameter binding (`:name`, `?`, `$1`, etc.) and supply values via the ORM's parameter dict/args |\n| Stored procedure calls are constructed as strings (e.g., `\"CALL proc('\" + user + \"')\"`) | Switch to the driver's parameterized procedure call API (e.g., `callproc`, parameter arrays) and bind arguments |\n| Dynamic identifiers (table/column names, sort direction) must come from user input and cannot be bound | Implement whitelist-based validation/mapping and only interpolate validated identifiers; keep data values parameterized |\n| Code already uses parameterized queries with no user-controlled SQL fragments | No action needed |\n\n## Boundaries\n\n### Can Do\n- Detect and refactor string-built SQL that embeds untrusted input in application code.\n- Convert common driver and ORM patterns (e.g., `sqlite3`, SQLAlchemy, MySQL connectors) to use bound parameters.\n- Introduce helper functions or data-access layers that enforce parameter binding consistently.\n- Add whitelist validation for non-parameterizable parts (identifiers, sort direction) while keeping data values bound.\n- Suggest basic runtime tests using obvious injection payloads to confirm behavior.\n\n### Cannot Do\n- Change how the underlying database engine itself parses SQL (this is entirely application-side).\n- Automatically verify that every ORM abstraction truly sends prepared/parameterized statements over the wire (requires runtime inspection/logging).\n- Secure dynamic SQL that fundamentally depends on free-form user-provided SQL fragments (e.g., user-supplied WHERE clauses) without changing the feature design.\n- Guarantee safety if other layers (stored procedures, views, triggers) also build SQL dynamically from untrusted data that is not visible in the current codebase.\n- Replace business-specific validation or complex query-building logic with fully generic solutions.\n\n## Gotchas\n- Assuming stored procedures are always safe: they are still vulnerable if the procedure itself concatenates parameters into dynamic SQL; binding must occur in the procedure or its callers, not just because it's a \"stored procedure.\"\n- Relying only on escaping or input sanitization instead of binding: escaping is error-prone and DB-specific; always prefer parameter binding and use validation only for the few things that cannot be parameterized (like column names).\n- Mixing secure and insecure patterns in the same query: binding some parameters while still concatenating another untrusted fragment (like a filter or limit) leaves the query exploitable.\n- Trusting ORM \"convenience\" methods that accept raw SQL strings with formatted input: even when using an ORM, any path that accepts raw SQL must still use placeholder syntax and bound parameters.\n\n## Quick Verification\n```bash\n# Example using the provided vulnerable script (Python + sqlite3)\n\n# 1. Run the vulnerable version and observe injection\npython app_vulnerable.py \"alice' OR '1'='1\"\n# Expectation (vulnerable): returns multiple users or all rows\n\n# 2. Run the fixed/parameterized version and confirm no injection\npython app_fixed.py \"alice' OR '1'='1\"\n# Expectation (safe): returns at most the real 'alice' row; no extra rows\n\n# 3. Try a destructive-style payload and confirm it is treated as data\npython app_fixed.py \"bob'; DROP TABLE users; --\"\n# Expectation: no errors about missing tables; DB remains intact\n\n# 4. If using an ORM with SQL logging enabled, confirm that:\n#    - SQL statements contain placeholders\n#    - Data values are sent separately, not interpolated into the SQL text\n```",
+            "type": "Built-in",
+            "ordinal": 1,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:32.150000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:32.150000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9931,
+            "id": "TA9931",
+            "title": "T38 - SKILL.md - C",
+            "text": "---\nname: bind-variables-in-sql-statements\ndescription: Use when C code builds or executes SQL with untrusted input; replace string-built queries with fixed SQL templates plus bound parameters and allow-list any unavoidable dynamic SQL tokens.\n---\n# Bind variables in SQL statements\n\n## What This Skill Does\nThis skill fixes SQL injection in C code by replacing SQL text built from untrusted input with fixed statement templates and database-driver parameter APIs such as `sqlite3_bind_text()` or `SQLBindParameter()`. Use it when request data, CLI input, file content, or other runtime values can reach SQL queries, stored procedure calls, or ORM-like wrappers. If part of the SQL cannot be parameterized, such as a table name or `ORDER BY` token, restrict it with a strict allow-list before building the final SQL.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| SQL is built with `snprintf`, `sprintf`, `strcat`, or similar and includes untrusted input | Apply this fix: convert to a fixed SQL template and bind runtime values through the driver API |\n| SQLite code uses `sqlite3_prepare_v2()` | Keep the SQL template constant and pass user input only via `sqlite3_bind_*()` |\n| ODBC code uses `SQLPrepare()` / `SQLExecDirect()` for queries or procedure calls | Replace direct string-built SQL with placeholders and `SQLBindParameter()` |\n| Dynamic identifiers or sort tokens are required | Do not bind them as values; map input to predefined safe constants or reject it |\n| Code already uses constant SQL plus parameter binding everywhere | No action needed |\n\n## Boundaries\n\n### Can Do\n- Replace concatenated SQL values with bound parameters in common C database APIs\n- Centralize query execution behind wrappers that accept fixed SQL plus separate parameters\n- Add allow-list validation for dynamic identifiers, column names, and sort directions\n\n### Cannot Do\n- Make raw user-provided table names, column names, or predicates safe by binding them as values\n- Prove a stored procedure is safe if it builds dynamic SQL internally from input\n- Guarantee security if the project later converts bound values back into SQL text before execution\n\n## Gotchas\n- Binding only part of the query: a bound `WHERE` value does not make `ORDER BY`, table names, or raw filter fragments safe\n- Preparing a query after interpolation: if input is inserted into the SQL string before `sqlite3_prepare_v2()` or `SQLPrepare()`, the injection already happened\n- Relying on escaping instead of allow-lists for identifiers: generic escaping is fragile for table names, columns, and sort clauses\n\n## Quick Verification\n```bash\n# Confirm secure parameter-binding APIs exist\nrg -n 'sqlite3_bind_(text|int|int64|double|blob|null)\\s*\\(|SQLBindParameter\\s*\\(' .\n\n# Find likely unguarded SQL built from strings or executed directly\nrg -n 'snprintf\\s*\\(.*(SELECT|INSERT|UPDATE|DELETE)|sprintf\\s*\\(.*(SELECT|INSERT|UPDATE|DELETE)|str(cat|ncat|cpy|ncpy)\\s*\\(.*(SELECT|INSERT|UPDATE|DELETE)|sqlite3_exec\\s*\\(|SQLExecDirect\\s*\\(' .\n\n# Optional review: find prepare calls to confirm they use placeholders rather than interpolated SQL\nrg -n 'sqlite3_prepare_v2\\s*\\(|SQLPrepare\\s*\\(' .\n\n# Build and run tests with common C toolchains, using whichever files exist\nsh -c 'if [ -f Makefile ] || [ -f makefile ]; then make test || make all; elif [ -f CMakeLists.txt ]; then cmake -S . -B build && cmake --build build && ctest --test-dir build --output-on-failure; else cc -c $(find . -type f \\( -name \"*.c\" -o -name \"*.h\" \\) | tr \"\\n\" \" \") >/dev/null 2>&1 || true; fi'\n```",
+            "type": "Built-in",
+            "ordinal": 6,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-29T01:43:02.006000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-29T01:43:02.006000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 2200,
+            "id": "TA2200",
+            "title": "FedRAMP / Low Baseline",
+            "text": "*** SI-3: System And Information Integrity | Malicious Code Protection ***  \nThe organization:\n\na. Employs malicious code protection mechanisms at information system entry and exit points to detect and eradicate malicious code;  \nb. Updates malicious code protection mechanisms whenever new releases are available in accordance with organizational configuration management policy and procedures;  \nc. Configures malicious code protection mechanisms to:  \n   1. Perform periodic scans of the information system [at least weekly] and real-time scans of files from external sources [to include endpoints] as the files are downloaded, opened, or executed in accordance with organizational security policy; and  \n   2. [Include alerting administrator or defined security personnel] in response to malicious code detection; and  \nd. Addresses the receipt of false positives during malicious code detection and eradication and the resulting potential impact on the availability of the information system.",
+            "type": "Built-in",
+            "ordinal": 10,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-17T16:28:57.340000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T16:44:57.526000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 1849,
+            "id": "TA1849",
+            "title": "FedRAMP / Moderate Baseline",
+            "text": "*** SI-3: System And Information Integrity | Malicious Code Protection ***  \nThe organization:\n\na. Employs malicious code protection mechanisms at information system entry and exit points to detect and eradicate malicious code;\n\nb. Updates malicious code protection mechanisms whenever new releases are available in accordance with organizational configuration management policy and procedures;\n\nc. Configures malicious code protection mechanisms to:\n\n1. Perform periodic scans of the information system [at least weekly] and real-time scans of files from external sources [to include endpoints] as the files are downloaded, opened, or executed in accordance with organizational security policy; and\n2. [Include alerting administrator or defined security personnel] in response to malicious code detection; and\n\nd. Addresses the receipt of false positives during malicious code detection and eradication and the resulting potential impact on the availability of the information system.",
+            "type": "Built-in",
+            "ordinal": 11,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-15T17:49:07.987000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T15:08:07.365000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 2760,
+            "id": "TA2760",
+            "title": "FedRAMP / High Baseline",
+            "text": "*** SI-3: System And Information Integrity | Malicious Code Protection ***  \nThe organization:  \n a. Employs malicious code protection mechanisms at information system entry and exit points to detect and eradicate malicious code;  \n b. Updates malicious code protection mechanisms whenever new releases are available in accordance with organizational configuration management policy and procedures;  \n c. Configures malicious code protection mechanisms to:  \n   1. Perform periodic scans of the information system [at least weekly] and real-time scans of files from external sources [to include endpoints] as the files are downloaded, opened, or executed in accordance with organizational security policy; and  \n   2. [Include blocking and quarantining malicious code and alerting administrator or defined security personnel near-realtime] in response to malicious code detection; and  \n d. Addresses the receipt of false positives during malicious code detection and eradication and the resulting potential impact on the availability of the information system.",
+            "type": "Built-in",
+            "ordinal": 12,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-17T18:34:15.884000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T18:38:15.772000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9944,
+            "id": "TA9944",
+            "title": "T38 - SKILL.md - C++",
+            "text": "---\nname: bind-variables-in-sql-statements\ndescription: Use when C++ code builds SQL or stored procedure calls from runtime input; replace string-built queries with bound parameters and allow-list non-bindable SQL tokens to prevent SQL injection.\n---\n# Bind variables in SQL statements\n\n## What This Skill Does\nThis skill fixes SQL injection in C++ code by replacing SQL text built from untrusted input with static SQL templates plus parameter binding. It also covers the cases where binding is not possible, such as identifiers, sort columns, sort direction, or procedure names, by requiring strict allow-lists or narrow validation instead of concatenating request-derived text into SQL.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| SQL is built with `+`, `append`, `stringstream`, `snprintf`, or format strings using request-derived values | Apply this fix: keep SQL text static and bind runtime values with the database API |\n| `sqlite3` is used and values are inserted into query text | Replace raw query construction with `sqlite3_prepare_v2` plus `sqlite3_bind_text` / `sqlite3_bind_int` / other `sqlite3_bind_*` APIs |\n| ODBC stored procedure calls or queries include runtime values in the SQL text | Replace with `SQLPrepare` and `SQLBindParameter`; keep the procedure name constant or select from an allow-list |\n| Input controls identifiers or keywords such as table names, column names, `ORDER BY`, or sort direction | Do not bind these positions; map input to predefined safe tokens or reject it |\n| Query text is already static and all runtime values are passed through binding APIs | No action needed |\n\n## Boundaries\n\n### Can Do\n- Replace concatenated SQL value insertion with bound parameters in common C++ database APIs\n- Refactor stored procedure calls so user input is passed as parameters instead of interpolated into call text\n- Add allow-list validation for non-bindable SQL tokens such as sort columns and directions\n\n### Cannot Do\n- Guarantee safety for dynamic SQL built inside a stored procedure on the database side\n- Safely permit arbitrary user-chosen table names, column names, or SQL fragments\n- Infer one universal database wrapper API for every C++ project without checking the actual driver or abstraction layer\n\n## Gotchas\n- Binding only some values: one concatenated runtime value is enough to keep the injection risk alive\n- Trying to bind identifiers or `ORDER BY` direction: bind parameters protect values, not SQL keywords or identifiers, so use an allow-list there\n- Escaping instead of binding for normal values: manual escaping is easy to get wrong and is weaker than the driver\u2019s native parameter API\n\n## Quick Verification\n```bash\n# Confirm secure parameter binding APIs exist in the codebase\nrg -n 'sqlite3_prepare_v2|sqlite3_bind_(text|int|int64|double|null|blob)|SQLPrepare|SQLBindParameter' .\n\n# Find likely unguarded SQL construction and execution paths that bypass binding\nrg -n '(SELECT|INSERT|UPDATE|DELETE|CALL).*(\\+|append\\(|<<|std::format|fmt::format|snprintf|sprintf)' --glob '*.{c,cc,cpp,cxx,h,hpp,hxx}' .\n\n# Build and run tests with common C++ toolchains; use what the project provides\ncmake -S . -B build && cmake --build build && ctest --test-dir build --output-on-failure || make test || ninja test\n```",
+            "type": "Built-in",
+            "ordinal": 19,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-29T01:43:02.470000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-29T01:43:02.470000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 12005,
+            "id": "TA12005",
+            "title": "T38 - SKILL.md - Go",
+            "text": "---\nname: bind-variables-in-sql-statements\ndescription: Use Go database/sql parameter binding and allow-listed SQL fragments to prevent SQL injection. Use when SQL queries are built from untrusted input or dynamic SQL tokens.\n---\n\n# Bind variables in SQL statements\n\n## What This Skill Does\nThis skill fixes SQL injection in Go by replacing SQL string construction with fixed SQL text plus bound arguments through `database/sql`. It also covers the narrow exception for SQL fragments that cannot be parameterized, such as sort columns or sort direction, by mapping external input to predefined safe values and rejecting unknown input.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| SQL is built with `fmt.Sprintf`, `+`, or other string assembly using user input before `db.Query`, `db.QueryRow`, or `db.Exec` | Replace with fixed SQL text and placeholders, then pass untrusted values as bound arguments |\n| Code uses `database/sql` with `Query`, `QueryRow`, `Exec`, `Prepare`, or `Stmt.Exec` | Keep the SQL text constant and bind every untrusted scalar value |\n| User input controls `ORDER BY`, column names, table names, or sort direction | Do not bind raw fragments; map input to an allow-list of safe SQL tokens and reject unknown values |\n| Stored procedure call text is dynamic or procedure internals may build dynamic SQL | Keep the procedure name fixed, bind arguments, and do not treat the call as safe if procedure internals are unknown |\n| Query text is already fixed and arguments are passed separately | No action needed |\n\n## Boundaries\n\n### Can Do\n- Replace unsafe SQL string construction with `database/sql` placeholder-based calls\n- Refactor helpers to return query text and arguments separately\n- Add strict allow-lists for non-bindable SQL fragments such as sort field and direction\n\n### Cannot Do\n- Prove a stored procedure is safe if its internal SQL construction is not visible\n- Safely parameterize identifiers or SQL keywords directly when the driver does not support it\n- Guarantee security if code still concatenates untrusted input into SQL elsewhere in the project\n\n## Gotchas\n- Escaping input instead of binding it: escaping is not a substitute for parameter binding and often misses edge cases\n- Allow-listing too loosely: regexes or broad character filters are weaker than mapping to known-safe column names and keywords\n- Mixing fixed SQL with later concatenation: a query that starts parameterized becomes unsafe if raw input is appended afterward\n\n## Quick Verification\n```bash\n# Confirm secure parameterized database/sql usage exists\nrg -n 'db\\.(Query|QueryRow|Exec)\\s*\\(\\s*[^,]+,\\s*.+\\)|\\.\\s*Prepare\\s*\\(' .\n\n# Find likely unguarded dangerous SQL construction reaching database/sql calls\nrg -n 'fmt\\.Sprintf\\(|fmt\\.Sprint[f]?\\(|\\+\\s*[A-Za-z_][A-Za-z0-9_]*\\s*(\\+|$)|CALL\\s*\\+\\s*|ORDER BY\\s*\\+\\s*' .\n\n# Find database/sql calls that may execute a single assembled SQL string with no bound args\nrg -n 'db\\.(Query|QueryRow|Exec)\\s*\\(\\s*[A-Za-z_][A-Za-z0-9_]*\\s*\\)' .\n\n# Build and test all Go packages\ngo build ./...\ngo test ./...\n```",
+            "type": "Built-in",
+            "ordinal": 36,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-08-25T19:07:26.459000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-08-25T19:07:26.459000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 908,
+            "id": "TA908",
+            "title": "ASD-STIG requirements",
+            "text": "## V-222607 [high]:\n__The application must not be vulnerable to SQL Injection.__\n\nSQL Injection is a code injection attack against database applications. Malicious SQL statements are inserted into an application data entry field where they are submitted to the database and executed. This is a direct result of not validating input that is used by the application to perform a command or execute an action.\n\nSuccessful attacks can read data, write data, execute administrative functions within the database, shutdown the DBMS, and in some cases execute OS commands.\n\nBest practices to reduce the potential for SQL Injection vulnerabilities include:\n\nNot using concatenation or replacement to build SQL queries.\n\nUsing prepared statements with parameterized queries that have been tested and validated not to be vulnerable to SQL Injection.\n\nUsing stored procedures that have been tested and validated not to be vulnerable to SQL Injection.\n\nEscaping all user supplied input.\n\nAdditional steps to prevent SQL Injection can be found at the OWASP website:\n\nhttps://www.owasp.org/index.php/SQL_Injection_Prevention_Cheat_Sheet\n\n",
+            "type": "Built-in",
+            "ordinal": 40,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2018-02-20T11:26:44.374000-05:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2022-06-02T10:13:11.654000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 8539,
+            "id": "TA8539",
+            "title": "T38 - SKILL.md - Node.js",
+            "text": "---\nname: bind-variables-in-sql-statements\ndescription: Prevents SQL injection by replacing string-built queries with parameterized/bound SQL; use when untrusted data reaches SQL text (CWE-89)\n---\n\n# Bind variables in SQL statements\n\n## What This Skill Does\nRewrites database access so all untrusted values are passed as bound parameters instead of being concatenated into SQL strings. It replaces unsafe string interpolation/concatenation patterns with prepared/parameterized statements or ORM bindings, and uses strict allowlists only where binding cannot apply (e.g., dynamic identifiers), reducing risk of SQL injection.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| SQL query is built by concatenating or interpolating untrusted input into the query string (e.g., `\"WHERE username = '\" + user + \"'\"` or \\`\\`SELECT ... ${user}\\`\\`) | Replace with a prepared/parameterized statement using placeholders (e.g., `WHERE username = ?`) and pass the untrusted value as a separate parameter |\n| Application uses a DB driver or ORM that supports parameter binding (e.g., `better-sqlite3`, Sequelize, pg, mysql2) but still manually concatenates values | Refactor calls to use the driver/ORM\u2019s binding API (`?`, `$1`, named params, or `{ where: { ... } }`) and remove custom escaping |\n| Query shape is dynamic only in identifiers or sort direction (e.g., ORDER BY column, ASC/DESC) | Replace free-form input with strict allowlists (e.g., `ALLOWED_COLUMNS` / `ALLOWED_DIRECTIONS`) and interpolate only validated values; keep all other values bound |\n| Project already uses parameterized queries everywhere and no untrusted input appears inside SQL literals | No action needed beyond minor cleanup (e.g., delete dead custom escaping) |\n| Central SQL helper or repository layer exists but allows raw SQL strings with interpolation | Add or tighten the helper to enforce static SQL + parameters (reject patterns like template interpolation or `\"...' + user + '\"`) and update callers accordingly |\n\n## Boundaries\n\n### Can Do\n- Identify and replace concatenated or interpolated SQL that includes untrusted data with parameterized/prepared statements.\n- Prefer driver/ORM-level binding and remove hand-rolled escaping and quoting around parameters.\n- Introduce safe allowlists for dynamic identifiers (column names, sort directions) when binding is not possible.\n- Encourage central query helpers that enforce \u201cstatic SQL + params\u201d patterns across the codebase.\n\n### Cannot Do\n- Cannot make inherently unsafe dynamic SQL structures (e.g., arbitrary user-controlled table names or full WHERE clauses) fully safe without additional design changes or business constraints.\n- Cannot automatically infer which inputs are trustworthy in the presence of complex custom sanitization or obscure data flows; may need human review for ambiguous sources.\n- Cannot fix vulnerabilities in external systems (e.g., stored procedures already vulnerable in the DB) that are not visible in the application code.\n- Cannot guarantee protection if the database driver/ORM itself is misconfigured or fundamentally insecure.\n\n## Gotchas\n- Assuming escaping is enough: Custom escaping or manual quote wrapping (`\"'\" + user + \"'\"`) is brittle and often incomplete; always prefer true parameter binding where the driver controls quoting and types.\n- Forgetting non-obvious inputs: Untrusted data may come from headers, cookies, environment variables, message queues, or shared in-memory state, not only from request query/body; all of these must be bound or strictly validated.\n- Dynamic ORDER BY without allowlists: Binding usually doesn\u2019t work for identifiers; interpolating raw `sortBy` or `direction` without an allowlist reintroduces SQL injection even if filters are parameterized.\n\n## Quick Verification\n```bash\n# 1. Run attack against vulnerable version (should show many/all users: demonstrates the bug)\nnode app_vulnerable_code.js \"alice' OR 1=1 --\"\n\n# 2. Run same attack against fixed version (should return only \"alice\" or an empty result)\nnode app_fix_original_code.js \"alice' OR 1=1 --\"\n\n# 3. Optional: simple grep to find likely vulnerable patterns to refactor\ngrep -R --line-number --color=always -E \"SELECT|UPDATE|DELETE|INSERT\" .\ngrep -R --line-number --color=always -E \"(['\\\"]) \\+ [a-zA-Z0-9_\\.]+|`.*\\$\\{.*\\}`\" .\n\n# 4. After refactor, ensure queries use placeholders and params (example for better-sqlite3)\ngrep -R --line-number --color=always \"prepare(\" .\n```",
+            "type": "Built-in",
+            "ordinal": 101,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-05-21T11:39:53.794000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-05-21T11:39:53.794000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 12074,
+            "id": "TA12074",
+            "title": "T38 - SKILL.md - Rust",
+            "text": "---\nname: bind-variables-in-sql-statements\ndescription: Use when Rust code builds SQL from untrusted input; replace string-built SQL with bound parameters, fixed stored procedure names, and allow-listed non-bindable SQL parts.\n---\n\n# Bind variables in SQL statements\n\n## What This Skill Does\nThis skill fixes SQL injection in Rust code by keeping SQL statement text fixed and passing untrusted values separately as bound parameters. Apply it when request data, CLI input, headers, form fields, or deserialized values are inserted into SQL with `format!`, string concatenation, interpolation, or dynamically chosen SQL/procedure names. When placeholders cannot be used for identifiers such as sort columns, replace raw input with strict allow-lists and reject unknown values.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| SQL is built with `format!`, `push_str`, `+`, or assembled fragments that include untrusted input | Replace with a fixed SQL template plus bound parameters via a query struct or DB driver parameter API |\n| Stored procedure calls use user-controlled procedure names or SQL fragments | Keep the procedure name fixed in code and pass untrusted input only as procedure arguments |\n| Dynamic SQL parts are identifiers or sort options that cannot be parameterized | Map external input to enums or predefined values and build SQL only from those internal allow-listed values |\n| A legacy path cannot bind a specific SQL position | Apply strict field-specific validation and reject invalid input instead of repairing it |\n| SQL text is already fixed and untrusted values are passed separately | No action needed |\n\n## Boundaries\n\n### Can Do\n- Replace vulnerable Rust SQL construction with fixed SQL text plus parameter collections\n- Convert dynamic procedure selection into fixed enums or fixed call sites\n- Add allow-list validation for non-bindable SQL positions such as column names and sort direction\n\n### Cannot Do\n- Prove a specific ORM or driver always binds safely without inspecting its actual API usage\n- Make arbitrary table names, column names, or SQL keywords safe with placeholders where the database does not support binding them\n- Fix SQL injection inside database-side dynamic SQL built unsafely within stored procedures\n\n## Gotchas\n- Using placeholders for identifiers: bind variables protect values, not table names, column names, or `ASC`/`DESC`; use allow-lists for those positions\n- Assuming stored procedures are always safe: they are still injectable if code lets input choose the procedure name or if the procedure builds dynamic SQL from input\n- Sanitizing by stripping bad characters: this can turn one input into another valid meaning; reject invalid input instead of mutating arbitrary text\n\n## Quick Verification\n```bash\n# Confirm secure fixed-template + bound-parameter patterns exist\nrg -n 'BoundQuery|StoredProcCall|params:\\s*vec!|CALL\\s+sp_|SELECT .* WHERE .* \\?' .\n\n# Find likely unguarded SQL construction that bypasses binding\nrg -n 'format!\\s*\\(.*(SELECT|INSERT|UPDATE|DELETE)|push_str\\s*\\(|\\+\\s*.*(SELECT|INSERT|UPDATE|DELETE)|CALL\\s+\\{\\}|ORDER BY\\s+\\{\\}' .\n\n# Build and test with the Rust toolchain\ncargo build --workspace --all-targets && cargo test --workspace --all-targets\n```",
+            "type": "Built-in",
+            "ordinal": 110,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-08-25T19:07:30.058000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-08-25T19:07:30.058000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9421,
+            "id": "TA9421",
+            "title": "T38 - SKILL.md - Java",
+            "text": "---\nname: bind-variables-in-sql-statements\ndescription: Use when code handling SQL Injection risks builds SQL from untrusted input; replace string-built queries with constant SQL plus bound parameters and whitelist non-parameterizable SQL parts.\n---\n\n# Bind variables in SQL statements\n\n## What This Skill Does\nThis skill fixes SQL injection by changing query construction so untrusted input is passed as data instead of being concatenated into SQL text. Apply it when code uses raw SQL, unsafe ORM raw-query paths, or stored procedures that may embed user-controlled values into SQL strings. Keep SQL templates constant, bind every runtime value with the correct parameter API, and whitelist identifiers or keywords such as column names and sort direction when binding is not possible.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| SQL query text is built with `+`, interpolation, formatting, or appended fragments containing request data | Replace with a constant SQL template and bound parameters |\n| JDBC `Statement` is used for a query that includes runtime values | Replace with `PreparedStatement` and bind each value by index and type |\n| ORM or query builder uses raw SQL escape hatches or string-based `where`/`order by` fragments | Switch to parameterized APIs; keep raw SQL constant and bind values separately |\n| Dynamic table names, column names, or sort direction are taken from input | Map input to a fixed allowlist of internal constants; reject unknown values |\n| Query already uses constant SQL with correct parameter binding for all runtime values | No action needed |\n\n## Boundaries\n\n### Can Do\n- Replace string-concatenated SQL with prepared or parameterized queries\n- Bind runtime values in the correct order using typed setters such as `setString` or `setInt`\n- Add strict allowlists for non-parameterizable SQL parts like column names and sort direction\n\n### Cannot Do\n- Safely parameterize arbitrary table names, column names, or SQL keywords without an allowlist\n- Guarantee security if stored procedures still build dynamic SQL internally\n- Fix unrelated database issues such as over-privileged accounts, broken authorization, or verbose error handling everywhere\n\n## Gotchas\n- Binding only some inputs: leaving even one user-controlled fragment concatenated into SQL can keep the injection risk alive\n- Using `PreparedStatement` but still concatenating SQL first: prepared APIs help only when untrusted values go into placeholders, not when they are inserted into the SQL string\n- Treating escaping or sanitization as equivalent to binding: escaping rules are fragile and database-specific, so use strict allowlists only for fragments that cannot be parameterized\n\n## Quick Verification\n```bash\n# Find likely vulnerable SQL construction in Java\ngrep -RInE 'SELECT |INSERT |UPDATE |DELETE |createStatement\\(|executeQuery\\(|executeUpdate\\(|prepareStatement\\(' .\n\n# Find string-built SQL patterns\ngrep -RInE '\"\\s*\\+\\s*|String\\.format\\(|\\.formatted\\(|append\\(' .\n\n# Verify attack input is treated as data, not SQL\njava AppFixOriginalCode \"' OR '1'='1\"\n\n# Expected: not found (or only the intended exact-match result), not expanded results\n```",
+            "type": "Built-in",
+            "ordinal": 323,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:38.776000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:38.776000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9796,
+            "id": "TA9796",
+            "title": "T38 - SKILL.md - TypeScript",
+            "text": "---\nname: bind-variables-in-sql-statements\ndescription: Use when TypeScript code builds SQL from untrusted input; replace string-built queries with bound parameters and allow-list any dynamic SQL identifiers to prevent SQL injection.\n---\n\n# Bind variables in SQL statements\n\n## What This Skill Does\nThis skill fixes SQL injection in TypeScript code by replacing SQL string concatenation and unsafe raw query construction with constant SQL text plus bound parameters. It also covers the cases binding cannot solve directly, such as dynamic column names or sort directions, by requiring allow-listed identifiers instead of passing untrusted input into SQL structure.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| SQL is built with `+`, template literals, or string formatting that includes request data, CLI args, headers, cookies, or stored user input | Replace with a constant SQL statement and bind values with placeholders such as `?` or named parameters |\n| `better-sqlite3` is used with `db.prepare(...).all/get/run` on SQL text containing interpolated input | Keep `db.prepare()` SQL static and pass untrusted values only through `.all(...)`, `.get(...)`, or `.run(...)` arguments |\n| Raw SQL must vary by column, table, or sort direction | Do not bind identifiers; map input through an allow-list of trusted constants before constructing SQL |\n| A stored procedure or wrapper is used | Pass untrusted input as procedure parameters only; do not build dynamic SQL inside the procedure or wrapper |\n| Query text is already constant and runtime values are already bound | No action needed |\n\n## Boundaries\n\n### Can Do\n- Convert unsafe TypeScript SQL query construction to prepared statements with bound values\n- Preserve dynamic filtering by moving untrusted values into placeholders\n- Add allow-list validation for dynamic identifiers such as sort columns and directions\n\n### Cannot Do\n- Make arbitrary dynamic table names or column names safe with bind parameters alone\n- Guarantee safety of ORM raw SQL helpers that still interpolate strings internally without review\n- Fix second-order SQL injection everywhere unless all query paths using persisted user input are reviewed\n\n## Gotchas\n- Binding identifiers as if they were values: placeholders protect values, not SQL keywords, table names, column names, or `ASC`/`DESC`\n- Keeping template literals around the SQL text: `` `... ${userInput} ...` `` is still SQL injection even if the query later goes through `prepare()`\n- Relying on escaping instead of binding: manual quote escaping is brittle and should not replace prepared statements\n\n## Quick Verification\n```bash\n# Confirm bound-parameter usage exists in TypeScript/JavaScript query paths\nrg -n \"prepare\\\\([^\\\\n]*\\\\?[^\\\\n]*\\\\)\\\\.(all|get|run)\\\\(\" --glob '*.{ts,tsx,js,jsx,mts,cts}'\n\n# Find likely unguarded better-sqlite3 SQL construction with interpolation or concatenation\nrg -n \"prepare\\\\((`[^`]*\\\\$\\\\{|['\\\"][^'\\\"]*['\\\"]\\\\s*\\\\+|.*\\\\+\\\\s*['\\\"])|db\\\\.(exec|prepare)\\\\((`[^`]*\\\\$\\\\{)\" --glob '*.{ts,tsx,js,jsx,mts,cts}'\n\n# Build with the TypeScript toolchain when tsconfig is present\ntest -f tsconfig.json && npx tsc --noEmit\n\n# Run project tests if present\nnpm test -- --runInBand\n```",
+            "type": "Built-in",
+            "ordinal": 744,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:53.330000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:53.330000-04:00",
+            "active": true
+          }
+        ]
+      }
+    }
+  ]
+}

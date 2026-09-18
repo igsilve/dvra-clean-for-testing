@@ -15,6 +15,12 @@ async def update_user_role(
     current_user: Annotated[models.User, Depends(get_current_user)],
     db: Session = Depends(get_db),
 ):
+    if current_user.role != models.UserRole.CHEF.value:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Only Chef is authorized to update roles!",
+        )
+
     if user.role == models.UserRole.CHEF.value:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,

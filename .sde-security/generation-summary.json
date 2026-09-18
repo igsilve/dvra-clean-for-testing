@@ -1,0 +1,782 @@
+{
+  "selected_file_tracked": 85,
+  "expected_skill_files": 98,
+  "skill_files_count": 98,
+  "ledger_rows": 98,
+  "library_sourced_files": 55,
+  "template_files": 43,
+  "agents_md": "/Users/isilveira/dvra-clean-for-testing/AGENTS.md",
+  "skill_files": [
+    "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T2663-use-a-secure-authentication-mechanism-fo/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T2141-python/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T2141-javascript/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T29-python/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T1541-python/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/data-security/T2600-control-the-result-set-size-returned-by/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T15-centralize-authorization/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T373-design-and-regulate-access-to-unauthenti/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/data-security/T2598-javascript/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/data-security/T2598-python/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/data-security/T2139-python/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T378-authorize-every-request-for-data-objects/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/input-validation/T32-python/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/input-validation/T7411-implement-controls-for-content-intended/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T2652-consider-adding-plugins-for-stronger-aut/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/input-validation/T1542-python/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/input-validation/T1542-javascript/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T18-javascript/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T18-python/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T1922-javascript/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T1922-python/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/data-security/T38-python/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T66-prevent-web-pages-from-being-loaded-insi/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T37-javascript/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T37-python/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/data-security/T2597-implement-rbac-instead-of-individual-acc/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T61-disable-default-accounts-or-change-all-d/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/data-security/T2602-log-typical-database-and-server-activiti/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/input-validation/T36-python/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/input-validation/T36-javascript/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T1365-javascript/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T1365-python/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T1887-javascript/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T1887-python/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T17-python/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T17-javascript/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/input-validation/T2348-perform-code-reviews/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/input-validation/T42-javascript/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/input-validation/T42-python/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/input-validation/T2603-protect-backup-archive-bits/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/data-security/T186-python/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T340-use-an-account-and-identity-management-s/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T76-javascript/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T76-python/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/cryptography/T2621-use-file-volume-encryption-and-consider/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T1194-docker/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T2115-enable-image-vulnerability-scanning-dock/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T4746-ensure-container-images-are-secure/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T1176-docker/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T2105-enforce-the-use-of-client-certificate-bu/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T2661-change-insecure-configuration-defaults-a/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T1190-docker/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/data-security/T2605-validate-database-traffic/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T2599-protect-against-connection-string-parame/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T1144-python/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T1174-docker/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T1198-docker/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T1208-docker/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/cryptography/T2620-protect-data-in-transit-with-tls-postgre/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T4748-implement-role-based-access-control-rbac/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T2615-limit-network-access-by-blocking-connect/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T2257-regularly-update-and-patch-containerizat/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T1156-docker/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T1158-docker/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T2258-minimize-host-os-attack-surface/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T4751-reduce-the-attack-surface-of-container-i/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T1196-docker/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T257-javascript/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T257-python/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T1172-secure-daemon-configuration-files-docker/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T1188-docker/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/cryptography/T2665-protect-sensitive-data-at-rest-with-encr/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T4601-prioritize-static-network-configuration/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T1214-docker/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T1186-docker/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T7412-isolate-dangerous-functionality-and-risk/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T1204-docker/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T2616-use-a-secure-authentication-mechanism-fo/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/secure-coding/T4600-establish-out-of-band-communications-cha/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T2109-enable-signed-image-enforcement-docker/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T2349-configure-software-to-have-secure-settin/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T1206-docker/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/cryptography/T279-avoid-dynamically-loading-any-code-witho/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T1154-docker/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T1166-docker/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/cryptography/T2666-protect-data-in-transit-with-tls-databas/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T1150-docker/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T1212-docker/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T2601-use-transparent-data-encryption-with-ent/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T4750-isolate-container-networks/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T1200-docker/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T4749-monitor-containers-in-real-time/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T1202-docker/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T2662-restrict-network-access-to-the-database/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T4747-limit-container-privileges/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T1210-docker/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/data-security/T2619-ensure-that-row-level-security-is-correc/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T1192-docker/SKILL.md"
+  ],
+  "library_sourced_cms": [
+    {
+      "cm_id": "T2141",
+      "amendment_id": "TA8555",
+      "matched_technology": "Python"
+    },
+    {
+      "cm_id": "T2141",
+      "amendment_id": "TA9345",
+      "matched_technology": "JavaScript"
+    },
+    {
+      "cm_id": "T29",
+      "amendment_id": "TA9301",
+      "matched_technology": "Python"
+    },
+    {
+      "cm_id": "T1541",
+      "amendment_id": "TA9324",
+      "matched_technology": "Python"
+    },
+    {
+      "cm_id": "T2598",
+      "amendment_id": "TA9474",
+      "matched_technology": "JavaScript"
+    },
+    {
+      "cm_id": "T2598",
+      "amendment_id": "TA9511",
+      "matched_technology": "Python"
+    },
+    {
+      "cm_id": "T2139",
+      "amendment_id": "TA9362",
+      "matched_technology": "Python"
+    },
+    {
+      "cm_id": "T32",
+      "amendment_id": "TA9302",
+      "matched_technology": "Python"
+    },
+    {
+      "cm_id": "T1542",
+      "amendment_id": "TA9315",
+      "matched_technology": "Python"
+    },
+    {
+      "cm_id": "T1542",
+      "amendment_id": "TA9466",
+      "matched_technology": "JavaScript"
+    },
+    {
+      "cm_id": "T18",
+      "amendment_id": "TA9456",
+      "matched_technology": "JavaScript"
+    },
+    {
+      "cm_id": "T18",
+      "amendment_id": "TA9505",
+      "matched_technology": "Python"
+    },
+    {
+      "cm_id": "T1922",
+      "amendment_id": "TA9454",
+      "matched_technology": "JavaScript"
+    },
+    {
+      "cm_id": "T1922",
+      "amendment_id": "TA9523",
+      "matched_technology": "Python"
+    },
+    {
+      "cm_id": "T38",
+      "amendment_id": "TA9283",
+      "matched_technology": "Python"
+    },
+    {
+      "cm_id": "T37",
+      "amendment_id": "TA9334",
+      "matched_technology": "JavaScript"
+    },
+    {
+      "cm_id": "T37",
+      "amendment_id": "TA8540",
+      "matched_technology": "Python"
+    },
+    {
+      "cm_id": "T36",
+      "amendment_id": "TA9293",
+      "matched_technology": "Python"
+    },
+    {
+      "cm_id": "T36",
+      "amendment_id": "TA8479",
+      "matched_technology": "JavaScript"
+    },
+    {
+      "cm_id": "T1365",
+      "amendment_id": "TA9284",
+      "matched_technology": "JavaScript"
+    },
+    {
+      "cm_id": "T1365",
+      "amendment_id": "TA8521",
+      "matched_technology": "Python"
+    },
+    {
+      "cm_id": "T1887",
+      "amendment_id": "TA9444",
+      "matched_technology": "JavaScript"
+    },
+    {
+      "cm_id": "T1887",
+      "amendment_id": "TA9507",
+      "matched_technology": "Python"
+    },
+    {
+      "cm_id": "T17",
+      "amendment_id": "TA9296",
+      "matched_technology": "Python"
+    },
+    {
+      "cm_id": "T17",
+      "amendment_id": "TA9438",
+      "matched_technology": "JavaScript"
+    },
+    {
+      "cm_id": "T42",
+      "amendment_id": "TA9458",
+      "matched_technology": "JavaScript"
+    },
+    {
+      "cm_id": "T42",
+      "amendment_id": "TA9489",
+      "matched_technology": "Python"
+    },
+    {
+      "cm_id": "T186",
+      "amendment_id": "TA9369",
+      "matched_technology": "Python"
+    },
+    {
+      "cm_id": "T76",
+      "amendment_id": "TA9291",
+      "matched_technology": "JavaScript"
+    },
+    {
+      "cm_id": "T76",
+      "amendment_id": "TA8509",
+      "matched_technology": "Python"
+    },
+    {
+      "cm_id": "T1194",
+      "amendment_id": "TA8460",
+      "matched_technology": "Docker"
+    },
+    {
+      "cm_id": "T1176",
+      "amendment_id": "TA8447",
+      "matched_technology": "Docker"
+    },
+    {
+      "cm_id": "T1190",
+      "amendment_id": "TA8457",
+      "matched_technology": "Docker"
+    },
+    {
+      "cm_id": "T1144",
+      "amendment_id": "TA9360",
+      "matched_technology": "Python"
+    },
+    {
+      "cm_id": "T1174",
+      "amendment_id": "TA8448",
+      "matched_technology": "Docker"
+    },
+    {
+      "cm_id": "T1198",
+      "amendment_id": "TA8456",
+      "matched_technology": "Docker"
+    },
+    {
+      "cm_id": "T1208",
+      "amendment_id": "TA8451",
+      "matched_technology": "Docker"
+    },
+    {
+      "cm_id": "T1156",
+      "amendment_id": "TA8473",
+      "matched_technology": "Docker"
+    },
+    {
+      "cm_id": "T1158",
+      "amendment_id": "TA8472",
+      "matched_technology": "Docker"
+    },
+    {
+      "cm_id": "T1196",
+      "amendment_id": "TA8442",
+      "matched_technology": "Docker"
+    },
+    {
+      "cm_id": "T257",
+      "amendment_id": "TA9481",
+      "matched_technology": "JavaScript"
+    },
+    {
+      "cm_id": "T257",
+      "amendment_id": "TA9522",
+      "matched_technology": "Python"
+    },
+    {
+      "cm_id": "T1188",
+      "amendment_id": "TA8458",
+      "matched_technology": "Docker"
+    },
+    {
+      "cm_id": "T1214",
+      "amendment_id": "TA8449",
+      "matched_technology": "Docker"
+    },
+    {
+      "cm_id": "T1186",
+      "amendment_id": "TA8441",
+      "matched_technology": "Docker"
+    },
+    {
+      "cm_id": "T1204",
+      "amendment_id": "TA8453",
+      "matched_technology": "Docker"
+    },
+    {
+      "cm_id": "T1206",
+      "amendment_id": "TA8452",
+      "matched_technology": "Docker"
+    },
+    {
+      "cm_id": "T1154",
+      "amendment_id": "TA8474",
+      "matched_technology": "Docker"
+    },
+    {
+      "cm_id": "T1166",
+      "amendment_id": "TA8467",
+      "matched_technology": "Docker"
+    },
+    {
+      "cm_id": "T1150",
+      "amendment_id": "TA8476",
+      "matched_technology": "Docker"
+    },
+    {
+      "cm_id": "T1212",
+      "amendment_id": "TA8440",
+      "matched_technology": "Docker"
+    },
+    {
+      "cm_id": "T1200",
+      "amendment_id": "TA8455",
+      "matched_technology": "Docker"
+    },
+    {
+      "cm_id": "T1202",
+      "amendment_id": "TA8454",
+      "matched_technology": "Docker"
+    },
+    {
+      "cm_id": "T1210",
+      "amendment_id": "TA8450",
+      "matched_technology": "Docker"
+    },
+    {
+      "cm_id": "T1192",
+      "amendment_id": "TA8439",
+      "matched_technology": "Docker"
+    }
+  ],
+  "domains": {
+    "authentication": 31,
+    "data-security": 10,
+    "input-validation": 10,
+    "container-security": 41,
+    "cryptography": 5,
+    "secure-coding": 1
+  },
+  "fidelity": [
+    {
+      "cm_id": "T2141",
+      "tech_slug": "python",
+      "written_len": 4407,
+      "source_len": 4407,
+      "pass": true
+    },
+    {
+      "cm_id": "T2141",
+      "tech_slug": "javascript",
+      "written_len": 4379,
+      "source_len": 4379,
+      "pass": true
+    },
+    {
+      "cm_id": "T29",
+      "tech_slug": "python",
+      "written_len": 4283,
+      "source_len": 4283,
+      "pass": true
+    },
+    {
+      "cm_id": "T1541",
+      "tech_slug": "python",
+      "written_len": 3370,
+      "source_len": 3370,
+      "pass": true
+    },
+    {
+      "cm_id": "T2598",
+      "tech_slug": "javascript",
+      "written_len": 3489,
+      "source_len": 3489,
+      "pass": true
+    },
+    {
+      "cm_id": "T2598",
+      "tech_slug": "python",
+      "written_len": 3234,
+      "source_len": 3234,
+      "pass": true
+    },
+    {
+      "cm_id": "T2139",
+      "tech_slug": "python",
+      "written_len": 4049,
+      "source_len": 4049,
+      "pass": true
+    },
+    {
+      "cm_id": "T32",
+      "tech_slug": "python",
+      "written_len": 3298,
+      "source_len": 3298,
+      "pass": true
+    },
+    {
+      "cm_id": "T1542",
+      "tech_slug": "python",
+      "written_len": 3457,
+      "source_len": 3457,
+      "pass": true
+    },
+    {
+      "cm_id": "T1542",
+      "tech_slug": "javascript",
+      "written_len": 3576,
+      "source_len": 3576,
+      "pass": true
+    },
+    {
+      "cm_id": "T18",
+      "tech_slug": "javascript",
+      "written_len": 3532,
+      "source_len": 3532,
+      "pass": true
+    },
+    {
+      "cm_id": "T18",
+      "tech_slug": "python",
+      "written_len": 3593,
+      "source_len": 3593,
+      "pass": true
+    },
+    {
+      "cm_id": "T1922",
+      "tech_slug": "javascript",
+      "written_len": 3633,
+      "source_len": 3633,
+      "pass": true
+    },
+    {
+      "cm_id": "T1922",
+      "tech_slug": "python",
+      "written_len": 3697,
+      "source_len": 3697,
+      "pass": true
+    },
+    {
+      "cm_id": "T38",
+      "tech_slug": "python",
+      "written_len": 4616,
+      "source_len": 4616,
+      "pass": true
+    },
+    {
+      "cm_id": "T37",
+      "tech_slug": "javascript",
+      "written_len": 4679,
+      "source_len": 4679,
+      "pass": true
+    },
+    {
+      "cm_id": "T37",
+      "tech_slug": "python",
+      "written_len": 4708,
+      "source_len": 4708,
+      "pass": true
+    },
+    {
+      "cm_id": "T36",
+      "tech_slug": "python",
+      "written_len": 5172,
+      "source_len": 5172,
+      "pass": true
+    },
+    {
+      "cm_id": "T36",
+      "tech_slug": "javascript",
+      "written_len": 3673,
+      "source_len": 3673,
+      "pass": true
+    },
+    {
+      "cm_id": "T1365",
+      "tech_slug": "javascript",
+      "written_len": 3752,
+      "source_len": 3752,
+      "pass": true
+    },
+    {
+      "cm_id": "T1365",
+      "tech_slug": "python",
+      "written_len": 4655,
+      "source_len": 4655,
+      "pass": true
+    },
+    {
+      "cm_id": "T1887",
+      "tech_slug": "javascript",
+      "written_len": 3543,
+      "source_len": 3543,
+      "pass": true
+    },
+    {
+      "cm_id": "T1887",
+      "tech_slug": "python",
+      "written_len": 3642,
+      "source_len": 3642,
+      "pass": true
+    },
+    {
+      "cm_id": "T17",
+      "tech_slug": "python",
+      "written_len": 3557,
+      "source_len": 3557,
+      "pass": true
+    },
+    {
+      "cm_id": "T17",
+      "tech_slug": "javascript",
+      "written_len": 3616,
+      "source_len": 3616,
+      "pass": true
+    },
+    {
+      "cm_id": "T42",
+      "tech_slug": "javascript",
+      "written_len": 3443,
+      "source_len": 3443,
+      "pass": true
+    },
+    {
+      "cm_id": "T42",
+      "tech_slug": "python",
+      "written_len": 3165,
+      "source_len": 3165,
+      "pass": true
+    },
+    {
+      "cm_id": "T186",
+      "tech_slug": "python",
+      "written_len": 3875,
+      "source_len": 3875,
+      "pass": true
+    },
+    {
+      "cm_id": "T76",
+      "tech_slug": "javascript",
+      "written_len": 3464,
+      "source_len": 3464,
+      "pass": true
+    },
+    {
+      "cm_id": "T76",
+      "tech_slug": "python",
+      "written_len": 3112,
+      "source_len": 3112,
+      "pass": true
+    },
+    {
+      "cm_id": "T1194",
+      "tech_slug": "docker",
+      "written_len": 3098,
+      "source_len": 3098,
+      "pass": true
+    },
+    {
+      "cm_id": "T1176",
+      "tech_slug": "docker",
+      "written_len": 3318,
+      "source_len": 3318,
+      "pass": true
+    },
+    {
+      "cm_id": "T1190",
+      "tech_slug": "docker",
+      "written_len": 4632,
+      "source_len": 4632,
+      "pass": true
+    },
+    {
+      "cm_id": "T1144",
+      "tech_slug": "python",
+      "written_len": 5058,
+      "source_len": 5058,
+      "pass": true
+    },
+    {
+      "cm_id": "T1174",
+      "tech_slug": "docker",
+      "written_len": 3021,
+      "source_len": 3021,
+      "pass": true
+    },
+    {
+      "cm_id": "T1198",
+      "tech_slug": "docker",
+      "written_len": 2999,
+      "source_len": 2999,
+      "pass": true
+    },
+    {
+      "cm_id": "T1208",
+      "tech_slug": "docker",
+      "written_len": 2736,
+      "source_len": 2736,
+      "pass": true
+    },
+    {
+      "cm_id": "T1156",
+      "tech_slug": "docker",
+      "written_len": 4454,
+      "source_len": 4454,
+      "pass": true
+    },
+    {
+      "cm_id": "T1158",
+      "tech_slug": "docker",
+      "written_len": 4925,
+      "source_len": 4925,
+      "pass": true
+    },
+    {
+      "cm_id": "T1196",
+      "tech_slug": "docker",
+      "written_len": 3221,
+      "source_len": 3221,
+      "pass": true
+    },
+    {
+      "cm_id": "T257",
+      "tech_slug": "javascript",
+      "written_len": 3611,
+      "source_len": 3611,
+      "pass": true
+    },
+    {
+      "cm_id": "T257",
+      "tech_slug": "python",
+      "written_len": 3896,
+      "source_len": 3896,
+      "pass": true
+    },
+    {
+      "cm_id": "T1188",
+      "tech_slug": "docker",
+      "written_len": 4321,
+      "source_len": 4321,
+      "pass": true
+    },
+    {
+      "cm_id": "T1214",
+      "tech_slug": "docker",
+      "written_len": 3176,
+      "source_len": 3176,
+      "pass": true
+    },
+    {
+      "cm_id": "T1186",
+      "tech_slug": "docker",
+      "written_len": 3601,
+      "source_len": 3601,
+      "pass": true
+    },
+    {
+      "cm_id": "T1204",
+      "tech_slug": "docker",
+      "written_len": 3130,
+      "source_len": 3130,
+      "pass": true
+    },
+    {
+      "cm_id": "T1206",
+      "tech_slug": "docker",
+      "written_len": 3008,
+      "source_len": 3008,
+      "pass": true
+    },
+    {
+      "cm_id": "T1154",
+      "tech_slug": "docker",
+      "written_len": 4385,
+      "source_len": 4385,
+      "pass": true
+    },
+    {
+      "cm_id": "T1166",
+      "tech_slug": "docker",
+      "written_len": 4925,
+      "source_len": 4925,
+      "pass": true
+    },
+    {
+      "cm_id": "T1150",
+      "tech_slug": "docker",
+      "written_len": 4829,
+      "source_len": 4829,
+      "pass": true
+    },
+    {
+      "cm_id": "T1212",
+      "tech_slug": "docker",
+      "written_len": 2986,
+      "source_len": 2986,
+      "pass": true
+    },
+    {
+      "cm_id": "T1200",
+      "tech_slug": "docker",
+      "written_len": 2518,
+      "source_len": 2518,
+      "pass": true
+    },
+    {
+      "cm_id": "T1202",
+      "tech_slug": "docker",
+      "written_len": 2817,
+      "source_len": 2817,
+      "pass": true
+    },
+    {
+      "cm_id": "T1210",
+      "tech_slug": "docker",
+      "written_len": 2930,
+      "source_len": 2930,
+      "pass": true
+    },
+    {
+      "cm_id": "T1192",
+      "tech_slug": "docker",
+      "written_len": 3742,
+      "source_len": 3742,
+      "pass": true
+    }
+  ],
+  "generated_at": "2026-09-17T20:57:13.314348+00:00"
+}

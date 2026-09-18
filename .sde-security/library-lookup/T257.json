@@ -1,0 +1,18 @@
+{
+  "cm_id": "T257",
+  "endpoint": "library/tasks/T257/amendments/",
+  "http_status": 200,
+  "result": "LIBRARY_SOURCED",
+  "retry_count": 0,
+  "queried_at": "2026-09-17T20:56:16.982403+00:00",
+  "matched_amendments": [
+    {
+      "amendment_id": "TA9481",
+      "technology": "JavaScript"
+    },
+    {
+      "amendment_id": "TA9522",
+      "technology": "Python"
+    }
+  ]
+}

@@ -1,0 +1,200 @@
+{
+  "composite_response": [
+    {
+      "reference_id": "T1365",
+      "http_status_code": 200,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "results": [
+          {
+            "db_id": 9284,
+            "id": "TA9284",
+            "title": "T1365 - SKILL.md - JavaScript",
+            "text": "---\nname: mitigate-server-side-request-forgery\ndescription: \"Harden JavaScript outbound HTTP(S) requests against SSRF by validating parsed URLs, allowlisting destinations, and sanitizing relayed responses. Use when user input can influence server-side fetches or upstream responses are returned to clients.\"\n---\n# Mitigate Server Side Request Forgery\n\n## What This Skill Does\nThis skill fixes SSRF in JavaScript by replacing direct user-controlled outbound requests with a single validated request path: parse URLs with the WHATWG `URL` parser, allow only `http:` and `https:`, require an explicit hostname and port allowlist, resolve DNS and reject blocked/internal IPs, and sanitize any upstream response before relaying it. It also helps detect unsafe call sites that still use raw `http`, `https`, `fetch`, or legacy `url.parse` behavior without the SSRF guard.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| User input, request data, env vars, CLI args, or DB values can influence an outbound URL | Apply a central SSRF-safe wrapper that parses once, validates scheme/host/port/resolved IP, and uses the same parsed values for the request |\n| Code uses `url.parse(...)` or raw string checks for URL validation | Replace with the WHATWG `URL` parser and validate normalized components, not the raw string |\n| Code uses `http.get`, `https.get`, `http.request`, `https.request`, or `fetch` directly with untrusted URLs | Route the call through a guarded helper such as `safeRequest` or `fetchAllowlistedUrl` |\n| Upstream responses are sent back to clients | Enforce content-type and size limits, return only approved fields, and suppress raw upstream headers/errors |\n| Outbound request code already uses one validated wrapper with scheme, allowlist, DNS/IP checks, and response sanitization | No action needed |\n\n## Boundaries\n\n### Can Do\n- Add a central JavaScript helper such as `safeRequest`, `safeFetchUrl`, or `fetchAllowlistedUrl` for SSRF-safe outbound HTTP(S)\n- Replace legacy `url.parse` and raw URL checks with `new URL(...)` normalization and validation\n- Add response filtering so relayed upstream data is size-limited, type-checked, and transformed before return\n\n### Cannot Do\n- Infer a correct production allowlist of hostnames, CIDRs, and ports without project-specific requirements\n- Guarantee network-layer protections such as firewall, proxy, service mesh, or cloud metadata blocking\n- Prove every redirect, DNS rebinding case, or third-party client library behavior is safe unless all outbound paths use the guarded wrapper\n\n## Gotchas\n- Validating the raw input but requesting a rebuilt or different URL later: this creates parser mismatch bugs and can bypass checks\n- Allowlisting only hostnames without validating resolved IP addresses: DNS can resolve an allowed name to loopback, link-local, or private addresses\n- Sanitizing only success responses: upstream errors, headers, redirects, or oversized bodies can still leak internal details if not handled uniformly\n\n## Quick Verification\n```bash\n# Confirm a central SSRF guard exists\nrg -n \"\\b(safeRequest|safeFetchUrl|fetchAllowlistedUrl|parseAndValidateProtocol|normalizeAndValidateUrl|resolveAndValidate)\\b\" .\n\n# Find likely unguarded dangerous outbound request APIs\nrg -n \"\\b(http\\.get|https\\.get|http\\.request|https\\.request|fetch)\\s*\\(\" . \\\n  -g '!node_modules' -g '!dist' -g '!build'\n\n# Find legacy URL parsing or raw URL handling that should be reviewed\nrg -n \"\\burl\\.parse\\s*\\(|new URL\\s*\\(\" . \\\n  -g '!node_modules' -g '!dist' -g '!build'\n\n# Build + test using the available JavaScript toolchain for this repo\nnpm test || yarn test || pnpm test\n\n# If the project has a build step, run it too\nnpm run build || yarn build || pnpm build || true\n```",
+            "type": "Built-in",
+            "ordinal": 3,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:32.275000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:32.275000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 1883,
+            "id": "TA1883",
+            "title": "FedRAMP / Moderate Baseline",
+            "text": "*** SI-10: System And Information Integrity | Information Input Validation ***  \nThe information system checks the validity of [Assignment: organization-defined information inputs].",
+            "type": "Built-in",
+            "ordinal": 11,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-15T17:49:09.984000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T15:08:08.177000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 2786,
+            "id": "TA2786",
+            "title": "FedRAMP / High Baseline",
+            "text": "*** SI-10: System And Information Integrity | Information Input Validation ***  \nThe information system checks the validity of [Assignment: organization-defined information inputs].",
+            "type": "Built-in",
+            "ordinal": 12,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-17T18:34:18.578000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T18:38:16.560000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 8521,
+            "id": "TA8521",
+            "title": "T1365 - SKILL.md - Python",
+            "text": "---\nname: mitigate-server-side-request-forgery\ndescription: Mitigate Server Side Request Forgery (SSRF) by validating/whitelisting outbound URLs and restricting access to internal services; Use when server code makes HTTP(S) requests influenced by user input\n---\n\n# Mitigate Server Side Request Forgery\n\n## What This Skill Does\nPrevents Server Side Request Forgery (SSRF) by hardening any server-side HTTP client that uses user-influenced URLs, hosts, or ports. It introduces strict allowlists, URL scheme restrictions, IP/DNS checks, and response sanitization so attackers cannot pivot to internal services, metadata endpoints, or arbitrary hosts, and cannot exfiltrate sensitive internal data via upstream responses.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Server code builds an outbound URL directly from request input (query/body/header/path/argv) | Replace with a validated URL flow: parse via `URL`, apply protocol restriction, enforce hostname/port allowlist, and centralize checks in a helper (e.g., `validateAndResolveUrl` / `robustFetch`) |\n| Code lets users specify full URLs for \u201cproxy\u201d, \u201cwebhook tester\u201d, \u201cURL preview\u201d, or \u201cfetch arbitrary URL\u201d features | Replace free-form URL usage with: strict domain/host allowlist, HTTP(S)-only enforcement, DNS/IP validation rejecting private/loopback/link-local ranges, and generic error messages |\n| Application exposes internal services (metrics, status, metadata, admin APIs) by taking a URL from users | Refactor to an operation-based API (fixed map of operations \u2192 fixed URLs) where user input only affects whitelisted query/path parameters, never host/protocol/port |\n| Upstream HTTP responses (from internal or third-party services) are forwarded directly to the client (headers + body) | Insert a sanitization layer: cap response size, restrict content types, whitelist JSON fields, remove or rewrite sensitive headers, and avoid echoing raw errors |\n| Outbound client already uses: strict host allowlist, HTTP(S)-only, blocked private IP ranges, and response filtering | No action needed; keep configuration in a central request layer and ensure new callers reuse it |\n\n## Boundaries\n\n### Can Do\n- Detect and refactor obvious SSRF sinks where URLs/hosts/ports are built from user input (HTTP APIs, CLI args, config values).\n- Introduce centralized outbound request helpers that enforce allowlists, protocol restrictions, and DNS/IP validation before any HTTP(S) call.\n- Add response-sanitization layers that limit what upstream data and headers are exposed to callers.\n\n### Cannot Do\n- Automatically derive a correct allowlist of safe destinations; a human must decide which hosts/domains/IP ranges are business-necessary.\n- Guarantee protection against every environment-specific edge case (e.g., unusual internal IP ranges, custom DNS, non-HTTP protocols) without additional human review.\n- Retrofit protections into third-party binaries, external services, or infrastructure components that are not part of the visible codebase.\n\n## Gotchas\n- Assuming validation on the initial URL is enough: skipping checks after redirects lets attackers bounce through an allowed host to a blocked internal IP or protocol.\n- Relying only on hostname checks: DNS rebinding or internal DNS can map allowed hostnames to private or loopback IPs; always validate the resolved IPs and block private/link-local/loopback ranges unless explicitly whitelisted.\n- Exposing raw upstream errors and headers: even with outbound restrictions, leaking stack traces, server versions, or internal IPs in error messages or headers provides valuable information for attackers.\n\n## Quick Verification\n```bash\n# 1) Basic SSRF rejection: internal metadata / localhost / private ranges\nnode app_fix_original_code.js \"http://169.254.169.254/latest/meta-data/\" || true\nnode app_fix_original_code.js \"http://127.0.0.1:80/\" || true\nnode app_fix_original_code.js \"http://192.168.0.10/\" || true\n\n# 2) Scheme restriction check\nnode app_fix_original_code.js \"file:///etc/passwd\" || true\n\n# 3) Allowed external host still works (per ALLOWED_DESTINATIONS)\nnode app_fix_original_code.js \"https://example.com\"\n\n# 4) HTTP API tests (requires app running on PORT, default 3000)\n# Allowed external fetch should succeed\ncurl -s -X POST http://localhost:3000/fetch \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"url\":\"https://example.com\"}'\n\n# SSRF-style payloads should be blocked with generic errors / 4xx/403\ncurl -i -X POST http://localhost:3000/fetch \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"url\":\"http://169.254.169.254/latest/meta-data/\"}'\n\ncurl -i -X GET http://localhost:3000/internal-metadata\n```",
+            "type": "Built-in",
+            "ordinal": 83,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-05-21T11:39:52.699000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-05-21T11:39:52.699000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9529,
+            "id": "TA9529",
+            "title": "T1365 - SKILL.md - Node.js",
+            "text": "---\nname: mitigate-server-side-request-forgery\ndescription: Use when Node.js code sends outbound requests from user-influenced URLs, hosts, or ports and must enforce SSRF-safe destination, redirect, and response validation.\n---\n\n# Mitigate Server Side Request Forgery\n\n## What This Skill Does\nThis skill fixes SSRF in Node.js by routing user-influenced outbound requests through one shared validation layer that parses and normalizes URLs, allows only exact protocols/hostnames/ports, resolves DNS and checks resolved IPs against an allowlist, blocks private or local addresses, prevents redirect bypass, and validates response type and size before use.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Code calls `http.get`, `https.get`, `http.request`, `https.request`, `fetch`, `axios`, or `got` with a user-influenced URL or host | Apply a shared SSRF guard that validates protocol, hostname, port, resolved IP, and response constraints before connecting |\n| Code uses generic URL fetching for internal services such as Redis, Memcached, Elasticsearch, or databases | Replace generic user-driven URLs with authenticated service-specific clients and block internal service ports in generic fetch logic |\n| Code allows redirects or uses a client that follows redirects automatically | Disable redirects or re-validate every redirect target with the same SSRF policy before following |\n| Code parses remote responses without checking type, size, or shape | Enforce content-type, response size, and schema validation before business logic uses the data |\n| Outbound request code already connects only to exact allowlisted destinations through a shared validator and verified IPs | No action needed |\n\n## Boundaries\n\n### Can Do\n- Add a shared SSRF validation function around Node.js outbound HTTP(S) calls\n- Restrict requests to exact allowlisted protocols, hostnames, ports, and resolved IPs\n- Disable redirects or force redirect targets through the same validation and add response validation limits\n\n### Cannot Do\n- Infer the correct production allowlist of external hosts, ports, or IPs without project-specific input\n- Guarantee safety for non-HTTP protocols or third-party SDKs that hide network behavior unless their request path is identified and wrapped\n- Prevent network paths opened outside the application, such as proxy misconfiguration, cloud metadata exposure, or firewall gaps\n\n## Gotchas\n- Hostname-only checks: wrong because DNS can resolve an approved hostname to an unapproved or local IP unless resolved addresses are verified before connect\n- Validating the original URL but connecting with the original hostname: wrong because redirects, rebinding, or late resolution can bypass policy unless the request connects to the verified IP\n- Relying on blacklist regexes like `127.0.0.1` or `localhost`: wrong because encoded hosts, IPv6, alternate ports, and internal DNS names bypass substring filters\n\n## Quick Verification\n```bash\n# Confirm a shared SSRF guard or policy exists\nrg -n \"validateOutboundUrl|enforceSsrfProtection|parseAndNormalizeUrl|resolveHostname|areResolvedIpsAllowed|allowedHostnames|allowedIPv4|allowedIPv6\" .\n\n# Find likely unguarded dangerous outbound request APIs\nrg -n \"(http|https)\\.(get|request)\\s*\\(|\\bfetch\\s*\\(|axios\\.(get|post|request)\\s*\\(|got\\s*\\(\" . \\\n  -g '!node_modules' -g '!dist' -g '!build'\n\n# Build + test with the Node.js toolchain across common project shapes\nnpm test && npm run build --if-present\n```",
+            "type": "Built-in",
+            "ordinal": 444,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:42.874000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:42.874000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9583,
+            "id": "TA9583",
+            "title": "T1365 - SKILL.md - C#",
+            "text": "---\nname: mitigate-server-side-request-forgery\ndescription: Use when C# code makes outbound requests or connects to internal services from user-influenced input and needs SSRF protections with URL parsing, scheme restrictions, exact IP:port allowlists, redirect blocking, and response validation.\n---\n# Mitigate Server Side Request Forgery\n\n## What This Skill Does\nThis skill fixes SSRF in C# code that lets attackers influence outbound requests, internal service connections, or returned response data. It does this by centralizing outbound URL validation with `Uri` parsing, allowing only approved schemes, resolving the hostname and enforcing an exact `IP:port` allowlist, disabling automatic redirects, validating downstream response shape before returning data, and failing closed when internal services are configured without authentication.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| User input, config, or request data is passed to `HttpClient.GetStringAsync`, `GetAsync`, `SendAsync`, or similar | Apply a centralized guard that parses with `Uri`, allows only approved schemes, resolves DNS, and checks the final `IP:port` against an exact allowlist before sending |\n| Code uses raw string checks like `StartsWith(\"http\")`, regex filtering, or substring host validation | Replace with `Uri.TryCreate(...)` and read scheme, host, port, and userinfo only from the parsed `Uri` |\n| `HttpClient` is created with default redirect behavior | Replace with a client built from `SocketsHttpHandler` with `AllowAutoRedirect = false` and `UseCookies = false` |\n| Code returns raw downstream response bodies to callers | Add response validation with `System.Text.Json` or a typed model and expose only validated fields |\n| Internal Redis, Memcached, Elasticsearch, MongoDB, or similar service connections already require credentials and startup validation | No action needed |\n\n## Boundaries\n\n### Can Do\n- Add a reusable outbound request guard for absolute HTTP/HTTPS URLs\n- Enforce exact allowlisted resolved `IP:port` destinations and block unapproved schemes\n- Add response-shape validation and fail-closed checks for internal service authentication\n\n### Cannot Do\n- Prove that the chosen allowlist itself is correct for the business\n- Prevent SSRF caused by infrastructure-level proxies, DNS manipulation, or network policy gaps outside the application\n- Safely replace every outbound integration automatically when destination rules are unknown or scattered\n\n## Gotchas\n- Comparing the raw host string to an allowlist: this is wrong because DNS rebinding, alternate encodings, or host aliases can bypass string-based checks; compare resolved `IPAddress` and port instead\n- Allowing redirects after validating the first URL: this is wrong because an approved URL can redirect to an internal or unapproved target; disable `AllowAutoRedirect`\n- Checking `url.StartsWith(\"http\")` or manually normalizing URLs: this is wrong because parser inconsistencies and unexpected schemes can slip through; use `Uri.TryCreate` and inspect the parsed `Uri`\n\n## Quick Verification\n```bash\n# Confirm a centralized SSRF guard or exact destination allowlist exists\nrg -n --glob '*.cs' 'Uri\\.TryCreate|Dns\\.GetHostAddressesAsync|AllowAutoRedirect\\s*=\\s*false|AllowedSchemes|AllowedEndpoints|ValidateAsync\\(' .\n\n# Find unguarded dangerous outbound request calls that may bypass the fix\nrg -n --glob '*.cs' 'HttpClient\\.(GetStringAsync|GetAsync|PostAsync|PutAsync|SendAsync)\\s*\\((?!\\s*uri\\b)(?!\\s*validatedUri\\b)|new\\s+HttpRequestMessage\\s*\\(|Dns\\.GetHostAddressesAsync\\s*\\(' .\n\n# Build and run tests across common C# project layouts\ndotnet build\ndotnet test\n```",
+            "type": "Built-in",
+            "ordinal": 505,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:44.928000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:44.928000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9680,
+            "id": "TA9680",
+            "title": "T1365 - SKILL.md - Java",
+            "text": "---\nname: mitigate-server-side-request-forgery\ndescription: Use when Java code makes outbound requests from user-controlled URLs, hosts, or ports and needs SSRF protection through strict URL validation, allowlists, DNS resolution checks, and response validation.\n---\n\n# Mitigate Server Side Request Forgery\n\n## What This Skill Does\nThis skill mitigates SSRF in Java by replacing direct requests to user-controlled destinations with a validated outbound request flow. It enforces strict URL parsing, allows only required schemes, normalizes and allowlists hosts and ports, resolves and checks every IP address for the hostname, rejects unsafe URL forms such as userinfo and fragments, disables unsafe redirect behavior, and validates the response before the application uses it.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| User input flows into `URI.create(...).toURL().openStream()`, `new URL(...).openStream()`, `HttpClient`, `HttpURLConnection`, or similar outbound request code | Apply a validation wrapper that parses the URL, allowlists scheme/host/port, resolves all IPs, and only then builds the request |\n| Code accepts arbitrary destination URLs or hosts from request parameters, CLI args, message payloads, or config influenced by users | Replace free-form destinations with exact allowlists for normalized hosts, resolved IPs, and ports |\n| Code uses `http`/`https` but does not reject `file`, `ftp`, `gopher`, `jar`, `data`, `mailto`, or opaque URIs | Add strict scheme and URI component validation before any network call |\n| Code fetches remote content and immediately returns or parses it | Add response validation for expected status, content type, maximum size, and body structure |\n| Destination is already fixed in application-controlled configuration and not derived from user input, with strict validation already present | No action needed |\n\n## Boundaries\n\n### Can Do\n- Add a central Java validator for URL parsing, normalization, scheme checks, host allowlists, port allowlists, and DNS resolution checks\n- Refactor dangerous outbound request code to use validated `URI`, `HttpRequest`, or equivalent safe wrappers\n- Add response validation and safer client settings such as no redirects and explicit timeouts\n\n### Cannot Do\n- Guarantee safety if the approved host, IP, or port allowlists are wrong or incomplete\n- Prevent SSRF in code paths that bypass the validator or use hidden outbound libraries not updated by the fix\n- Eliminate network-layer risk by itself when the system design intentionally allows broad outbound access\n\n## Gotchas\n- Checking only the hostname string: this is wrong because DNS rebinding and multi-address resolution can still send traffic to unapproved IPs\n- Blocking bad schemes with substring checks: this is wrong because manual string filtering misses opaque URIs, mixed case, encoding tricks, and parser edge cases\n- Validating the first URL but following redirects automatically: this is wrong because a redirect can move the request to an unapproved destination after initial validation\n\n## Quick Verification\n```bash\n# Confirm a central SSRF guard or validator exists\nrg -n 'class\\s+(SsrfProtectionService|OutboundTargetValidator|StrictUrlValidator|SafeUrlParser|ResponseValidator)\\b|validateOutboundTarget\\(|validateJsonResponse\\(|InetAddress\\.getAllByName\\(' .\n\n# Find likely UNGUARDED dangerous outbound request APIs\nrg -n '\\.openStream\\(\\)|URI\\.create\\([^)]*\\)\\.toURL\\(\\)|new\\s+URL\\([^)]*\\)\\.openStream\\(\\)|HttpURLConnection|openConnection\\(\\)|HttpClient\\.newHttpClient\\(\\)|HttpRequest\\.newBuilder\\(\\)' .\n\n# Build and test with the detected Java toolchain\nif [ -f pom.xml ]; then mvn test; elif [ -f build.gradle ] || [ -f build.gradle.kts ]; then ./gradlew test; else find src -name \"*.java\" -print0 | xargs -0 javac; fi\n```",
+            "type": "Built-in",
+            "ordinal": 617,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:48.836000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:48.836000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9725,
+            "id": "TA9725",
+            "title": "T1365 - SKILL.md - TypeScript",
+            "text": "---\nname: mitigate-server-side-request-forgery\ndescription: Use when TypeScript code makes outbound HTTP or internal service requests from untrusted input and must prevent SSRF with exact IP:port allowlists, redirect checks, and response validation.\n---\n\n# Mitigate Server Side Request Forgery\n\n## What This Skill Does\nThis skill reduces SSRF risk in TypeScript by replacing outbound requests that use attacker-controlled URLs, hosts, or connection strings with strict URL parsing, scheme checks, exact approved IP-and-port matching, redirect rejection or re-validation, response body validation, and authentication checks for internal service URLs. Apply it when untrusted input can influence `http`, `https`, `fetch`, or internal service connections.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Untrusted input is passed to `http.get`, `https.get`, `http.request`, `https.request`, or `fetch` | Parse with `URL`, allow only required schemes, require IP literals when policy requires them, normalize ports, and allow only exact approved IP-and-port pairs |\n| Code follows redirects automatically or accepts 3xx targets without checks | Disable redirects or re-validate each redirect target with the same allowlist rules |\n| Response data from an outbound request is returned or trusted directly | Parse and validate the decoded response body against the exact expected schema, type, and size limits |\n| Internal service URLs for Redis, MongoDB, Elasticsearch, Memcached-compatible HTTP APIs, or similar are built from input | Reject untrusted destination construction and require authentication material in the parsed connection string |\n| Code already parses URLs, enforces exact destination allowlists, blocks unsafe redirects, and validates responses | No action needed |\n\n## Boundaries\n\n### Can Do\n- Refactor TypeScript outbound request code to use `URL` parsing and exact destination checks\n- Add guards around `http`, `https`, and common `fetch` usage before requests are sent\n- Add response format validation and simple connection-string authentication checks\n\n### Cannot Do\n- Infer a safe allowlist of IPs and ports without application-specific requirements\n- Guarantee safety if other code paths still make raw outbound requests outside the guarded helper\n- Secure external infrastructure, DNS, firewall rules, or third-party services beyond the application code\n\n## Gotchas\n- Checking `startsWith('https://')` or `includes('localhost')`: this is not real URL validation and is easy to bypass with alternate hosts, encodings, or ports\n- Allowlisting hostnames instead of exact IP literals when the policy requires IPs: DNS can change and may route to internal or unintended targets\n- Validating raw response text with regex alone: malformed or oversized data can still slip through unless you parse decoded content and check structure after parsing\n\n## Quick Verification\n```bash\n# Confirm SSRF guard logic exists\nrg -n \"new URL\\(|net\\.isIP\\(|normalizePort\\(|ALLOWED_TARGETS|Redirects are not allowed|Unexpected response format|username|password\" .\n\n# Find unguarded dangerous outbound HTTP calls\nrg -n \"(http|https)\\.(get|request)\\(|fetch\\(\" . \\\n  -g '!node_modules' -g '!dist' -g '!build'\n\n# Find internal service URLs that may bypass authentication checks\nrg -n \"(redis|mongodb|memcached|elasticsearch)://|new URL\\(\" . \\\n  -g '!node_modules' -g '!dist' -g '!build'\n\n# Type-check / build\nnpx tsc --noEmit\n\n# Run tests if present\nnpm test\n```",
+            "type": "Built-in",
+            "ordinal": 665,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:50.569000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:50.569000-04:00",
+            "active": true
+          }
+        ]
+      }
+    }
+  ]
+}

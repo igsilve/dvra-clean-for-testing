@@ -1,0 +1,12 @@
+{
+  "cm_id": "T2258",
+  "category": "IN",
+  "library_sourced": false,
+  "content_fields": {
+    "title": "Minimize host OS attack surface",
+    "url": "https://staging.qa.sdelements.com/bunits/copilot-test/app/dvra-clean-for-testing/tasks/phase/deployment/4552-T2258/",
+    "priority": 7,
+    "output_path": "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T2258-minimize-host-os-attack-surface/SKILL.md"
+  },
+  "output_path": "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T2258-minimize-host-os-attack-surface/SKILL.md"
+}

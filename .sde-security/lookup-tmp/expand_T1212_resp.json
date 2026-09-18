@@ -1,0 +1,108 @@
+{
+  "composite_response": [
+    {
+      "reference_id": "T1212",
+      "http_status_code": 200,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "results": [
+          {
+            "db_id": 948,
+            "id": "TA948",
+            "title": "More in-depth controls",
+            "text": "The `--cgroup-parent` option allows you to set the default _cgroup parent_ to use for all the containers. If there is no specific use case, this setting should be left at its default.",
+            "type": "Built-in",
+            "ordinal": 0,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2018-07-18T12:24:54.332000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2018-12-31T18:47:16.735000-05:00",
+            "active": true
+          },
+          {
+            "db_id": 1676,
+            "id": "TA1676",
+            "title": "FedRAMP / Moderate Baseline",
+            "text": "*** SC-6: System And Communications Protection | Resource Availability ***  \nThe information system protects the availability of resources by allocating [Assignment: organization-defined resources] by [Selection (one or more); priority; quota; [Assignment: organization-defined security safeguards]].",
+            "type": "Built-in",
+            "ordinal": 11,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-15T17:48:59.508000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T15:08:04.049000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 2623,
+            "id": "TA2623",
+            "title": "FedRAMP / High Baseline",
+            "text": "*** SC-6: System And Communications Protection | Resource Availability ***  \nThe information system protects the availability of resources by allocating [Assignment: organization-defined resources] by [Selection (one or more); priority; quota; [Assignment: organization-defined security safeguards]].",
+            "type": "Built-in",
+            "ordinal": 12,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-17T18:34:06.827000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T18:38:12.945000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 8440,
+            "id": "TA8440",
+            "title": "T1212 - SKILL.md - Docker",
+            "text": "---\nname: confirm-cgroup-usage-docker\ndescription: Use when Docker or Compose configuration must verify each container runs under an exact expected cgroup and fail closed on missing or unverifiable runtime metadata.\n---\n\n# Confirm cgroup usage (Docker)\n\n## What This Skill Does\nThis skill fixes cases where Docker containers are allowed to run without confirming they are assigned to the required cgroup. It adds explicit cgroup configuration, stores expected cgroup identities in configuration, and verifies runtime metadata against exact expected values or an allowed set. The check must fail closed if inspection fails, returns malformed data, or does not provide a cgroup value.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Docker Compose services have no explicit `cgroup_parent` | Add an exact `cgroup_parent` value per service and store the expected value in configuration |\n| Code or scripts only check that a container is running, not which cgroup it uses | Add a runtime inspection step that compares the actual cgroup to an exact expected value or allowed set |\n| Runtime inspection uses loose string matching such as \"contains\" or non-empty checks | Replace with exact equality or membership checks against configured values |\n| Runtime metadata is missing, malformed, or inspection fails | Return fail for that container and stop treating it as compliant |\n| Containers already define exact cgroup values and verification is deterministic | No action needed |\n\n## Boundaries\n\n### Can Do\n- Add explicit `cgroup_parent` settings to Docker Compose services\n- Introduce exact expected cgroup values through configuration\n- Add or update verification logic to fail closed on missing or invalid cgroup data\n\n### Cannot Do\n- Guarantee the host runtime, orchestrator, or kernel will honor unsupported cgroup settings\n- Infer the correct expected cgroup value without project-specific requirements\n- Replace broader container isolation controls beyond confirming cgroup assignment\n\n## Gotchas\n- Using loose checks like \"value exists\" or substring matching: this can pass the wrong cgroup and makes verification non-deterministic\n- Treating inspection errors as warnings: this is wrong because the countermeasure requires fail-closed behavior\n- Setting `cgroup_parent` but never verifying it at runtime: configuration alone does not confirm the container actually runs under that cgroup\n\n## Quick Verification\n```bash\n# Start the Compose stack\ndocker compose up -d\n\n# Inspect cgroup parent values for containers in the project\ndocker ps --format '{{.Names}}' | while read c; do\n  echo \"== $c ==\"\n  docker inspect --format '{{.Name}} {{.HostConfig.CgroupParent}}' \"$c\"\ndone\n\n# Verify one expected match directly\ndocker inspect --format '{{.HostConfig.CgroupParent}}' <container-name>\n\n# Negative test: a missing, empty, or unexpected value must be treated as fail\ndocker inspect --format '{{.HostConfig.CgroupParent}}' <container-name> | grep -Fx 'app.slice'\n```",
+            "type": "Built-in",
+            "ordinal": 266,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-05-21T11:39:47.637000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:36.771000-04:00",
+            "active": true
+          }
+        ]
+      }
+    }
+  ]
+}

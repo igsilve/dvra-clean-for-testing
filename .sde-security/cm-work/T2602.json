@@ -1,0 +1,12 @@
+{
+  "cm_id": "T2602",
+  "category": "CF",
+  "library_sourced": false,
+  "content_fields": {
+    "title": "Log typical database and server activities and related metadata",
+    "url": "https://staging.qa.sdelements.com/bunits/copilot-test/app/dvra-clean-for-testing/tasks/phase/development/4552-T2602/",
+    "priority": 8,
+    "output_path": "/Users/isilveira/dvra-clean-for-testing/skills/data-security/T2602-log-typical-database-and-server-activiti/SKILL.md"
+  },
+  "output_path": "/Users/isilveira/dvra-clean-for-testing/skills/data-security/T2602-log-typical-database-and-server-activiti/SKILL.md"
+}

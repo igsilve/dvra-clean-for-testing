@@ -1,0 +1,406 @@
+{
+  "all_or_none": false,
+  "strict_ref_checking": false,
+  "composite_request": [
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/4552/tasks/4552-T226/notes/",
+      "reference_id": "T226",
+      "body": {
+        "text": "[AI-Noted] Organizational/process requirement: Verify that authorization is centralized. Not applicable for code fixes."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/4552/tasks/4552-T318/notes/",
+      "reference_id": "T318",
+      "body": {
+        "text": "[AI-Noted] Organizational/process requirement: Verify security of cross origin resource sharing (CORS). Not applicable for code fixes."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/4552/tasks/4552-T89/notes/",
+      "reference_id": "T89",
+      "body": {
+        "text": "[AI-Noted] Organizational/process requirement: Test that site is not vulnerable to XSS. Not applicable for code fixes."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/4552/tasks/4552-T7415/notes/",
+      "reference_id": "T7415",
+      "body": {
+        "text": "[AI-Noted] Organizational/process requirement: Verify that dangerous functionality and risky third-party components are isolated via sandboxing or encapsulation. Not applicable for code fixes."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/4552/tasks/4552-T2608/notes/",
+      "reference_id": "T2608",
+      "body": {
+        "text": "[AI-Noted] Organizational/process requirement: Verify that the connection string is protected against connection string parameter pollution. Not applicable for code fixes."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/4552/tasks/4552-T1173/notes/",
+      "reference_id": "T1173",
+      "body": {
+        "text": "[AI-Noted] Organizational/process requirement: Verify that daemon configuration files are secured (Docker). Not applicable for code fixes."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/4552/tasks/4552-T85/notes/",
+      "reference_id": "T85",
+      "body": {
+        "text": "[AI-Noted] Organizational/process requirement: Test server-side enforcement of authorization. Not applicable for code fixes."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/4552/tasks/4552-T2140/notes/",
+      "reference_id": "T2140",
+      "body": {
+        "text": "[AI-Noted] Organizational/process requirement: Test that APIs do not expose sensitive information. Not applicable for code fixes."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/4552/tasks/4552-T1363/notes/",
+      "reference_id": "T1363",
+      "body": {
+        "text": "[AI-Noted] Organizational/process requirement: Verify if message throttling is properly performed in Web APIs. Not applicable for code fixes."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/4552/tasks/4552-T2609/notes/",
+      "reference_id": "T2609",
+      "body": {
+        "text": "[AI-Noted] Organizational/process requirement: Verify that the result set size returned by queries are controlled. Not applicable for code fixes."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/4552/tasks/4552-T2110/notes/",
+      "reference_id": "T2110",
+      "body": {
+        "text": "[AI-Noted] Organizational/process requirement: Verify that signed image enforcement is enabled (Docker). Not applicable for code fixes."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/4552/tasks/4552-T2142/notes/",
+      "reference_id": "T2142",
+      "body": {
+        "text": "[AI-Noted] Organizational/process requirement: Verify that function level authorization is implemented in API. Not applicable for code fixes."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/4552/tasks/4552-T35/notes/",
+      "reference_id": "T35",
+      "body": {
+        "text": "[AI-Noted] Organizational/process requirement: Fine-tune HTTP server settings. Not applicable for code fixes."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/4552/tasks/4552-T305/notes/",
+      "reference_id": "T305",
+      "body": {
+        "text": "[AI-Noted] Organizational/process requirement: Verify that your application dynamically loads code only from secure locations. Not applicable for code fixes."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/4552/tasks/4552-T151/notes/",
+      "reference_id": "T151",
+      "body": {
+        "text": "[AI-Noted] Organizational/process requirement: Use cryptographically secure random numbers. Not applicable for code fixes."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/4552/tasks/4552-T156/notes/",
+      "reference_id": "T156",
+      "body": {
+        "text": "[AI-Noted] Organizational/process requirement: Validate certificate and its chain of trust properly. Not applicable for code fixes."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/4552/tasks/4552-T1197/notes/",
+      "reference_id": "T1197",
+      "body": {
+        "text": "[AI-Noted] Organizational/process requirement: Test if only needed ports are open on the containers (Docker). Not applicable for code fixes."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/4552/tasks/4552-T1159/notes/",
+      "reference_id": "T1159",
+      "body": {
+        "text": "[AI-Noted] Organizational/process requirement: Verify that TLS authentication is configured for the Docker daemon (Docker). Not applicable for code fixes."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/4552/tasks/4552-T1215/notes/",
+      "reference_id": "T1215",
+      "body": {
+        "text": "[AI-Noted] Organizational/process requirement: Verify that containers are restricted from acquiring additional privileges (Docker). Not applicable for code fixes."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/4552/tasks/4552-T1889/notes/",
+      "reference_id": "T1889",
+      "body": {
+        "text": "[AI-Noted] Organizational/process requirement: Secure the configuration of the authorization server. Not applicable for code fixes."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/4552/tasks/4552-T2116/notes/",
+      "reference_id": "T2116",
+      "body": {
+        "text": "[AI-Noted] Organizational/process requirement: Verify that image vulnerability scanning is enabled (Docker). Not applicable for code fixes."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/4552/tasks/4552-T106/notes/",
+      "reference_id": "T106",
+      "body": {
+        "text": "[AI-Noted] Organizational/process requirement: Test that site is not vulnerable to direct object access attacks. Not applicable for code fixes."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/4552/tasks/4552-T1205/notes/",
+      "reference_id": "T1205",
+      "body": {
+        "text": "[AI-Noted] Organizational/process requirement: Test if the container's root file system is mounted as read-only (Docker). Not applicable for code fixes."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/4552/tasks/4552-T1145/notes/",
+      "reference_id": "T1145",
+      "body": {
+        "text": "[AI-Noted] Organizational/process requirement: Verify if web page template is vulnerable to SSTI. Not applicable for code fixes."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/4552/tasks/4552-T1540/notes/",
+      "reference_id": "T1540",
+      "body": {
+        "text": "[AI-Noted] Organizational/process requirement: Verify that browser data is cleared upon user logout. Not applicable for code fixes."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/4552/tasks/4552-T323/notes/",
+      "reference_id": "T323",
+      "body": {
+        "text": "[AI-Noted] Organizational/process requirement: Test that default accounts are disabled or default passwords are changed. Not applicable for code fixes."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/4552/tasks/4552-T78/notes/",
+      "reference_id": "T78",
+      "body": {
+        "text": "[AI-Noted] Organizational/process requirement: Test strength of password reset mechanism. Not applicable for code fixes."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/4552/tasks/4552-T119/notes/",
+      "reference_id": "T119",
+      "body": {
+        "text": "[AI-Noted] Organizational/process requirement: Test for clickjacking. Not applicable for code fixes."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/4552/tasks/4552-T86/notes/",
+      "reference_id": "T86",
+      "body": {
+        "text": "[AI-Noted] Organizational/process requirement: Test session ID uniqueness and rotation after authentication. Not applicable for code fixes."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/4552/tasks/4552-T1213/notes/",
+      "reference_id": "T1213",
+      "body": {
+        "text": "[AI-Noted] Organizational/process requirement: Verify that cgroup usage is confirmed (Docker). Not applicable for code fixes."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/4552/tasks/4552-T350/notes/",
+      "reference_id": "T350",
+      "body": {
+        "text": "[AI-Noted] Organizational/process requirement: Verify that audit information is sufficiently protected. Not applicable for code fixes."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/4552/tasks/4552-T2357/notes/",
+      "reference_id": "T2357",
+      "body": {
+        "text": "[AI-Noted] Organizational/process requirement: Verify that software is configured to have secure settings by default. Not applicable for code fixes."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/4552/tasks/4552-T1209/notes/",
+      "reference_id": "T1209",
+      "body": {
+        "text": "[AI-Noted] Organizational/process requirement: Verify that mount propagation mode is not set to 'shared' (Docker). Not applicable for code fixes."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/4552/tasks/4552-T96/notes/",
+      "reference_id": "T96",
+      "body": {
+        "text": "[AI-Noted] Organizational/process requirement: Test if your site is vulnerable to CSRF. Not applicable for code fixes."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/4552/tasks/4552-T536/notes/",
+      "reference_id": "T536",
+      "body": {
+        "text": "[AI-Noted] Organizational/process requirement: Restrict the size of incoming messages in services. Not applicable for code fixes."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/4552/tasks/4552-T1203/notes/",
+      "reference_id": "T1203",
+      "body": {
+        "text": "[AI-Noted] Organizational/process requirement: Test if container CPU priority is appropriately set (Docker). Not applicable for code fixes."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/4552/tasks/4552-T2106/notes/",
+      "reference_id": "T2106",
+      "body": {
+        "text": "[AI-Noted] Organizational/process requirement: Verify that the use of client certificate bundles for unprivileged users is enforced (Docker). Not applicable for code fixes."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/4552/tasks/4552-T1468/notes/",
+      "reference_id": "T1468",
+      "body": {
+        "text": "[AI-Noted] Organizational/process requirement: Encrypt sensitive data at rest in the browser. Not applicable for code fixes."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/4552/tasks/4552-T101/notes/",
+      "reference_id": "T101",
+      "body": {
+        "text": "[AI-Noted] Organizational/process requirement: Test that application is not vulnerable to SQL injection. Not applicable for code fixes."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/4552/tasks/4552-T296/notes/",
+      "reference_id": "T296",
+      "body": {
+        "text": "[AI-Noted] Organizational/process requirement: Test that unencrypted confidential data is not stored without access control mechanisms. Not applicable for code fixes."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/4552/tasks/4552-T1917/notes/",
+      "reference_id": "T1917",
+      "body": {
+        "text": "[AI-Noted] Organizational/process requirement: Perform container security assessment. Not applicable for code fixes."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/4552/tasks/4552-T2611/notes/",
+      "reference_id": "T2611",
+      "body": {
+        "text": "[AI-Noted] Organizational/process requirement: Verify that typical database and server activities, along with related metadata, are logged. Not applicable for code fixes."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/4552/tasks/4552-T128/notes/",
+      "reference_id": "T128",
+      "body": {
+        "text": "[AI-Noted] Organizational/process requirement: Test for access control bypass through user-controlled keys. Not applicable for code fixes."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/4552/tasks/4552-T20/notes/",
+      "reference_id": "T20",
+      "body": {
+        "text": "[AI-Noted] Organizational/process requirement: Generate unique session IDs and reset old IDs after authentication. Not applicable for code fixes."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/4552/tasks/4552-T1362/notes/",
+      "reference_id": "T1362",
+      "body": {
+        "text": "[AI-Noted] Organizational/process requirement: Perform message throttling in Web APIs. Not applicable for code fixes."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/4552/tasks/4552-T7414/notes/",
+      "reference_id": "T7414",
+      "body": {
+        "text": "[AI-Noted] Organizational/process requirement: Verify that content intended as text is rendered safely without XSS injection risk. Not applicable for code fixes."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/4552/tasks/4552-T241/notes/",
+      "reference_id": "T241",
+      "body": {
+        "text": "[AI-Noted] Organizational/process requirement: Verify that third party libraries use secure settings and the latest patches. Not applicable for code fixes."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/4552/tasks/4552-T98/notes/",
+      "reference_id": "T98",
+      "body": {
+        "text": "[AI-Noted] Organizational/process requirement: Test for input validation on a server. Not applicable for code fixes."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/4552/tasks/4552-T589/notes/",
+      "reference_id": "T589",
+      "body": {
+        "text": "[AI-Noted] Organizational/process requirement: Verify that all the components are authenticated explicitly. Not applicable for code fixes."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/4552/tasks/4552-T2607/notes/",
+      "reference_id": "T2607",
+      "body": {
+        "text": "[AI-Noted] Organizational/process requirement: Verify query-level access control is implemented. Not applicable for code fixes."
+      }
+    }
+  ]
+}

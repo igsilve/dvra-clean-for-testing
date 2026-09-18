@@ -16,7 +16,7 @@ class OrderStatusResponse(BaseModel):
     order_id: int
 
 
-@router.get("/orders/status/{order_id}", response_model=OrderStatusResponse)
+@router.post("/orders/status/{order_id}", response_model=OrderStatusResponse)
 def get_order_status(
     order_id: int,
     current_user: Annotated[User, Depends(get_current_user)],
@@ -33,12 +33,14 @@ def get_order_status(
     delivery_data = fetch_order_status_from_delivery_service(order_id)
     status_value = delivery_data["status"]
 
-    raw_sql = f"""
-        UPDATE orders 
-        SET status = '{status_value}'
-        WHERE id = {order_id}
-    """
-    db.execute(text(raw_sql))
+    raw_sql = text(
+        """
+        UPDATE orders
+        SET status = :status_value
+        WHERE id = :order_id
+        """
+    )
+    db.execute(raw_sql, {"status_value": status_value, "order_id": order_id})
     db.commit()
 
     return OrderStatusResponse(

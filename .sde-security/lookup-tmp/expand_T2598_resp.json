@@ -1,0 +1,154 @@
+{
+  "composite_response": [
+    {
+      "reference_id": "T2598",
+      "http_status_code": 200,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "results": [
+          {
+            "db_id": 9474,
+            "id": "TA9474",
+            "title": "T2598 - SKILL.md - JavaScript",
+            "text": "---\nname: implement-query-level-access-control\ndescription: Use when JavaScript code executes database queries or stored procedures without checking the current subject, action, and exact resource against an explicit allow policy.\n---\n\n# Implement query-level access control\n\n## What This Skill Does\nThis skill adds query-level authorization to JavaScript database code so every database operation checks who is acting, what action is requested, and which exact table, column, procedure, or sensitive record is being targeted before the query runs. It replaces implicit trust in caller-provided roles or authenticated state with explicit subject normalization, exact resource allowlists, per-action permission checks, and fail-closed denial for unknown or unlisted access.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Database code calls `prepare()`, `query()`, `execute()`, `run()`, `all()`, or `get()` without an authorization check tied to subject + action + resource | Apply this fix |\n| Code trusts `req.query.role`, `req.body.role`, CLI input, or other caller-controlled identity data to decide database access | Replace with normalized subject lookup from a fixed authorization map |\n| Code builds dynamic column lists, table names, or stored procedure targets | Gate the exact target with the same authorization function before query construction |\n| Code uses broad access rules such as authenticated-only access or role checks with no resource/action granularity | Replace with explicit per-action, per-resource allow rules |\n| Code already checks normalized subject, exact action, and canonical resource before every database operation | No action needed |\n\n## Boundaries\n\n### Can Do\n- Add centralized authorization helpers such as `normalizeSubjectId`, `getAuthorizedSubject`, `permissionKey`, and `authorizeOrThrow`\n- Enforce separate `read`, `update`, `delete`, `write`, and `execute` permissions on exact tables, columns, and procedure names\n- Convert caller-controlled role checks into explicit allowlists that fail closed for unknown subjects, actions, and resources\n\n### Cannot Do\n- Infer the correct business authorization model if the application has no defined subject-to-resource policy\n- Guarantee row-level security for every query unless the target record or predicate is explicitly modeled in the authorization check\n- Replace database parameterization or fix SQL injection; this skill is about authorization, not query sanitization\n\n## Gotchas\n- Trusting request-provided roles or subject IDs: this is wrong because callers can forge them unless the code resolves a normalized subject from a trusted source\n- Checking only the action and not the exact resource: this is wrong because `read` on one column or table does not imply `read` on sensitive columns like `salary` or `ssn`\n- Filtering returned columns after running a broad query: this is wrong because the unauthorized database access already happened before the application trimmed the response\n\n## Quick Verification\n```bash\n# Confirm a central authorization guard exists\nrg -n \"authorizeOrThrow|isAuthorized|getAuthorizedSubject|permissionKey|normalizeSubjectId\" .\n\n# Find likely unguarded JavaScript database calls that may bypass the fix\nrg -n \"(\\.prepare\\(|\\.query\\(|\\.execute\\(|\\.run\\(|\\.all\\(|\\.get\\(|CALL\\s+[A-Za-z_][A-Za-z0-9_]*)\" . \\\n  -g '!node_modules' -g '!dist' -g '!build'\n\n# Build + test using the JavaScript project's available toolchain\nnpm test\nnpm run build\n```",
+            "type": "Built-in",
+            "ordinal": 383,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:40.764000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:40.764000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9511,
+            "id": "TA9511",
+            "title": "T2598 - SKILL.md - Python",
+            "text": "---\nname: implement-query-level-access-control\ndescription: Use when Python code executes database queries without enforcing object-level authorization for tables, rows, columns, or procedures before execution.\n---\n# Implement query-level access control\n\n## What This Skill Does\nThis skill fixes missing object-level database authorization in Python code by adding a single authorization path for database access, enforcing deny-by-default, and checking the principal, operation, and target resource before SQL runs. Use it when code calls database query APIs directly and relies only on broad roles, shared connections, or caller-provided SQL without table, column, row-scope, or procedure checks.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Python code calls `cursor.execute(...)`, `executemany(...)`, or similar DB APIs without checking principal/resource/operation first | Add a central guard such as `require_query_permission(...)` and route execution through a wrapper like `run_query(...)` |\n| Code uses `sqlite3` and every role gets the same connection or broad access | Keep the connection library if needed, but enforce query-level checks in application code before every query |\n| A query reads or writes sensitive tables, columns, row scopes, or procedure names dynamically | Validate the target object explicitly and build the allowed table/column/procedure list from policy, not from user input |\n| Principal, resource, or operation is unknown or not mapped in policy | Deny by default and raise a permission error before executing SQL |\n| Code already checks table, operation, columns, and row scope through a central wrapper | No action needed |\n\n## Boundaries\n\n### Can Do\n- Add a central authorization wrapper for Python database execution paths\n- Enforce deny-by-default for unmapped principal-resource-operation requests\n- Restrict table, column, row-scope, and procedure access using explicit policy checks\n\n### Cannot Do\n- Infer the correct business authorization policy without project-specific rules\n- Prevent access from database clients that bypass the application entirely\n- Replace parameterized SQL protections; this is authorization, not SQL injection mitigation\n\n## Gotchas\n- Checking only the role once at request entry: this is wrong because later query paths can still access unauthorized tables or columns\n- Building `SELECT` columns from user input: this is wrong because dynamic column lists must come only from an approved policy\n- Guarding reads but not updates/deletes/procedure calls: this is wrong because write and execute paths need the same resource-level checks\n\n## Quick Verification\n```bash\n# Confirm a central authorization guard/wrapper exists\nrg -n \"def (require_query_permission|is_query_allowed|run_query|require_column_permissions|require_row_scope_permission)\\b\" .\n\n# Find unguarded dangerous Python DB API calls that may bypass the wrapper\nrg -n \"(cursor\\.execute|cursor\\.executemany|cursor\\.executescript|connection\\.execute|connection\\.executemany|connection\\.executescript)\\s*\\(\" .\n\n# Build check for Python files across app/library/CLI/service layouts\npython -m py_compile $(rg --files -g '*.py')\n\n# Run project tests if present\npython -m pytest -q\n```",
+            "type": "Built-in",
+            "ordinal": 425,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:42.163000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:42.163000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9540,
+            "id": "TA9540",
+            "title": "T2598 - SKILL.md - Node.js",
+            "text": "---\nname: implement-query-level-access-control\ndescription: Use when Node.js code builds or executes database queries from caller-selected roles tables columns actions or row scopes without explicit authorization checks.\n---\n\n# Implement query-level access control\n\n## What This Skill Does\nThis skill fixes overly broad database access in Node.js by adding a single authorization guard before query construction or execution, resolving the caller to a trusted subject, allowlisting tables/actions/columns per role, rejecting wildcard or unknown identifiers by default, and using parameterized queries for values. Apply it when callers can influence tables, columns, procedures, actions, or row scope and the code does not explicitly verify those choices against policy.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Query code uses request data, CLI args, job payloads, or message content to choose tables, columns, procedures, or actions | Apply a query guard that checks subject, action, object, and approved identifiers before building SQL |\n| Dynamic column or table names are interpolated into SQL | Replace free-form identifiers with explicit allowlists and reject unknown names |\n| Role or identity comes from client input such as `req.query.role`, request body fields, or flags | Resolve subject from trusted authentication context and reject unmapped subjects |\n| Query allows `*`, missing column lists, or broad result shapes by default | Deny by default and require an approved column set unless policy explicitly allows broader access |\n| Code already uses a centralized authorization check plus approved columns and parameterized values | No action needed |\n\n## Boundaries\n\n### Can Do\n- Add a centralized guard function for subject, action, object, and column checks before `db.prepare()`, `query()`, or equivalent execution\n- Replace dynamic identifier selection with role-based allowlists for tables and columns\n- Add defense-in-depth result filtering so forbidden fields such as `ssn` are removed before returning data\n\n### Cannot Do\n- Infer the correct business authorization policy without a real role-to-resource mapping from the application\n- Prevent exposure if trusted server identity is already wrong or spoofable before authorization runs\n- Safely parameterize SQL identifiers with placeholders; table and column names must be allowlisted, not bound as values\n\n## Gotchas\n- Trusting client-supplied roles: `req.query.role`, body fields, or CLI flags are not a trusted authorization source\n- Using parameterized queries for identifiers: placeholders protect values like `id = ?`, not `SELECT ? FROM users`; identifiers still need allowlists\n- Filtering only after query execution: post-query field filtering helps, but it does not replace pre-query object and column authorization\n\n## Quick Verification\n```bash\n# Confirm a centralized guard/allowlist exists\nrg -n \"resolveSubject|getApprovedColumns|filterReturnedFields|ROLE_COLUMN_PERMISSIONS|permissions|resourcePolicy|Action denied|Access denied|Invalid column request\" .\n\n# Find likely unguarded dangerous SQL construction/execution in Node.js\nrg -n \"(db\\.prepare\\s*\\(|\\.query\\s*\\(|sequelize\\.query\\s*\\(|knex\\.raw\\s*\\(|\\$queryRaw(?:Unsafe)?\\s*\\(|exec\\s*\\().*(SELECT|INSERT|UPDATE|DELETE)|`SELECT\\s+\\$\\{|\\\"SELECT\\s+\\\"\\\\s*\\+|'SELECT\\s+'\\\\s*\\+|requestedColumns\\s*\\|\\|\\s*['\\\"]\\*\" .\n\n# Build if a build script exists, then run tests if present\nnpm run build --if-present && npm test --if-present\n```",
+            "type": "Built-in",
+            "ordinal": 461,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:43.292000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:43.292000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9601,
+            "id": "TA9601",
+            "title": "T2598 - SKILL.md - C#",
+            "text": "---\nname: implement-query-level-access-control\ndescription: Use when C# code performs database queries or stored procedure calls without exact subject/resource/action authorization before execution.\n---\n# Implement query-level access control\n\n## What This Skill Does\nThis skill fixes missing object-level database authorization by requiring C# code to check the current subject, exact resource, scope, and requested action before every database operation. It introduces explicit resource descriptors and permission grants for tables, columns, rows, cells, or stored procedures, and enforces deny-by-default when no exact match exists so unauthorized reads, updates, deletes, or procedure calls are blocked before `ExecuteReader`, `ExecuteNonQuery`, `ExecuteScalar`, Dapper query methods, or similar APIs run.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Raw ADO.NET or SQLite code executes `ExecuteReader`, `ExecuteNonQuery`, or `ExecuteScalar` without an authorization check immediately before the call | Add a centralized guard such as `QueryAccessControlService.Demand(subjectId, resource, permission)` before execution |\n| Dapper code uses `Query`, `Query<T>`, `QuerySingle`, `Execute`, or similar methods directly from caller-controlled inputs | Resolve the exact `ResourceDescriptor` first, demand access, then run the Dapper call |\n| Access depends on owner, tenant, row, or sensitive field scope | Model scope explicitly with row/cell identifiers in the resource descriptor and require exact-match grants |\n| Code maps broad roles like `admin` or `support` to generic query names or fallback SQL | Replace implicit/broad access with an explicit authorization matrix and deny unknown subjects, resources, or actions |\n| Code already checks subject + exact resource + exact permission before every DB call and denies by default | No action needed |\n\n## Boundaries\n\n### Can Do\n- Add a reusable authorization guard before database query execution in C# code\n- Convert broad query-name or role-based branching into exact resource-and-action checks\n- Model scoped permissions for tables, columns, rows, cells, and stored procedures with deny-by-default behavior\n\n### Cannot Do\n- Infer the correct business authorization matrix without input from the application owners\n- Replace database parameterization, input validation, or SQL injection protections\n- Guarantee security if some database call paths bypass the guard or use incorrect resource mappings\n\n## Gotchas\n- Checking only the role, not the resource: this still over-grants access because `Read` on one table or column must not imply access to others\n- Authorizing after the database call: this is too late because the sensitive operation already executed\n- Using wildcard or fallback query handling: this breaks fail-closed behavior and can expose protected rows or columns through default branches\n\n## Quick Verification\n```bash\n# Confirm a centralized query access guard exists\nrg -n \"class QueryAccessControlService|void Demand\\\\(|bool IsAllowed\\\\(\" .\n\n# Find dangerous DB execution APIs that may bypass the guard\nrg -n \"\\.(ExecuteReader|ExecuteNonQuery|ExecuteScalar)\\s*\\(|\\bQuery(?:First|FirstOrDefault|Single|SingleOrDefault)?(?:<[^>]+>)?\\s*\\(|\\bExecute\\s*\\(\" .\n\n# Narrow to likely unguarded call sites by finding DB calls without a nearby Demand/IsAllowed reference in the same file\nrg -n -C 3 \"\\.(ExecuteReader|ExecuteNonQuery|ExecuteScalar)\\s*\\(|\\bQuery(?:First|FirstOrDefault|Single|SingleOrDefault)?(?:<[^>]+>)?\\s*\\(|\\bExecute\\s*\\(\" . | rg -v \"Demand\\(|IsAllowed\\(\"\n\n# Build all discovered C# projects/solutions\ndotnet build\n\n# Run tests across the repository\ndotnet test\n```",
+            "type": "Built-in",
+            "ordinal": 530,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:45.606000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:45.606000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9682,
+            "id": "TA9682",
+            "title": "T2598 - SKILL.md - Java",
+            "text": "---\nname: implement-query-level-access-control\ndescription: Use when Java code executes database operations without checking whether the current principal may access the requested tables, columns, rows, or stored procedures.\n---\n# Implement query-level access control\n\n## What This Skill Does\nThis skill fixes overly broad database access in Java applications by requiring every database operation to be represented as a structured authorization request before SQL runs. It centralizes authorization in one policy check, uses explicit allowlists for tables, columns, stored procedures, and row scopes, denies by default when no exact rule matches, and then executes only approved SQL with parameterized queries.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| SQL is executed from `Statement`, `PreparedStatement`, or helper methods without a prior authorization decision tied to the current principal | Apply this fix |\n| Dynamic table, column, or stored procedure names are influenced by input | Replace free-form identifiers with explicit allowlists and reject unknown identifiers |\n| Code uses `SELECT *` or returns all columns from a table | Replace with an approved column projection and authorize the requested column set |\n| Access must differ by role, user, process, or row ownership | Represent the operation as a `QueryRequest` and check it in a centralized `PolicyEngine` before execution |\n| Code already routes all DB operations through a deny-by-default authorization wrapper with table/column/row checks | No action needed |\n\n## Boundaries\n\n### Can Do\n- Add a centralized authorization wrapper for JDBC operations before SQL execution\n- Introduce structured request objects for action, resource, columns, and row constraints\n- Replace wildcard queries and dynamic identifiers with approved allowlists and parameterized SQL\n\n### Cannot Do\n- Infer correct business permissions without a real access matrix from the application owner\n- Prevent abuse if some code paths still bypass the authorization wrapper and execute JDBC directly\n- Replace database-side hardening such as least-privilege DB accounts, views, or native row-level security\n\n## Gotchas\n- Checking only the table name: this is too coarse because unauthorized columns like `SSN` or `PASSWORD_HASH` may still be exposed\n- Using `PreparedStatement` without authorization: parameterization helps with injection, not with permission checks\n- Building row rules from request input alone: row scope must come from trusted principal attributes or fixed policy, not attacker-controlled values\n\n## Quick Verification\n```bash\n# Confirm a centralized authorization guard/wrapper exists\nrg -n --glob '*.java' 'class\\s+(PolicyEngine|AuthorizedQueryExecutor)|boolean\\s+authorize\\s*\\(|authorizeWithAudit\\s*\\(' .\n\n# Find unguarded dangerous JDBC execution paths and risky wildcard reads\nrg -n --glob '*.java' '\\bcreateStatement\\s*\\(|\\bexecute(Query|Update|LargeUpdate)\\s*\\(|\\bexecuteQuery\\s*\\(\\s*[\"'\\''].*SELECT\\s+\\*|SELECT\\s+\\*\\s+FROM\\s*[\"'\\'']?\\s*\\+' .\n\n# Build and test with the Java toolchain present in the project\n./mvnw test || mvn test || ./gradlew test || gradle test\n\n# If no build wrapper is present, compile Java sources directly as a fallback check\nfind . -name \"*.java\" -print0 | xargs -0 javac\n```",
+            "type": "Built-in",
+            "ordinal": 619,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:48.915000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:48.915000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9771,
+            "id": "TA9771",
+            "title": "T2598 - SKILL.md - TypeScript",
+            "text": "---\nname: implement-query-level-access-control\ndescription: Use when TypeScript code builds or executes database queries without enforcing per-identity permissions for actions, tables, columns, rows, or stored procedures.\n---\n\n# Implement query-level access control\n\n## What This Skill Does\nThis skill adds a shared authorization layer that checks every database operation against an explicit in-code policy before query construction or execution. It fixes overly broad database access by validating identities, enforcing action-to-resource matches, filtering requested columns through allowlists, applying row-scope rules from trusted identity context, allowing stored procedures only from explicit lists, and defaulting to deny when any part of the request is not fully authorized.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Query code builds SQL or calls the database without a prior authorization check | Apply this fix |\n| TypeScript code lets callers choose columns, tables, or procedure names | Add allowlist checks for identifiers and enforce policy before execution |\n| Code uses `better-sqlite3`, drivers, ORMs, or query builders directly from handlers/helpers | Route all query paths through one shared `authorizeQueryOperation`-style guard |\n| Access rules vary by identity, role, row ownership, or approved fields | Add policy validation plus column, row-scope, and stored-procedure checks |\n| Code already validates identity, action, object, columns, and row scope before every query | No action needed |\n\n## Boundaries\n\n### Can Do\n- Add a central TypeScript authorization function that enforces per-query permissions before SQL is built or executed\n- Introduce and validate an in-code access chart and query policy at startup\n- Enforce deny-by-default checks for identities, actions, tables, columns, row scope, and stored procedures\n\n### Cannot Do\n- Infer correct business authorization rules without a human-defined policy\n- Replace database-specific protections such as parameterized values, DB roles, or row-level security\n- Safely authorize dynamic identifiers if the allowed tables or columns are unknown or not modeled in policy\n\n## Gotchas\n- Checking after building or executing the query: authorization must run before query construction/execution or alternate paths can still leak data\n- Trusting caller-supplied row scope values: row ownership must come from trusted identity context, not request parameters alone\n- Filtering out disallowed columns instead of rejecting the request: silent partial success can hide privilege bugs; reject any extra column such as `ssn`\n\n## Quick Verification\n```bash\n# Confirm a shared query authorization guard exists\nrg -n \"authorizeQueryOperation|hasObjectPermission|filterAllowedColumns|canExecuteStoredProcedure|validateAccessChart\" .\n\n# Find unguarded dangerous database calls and SQL construction that may bypass the guard\nrg -n \"(db\\.prepare\\(|db\\.exec\\(|queryRunner\\.query\\(|manager\\.query\\(|repository\\.query\\(|sequelize\\.query\\(|prisma\\.\\$queryRaw|prisma\\.\\$executeRaw|knex\\.raw\\(|pool\\.query\\(|client\\.query\\(|new Database\\(|SELECT\\s*\\+|INSERT\\s*\\+|UPDATE\\s*\\+|DELETE\\s*\\+)\" .\n\n# Build TypeScript projects\nnpx tsc --noEmit\n\n# Run project tests when present\nnpm test\n```",
+            "type": "Built-in",
+            "ordinal": 717,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:52.339000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:52.339000-04:00",
+            "active": true
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,131 @@
+{
+  "composite_response": [
+    {
+      "reference_id": "T1188",
+      "http_status_code": 200,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "results": [
+          {
+            "db_id": 956,
+            "id": "TA956",
+            "title": "More in-depth controls",
+            "text": "Verify SELinux security options, if applicable:\n\n- SELinux is an effective and easy-to-use Linux application security system. It is available on quite a few Linux distributions by default such as Red Hat and Fedora.\n- The container (process) would have set of restrictions as defined in SELinux policy. If your SELinux policy is mis-configured, then the container may not entirely work as expected.",
+            "type": "Built-in",
+            "ordinal": 0,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2018-07-18T12:24:55.015000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2018-12-31T18:47:16.779000-05:00",
+            "active": true
+          },
+          {
+            "db_id": 3326,
+            "id": "TA3326",
+            "title": "ASD-STIG requirements",
+            "text": "## V-222393 [medium]:\n__The application must associate organization-defined types of security attributes having organization-defined security attribute values with information in storage.__\n\nWithout the association of security attributes to information, there is no basis for the application to make security related access-control decisions.\n\nSecurity attributes are abstractions representing the basic properties or characteristics of an entity (e.g., subjects and objects) with respect to safeguarding information.\n\nThese attributes are typically associated with internal data structures (e.g., records, buffers, files) within the information system and are used to enable the implementation of access control and flow control policies, reflect special dissemination, handling or distribution instructions, or support other aspects of the information security policy.\n\nOne example includes marking data as classified or FOUO. These security attributes may be assigned manually or during data processing but either way, it is imperative these assignments are maintained while the data is in storage. If the security attributes are lost when the data is stored, there is the risk of a data compromise.\n\nClassify the system hosting the application with default classification.  Treat all unmarked data at the highest classification as the overall hosting system is classified.  If there is no classification, mark system high.\n\n",
+            "type": "Built-in",
+            "ordinal": 0,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2020-11-16T13:44:30.094000-05:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2022-06-02T10:13:08.718000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 1496,
+            "id": "TA1496",
+            "title": "FedRAMP / Moderate Baseline",
+            "text": "*** CM-6 (1): Configuration Management | Configuration Settings | Automated Central Management / Application / Verification ***  \nThe organization employs automated mechanisms to centrally manage, apply, and verify configuration settings for [Assignment: organization-defined information system components].",
+            "type": "Built-in",
+            "ordinal": 11,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-15T17:48:49.813000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T15:08:00.264000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 2465,
+            "id": "TA2465",
+            "title": "FedRAMP / High Baseline",
+            "text": "*** CM-6 (1): Configuration Management | Configuration Settings | Automated Central Management / Application / Verification ***  \nThe organization employs automated mechanisms to centrally manage, apply, and verify configuration settings for [Assignment: organization-defined information system components].",
+            "type": "Built-in",
+            "ordinal": 12,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-17T18:33:54.576000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T18:38:09.265000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 8458,
+            "id": "TA8458",
+            "title": "T1188 - SKILL.md - Docker",
+            "text": "---\nname: configure-linux-security-modules-docker\ndescription: Configure AppArmor-aware Python/Flask containers so they detect unconfined Docker execution and keep filesystem access within a constrained data root; use when fixing misconfigured or disabled Linux Security Modules in Dockerized apps.\n---\n\n# Configure Linux Security Modules (Docker)\n\n## What This Skill Does\nThis skill helps Dockerized Python/Flask services avoid running without expected Linux Security Module (LSM) confinement (AppArmor) and keeps their filesystem access predictable. It adds runtime checks that fail fast if AppArmor is disabled or the profile is unexpected, constrains file I/O to a single data root suitable for AppArmor profiles, and provides a protected diagnostic endpoint to inspect confinement safely.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Docker run/compose uses `--security-opt apparmor=unconfined` or no clear profile is required | Document required AppArmor profile and add startup check that rejects `unconfined` in production |\n| App code reads/writes arbitrary paths (e.g., `/tmp`, `/etc`, user-supplied paths) | Introduce a single configurable `APP_DATA_ROOT` and enforce all file I/O to stay under that directory |\n| App needs to know whether it is actually confined (for ops/debug) | Add a read-only diagnostic endpoint exposing AppArmor profile, env, and data root, protected by a secret header token |\n| Environment differences (dev vs prod) make strict checks painful | Gate strict AppArmor enforcement on `APP_ENV=production` and allow relaxed behavior elsewhere via env vars |\n| Code already validates AppArmor profile and constrains file I/O to a data root | No action needed; only consider adding a protected diagnostic endpoint if visibility is missing |\n\n## Boundaries\n\n### Can Do\n- Add or modify Python/Flask startup code to:\n  - Read `/proc/self/attr/current`\n  - Fail fast in production when profile is `unconfined` or missing\n  - Optionally enforce an expected profile prefix via env var\n- Introduce filesystem helpers that:\n  - Resolve a single `APP_DATA_ROOT`\n  - Normalize and validate requested paths\n  - Reject directory traversal or access outside the allowed subtree\n- Implement a low-privilege, token-protected diagnostic endpoint that:\n  - Reports current AppArmor profile, data root, and environment\n  - Does not allow runtime configuration changes\n\n### Cannot Do\n- Configure AppArmor itself from inside the Dockerfile or app (profile loading and attachment must be done by the orchestrator/host)\n- Guarantee that AppArmor is enabled on the host or that specific profiles exist (can only detect and react at runtime)\n- Replace a full security review of Docker flags (e.g., `--privileged`, extra capabilities); this skill focuses on LSM/AppArmor awareness and filesystem patterns\n\n## Gotchas\n- Treating dev like prod: Enforcing strict AppArmor checks unconditionally can break local/dev environments that lack AppArmor; always gate strict behavior on `APP_ENV=production`.\n- Assuming `/proc/self/attr/current` always exists: On some platforms or when AppArmor is unavailable, this file may be missing or unreadable; code must handle `None` and only fail hard in production.\n- Incomplete path validation: Checking for `\"../\"` substrings or using string prefix checks alone is unsafe; always use `Path.resolve()` and compare against the resolved `APP_DATA_ROOT` and its parents.\n\n## Quick Verification\n```bash\n# 1) Build the mitigated Flask image\ndocker build -t secure-app:latest .\n\n# 2) Run with AppArmor disabled (should FAIL in production)\ndocker run --rm \\\n  -e APP_ENV=production \\\n  --security-opt apparmor=unconfined \\\n  secure-app:latest\n\n# 3) Run with an AppArmor profile (example: docker-default) (should START)\ndocker run -d --rm \\\n  -p 8080:8080 \\\n  -e APP_ENV=production \\\n  --security-opt apparmor=docker-default \\\n  secure-app:latest\n\n# 4) Test path confinement (attempt traversal should FAIL)\ncurl -i \"http://localhost:8080/data?name=../../etc/passwd\" -d 'test'\n\n# 5) Call diagnostic endpoint with and without token\ncurl -i http://localhost:8080/internal/apparmor_status           # expect 403\ncurl -i -H \"X-Internal-Token: dev-token-override-me\" \\\n  http://localhost:8080/internal/apparmor_status                 # expect JSON with profile/env/root\n```",
+            "type": "Built-in",
+            "ordinal": 236,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-05-21T11:39:49.005000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:36.049000-04:00",
+            "active": true
+          }
+        ]
+      }
+    }
+  ]
+}

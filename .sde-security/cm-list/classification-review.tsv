@@ -1,0 +1,186 @@
+T1199	Testing	Test that the host's network namespace is not shared (Docker)
+T87	Testing	Verify that all data in transit is encrypted using a secure TLS channel
+T21	Requirements	Ensure all data in transit is encrypted using a secure TLS channel
+T1207	Testing	Test that the 'on-failure' container restart policy is set to 5 (Docker)
+T60	Requirements	Use correct and approved cryptographic algorithms, parameters, and key lengths
+T2621	Deployment	Use file volume encryption and consider in-database encryption with pgcrypto (PostgreSQL)
+T2663	Deployment	Use a secure authentication mechanism for database connections
+T114	Testing	Test system-to-system authentication lockout or throttling
+T59	Requirements	Use standard libraries for cryptography
+T2141	Architecture & Design	Perform function level authorization in API
+T29	Development	Use anti-Cross-Site Request Forgery (CSRF) tokens
+T2612	Testing	Verify backup archive bits are protected
+T49	Requirements	Disable and remove debug capabilities and code/data, and prepare application for release
+T1541	Architecture & Design	Decide on the best CSRF defense for your application
+T2276	Testing	Test to confirm that authorization and authentication controls are in place for access to resources
+T2600	Development	Control the result set size returned by a query
+T122	Testing	Test for remote file include
+T1392	Testing	Test for Server Side Request Forgery
+T1194	Deployment	Do not run SSH within containers (Docker)
+T50	Requirements	Use indirect object reference maps if accessing files
+T1175	Testing	Verify that containers are not run as root (Docker)
+T446	Testing	Verify that only standard libraries are used for cryptography
+T15	Architecture & Design	Centralize authorization
+T1195	Testing	Test if SSH is running within containers (Docker)
+T373	Architecture & Design	Design and regulate access to unauthenticated parts of the application
+T2115	Deployment	Enable image vulnerability scanning (Docker)
+T4746	Development	Ensure container images are secure
+T1176	Deployment	Use trusted base images and include the latest security patches (Docker)
+T374	Requirements	Offload HTTP request handling to dedicated modules
+T175	Testing	Test that the client validates digital certificates
+T2598	Development	Implement query-level access control
+T295	Requirements	Avoid storing unencrypted confidential data without access control mechanisms
+T1151	Testing	Verify that container networks are configured properly (Docker)
+T2105	Deployment	Enforce the use of client certificate bundles for unprivileged users to access UCP (Docker)
+T2139	Development	Prevent information exposure through APIs
+T2614	Testing	Verify database traffic is validated
+T228	Testing	Test that application restricts HTTP message size
+T2661	Deployment	Change insecure configuration defaults and remove unnecessary features
+T1190	Deployment	Restrict Linux Kernel Capabilities within containers (Docker)
+T1187	Testing	Test if secrets are stored in Dockerfiles (Docker)
+T105	Testing	Verify that your application does not have unnecessary debug capability or leftover test/debug code
+T378	Development	Authorize every request for data objects
+T230	Testing	Test that server-to-server system accounts meet minimum password requirements
+T32	Architecture & Design	Always perform input validation on a server
+T2605	Deployment	Validate database traffic
+T1157	Testing	Verify that the aufs storage driver is not used (Docker)
+T587	Testing	Verify that cryptographically secure algorithms are used for random number generation
+T445	Testing	Verify that only approved cryptographic algorithms and key lengths are used
+T338	Requirements	Control access to resources through user authentication and authorization
+T349	Requirements	Protect audit information and logs against unauthorized access
+T2356	Testing	Verify that code reviews are performed properly
+T2599	Development	Protect against connection string parameter pollution
+T1144	Development	Prevent Server-Side Template Injection (SSTI)
+T1211	Testing	Verify that seccomp profile is enabled (Docker)
+T1174	Deployment	Create non-root users for containers (Docker)
+T2282	Testing	Test to confirm that unauthenticated parts of the application are accessible
+T1198	Deployment	Do not share the host's network namespace (Docker)
+T1208	Deployment	Do not set mount propagation mode to 'shared' (Docker)
+T7411	Development	Implement controls for content intended to be displayed as text
+T2652	Deployment	Consider adding plugins for stronger authentication protocols and stricter password complexity rules (MariaDB)
+T2277	Testing	Test to confirm the use of an account and identity management system
+T2606	Testing	Verify RBAC implemented instead of individual accounts
+T70	Requirements	Implement account lockout or authentication throttling for system accounts
+T2620	Deployment	Protect data in transit with TLS (PostgreSQL)
+T558	Requirements	Authenticate all other components before any network communication with them
+T2256	Requirements	Authenticate and log all access to registries containing sensitive or proprietary images
+T1189	Testing	Test if Linux Security Modules are securely configured (Docker)
+T1155	Testing	Verify that Docker registries are secure (Docker)
+T4748	Deployment	Implement Role-Based Access Control (RBAC) for container orchestration
+T2615	Deployment	Limit network access by blocking connections from unknown IP addresses (PostgreSQL)
+T1539	Requirements	Clear browser data on user logout
+T1193	Testing	Test if unnecessary host resources are exposed (Docker)
+T1542	Architecture & Design	Use the correct HTTP methods for making state-changing operations
+T2257	Deployment	Regularly update and patch containerization systems
+T1177	Testing	Verify that secure and updated images are used (Docker)
+T1201	Testing	Test that resources used by containers are limited (Docker)
+T214	Requirements	Protect confidential files on operating system or server
+T69	Requirements	Strong password requirements for server-to-server system accounts
+T169	Testing	Test that the site is not vulnerable to DOM-based XSS
+T537	Testing	Test that the size of incoming messages in services is restricted
+T1156	Deployment	Do not use the aufs storage driver (Docker)
+T18	Architecture & Design	Make authorization decisions using full context
+T1167	Testing	Verify that data exchanged between containers on different nodes on the overlay network is encrypted (Docker)
+T1191	Testing	Test if Linux Kernel Capabilities are restricted within containers (Docker)
+T226	Testing	Verify that authorization is centralized
+T318	Testing	Verify security of cross origin resource sharing (CORS)
+T89	Testing	Test that site is not vulnerable to XSS
+T1158	Deployment	Configure TLS authentication for the Docker daemon (Docker)
+T2258	Deployment	Minimize host OS attack surface
+T4751	Development	Reduce the attack surface of container images
+T1196	Deployment	Open only needed ports on the containers (Docker)
+T257	Development	Secure cross origin resource sharing (CORS)
+T7415	Testing	Verify that dangerous functionality and risky third-party components are isolated via sandboxing or encapsulation
+T2608	Testing	Verify that the connection string is protected against connection string parameter pollution
+T1172	Deployment	Secure daemon configuration files (Docker)
+T1188	Deployment	Configure Linux Security Modules (Docker)
+T1173	Testing	Verify that daemon configuration files are secured (Docker)
+T85	Testing	Test server-side enforcement of authorization
+T1922	Architecture & Design	Use secure OAuth 2.0 and OpenID Connect integration (where applicable)
+T38	Development	Bind variables in SQL statements
+T2665	Deployment	Protect sensitive data at rest with encryption
+T4601	Deployment	Prioritize static network configuration
+T1214	Deployment	Restrict containers from acquiring additional privileges (Docker)
+T2140	Testing	Test that APIs do not expose sensitive information
+T66	Development	Prevent web pages from being loaded inside iFrame
+T1363	Testing	Verify if message throttling is properly performed in Web APIs
+T2609	Testing	Verify that the result set size returned by queries are controlled
+T1186	Deployment	Do not store secrets in Dockerfiles (Docker)
+T2110	Testing	Verify that signed image enforcement is enabled (Docker)
+T7412	Development	Isolate dangerous functionality and risky third-party components using sandboxing or encapsulation
+T2142	Testing	Verify that function level authorization is implemented in API
+T1204	Deployment	Mount container's root file system as read-only (Docker)
+T35	Requirements	Fine-tune HTTP server settings
+T37	Development	Avoid DOM-based Cross-Site Scripting (XSS)
+T305	Testing	Verify that your application dynamically loads code only from secure locations
+T2616	Deployment	Use a secure authentication mechanism for database connections (PostgreSQL)
+T4600	Architecture & Design	Establish Out-of-Band Communications Channel
+T151	Requirements	Use cryptographically secure random numbers
+T2597	Deployment	Implement RBAC instead of individual accounts
+T2109	Deployment	Enable signed image enforcement (Docker)
+T61	Deployment	Disable default accounts or change all default passwords
+T156	Requirements	Validate certificate and its chain of trust properly
+T1197	Testing	Test if only needed ports are open on the containers (Docker)
+T1159	Testing	Verify that TLS authentication is configured for the Docker daemon (Docker)
+T1215	Testing	Verify that containers are restricted from acquiring additional privileges (Docker)
+T1889	Requirements	Secure the configuration of the authorization server
+T2602	Development	Log typical database and server activities and related metadata
+T2349	Deployment	Configure software to have secure settings by default
+T2116	Testing	Verify that image vulnerability scanning is enabled (Docker)
+T1206	Deployment	Set the 'on-failure' container restart policy to 5 (Docker)
+T36	Development	Escape untrusted data in HTML, HTML attributes, CSS, and JavaScript
+T1365	Development	Mitigate Server Side Request Forgery
+T106	Testing	Test that site is not vulnerable to direct object access attacks
+T1205	Testing	Test if the container's root file system is mounted as read-only (Docker)
+T1145	Testing	Verify if web page template is vulnerable to SSTI
+T279	Development	Avoid dynamically loading any code without proper security considerations
+T1540	Testing	Verify that browser data is cleared upon user logout
+T323	Testing	Test that default accounts are disabled or default passwords are changed
+T78	Testing	Test strength of password reset mechanism
+T119	Testing	Test for clickjacking
+T86	Testing	Test session ID uniqueness and rotation after authentication
+T1154	Deployment	Secure Docker registries (Docker)
+T1166	Deployment	Encrypt data exchanged between containers on different nodes on the overlay network (Docker)
+T1887	Architecture & Design	Decide on the right OAuth 2.0 flow for your application
+T1213	Testing	Verify that cgroup usage is confirmed (Docker)
+T2666	Deployment	Protect data in transit with TLS (Database Server)
+T350	Testing	Verify that audit information is sufficiently protected
+T1150	Deployment	Configure container networks properly (Docker)
+T2357	Testing	Verify that software is configured to have secure settings by default
+T1209	Testing	Verify that mount propagation mode is not set to 'shared' (Docker)
+T96	Testing	Test if your site is vulnerable to CSRF
+T17	Development	Do not only rely on client-side authorization
+T2348	Development	Perform code reviews
+T536	Requirements	Restrict the size of incoming messages in services
+T1203	Testing	Test if container CPU priority is appropriately set (Docker)
+T2106	Testing	Verify that the use of client certificate bundles for unprivileged users is enforced (Docker)
+T42	Development	Avoid relying on untrusted data for server-side selection
+T2603	Deployment	Protect backup archive bits
+T1468	Requirements	Encrypt sensitive data at rest in the browser
+T101	Testing	Test that application is not vulnerable to SQL injection
+T296	Testing	Test that unencrypted confidential data is not stored without access control mechanisms
+T1212	Deployment	Confirm cgroup usage (Docker)
+T186	Development	Use recommended settings and the latest patches for third party libraries and software
+T1917	Requirements	Perform container security assessment
+T2611	Testing	Verify that typical database and server activities, along with related metadata, are logged
+T340	Architecture & Design	Use an account and identity management system
+T2601	Deployment	Use Transparent Data Encryption with Enterprise Databases
+T4750	Architecture & Design	Isolate container networks
+T128	Testing	Test for access control bypass through user-controlled keys
+T20	Requirements	Generate unique session IDs and reset old IDs after authentication
+T1362	Requirements	Perform message throttling in Web APIs
+T76	Development	Do not hardcode passwords
+T1200	Deployment	Limit resources used by containers (Docker)
+T7414	Testing	Verify that content intended as text is rendered safely without XSS injection risk
+T241	Testing	Verify that third party libraries use secure settings and the latest patches
+T98	Testing	Test for input validation on a server
+T4749	Deployment	Monitor containers in real-time
+T1202	Deployment	Set container CPU priority appropriately (Docker)
+T2662	Deployment	Restrict network access to the database server
+T589	Testing	Verify that all the components are authenticated explicitly
+T2607	Testing	Verify query-level access control is implemented
+T2610	Testing	Verify that Transparent Data Encryption is utilized with Enterprise Databases
+T4747	Deployment	Limit container privileges
+T1210	Deployment	Configure seccomp profile (Docker)
+T2619	Deployment	Ensure that row-level security is correctly configured (PostgreSQL)
+T1192	Deployment	Do not expose unnecessary host resources (Docker)

@@ -1,29 +1,25 @@
 import os
 import platform
-import sys
 
 import psutil
-from fastapi import APIRouter, status
+from apis.auth.utils import get_current_user
+from db.models import User, UserRole
+from fastapi import APIRouter, Depends, HTTPException, status
+from typing_extensions import Annotated
 
 router = APIRouter()
 
 
 @router.get("/debug", status_code=status.HTTP_200_OK)
-def get_debug_info_service():
+def get_debug_info_service(
+    current_user: Annotated[User, Depends(get_current_user)],
+):
+    if current_user.role != UserRole.CHEF.value:
+        raise HTTPException(status_code=403, detail="Unauthorized")
+
     os_info = {
         "system": platform.system(),
-        "node": platform.node(),
         "release": platform.release(),
-        "version": platform.version(),
-        "machine": platform.machine(),
-        "processor": platform.processor(),
-    }
-
-    env_vars = dict(os.environ)
-    local_paths = {
-        "current_working_directory": os.getcwd(),
-        "sys_path": sys.path,
-        "cwd_listing": os.listdir(os.getcwd()),
     }
 
     disk_usage = psutil.disk_usage(os.getcwd())
@@ -45,8 +41,6 @@ def get_debug_info_service():
 
     debug_info = {
         "os_info": os_info,
-        "env_vars": env_vars,
-        "local_paths": local_paths,
         "disk_usage": disk_info,
         "memory_usage": memory_info,
     }

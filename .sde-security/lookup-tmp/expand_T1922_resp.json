@@ -1,0 +1,246 @@
+{
+  "composite_response": [
+    {
+      "reference_id": "T1922",
+      "http_status_code": 200,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "results": [
+          {
+            "db_id": 1022,
+            "id": "TA1022",
+            "title": "Context information on OAuth 2.0 and OIDC",
+            "text": "The era of standalone applications is long gone. Today, web and mobile applications use a set of APIs to fetch information about the user or to perform operations in the user's name. And in turn, many applications expose an API that other applications can use.\n\nSuch an interconnected world of applications and APIs raises many questions. How can the user allow an application to access a service on their behalf? Does the user need to share their credentials to give another application access? And what if the user wants to revoke access later on?\n\nThese questions are addressed by OAuth 2.0. With OAuth 2.0, a user can delegate access on their behalf to a client application. By using OAuth 2.0, the client can access an API  on behalf of the user, without the need to access the user's credentials. OAuth 2.0 also supports the concept of permissions, allowing the user to define what the application can do. We describe OAuth 2.0 in more detail in the Amendment section: 'The purpose of OAuth 2.0'.\n\nOpenID Connect (OIDC) is an authentication protocol built on top of OAuth 2.0. Its purpose is to enable a federated identity mechanism through a centralized provider. The OpenID Provider will authenticate the end user, and provide the client application with proper authentication and identity information. The client application, in turn, can use this identity information to link the identity of the end user to the concept of a user within the application.\n\nWhile OIDC is built on top of OAuth 2.0, they are typically used in a complementary fashion. OIDC is used to establish the identity of the user, while OAuth 2.0 mechanisms allow the client to access protected resources on resource servers. Even when the client only needs authentication, an OAuth 2.0-based mechanism can be used to retrieve additional user information from the \"userinfo\" endpoint. We describe OIDC in more detail in the Amendment section: 'The purpose of OIDC'.",
+            "type": "Built-in",
+            "ordinal": 1,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-07-12T15:36:36.910000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-07-22T13:43:54.035000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 1023,
+            "id": "TA1023",
+            "title": "The purpose of OAuth 2.0",
+            "text": "### The purpose of OAuth 2.0\n\nThe primary purpose of OAuth 2.0 is to allow a client application to access a protected resource on behalf of the user. A typical example of such a protected resource is an API. To access a protected resource, the client needs an access token. This access token represents the authority of the client. The resource server uses the access token to verify if the client is authorized to access the requested resource.\n\nThe OAuth 2.0 specifications describe various flows that allow different types of clients to obtain an access token. This amendment provides more details on the OAuth 2.0 terminology and the concepts behind the different flows.\n\n\n### Terminology\n\nOne of the more confusing aspects of OAuth 2.0 is the terminology. The terms used in the specification are well-defined. The problem is that terms like a \"client\" mean something else to a web or mobile developer. To avoid any confusion, we will first set the record straight.\n\nOAuth 2.0 is all about delegating access to applications on the user's behalf. Whether the user is delegating access to data, or operations, or something else does not matter. All of these items are referred to as a _**protected resource**_. \n\nThese protected resources are hosted on a _**resource server**_. Typically, this is the API implementation exposing the data and operations. The resource server is responsible for verifying which client is accessing the API and whether the client is authorized to do so.\n\nProtected resources are accessed by a _**client**_. A client can be a web application, a desktop application, a mobile application, or anything else. Note that the term client here merely refers to an entity wanting to access a protected resource. It does not imply that this needs to be a client-side application. \n\nSomebody needs to grant the client access to a protected resource. This role is fulfilled by the _**resource owner**_. In most cases, this will be the end user of the application. \n\nFinally, we have the central authority coordinating the whole process: the _**authorization server**_. The authorization server has several responsibilities: authenticating both the client and the user, and determining if the client is allowed to access the requested protected resources. The authorization server will issue an _**access token**_ to the client. The client uses this access token to contact the resource server to access protected resources.\n\n\n### Client types\n\nThe OAuth 2.0 specification distinguishes between two types of clients: confidential clients and public clients. Confidential clients are considered to be capable of safeguarding a secret from external parties. One example of a confidential client is a backend web application. \n\nThe second type is a public client. These are clients that are incapable of keeping a secret. Examples are frontend web applications that run in the browser of the user. Nothing stops a user from diving into the code and extracting secret information from the code. Similarly, mobile and native applications are considered to be public clients.\n\nPublic clients do not receive a client secret and are more constrained than confidential clients. Note that these restrictions are at the discretion of the authorization server. As a result, they may differ between implementations.\n\n\n### Conceptual overview\n\nTo access an API on behalf of the user, the client needs to ask for the proper permissions first. OAuth 2.0 defines a couple of different flows to obtain such permission. In the end, they all result in the issuing of an access token. These flows are known as grant types and are mainly handled by the authorization server. Technically, the flows involve a few redirections and user interactions, details of which are covered below. \n\n\nThe original OAuth 2.0 specification, along with a set of amendments, specifies a number of different flows to obtain an access token. Here, we discuss the flows that are considered to be a current best practice. \n\n\n#### The Client Credentials Grant\n\nThe client credentials flow is the most straightforward flow because it does not involve delegated access on behalf of the user. It allows a confidential client application to authenticate itself using the client ID and client secret. Doing so grants access to resources associated with this client, such as client-specific APIs. Think of the client credentials flow as server-to-server communication, with no direct human interaction.\n\nMore details on the Client Credentials flow are available in Amendment of [Task 1887](/library/tasks/T1887/): 'Understanding the Client Credentials flow'.\n\n\n#### The Authorization Code Grant with PKCE\n\nThe authorization code grant flow supports delegated access to a client on behalf of the user. This flow is the current best practice for use in both public and confidential clients. \n\nMore details on the Authorization Code flow with PKCE are available in Amendment of [Task 1887](/library/tasks/T1887/): 'Understanding the Authorization Code Grant flow with PKCE'.\n\n\n#### The \"Device Flow\"\n\nThe device flow is a recent addition to the set of flows. This particular flow targets devices where the user cannot easily authenticate to the central authorization server. Examples are smart TVs or other input-constrained devices.\n\nWhile the device flow supports a specific purpose, the details of the flow are not very complicated. Therefore, refer to [the spec](https://oauth.net/2/device-flow/) for more details.",
+            "type": "Built-in",
+            "ordinal": 1,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-07-12T15:42:49.561000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-07-22T13:49:32.762000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 1024,
+            "id": "TA1024",
+            "title": "The purpose of OpenID Connect",
+            "text": "### The purpose of OIDC\n\nOAuth 2.0 provides a framework to allow a client application to access resources on behalf of the user. One example is the backend of a web application being able to access APIs on behalf of the user. With the rising popularity of OAuth 2.0, many people started finding ways to use OAuth 2.0 to obtain identity information about the user. With that identity information, the client can authenticate the user, hence establishing a form of federated identity.\n\nThere is, however, one significant problem with this approach. OAuth 2.0 by itself is not intended as an authentication framework. Instead, it is designed to offer delegated access to applications. While subtle, these properties make the plain OAuth 2.0 flows unsuited for authentication purposes. \n\nOIDC is a protocol built on top of OAuth 2.0. The OIDC protocol augments the plain OAuth 2.0 flows with properties to support proper end-user authentication. It also makes concrete decisions in places where OAuth 2.0 leaves the decision up to the developer. For example, the format of an identity token returned in an OIDC flow is a JWT with a reserved set of claims. Another example is the \"userinfo\" endpoint, which is a fixed endpoint where the client can retrieve additional information about the authenticated user.\n\n\n### Terminology\n\nWhile OIDC is built on top of OAuth 2.0, the specifications use slightly different terminology. The table below gives an overview of the differences, along with the simplified terminology we use in our guidelines.\n\n| OAuth 2.0            | OIDC            | Guidelines        | Description |\n| -------------------- | --------------- | ----------------- | ----------- |\n| Client               | Relying Party   | Client            | The application requesting identity information, or requesting access to protected resources. |\n| Authorization Server | OpenID Provider | Authorization server / Identity provider | The centralized service handling an OAuth 2.0 or OIDC flow. Responsibilities of this service include user authentication and client authorization. |\n| Resource Owner       | End User        | User              | The end user delegating access or authenticating. This user is also responsible for authorizing the client application to access its information or resources. |\n\n\n\n### Conceptual overview\n\nConceptually, OIDC is almost identical to OAuth 2.0. When using OIDC, the OAuth 2.0 flow is modified to return an **identity token**, which contains information about the user's authentication with the identity provider. We will highlight these changes in separate content items covering OIDC specifically.",
+            "type": "Built-in",
+            "ordinal": 1,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-07-12T15:43:55.819000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-07-17T13:23:58.417000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 10436,
+            "id": "TA10436",
+            "title": "Ensure OpenID Provider mitigates denial of service through forced logout (OWASP ASVS 5.0)",
+            "text": "Implement secure, tamper-resistant logging architecture with structured security event details. Align implementation with the ASVS requirement: Verify that the OpenID Provider mitigates denial of service through forced logout. By obtaining explicit confirmation from the end\u2011user or, if present, validating parameters in the logout request (initiated by the relying party), such as the \u2018id_token_hint\u2019.",
+            "type": "Built-in",
+            "ordinal": 98,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-08-06T11:23:45.025000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-08-06T11:23:45.025000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9454,
+            "id": "TA9454",
+            "title": "T1922 - SKILL.md - JavaScript",
+            "text": "---\nname: use-secure-oauth-2-0-and-openid-connect-integration\ndescription: \"Harden JavaScript OAuth 2.0/OIDC login and bearer-token authorization flows against improper access control. Use when code builds auth requests, validates access or ID tokens, trusts caller identity, or stores OIDC transaction/session state.\"\n---\n# Use secure OAuth 2.0 and OpenID Connect integration\n\n## What This Skill Does\nThis skill fixes improper access control in JavaScript applications that use OAuth 2.0 or OpenID Connect by replacing caller-supplied identity and weak flow handling with transaction-bound authorization code + PKCE, strict bearer token extraction, full access token and ID token validation, exact scope checks, and minimal session-bound OIDC state handling. Apply it when code accepts `Authorization` headers, processes login callbacks, validates JWTs, stores `state`/`nonce`, or authorizes actions from untrusted request fields.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Code trusts `req.query.user`, `req.body.user`, headers, or other caller-supplied identity values for authorization | Replace with validated access-token claims such as `sub` and exact scope checks |\n| User-facing OAuth/OIDC login flow is being implemented | Use Authorization Code Grant with PKCE and generate per-transaction `state`, `nonce`, and `code_verifier` |\n| Machine-to-machine token acquisition is used | Use `client_credentials` only, and request only allowlisted scopes |\n| Resource server accepts bearer tokens or JWTs | Add strict `Bearer` parsing and validate algorithm, issuer, audience, expiry, not-before, subject, and token type before authorizing |\n| Code already validates access tokens/ID tokens, compares `state`/`nonce` exactly, and authorizes from validated claims only | No action needed |\n\n## Boundaries\n\n### Can Do\n- Add secure OAuth 2.0/OIDC helpers for authorization requests, token validation, ID token validation, and scope enforcement\n- Replace caller-controlled identity checks with authorization based on validated token claims\n- Tighten OIDC session handling by binding and clearing `state`, `nonce`, and related transaction data\n\n### Cannot Do\n- Choose your real issuer URLs, client IDs, signing keys, or JWKS configuration without trusted deployment input\n- Prove a third-party identity provider is securely configured beyond the application's own validation and allowlists\n- Safely preserve insecure OAuth flows that the application does not explicitly require\n\n## Gotchas\n- Accepting loose authorization headers: parsing anything other than a single exact `Bearer <token>` value can let malformed or duplicate credentials bypass checks\n- Using `jwt.decode()` instead of `jwt.verify()`: decoding reads attacker-controlled claims without validating signature, issuer, audience, or expiry\n- Treating scopes as substring matches: checking `\"admin\"` inside `\"superadmin\"` or raw scope strings grants permissions that were never actually assigned\n\n## Quick Verification\n```bash\n# Confirm secure OAuth/OIDC guard helpers or validation logic exist\nrg -n 'extractBearerToken|validateAccessToken|authenticateRequest|validateIdTokenForLogin|buildAuthorizationCodePkceRequest|state|nonce|code_challenge|jwt\\.verify' .\n\n# Find unguarded dangerous patterns that trust caller input or decode tokens without verification\nrg -n 'req\\.(query|body|params)\\.(user|sub|role)|jwt\\.decode\\(|authorizationHeader\\.match\\(/.*Bearer.*\\)/|req\\.headers\\.authorization(?!.*authenticateRequest)' .\n\n# Build + test using whichever JavaScript toolchain the project provides\nnpm test || yarn test || pnpm test || node --test\n```",
+            "type": "Built-in",
+            "ordinal": 359,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:40.019000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:40.019000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9523,
+            "id": "TA9523",
+            "title": "T1922 - SKILL.md - Python",
+            "text": "---\nname: use-secure-oauth-2-0-and-openid-connect-integration\ndescription: Use dedicated OAuth 2.0/OIDC client integrations and validated token claims instead of manual callback or identity handling. Use when Python code manually processes OAuth/OIDC flows or trusts request-supplied identity data.\n---\n\n# Use secure OAuth 2.0 and OpenID Connect integration\n\n## What This Skill Does\nThis skill fixes improper access control and insecure authentication flow handling in Python applications that integrate with OAuth 2.0 or OpenID Connect. It replaces manual authorization URL building, callback parsing, token handling, and identity extraction with a dedicated client integration such as Authlib, keeps provider configuration fixed on the server, and ensures identity and authorization decisions come only from validated token results and claims rather than raw request parameters.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Callback handlers read `request.args`, `request.GET`, `request.query_params`, `request.form`, or similar for `access_token`, `code`, `state`, `user`, `sub`, or `email` | Apply this fix |\n| Python code manually handles OAuth/OIDC callback exchange instead of using a client library | Replace with a dedicated integration such as `authlib.integrations.*` and use `authorize_access_token()` |\n| Code uses identity claims for login or profile data | Read claims only from the validated token result or `userinfo`, not directly from the request |\n| Authorization checks use only token existence but do not compare `sub` or scopes to the requested resource | Add claim and scope checks before returning protected data |\n| Code already uses a dedicated client integration, fixed provider config, and validated claims for identity and authorization | No action needed |\n\n## Boundaries\n\n### Can Do\n- Replace manual OAuth/OIDC callback handling with a dedicated Python client integration\n- Move identity parsing to validated token or `userinfo` results returned by the client library\n- Add subject and scope checks so valid tokens cannot access unauthorized resources\n\n### Cannot Do\n- Choose or provision the correct identity provider, client registration, or provider-side policy\n- Guarantee security if downstream code still trusts raw request data after callback validation\n- Infer missing business authorization rules when the application does not define required scopes or ownership rules\n\n## Gotchas\n- Treating callback parameters as authenticated data: `code`, `state`, `access_token`, `user`, `sub`, and `email` in the request are attacker-controlled until the client integration validates them\n- Using OIDC identity claims for authorization without scope or ownership checks: authentication data identifies the caller but does not by itself grant access to every resource\n- Mixing manual JWT or ID token decoding with client-library flow handling: this bypasses built-in validation paths and often skips issuer, audience, nonce, or state checks\n\n## Quick Verification\n```bash\n# Confirm a secure OAuth/OIDC client integration path exists\nrg -n \"authorize_access_token\\(|create_client\\(|from authlib\\.integrations\" .\n\n# Find unguarded manual callback/identity handling from request input\nrg -n \"request\\.(args|get_json|form|values|GET|POST|query_params).*(access_token|code|state|user|sub|email)|access_token\\s*=\\s*request\\.|user(info)?\\s*=\\s*request\\.\" .\n\n# Find places that introspect or accept tokens but may skip subject/scope authorization checks\nrg -n \"introspect_token\\(|Authorization|Bearer|scope|claims\\.get\\(\\\"sub\\\"\\)|requested_user\" .\n\n# Generic Python build/test verification\npython -m compileall .\npython -m unittest discover\npytest -q\n```",
+            "type": "Built-in",
+            "ordinal": 437,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:42.649000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:42.649000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9535,
+            "id": "TA9535",
+            "title": "T1922 - SKILL.md - Node.js",
+            "text": "---\nname: use-secure-oauth-2-0-and-openid-connect-integration\ndescription: Use secure OAuth 2.0 and OpenID Connect token validation and authorization checks in Node.js when code trusts bearer tokens, decoded claims, or OIDC data for access control.\n---\n\n# Use secure OAuth 2.0 and OpenID Connect integration\n\n## What This Skill Does\nThis skill fixes improper access control in Node.js code that accepts OAuth 2.0 or OpenID Connect tokens without strict validation and authorization. It replaces ad hoc token handling with verified access-token processing, enforces expected issuer and audience, checks expiry and token type, normalizes claims before policy checks, requires exact scopes per action, and adds ownership, tenant, role, or client-based authorization where needed.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Code reads `Authorization` headers, bearer tokens, or JWT payloads and uses them directly for identity or access decisions | Apply this fix |\n| Code uses `jwt.decode()` or manual Base64 parsing to read claims before verification | Replace with `jwt.verify()` and only authorize from verified claims |\n| App supports user sign-in or delegated API access with OAuth/OIDC | Use Authorization Code Grant with PKCE for user-interactive clients and validate access tokens before authorization |\n| App performs machine-to-machine API calls | Use Client Credentials and authorize by verified client identity plus exact scopes |\n| Code already verifies signature, issuer, audience, time claims, token type, scopes, and resource constraints before access | No action needed |\n\n## Boundaries\n\n### Can Do\n- Add verified access-token validation with `jsonwebtoken.verify()`\n- Normalize `aud`, `scope`, `roles`, `sub`, `tenant_id`, and `client_id` before authorization\n- Enforce exact scopes and claim-based checks such as ownership, tenant isolation, and recognized roles\n\n### Cannot Do\n- Choose real issuer URLs, audiences, secrets, keys, or provider metadata for the application\n- Turn an insecure identity model into a full authorization design without app-specific policy rules\n- Implement proof-of-possession end-to-end unless the app already provides the presented binding data\n\n## Gotchas\n- Using `jwt.decode()` for authorization: it does not verify signature or trustworthiness, so attackers can forge claims\n- Using ID tokens for API authorization: ID tokens describe authentication context, while API access decisions must use access tokens\n- Treating scope presence as enough for all access: valid scope still does not permit cross-tenant or non-owner access without claim-based checks\n\n## Quick Verification\n```bash\n# Confirm secure token verification and scope/authorization helpers exist\nrg -n \"jwt\\.verify\\(|validateAccessToken\\(|normalizeClaimsForAuthorization\\(|hasRequiredScopes\\(|authorizeReportAccess\\(\" .\n\n# Find unguarded dangerous patterns that bypass verification or trust raw claims/header content\nrg -n \"jwt\\.decode\\(|Buffer\\.from\\([^)]*,\\s*['\\\"]base64['\\\"]\\)|req\\.headers\\.authorization|authorization\\s*[:=].*slice\\(|authHeader\\.slice\\(|extractIdentityFromAuthorizationHeader\\(\" .\n\n# Build + test with Node.js toolchain across common project types\nnpm test && npm run build --if-present\n```",
+            "type": "Built-in",
+            "ordinal": 451,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:43.104000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:43.104000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9595,
+            "id": "TA9595",
+            "title": "T1922 - SKILL.md - C#",
+            "text": "---\nname: use-secure-oauth-2-0-and-openid-connect-integration\ndescription: Use secure OAuth 2.0 and OpenID Connect validation and flow handling for C# apps when code accepts tokens, builds auth requests, or uses claims for access control under improper authorization risk\n---\n\n# Use secure OAuth 2.0 and OpenID Connect integration\n\n## What This Skill Does\nThis skill fixes improper authorization caused by unsafe OAuth 2.0 or OpenID Connect integration in C# code. Apply it when the application accepts access tokens or ID tokens, starts authorization flows, or makes access decisions from claims. The fix is to separate OAuth authorization from OIDC authentication, require the correct flow protections such as PKCE with `S256`, validate tokens before using claims, enforce issuer/audience/expiration/signature checks, require OIDC-specific fields like `openid` and `nonce`, and deny access when the exact required scope is missing.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Code uses `accessToken`, `idToken`, `ClaimsPrincipal`, or JWT claims for authorization without prior validation | Apply strict token validation first with `JwtSecurityTokenHandler.ValidateToken(...)` or a trusted opaque-token validator before reading claims |\n| Code starts an authorization code flow for a user-facing client | Require PKCE with `S256`, bind `state` and verifier to the session, validate redirect-related values, and reject reuse |\n| Code uses OAuth for user sign-in or reads identity from an access token | Switch to explicit OIDC handling for authentication, require `openid`, validate the ID token, and check `nonce` and required claims |\n| Code uses `client_credentials` | Restrict it to machine-to-machine use only and validate scopes against an explicit allowlist |\n| Code already validates signature, issuer, audience, lifetime, required claims, PKCE/nonce, and exact scopes | No action needed |\n\n## Boundaries\n\n### Can Do\n- Add or tighten C# validation for JWT access tokens and ID tokens before claim use\n- Enforce PKCE `S256`, `state`, `openid`, `nonce`, response type, and exact scope checks in common OAuth/OIDC flows\n- Replace claim-trusting authorization logic with validated subject-and-scope-based access decisions\n\n### Cannot Do\n- Prove the chosen issuer, audience, scopes, or redirect URIs are correct for the business without project-specific requirements\n- Implement a full identity provider, token introspection service, or proof-of-possession design from scratch\n- Guarantee security if the app accepts tokens from untrusted issuers, stores session state unsafely, or misconfigures signing keys\n\n## Gotchas\n- Validating claims after parsing but before `ValidateToken(...)`: parsing a JWT is not trust; unvalidated claims are attacker-controlled\n- Using OAuth 2.0 alone for authentication: access tokens are for authorization, not identity assertions; use OIDC when login identity is required\n- Accepting PKCE without forcing `S256` or skipping `nonce` for OIDC: this weakens replay and code interception protections\n\n## Quick Verification\n```bash\n# Confirm secure validation/guard code exists\nrg -n 'ValidateToken\\s*\\(|TokenValidationParameters|RequireSignedTokens|ValidateIssuer\\s*=|ValidateAudience\\s*=|ValidateLifetime\\s*=|code_challenge_method|S256|nonce|openid|client_credentials' .\n\n# Find likely unguarded dangerous claim/JWT usage that may bypass validation\nrg -n 'ReadJwtToken\\s*\\(|new\\s+JwtSecurityTokenHandler\\s*\\(\\)\\s*\\.\\s*ReadJwtToken|FindFirst\\s*\\(|ClaimsPrincipal|idToken|accessToken' . \\\n  | rg -v 'ValidateToken|TokenValidationParameters|ReferenceTokenValidator|OidcAuthenticationValidator|ResourceServerAuthorization'\n\n# Build all discovered C# projects/solutions\nfind . \\( -name \"*.sln\" -o -name \"*.csproj\" \\) -print0 | xargs -0 -n1 dotnet build\n\n# Run tests for all discovered test projects\nfind . -name \"*Test*.csproj\" -o -name \"*Tests*.csproj\" | xargs -r -n1 dotnet test\n```",
+            "type": "Built-in",
+            "ordinal": 518,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:45.378000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:45.378000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9695,
+            "id": "TA9695",
+            "title": "T1922 - SKILL.md - Java",
+            "text": "---\nname: use-secure-oauth-2-0-and-openid-connect-integration\ndescription: Use secure OAuth 2.0 and OpenID Connect validation and authorization patterns for Java applications. Use when code accepts OAuth tokens, OIDC identity claims, authorization responses, or client credentials without strict validation and scope enforcement.\n---\n\n# Use secure OAuth 2.0 and OpenID Connect integration\n\n## What This Skill Does\nThis skill hardens Java OAuth 2.0 and OpenID Connect integrations against authorization failures caused by trusting tokens, identities, flow state, or scopes without validation. Apply it when code handles authorization code flows, client credentials, bearer or reference tokens, ID tokens, or protected-resource access decisions. The fix adds PKCE and state validation, strict token and ID token checks, scope enforcement, client secret verification, and optional proof-of-possession validation so protected actions fail closed.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Authorization Code flow is used for user sign-in or delegated access | Require PKCE with `S256`, generate high-entropy verifier with `SecureRandom`, bind and validate `state`, and reject unknown or replayed flow state |\n| Machine-to-machine authentication uses client IDs and secrets | Use Client Credentials flow only, store client secrets in derived form with `SecretKeyFactory`, compare with `MessageDigest.isEqual`, and restrict issued scopes to the client allowlist |\n| Resource server accepts access tokens before reading claims or returning protected data | Validate token integrity, expiry, issuer, audience, and active state first; then enforce required scopes and subject/owner checks in code |\n| OAuth is used for authentication and identity is derived from an ID token | Add OIDC properties only where needed, include `openid` for identity flows, validate the ID token and `nonce`, and invalidate local `state` after use |\n| Code already validates PKCE/state, token claims, required scopes, and denies unauthenticated direct access | No action needed |\n\n## Boundaries\n\n### Can Do\n- Add PKCE, `state`, and `nonce` validation to Java OAuth/OIDC flow handlers\n- Replace direct protected-resource access with token-derived subject and scope checks\n- Improve Java token, ID token, client secret, and proof-of-possession validation paths\n\n### Cannot Do\n- Configure a real identity provider, authorization server, or key distribution system for the deployment\n- Invent trusted issuer values, audiences, client registrations, or scope models that are not defined by the application\n- Guarantee protocol correctness if the application uses a framework-managed OAuth/OIDC integration that should be fixed through framework configuration instead of code edits\n\n## Gotchas\n- Trusting decoded claims before signature or integrity validation: this lets attackers control authorization data\n- Adding `openid` to every OAuth request: this is wrong when no identity flow is needed and can blur authentication vs authorization behavior\n- Checking scopes but not ownership or audience: a valid token can still be unauthorized for the specific resource or service\n\n## Quick Verification\n```bash\n# Confirm secure guards/wrappers exist\nrg -n 'SecureRandom|MessageDigest\\.isEqual|SecretKeyFactory\\.getInstance\\(\"PBKDF2WithHmacSHA256\"\\)|Mac\\.getInstance\\(\"HmacSHA256\"\\)|Signature\\.getInstance\\(\"SHA256withRSA\"\\)|scopes?\\(\\)\\.contains\\(\"documents:read\"\\)|expectedIssuer|expectedAudience|state|nonce|codeVerifier|createS256Challenge' .\n\n# Find unguarded dangerous direct-access patterns that bypass token/scope checks\nrg -n 'public\\s+static\\s+String\\s+process\\s*\\(\\s*String\\s+\\w+\\s*\\)\\s*\\{|DOCUMENTS\\.get\\(\\w+\\)|return\\s+documents\\.getOrDefault\\(\\w+,\\s*\"not found\"\\)|return\\s+document\\s*!=\\s*null\\s*\\?\\s*document\\s*:\\s*\"not found\"' .\n\n# Build and test with the detected Java toolchain\nif [ -f mvnw ]; then ./mvnw test; \\\nelif [ -f pom.xml ]; then mvn test; \\\nelif [ -f gradlew ]; then ./gradlew test; \\\nelif [ -f build.gradle ] || [ -f build.gradle.kts ]; then gradle test; \\\nelse find src -type f -name '*.java' -print0 | xargs -0 -r javac; fi\n```",
+            "type": "Built-in",
+            "ordinal": 632,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:49.419000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:49.419000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9749,
+            "id": "TA9749",
+            "title": "T1922 - SKILL.md - TypeScript",
+            "text": "---\nname: use-secure-oauth-2-0-and-openid-connect-integration\ndescription: Use secure OAuth 2.0 and OIDC validation and scope enforcement for TypeScript apps when fixing improper authorization around tokens, PKCE, claims, and protected resource access\n---\n# Use secure OAuth 2.0 and OpenID Connect integration\n\n## What This Skill Does\nThis skill fixes improper authorization in TypeScript applications that accept OAuth 2.0 access tokens, process authorization codes, or use OIDC identity tokens without strict validation. It adds explicit checks for when OAuth/OIDC should be used, enforces Authorization Code + PKCE for interactive flows, validates token signature/algorithm/issuer/audience/expiry before trusting claims, and performs exact scope checks near each protected action so attacker-controlled input cannot decide access.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Code accepts bearer tokens, JWTs, or token claims and uses them for authorization | Add a `verifyAccessToken`-style guard that validates signature, allowed `alg`, `issuer`, `audience`, expiry, and required claims before building an auth context |\n| Code handles OAuth authorization code exchange in a browser or public client flow | Apply PKCE with high-entropy verifier, `S256` challenge, one-time transaction binding, and constant-time verifier comparison |\n| Code uses OIDC for login or federated identity | Validate ID token claims and keep OIDC identity handling separate from OAuth access-token authorization |\n| Protected endpoints read `req.query`, `req.body`, or other caller input to choose resources | Replace direct trust of input with authorization decisions based on validated token subject and exact required scopes |\n| Code already validates tokens, normalizes claims, and checks exact scopes per operation | No action needed |\n\n## Boundaries\n\n### Can Do\n- Add explicit TypeScript helpers for OAuth/OIDC scenario decisions, PKCE verification, token validation, and scope enforcement\n- Refactor endpoints, services, CLIs, and libraries to authorize from validated claims instead of raw user input\n- Detect and replace common unsafe patterns such as `jwt.decode(...)` or unchecked bearer-token parsing used as authorization\n\n### Cannot Do\n- Provision or configure a real identity provider, client registration, JWKS endpoint, or secret management system\n- Infer the correct issuer, audience, scopes, or ownership rules without application-specific requirements\n- Guarantee security if the application still accepts forged tokens, weak secrets, disabled signature checks, or bypass paths outside the updated code\n\n## Gotchas\n- Using `jwt.decode()` as if it validates a token: `decode` reads claims but does not verify signature, issuer, audience, or expiry\n- Checking scopes with substring matching such as `scope.includes('read')`: this can authorize the wrong permission; split canonical scope strings and compare exact names only\n- Mixing OIDC login with OAuth resource authorization: an ID token is not a drop-in replacement for an access token and should not drive API authorization decisions by itself\n\n## Quick Verification\n```bash\n# Confirm secure validation helpers or guards exist\nrg -n \"verifyAccessToken|jwt\\.verify\\(|timingSafeEqual|hasRequiredScope|shouldUseOAuth2|shouldUseOIDC\" .\n\n# Find unguarded or suspicious dangerous token handling that bypasses verification\nrg -n \"jwt\\.decode\\(|jsonwebtoken\\.decode\\(|req\\.(query|body|params)\\.[A-Za-z0-9_]+.*(owner|user|account)|authorization\\s*[:=].*Bearer\" .\n\n# Build the TypeScript project\nnpx tsc --noEmit\n\n# Run project tests if present\nnpm test\n```",
+            "type": "Built-in",
+            "ordinal": 690,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:51.499000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:51.499000-04:00",
+            "active": true
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,5 +1,6 @@
 import secrets
 import string
+import os
 
 from apis.auth.utils import create_user_if_not_exists
 from apis.menu.schemas import MenuItemCreate
@@ -17,6 +18,13 @@ def generate_random_secret():
     return password
 
 
+def get_seed_password(env_name: str) -> str:
+    configured = os.getenv(env_name)
+    if configured and configured.strip():
+        return configured
+    return generate_random_secret()
+
+
 def load_users(db: Session):
     create_user_if_not_exists(
         db,
@@ -30,7 +38,7 @@ def load_users(db: Session):
     create_user_if_not_exists(
         db,
         username="Mike",
-        password="kaylee123",
+        password=get_seed_password("SEED_PASSWORD_MIKE"),
         first_name="Mike",
         last_name="",
         phone_number="(505) 146-0190",
@@ -39,7 +47,7 @@ def load_users(db: Session):
     create_user_if_not_exists(
         db,
         username="Saul",
-        password="Th4tsMyP4ssw0rd!",
+        password=get_seed_password("SEED_PASSWORD_SAUL"),
         first_name="Saul",
         last_name="",
         phone_number="(505) 842-5662",
@@ -48,7 +56,7 @@ def load_users(db: Session):
     create_user_if_not_exists(
         db,
         username="hhm",
-        password="12345678",
+        password=get_seed_password("SEED_PASSWORD_HHM"),
         first_name="Howard",
         last_name="Hamlin",
         phone_number="(505) 56434-7345",
@@ -57,7 +65,7 @@ def load_users(db: Session):
     create_user_if_not_exists(
         db,
         username="johndoe",
-        password="password123",
+        password=get_seed_password("SEED_PASSWORD_JOHNDOE"),
         first_name="John",
         last_name="Doe",
         phone_number="(505) 56434-7346",
@@ -66,7 +74,7 @@ def load_users(db: Session):
     create_user_if_not_exists(
         db,
         username="alicesmith",
-        password="password456",
+        password=get_seed_password("SEED_PASSWORD_ALICESMITH"),
         first_name="Alice",
         last_name="Smith",
         phone_number="(505) 53436-7347",

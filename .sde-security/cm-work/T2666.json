@@ -1,0 +1,12 @@
+{
+  "cm_id": "T2666",
+  "category": "IN",
+  "library_sourced": false,
+  "content_fields": {
+    "title": "Protect data in transit with TLS (Database Server)",
+    "url": "https://staging.qa.sdelements.com/bunits/copilot-test/app/dvra-clean-for-testing/tasks/phase/deployment/4552-T2666/",
+    "priority": 8,
+    "output_path": "/Users/isilveira/dvra-clean-for-testing/skills/cryptography/T2666-protect-data-in-transit-with-tls-databas/SKILL.md"
+  },
+  "output_path": "/Users/isilveira/dvra-clean-for-testing/skills/cryptography/T2666-protect-data-in-transit-with-tls-databas/SKILL.md"
+}

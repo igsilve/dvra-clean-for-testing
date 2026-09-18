@@ -1,37 +1,72 @@
 services:
   web:
     build: .
-    command: bash -c "alembic upgrade head && uvicorn main:app --host 0.0.0.0 --port 8091 --workers 1 --reload"
-    volumes:
-      - ./app/:/app/
+    command: bash -c "alembic upgrade head && uvicorn main:app --host 0.0.0.0 --port 8091 --workers 1"
     ports:
-      - 8091:8091
+      - 127.0.0.1:8091:8091
+    restart: on-failure:5
+    cgroup_parent: app.slice
+    pids_limit: 256
+    mem_limit: 768m
+    cpus: "1.0"
+    cpu_shares: 512
     depends_on:
       db:
         condition: service_healthy
-    privileged: true
-    cap_add:
-      - SYS_ADMIN
+    security_opt:
+      - no-new-privileges:true
+      - seccomp=default
+    cap_drop:
+      - ALL
+    read_only: true
+    tmpfs:
+      - /tmp
+    networks:
+      app_net:
+        ipv4_address: 172.28.0.10
     environment:
       - POSTGRES_USER=admin
-      - POSTGRES_PASSWORD=password
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:?POSTGRES_PASSWORD is required}
       - POSTGRES_SERVER=db
       - POSTGRES_PORT=5432
       - POSTGRES_DB=restaurant
+      - POSTGRES_SSL_MODE=require
   db:
     image: postgres:15.4-alpine
     volumes:
       - pg_volume:/var/lib/postgresql/data/
     environment:
       - POSTGRES_USER=admin
-      - POSTGRES_PASSWORD=password
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:?POSTGRES_PASSWORD is required}
       - POSTGRES_DB=restaurant
       - PGDATA=/var/lib/postgresql/data/pgdata
     healthcheck:
       test: ["CMD", "sh", "-c", "pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}"]
       interval: 5s
       start_period: 5s
+    restart: on-failure:5
+    cgroup_parent: db.slice
+    pids_limit: 256
+    mem_limit: 768m
+    cpus: "1.0"
+    cpu_shares: 512
+    security_opt:
+      - no-new-privileges:true
+      - seccomp=default
+    cap_drop:
+      - ALL
     expose: 
       - 5432
+    networks:
+      app_net:
+        ipv4_address: 172.28.0.11
+
+networks:
+  app_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.0.0/16
+
 volumes:
   pg_volume:

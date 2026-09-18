@@ -1,0 +1,85 @@
+{
+  "composite_response": [
+    {
+      "reference_id": "T1208",
+      "http_status_code": 200,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "results": [
+          {
+            "db_id": 1636,
+            "id": "TA1636",
+            "title": "FedRAMP / Moderate Baseline",
+            "text": "*** SC-4: System And Communications Protection | Information In Shared Resources ***  \nThe information system prevents unauthorized and unintended information transfer via shared system resources.",
+            "type": "Built-in",
+            "ordinal": 11,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-15T17:48:58.136000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T15:08:03.609000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 2587,
+            "id": "TA2587",
+            "title": "FedRAMP / High Baseline",
+            "text": "*** SC-4: System And Communications Protection | Information In Shared Resources ***  \nThe information system prevents unauthorized and unintended information transfer via shared system resources.",
+            "type": "Built-in",
+            "ordinal": 12,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-17T18:34:05.264000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T18:38:12.468000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 8451,
+            "id": "TA8451",
+            "title": "T1208 - SKILL.md - Docker",
+            "text": "---\nname: no-shared-mount-propagation-docker\ndescription: Use when code builds, accepts, or validates Docker or Docker Compose bind mounts and must reject shared or rshared mount propagation.\n---\n# Do not set mount propagation mode to `shared` (Docker)\n\n## What This Skill Does\nThis skill removes unsafe Docker bind-mount propagation settings by rejecting any mount that uses `shared` or `rshared`. Use it when code generates Docker Compose service volumes, transforms user-provided mount settings, or validates resolved Compose configuration before deployment. The fix is to inspect every bind mount as structured data, allow only non-shared propagation values when present, and stop execution with a clear error if a service uses shared propagation.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Code builds or accepts Docker Compose bind mounts | Validate every service volume and inspect bind mount propagation before execution |\n| A bind mount sets `bind.propagation` to `shared` or `rshared` | Reject configuration and return a clear validation error |\n| Propagation is present and set to `private`, `rprivate`, `slave`, or `rslave` | Allow the configuration |\n| Mounts are represented as free-form strings | Refactor to structured fields so type, source, target, and propagation can be validated |\n| Configuration already omits propagation or uses only non-shared values | No action needed |\n\n## Boundaries\n\n### Can Do\n- Add validation that rejects `shared` and `rshared` on Docker bind mounts\n- Refactor mount handling from free-form strings to structured fields for safer inspection\n- Validate all services and bind mounts in resolved Compose configuration before deployment\n\n### Cannot Do\n- Guarantee safety of non-bind volumes or unrelated Docker security settings\n- Infer valid behavior from ambiguous short-form volume strings without parsing them first\n- Replace broader container hardening such as user, capability, or privilege restrictions\n\n## Gotchas\n- Checking only one service or the first volume: unsafe propagation can appear in any service volume, so validation must inspect all bind mounts\n- Treating missing propagation as a failure: omission is acceptable here; only `shared` and `rshared` must be rejected\n- Matching only `shared` and forgetting `rshared`: both are unsafe and must be blocked\n\n## Quick Verification\n```bash\n# Find explicit shared propagation in Compose files\ngrep -RInE 'propagation:[[:space:]]*(shared|rshared)\\b' .\n\n# Render the final Compose config and inspect all resolved volumes\ndocker compose config\n\n# Example: fail verification if resolved config still contains shared propagation\ndocker compose config | grep -nE 'propagation:[[:space:]]*(shared|rshared)\\b'\n```",
+            "type": "Built-in",
+            "ordinal": 264,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-05-21T11:39:48.466000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:36.724000-04:00",
+            "active": true
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "cm_id": "T2615",
+  "category": "IN",
+  "library_sourced": false,
+  "content_fields": {
+    "title": "Limit network access by blocking connections from unknown IP addresses (PostgreSQL)",
+    "url": "https://staging.qa.sdelements.com/bunits/copilot-test/app/dvra-clean-for-testing/tasks/phase/deployment/4552-T2615/",
+    "priority": 8,
+    "output_path": "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T2615-limit-network-access-by-blocking-connect/SKILL.md"
+  },
+  "output_path": "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T2615-limit-network-access-by-blocking-connect/SKILL.md"
+}

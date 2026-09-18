@@ -1,0 +1,315 @@
+{
+  "composite_response": [
+    {
+      "reference_id": "T36",
+      "http_status_code": 200,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "results": [
+          {
+            "db_id": 10341,
+            "id": "TA10341",
+            "title": "Configure application-level LaTeX parser constraints and keyword allowlists (OWASP ASVS 5.0)",
+            "text": "Configure application-level LaTeX parser constraints and keyword allowlists. Align implementation with the ASVS requirement: Verify that LaTeX processors are configured securely (such as not using the \u201c\u2013 shell\u2011escape\u201dflag) and an allowlist of commands is used to prevent LaTeX injection attacks.",
+            "type": "Built-in",
+            "ordinal": 3,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-08-06T11:23:40.365000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-08-06T11:23:40.365000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 1909,
+            "id": "TA1909",
+            "title": "FedRAMP / Moderate Baseline",
+            "text": "*** SI-10: System And Information Integrity | Information Input Validation ***  \nThe information system checks the validity of [Assignment: organization-defined information inputs].",
+            "type": "Built-in",
+            "ordinal": 11,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-15T17:49:10.979000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T15:08:08.533000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 2814,
+            "id": "TA2814",
+            "title": "FedRAMP / High Baseline",
+            "text": "*** SI-10: System And Information Integrity | Information Input Validation ***  \nThe information system checks the validity of [Assignment: organization-defined information inputs].",
+            "type": "Built-in",
+            "ordinal": 12,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-17T18:34:19.892000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T18:38:16.954000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9293,
+            "id": "TA9293",
+            "title": "T36 - SKILL.md - Python",
+            "text": "---\nname: escape-untrusted-data-in-html-html-attributes-css-and-javascript\ndescription: Escape untrusted data in HTML, attributes, CSS, and JavaScript to prevent XSS (CWE-79); use when user-controlled or external data is written into web pages\n---\n\n# Escape untrusted data in HTML, HTML attributes, CSS, and JavaScript\n\n## What This Skill Does\nFixes cross-site scripting (XSS) by ensuring any untrusted data (user input, headers, cookies, upstream responses, CLI args, etc.) is **contextually escaped right before it is written into HTML, HTML attributes, CSS, or JavaScript**. Prefers using templating engines with auto-escaping and small helper functions to centralize encoding.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Untrusted data is interpolated into HTML body (e.g., `<p>{query}</p>`) | Escape using HTML-encoding (`<` \u2192 `&lt;`, `\"` \u2192 `&quot;`) or rely on template engine auto-escaping; replace raw interpolation with escaped value |\n| Untrusted data is placed in HTML attributes (`<a href=\"{url}\">`, `<input value=\"{name}\">`) | Escape with HTML attribute encoding (also encode quotes); avoid `javascript:` URLs and event handler attributes entirely |\n| Untrusted data appears inside inline JS (`<script>var x = '{value}';</script>`) | Avoid inline JS where possible; if unavoidable, JavaScript-encode the value and ensure it cannot break out of string/JSON context |\n| Untrusted data appears in inline CSS (`style=\"color:{color}\"` or `<style>.x{ background:url({u}) }</style>`) | Prefer predefined classes; otherwise CSS-encode and restrict to safe patterns (e.g., whitelist colors), never allow `url(javascript:...)` |\n| UI or error pages render messages containing user-controlled data (query params, form fields, upstream error text) | Run all such text through the same HTML-context escaping used for normal content; do not render raw exception or request values |\n| Templating engine already has auto-escaping enabled and no `safe`/`raw` overrides are used | No action needed beyond verifying no bypasses of auto-escaping in risky places |\n\n## Boundaries\n\n### Can Do\n- Identify typical XSS sinks where untrusted data goes directly into HTML, attributes, inline CSS, or JS.\n- Replace vulnerable interpolations with context-appropriate escaping or safe template constructs.\n- Introduce or use centralized helper functions for escaping per context (HTML, attribute, JS, CSS).\n- Enable or rely on template engine auto-escaping and remove unnecessary `|safe`/`raw` usages.\n- Fix error pages so they encode any user-controllable data before display.\n\n### Cannot Do\n- Cannot fully protect pages that rely on dangerous patterns like `innerHTML`/`document.write` or heavy inline event handlers without broader refactoring.\n- Cannot fix DOM-based XSS that happens entirely on the client side (JavaScript manipulating the DOM) unless that code is provided and in scope.\n- Cannot choose or enforce CSP, sandboxing, or HTTP security headers; this skill focuses on **encoding**, not all XSS defenses.\n- Cannot safely \"sanitize\" arbitrary HTML-rich user content (e.g., WYSIWYG posts) without a dedicated HTML sanitizer and clear allowed tags.\n- Cannot guarantee framework-specific best practices beyond generic escaping patterns if the framework's templating/escaping model is not shown.\n\n## Gotchas\n- Treating input as \"validated\" instead of \"escaped\": Validation (length, charset, pattern) **does not replace** contextual escaping. You still must escape at output time.\n- Escaping at input/storage time: Encoding data when you store it and then re-encoding or reusing it in other contexts leads to double-encoding or missed contexts; always escape **right before rendering** in the specific output context.\n- Using HTML escaping for non-HTML contexts: HTML encoding is not sufficient for JavaScript strings, JSON, or CSS; each context has different characters that must be encoded to prevent breaking out into executable code.\n- Disabling or bypassing auto-escaping (`|safe`, `|raw`, `dangerouslySetInnerHTML`, etc.) for convenience: This often reintroduces XSS; only bypass auto-escaping for truly trusted content and document why.\n- Rendering raw error messages or stack traces that may include user input: These must be passed through the same HTML escaping as any other user-controlled text before being shown in the browser.\n\n## Quick Verification\n```bash\n# 1. Basic reflected XSS test for HTML body context\ncurl \"http://localhost:5000/search?q=<script>alert(1)</script>\" -v\n\n# Confirm in the browser/devtools:\n# - The response contains &lt;script&gt;alert(1)&lt;/script&gt; (or similar)\n# - No alert box or script execution occurs\n\n# 2. Attribute-context test (if applicable)\ncurl \"http://localhost:5000/?name=\\\" onmouseover=\\\"alert(2)\" -v\n# Check the rendered HTML:\n# - Quotes and angle brackets in the name are encoded\n# - The HTML structure is intact and no new event handler appears\n\n# 3. Error-page test where request data is echoed\ncurl \"http://localhost:5000/some-endpoint?input=<img src=x onerror=alert(3)>\" -v\n# Verify:\n# - The tag appears as text (e.g., &lt;img ...) in the error page\n# - No image loads and no alert executes\n```",
+            "type": "Built-in",
+            "ordinal": 17,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:32.677000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:32.677000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 12003,
+            "id": "TA12003",
+            "title": "T36 - SKILL.md - Go",
+            "text": "---\nname: escape-untrusted-data-in-html-html-attributes-css-and-javascript\ndescription: Use when Go code renders untrusted data into HTML or browser-facing contexts to prevent XSS with context-aware escaping, safe templates, and allowlists for URL/style values.\n---\n# Escape untrusted data in HTML, HTML attributes, CSS, and JavaScript\n\n## What This Skill Does\nThis skill fixes cross-site scripting in Go code that sends untrusted data to browsers. It replaces unsafe rendering patterns such as `template.HTML(...)`, raw string concatenation, and untrusted values in script/style/URL contexts with `html/template` contextual escaping, plain `string` data fields, inert output locations, and allowlists for URL schemes and style tokens.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Untrusted input is cast to `template.HTML`, `template.JS`, `template.CSS`, or `template.URL` | Remove the trusted type cast, keep the value as `string`, and render with `html/template` |\n| Code renders HTML using `text/template`, `fmt.Sprintf`, string concatenation, or manual writes | Replace with `html/template` and pass untrusted values as data fields |\n| Untrusted data is placed into `href`, `src`, or similar URL-bearing attributes | Validate with `net/url`, allow only approved schemes (`http`, `https`) or relative URLs, and replace others |\n| Untrusted data is used for `style`, CSS fragments, or class-like presentation choices | Do not emit raw CSS; map input to a fixed allowlist of server-defined class names or tokens |\n| Untrusted data already stays as plain strings in `html/template` text or safe attribute contexts | No action needed |\n\n## Boundaries\n\n### Can Do\n- Replace unsafe trusted template types with plain strings and `html/template`\n- Move untrusted values into text nodes and inert attributes such as `title`\n- Add allowlists for URL schemes and style-related choices\n\n### Cannot Do\n- Safely preserve arbitrary user-supplied HTML, JavaScript, or CSS without a dedicated sanitizer/redesign\n- Make event handler attributes, inline script blocks, or raw style fragments safe for untrusted input\n- Prove browser safety if client-side code later re-injects the same data into dangerous DOM sinks\n\n## Gotchas\n- Using `html/template` but still casting to `template.HTML` or `template.JS`: this disables escaping for attacker-controlled content\n- Switching from `text/template` to `html/template` without changing dangerous contexts: escaping does not make inline scripts, event handlers, or raw CSS good places for untrusted data\n- Escaping URLs or CSS as strings only: encoding alone is not enough for `javascript:` URLs or attacker-controlled style fragments; use allowlists\n\n## Quick Verification\n```bash\n# Confirm secure Go templating and URL validation helpers exist\nrg -n 'html/template|url\\.Parse|safeURL|safeClass|template\\.New\\(.*\\)\\.Parse'\n\n# Find unguarded dangerous trusted-type conversions or non-HTML templating used for browser output\nrg -n 'template\\.(HTML|JS|CSS|URL)\\s*\\(|text/template|fmt\\.Sprintf\\(.*<|<script>|on[a-zA-Z]+\\s*=|style='\n\n# Build and test all packages in a generic Go project\ngo build ./... && go test ./...\n```",
+            "type": "Built-in",
+            "ordinal": 34,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-08-25T19:07:26.354000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-08-25T19:07:26.354000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 904,
+            "id": "TA904",
+            "title": "ASD-STIG requirements",
+            "text": "## V-222602 [high]:\n__The application must protect from Cross-Site Scripting (XSS) vulnerabilities.__\n\nXSS attacks are essentially code injection attacks against the various language interpreters contained within the browser. XSS can be executed via HTML, JavaScript, VBScript, ActiveX; essentially any scripting language a browser is capable of processing.\n\nXSS vulnerabilities are created when a website does not properly sanitize, escape, or encode user input. For example, \"&lt;\" is the HTML encoding for the \"<\" character. If the encoding is performed, the script code will not execute.\n\nThere are 3 parties involved in an XSS attack, the attacker, the trusted and vulnerable website, and the victim. An attacker will take advantage of a vulnerable website that does not properly validate user input by inserting malicious code into any data entry field.\n\nWhen the victim visits the trusted website and clicks on the malicious link left by the attacker, the attacker's script is executed in the victims browser with the trust permissions assigned to the site.\n\nThere are several different types of XSS attack and the complete details regarding XSS cannot be described completely here.\n\nTo address the issue of XSS, web application developers must escape, encode or otherwise validate all user input that is processed and output by the web server. They should also use web templates or a web development framework that provides the capability to encode or otherwise validate user input.\n\nExamples of XSS vulnerabilities can be obtained from the Open Web Application Security Project (OWASP) website.\n  \nThe site is available by pointing your browser to https://www.owasp.org.\n\n## V-222609 [high]:\n__The application must not be subject to input handling vulnerabilities.__\n\nA common application vulnerability is unpredictable behavior due to improper input validation. This requirement guards against adverse or unintended system behavior caused by invalid inputs, where information system responses to the invalid input may be disruptive or cause the system to fail into an unsafe state.\n\nData received from the user should always be suspected as being malicious and always validated prior to using it as input to the application.\n\nSome examples of input methods:\n\n- Forms Data\n- URL parameters\n- Hidden Fields\n- Cookies\n- HTTP Headers or anything in the HTTP request\n- Client data entry fields\n\nItems to validate:\n\n- Out of range values/Boundary \n- Data length \n- Validate types of characters allowed\n- Whitelist validation for known good data input while denying all other input.\n\nOther recommendations include: \n\n- Using drop down menus for lists\n- Validating input on the server, not on the client.\n\nIf validating on the client, also validate on the server:\n\n- Using regular expressions to validate input\n- Using HTML filter libraries that implement input validation tasks.\n\n",
+            "type": "Built-in",
+            "ordinal": 40,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2018-02-20T11:21:13.517000-05:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2024-09-24T13:15:57.658000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 8479,
+            "id": "TA8479",
+            "title": "T36 - SKILL.md - JavaScript",
+            "text": "---\nname: escape-untrusted-data-in-html-and-scripts\ndescription: Escape untrusted data in HTML, attributes, CSS, and JavaScript to prevent XSS; use when untrusted input is rendered into web pages or inline scripts/styles\n---\n\n# Escape untrusted data in HTML, HTML attributes, CSS, and JavaScript\n\n## What This Skill Does\nApplies context-aware output encoding wherever untrusted data is written into HTML, HTML attributes, CSS, or JavaScript so the browser treats it as data instead of executable markup or script. This prevents cross-site scripting (CWE-79 / P632) in server-rendered templates and string-built HTML/JS/CSS.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Untrusted data is inserted between HTML tags (e.g., `<div>${user}</div>`) | Wrap the value with an HTML text encoder (e.g., `encodeForContext(user, 'html')`) before interpolation |\n| Untrusted data is inserted into an HTML attribute value (e.g., `alt=\"${user}\"`, `data-*`, `style=...`) | Use an attribute encoder for the attribute value and CSS encoder for any user-influenced style fragments |\n| Untrusted data is embedded inside a JavaScript string literal (inline `<script>` or `onclick=\"...\"`) | Encode with a JavaScript string encoder (e.g., `encodeForContext(user, 'js')`) and avoid mixing it into executable code paths |\n| Untrusted data is written into CSS (inline `style` or `<style>` rules, class name fragments, theme names) | Encode with a CSS-safe encoder (e.g., `encodeForContext(user, 'css')`) before inserting into selectors or values |\n| Framework/template engine already auto-escapes HTML and there is no manual raw output (`| raw`, `v-html`, `dangerouslySetInnerHTML`, etc.) | Prefer no change; only add encoding where auto-escaping is bypassed or non-HTML contexts (JS/CSS) are involved |\n\n## Boundaries\n\n### Can Do\n- Detect and fix obvious XSS sinks where untrusted data is concatenated into HTML, attributes, CSS, or JS strings.\n- Introduce or wire up a central `encodeForContext` helper (or framework equivalent) and apply it consistently.\n- Replace manually concatenated HTML/JS/CSS with context-encoded output while preserving functional behavior.\n\n### Cannot Do\n- Cannot guarantee safety of complex third-party widgets or libraries that build DOM/JS/CSS internally.\n- Cannot replace the need for other XSS defenses (CSP, sandboxing, input validation, template engine configuration).\n- Cannot reliably secure code that uses APIs executing raw strings (`eval`, `new Function`, `innerHTML` with HTML fragments) without a broader refactor.\n\n## Gotchas\n- Treating all contexts the same: Using HTML encoding for JS or CSS contexts can still allow XSS because escaping rules differ per context.\n- Double-encoding values: Encoding data that is already auto-escaped by the template engine can lead to broken UI (`&amp;lt;`); check whether auto-escaping is active before adding manual encoding.\n- Ignoring error/debug output: Error messages, stack traces, and logs rendered in HTML that include user input must also go through an HTML encoder or they become XSS sinks.\n\n## Quick Verification\n```bash\n# 1) Run the demo app (adjust file name/path as needed)\nnode app_fix_human_code.js\n\n# 2) Visit the search route with an XSS payload in the browser:\n#    http://localhost:3000/search?q=<img src=x onerror=alert(1)>\n\n# 3) Confirm:\n#    - No alert box appears\n#    - View Source shows the payload encoded (e.g., &lt;img src=x onerror=alert(1)&gt;)\n\n# 4) CLI-based check (no browser):\nnode app_fix_human_code.js \"<img src=x onerror=alert(1)>\" | sed -n '1,120p'\n\n# Ensure the printed HTML contains only encoded characters for <, >, \", ', / and script does not execute.\n```",
+            "type": "Built-in",
+            "ordinal": 41,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-05-21T11:39:50.323000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-05-21T11:39:50.323000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 12072,
+            "id": "TA12072",
+            "title": "T36 - SKILL.md - Rust",
+            "text": "---\nname: escape-untrusted-data-in-html-html-attributes-css-and-javascript\ndescription: Use when Rust code inserts untrusted data into browser-interpreted output and needs context-specific escaping for HTML text, quoted attributes, CSS strings, and JavaScript strings to prevent XSS.\n---\n# Escape untrusted data in HTML, HTML attributes, CSS, and JavaScript\n\n## What This Skill Does\nThis skill fixes cross-site scripting caused by inserting untrusted data into browser-interpreted output without the right encoding for that specific context. In Rust, apply separate helpers for HTML text, quoted HTML attributes, CSS string values, and JavaScript string literals, and require explicit context selection at the call site so untrusted data never falls back to raw `format!` or string concatenation.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Untrusted data is inserted into HTML text such as `<p>{}</p>`, `<title>{}</title>`, or error content | Apply `escape_html_text(...)` before rendering |\n| Untrusted data is inserted into a quoted HTML attribute value | Apply `escape_html_attribute(...)`, keep the attribute quoted, and allow only safe attribute names |\n| Untrusted data is inserted into CSS output | Keep it inside a quoted CSS string and apply `escape_css_string(...)` |\n| Untrusted data is inserted into JavaScript embedded in HTML | Keep it inside a quoted JS string literal and apply `escape_js_string(...)` |\n| Code already uses explicit helpers with an `OutputContext`-style selection and rejects unsafe attribute names | No action needed |\n\n## Boundaries\n\n### Can Do\n- Replace raw browser-output interpolation with explicit context-specific escaping helpers\n- Add or enforce an `OutputContext` dispatch path such as `HtmlText`, `HtmlAttribute`, `CssString`, and `JavaScriptString`\n- Reject dynamic attribute names unless they match a safe allowlist\n\n### Cannot Do\n- Make unsafe sinks safe when untrusted input controls HTML structure, tag names, CSS selectors, property names, or JavaScript expressions\n- Validate navigation-sensitive URLs such as `href` or `src` schemes; that needs separate URL validation/allowlisting\n- Fix DOM-based XSS in client-side JavaScript after the server sends the page\n\n## Gotchas\n- Using one generic escape function everywhere: HTML, attributes, CSS, and JavaScript have different parsing rules, so one encoder is not safe across all contexts\n- Escaping attribute values but leaving attribute names dynamic: `onclick`, `style`, or other script-capable attributes remain dangerous even if the value is encoded\n- Escaping JavaScript strings but interpolating into executable code: encoded data is only safe inside quoted string literals, not in expressions, statements, or template construction\n\n## Quick Verification\n```bash\n# Confirm the secure helpers or explicit context wrapper exist\nrg -n 'enum\\s+OutputContext|escape_html_text\\s*\\(|escape_html_attribute\\s*\\(|escape_css_string\\s*\\(|escape_js_string\\s*\\(|render_untrusted_value\\s*\\(' .\n\n# Find likely unguarded browser-output construction that bypasses the helpers\nrg -n 'format!\\s*\\(.*<|push_str\\s*\\(.*<|write!\\s*\\(.*<|writeln!\\s*\\(.*<|concat!\\s*\\(.*<' .\n\n# Build and run tests across common Rust project types\ncargo build --workspace --all-targets && cargo test --workspace --all-targets\n```",
+            "type": "Built-in",
+            "ordinal": 108,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-08-25T19:07:29.956000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-08-25T19:07:29.956000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 10477,
+            "id": "TA10477",
+            "title": "Ensure the application avoids DOM clobbering via explicit variable declarations and strict type checking (OWASP ASVS 5.0)",
+            "text": "Ensure the application avoids DOM clobbering when using client-side JavaScript by employing explicit variable declarations, performing strict type checking, avoiding global variables on the document object, and implementing namespace isolation. Align implementation with the ASVS requirement: Verify that the application avoids DOM clobbering when using client\u2011side JavaScript by employing explicit variable declarations, performing strict type checking, avoiding storing global variables on the document object, and implementing namespace isolation.",
+            "type": "Built-in",
+            "ordinal": 140,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-08-06T11:23:47.056000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-08-06T11:23:47.056000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9379,
+            "id": "TA9379",
+            "title": "T36 - SKILL.md - Java",
+            "text": "---\nname: escape-untrusted-data-in-html-html-attributes-css-and-javascript\ndescription: \"Apply context-specific output encoding to prevent XSS in web page generation. Use when untrusted data is rendered into HTML, attributes, JavaScript, CSS, URLs, or error messages.\"\n---\n\n# Escape untrusted data in HTML, HTML attributes, CSS, and JavaScript\n\n## What This Skill Does\nThis skill fixes cross-site scripting caused by writing untrusted data into web pages without the correct output encoding for the exact browser context. It applies context-specific encoding at the last point before rendering, prefers framework auto-escaping for normal HTML output, and replaces direct concatenation or custom replace-based escaping in HTML body text, attributes, JavaScript, CSS, URL components, and rendered error messages.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Untrusted data is concatenated into HTML element text | Apply HTML content encoding at render time |\n| Untrusted data is inserted into a quoted HTML attribute | Apply HTML attribute encoding |\n| Untrusted data is inserted into `<script>` blocks, JS strings, or inline handlers | Apply JavaScript encoding; for inline handler attributes use the event-handler-safe variant if they cannot be removed |\n| Untrusted data is inserted into CSS strings or URL query/path components | Apply CSS string encoding or URL component encoding for the exact sink |\n| A template engine already auto-escapes normal HTML output and raw-output features are not used | No action needed for plain HTML text; keep explicit encoding for JavaScript, CSS, URLs, and other mixed contexts |\n\n## Boundaries\n\n### Can Do\n- Replace unsafe string concatenation with context-specific output encoding for HTML, attributes, JavaScript, CSS, URL components, and error messages\n- Prefer framework automatic escaping for normal HTML template rendering and identify places where it is bypassed\n- Route direct rendering through a centralized encoding utility such as OWASP Java Encoder\n\n### Cannot Do\n- Guarantee safety if untrusted data is placed into dangerous patterns that should be redesigned, such as arbitrary raw HTML, unquoted attributes, or complex inline script construction\n- Fix client-side code that later reads encoded text and injects it into the DOM unsafely with APIs like `innerHTML`\n- Validate whether a URL target itself is safe to allow; URL component encoding does not approve untrusted schemes or destinations\n\n## Gotchas\n- Using one encoder everywhere: HTML escaping is not sufficient for JavaScript, CSS, or URL contexts, and can still leave executable payloads\n- Building custom escaping with chained `replace()` calls: ad hoc escaping is incomplete and breaks easily on edge cases and browser parsing rules\n- Assuming error messages are trusted: exception text, validation output, and reflected request values can contain attacker-controlled content and must be encoded before rendering\n\n## Quick Verification\n```bash\n# Build and run the Java app with an HTML payload\njava AppFixOriginalCode '<script>alert(1)</script>'\n\n# Test an attribute-breaking payload; output should remain inert text\njava AppFixOriginalCode '\" onerror=\"alert(1)'\n\n# Search for risky raw rendering and direct concatenation into browser contexts\ngrep -RInE 'innerHTML|out\\.print|<script>|on[a-zA-Z]+=' .\n\n# If using Maven, run tests after replacing manual escaping with OWASP Java Encoder\nmvn test\n```",
+            "type": "Built-in",
+            "ordinal": 277,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:37.172000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:37.172000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9793,
+            "id": "TA9793",
+            "title": "T36 - SKILL.md - TypeScript",
+            "text": "---\nname: escape-untrusted-data-in-html-html-attributes-css-and-javascript\ndescription: Use when TypeScript code writes untrusted data into HTML, HTML attributes, CSS, JavaScript, or rendered error output and needs context-specific escaping to prevent XSS.\n---\n\n# Escape untrusted data in HTML, HTML attributes, CSS, and JavaScript\n\n## What This Skill Does\nThis skill prevents cross-site scripting when TypeScript code sends untrusted data into browser-rendered output. It applies context-specific output encoding for HTML text, quoted HTML attributes, CSS values, JavaScript quoted string literals, and displayed error messages; centralizes those encoders in shared helpers; and steers untrusted data into safe text sinks instead of executable browser contexts.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Untrusted input is interpolated into HTML text such as template literals, string-built responses, or server-rendered markup | Apply an HTML text encoder such as a shared `encodeHtmlText()` helper or framework auto-escaping |\n| Untrusted input is placed in an HTML attribute value | Quote the attribute value and apply a dedicated HTML attribute encoder such as `encodeHtmlAttribute()` |\n| Untrusted input is inserted into inline CSS or a `style` attribute | Apply a CSS-specific encoder; prefer avoiding dynamic CSS when possible |\n| Untrusted input is inserted into inline JavaScript or a `<script>` block | Only place it inside a quoted string context and apply a JavaScript string encoder; otherwise refactor to a safer sink |\n| Code already uses framework contextual auto-escaping or reviewed shared encoders for the exact sink | No action needed |\n\n## Boundaries\n\n### Can Do\n- Add shared TypeScript helpers for `encodeHtmlText`, `encodeHtmlAttribute`, `encodeCssValue`, and `encodeJsString`\n- Replace raw string interpolation in browser output with context-specific encoding or framework auto-escaping\n- Add safe-sink helpers for text content and allowlisted text attributes such as `title` or `aria-label`\n\n### Cannot Do\n- Make dangerous contexts safe if the design requires untrusted data in event handlers, raw `<script>` code, or parser-changing markup\n- Guarantee safety with one generic escape function across HTML, attributes, CSS, and JavaScript\n- Fix client-side DOM XSS caused by unsafe browser APIs unless those sinks are also changed to safe text APIs\n\n## Gotchas\n- Reusing one HTML escape helper for every sink: HTML escaping alone does not safely encode CSS or JavaScript contexts\n- Writing untrusted data into unquoted attributes: encoding is not enough if the attribute is not quoted first\n- Putting encoded data into `innerHTML` or inline event handlers: the browser still treats those as executable or markup-bearing sinks\n\n## Quick Verification\n```bash\n# Confirm shared context-specific encoders or wrappers exist\nrg -n --glob '!node_modules' 'encodeHtmlText|encodeHtmlAttribute|encodeCss(Value)?|encodeJs(String|Value)|he\\.encode|escapeHtml' .\n\n# Find likely unguarded browser-output construction and dangerous sinks that bypass the fix\nrg -n --glob '!node_modules' 'innerHTML\\s*=|outerHTML\\s*=|insertAdjacentHTML\\s*\\(|document\\.write\\s*\\(|res\\.send\\s*\\(|res\\.end\\s*\\(|<script>|style=|on[a-zA-Z]+\\s*=|\\$\\{[^}]+\\}' .\n\n# TypeScript build\nnpx tsc --noEmit\n\n# Run project tests if present\nnpm test\n```",
+            "type": "Built-in",
+            "ordinal": 741,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:53.216000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:53.216000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9867,
+            "id": "TA9867",
+            "title": "T36 - SKILL.md - React",
+            "text": "---\nname: escape-untrusted-data-in-html-html-attributes-css-and-javascript\ndescription: Use when React code renders untrusted data into HTML, attributes, CSS, JavaScript-adjacent output, or error messages and needs context-specific XSS defenses.\n---\n# Escape untrusted data in HTML, HTML attributes, CSS, and JavaScript\n\n## What This Skill Does\nThis skill fixes cross-site scripting in React by replacing unsafe rendering of untrusted data with context-specific protections. Prefer React's default escaping for text and quoted inert attributes, keep auto-escaping behavior intact, validate or allowlist CSS values before use, serialize data with `JSON.stringify()` for JavaScript-adjacent output, and only use `dangerouslySetInnerHTML` when untrusted HTML has first been sanitized through an approved path such as DOMPurify.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Untrusted data is rendered as normal JSX text or quoted inert attributes like `title` or `data-*` | Keep React default escaping and render the value directly in JSX |\n| Code uses `dangerouslySetInnerHTML` with untrusted or user-influenced content | Replace with plain text rendering, or sanitize first with `DOMPurify.sanitize(...)` before `dangerouslySetInnerHTML` |\n| Untrusted data is inserted into React `style` props or CSS-like values | Do not inject raw values; allowlist or validate the specific value format before use |\n| Untrusted data is placed into script-adjacent output or embedded page data | Serialize with `JSON.stringify()` and keep it in a non-executable data context |\n| Code already relies on React auto-escaping and avoids raw HTML/script/style sinks | No action needed |\n\n## Boundaries\n\n### Can Do\n- Replace unsafe HTML rendering with safe JSX text rendering in React components\n- Introduce a centralized sanitization path for trusted cases that must render limited HTML\n- Convert unsafe CSS and JavaScript-adjacent output to validated or serialized data flows\n\n### Cannot Do\n- Guarantee safety if the app later passes sanitized or escaped data into unsafe browser APIs outside React\n- Safely permit arbitrary HTML, CSS, URLs, or script content without strict sanitization or validation rules\n- Fix server-side template engines, non-React rendering layers, or backend response headers by itself\n\n## Gotchas\n- Using `dangerouslySetInnerHTML` after manual string escaping: this is wrong because generic escaping is context-sensitive and easy to bypass; prefer plain JSX text or a sanitizer for HTML\n- Treating React `style` props as automatically safe for any string: this is wrong because untrusted CSS values still need validation or allowlisting\n- Embedding raw values into `<script>` or event-handler-like contexts: this is wrong because React escaping for HTML text does not make executable JavaScript contexts safe\n\n## Quick Verification\n```bash\n# Confirm approved safe paths exist\nrg -n 'DOMPurify\\.sanitize|JSON\\.stringify|data-testid=\"preview-content\">\\{message\\}|<[^>]+>\\{[A-Za-z0-9_.$]+\\}</' .\n\n# Find unguarded dangerous React HTML sinks and bypasses\nrg -n 'dangerouslySetInnerHTML|createElement\\([^)]*,[^)]*,\\s*[^)]*<|__html\\s*:\\s*[^}]+' .\n\n# Build + test using the project's available React/JS toolchain\nnpm test && npm run build || yarn test && yarn build || pnpm test && pnpm build\n```",
+            "type": "Built-in",
+            "ordinal": 819,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:56.080000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:56.080000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9902,
+            "id": "TA9902",
+            "title": "T36 - SKILL.md - Angular",
+            "text": "---\nname: escape-untrusted-data-in-html-html-attributes-css-and-javascript\ndescription: \"Use when Angular code may render user-controlled data into browser HTML, attribute, URL, CSS, or JavaScript contexts and must prevent XSS with safe bindings, validation, and removal of unsafe sinks.\"\n---\n# Escape untrusted data in HTML, HTML attributes, CSS, and JavaScript\n\n## What This Skill Does\nThis skill fixes cross-site scripting in Angular by replacing unsafe rendering paths for untrusted data with Angular's contextual escaping and safe text bindings, rejecting dangerous inputs where appropriate, and removing trust-bypass or direct HTML injection patterns. Use it when user-controlled values from forms, routes, APIs, storage, or error messages reach templates, DOM-writing code, URL bindings, style bindings, or script-adjacent output.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Untrusted data is rendered in template text or list items | Use Angular interpolation `{{ value }}` or `[textContent]=\"value\"` instead of manual HTML construction |\n| Untrusted data is rendered with `[innerHTML]`, direct DOM HTML writes, or `DomSanitizer.bypassSecurityTrust*` | Remove the unsafe sink/trust bypass and render as text or move to a safe allowlisted attribute/value binding |\n| Untrusted data is used in URLs, styles, classes, or other non-text bindings | Keep Angular bindings, but add validation and allowlists for schemes, CSS tokens, classes, and expected formats |\n| Legacy code must place data into a JavaScript string context | Avoid if possible; if unavoidable, centralize strict context-specific escaping and keep the data out of executable script APIs |\n| Code already uses safe Angular text bindings and constrained non-text values | No action needed |\n\n## Boundaries\n\n### Can Do\n- Replace unsafe Angular HTML rendering patterns such as `[innerHTML]` with safe text bindings\n- Remove `DomSanitizer.bypassSecurityTrustHtml` and related trust-bypass usage on untrusted data\n- Add validators or allowlists for plain-text inputs, URL schemes, and restricted presentation values\n\n### Cannot Do\n- Guarantee safety if the application intentionally executes untrusted code or third-party widgets\n- Safely preserve arbitrary user-supplied HTML formatting without a dedicated reviewed HTML sanitization policy\n- Infer business-safe URL schemes, CSS values, or attribute allowlists without project-specific requirements\n\n## Gotchas\n- Encoding before Angular text binding: this can cause double-encoding because Angular already escapes interpolation and `[textContent]`\n- Using `bypassSecurityTrustHtml`, `bypassSecurityTrustUrl`, or similar on user input: this disables Angular's protection and can reintroduce XSS\n- Assuming validation replaces output safety: rejecting `<script>` or `javascript:` helps, but every render path still needs safe bindings and sink selection\n\n## Quick Verification\n```bash\n# Confirm safe text bindings or centralized validation/encoding helpers exist\nrg -n --glob '*.ts' --glob '*.html' '\\[textContent\\]|\\{\\{[^}]+\\}\\}|ValidatorFn|hasError\\(|unsafeScheme|htmlNotAllowed|htmlTagsNotAllowed'\n\n# Find unguarded dangerous Angular and DOM sink usage that should be removed or reviewed\nrg -n --glob '*.ts' --glob '*.html' '\\[innerHTML\\]|bypassSecurityTrust(Html|Style|Script|Url|ResourceUrl)\\s*\\(|nativeElement\\.innerHTML\\s*=|outerHTML\\s*=|insertAdjacentHTML\\s*\\(|document\\.write\\s*\\(|ElementRef|Renderer2.*setProperty\\s*\\(.*innerHTML'\n\n# Build all configured Angular projects in the workspace\nnpx ng build\n\n# Run Angular unit tests if configured\nnpx ng test --watch=false\n```",
+            "type": "Built-in",
+            "ordinal": 854,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:57.441000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:57.441000-04:00",
+            "active": true
+          }
+        ]
+      }
+    }
+  ]
+}

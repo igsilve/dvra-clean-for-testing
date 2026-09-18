@@ -1,0 +1,12 @@
+{
+  "cm_id": "T4750",
+  "category": "IN",
+  "library_sourced": false,
+  "content_fields": {
+    "title": "Isolate container networks",
+    "url": "https://staging.qa.sdelements.com/bunits/copilot-test/app/dvra-clean-for-testing/tasks/phase/architecture-design/4552-T4750/",
+    "priority": 10,
+    "output_path": "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T4750-isolate-container-networks/SKILL.md"
+  },
+  "output_path": "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T4750-isolate-container-networks/SKILL.md"
+}

@@ -1,0 +1,12 @@
+{
+  "cm_id": "T2599",
+  "category": "IN",
+  "library_sourced": false,
+  "content_fields": {
+    "title": "Protect against connection string parameter pollution",
+    "url": "https://staging.qa.sdelements.com/bunits/copilot-test/app/dvra-clean-for-testing/tasks/phase/development/4552-T2599/",
+    "priority": 9,
+    "output_path": "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T2599-protect-against-connection-string-parame/SKILL.md"
+  },
+  "output_path": "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T2599-protect-against-connection-string-parame/SKILL.md"
+}

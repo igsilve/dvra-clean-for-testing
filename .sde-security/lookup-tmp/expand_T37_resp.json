@@ -1,0 +1,200 @@
+{
+  "composite_response": [
+    {
+      "reference_id": "T37",
+      "http_status_code": 200,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "results": [
+          {
+            "db_id": 2909,
+            "id": "TA2909",
+            "title": "ASD-STIG requirements",
+            "text": "## V-222602 [high]:\n__The application must protect from Cross-Site Scripting (XSS) vulnerabilities.__\n\nXSS attacks are essentially code injection attacks against the various language interpreters contained within the browser. XSS can be executed via HTML, JavaScript, VBScript, ActiveX; essentially any scripting language a browser is capable of processing.\n\nXSS vulnerabilities are created when a website does not properly sanitize, escape, or encode user input. For example, \"&lt;\" is the HTML encoding for the \"<\" character. If the encoding is performed, the script code will not execute.\n\nThere are 3 parties involved in an XSS attack, the attacker, the trusted and vulnerable website, and the victim. An attacker will take advantage of a vulnerable website that does not properly validate user input by inserting malicious code into any data entry field.\n\nWhen the victim visits the trusted website and clicks on the malicious link left by the attacker, the attacker's script is executed in the victims browser with the trust permissions assigned to the site.\n\nThere are several different types of XSS attack and the complete details regarding XSS cannot be described completely here.\n\nTo address the issue of XSS, web application developers must escape, encode or otherwise validate all user input that is processed and output by the web server. They should also use web templates or a web development framework that provides the capability to encode or otherwise validate user input.\n\nExamples of XSS vulnerabilities can be obtained from the Open Web Application Security Project (OWASP) website.\n  \nThe site is available by pointing your browser to https://www.owasp.org.\n\n",
+            "type": "Built-in",
+            "ordinal": 0,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2020-11-16T13:27:13.799000-05:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2024-09-24T13:15:54.891000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 1910,
+            "id": "TA1910",
+            "title": "FedRAMP / Moderate Baseline",
+            "text": "*** SI-10: System And Information Integrity | Information Input Validation ***  \nThe information system checks the validity of [Assignment: organization-defined information inputs].",
+            "type": "Built-in",
+            "ordinal": 11,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-15T17:49:11.010000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T15:08:08.543000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 2803,
+            "id": "TA2803",
+            "title": "FedRAMP / High Baseline",
+            "text": "*** SI-10: System And Information Integrity | Information Input Validation ***  \nThe information system checks the validity of [Assignment: organization-defined information inputs].",
+            "type": "Built-in",
+            "ordinal": 12,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-17T18:34:19.283000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T18:38:16.792000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9334,
+            "id": "TA9334",
+            "title": "T37 - SKILL.md - JavaScript",
+            "text": "---\nname: avoid-dom-based-xss\ndescription: Avoid DOM-based Cross-Site Scripting by replacing unsafe DOM sinks, forbidding executable attributes, and encoding URLs/CSS; Use when untrusted DOM values reach innerHTML/document.write/event attributes or URL/style contexts.\n---\n\n# Avoid DOM-based Cross-Site Scripting (XSS)\n\n## What This Skill Does\nPrevents DOM-based XSS where attacker-controlled values from browser/DOM sources (like `location`, query params, `referrer`, or other client data) are written into HTML, attributes, URLs, CSS, or script-like strings without proper handling. It guides you to replace unsafe sinks (`innerHTML`, `document.write`, executable attributes) with safe DOM APIs, apply allow-lists for attributes, and use context-appropriate encoding and URL validation.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Code writes values from `location`, `referrer`, query/hash, or other untrusted DOM data into `innerHTML`, `outerHTML`, or `document.write` | Replace with `textContent` / `innerText` and safe DOM construction (`createElement`, `appendChild`) so the browser never parses user data as HTML |\n| Code sets event handler attributes or executable attributes (e.g., `onclick`, `onload`, `srcdoc`) using untrusted data | Forbid these: remove data-driven handler attributes and use static event listeners (`addEventListener`) with untrusted values treated as data only |\n| Code builds URLs or CSS `url()` values from untrusted data (`href`, `src`, `background-image`) | Normalize and validate via an allow-list of schemes (`http`, `https`, same-origin), use `new URL` and encode user-controlled components; block or empty dangerous schemes like `javascript:` or `data:` |\n| Code uses untrusted DOM values in script-like strings (`eval`, `new Function`, string-based `setTimeout`/`setInterval`, inline `<script>`) | Remove string-based code execution; pass functions instead, or treat values as plain text and write them via `textContent` or logging only |\n| Review shows data is already handled via safe DOM APIs (`textContent`, attribute allow-list, validated URLs, no executable attributes) | No action needed; keep current pattern and document it as the project's safe standard |\n\n## Boundaries\n\n### Can Do\n- Detect and refactor obvious DOM XSS sinks using `innerHTML`, `outerHTML`, `document.write`, and event attributes fed by untrusted input.\n- Introduce safe DOM construction (using `createElement`, attribute setters for non-executable attributes, `appendChild`, `textContent`).\n- Add helpers for safe URL building and CSS `url()` composition with scheme allow-lists and proper encoding.\n\n### Cannot Do\n- Cannot guarantee HTML or URL libraries you add are themselves secure without human review of their documentation and defaults.\n- Cannot infer complex application-level trust boundaries (e.g., which inputs are fully trusted admin-only fields) without explicit hints in code or comments.\n- Cannot prevent server-side or stored XSS; this skill only addresses client-side / DOM-based injection patterns in browser-executed code.\n\n## Gotchas\n- Assuming `innerHTML` is safe after \"sanitizing\" input with ad-hoc string replaces: attackers often bypass naive filters; prefer `textContent` or robust, vetted sanitization libraries plus safe DOM APIs.\n- Allowing all attributes except those starting with `on`: other attributes (like `srcdoc`, `href` with `javascript:`, `xlink:href`) can still execute code; use a strict allow-list of known-safe attributes instead of a loose block-list.\n- Treating URL encoding as enough without checking protocol: `encodeURIComponent('javascript:alert(1)')` is still dangerous if you decode or concatenate into `href` without enforcing allowed schemes.\n\n## Quick Verification\n```bash\n# Run the vulnerable app (before fix) and observe XSS\nnode app_vulnerable.js  '<img src=x onerror=alert(1)>' &\nVULN_PID=$!\nsleep 1\necho \"Open http://localhost:3000/profile?fragment=%3Cimg%20src%3Dx%20onerror%3Dalert(1)%3E in a browser and confirm alert fires\"\n\n# Run the fixed app and verify no script execution\nnode app_fixed.js  '<img src=x onerror=alert(1)>' &\nFIX_PID=$!\nsleep 1\necho \"Open http://localhost:3000/profile?fragment=%3Cimg%20src%3Dx%20onerror%3Dalert(1)%3E in a browser and confirm it renders as inert text and no alert fires\"\n\n# Basic static sanity check: ensure no unsafe sinks remain in the fixed file\ngrep -nE 'innerHTML|outerHTML|document\\.write|setAttribute\\\\(.*on[a-zA-Z]+|eval\\\\(|new Function\\\\(|setTimeout\\\\(|setInterval\\\\(' app_fixed.js || echo \"No obvious DOM XSS sinks found in fixed file\"\n\n# Clean up background processes (optional)\nkill $VULN_PID $FIX_PID 2>/dev/null || true\n```",
+            "type": "Built-in",
+            "ordinal": 99,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:34.311000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:34.311000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 8540,
+            "id": "TA8540",
+            "title": "T37 - SKILL.md - Python",
+            "text": "---\nname: avoid-dom-based-xss\ndescription: Avoid DOM-based Cross-Site Scripting by replacing unsafe DOM sinks, forbidding executable attributes, and encoding URLs/CSS; Use when untrusted DOM values reach innerHTML/document.write/event attributes or URL/style contexts.\n---\n\n# Avoid DOM-based Cross-Site Scripting (XSS)\n\n## What This Skill Does\nPrevents DOM-based XSS where attacker-controlled values from browser/DOM sources (like `location`, query params, `referrer`, or other client data) are written into HTML, attributes, URLs, CSS, or script-like strings without proper handling. It guides you to replace unsafe sinks (`innerHTML`, `document.write`, executable attributes) with safe DOM APIs, apply allow-lists for attributes, and use context-appropriate encoding and URL validation.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Code writes values from `location`, `referrer`, query/hash, or other untrusted DOM data into `innerHTML`, `outerHTML`, or `document.write` | Replace with `textContent` / `innerText` and safe DOM construction (`createElement`, `appendChild`) so the browser never parses user data as HTML |\n| Code sets event handler attributes or executable attributes (e.g., `onclick`, `onload`, `srcdoc`) using untrusted data | Forbid these: remove data-driven handler attributes and use static event listeners (`addEventListener`) with untrusted values treated as data only |\n| Code builds URLs or CSS `url()` values from untrusted data (`href`, `src`, `background-image`) | Normalize and validate via an allow-list of schemes (`http`, `https`, same-origin), use `new URL` and encode user-controlled components; block or empty dangerous schemes like `javascript:` or `data:` |\n| Code uses untrusted DOM values in script-like strings (`eval`, `new Function`, string-based `setTimeout`/`setInterval`, inline `<script>`) | Remove string-based code execution; pass functions instead, or treat values as plain text and write them via `textContent` or logging only |\n| Review shows data is already handled via safe DOM APIs (`textContent`, attribute allow-list, validated URLs, no executable attributes) | No action needed; keep current pattern and document it as the project\u2019s safe standard |\n\n## Boundaries\n\n### Can Do\n- Detect and refactor obvious DOM XSS sinks using `innerHTML`, `outerHTML`, `document.write`, and event attributes fed by untrusted input.\n- Introduce safe DOM construction (using `createElement`, attribute setters for non-executable attributes, `appendChild`, `textContent`).\n- Add helpers for safe URL building and CSS `url()` composition with scheme allow-lists and proper encoding.\n\n### Cannot Do\n- Cannot guarantee HTML or URL libraries you add are themselves secure without human review of their documentation and defaults.\n- Cannot infer complex application-level trust boundaries (e.g., which inputs are fully trusted admin-only fields) without explicit hints in code or comments.\n- Cannot prevent server-side or stored XSS; this skill only addresses client-side / DOM-based injection patterns in browser-executed code.\n\n## Gotchas\n- Assuming `innerHTML` is safe after \u201csanitizing\u201d input with ad-hoc string replaces: attackers often bypass naive filters; prefer `textContent` or robust, vetted sanitization libraries plus safe DOM APIs.\n- Allowing all attributes except those starting with `on`: other attributes (like `srcdoc`, `href` with `javascript:`, `xlink:href`) can still execute code; use a strict allow-list of known-safe attributes instead of a loose block-list.\n- Treating URL encoding as enough without checking protocol: `encodeURIComponent('javascript:alert(1)')` is still dangerous if you decode or concatenate into `href` without enforcing allowed schemes.\n\n## Quick Verification\n```bash\n# Run the vulnerable app (before fix) and observe XSS\nnode app_vulnerable_code.js  '<img src=x onerror=alert(1)>' &\nVULN_PID=$!\nsleep 1\necho \"Open http://localhost:3000/profile?fragment=%3Cimg%20src%3Dx%20onerror%3Dalert(1)%3E in a browser and confirm alert fires\"\n\n# Run the fixed app and verify no script execution\nnode app_fix_original_code.js  '<img src=x onerror=alert(1)>' &\nFIX_PID=$!\nsleep 1\necho \"Open http://localhost:3000/profile?fragment=%3Cimg%20src%3Dx%20onerror%3Dalert(1)%3E in a browser and confirm it renders as inert text and no alert fires\"\n\n# Basic static sanity check: ensure no unsafe sinks remain in the fixed file\ngrep -nE 'innerHTML|outerHTML|document\\.write|setAttribute\\\\(.*on[a-zA-Z]+|eval\\\\(|new Function\\\\(|setTimeout\\\\(|setInterval\\\\(' app_fix_original_code.js || echo \"No obvious DOM XSS sinks found in fixed file\"\n\n# Clean up background processes (optional)\nkill $VULN_PID $FIX_PID 2>/dev/null || true\n```",
+            "type": "Built-in",
+            "ordinal": 102,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-05-21T11:39:53.845000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-05-21T11:39:53.845000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9794,
+            "id": "TA9794",
+            "title": "T37 - SKILL.md - TypeScript",
+            "text": "---\nname: avoid-dom-based-xss\ndescription: Use when TypeScript browser-side code reads untrusted data and may send it into DOM, attribute, CSS, URL, or script-evaluation sinks that can trigger DOM-based XSS.\n---\n\n# Avoid DOM-based Cross-Site Scripting (XSS)\n\n## What This Skill Does\nThis skill fixes DOM-based XSS in TypeScript by finding untrusted browser-controlled data such as `location`, `document.referrer`, or other user input, then preventing it from reaching dangerous client-side sinks as executable HTML, script, CSS, or URL content. Prefer safe DOM construction with `createElement()` and `textContent`, block executable attribute names, encode before building CSS `url()` values, apply URL encoding before JavaScript string encoding for script-generated URL attributes, and avoid string-based evaluation patterns.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Untrusted data is written to `innerHTML`, `outerHTML`, `insertAdjacentHTML`, or `document.write`/`writeln` | Replace with `textContent`, `createElement()`, and `appendChild()` so input is treated as text, not parsed HTML |\n| User-controlled data is passed to `setAttribute(name, value)` and `name` can be dynamic | Block executable attributes such as `on*`, `srcdoc`, and `style`; allow only a safe attribute allowlist |\n| Untrusted data is used inside CSS `url()` values | Apply `encodeURIComponent()` before constructing the CSS string |\n| Untrusted data is embedded into script-generated URL attributes or script strings | Apply `encodeURIComponent()` first, then JavaScript string encoding such as `JSON.stringify()` before insertion |\n| Code already uses safe text rendering, safe node creation, and does not use dangerous DOM or string-eval sinks | No action needed |\n\n## Boundaries\n\n### Can Do\n- Replace unsafe HTML-rendering sinks with safe text-based DOM updates\n- Restrict dynamic attribute assignment to non-executable allowlisted names\n- Add the required encoding order for CSS `url()`, URL attributes, and string-eval contexts\n\n### Cannot Do\n- Guarantee safety if a framework later reinterprets the same data as HTML\n- Prove a dynamic value is trusted without clear application context\n- Make unsafe APIs like `eval()` or string-based `setTimeout()` fully safe in all cases\n\n## Gotchas\n- Replacing only `innerHTML` but leaving `outerHTML`, `insertAdjacentHTML`, or `document.write`: these are still HTML-parsing sinks and remain exploitable\n- Using `setAttribute()` with user-controlled names: blocking only `onclick` is not enough because any `on*` handler or `srcdoc` can be executable\n- Encoding in the wrong order for script-generated URL attributes: JavaScript encoding before URL encoding can still produce unsafe or malformed output\n\n## Quick Verification\n```bash\n# Confirm safe text-based DOM rendering patterns exist\nrg -n --glob '*.ts' --glob '*.tsx' '(\\.textContent\\s*=|createElement\\(|appendChild\\(|encodeURIComponent\\(|JSON\\.stringify\\()' .\n\n# Find unguarded dangerous DOM and string-eval sinks that should be reviewed or replaced\nrg -n --glob '*.ts' --glob '*.tsx' '(\\.innerHTML\\s*=|\\.outerHTML\\s*=|insertAdjacentHTML\\(|document\\.write\\(|document\\.writeln\\(|setAttribute\\(\\s*[^,]+,\\s*[^)]+\\)|eval\\(|setTimeout\\(\\s*[`'\\'\"]|setInterval\\(\\s*[`'\\'\"])' .\n\n# Build + test with the TypeScript toolchain\nnpx tsc --noEmit && npm test\n```",
+            "type": "Built-in",
+            "ordinal": 742,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:53.254000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:53.254000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9868,
+            "id": "TA9868",
+            "title": "T37 - SKILL.md - React",
+            "text": "---\nname: avoid-dom-based-xss\ndescription: Use when React code reads untrusted browser/DOM data and could send it into HTML, URL, CSS, or script execution sinks that enable DOM-based XSS.\n---\n\n# Avoid DOM-based Cross-Site Scripting (XSS)\n\n## What This Skill Does\nThis skill fixes DOM-based XSS in React code by treating browser-controlled values such as `window.location`, `location.hash`, `document.URL`, and `document.referrer` as untrusted input, then keeping those values out of unsafe sinks like `dangerouslySetInnerHTML`, string event handlers, CSS `url()` construction, and string-to-code APIs. The preferred fix is to render untrusted values as text and build DOM and behavior with safe React and DOM APIs.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Untrusted DOM data (`window.location`, `location.hash`, `document.referrer`, `document.URL`) is rendered with `dangerouslySetInnerHTML`, `innerHTML`, `outerHTML`, `document.write`, or `document.writeln` | Replace with React text rendering, `textContent`, or explicit DOM construction with `createElement`/`appendChild` |\n| Code builds event behavior from strings or uses `setAttribute` with dynamic `on...` attributes | Replace with real function handlers such as `onClick={handler}` and reject executable attribute names |\n| Untrusted input is inserted into `href`, `src`, router links, or CSS `url()` values | Encode with `encodeURIComponent` before concatenation and keep URLs in expected path/query formats |\n| Untrusted DOM data can reach `eval`, `Function`, `setTimeout(\"...\")`, or `setInterval(\"...\")` | Remove the execution path and keep the value in display-only text data |\n| Code already renders untrusted values as normal React children/text and avoids dangerous sinks | No action needed |\n\n## Boundaries\n\n### Can Do\n- Replace unsafe HTML rendering with safe React text rendering or explicit DOM construction\n- Refactor dynamic string-based event behavior into fixed function handlers\n- Add URL encoding for untrusted values used in URL attributes or CSS `url()` contexts\n\n### Cannot Do\n- Guarantee safety if the app intentionally renders trusted HTML and no sanitizer policy exists\n- Prove every source-to-sink data flow across the whole app without reviewing surrounding code\n- Fix server-side XSS, template injection, or HTTP response encoding issues outside browser-side React code\n\n## Gotchas\n- Replacing only `dangerouslySetInnerHTML` is not enough: untrusted data can still be dangerous in `href`, `style.backgroundImage`, or `eval` paths\n- `encodeURIComponent` is context-specific, not a universal sanitizer: it helps for URL parts, but not for raw HTML rendering or script execution sinks\n- Dynamic attribute names are risky: `setAttribute(userInputName, value)` can become executable if names like `onclick` are allowed\n\n## Quick Verification\n```bash\n# Confirm safer text rendering / encoding helpers exist\nrg -n 'textContent|innerText|createElement|appendChild|encodeURIComponent|safeDecodeHash|onClick=\\{' .\n\n# Find dangerous React and browser sinks that may bypass the fix\nrg -n 'dangerouslySetInnerHTML|innerHTML\\s*=|outerHTML\\s*=|document\\.write\\(|document\\.writeln\\(|eval\\(|new Function\\(|setTimeout\\(\\s*[\"'\"'\"']|setInterval\\(\\s*[\"'\"'\"']|setAttribute\\(\\s*[\"'\"'\"']on[a-zA-Z]+' .\n\n# Build using the React project toolchain available in the repo\nnpm run build || yarn build || pnpm build\n\n# Run tests using the React project toolchain available in the repo\nnpm test -- --runInBand || yarn test --runInBand || pnpm test\n```",
+            "type": "Built-in",
+            "ordinal": 820,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:56.118000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:56.118000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9903,
+            "id": "TA9903",
+            "title": "T37 - SKILL.md - Angular",
+            "text": "---\nname: avoid-dom-based-xss\ndescription: Use when Angular code reads browser-controlled data and may send it to DOM HTML, URL, or execution sinks; replace unsafe DOM mutation with text rendering, validation, and safe navigation.\n---\n# Avoid DOM-based Cross-Site Scripting (XSS)\n\n## What This Skill Does\nThis skill fixes DOM-based XSS in Angular code by finding reads from browser-controlled sources such as `location.hash`, `location.search`, `document.URL`, and `document.referrer`, then preventing those values from reaching executable DOM sinks like `innerHTML`, `outerHTML`, `document.write`, event-handler assignment, `eval`, or unsafe navigation targets. The fix is to route browser input through one validation path, render untrusted values as text with Angular bindings or DOM text nodes, and allowlist navigation or URL assignments before use.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Code reads `location`, `hash`, `search`, `URL`, or `referrer` and inserts it with `innerHTML`, `outerHTML`, or `document.write` | Replace with Angular interpolation, `[textContent]`, `Renderer2.createText()`, or `textContent`/`createTextNode` DOM construction |\n| Code builds HTML strings from browser-controlled values | Stop string-building HTML; create elements explicitly and append text nodes |\n| Code assigns browser-controlled values to `href`, `src`, `location`, or router destinations | Validate and normalize first; reject `javascript:`, `data:`, `vbscript:`, `//...`; prefer `Router.navigateByUrl()` with allowlisted routes |\n| Code passes untrusted values into `eval`, `Function`, string forms of `setTimeout`/`setInterval`, or event-handler attributes/properties | Remove the execution path; do not pass browser-derived input into executable contexts |\n| Code already uses Angular escaped bindings or text-only DOM APIs and validated navigation | No action needed |\n\n## Boundaries\n\n### Can Do\n- Replace unsafe HTML rendering with text-only rendering in Angular templates or DOM APIs\n- Centralize reads from browser-controlled sources and add validation/normalization helpers\n- Convert unsafe URL or route assignment to allowlisted Angular router navigation or safe attribute assignment\n\n### Cannot Do\n- Guarantee safety if the application intentionally renders trusted rich HTML from a separate sanitization pipeline\n- Infer business-safe allowlists for routes, external domains, or embed sources without project rules\n- Fix server-side XSS, stored XSS, or template injection issues outside the client-side DOM flow\n\n## Gotchas\n- Replacing `innerHTML` with `bypassSecurityTrustHtml`: this suppresses Angular protections and can preserve the XSS path\n- Validating only at display time but reusing the raw value elsewhere: the same browser-controlled value may later reach `href`, `src`, or execution sinks\n- Blocking `javascript:` but allowing `//evil.example`: protocol-relative URLs can still create unsafe navigation when only local routes should be allowed\n\n## Quick Verification\n```bash\n# Confirm safer text rendering or explicit DOM text-node construction exists\nrg -n --glob '*.ts' --glob '*.html' '\\[textContent\\]|textContent\\s*=|createText\\(|createTextNode\\(|Renderer2|navigateByUrl\\(' .\n\n# Find unguarded dangerous DOM XSS sinks and executable contexts\nrg -n --glob '*.ts' --glob '*.html' 'innerHTML\\s*=|outerHTML\\s*=|document\\.write\\(|insertAdjacentHTML\\(|setAttribute\\(\\s*[\"'\\'']on|on[a-zA-Z]+\\s*=|eval\\(|new Function\\(|setTimeout\\(\\s*[\"'\\'']|setInterval\\(\\s*[\"'\\'']' .\n\n# Find browser-controlled sources that should be reviewed for validation before use\nrg -n --glob '*.ts' 'location\\.(hash|search|href)|document\\.(URL|documentURI|referrer)|window\\.location|new URLSearchParams\\(' .\n\n# Build and test with Angular/Node toolchain\nnpm run build && npm test\n```",
+            "type": "Built-in",
+            "ordinal": 855,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:57.480000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:57.480000-04:00",
+            "active": true
+          }
+        ]
+      }
+    }
+  ]
+}

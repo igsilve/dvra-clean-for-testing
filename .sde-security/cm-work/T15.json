@@ -1,0 +1,12 @@
+{
+  "cm_id": "T15",
+  "category": "CF",
+  "library_sourced": false,
+  "content_fields": {
+    "title": "Centralize authorization",
+    "url": "https://staging.qa.sdelements.com/bunits/copilot-test/app/dvra-clean-for-testing/tasks/phase/architecture-design/4552-T15/",
+    "priority": 9,
+    "output_path": "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T15-centralize-authorization/SKILL.md"
+  },
+  "output_path": "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T15-centralize-authorization/SKILL.md"
+}

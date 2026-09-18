@@ -1,0 +1,8 @@
+{
+  "skill": "apply-security-fixes",
+  "fetched_at": "2026-09-17T22:15:06Z",
+  "sha256_skill": "0650bf752d3fab57b891d18bc97ab4888295d89381d5dad482e47931c9408ba1",
+  "sha256_agents": "69b15d0d134600fd2c12e0b280b62b061103ebd87bd72c762df6049556184a41",
+  "skill_chars": 144598,
+  "agents_chars": 58338
+}

@@ -1,0 +1,12 @@
+{
+  "cm_id": "T4751",
+  "category": "IN",
+  "library_sourced": false,
+  "content_fields": {
+    "title": "Reduce the attack surface of container images",
+    "url": "https://staging.qa.sdelements.com/bunits/copilot-test/app/dvra-clean-for-testing/tasks/phase/development/4552-T4751/",
+    "priority": 10,
+    "output_path": "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T4751-reduce-the-attack-surface-of-container-i/SKILL.md"
+  },
+  "output_path": "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T4751-reduce-the-attack-surface-of-container-i/SKILL.md"
+}

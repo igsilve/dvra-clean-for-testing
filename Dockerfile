@@ -9,16 +9,15 @@ RUN poetry export -f requirements.txt --output requirements.txt --without-hashes
 
 FROM python:3.10-slim-bookworm as runtime
 
-RUN apt-get update
-RUN apt-get -y install libpq-dev gcc vim sudo
+RUN apt-get update \
+	&& apt-get -y install --no-install-recommends libpq-dev gcc \
+	&& rm -rf /var/lib/apt/lists/*
+
+RUN useradd -m app
 
 COPY --from=builder /app/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
-COPY app ./app
+COPY --chown=app:app app ./app
 WORKDIR /app
 
-RUN echo 'ALL ALL=(ALL) NOPASSWD: /usr/bin/find' | sudo tee /etc/sudoers.d/find_nopasswd > /dev/null
-
-RUN useradd -m app
-RUN chown app .
 USER app

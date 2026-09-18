@@ -1,0 +1,296 @@
+[
+  {
+    "section": "Application General",
+    "question_id": "Q101",
+    "question_text": "Components In Development",
+    "answer_id": "A4",
+    "answer_text": "Web application"
+  },
+  {
+    "section": "Application General",
+    "question_id": "Q101",
+    "question_text": "Components In Development",
+    "answer_id": "A6",
+    "answer_text": "Web service"
+  },
+  {
+    "section": "Application General",
+    "question_id": "Q253",
+    "question_text": "Components In Use",
+    "answer_id": "A1078",
+    "answer_text": "Uses a database"
+  },
+  {
+    "section": "Application General",
+    "question_id": "Q500",
+    "question_text": "Architectural Features",
+    "answer_id": "A1142",
+    "answer_text": "Contains components that communicate through a network"
+  },
+  {
+    "section": "Platform and Language",
+    "question_id": "Q109",
+    "question_text": "Programming Language",
+    "answer_id": "A3",
+    "answer_text": "JavaScript"
+  },
+  {
+    "section": "Platform and Language",
+    "question_id": "Q109",
+    "question_text": "Programming Language",
+    "answer_id": "A707",
+    "answer_text": "Python"
+  },
+  {
+    "section": "Platform and Language",
+    "question_id": "Q191",
+    "question_text": "Web Client Technologies Used",
+    "answer_id": "A1192",
+    "answer_text": "CORS"
+  },
+  {
+    "section": "Platform and Language",
+    "question_id": "Q103",
+    "question_text": "Database",
+    "answer_id": "A11",
+    "answer_text": "Stand-alone database that supports SQL"
+  },
+  {
+    "section": "Platform and Language",
+    "question_id": "Q305",
+    "question_text": "Database Management System (DBMS)",
+    "answer_id": "A1252",
+    "answer_text": "PostgreSQL"
+  },
+  {
+    "section": "Platform and Language",
+    "question_id": "Q305",
+    "question_text": "Database Management System (DBMS)",
+    "answer_id": "A765",
+    "answer_text": "SQLite local data storage"
+  },
+  {
+    "section": "Features and Functions",
+    "question_id": "Q120",
+    "question_text": "Authentication Features",
+    "answer_id": "A758",
+    "answer_text": "Has direct or third party authentication for end users, devices or nodes"
+  },
+  {
+    "section": "Features and Functions",
+    "question_id": "Q121",
+    "question_text": "Authentication Method",
+    "answer_id": "A19",
+    "answer_text": "Uses passwords"
+  },
+  {
+    "section": "Features and Functions",
+    "question_id": "Q129",
+    "question_text": "Requires Server-to-Server Authentication",
+    "answer_id": "A17",
+    "answer_text": "Yes"
+  },
+  {
+    "section": "Features and Functions",
+    "question_id": "Q213",
+    "question_text": "Password Management Features",
+    "answer_id": "A43",
+    "answer_text": "Has change existing password function"
+  },
+  {
+    "section": "Features and Functions",
+    "question_id": "Q213",
+    "question_text": "Password Management Features",
+    "answer_id": "A182",
+    "answer_text": "Has forgot password function"
+  },
+  {
+    "section": "Features and Functions",
+    "question_id": "Q127",
+    "question_text": "Authorizes Subjects",
+    "answer_id": "A23",
+    "answer_text": "Yes"
+  },
+  {
+    "section": "Features and Functions",
+    "question_id": "Q126",
+    "question_text": "Has Session Management",
+    "answer_id": "A37",
+    "answer_text": "Yes"
+  },
+  {
+    "section": "Features and Functions",
+    "question_id": "Q259",
+    "question_text": "External Code/Data",
+    "answer_id": "A1102",
+    "answer_text": "Uses dynamic code/library loading"
+  },
+  {
+    "section": "Features and Functions",
+    "question_id": "Q215",
+    "question_text": "Input Validation",
+    "answer_id": "A2307",
+    "answer_text": "Receives text input from users"
+  },
+  {
+    "section": "Features and Functions",
+    "question_id": "Q303",
+    "question_text": "OS Interactions",
+    "answer_id": "A1194",
+    "answer_text": "System calls"
+  },
+  {
+    "section": "Features and Functions",
+    "question_id": "Q131",
+    "question_text": "Encryption",
+    "answer_id": "A21",
+    "answer_text": "Passwords stored in configuration files"
+  },
+  {
+    "section": "Features and Functions",
+    "question_id": "Q214",
+    "question_text": "Miscellaneous",
+    "answer_id": "A33",
+    "answer_text": "Uses multi-threaded programming"
+  },
+  {
+    "section": "Features and Functions",
+    "question_id": "Q214",
+    "question_text": "Miscellaneous",
+    "answer_id": "A35",
+    "answer_text": "Generates temporary files"
+  },
+  {
+    "section": "Features and Functions",
+    "question_id": "Q214",
+    "question_text": "Miscellaneous",
+    "answer_id": "A90",
+    "answer_text": "Performs diagnostic/debug logging"
+  },
+  {
+    "section": "Features and Functions",
+    "question_id": "Q214",
+    "question_text": "Miscellaneous",
+    "answer_id": "A1143",
+    "answer_text": "Generates random numbers"
+  },
+  {
+    "section": "Protocols",
+    "question_id": "Q186",
+    "question_text": "Application Layer Protocols Used",
+    "answer_id": "A195",
+    "answer_text": "Uses an HTTP-based protocol"
+  },
+  {
+    "section": "Protocols",
+    "question_id": "Q231",
+    "question_text": "Authentication and Identity Exchange Protocols",
+    "answer_id": "A763",
+    "answer_text": "OAuth"
+  },
+  {
+    "section": "Development/Test Tools",
+    "question_id": "Q364",
+    "question_text": "Version Control Platforms",
+    "answer_id": "A1390",
+    "answer_text": "GitHub"
+  },
+  {
+    "section": "Development/Test Tools",
+    "question_id": "Q105",
+    "question_text": "Open Source Security Library Use Permitted",
+    "answer_id": "A56",
+    "answer_text": "Yes"
+  },
+  {
+    "section": "Development/Test Tools",
+    "question_id": "Q106",
+    "question_text": "OWASP Development Tools Used",
+    "answer_id": "A58",
+    "answer_text": "ESAPI"
+  },
+  {
+    "section": "Development/Test Tools",
+    "question_id": "Q212",
+    "question_text": "Test Tools Permitted",
+    "answer_id": "A188",
+    "answer_text": "Burp Suite"
+  },
+  {
+    "section": "Deployment",
+    "question_id": "Q308",
+    "question_text": "Containerization Technologies",
+    "answer_id": "A1208",
+    "answer_text": "Docker"
+  },
+  {
+    "section": "Changes Since Last Release",
+    "question_id": "Q220",
+    "question_text": "Changes Since Last Release",
+    "answer_id": "A1307",
+    "answer_text": "Changes to hardware design"
+  },
+  {
+    "section": "Changes Since Last Release",
+    "question_id": "Q220",
+    "question_text": "Changes Since Last Release",
+    "answer_id": "A1626",
+    "answer_text": "Changes to AI"
+  },
+  {
+    "section": "Changes Since Last Release",
+    "question_id": "Q220",
+    "question_text": "Changes Since Last Release",
+    "answer_id": "A739",
+    "answer_text": "Changes to servers/frameworks and/or configuration"
+  },
+  {
+    "section": "Changes Since Last Release",
+    "question_id": "Q220",
+    "question_text": "Changes Since Last Release",
+    "answer_id": "A734",
+    "answer_text": "Changes to authentication"
+  },
+  {
+    "section": "Changes Since Last Release",
+    "question_id": "Q220",
+    "question_text": "Changes Since Last Release",
+    "answer_id": "A735",
+    "answer_text": "Changes to session management"
+  },
+  {
+    "section": "Changes Since Last Release",
+    "question_id": "Q220",
+    "question_text": "Changes Since Last Release",
+    "answer_id": "A736",
+    "answer_text": "New transactions / use cases"
+  },
+  {
+    "section": "Changes Since Last Release",
+    "question_id": "Q220",
+    "question_text": "Changes Since Last Release",
+    "answer_id": "A738",
+    "answer_text": "Changes to inbound/outbound interfaces"
+  },
+  {
+    "section": "Changes Since Last Release",
+    "question_id": "Q220",
+    "question_text": "Changes Since Last Release",
+    "answer_id": "A1294",
+    "answer_text": "Changes to processes/activities"
+  },
+  {
+    "section": "Changes Since Last Release",
+    "question_id": "Q222",
+    "question_text": "Changes to User Input/Output Since Last Release",
+    "answer_id": "A737",
+    "answer_text": "Changes to user output"
+  },
+  {
+    "section": "Changes Since Last Release",
+    "question_id": "Q222",
+    "question_text": "Changes to User Input/Output Since Last Release",
+    "answer_id": "A742",
+    "answer_text": "New/modified user input OR changes to how user input is used"
+  }
+]

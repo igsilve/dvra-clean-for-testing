@@ -1,0 +1,14 @@
+{
+  "cm_id": "T32",
+  "endpoint": "library/tasks/T32/amendments/",
+  "http_status": 200,
+  "result": "LIBRARY_SOURCED",
+  "retry_count": 0,
+  "queried_at": "2026-09-17T20:56:07.272515+00:00",
+  "matched_amendments": [
+    {
+      "amendment_id": "TA9302",
+      "technology": "Python"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "cm_id": "T1172",
+  "category": "IN",
+  "library_sourced": false,
+  "content_fields": {
+    "title": "Secure daemon configuration files (Docker)",
+    "url": "https://staging.qa.sdelements.com/bunits/copilot-test/app/dvra-clean-for-testing/tasks/phase/deployment/4552-T1172/",
+    "priority": 8,
+    "output_path": "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T1172-secure-daemon-configuration-files-docker/SKILL.md"
+  },
+  "output_path": "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T1172-secure-daemon-configuration-files-docker/SKILL.md"
+}

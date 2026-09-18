@@ -1,0 +1,131 @@
+{
+  "composite_response": [
+    {
+      "reference_id": "T1176",
+      "http_status_code": 200,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "results": [
+          {
+            "db_id": 3324,
+            "id": "TA3324",
+            "title": "ASD-STIG requirements",
+            "text": "## V-222614 [medium]:\n__Security-relevant software updates and patches must be kept up to date.__\n\nSecurity flaws with software applications are discovered daily. Vendors are constantly updating and patching their products to address newly discovered security vulnerabilities. Organizations (including any contractor to the organization) are required to promptly install security-relevant software updates (e.g., patches, service packs, and hot fixes). Flaws discovered during security assessments, continuous monitoring, incident response activities, or information system error handling must also be addressed expeditiously.\n\nOrganization-defined time periods for updating security-relevant software may vary based on a variety of factors including, for example, the security category of the information system or the criticality of the update (i.e., severity of the vulnerability related to the discovered flaw).\n\nThis requirement will apply to software patch management solutions that are used to install patches across the enclave and also to applications themselves that are not part of that patch management solution. For example, many browsers today provide the capability to install their own patch software. Patch criticality, as well as system criticality will vary. Therefore, the tactical situations regarding the patch management process will also vary. This means that the time period utilized must be a configurable parameter. Time frames for application of security-relevant software updates may be dependent upon the Information Assurance Vulnerability Management (IAVM) process.\n\nThe application, or the patch management solution that is configured to patch the application, must be configured to check for and install security-relevant software updates and patches at least weekly. Patches must be applied immediately or in accordance with POA&Ms, IAVMs, CTOs, DTMs or other authoritative patching guidelines or sources.\n\n",
+            "type": "Built-in",
+            "ordinal": 0,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2020-11-16T13:44:27.684000-05:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2022-06-02T10:13:08.705000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 2186,
+            "id": "TA2186",
+            "title": "FedRAMP / Low Baseline",
+            "text": "*** SI-2: System And Information Integrity | Flaw Remediation ***  \nThe organization:\na. Identifies, reports, and corrects information system flaws;\nb. Tests software and firmware updates related to flaw remediation for effectiveness and potential side effects before installation;\nc. Installs security-relevant software and firmware updates [within 30 days of release of updates]; and\nd. Incorporates flaw remediation into the organizational configuration management process.",
+            "type": "Built-in",
+            "ordinal": 10,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-17T16:28:56.803000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T16:44:57.374000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 1830,
+            "id": "TA1830",
+            "title": "FedRAMP / Moderate Baseline",
+            "text": "*** SI-2: System And Information Integrity | Flaw Remediation ***  \nThe organization:\na. Identifies, reports, and corrects information system flaws;\n\nb. Tests software and firmware updates related to flaw remediation for effectiveness and potential side effects before installation;\n\nc. Installs security-relevant software and firmware updates [within 30 days of release of updates]; and\n\nd. Incorporates flaw remediation into the organizational configuration management process.",
+            "type": "Built-in",
+            "ordinal": 11,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-15T17:49:07.192000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T15:08:07.086000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 2753,
+            "id": "TA2753",
+            "title": "FedRAMP / High Baseline",
+            "text": "*** SI-2: System And Information Integrity | Flaw Remediation ***  \nThe organization:\na. Identifies, reports, and corrects information system flaws;\nb. Tests software and firmware updates related to flaw remediation for effectiveness and potential side effects before installation;\nc. Installs security-relevant software and firmware updates [within thirty (30) days of release of updates]; and\nd. Incorporates flaw remediation into the organizational configuration management process.",
+            "type": "Built-in",
+            "ordinal": 12,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-17T18:34:15.279000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T18:38:15.579000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 8447,
+            "id": "TA8447",
+            "title": "T1176 - SKILL.md - Docker",
+            "text": "---\nname: trusted-docker-base-images\ndescription: Use trusted, regularly updated Docker base image tags and image validation gates to reduce risk from unsafe container images. Use when fixing P1077/CWE-494 in Dockerfiles or build/promotion logic.\n---\n\n# Use trusted base images and include the latest security patches\n\n## What This Skill Does\nThis skill fixes unsafe Docker image usage by replacing untrusted, overly broad, or stale base images with approved, regularly updated base image tags, and by adding validation that rejects unapproved image sources and blocks promotion when vulnerability scan results or patch review requirements fail. For Dockerfiles, security patches should come from moving to a recent trusted base image tag and rebuilding, not from adding `apt-get upgrade` during the image build.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Dockerfile uses `FROM ...:latest`, an old tag, or an unapproved registry/image | Replace with an approved trusted base image tag such as `ubuntu:24.04` or another org-approved current tag |\n| Dockerfile already uses `FROM scratch` | No base-image change needed; keep `scratch` if appropriate |\n| Build or promotion code accepts arbitrary base image references without validation | Add allowlist validation for approved registries/image names and fail on unapproved references |\n| Scan results show vulnerabilities over the allowed threshold or show fixable vulnerabilities | Block promotion and require rebuild from a newer trusted base image tag |\n| Patch approval metadata is required but missing, incomplete, or not explicitly approved | Reject promotion until the review metadata is complete and approved |\n\n## Boundaries\n\n### Can Do\n- Update Dockerfiles to use approved, recent trusted base image tags\n- Remove patterns that rely on mutable tags like `latest`\n- Add or tighten validation logic for approved image sources, scan thresholds, rebuild gating, and patch review checks\n\n### Cannot Do\n- Provide real image digests or require `@sha256` pinning in generated fixes\n- Guarantee a chosen base tag is vulnerability-free without actual scanning data\n- Replace your organization's scanner, registry policy, or approval workflow configuration\n\n## Gotchas\n- Adding `apt-get upgrade` in Dockerfiles: avoid this because it makes builds slower and less deterministic; use a newer trusted base image tag instead\n- Pinning Docker `FROM` with `@sha256` in generated fixes: avoid this because assistants cannot reliably look up valid digests and may invent broken ones\n- Treating any official-looking image as trusted: still validate against your approved registry/image allowlist, not naming alone\n\n## Quick Verification\n```bash\n# Find mutable or broad base-image usage\ngrep -RniE '^[[:space:]]*FROM[[:space:]].*(:latest)?$|^[[:space:]]*FROM[[:space:]].*:latest' .\n\n# Find Dockerfiles that use apt-get upgrade/dist-upgrade during build\ngrep -RniE 'apt-get[[:space:]]+(upgrade|dist-upgrade)' .\n\n# Build the image after updating the base tag\ndocker build -t test-image .\n\n# Inspect the final base image reference in the Dockerfile\ngrep -nE '^[[:space:]]*FROM[[:space:]]+' Dockerfile\n\n# Run your scanner or policy gate in CI to confirm promotion is blocked when thresholds fail\n# Example placeholder:\n# trivy image --exit-code 1 test-image\n```",
+            "type": "Built-in",
+            "ordinal": 228,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-05-21T11:39:48.136000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:35.811000-04:00",
+            "active": true
+          }
+        ]
+      }
+    }
+  ]
+}

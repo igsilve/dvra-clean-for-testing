@@ -1,0 +1,85 @@
+{
+  "composite_response": [
+    {
+      "reference_id": "T1194",
+      "http_status_code": 200,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "results": [
+          {
+            "db_id": 1517,
+            "id": "TA1517",
+            "title": "FedRAMP / Moderate Baseline",
+            "text": "*** CM-7 (2): Configuration Management | Least Functionality | Prevent Program Execution ***  \nThe information system prevents program execution in accordance with [Selection (one or more): [Assignment: organization-defined policies regarding software program usage and restrictions]; rules authorizing the terms and conditions of software program usage].",
+            "type": "Built-in",
+            "ordinal": 11,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-15T17:48:51.181000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T15:08:00.900000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 2488,
+            "id": "TA2488",
+            "title": "FedRAMP / High Baseline",
+            "text": "*** CM-7 (2): Configuration Management | Least Functionality | Prevent Program Execution ***  \nThe information system prevents program execution in accordance with [Selection (one or more): [Assignment: organization-defined policies regarding software program usage and restrictions]; rules authorizing the terms and conditions of software program usage].",
+            "type": "Built-in",
+            "ordinal": 12,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-17T18:33:56.393000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T18:38:09.974000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 8460,
+            "id": "TA8460",
+            "title": "T1194 - SKILL.md - Docker",
+            "text": "---\nname: no-ssh-in-containers-docker\ndescription: Use when Dockerfiles, entrypoints, compose files, or docs install, expose, start, or recommend SSH access inside containers; remove container SSH and direct operators to host SSH plus nsenter.\n---\n\n# Do not run SSH within containers\n\n## What This Skill Does\nThis skill removes SSH servers and SSH-based access patterns from Docker containers. It applies when a container image installs `openssh-server`, starts `sshd`, exposes port `22`, or documents SSH into the container as a supported workflow. The fix is to keep the container focused on the main application process, remove SSH startup and port exposure, and update operator guidance to SSH to the Docker host and use `nsenter` for container access when needed.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Dockerfile or scripts install `openssh-server` or similar SSH server packages | Remove the SSH server install and related setup; keep only packages needed for the app |\n| Entrypoint, CMD, supervisor config, or startup script starts `sshd` | Remove SSH process startup and make the main app process the only container process |\n| Dockerfile, Compose, or runtime config exposes/maps port `22` | Remove `EXPOSE 22` and any `22:22` or equivalent port mappings |\n| README, help text, or admin docs tell users to SSH into the container | Replace with guidance to SSH to the Docker host and use `nsenter` to enter the container |\n| Container already runs only the application process and has no SSH service or SSH docs | No action needed |\n\n## Boundaries\n\n### Can Do\n- Remove SSH server installation, configuration, and startup from Docker images and container scripts\n- Remove container SSH port exposure and related configuration\n- Update container access guidance to use host SSH plus `nsenter`\n\n### Cannot Do\n- Set up host-side SSH access, Docker host hardening, or operator account management\n- Guarantee `nsenter` is available or permitted in the target environment\n- Redesign workflows that depend on SSH for file transfer, orchestration, or debugging beyond replacing documented guidance\n\n## Gotchas\n- Removing `sshd` but keeping `EXPOSE 22`: this still advertises an SSH access path and should be removed\n- Replacing `sshd` with process managers that still launch SSH indirectly: the container must start only the main app process\n- Leaving docs or generated help text that says \"SSH into the container\": operators will keep using the insecure workflow even after code changes\n\n## Quick Verification\n```bash\n# Find SSH server installs or startup\ngrep -RInE 'openssh-server|sshd|/usr/sbin/sshd|service ssh|systemctl start ssh' .\n\n# Find SSH port exposure in Dockerfiles and Compose files\ngrep -RInE 'EXPOSE[[:space:]]+22|22:22|target:[[:space:]]*22|published:[[:space:]]*22' .\n\n# Find docs or help text that instruct container SSH access\ngrep -RInE 'ssh into (the )?container|ssh root@|ssh .*container' .\n\n# Review container startup commands\ngrep -RInE 'CMD|ENTRYPOINT|command:|entrypoint:' Dockerfile* docker-compose*.yml docker-compose*.yaml . 2>/dev/null\n```",
+            "type": "Built-in",
+            "ordinal": 247,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-05-21T11:39:49.165000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:36.193000-04:00",
+            "active": true
+          }
+        ]
+      }
+    }
+  ]
+}

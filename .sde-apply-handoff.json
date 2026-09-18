@@ -1,0 +1,860 @@
+{
+  "source_skill": "apply-security-fixes",
+  "handoff_version": "2",
+  "generated_at": "2026-09-18T01:17:06.839318Z",
+  "upstream_handoff": ".sde-handoff.json",
+  "repository_path": "/Users/isilveira/dvra-clean-for-testing",
+  "project_id": 4552,
+  "security_branch": "security-hardening/dvra-clean-for-testing-20260917",
+  "scope": "all",
+  "totals": {
+    "applied": 55,
+    "documented": 30,
+    "skipped": 0,
+    "scoped_total": 85
+  },
+  "countermeasures": [
+    {
+      "id": "T2663",
+      "full_id": "4552-T2663",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/init_app.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2141",
+      "full_id": "4552-T2141",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/config.py",
+        "app/init.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T29",
+      "full_id": "4552-T29",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/init.py",
+        "app/db/session.py",
+        "app/apis/admin/utils.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1541",
+      "full_id": "4552-T1541",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/db/session.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T15",
+      "full_id": "4552-T15",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/admin/utils.py",
+        "app/apis/admin/services/reset_chef_password_service.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T373",
+      "full_id": "4552-T373",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/admin/services/reset_chef_password_service.py",
+        "app/apis/auth/utils/jwt_auth.py",
+        "app/apis/auth/schemas.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T378",
+      "full_id": "4552-T378",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/auth/utils/jwt_auth.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2652",
+      "full_id": "4552-T2652",
+      "status": "Documented",
+      "category": "CODE_FIX",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T18",
+      "full_id": "4552-T18",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/auth/services/update_profile_service.py",
+        "app/apis/auth/services/patch_profile_service.py",
+        "app/apis/orders/services/get_order_status.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1922",
+      "full_id": "4552-T1922",
+      "status": "Documented",
+      "category": "CODE_FIX",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T66",
+      "full_id": "4552-T66",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/orders/services/get_order_status.py",
+        "app/apis/orders/services/get_order_service.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T61",
+      "full_id": "4552-T61",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/orders/services/get_order_service.py",
+        "app/apis/orders/services/get_orders_service.py",
+        "app/apis/orders/services/get_orders_for_delivery_service.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1365",
+      "full_id": "4552-T1365",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/orders/services/get_orders_service.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1887",
+      "full_id": "4552-T1887",
+      "status": "Documented",
+      "category": "CODE_FIX",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T17",
+      "full_id": "4552-T17",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/debug/services/get_debug_info_service.py",
+        "app/apis/menu/utils.py",
+        "app/apis/menu/services/delete_menu_item_service.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T340",
+      "full_id": "4552-T340",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/menu/utils.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T76",
+      "full_id": "4552-T76",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/menu/services/delete_menu_item_service.py",
+        "app/apis/users/services/update_user_role_service.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2599",
+      "full_id": "4552-T2599",
+      "status": "Applied",
+      "category": "INFRA",
+      "files_modified": [
+        "app/apis/users/services/update_user_role_service.py",
+        "app/apis/healthcheck/service.py",
+        "docker-compose.yml"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2615",
+      "full_id": "4552-T2615",
+      "status": "Applied",
+      "category": "INFRA",
+      "files_modified": [
+        "app/apis/healthcheck/service.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T4601",
+      "full_id": "4552-T4601",
+      "status": "Applied",
+      "category": "INFRA",
+      "files_modified": [
+        "docker-compose.yml",
+        "CONTRIBUTING.md"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2616",
+      "full_id": "4552-T2616",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2349",
+      "full_id": "4552-T2349",
+      "status": "Applied",
+      "category": "INFRA",
+      "files_modified": [
+        "app/init_app.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2601",
+      "full_id": "4552-T2601",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2662",
+      "full_id": "4552-T2662",
+      "status": "Applied",
+      "category": "INFRA",
+      "files_modified": [
+        "app/init.py",
+        "app/db/session.py",
+        "app/apis/admin/utils.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T37",
+      "full_id": "4552-T37",
+      "status": "Documented",
+      "category": "CODE_FIX",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1194",
+      "full_id": "4552-T1194",
+      "status": "Applied",
+      "category": "INFRA",
+      "files_modified": [
+        "app/apis/admin/utils.py",
+        "app/apis/admin/services/reset_chef_password_service.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2115",
+      "full_id": "4552-T2115",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T4746",
+      "full_id": "4552-T4746",
+      "status": "Applied",
+      "category": "INFRA",
+      "files_modified": [
+        "app/apis/auth/utils/jwt_auth.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1176",
+      "full_id": "4552-T1176",
+      "status": "Applied",
+      "category": "INFRA",
+      "files_modified": [
+        "app/apis/auth/schemas.py",
+        "app/apis/auth/services/update_profile_service.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2105",
+      "full_id": "4552-T2105",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2661",
+      "full_id": "4552-T2661",
+      "status": "Applied",
+      "category": "INFRA",
+      "files_modified": [
+        "app/apis/auth/services/patch_profile_service.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1190",
+      "full_id": "4552-T1190",
+      "status": "Applied",
+      "category": "INFRA",
+      "files_modified": [
+        "app/apis/orders/services/get_order_status.py",
+        "app/apis/orders/services/get_order_service.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1144",
+      "full_id": "4552-T1144",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1174",
+      "full_id": "4552-T1174",
+      "status": "Applied",
+      "category": "INFRA",
+      "files_modified": [
+        "app/apis/orders/services/get_orders_service.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1198",
+      "full_id": "4552-T1198",
+      "status": "Applied",
+      "category": "INFRA",
+      "files_modified": [
+        "app/apis/orders/services/get_orders_for_delivery_service.py",
+        "app/apis/debug/services/get_debug_info_service.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1208",
+      "full_id": "4552-T1208",
+      "status": "Applied",
+      "category": "INFRA",
+      "files_modified": [
+        "app/apis/debug/services/get_debug_info_service.py",
+        "app/apis/menu/utils.py",
+        "app/apis/menu/services/delete_menu_item_service.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T4748",
+      "full_id": "4552-T4748",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2257",
+      "full_id": "4552-T2257",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1156",
+      "full_id": "4552-T1156",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1158",
+      "full_id": "4552-T1158",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2258",
+      "full_id": "4552-T2258",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T4751",
+      "full_id": "4552-T4751",
+      "status": "Applied",
+      "category": "INFRA",
+      "files_modified": [
+        "CONTRIBUTING.md",
+        "app/init_app.py",
+        "app/config.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1196",
+      "full_id": "4552-T1196",
+      "status": "Applied",
+      "category": "INFRA",
+      "files_modified": [
+        "app/init_app.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T257",
+      "full_id": "4552-T257",
+      "status": "Applied",
+      "category": "INFRA",
+      "files_modified": [
+        "app/config.py",
+        "app/init.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1172",
+      "full_id": "4552-T1172",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1188",
+      "full_id": "4552-T1188",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1214",
+      "full_id": "4552-T1214",
+      "status": "Applied",
+      "category": "INFRA",
+      "files_modified": [
+        "app/apis/admin/utils.py",
+        "app/apis/admin/services/reset_chef_password_service.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1186",
+      "full_id": "4552-T1186",
+      "status": "Applied",
+      "category": "INFRA",
+      "files_modified": [
+        "app/apis/admin/services/reset_chef_password_service.py",
+        "app/apis/auth/utils/jwt_auth.py",
+        "app/apis/auth/schemas.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T7412",
+      "full_id": "4552-T7412",
+      "status": "Applied",
+      "category": "INFRA",
+      "files_modified": [
+        "app/apis/auth/utils/jwt_auth.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1204",
+      "full_id": "4552-T1204",
+      "status": "Applied",
+      "category": "INFRA",
+      "files_modified": [
+        "app/apis/auth/schemas.py",
+        "app/apis/auth/services/update_profile_service.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2109",
+      "full_id": "4552-T2109",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1206",
+      "full_id": "4552-T1206",
+      "status": "Applied",
+      "category": "INFRA",
+      "files_modified": [
+        "app/apis/auth/services/patch_profile_service.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1154",
+      "full_id": "4552-T1154",
+      "status": "Applied",
+      "category": "INFRA",
+      "files_modified": [
+        "app/apis/orders/services/get_order_status.py",
+        "app/apis/orders/services/get_order_service.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1166",
+      "full_id": "4552-T1166",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1150",
+      "full_id": "4552-T1150",
+      "status": "Applied",
+      "category": "INFRA",
+      "files_modified": [
+        "app/apis/orders/services/get_orders_service.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1212",
+      "full_id": "4552-T1212",
+      "status": "Applied",
+      "category": "INFRA",
+      "files_modified": [
+        "app/apis/orders/services/get_orders_for_delivery_service.py",
+        "app/apis/debug/services/get_debug_info_service.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T4750",
+      "full_id": "4552-T4750",
+      "status": "Applied",
+      "category": "INFRA",
+      "files_modified": [
+        "app/apis/debug/services/get_debug_info_service.py",
+        "app/apis/menu/utils.py",
+        "app/apis/menu/services/delete_menu_item_service.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1200",
+      "full_id": "4552-T1200",
+      "status": "Applied",
+      "category": "INFRA",
+      "files_modified": [
+        "app/apis/menu/utils.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T4749",
+      "full_id": "4552-T4749",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1202",
+      "full_id": "4552-T1202",
+      "status": "Applied",
+      "category": "INFRA",
+      "files_modified": [
+        "app/apis/users/services/update_user_role_service.py",
+        "app/apis/healthcheck/service.py",
+        "docker-compose.yml"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T4747",
+      "full_id": "4552-T4747",
+      "status": "Applied",
+      "category": "INFRA",
+      "files_modified": [
+        "app/apis/healthcheck/service.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1210",
+      "full_id": "4552-T1210",
+      "status": "Applied",
+      "category": "INFRA",
+      "files_modified": [
+        "docker-compose.yml",
+        "CONTRIBUTING.md"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1192",
+      "full_id": "4552-T1192",
+      "status": "Applied",
+      "category": "INFRA",
+      "files_modified": [
+        "CONTRIBUTING.md",
+        "app/init_app.py",
+        "app/config.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2621",
+      "full_id": "4552-T2621",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2620",
+      "full_id": "4552-T2620",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2665",
+      "full_id": "4552-T2665",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T279",
+      "full_id": "4552-T279",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2666",
+      "full_id": "4552-T2666",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2600",
+      "full_id": "4552-T2600",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/admin/services/reset_chef_password_service.py",
+        "app/apis/auth/utils/jwt_auth.py",
+        "app/apis/auth/schemas.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2598",
+      "full_id": "4552-T2598",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/auth/utils/jwt_auth.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2139",
+      "full_id": "4552-T2139",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/auth/schemas.py",
+        "app/apis/auth/services/update_profile_service.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T38",
+      "full_id": "4552-T38",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/auth/services/update_profile_service.py",
+        "app/apis/auth/services/patch_profile_service.py",
+        "app/apis/orders/services/get_order_status.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2597",
+      "full_id": "4552-T2597",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/auth/services/patch_profile_service.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2602",
+      "full_id": "4552-T2602",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/orders/services/get_order_status.py",
+        "app/apis/orders/services/get_order_service.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T186",
+      "full_id": "4552-T186",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/orders/services/get_order_service.py",
+        "app/apis/orders/services/get_orders_service.py",
+        "app/apis/orders/services/get_orders_for_delivery_service.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2605",
+      "full_id": "4552-T2605",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2619",
+      "full_id": "4552-T2619",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T32",
+      "full_id": "4552-T32",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/debug/services/get_debug_info_service.py",
+        "app/apis/menu/utils.py",
+        "app/apis/menu/services/delete_menu_item_service.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T7411",
+      "full_id": "4552-T7411",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/menu/utils.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1542",
+      "full_id": "4552-T1542",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/menu/services/delete_menu_item_service.py",
+        "app/apis/users/services/update_user_role_service.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T36",
+      "full_id": "4552-T36",
+      "status": "Documented",
+      "category": "CODE_FIX",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2348",
+      "full_id": "4552-T2348",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/healthcheck/service.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T42",
+      "full_id": "4552-T42",
+      "status": "Documented",
+      "category": "CODE_FIX",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2603",
+      "full_id": "4552-T2603",
+      "status": "Documented",
+      "category": "CODE_FIX",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T4600",
+      "full_id": "4552-T4600",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    }
+  ]
+}

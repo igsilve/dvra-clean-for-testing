@@ -1,0 +1,131 @@
+{
+  "all_or_none": false,
+  "strict_ref_checking": false,
+  "composite_request": [
+    {
+      "method": "GET",
+      "path": "/api/v2/library/tasks/T17/amendments/",
+      "reference_id": "T17"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/library/tasks/T2348/amendments/",
+      "reference_id": "T2348"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/library/tasks/T42/amendments/",
+      "reference_id": "T42"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/library/tasks/T2603/amendments/",
+      "reference_id": "T2603"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/library/tasks/T186/amendments/",
+      "reference_id": "T186"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/library/tasks/T340/amendments/",
+      "reference_id": "T340"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/library/tasks/T76/amendments/",
+      "reference_id": "T76"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/library/tasks/T2621/amendments/",
+      "reference_id": "T2621"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/library/tasks/T1194/amendments/",
+      "reference_id": "T1194"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/library/tasks/T2115/amendments/",
+      "reference_id": "T2115"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/library/tasks/T4746/amendments/",
+      "reference_id": "T4746"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/library/tasks/T1176/amendments/",
+      "reference_id": "T1176"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/library/tasks/T2105/amendments/",
+      "reference_id": "T2105"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/library/tasks/T2661/amendments/",
+      "reference_id": "T2661"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/library/tasks/T1190/amendments/",
+      "reference_id": "T1190"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/library/tasks/T2605/amendments/",
+      "reference_id": "T2605"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/library/tasks/T2599/amendments/",
+      "reference_id": "T2599"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/library/tasks/T1144/amendments/",
+      "reference_id": "T1144"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/library/tasks/T1174/amendments/",
+      "reference_id": "T1174"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/library/tasks/T1198/amendments/",
+      "reference_id": "T1198"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/library/tasks/T1208/amendments/",
+      "reference_id": "T1208"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/library/tasks/T2620/amendments/",
+      "reference_id": "T2620"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/library/tasks/T4748/amendments/",
+      "reference_id": "T4748"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/library/tasks/T2615/amendments/",
+      "reference_id": "T2615"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v2/library/tasks/T2257/amendments/",
+      "reference_id": "T2257"
+    }
+  ]
+}

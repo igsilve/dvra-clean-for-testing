@@ -1,0 +1,12 @@
+{
+  "cm_id": "T2109",
+  "category": "IN",
+  "library_sourced": false,
+  "content_fields": {
+    "title": "Enable signed image enforcement (Docker)",
+    "url": "https://staging.qa.sdelements.com/bunits/copilot-test/app/dvra-clean-for-testing/tasks/phase/deployment/4552-T2109/",
+    "priority": 9,
+    "output_path": "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T2109-enable-signed-image-enforcement-docker/SKILL.md"
+  },
+  "output_path": "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T2109-enable-signed-image-enforcement-docker/SKILL.md"
+}

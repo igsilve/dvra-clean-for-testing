@@ -60,3 +60,13 @@ Changes in database models need to be reflected in migrations via Alembic. Migra
 docker compose build
 docker compose run web alembic revision --autogenerate -m 'changes description'
 ```
+
+## Security Review Checklist
+Before merging any change, reviewers should confirm the following:
+
+1. Authentication and authorization are enforced server-side for new or modified endpoints.
+2. Input is validated with schema constraints and output does not expose secrets or internal-only fields.
+3. SQL access uses bound parameters and avoids string-built queries with untrusted input.
+4. State-changing operations use POST, PUT, PATCH, or DELETE and are covered by CSRF controls where applicable.
+5. Docker and deployment changes preserve least privilege (non-root, no-new-privileges, capability drop, and restricted network/port exposure).
+6. Any security-relevant changes include or update tests for negative/abuse-path behavior.

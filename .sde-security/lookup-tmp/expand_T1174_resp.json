@@ -1,0 +1,39 @@
+{
+  "composite_response": [
+    {
+      "reference_id": "T1174",
+      "http_status_code": 200,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "results": [
+          {
+            "db_id": 8448,
+            "id": "TA8448",
+            "title": "T1174 - SKILL.md - Docker",
+            "text": "---\nname: create-non-root-users-for-containers-docker\ndescription: Use when a Dockerfile runs the final container as root or does not define a dedicated runtime user; creates and enforces a non-root runtime user for the final image stage.\n---\n\n# Create non-root users for containers (Docker)\n\n## What This Skill Does\nThis skill fixes Docker images that run as root by default. It updates the Dockerfile to create a dedicated non-root runtime user, ensure privileged setup happens before switching users, assign correct ownership or permissions to application files and writable paths, and keep the final effective `USER` in the runtime stage non-root. This reduces the impact of a compromise by removing unnecessary root privileges from the running container.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Dockerfile has no `USER` instruction in the final runtime stage | Create a dedicated non-root user and set `USER` to that account in the final runtime stage |\n| Final effective user is `root` or the Dockerfile switches back to `root` later | Move privileged setup earlier and ensure the last effective `USER` remains the non-root account |\n| Application files are copied without ownership suitable for the runtime user | Use `COPY --chown=user:group` where supported, or `chown` required paths before switching users |\n| Multi-stage build uses a secure builder stage but final stage still runs as root | Apply the non-root user fix in the final runtime stage, not just the builder stage |\n| Dockerfile already creates a dedicated runtime user, sets correct ownership, and ends on non-root | No action needed |\n\n## Boundaries\n\n### Can Do\n- Add a dedicated non-root user and group in a Dockerfile\n- Reorder Dockerfile steps so privileged setup happens before `USER`\n- Adjust ownership and permissions for app directories and required writable paths\n\n### Cannot Do\n- Guarantee the application itself is compatible with reduced privileges\n- Infer every runtime write location without inspecting app behavior\n- Replace orchestrator-level controls such as Kubernetes `securityContext` or Docker runtime flags\n\n## Gotchas\n- Setting `USER` too early: later `RUN` steps may fail or tempt a switch back to root in the final stage\n- Forgetting file ownership updates: the container may start as non-root but fail reading config, writing logs, or creating temp files\n- Fixing only the builder stage: the final image can still run as root if the runtime stage does not set a non-root `USER`\n\n## Quick Verification\n```bash\n# Build the image\ndocker build -t app-nonroot .\n\n# Confirm the container runs as a non-root UID\ndocker run --rm app-nonroot id -u\n\n# Confirm the effective user is not root\ndocker run --rm app-nonroot sh -c 'id && whoami || true'\n\n# Check the app directory ownership and permissions\ndocker run --rm app-nonroot sh -c 'ls -ld /app && ls -l /app | head'\n\n# Negative check: writing to a root-owned restricted path should fail\ndocker run --rm app-nonroot sh -c 'touch /root/should-fail'\n```",
+            "type": "Built-in",
+            "ordinal": 227,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-05-21T11:39:48.217000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:35.764000-04:00",
+            "active": true
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,166 @@
+{
+  "added": [
+    {
+      "question_id": "Q101",
+      "question_text": "Components In Development",
+      "answer_id": "A4"
+    },
+    {
+      "question_id": "Q101",
+      "question_text": "Components In Development",
+      "answer_id": "A6"
+    },
+    {
+      "question_id": "Q253",
+      "question_text": "Components In Use",
+      "answer_id": "A1078"
+    },
+    {
+      "question_id": "Q500",
+      "question_text": "Architectural Features",
+      "answer_id": "A1142"
+    },
+    {
+      "question_id": "Q109",
+      "question_text": "Programming Language",
+      "answer_id": "A3"
+    },
+    {
+      "question_id": "Q109",
+      "question_text": "Programming Language",
+      "answer_id": "A707"
+    },
+    {
+      "question_id": "Q191",
+      "question_text": "Web Client Technologies Used",
+      "answer_id": "A1192"
+    },
+    {
+      "question_id": "Q103",
+      "question_text": "Database",
+      "answer_id": "A11"
+    },
+    {
+      "question_id": "Q305",
+      "question_text": "Database Management System (DBMS)",
+      "answer_id": "A1252"
+    },
+    {
+      "question_id": "Q305",
+      "question_text": "Database Management System (DBMS)",
+      "answer_id": "A765"
+    },
+    {
+      "question_id": "Q120",
+      "question_text": "Authentication Features",
+      "answer_id": "A758"
+    },
+    {
+      "question_id": "Q121",
+      "question_text": "Authentication Method",
+      "answer_id": "A19"
+    },
+    {
+      "question_id": "Q129",
+      "question_text": "Requires Server-to-Server Authentication",
+      "answer_id": "A17"
+    },
+    {
+      "question_id": "Q213",
+      "question_text": "Password Management Features",
+      "answer_id": "A43"
+    },
+    {
+      "question_id": "Q213",
+      "question_text": "Password Management Features",
+      "answer_id": "A182"
+    },
+    {
+      "question_id": "Q127",
+      "question_text": "Authorizes Subjects",
+      "answer_id": "A23"
+    },
+    {
+      "question_id": "Q126",
+      "question_text": "Has Session Management",
+      "answer_id": "A37"
+    },
+    {
+      "question_id": "Q259",
+      "question_text": "External Code/Data",
+      "answer_id": "A1102"
+    },
+    {
+      "question_id": "Q215",
+      "question_text": "Input Validation",
+      "answer_id": "A2307"
+    },
+    {
+      "question_id": "Q303",
+      "question_text": "OS Interactions",
+      "answer_id": "A1194"
+    },
+    {
+      "question_id": "Q131",
+      "question_text": "Encryption",
+      "answer_id": "A21"
+    },
+    {
+      "question_id": "Q214",
+      "question_text": "Miscellaneous",
+      "answer_id": "A33"
+    },
+    {
+      "question_id": "Q214",
+      "question_text": "Miscellaneous",
+      "answer_id": "A35"
+    },
+    {
+      "question_id": "Q214",
+      "question_text": "Miscellaneous",
+      "answer_id": "A90"
+    },
+    {
+      "question_id": "Q214",
+      "question_text": "Miscellaneous",
+      "answer_id": "A1143"
+    },
+    {
+      "question_id": "Q186",
+      "question_text": "Application Layer Protocols Used",
+      "answer_id": "A195"
+    },
+    {
+      "question_id": "Q231",
+      "question_text": "Authentication and Identity Exchange Protocols",
+      "answer_id": "A763"
+    },
+    {
+      "question_id": "Q364",
+      "question_text": "Version Control Platforms",
+      "answer_id": "A1390"
+    },
+    {
+      "question_id": "Q105",
+      "question_text": "Open Source Security Library Use Permitted",
+      "answer_id": "A56"
+    },
+    {
+      "question_id": "Q106",
+      "question_text": "OWASP Development Tools Used",
+      "answer_id": "A58"
+    },
+    {
+      "question_id": "Q212",
+      "question_text": "Test Tools Permitted",
+      "answer_id": "A188"
+    },
+    {
+      "question_id": "Q308",
+      "question_text": "Containerization Technologies",
+      "answer_id": "A1208"
+    }
+  ],
+  "removed": [],
+  "unchanged_count": 10
+}

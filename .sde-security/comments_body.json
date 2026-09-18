@@ -1,0 +1,22 @@
+[
+{"question":"Q101","text":"Detected FastAPI app and routed endpoints (app/main.py, app/apis/router.py). Component is web app and web service."},
+{"question":"Q253","text":"Database usage detected via SQLAlchemy engine/session and Postgres service config (app/db/session.py, docker-compose.yml)."},
+{"question":"Q500","text":"Application components communicate over network (web and db services, exposed ports) in docker-compose.yml."},
+{"question":"Q109","text":"Python is primary language (pyproject.toml python dependency; multiple .py modules under app/)."},
+{"question":"Q191","text":"CORS middleware configured (app/init_app.py CORSMiddleware)."},
+{"question":"Q103","text":"Relational SQL database in use via SQLAlchemy and PostgreSQL/SQLite configuration (app/db/session.py, app/config.py)."},
+{"question":"Q305","text":"DBMS evidence: PostgreSQL configured for runtime and SQLite used for memory/test mode (app/config.py, app/tests/conftest.py)."},
+{"question":"Q120","text":"End-user authentication implemented via token endpoint and credential verification (app/apis/auth/services/get_token_service.py, app/apis/auth/utils/utils.py)."},
+{"question":"Q121","text":"Password-based authentication is implemented (authenticate_user/verify_password and UserCreate password field)."},
+{"question":"Q129","text":"Server-to-server auth present for DB connectivity using DB credentials in connection URL (app/config.py DATABASE_URL)."},
+{"question":"Q213","text":"Password reset flow present (reset_password service endpoints and reset code fields in user model)."},
+{"question":"Q127","text":"Authorization controls present using role checks (RolesBasedAuthChecker in menu/admin operations)."},
+{"question":"Q215","text":"User text inputs accepted through API schemas/forms (auth/user/menu/order Pydantic schemas and OAuth2 form)."},
+{"question":"Q303","text":"Application interacts with OS resources through standard libraries/framework wrappers (env config, filesystem/static serving, DB/network stack)."},
+{"question":"Q131","text":"Passwords stored in configuration/environment settings (POSTGRES_PASSWORD in config and compose)."},
+{"question":"Q214","text":"Random values generated for security-sensitive workflow (generate_random_secret in app/config.py)."},
+{"question":"Q186","text":"HTTP-based protocol used by FastAPI/Uvicorn service endpoints."},
+{"question":"Q231","text":"OAuth2 bearer token scheme configured (OAuth2PasswordBearer in app/apis/auth/utils/jwt_auth.py)."},
+{"question":"Q364","text":"Repository uses Git-based workflow and version control metadata (.git and project docs)."},
+{"question":"Q308","text":"Containerization uses Docker (Dockerfile and docker-compose.yml)."}
+]

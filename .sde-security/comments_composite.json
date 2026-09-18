@@ -1,0 +1,168 @@
+{
+  "all_or_none": false,
+  "strict_ref_checking": false,
+  "composite_request": [
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/4552/survey/comments/",
+      "reference_id": "Q101",
+      "body": {
+        "question": "Q101",
+        "text": "Detected FastAPI app and routed endpoints (app/main.py, app/apis/router.py). Component is web app and web service."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/4552/survey/comments/",
+      "reference_id": "Q253",
+      "body": {
+        "question": "Q253",
+        "text": "Database usage detected via SQLAlchemy engine/session and Postgres service config (app/db/session.py, docker-compose.yml)."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/4552/survey/comments/",
+      "reference_id": "Q500",
+      "body": {
+        "question": "Q500",
+        "text": "Application components communicate over network (web and db services, exposed ports) in docker-compose.yml."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/4552/survey/comments/",
+      "reference_id": "Q109",
+      "body": {
+        "question": "Q109",
+        "text": "Python is primary language (pyproject.toml python dependency; multiple .py modules under app/)."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/4552/survey/comments/",
+      "reference_id": "Q191",
+      "body": {
+        "question": "Q191",
+        "text": "CORS middleware configured (app/init_app.py CORSMiddleware)."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/4552/survey/comments/",
+      "reference_id": "Q103",
+      "body": {
+        "question": "Q103",
+        "text": "Relational SQL database in use via SQLAlchemy and PostgreSQL/SQLite configuration (app/db/session.py, app/config.py)."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/4552/survey/comments/",
+      "reference_id": "Q305",
+      "body": {
+        "question": "Q305",
+        "text": "DBMS evidence: PostgreSQL configured for runtime and SQLite used for memory/test mode (app/config.py, app/tests/conftest.py)."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/4552/survey/comments/",
+      "reference_id": "Q120",
+      "body": {
+        "question": "Q120",
+        "text": "End-user authentication implemented via token endpoint and credential verification (app/apis/auth/services/get_token_service.py, app/apis/auth/utils/utils.py)."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/4552/survey/comments/",
+      "reference_id": "Q121",
+      "body": {
+        "question": "Q121",
+        "text": "Password-based authentication is implemented (authenticate_user/verify_password and UserCreate password field)."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/4552/survey/comments/",
+      "reference_id": "Q129",
+      "body": {
+        "question": "Q129",
+        "text": "Server-to-server auth present for DB connectivity using DB credentials in connection URL (app/config.py DATABASE_URL)."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/4552/survey/comments/",
+      "reference_id": "Q213",
+      "body": {
+        "question": "Q213",
+        "text": "Password reset flow present (reset_password service endpoints and reset code fields in user model)."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/4552/survey/comments/",
+      "reference_id": "Q127",
+      "body": {
+        "question": "Q127",
+        "text": "Authorization controls present using role checks (RolesBasedAuthChecker in menu/admin operations)."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/4552/survey/comments/",
+      "reference_id": "Q215",
+      "body": {
+        "question": "Q215",
+        "text": "User text inputs accepted through API schemas/forms (auth/user/menu/order Pydantic schemas and OAuth2 form)."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/4552/survey/comments/",
+      "reference_id": "Q131",
+      "body": {
+        "question": "Q131",
+        "text": "Passwords stored in configuration/environment settings (POSTGRES_PASSWORD in config and compose)."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/4552/survey/comments/",
+      "reference_id": "Q214",
+      "body": {
+        "question": "Q214",
+        "text": "Random values generated for security-sensitive workflow (generate_random_secret in app/config.py)."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/4552/survey/comments/",
+      "reference_id": "Q186",
+      "body": {
+        "question": "Q186",
+        "text": "HTTP-based protocol used by FastAPI/Uvicorn service endpoints."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/4552/survey/comments/",
+      "reference_id": "Q231",
+      "body": {
+        "question": "Q231",
+        "text": "OAuth2 bearer token scheme configured (OAuth2PasswordBearer in app/apis/auth/utils/jwt_auth.py)."
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/v2/projects/4552/survey/comments/",
+      "reference_id": "Q308",
+      "body": {
+        "question": "Q308",
+        "text": "Containerization uses Docker (Dockerfile and docker-compose.yml)."
+      }
+    }
+  ]
+}

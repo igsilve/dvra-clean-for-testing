@@ -1,0 +1,200 @@
+{
+  "composite_response": [
+    {
+      "reference_id": "T257",
+      "http_status_code": 200,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "results": [
+          {
+            "db_id": 3004,
+            "id": "TA3004",
+            "title": "ASD-STIG requirements",
+            "text": "## V-222603 [medium]:\n__The application must protect from Cross-Site Request Forgery (CSRF) vulnerabilities.__\n\nCross-Site Request Forgery (CSRF) is an attack where a website user is forced to execute an unwanted action on a website that he or she is currently authenticated to. An attacker, through social engineering (e.g., e-mail or chat) creates a hyperlink which executes unwanted actions on the website the victim is authenticated to and sends it to the victim. If the victim clicks on the link, the action is executed unbeknownst to the victim.\n\nA CSRF attack executes a website request on behalf of the user which can lead to a compromise of the user's data. What is needed to be successful is for the attacker to know the URL, an authenticated application user, and trick the user into clicking the malicious link.\n\nWhile XSS is not needed for a CSRF attack to work, XSS vulnerabilities can provide the attacker with a vector to obtain information from the user that may be used in mitigating the risk. The application must not be vulnerable to XSS as an XSS attack can be used to help defeat token, double-submit cookie, referrer and origin-based CSRF defenses.\n\n",
+            "type": "Built-in",
+            "ordinal": 0,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2020-11-16T13:32:50.496000-05:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2024-09-24T13:15:54.930000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 10564,
+            "id": "TA10564",
+            "title": "Restrict CORS to an explicit allowlist of trusted origins (DoD/DISA API SRG)",
+            "text": "Restrict CORS to an explicit allowlist of trusted origins. When Cross-Origin Resource Sharing is in use, the API must specify allowed origins explicitly rather than permitting arbitrary or wildcard origins, so cross-origin requests are accepted only from validated, trusted sources. If CORS is not in use this is Not Applicable.\n\nCompliance records include the CORS configuration showing the explicit allowed-origins allowlist and the absence of wildcard origins.",
+            "type": "Built-in",
+            "ordinal": 1,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-08-09T19:07:03.761000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-08-09T19:07:03.761000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9481,
+            "id": "TA9481",
+            "title": "T257 - SKILL.md - JavaScript",
+            "text": "---\nname: secure-cross-origin-resource-sharing\ndescription: \"Harden JavaScript CORS handling and CSRF defenses for browser-facing services. Use when code emits CORS headers, trusts Origin, or allows cookie-authenticated cross-origin requests.\"\n---\n\n# Secure cross origin resource sharing (CORS)\n\n## What This Skill Does\nThis skill fixes insecure CORS handling that can enable CSRF-like abuse, private data exposure, or unsafe cross-origin state changes. It separates CORS from authentication and authorization, adds CSRF validation for cookie-authenticated state-changing requests, and replaces permissive or reflective CORS logic with a centralized deny-by-default policy that uses exact origin allowlists, method/header validation, bounded caching, and safe credential handling.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Code reflects `req.headers.origin` into `Access-Control-Allow-Origin`, or uses `origin || '*'` | Replace with centralized CORS logic that parses the origin and compares by exact equality against an allowlist |\n| Code uses `Origin` or CORS success as proof of trust for protected `GET`, `POST`, `PUT`, `PATCH`, or `DELETE` endpoints | Require normal authentication and authorization for all non-`OPTIONS` protected requests; do not use `Origin` for auth decisions |\n| Cookie-authenticated state-changing routes exist (`POST`, `PUT`, `PATCH`, `DELETE`) without CSRF checks | Add CSRF validation before the state change using a synchronizer token or signed double-submit style token |\n| CORS preflight handling allows arbitrary methods or headers | Validate `Access-Control-Request-Method` and `Access-Control-Request-Headers` against explicit allowlists |\n| Code already uses exact origin allowlists, rejects wildcard-plus-credentials, and enforces auth + CSRF correctly | No action needed |\n\n## Boundaries\n\n### Can Do\n- Replace reflective or partial-match CORS logic with exact allowlist checks using parsed origins\n- Add CSRF token verification for cookie-based state-changing requests\n- Enforce safe CORS invariants such as no `*` with `Access-Control-Allow-Credentials: true`\n\n### Cannot Do\n- Decide which origins, methods, or headers are business-approved without project guidance\n- Add full session management, login flows, or complete authorization models\n- Protect non-browser clients solely through CORS; CORS is not an API authentication mechanism\n\n## Gotchas\n- Using `includes`, `startsWith`, `endsWith`, or loose regex on origins: this accepts attacker-controlled origins like `https://app.example.com.evil.com`\n- Sending `Access-Control-Allow-Origin: *` with `Access-Control-Allow-Credentials: true`: browsers reject this and it signals an unsafe policy\n- Applying CSRF checks to bearer-token APIs the same way as cookie flows: CSRF is primarily required for browser cookie-authenticated requests, not generic token clients\n\n## Quick Verification\n```bash\n# Confirm secure helpers/guards exist\nrg -n \"buildCorsHeaders|isAllowedOrigin|verifyCsrfToken|requiresAuthentication|Access-Control-Allow-Credentials\" .\n\n# Find unguarded dangerous CORS patterns and unsafe Origin trust\nrg -n \"res\\.(set|setHeader)\\(\\s*['\\\"]Access-Control-Allow-Origin['\\\"],\\s*(req\\.headers\\.origin|origin\\s*\\|\\|\\s*['\\\"]\\*['\\\"]|origin)\\)|Access-Control-Allow-Origin['\\\"]:\\s*(origin|req\\.headers\\.origin|['\\\"]\\*['\\\"])\\b|Access-Control-Allow-Credentials['\\\"]:\\s*true|req\\.headers\\.origin|headers\\.origin.*(===|==|!=|!==).*auth|includes\\(|startsWith\\(|endsWith\\(\" .\n\n# Build + test with the JavaScript project's available toolchain\nnpm test || yarn test || pnpm test || node --test\n```",
+            "type": "Built-in",
+            "ordinal": 390,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:41.032000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:41.032000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9522,
+            "id": "TA9522",
+            "title": "T257 - SKILL.md - Python",
+            "text": "---\nname: secure-cross-origin-resource-sharing\ndescription: Use when Python code treats CORS or the Origin header as access control, exposes private resources cross-origin, or skips CSRF protection on authenticated state-changing requests.\n---\n# Secure cross origin resource sharing (CORS)\n\n## What This Skill Does\nThis skill fixes Python code that misuses CORS as an authorization mechanism, trusts the `Origin` header for private access, returns permissive `Access-Control-Allow-*` headers on non-public endpoints, or skips CSRF validation for authenticated state-changing requests. Apply it to separate public, private, and explicitly shareable cross-origin resources; require normal authentication and authorization for private functionality; enforce CSRF on authenticated state changes; and only emit CORS headers when the origin, method, and requested headers exactly match approved policy.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Code reads `request.headers.get(\"Origin\")` or `request.headers[\"Origin\"]` to allow access to private functionality | Remove Origin-based access control; require normal authentication/authorization and keep behavior the same for same-origin or no-Origin requests |\n| A private endpoint returns `Access-Control-Allow-*` headers | Remove CORS headers unless the endpoint is explicitly designed for cross-origin sharing |\n| A public unauthenticated resource is intentionally shareable across origins | Return `Access-Control-Allow-Origin: *` only if no credentials are used |\n| A shareable cross-origin endpoint needs controlled access | Exact-match the full `Origin` against a whitelist and validate requested method and headers before returning CORS headers |\n| An authenticated state-changing request (`POST`, `PUT`, `PATCH`, `DELETE`) relies only on session cookies | Add CSRF validation and do not treat a trusted origin as a replacement for CSRF protection |\n\n## Boundaries\n\n### Can Do\n- Replace Origin-based authorization decisions with server-side authentication and authorization checks\n- Tighten Python CORS handling for Flask-style request/response code, including exact origin, method, and header checks\n- Add or preserve CSRF validation for authenticated state-changing requests\n\n### Cannot Do\n- Infer the correct business whitelist of allowed origins without project-specific requirements\n- Prove an endpoint is truly public and safe for wildcard CORS without understanding its data sensitivity and auth model\n- Guarantee framework-wide CSRF coverage if the application uses custom middleware, multiple frameworks, or nonstandard request handling\n\n## Gotchas\n- Using substring or suffix origin checks: `endswith`, `startswith`, `in`, or regex-style matching can allow attacker-controlled origins like `https://trusted.example.com.attacker.test`\n- Combining `Access-Control-Allow-Origin: *` with `Access-Control-Allow-Credentials: true`: browsers reject this and it signals a broken policy for credentialed flows\n- Treating `OPTIONS` as an authorization bypass: preflight should only negotiate CORS policy, not grant access to private functionality or replace auth/CSRF checks\n\n## Quick Verification\n```bash\n# Confirm secure CORS/CSRF code paths exist\nrg -n 'Access-Control-Allow-Origin|Access-Control-Allow-Credentials|Access-Control-Allow-Methods|Access-Control-Allow-Headers|Access-Control-Max-Age|validate_csrf_token|X-CSRF-Token|compare_digest|require_authenticated_user' .\n\n# Find likely unguarded dangerous patterns: Origin-based access control, permissive CORS on private code, and state-changing handlers missing CSRF validation\nrg -n 'request\\.headers\\.get\\([\"'\"'\"']Origin[\"'\"'\"']|request\\.headers\\[\"Origin\"\\]|Access-Control-Allow-Origin[\"'\"'\"']?\\s*[:=]\\s*[\"'\"'\"']\\*[\"'\"'\"']|methods=\\[[^]]*(POST|PUT|PATCH|DELETE)[^]]*\\]' .\n\n# Build/test using generic Python tooling\npython -m compileall .\npython -m pytest -q\n```",
+            "type": "Built-in",
+            "ordinal": 436,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:42.610000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:42.610000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9539,
+            "id": "TA9539",
+            "title": "T257 - SKILL.md - Node.js",
+            "text": "---\nname: secure-cross-origin-resource-sharing\ndescription: Use when Node.js code misconfigures CORS, trusts Origin, reflects broad cross-origin access, or skips CSRF validation on state-changing requests.\n---\n# Secure cross origin resource sharing\n\n## What This Skill Does\nFixes CSRF-related risk caused by unsafe CORS behavior in Node.js applications. Apply it when code treats `Origin` as a trust signal, reflects arbitrary origins into `Access-Control-Allow-Origin`, allows credentialed cross-origin requests too broadly, or processes unsafe methods without CSRF validation. The fix enforces normal authentication, requires CSRF tokens for state-changing requests, emits CORS headers only for explicitly shareable resources, and uses exact origin allowlists with method/header validation.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Request handlers use `req.headers.origin` to allow access, mark requests as trusted, or bypass auth | Remove `Origin`-based trust and enforce normal authentication/authorization |\n| Code sets `Access-Control-Allow-Origin` from request input or combines `*` with credentials | Replace with exact allowlisted origin handling for credentialed CORS, or `*` only for truly public non-credentialed resources |\n| Unsafe methods like `POST`, `PUT`, `PATCH`, or `DELETE` execute without CSRF validation | Add CSRF token issuance and server-side validation before changing state |\n| CORS checks use substring, suffix, regex, or wildcard origin matching | Replace with exact string allowlist matching and reject malformed origins |\n| Endpoint is private and not meant for cross-origin sharing | Return no `Access-Control-Allow-*` headers; no action needed beyond normal auth if already secure |\n\n## Boundaries\n\n### Can Do\n- Add exact-origin CORS policy helpers for public and credentialed resources\n- Add CSRF token generation and validation for unsafe HTTP methods\n- Replace unsafe origin reflection and loose allowlist matching in Node.js handlers and middleware\n\n### Cannot Do\n- Decide business-specific trusted origins without an explicit allowlist from the project\n- Invent a full authentication system where none exists\n- Guarantee browser safety if the application intentionally exposes private data cross-origin by design\n\n## Gotchas\n- Reflecting `req.headers.origin` into `Access-Control-Allow-Origin`: this turns attacker-controlled input into policy and can enable credentialed cross-origin abuse\n- Using `Access-Control-Allow-Origin: *` with `Access-Control-Allow-Credentials: true`: browsers reject this combination and it signals a broken CORS design\n- Treating successful preflight or allowed `OPTIONS` as authorization: CORS negotiation is not proof the caller may perform the business action\n\n## Quick Verification\n```bash\n# Confirm secure guard/wrapper patterns exist\nrg -n \"validateCsrf|issueCsrfToken|originMatchesWhitelistExactly|buildCorsHeaders|enforceAuth|isCorsRequestAllowed\" .\n\n# Find UNGUARDED dangerous patterns: origin trust, origin reflection, wildcard+credentials, and state-changing routes lacking CSRF guard nearby\nrg -n \"req\\.headers\\.origin|Access-Control-Allow-Origin['\\\"]?\\s*[:,=]\\s*(origin|req\\.headers\\.origin)|Access-Control-Allow-Credentials['\\\"]?\\s*[:,=]\\s*['\\\"]true['\\\"]|app\\.(post|put|patch|delete)\\(\" .\n\n# Build + test with generic Node.js toolchain commands\nnpm test\nnpm run build\n```",
+            "type": "Built-in",
+            "ordinal": 460,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:43.253000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:43.253000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9600,
+            "id": "TA9600",
+            "title": "T257 - SKILL.md - C#",
+            "text": "---\nname: secure-cross-origin-resource-sharing\ndescription: \"Harden C# CORS handling and CSRF enforcement for cross-origin requests. Use when code reflects Origin, emits broad Access-Control-Allow-* headers, or skips auth/CSRF on protected endpoints.\"\n---\n\n# Secure cross origin resource sharing\n\n## What This Skill Does\nThis skill fixes unsafe C# CORS handling that can expose protected resources cross-origin or weaken CSRF defenses. It separates CORS policy from authorization, requires normal authentication and authorization on all protected non-`OPTIONS` requests, enforces per-session CSRF tokens for authenticated state-changing actions, returns CORS headers only for explicitly shareable resources, matches allowed origins exactly, validates requested methods and headers before responding, and fails closed on missing, malformed, or inconsistent `Origin` input.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Code reflects `Origin` into `Access-Control-Allow-Origin` or returns permissive `Access-Control-Allow-*` headers broadly | Apply explicit CORS policy evaluation with exact allowlisted origins, methods, and headers |\n| Protected endpoint accepts cookie-authenticated state-changing requests without CSRF validation | Add session-bound CSRF token issuance and exact validation for non-`OPTIONS` protected requests |\n| Resource is private or not intended for cross-origin sharing | Return no `Access-Control-Allow-*` headers |\n| Credentialed cross-origin access is required | Return `Access-Control-Allow-Credentials: true` only with a specific approved origin, never `*` |\n| Code already uses exact origin allowlists, bounded CORS headers, authz, and CSRF checks | No action needed |\n\n## Boundaries\n\n### Can Do\n- Replace origin reflection and partial origin matching with exact allowlist comparison\n- Restrict CORS headers to explicitly shareable resources and validate requested methods and headers\n- Add or strengthen CSRF token generation and fixed-time validation for authenticated state-changing requests\n\n### Cannot Do\n- Decide business-level authorization rules or which endpoints should be public versus protected without application context\n- Infer a trustworthy origin allowlist from deployment data that is not present in code or configuration\n- Guarantee browser-side safety if other protections are missing, such as insecure session cookies or broken authentication\n\n## Gotchas\n- Using `Contains`, `StartsWith`, or `EndsWith` for origin checks: this allows lookalike origins such as `https://trusted.example.com.attacker.tld`\n- Returning `Access-Control-Allow-Origin: *` with `Access-Control-Allow-Credentials: true`: browsers reject this and it signals an unsafe policy design\n- Treating CORS as authorization: CORS controls browser access to responses, but protected endpoints still need normal authz and CSRF enforcement\n\n## Quick Verification\n```bash\n# Confirm secure CORS/CSRF primitives exist\nrg -n 'CryptographicOperations\\.FixedTimeEquals|RandomNumberGenerator\\.GetBytes|Access-Control-Allow-Origin|Access-Control-Allow-Credentials|Uri\\.TryCreate|StringComparison\\.Ordinal' .\n\n# Find likely unguarded dangerous patterns that bypass the fix\nrg -n '\\[\"Access-Control-Allow-Origin\"\\]\\s*=\\s*(origin|originHeader|request\\.Origin)|Access-Control-Allow-Credentials\"\\]\\s*=\\s*\"true\"|Contains\\(.*origin|StartsWith\\(.*origin|EndsWith\\(.*origin|ProcessTransfer\\(.*\\)[\\s\\S]{0,300}SessionCookie' .\n\n# Build all discovered C# projects/solutions\nfind . \\( -name '*.sln' -o -name '*.csproj' \\) -print0 | xargs -0 -n1 dotnet build\n\n# Run tests for all discovered C# test projects/solutions\nfind . \\( -name '*.sln' -o -name '*Tests.csproj' -o -name '*.Tests.csproj' \\) -print0 | xargs -0 -n1 dotnet test\n```",
+            "type": "Built-in",
+            "ordinal": 529,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:45.565000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:45.566000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9693,
+            "id": "TA9693",
+            "title": "T257 - SKILL.md - Java",
+            "text": "---\nname: secure-cross-origin-resource-sharing\ndescription: Use when Java code handles CORS, Origin headers, or credentialed cross-origin requests that could bypass CSRF protections or expose private resources.\n---\n# Secure cross origin resource sharing (CORS)\n\n## What This Skill Does\nThis skill hardens Java code that processes cross-origin requests so CORS is not mistaken for authorization and does not weaken CSRF defenses. It separates preflight `OPTIONS` handling from business logic, requires normal authentication and authorization for private requests, adds CSRF validation for authenticated state-changing actions, avoids sending CORS headers on private non-shareable resources, and only allows cross-origin sharing through exact origin, method, and header whitelists.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Code uses `Origin` or CORS approval to decide whether a protected action may run | Apply this fix |\n| Code handles credentialed `POST`, `PUT`, `PATCH`, or `DELETE` without CSRF validation | Add unpredictable CSRF tokens and constant-time comparison with `MessageDigest.isEqual` |\n| Code returns `Access-Control-Allow-Origin` for private resources not meant for sharing | Remove CORS headers from those responses |\n| Code allows cross-origin sharing with partial, prefix, suffix, or substring origin matching | Replace with exact full-origin whitelist matching plus method/header validation |\n| Code already requires auth, separates `OPTIONS`, enforces CSRF, and uses exact whitelists | No action needed |\n\n## Boundaries\n\n### Can Do\n- Refactor Java request handling so preflight `OPTIONS` does not execute protected business logic\n- Add CSRF token generation and constant-time validation for authenticated state-changing requests\n- Replace permissive CORS logic with exact origin, method, and header allowlists\n\n### Cannot Do\n- Prove browser-level behavior without running the application and sending real HTTP requests\n- Infer the correct trusted-origin list, allowed methods, or allowed headers without project-specific requirements\n- Fix unrelated auth flaws such as broken session management, missing authorization rules, or token leakage\n\n## Gotchas\n- Treating `Origin` as authorization: CORS approval is not access control, so protected actions still need normal auth and authorization\n- Using `Access-Control-Allow-Origin: *` with credentials: browsers forbid this combination and it weakens policy intent\n- Using `startsWith`, `endsWith`, `contains`, or regex shortcuts for origins: these allow lookalike origins such as `https://trusted.example.attacker.com`\n\n## Quick Verification\n```bash\n# Confirm secure building blocks exist\nrg -n 'MessageDigest\\.isEqual|Access-Control-Allow-Origin|Access-Control-Allow-Credentials|Access-Control-Allow-Methods|Access-Control-Allow-Headers|Access-Control-Max-Age|Vary' .\nrg -n 'ALLOWED_ORIGINS\\.contains\\(|trustedOrigins\\(\\)\\.contains\\(|Set\\.of\\(\"https://|normalizeMethod\\(|normalizeHeaders\\(' .\n\n# Find likely unguarded or dangerous patterns that bypass the fix\nrg -n 'startsWith\\(.*Origin|endsWith\\(.*Origin|contains\\(.*Origin|Access-Control-Allow-Origin\\s*\".*\\*\"|setHeader\\(\"Access-Control-Allow-Origin\",\\s*\"\\*\"\\)|addHeader\\(\"Access-Control-Allow-Origin\",\\s*\"\\*\"\\)' .\nrg -n 'Origin.*(authorize|auth|allow)|processTransfer\\(.*origin|request\\.getHeader\\(\"Origin\"\\).*if|POST|PUT|PATCH|DELETE' .\nrg -n 'POST|PUT|PATCH|DELETE' . | rg -v 'MessageDigest\\.isEqual|csrf|X-CSRF-Token|Csrf'\n\n# Build + test with the detected Java toolchain\ntest -f pom.xml && mvn test\ntest -f build.gradle -o -f build.gradle.kts && ./gradlew test\nfind . -name \"*.java\" | head -n 1 | xargs -r dirname | xargs -I{} javac $(find . -name \"*.java\")\n```",
+            "type": "Built-in",
+            "ordinal": 630,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:49.333000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:49.333000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9769,
+            "id": "TA9769",
+            "title": "T257 - SKILL.md - TypeScript",
+            "text": "---\nname: secure-cross-origin-resource-sharing\ndescription: Use when TypeScript code sets CORS headers, checks Origin, or handles authenticated cross-origin requests that could bypass auth or CSRF protections.\n---\n# Secure cross origin resource sharing\n\n## What This Skill Does\nThis skill fixes unsafe CORS patterns that can enable CSRF or cross-origin abuse in TypeScript services. It ensures protected requests are authorized regardless of `Origin`, requires CSRF validation for authenticated state-changing requests, allows CORS only on explicitly shareable routes using exact origin matching, omits CORS headers from private routes, and limits wildcard CORS to truly public resources without credentials.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Code uses `req.headers.origin`, `request.headers.origin`, or `Origin` as an access-control signal | Apply normal authentication and authorization to every non-public non-`OPTIONS` request; do not trust `Origin` for access control |\n| Code reflects the request origin into `Access-Control-Allow-Origin` or combines dynamic origin with `Access-Control-Allow-Credentials: true` | Replace with exact origin whitelist validation using parsed normalized origins and only emit CORS headers for approved shareable routes |\n| Authenticated `POST`, `PUT`, `PATCH`, or `DELETE` requests do not validate a server-bound CSRF token | Add CSRF validation before protected business logic and reject missing or invalid tokens with a generic failure |\n| Private or non-shareable routes send any `Access-Control-Allow-*` headers | Remove CORS headers from those routes and deny cross-origin use by default |\n| Route is truly public and does not require credentials | Use `Access-Control-Allow-Origin: *` with finite `Access-Control-Max-Age`, and never send `Access-Control-Allow-Credentials: true` |\n\n## Boundaries\n\n### Can Do\n- Add exact-origin CORS checks for explicitly shareable routes\n- Add auth and CSRF guards before protected TypeScript request handlers run\n- Remove unsafe CORS header reflection and separate public, private, and shareable route behavior\n\n### Cannot Do\n- Infer the correct trusted origin list, public route list, or shareable route list without application context\n- Design a full authentication or session system if the project has none\n- Guarantee browser-side safety if downstream proxies or gateways rewrite CORS headers after the app responds\n\n## Gotchas\n- Using `endsWith`, `includes`, regex fragments, or suffix checks for origins: this accepts attacker origins like `https://trusted.example.attacker.com`\n- Sending `Access-Control-Allow-Origin: *` with `Access-Control-Allow-Credentials: true`: browsers reject this combination and it signals a broken credentialed CORS design\n- Protecting only `POST` while leaving state-changing `GET` routes in place: unsafe actions must not remain reachable through unprotected methods\n\n## Quick Verification\n```bash\n# Confirm secure CORS/auth/CSRF helpers or checks exist\nrg -n \"Access-Control-Allow-Origin|Access-Control-Allow-Credentials|timingSafeEqual|x-csrf-token|access-control-request-method|new URL\\(|publicPaths|shareablePaths|allowedOrigins\" .\n\n# Find likely unguarded dangerous patterns that bypass the fix\nrg -n \"res\\.(set|header)\\(\\s*['\\\"]Access-Control-Allow-Origin['\\\"],\\s*(req|request)\\.headers\\.origin|['\\\"]Access-Control-Allow-Credentials['\\\"]\\s*,\\s*['\\\"]true['\\\"]|\\.has\\(.*origin.*\\)|includes\\(.*origin.*\\)|endsWith\\(.*origin.*\\)|startsWith\\(.*origin.*\\)|app\\.(post|put|patch|delete|get)\\(.*(transfer|change|update|delete)\" .\n\n# TypeScript build + tests\nnpx tsc --noEmit && npm test\n```",
+            "type": "Built-in",
+            "ordinal": 715,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:52.261000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:52.261000-04:00",
+            "active": true
+          }
+        ]
+      }
+    }
+  ]
+}

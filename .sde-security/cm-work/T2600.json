@@ -1,0 +1,12 @@
+{
+  "cm_id": "T2600",
+  "category": "CF",
+  "library_sourced": false,
+  "content_fields": {
+    "title": "Control the result set size returned by a query",
+    "url": "https://staging.qa.sdelements.com/bunits/copilot-test/app/dvra-clean-for-testing/tasks/phase/development/4552-T2600/",
+    "priority": 7,
+    "output_path": "/Users/isilveira/dvra-clean-for-testing/skills/data-security/T2600-control-the-result-set-size-returned-by/SKILL.md"
+  },
+  "output_path": "/Users/isilveira/dvra-clean-for-testing/skills/data-security/T2600-control-the-result-set-size-returned-by/SKILL.md"
+}

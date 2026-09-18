@@ -1,0 +1,12 @@
+{
+  "cm_id": "T2621",
+  "category": "IN",
+  "library_sourced": false,
+  "content_fields": {
+    "title": "Use file volume encryption and consider in-database encryption with pgcrypto (PostgreSQL)",
+    "url": "https://staging.qa.sdelements.com/bunits/copilot-test/app/dvra-clean-for-testing/tasks/phase/deployment/4552-T2621/",
+    "priority": 8,
+    "output_path": "/Users/isilveira/dvra-clean-for-testing/skills/cryptography/T2621-use-file-volume-encryption-and-consider/SKILL.md"
+  },
+  "output_path": "/Users/isilveira/dvra-clean-for-testing/skills/cryptography/T2621-use-file-volume-encryption-and-consider/SKILL.md"
+}

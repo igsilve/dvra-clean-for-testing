@@ -1,0 +1,108 @@
+{
+  "composite_response": [
+    {
+      "reference_id": "T1150",
+      "http_status_code": 200,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "results": [
+          {
+            "db_id": 958,
+            "id": "TA958",
+            "title": "Docker: Configure container networks properly - More in-depth controls",
+            "text": "- Do not use Docker's default bridge `docker0`:\n\n    Do not use Docker's default bridge `docker0`. Use docker's user-defined networks for container networking. You have to manage the user-defined networks.",
+            "type": "Built-in",
+            "ordinal": 0,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2018-07-18T12:24:55.241000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2018-12-31T18:47:16.790000-05:00",
+            "active": true
+          },
+          {
+            "db_id": 1695,
+            "id": "TA1695",
+            "title": "FedRAMP / Moderate Baseline",
+            "text": "*** SC-7: System And Communications Protection | Boundary Protection ***  \nThe information system:\n\na. Monitors and controls communications at the external boundary of the system and at key internal boundaries within the system;\n\nb. Implements subnetworks for publicly accessible system components that are [Selection: physically; logically] separated from internal organizational networks; and\n\nc. Connects to external networks or information systems only through managed interfaces consisting of boundary protection devices arranged in accordance with an organizational security architecture.\n\n*** SC-7 (5): System And Communications Protection | Boundary Protection | Deny By Default / Allow By Exception ***  \nThe information system at managed interfaces denies network communications traffic by default and allows network communications traffic by exception (i.e., deny all, permit by exception).",
+            "type": "Built-in",
+            "ordinal": 11,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-15T17:49:00.307000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T15:08:04.639000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 2646,
+            "id": "TA2646",
+            "title": "FedRAMP / High Baseline",
+            "text": "*** SC-7: System And Communications Protection | Boundary Protection ***  \nThe information system:  \n a. Monitors and controls communications at the external boundary of the system and at key internal boundaries within the system;  \n b. Implements subnetworks for publicly accessible system components that are [Selection: physically; logically] separated from internal organizational networks; and  \n c. Connects to external networks or information systems only through managed interfaces consisting of boundary protection devices arranged in accordance with an organizational security architecture.\n\n*** SC-7 (5): System And Communications Protection | Boundary Protection | Deny By Default / Allow By Exception ***  \nThe information system at managed interfaces denies network communications traffic by default and allows network communications traffic by exception (i.e., deny all, permit by exception).",
+            "type": "Built-in",
+            "ordinal": 12,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-17T18:34:07.798000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T18:38:13.407000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 8476,
+            "id": "TA8476",
+            "title": "T1150 - SKILL.md - Docker",
+            "text": "---\nname: configure-container-networks-properly-docker\ndescription: Secure Docker container networking by constraining exposure, binding to specific interfaces, and validating peers. Use when services may be reachable from unintended containers or host interfaces.\n---\n\n# Configure container networks properly (Docker)\n\n## What This Skill Does\nHelps reconfigure Docker container networking so services are not unintentionally exposed to other containers or host interfaces. It focuses on restricting inter-container traffic, validating and documenting allowed peers, binding services to explicit addresses and ports, avoiding reliance on Docker\u2019s userland proxy, and using health checks to detect network misconfiguration, all without changing Docker daemon flags directly from code.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Service listens on `0.0.0.0` inside the container and is meant to be internal-only | Change app/config to bind to `127.0.0.1` (or a specific interface) and expose only the needed port; avoid broad `EXPOSE` hints if not required |\n| Any container on the default bridge network can reach a sensitive service | Use labels and/or config to declare an allow-list of peer services, attach the container only to restricted user-defined networks, and avoid implicit exposure via `EXPOSE` + broad `-p` mappings |\n| App depends on outbound network access and \u201cjust hangs\u201d when misconfigured | Add explicit health checks (Docker `HEALTHCHECK` and/or in-app preflight) to verify outbound reachability and fail fast with clear but non-sensitive diagnostics |\n| Deployment relies on Docker\u2019s userland proxy or implicit port publishing behavior | Make binding behavior explicit in app (bind to known address/port), document expectation via `ENV` or comments, and recommend running with `--userland-proxy=false` plus explicit port mappings |\n| Code already binds to a validated address and uses an allow-list of peers with clear logging | No action needed; keep configuration and documentation up to date and avoid reintroducing broad bindings or unvalidated peers |\n\n## Boundaries\n\n### Can Do\n- Adjust Dockerfiles to: use `EXPOSE` conservatively, add labels, define `HEALTHCHECK`, and set safe default bind-related environment variables.\n- Propose and sketch application-level patterns (allow-list of peers, startup preflight checks, safe default bind addresses, logging of effective bind address/port).\n- Recommend runtime flags and orchestrator policies in comments or documentation (e.g., user-defined networks, `-p 127.0.0.1:8080:8080`, disabling userland proxy).\n\n### Cannot Do\n- Directly modify Docker daemon or orchestrator configuration files (e.g., cannot actually set `--userland-proxy=false` or iptables rules; can only document them).\n- Guarantee real network isolation or policy enforcement; that depends on the runtime environment (Swarm, Kubernetes, host firewall, etc.).\n- Look up actual IP addresses, hostnames, or live network state to verify connectivity; only static code and config can be inspected.\n\n## Gotchas\n- Assuming `EXPOSE 8080` is \u201cjust documentation\u201d: Docker and tools treat `EXPOSE` as a hint; combined with defaults and `docker run -P`, it can still broaden exposure. Use it only when you really intend that port to be reachable.\n- Binding to `0.0.0.0` \u201cfor convenience\u201d: inside a container this means \u201caccept from anywhere on attached networks.\u201d This is unsafe for services that should be reachable only from specific peers or host interfaces; prefer `127.0.0.1` or a specific interface with explicit port mappings.\n- Overloading health checks with sensitive details: health-check scripts or endpoints that print full URLs, credentials, or internal topology can leak information. Health checks should distinguish app vs. network failures without exposing secrets or detailed network maps.\n\n## Quick Verification\n```bash\n# 1. Confirm what address the app is actually listening on inside the container\ndocker run --rm --net bridge --name test-net -p 8080:8080 my-image \\\n  sh -c \"ss -tuln | grep 8080 || netstat -tuln | grep 8080\"\n\n# 2. Test from another container on the same network (should FAIL for properly isolated internal-only services)\ndocker network create test-net\ndocker run -d --name svc --network test-net my-image\ndocker run --rm --network test-net curlimages/curl curl -sS http://svc:8080/ || echo \"unreachable (expected for isolated service)\"\n\n# 3. Verify host interface binding (only localhost)\ndocker run -d --name bind-test -p 127.0.0.1:8080:8080 my-image\ncurl -sS http://127.0.0.1:8080/ || echo \"no response on localhost\"\n# Try from another host or interface; connection should fail.\n\n# 4. Check Docker health status for outbound connectivity issues\ndocker inspect --format='{{.State.Health.Status}}' svc || echo \"no healthcheck defined\"\n```",
+            "type": "Built-in",
+            "ordinal": 38,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-05-21T11:39:50.159000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-05-21T11:39:50.159000-04:00",
+            "active": true
+          }
+        ]
+      }
+    }
+  ]
+}

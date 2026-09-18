@@ -1,0 +1,384 @@
+{
+  "composite_response": [
+    {
+      "reference_id": "T32",
+      "http_status_code": 200,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "results": [
+          {
+            "db_id": 997,
+            "id": "TA997",
+            "title": "Use client-side validation to detect malicious behavior",
+            "text": "Since client-side validation mechanisms are easy to bypass, they cannot be relied upon for security. However, it is recommended to ensure that client-side validation procedures and server-side validation procedures enforce identical rules. In doing so, you can expect that server-side validation should not fail.\n\nUnder these conditions, a server-side input validation failure can be used as a signal of data tampering. __Such a failure should be seen as a security-relevant incident__, and should be logged appropriately.\n\nAdditionally, the system can decide to enforce further security restrictions. For example, the account can be locked, or the associated privileges revoked.\n\nFor more details on detecting suspicious behavior and acting upon such events, see the [OWASP AppSensor project](https://www.owasp.org/index.php/OWASP_AppSensor_Project).",
+            "type": "Built-in",
+            "ordinal": 0,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-05-14T13:39:31.229000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-05-15T16:27:05.532000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 2907,
+            "id": "TA2907",
+            "title": "ASD-STIG requirements",
+            "text": "## V-222602 [high]:\n__The application must protect from Cross-Site Scripting (XSS) vulnerabilities.__\n\nXSS attacks are essentially code injection attacks against the various language interpreters contained within the browser. XSS can be executed via HTML, JavaScript, VBScript, ActiveX; essentially any scripting language a browser is capable of processing.\n\nXSS vulnerabilities are created when a website does not properly sanitize, escape, or encode user input. For example, \"&amp;lt;\" is the HTML encoding for the \"<\" character. If the encoding is performed, the script code will not execute.\n\nThere are 3 parties involved in an XSS attack, the attacker, the trusted and vulnerable website, and the victim. An attacker will take advantage of a vulnerable website that does not properly validate user input by inserting malicious code into any data entry field.\n\nWhen the victim visits the trusted website and clicks on the malicious link left by the attacker, the attacker's script is executed in the victims browser with the trust permissions assigned to the site.\n\nThere are several different types of XSS attack and the complete details regarding XSS cannot be described completely here.\n\nTo address the issue of XSS, web application developers must escape, encode or otherwise validate all user input that is processed and output by the web server. They should also use web templates or a web development framework that provides the capability to encode or otherwise validate user input.\n\nExamples of XSS vulnerabilities can be obtained from the Open Web Application Security Project (OWASP) website.\n  \nThe site is available by pointing your browser to https://www.owasp.org.\n\n## V-222604 [high]:\n__The application must protect from command injection.__\n\nA command injection attack is an attack on a vulnerable application where improperly validated input is passed to a command shell setup in the application. The result is the ability of an attacker to execute OS commands via the application.\n\nA command injection allows an attacker to execute their own commands with the same privileges as the application executing.\n\nThe following is an example of a URL based command injection attack.\n\nBefore alteration:\nhttp://sitename/cgi-bin/userData.pl?doc=user1.txt\n\nExample URL modified: \nhttp://sitename/cgi-bin/userData.pl?doc=/bin/ls|\n\nThe result is the execution of the command \"/bin/ls\" which could allow the attacker to list contents of the directory via the browser.\n\nThe following is a list of functions vulnerable to command injection sorted according to language.  \n\nLanguage Functions/Characters\n\n- C/C++  - system(), popen(), execlp(), execvp(), ShellExecute(), ShellExecuteEx(), _wsystem()\n- Perl - system, exec, &grave;, open, |, eval, /e\n- Python - exec, eval, os.system, os.popen, execfile, input, compile\n- Java - Class.forName(), Class.newInstance(), Runtime.exec()\n\n## V-222606 [medium]:\n__The application must validate all input.__\n\nChecking the valid syntax and semantics of information system inputs (e.g., character set, length, numerical range, and acceptable values) verifies that inputs match specified definitions for format and content. Software applications typically follow well-defined protocols that use structured messages (i.e., commands or queries) to communicate between software modules or system components. \n\nStructured messages can contain raw or unstructured data interspersed with metadata or control information. If software applications use attacker-supplied inputs to construct structured messages without properly encoding such messages, then the attacker could insert malicious commands or special characters that can cause the data to be interpreted as control information or metadata. \n\nConsequently, the module or component that receives the tainted output will perform the wrong operations or otherwise interpret the data incorrectly. Prescreening inputs prior to passing to interpreters prevents the content from being unintentionally interpreted as commands. Input validation helps to ensure accurate and correct inputs and prevent attacks such as cross-site scripting and a variety of injection attacks.\n\nAbsence of input validation opens an application to improper manipulation of data. The lack of input validation can lead immediate access of application, denial of service, and corruption of data.\n\nInvalid input includes presence of scripting tags within text fields, query string manipulation, and invalid data types and sizes.\n\nWhen an application validates input, it will only execute provided input after it has evaluated the input, validated the input and determined the data is in an expected format, and content is not extraneous or malformed.\n\nComprehensive application security testing and code reviews are required to ensure the application is not vulnerable to input validation vulnerabilities.\n\nApplication security code reviews should be conducted during the development phase to find and address input validation errors. When code reviews are not possible, fuzz testing can be performed on the application to attempt and identify vulnerable data input fields.\n\n## V-222607 [high]:\n__The application must not be vulnerable to SQL Injection.__\n\nSQL Injection is a code injection attack against database applications. Malicious SQL statements are inserted into an application data entry field where they are submitted to the database and executed. This is a direct result of not validating input that is used by the application to perform a command or execute an action.\n\nSuccessful attacks can read data, write data, execute administrative functions within the database, shutdown the DBMS, and in some cases execute OS commands.\n\nBest practices to reduce the potential for SQL Injection vulnerabilities include:\n\nNot using concatenation or replacement to build SQL queries.\n\nUsing prepared statements with parameterized queries that have been tested and validated not to be vulnerable to SQL Injection.\n\nUsing stored procedures that have been tested and validated not to be vulnerable to SQL Injection.\n\nEscaping all user supplied input.\n\nAdditional steps to prevent SQL Injection can be found at the OWASP website:\n\nhttps://www.owasp.org/index.php/SQL_Injection_Prevention_Cheat_Sheet\n\n## V-222609 [high]:\n__The application must not be subject to input handling vulnerabilities.__\n\nA common application vulnerability is unpredictable behavior due to improper input validation. This requirement guards against adverse or unintended system behavior caused by invalid inputs, where information system responses to the invalid input may be disruptive or cause the system to fail into an unsafe state.\n\nData received from the user should always be suspected as being malicious and always validated prior to using it as input to the application.\n\nSome examples of input methods:\n\n- Forms Data\n- URL parameters\n- Hidden Fields\n- Cookies\n- HTTP Headers or anything in the HTTP request\n- Client data entry fields\n\nItems to validate:\n\n- Out of range values/Boundary \n- Data length \n- Validate types of characters allowed\n- Whitelist validation for known good data input while denying all other input.\n\nOther recommendations include: \n\n- Using drop down menus for lists\n- Validating input on the server, not on the client.\n\nIf validating on the client, also validate on the server:\n\n- Using regular expressions to validate input\n- Using HTML filter libraries that implement input validation tasks.",
+            "type": "Built-in",
+            "ordinal": 0,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2020-11-16T13:27:04.416000-05:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2024-10-01T18:00:52.213000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 10343,
+            "id": "TA10343",
+            "title": "Sanitize Content Before Sending to Memcache (OWASP ASVS 5.0)",
+            "text": "Sanitizing content before sending it to memcache is crucial in preventing injection attacks, which can compromise application security and data integrity. To secure your Memcached implementation, you must first review your application to identify all input points by analyzing how data is gathered, processed, and transmitted into the cache. Once these points are mapped out, implement strict input validation to guarantee that only legitimate data adhering to expected data types, lengths, and formats is processed. Next, apply robust sanitization techniques using language-specific functions or libraries to remove or encode any potentially dangerous characters before they hit the cache. Furthermore, if your Memcached interactions involve any form of query language, always utilize parameterized queries to eliminate the risk of injection attacks. Finally, sustain this security posture through continuous monitoring and regular testing to catch fresh vulnerabilities and verify that your validation and sanitization measures remain fully effective.",
+            "type": "Built-in",
+            "ordinal": 5,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-08-06T11:23:40.474000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-08-06T11:23:40.474000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 1903,
+            "id": "TA1903",
+            "title": "FedRAMP / Moderate Baseline",
+            "text": "*** SI-10: System And Information Integrity | Information Input Validation ***  \nThe information system checks the validity of [Assignment: organization-defined information inputs].",
+            "type": "Built-in",
+            "ordinal": 11,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-15T17:49:10.754000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T15:08:08.453000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 2801,
+            "id": "TA2801",
+            "title": "FedRAMP / High Baseline",
+            "text": "*** SI-10: System And Information Integrity | Information Input Validation ***  \nThe information system checks the validity of [Assignment: organization-defined information inputs].",
+            "type": "Built-in",
+            "ordinal": 12,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-17T18:34:19.218000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T18:38:16.773000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 12000,
+            "id": "TA12000",
+            "title": "T32 - SKILL.md - Go",
+            "text": "---\nname: always-perform-input-validation-on-a-server\ndescription: Use when Go code processes untrusted input on the server and needs server-side validation, validation-failure logging, and generic error responses to fix improper input validation.\n---\n\n# Always perform input validation on a server\n\n## What This Skill Does\nThis skill fixes improper input validation in Go by ensuring untrusted request or user input is normalized and validated on the server before it reaches business logic or sensitive APIs, logging validation failures with consistent security fields, and returning a single generic error message so callers do not learn which validation rule failed or what internal processing occurred.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Untrusted input reaches business logic or file/system APIs without prior validation | Add a dedicated server-side validation function and call it before processing |\n| Input is only checked in the browser, client, or CLI before being sent | Treat it as untrusted and enforce the same checks again on the server |\n| Validation code returns rule-specific or internal error details to callers | Replace with one generic error message and keep detailed causes in server-side logs |\n| Validation failures are rejected but not logged consistently | Add a separate logging helper that records timestamp, source IP, fixed event description, and error code |\n| Code already normalizes, validates server-side, logs failures, and returns generic errors | No action needed |\n\n## Boundaries\n\n### Can Do\n- Add server-side validation for type, length, format, range, emptiness, and allowed characters\n- Normalize input before validation, such as trimming and canonicalizing file paths\n- Add separate validation-failure logging and generic caller-facing error handling\n\n### Cannot Do\n- Infer the correct validation rules for every business field without application context\n- Guarantee safety if other code paths still call dangerous APIs with unvalidated input\n- Replace authorization, output encoding, or parameterized queries, which solve different problems\n\n## Gotchas\n- Reusing detailed validation errors in responses: this leaks which rule failed or exposes internal file/system behavior\n- Validating before normalization: checks can be bypassed if whitespace, alternate forms, or cleaned paths are handled later\n- Logging validation failures inline with response text: this often mixes internal detail into caller-facing errors instead of keeping logs separate\n\n## Quick Verification\n```bash\n# Confirm a server-side validation helper exists\nrg -n 'func\\s+validate[A-Za-z0-9_]*\\s*\\(' .\n\n# Confirm validation-failure logging exists with a fixed event description\nrg -n 'input validation failure|logValidationFailure\\s*\\(' .\n\n# Find unguarded dangerous file-read calls that may bypass validation\nrg -n 'os\\.(ReadFile|Open|OpenFile)\\s*\\(' .\n\n# Find caller-facing detailed error construction that should be generalized\nrg -n 'fmt\\.(Sprintf|Errorf)\\(\"error:\\s*%v\"|errors\\.New\\(.+failed|http\\.Error\\s*\\(.+err' .\n\n# Build and test all Go packages\ngo build ./... && go test ./...\n```",
+            "type": "Built-in",
+            "ordinal": 31,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-08-25T19:07:26.196000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-08-25T19:07:26.196000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9302,
+            "id": "TA9302",
+            "title": "T32 - SKILL.md - Python",
+            "text": "---\nname: always-perform-input-validation-on-a-server\ndescription: Use when Python code processes client-controlled input on the server and must enforce centralized validation, failure logging, and generic error responses before business logic runs.\n---\n# Always Perform Input Validation on a Server\n\n## What This Skill Does\nThis skill fixes improper input validation in Python by ensuring every server-controlled entry point validates untrusted input before parsing, conversion, persistence, or business logic. Apply it when request parameters, JSON fields, form values, CLI arguments, message payloads, or other external inputs are trusted too early. The fix centralizes reusable validation, rejects invalid or unexpected input early, logs validation failures with bounded structured details, and returns only a generic error message to callers.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Request handlers, CLI entry points, workers, or helpers use external input before checks | Add a server-side validator and call it before any `int()`, `float()`, indexing, persistence, or business logic |\n| The same field or payload shape is validated in multiple places | Centralize validation in a reusable function such as `validate_quantity()` and reuse it across all entry points |\n| Validation failures return detailed rule information to the client | Replace with one generic response such as `{\"error\": \"Invalid input.\"}` and keep specifics only in logs |\n| Validation failures are not logged or logs include raw attacker input | Add structured logging with timestamp, source IP if available, event, and error code; avoid raw untrusted values |\n| Code already validates type, required fields, length, range, format, and allowed values before use | No action needed |\n\n## Boundaries\n\n### Can Do\n- Add server-side validation functions for Python inputs before parsing or business logic\n- Centralize generic validation error responses and structured validation-failure logging\n- Refactor common flows so validated values are parsed only after validation succeeds\n\n### Cannot Do\n- Infer full business rules or allowed value sets that are not defined by the application\n- Guarantee downstream safety from SQL injection, XSS, or authorization flaws by validation alone\n- Replace schema design, output encoding, database constraints, or access control checks\n\n## Gotchas\n- Validating only in the browser or client: attackers can bypass client checks and send crafted requests directly to the server\n- Logging raw invalid input: this can create log injection, oversized logs, or accidental storage of sensitive data\n- Returning detailed validation errors to callers: this reveals internal rules and helps attackers refine payloads\n\n## Quick Verification\n```bash\n# Confirm reusable server-side validation or generic error helpers exist\nrg -n \"def validate_[a-zA-Z0-9_]+\\(|GENERIC_VALIDATION_ERROR|def validation_error_response\\(|def log_validation_failure\\(\" .\n\n# Find likely unguarded dangerous conversions/usages of external input that should be preceded by validation\nrg -n \"int\\(|float\\(|json\\.loads\\(|pickle\\.loads\\(|ast\\.literal_eval\\(\" .\n\n# Build/test check for common Python project layouts\npython -m compileall . && (python -m pytest -q || python -m unittest discover -v)\n```",
+            "type": "Built-in",
+            "ordinal": 33,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:33.120000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:33.120000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 8495,
+            "id": "TA8495",
+            "title": "T32 - SKILL.md - Node.js",
+            "text": "---\nname: always-perform-input-validation-on-a-server\ndescription: Server-side input validation, error handling, and logging to prevent Improper Input Validation (CWE-20). Use when code trusts client input or relies only on client-side checks.\n---\n\n# Always perform input validation on a server\n\n## What This Skill Does\nEnforces centralized, strict server-side input validation at all trust boundaries (HTTP, CLI, queues, jobs), replaces ad-hoc checks, and standardizes generic error responses and safe logging. It is used when data from clients or external systems is processed without robust validation or when client-side checks are relied on for security.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Handler reads request input (body/query/headers/cookies) and uses it directly without checks | Introduce centralized server-side validators for each field and call them before any use |\n| Code relies on client\u2011side validation or HTML form constraints as the only guard | Add server-side validation enforcing type, length, pattern, ranges, and allowed values |\n| Validation logic scattered inline across many handlers with inconsistent rules | Extract shared validation functions/modules and reuse them across all entry points |\n| Error responses echo raw validation details (field names, regexes, stack traces) back to clients | Replace with a shared error model that returns a single generic public message and code |\n| Logs record full raw payloads or sensitive values on validation failures | Switch to structured logging that includes metadata and error codes, but masks or omits raw data |\n| Background jobs, message consumers, or CLI tools deserialize external input and use it directly | Route all such inputs through the same central validators used for HTTP handlers |\n| Validation already centralized, strict, and responses/logs are generic and non-sensitive | No action needed |\n\n## Boundaries\n\n### Can Do\n- Detect and refactor places where external input is used without or with weak server-side validation.\n- Introduce or improve shared validation functions (type, length, pattern, range, enum, unexpected fields).\n- Standardize generic client-facing validation errors and structured, non-sensitive validation-failure logs.\n\n### Cannot Do\n- Infer business rules (e.g., exact allowed username formats or domain-specific ranges) without hints in code or comments.\n- Replace or configure third-party validation libraries beyond what is visible in the codebase.\n- Guarantee full coverage of all entry points in very large apps if some files/routes are not present in the workspace.\n\n## Gotchas\n- Assuming client-side validation (HTML5 attributes, JS form checks) is enough: attackers can bypass it entirely; you must still validate on the server.\n- Only checking for presence or type: omitting length, pattern, range, and allowed-values checks still leaves many attack paths open.\n- Returning detailed error messages (e.g., \u201cusername must match ^[A-Za-z0-9._-]+$\u201d or \u201cage must be between 13 and 120\u201d) to clients: this leaks internal rules and can help attackers refine payloads; keep details internal only.\n\n## Quick Verification\n```bash\n# 1) Send malformed and out-of-range data; expect generic validation error\ncurl -i -X POST http://localhost:3000/register \\\n  -H 'Content-Type: application/json' \\\n  -d '{\"username\": \"../etc/passwd\"}'\n\n# 2) Missing or wrong-type fields should also be rejected generically\ncurl -i -X POST http://localhost:3000/register \\\n  -H 'Content-Type: application/json' \\\n  -d '{\"username\": 12345}'\n\n# 3) Oversized or extra-field payloads should be rejected\ncurl -i -X POST http://localhost:3000/register \\\n  -H 'Content-Type: application/json' \\\n  -d '{\"username\": \"okname\", \"unexpected\":\"field\"}'\n\n# 4) Check logs (stdout/stderr or validation log file) contain structured events\n# with timestamps, error codes, and (when safe) field names, but no raw sensitive values\ngrep -i 'validation' ./validation_failures.log || true\n```",
+            "type": "Built-in",
+            "ordinal": 57,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-05-21T11:39:51.249000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-05-21T11:39:51.249000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9995,
+            "id": "TA9995",
+            "title": "T32 - SKILL.md - C",
+            "text": "---\nname: always-perform-input-validation-on-a-server\ndescription: Use when C code accepts user-controlled input and may trust client-side checks or use data before server-side validation, logging, and generic error handling are applied.\n---\n# Always Perform Input Validation on a Server\n\n## What This Skill Does\nThis skill fixes improper input validation in C code by requiring every user-controlled value to be validated on the server before business logic or dangerous APIs use it. It standardizes validation through shared helpers, rejects malformed or unexpected input with allowlist rules, logs validation failures with safe structured fields, and returns the same generic client-facing error message so attackers cannot learn validation details or internal behavior.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Input from argv, stdin, request bodies, form fields, query parameters, headers, environment variables, or uploaded file metadata is used before checks | Add a shared server-side validator and call it before any parsing, file, process, database, or business-logic use |\n| Untrusted input flows into dangerous C APIs such as `fopen`, `open`, `system`, `popen`, `exec*`, `sprintf`, or `sscanf` without prior validation | Validate first, enforce allowlist constraints, and only pass validated or derived safe values downstream |\n| Validation logic is duplicated across functions or endpoints | Replace ad hoc checks with one reusable helper such as `is_valid_*` or `validate_*_server_side` |\n| Validation failure returns rule-specific or system-specific messages | Log internal details server-side and return one generic external message such as `Invalid request.` |\n| Code already validates on the server before use, logs failures safely, and returns a generic message | No action needed |\n\n## Boundaries\n\n### Can Do\n- Add or centralize C validation helpers for type, format, length, range, null, empty, and character allowlist checks\n- Insert validation before business logic and before dangerous sinks like file, process, and parsing APIs\n- Add safe logging for validation failures and normalize external error messages\n\n### Cannot Do\n- Infer the correct business rules if the expected input format is undocumented\n- Guarantee safety if other code paths still use the same input without calling the validator\n- Replace output encoding, SQL parameterization, path canonicalization, or authorization controls that may also be required\n\n## Gotchas\n- Validating only in the UI or client: attackers can bypass browser or client checks and send malformed input directly\n- Using denylist-only rules: blocked examples are never complete, so prefer strict allowlists for expected length, type, and characters\n- Logging raw invalid input: this can leak secrets or allow log forging, so log structured context and sanitize any recorded fields\n\n## Quick Verification\n```bash\n# Confirm shared server-side validation helpers exist\nrg -n '\\b(validate_[a-zA-Z0-9_]*_server_side|is_valid_[a-zA-Z0-9_]*)\\s*\\(' .\n\n# Find potentially unguarded dangerous API calls that may use input directly\nrg -n '\\b(fopen|open|freopen|system|popen|execl|execlp|execle|execv|execvp|execve|sprintf|vsprintf|sscanf|fscanf)\\s*\\(' .\n\n# Check that validation failures use a generic external message\nrg -n 'Invalid request\\.|Invalid input\\.' .\n\n# Build and run tests with common C toolchain entry points if present\nsh -c 'if [ -f Makefile ] || [ -f makefile ]; then make && (make test || true); elif [ -f CMakeLists.txt ]; then cmake -S . -B build && cmake --build build && ctest --test-dir build --output-on-failure; else cc -Wall -Wextra -Werror -c ./*.c; fi'\n```",
+            "type": "Built-in",
+            "ordinal": 70,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-29T01:43:04.351000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-29T01:43:04.351000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 10002,
+            "id": "TA10002",
+            "title": "T32 - SKILL.md - C++",
+            "text": "---\nname: always-perform-input-validation-on-a-server\ndescription: \"Apply centralized server-side validation, internal failure logging, and generic client error responses for untrusted input in C++ code. Use when request handlers, service entry points, or parsing code trust client checks or process attacker-controlled input directly.\"\n---\n# Always Perform Input Validation on a Server\n\n## What This Skill Does\nThis skill fixes improper input validation by ensuring untrusted input is validated on the server before parsing, indexing, lookup, or business logic use. In C++, it replaces direct use of attacker-controlled values such as `std::atoi` results or unchecked strings with centralized validation helpers that enforce type, format, length, range, and allowed-value rules, log validation failures internally, and return a fixed generic error message instead of detailed validation feedback.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Request handlers, service functions, CLI entry points, or RPC code accept untrusted strings and use them directly | Apply centralized server-side validation before conversion or processing |\n| Code uses `std::atoi`, `std::atol`, `std::atoll`, unchecked stream parsing, or direct indexing from user input | Replace with a validated parsing helper that enforces digit/format allowlists and bounds checks |\n| Validation failures return detailed messages such as parse reasons, limits, or internal state | Replace with one fixed generic client-facing message and keep details only in internal logs |\n| Invalid input is rejected but not recorded | Add structured internal logging with timestamp, source IP or source identifier, event description, and error code |\n| Input is already validated server-side, logged on failure, and responds generically | No action needed |\n\n## Boundaries\n\n### Can Do\n- Add reusable C++ validation helpers for untrusted input before conversion, lookup, or indexing\n- Replace unsafe parsing and unchecked index use with allowlist-based parsing and bounds checks\n- Add internal validation-failure logging and standardize generic error responses\n\n### Cannot Do\n- Infer the correct business rules for every field without project context\n- Guarantee safety if untrusted input reaches dangerous sinks through paths not updated to use the validator\n- Replace authorization, output encoding, query parameterization, or other separate security controls\n\n## Gotchas\n- Validating only in the client or UI layer: attackers can bypass client checks and call the server directly\n- Returning specific reasons like `index out of range` or `non-numeric input`: this reveals validation rules and helps attackers tune payloads\n- Parsing first and validating later: APIs like `std::atoi` can silently accept malformed input, so validation must happen before use and with strict conversion checks\n\n## Quick Verification\n```bash\n# Confirm a centralized validator and generic error response exist\nrg -n 'parseValidatedIndex|logValidationFailure|kGenericErrorMessage|Invalid request\\.' .\n\n# Find unguarded dangerous parsing APIs and suspicious direct use of user-controlled indexes\nrg -n '\\bstd::(atoi|atol|atoll)\\s*\\(|\\batoi\\s*\\(|users\\s*\\[\\s*index\\s*\\]|[A-Za-z_][A-Za-z0-9_]*\\s*\\[\\s*[A-Za-z_][A-Za-z0-9_]*\\s*\\]' .\n\n# Build and run tests for common C++ project shapes\n(test -f CMakeLists.txt && cmake -S . -B build && cmake --build build && ctest --test-dir build --output-on-failure) || \\\n(test -f Makefile && make && make test) || \\\n(find . -maxdepth 2 \\( -name '*.cpp' -o -name '*.cc' \\) | head -n 1 | xargs -r -I{} sh -c 'c++ -std=c++17 -Wall -Wextra -O2 \"{}\" -o /tmp/skill-check && /tmp/skill-check >/dev/null 2>&1 || true')\n```",
+            "type": "Built-in",
+            "ordinal": 77,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-29T01:43:04.609000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-29T01:43:04.609000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 12069,
+            "id": "TA12069",
+            "title": "T32 - SKILL.md - Rust",
+            "text": "---\nname: always-perform-input-validation-on-a-server\ndescription: Use when Rust code accepts untrusted input on the server and must enforce centralized validation, generic external errors, and structured validation-failure logging.\n---\n# Always perform input validation on a server\n\n## What This Skill Does\nThis skill fixes improper input validation in Rust server-side code by ensuring every untrusted input is validated on the server before use, normalized into a consistent form, checked with explicit allowlist rules, rejected with a generic external error, and logged with structured security metadata instead of exposing attacker-controlled data or internal validation details.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Request handlers, service functions, jobs, or CLI/server entry points accept untrusted input and use it directly | Add server-side validation before processing, file access, parsing, persistence, or command construction |\n| Input is used in filesystem paths via `PathBuf::push`, `PathBuf::join`, or `fs::read_to_string`/`fs::write` | Validate and normalize as a relative allowlisted path and reject absolute, parent, root, or prefix components |\n| Validation failures currently return `e.to_string()` or field/rule-specific messages | Replace with one generic public error such as `Invalid request.` and keep detailed reasons internal only |\n| Validation logic is duplicated across handlers or routes | Centralize reusable validator functions so all entry points apply the same rules |\n| Code already validates on the server, logs failure metadata, and returns generic external errors | No action needed |\n\n## Boundaries\n\n### Can Do\n- Add or refactor reusable Rust validation helpers for strings, numeric fields, IPs, and relative file paths\n- Replace detailed external validation errors with a single generic response\n- Add structured logging for validation failures with timestamp, source IP, event description, and error code\n\n### Cannot Do\n- Infer business-valid rules that are not specified by the application or protocol\n- Guarantee safety for downstream SQL, shell, template, or deserialization sinks without sink-specific protections\n- Prevent misuse if some code paths still bypass the centralized validator\n\n## Gotchas\n- Validating only in the client: attackers can bypass browser or app checks and send requests directly to the server\n- Returning `e.to_string()` or rule-specific failures: this leaks internal behavior and helps attackers refine malicious input\n- Logging raw rejected payloads: this can store attacker-controlled or sensitive data; log metadata and stable error codes instead\n\n## Quick Verification\n```bash\n# Confirm reusable server-side validators or generic public error helpers exist\nrg -n 'fn (validate_[a-zA-Z0-9_]+|public_validation_message)\\b|const GENERAL_ERROR_MESSAGE\\b' .\n\n# Find likely unguarded dangerous filesystem usage with untrusted input paths\nrg -n '(\\.push\\(|\\.join\\(|fs::read_to_string\\(|fs::write\\()' .\n\n# Find detailed error leakage that should be replaced with a generic external message\nrg -n 'map_err\\(\\|e\\| e\\.to_string\\(\\)\\)|Err\\(e\\.to_string\\(\\)\\)|format!\\(.*invalid|return Err\\(.*Invalid.*[a-zA-Z]' .\n\n# Build and test with the Rust toolchain\ncargo build --all-targets && cargo test --all-targets\n```",
+            "type": "Built-in",
+            "ordinal": 105,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-08-25T19:07:29.797000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-08-25T19:07:29.797000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9406,
+            "id": "TA9406",
+            "title": "T32 - SKILL.md - Java",
+            "text": "---\nname: always-perform-input-validation-on-a-server\ndescription: Use when server code accepts untrusted input and must enforce validation before business logic, logging failures safely and returning generic errors.\n---\n\n# Always perform input validation on a server\n\n## What This Skill Does\nThis skill fixes improper input validation by enforcing validation on the server for every untrusted request before business logic, persistence, query building, file handling, or downstream calls occur. It applies explicit allowlist rules per field, normalizes input when needed, keeps client-side checks as usability only, logs validation failures with investigation fields, and ensures public responses use generic error messages that do not reveal internal validation details.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Request data from browsers, APIs, mobile apps, webhooks, or internal services reaches server code without validation | Apply server-side validation at the entry point before any processing |\n| Validation exists only in client-side code or UI forms | Add equivalent server-side validation and treat client checks as untrusted |\n| Code uses untrusted input in files, database queries, commands, templates, or downstream service calls | Validate and normalize input first; reject invalid input before the sink is reached |\n| Validation failures are returned with rule details, exception text, stack traces, or component names | Replace with a generic user-facing error and keep detailed reasons internal |\n| Input is already normalized, validated centrally, logged safely on failure, and rejected before business logic | No action needed |\n\n## Boundaries\n\n### Can Do\n- Add server-side allowlist validation for type, format, length, range, and required values\n- Move validation to a shared server entry path used by all request sources\n- Add structured logging for validation failures with timestamp, source IP, event description, and error code when available\n\n### Cannot Do\n- Infer correct business rules when allowed values or formats are unknown\n- Guarantee safety if validation is added after dangerous processing already happens\n- Replace output encoding, authorization, parameterized queries, or file path safety controls\n\n## Gotchas\n- Validating only in the client: attackers can bypass browser or mobile checks and send requests directly\n- Using denylist-only rules: blocked examples are never complete, so unexpected malicious input can still pass\n- Returning detailed validation messages to callers: this leaks rule logic and internal behavior that helps attackers probe the system\n\n## Quick Verification\n```bash\n# Send malformed input directly to the server and confirm it is rejected before processing\ncurl -i -X POST http://localhost:8080/api/users \\\n  -H 'Content-Type: application/json' \\\n  -d '{\"username\":\"ab!\"}'\n\n# Confirm the response uses a generic message rather than validation internals\ncurl -s -X POST http://localhost:8080/api/users \\\n  -H 'Content-Type: application/json' \\\n  -d '{\"username\":\"@@@\"}'\n\n# Check logs for required investigation fields on validation failure\ngrep -E 'timestamp=|sourceIp=|event=|errorCode=' application.log\n```",
+            "type": "Built-in",
+            "ordinal": 304,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:38.221000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:38.221000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9604,
+            "id": "TA9604",
+            "title": "T32 - SKILL.md - C#",
+            "text": "---\nname: always-perform-input-validation-on-a-server\ndescription: Use when C# server-side code accepts request or caller input before validation; centralize validation, return generic failures, and log rejected inputs safely.\n---\n\n# Always perform input validation on a server\n\n## What This Skill Does\nThis skill fixes improper input validation in C# server-side code by ensuring every server entry point validates and normalizes input before business logic uses it. It centralizes rules such as required checks, length limits, allowlist patterns, and deterministic parsing; rejects invalid input with one generic external message; and logs validation failures with timestamp, source IP, description, and an internal error code.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Request data, CLI args, message payloads, headers, query values, or method parameters flow into business logic, file access, parsing, or persistence before checks | Apply centralized server-side validation before use |\n| Validation is done only in UI, mobile, browser, or based on flags like `clientMarkedValid` | Re-validate on the server and ignore client validation state |\n| `Regex.IsMatch` or regex attributes are used for validation | Use bounded allowlist patterns with `RegexOptions.CultureInvariant` and a timeout, or `[GeneratedRegex(..., RegexOptions.CultureInvariant, matchTimeoutMilliseconds: ...)]` |\n| Validation failure returns field rules, parser details, or internal codes to the caller | Replace with one generic failure message and keep detailed reason internal |\n| Input is already validated centrally and all entry points call the same validator before dangerous use | No action needed |\n\n## Boundaries\n\n### Can Do\n- Add or refactor a shared validator such as `ProfileInputValidator` or `ProfileValidationService`\n- Update entry points to validate before dangerous APIs like `Path.Combine`, `File.WriteAllText`, `File.ReadAllText`, or parsing routines\n- Add safe rejection behavior and structured logging for validation failures, including normalized source IP\n\n### Cannot Do\n- Infer correct business rules when acceptable formats, ranges, or required fields are not defined\n- Guarantee protection against downstream vulnerabilities if validated input is later used unsafely in SQL, shell, HTML, or deserialization code\n- Replace framework model binding or schema validation automatically across every stack without checking project-specific wiring\n\n## Gotchas\n- Reusing client validation results: client-side checks are bypassable, so flags like `clientMarkedValid` must not create a trusted server path\n- Returning detailed validation errors to callers: this exposes rule details and helps attackers tune payloads; use one generic message externally\n- Using permissive or unbounded regexes: broad patterns or regexes without timeout can allow bad input or create regex denial-of-service risk\n\n## Quick Verification\n```bash\n# Confirm a centralized validator or validation service exists\nrg -n --glob '*.cs' 'ProfileInputValidator|ProfileValidationService|ValidateAndLog|ValidateProfileName|IsValidProfileName'\n\n# Find unguarded dangerous file API usage that may bypass validation\nrg -n --glob '*.cs' 'Path\\.Combine|File\\.WriteAllText|File\\.ReadAllText|File\\.AppendAllText|Directory\\.CreateDirectory'\n\n# Find places that trust client-side validation state\nrg -n --glob '*.cs' 'clientMarkedValid|ModelState\\.IsValid|TryValidateModel|Request\\.Query|Request\\.Form|Request\\.Headers|args\\['\n\n# Confirm safe logging and generic failure handling are present\nrg -n --glob '*.cs' 'LogValidationFailure|NormalizeOrDefault|DateTimeOffset\\.UtcNow|The request could not be processed\\.'\n\n# Build and test all discovered C# projects/solutions\ndotnet build\ndotnet test\n```",
+            "type": "Built-in",
+            "ordinal": 533,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:45.718000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:45.718000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9783,
+            "id": "TA9783",
+            "title": "T32 - SKILL.md - TypeScript",
+            "text": "---\nname: always-perform-input-validation-on-a-server\ndescription: Use when TypeScript server-side code accepts untrusted input without validation, logs no validation failures, or returns detailed validation errors to callers.\n---\n\n# Always perform input validation on a server\n\n## What This Skill Does\nThis skill fixes improper input validation in TypeScript server-side code by adding validation before business logic uses untrusted input, normalizing values only when needed before validation, rejecting unexpected fields, logging validation failures with stable internal details, and returning only a generic client-facing error message so callers do not learn field rules or internal processing details.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Request handlers, CLI entry points, jobs, or service functions use `req.body`, `req.params`, `req.query`, process args, or other untrusted input directly | Add a server-side validation function that checks type, length, format, range, and allowed values before use |\n| TypeScript code already uses schema validation with `ajv` or field validators | Keep the validation path server-side, ensure `additionalProperties: false`, and separate internal errors from client responses |\n| Input needs whitespace or format normalization to be judged correctly | Normalize first with a predictable transform such as `validator.trim()`, then validate the normalized value |\n| Validation failures are returned with field names, parser output, stack traces, or schema details | Replace with one generic message such as `Invalid input.` and keep detailed error codes only in logs |\n| Code already validates all server-side entry points, rejects unexpected fields, logs failures, and returns generic failure messages | No action needed |\n\n## Boundaries\n\n### Can Do\n- Add reusable TypeScript validation helpers or `ajv` schema validation for untrusted inputs\n- Add structured validation failure logging with timestamp, source IP, fixed description, and stable error codes\n- Replace detailed validation responses with a generic client-facing error message\n\n### Cannot Do\n- Infer the correct business rules for every field without project context\n- Guarantee safety if untrusted data reaches sensitive APIs through paths not updated to use the validator\n- Fix authorization, authentication, output encoding, or filesystem design issues unrelated to input validation\n\n## Gotchas\n- Normalizing after validation: this can let a value pass checks in one form and be used in another, so normalize first when format handling matters\n- Accepting extra fields silently: omitting `additionalProperties: false` allows hidden attacker-controlled input to pass through\n- Returning raw `ajv` errors to clients: this leaks field names and rule details that should stay internal\n\n## Quick Verification\n```bash\n# Confirm a server-side validator or validation logger exists\nrg -n --glob '*.ts' 'new Ajv|ajv\\.compile|validate[A-Z][A-Za-z0-9]*Input|logValidationFailure|Invalid input\\.'\n\n# Find likely unguarded dangerous input usage reaching filesystem or path APIs\nrg -n --glob '*.ts' '(fs\\.(writeFileSync|writeFile|readFileSync|readFile|appendFileSync|appendFile)|path\\.join)\\('\n\n# Find detailed validation errors being exposed to callers\nrg -n --glob '*.ts' '(res\\.(status\\([^)]*\\)\\.)?(json|send)\\([^)]*(errors?|validateSchema\\.errors|error\\.message|stack)\\)|throw new Error\\([^)]*invalid[^)]*\\))'\n\n# Type-check the project\nnpx tsc --noEmit\n\n# Run the project's configured tests if present\nnpm test\n```",
+            "type": "Built-in",
+            "ordinal": 729,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:52.811000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:52.811000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9890,
+            "id": "TA9890",
+            "title": "T32 - SKILL.md - React",
+            "text": "---\nname: always-perform-input-validation-on-a-server\ndescription: \"Apply strict server-side validation and generic error handling for untrusted React input. Use when client checks, browser constraints, or raw user input are trusted by business logic.\"\n---\n\n# Always Perform Input Validation on a Server\n\n## What This Skill Does\nThis skill fixes improper input validation by moving security decisions to a trusted server-side validation path, enforcing strict allowlist rules for type, length, format, range, and expected fields before business logic uses input. It also preserves the client/server trust boundary in React apps, returns a generic failure message instead of leaking validation details, and ensures user-supplied values are rendered as text unless intentionally sanitized.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Request handlers, submit functions, or provider actions use raw form values directly | Add a server-side validation function or schema and make business logic consume only validated output |\n| React forms rely on `required`, input types, disabled buttons, hidden fields, or browser validation for security | Keep client checks only for UX and enforce the same security-relevant validation on the server path |\n| A schema library such as `zod` is used | Validate untrusted input with a strict schema such as `.object(...).strict()` and reject unexpected fields |\n| UI displays parser errors, schema issues, or exception messages from failed validation | Replace them with a fixed generic message such as `Unable to process request.` |\n| User input is already validated on the server and rendered as plain React text | No action needed |\n\n## Boundaries\n\n### Can Do\n- Add or strengthen server-side validation for React submission paths and request-like handlers\n- Replace detailed validation failures shown to users with a generic error message\n- Flag unsafe rendering patterns such as `dangerouslySetInnerHTML` for untrusted content\n\n### Cannot Do\n- Prove that a client-only app has a real trusted server boundary when none exists\n- Invent field rules that are domain-specific and not present in the code or requirements\n- Safely allow user HTML without a deliberate sanitization policy and implementation\n\n## Gotchas\n- Reusing client validation as the only defense: browser checks and UI state are attacker-controlled and must not be trusted\n- Parsing before strict validation: weak coercion like `Number(value)` can accept unsafe inputs unless format and range are validated first\n- Ignoring unknown properties: silently dropping extra fields hides tampering; reject unexpected keys with strict object validation\n\n## Quick Verification\n```bash\n# Confirm a server-side validator or strict schema exists\nrg -n \"safeParse\\(|parse\\(|\\.strict\\(\\)|submitOrderToServer|validate.*OnServer|Unable to process request\\.\" .\n\n# Find unguarded dangerous patterns that trust client input or leak internals\nrg -n \"dangerouslySetInnerHTML|setMessage\\(err\\.message\\)|throw new Error\\(['\\\"][^'\\\"]*(required|invalid|quantity|product code)[^'\\\"]*['\\\"]\\)|Number\\([A-Za-z0-9_$.]+\\)|setOrders\\(\\(current\\) => \\[\\.\\.\\.current, newOrder\\]\\)\" .\n\n# Build + test with the detected React package manager\nsh -c 'if [ -f package-lock.json ]; then npm run build && npm test -- --runInBand; elif [ -f yarn.lock ]; then yarn build && yarn test --runInBand; elif [ -f pnpm-lock.yaml ]; then pnpm build && pnpm test; else npm run build && npm test; fi'\n```",
+            "type": "Built-in",
+            "ordinal": 842,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:56.976000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:56.976000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9924,
+            "id": "TA9924",
+            "title": "T32 - SKILL.md - Angular",
+            "text": "---\nname: always-perform-input-validation-on-a-server\ndescription: Use when Angular code trusts client-side validation or exposes validation internals; adds server-side schema validation, generic error handling, and validation-failure logging.\n---\n\n# Always perform input validation on a server\n\n## What This Skill Does\nThis skill fixes improper input validation by ensuring Angular code validates all untrusted input in server-side or service-side request handling before business logic uses it. It adds schema-based validation for incoming payloads, logs validation failures with required metadata, and replaces detailed validation errors with a generic user-facing message so attackers cannot bypass client checks or learn internal validation rules.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Request-handling or service code accepts `payload` and uses it directly | Apply server-side schema validation before processing or storing data |\n| Angular forms already use `Validators.*` in the UI | Keep client validation for UX, but add the same checks on the server/service path |\n| Code uses `parse`, `safeParse`, or custom validators but returns raw error details to callers | Centralize failure handling, log metadata, and return only a generic error message |\n| Validation library is missing or ad hoc string/length checks are scattered | Replace with a centralized schema such as `z.object(...)` and validate at the trust boundary |\n| Input is already validated server-side and failures are logged generically | No action needed |\n\n## Boundaries\n\n### Can Do\n- Add schema validation for untrusted Angular input before business logic runs\n- Normalize validation failure handling to log timestamp, source IP, event, and error code\n- Replace exposed validation details with a generic error message\n\n### Cannot Do\n- Prove that a browser-only Angular app has true server enforcement without a backend or trusted service boundary\n- Infer the correct business rules for every field beyond the constraints already evident in code\n- Prevent downstream issues if validated data is later used unsafely in other contexts\n\n## Gotchas\n- Validating only in `FormGroup` or `FormControl`: client-side validators improve UX but do not stop direct requests or bypassed clients\n- Returning `result.error`, `parse` exceptions, or validator names to users: this leaks rule details and helps attackers map the system\n- Using validated schemas but continuing to process the original `payload`: this discards normalization and can reintroduce unsafe input\n\n## Quick Verification\n```bash\n# Confirm server-side/service-side schema validation exists\nrg -n \"safeParse\\\\(|\\\\.parse\\\\(|z\\\\.object\\\\(\" . --glob '!node_modules'\n\n# Find unguarded Angular/RxJS flows that accept payloads directly without schema validation\nrg -n \"submit[A-Za-z0-9_]*\\\\([^)]*payload[^)]*\\\\)\\\\s*:\\\\s*Observable<|return of\\\\(payload\\\\)|next\\\\(\\\\[.*payload.*\\\\]\\\\)\" . --glob '!node_modules'\n\n# Find leaked validation internals in responses or rendered errors\nrg -n \"result\\\\.error|ZodError|throwError\\\\(.*Error\\\\(|console\\\\.(warn|error)\\\\(.*validation\" . --glob '!node_modules'\n\n# Build the Angular workspace or package\nnpx ng build\n\n# Run Angular tests if present\nnpx ng test --watch=false\n```",
+            "type": "Built-in",
+            "ordinal": 876,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:58.390000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:58.390000-04:00",
+            "active": true
+          }
+        ]
+      }
+    }
+  ]
+}

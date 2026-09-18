@@ -1,0 +1,12 @@
+{
+  "cm_id": "T2620",
+  "category": "IN",
+  "library_sourced": false,
+  "content_fields": {
+    "title": "Protect data in transit with TLS (PostgreSQL)",
+    "url": "https://staging.qa.sdelements.com/bunits/copilot-test/app/dvra-clean-for-testing/tasks/phase/deployment/4552-T2620/",
+    "priority": 9,
+    "output_path": "/Users/isilveira/dvra-clean-for-testing/skills/cryptography/T2620-protect-data-in-transit-with-tls-postgre/SKILL.md"
+  },
+  "output_path": "/Users/isilveira/dvra-clean-for-testing/skills/cryptography/T2620-protect-data-in-transit-with-tls-postgre/SKILL.md"
+}

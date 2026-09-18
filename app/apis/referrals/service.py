@@ -9,6 +9,7 @@ from db.models import User as UserModel
 from db.session import get_db
 from fastapi import APIRouter, Depends
 from pydantic import BaseModel
+from pydantic import constr
 from sqlalchemy.orm import Session
 from typing_extensions import Annotated
 
@@ -24,7 +25,7 @@ class ReferralCodeResponse(BaseModel):
 
 
 class ApplyReferralRequest(BaseModel):
-    referral_code: str
+    referral_code: constr(regex=r"^[A-Z0-9]{8}$")
 
 
 class ApplyReferralResponse(BaseModel):

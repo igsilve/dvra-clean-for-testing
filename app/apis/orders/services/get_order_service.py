@@ -17,4 +17,6 @@ def get_order(
     db_order = db.query(Order).filter(Order.id == order_id).first()
     if db_order is None:
         raise HTTPException(status_code=404, detail="Order not found")
+    if db_order.user_id != auth.id:
+        raise HTTPException(status_code=404, detail="Order not found")
     return db_order

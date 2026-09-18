@@ -1,0 +1,1404 @@
+{
+  "composite_response": [
+    {
+      "reference_id": "T226",
+      "http_status_code": 201,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "automatic": false,
+        "text": "[AI-Noted] Organizational/process requirement: Verify that authorization is centralized. Not applicable for code fixes.",
+        "id": 125170,
+        "created": "2026-09-17T16:55:25.776131-04:00",
+        "updater": {
+          "id": 30493,
+          "email": "isilveira+support@securitycompass.com",
+          "first_name": "ismenia",
+          "last_name": "Support",
+          "is_active": true,
+          "role": {
+            "id": "UR4",
+            "name": "Administrator"
+          }
+        },
+        "updated": "2026-09-17T16:55:25.776131-04:00",
+        "extra": {},
+        "task": "T226"
+      }
+    },
+    {
+      "reference_id": "T318",
+      "http_status_code": 201,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "automatic": false,
+        "text": "[AI-Noted] Organizational/process requirement: Verify security of cross origin resource sharing (CORS). Not applicable for code fixes.",
+        "id": 125171,
+        "created": "2026-09-17T16:55:25.841052-04:00",
+        "updater": {
+          "id": 30493,
+          "email": "isilveira+support@securitycompass.com",
+          "first_name": "ismenia",
+          "last_name": "Support",
+          "is_active": true,
+          "role": {
+            "id": "UR4",
+            "name": "Administrator"
+          }
+        },
+        "updated": "2026-09-17T16:55:25.841052-04:00",
+        "extra": {},
+        "task": "T318"
+      }
+    },
+    {
+      "reference_id": "T89",
+      "http_status_code": 201,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "automatic": false,
+        "text": "[AI-Noted] Organizational/process requirement: Test that site is not vulnerable to XSS. Not applicable for code fixes.",
+        "id": 125172,
+        "created": "2026-09-17T16:55:25.896417-04:00",
+        "updater": {
+          "id": 30493,
+          "email": "isilveira+support@securitycompass.com",
+          "first_name": "ismenia",
+          "last_name": "Support",
+          "is_active": true,
+          "role": {
+            "id": "UR4",
+            "name": "Administrator"
+          }
+        },
+        "updated": "2026-09-17T16:55:25.896417-04:00",
+        "extra": {},
+        "task": "T89"
+      }
+    },
+    {
+      "reference_id": "T7415",
+      "http_status_code": 201,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "automatic": false,
+        "text": "[AI-Noted] Organizational/process requirement: Verify that dangerous functionality and risky third-party components are isolated via sandboxing or encapsulation. Not applicable for code fixes.",
+        "id": 125173,
+        "created": "2026-09-17T16:55:25.952711-04:00",
+        "updater": {
+          "id": 30493,
+          "email": "isilveira+support@securitycompass.com",
+          "first_name": "ismenia",
+          "last_name": "Support",
+          "is_active": true,
+          "role": {
+            "id": "UR4",
+            "name": "Administrator"
+          }
+        },
+        "updated": "2026-09-17T16:55:25.952711-04:00",
+        "extra": {},
+        "task": "T7415"
+      }
+    },
+    {
+      "reference_id": "T2608",
+      "http_status_code": 201,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "automatic": false,
+        "text": "[AI-Noted] Organizational/process requirement: Verify that the connection string is protected against connection string parameter pollution. Not applicable for code fixes.",
+        "id": 125174,
+        "created": "2026-09-17T16:55:26.005045-04:00",
+        "updater": {
+          "id": 30493,
+          "email": "isilveira+support@securitycompass.com",
+          "first_name": "ismenia",
+          "last_name": "Support",
+          "is_active": true,
+          "role": {
+            "id": "UR4",
+            "name": "Administrator"
+          }
+        },
+        "updated": "2026-09-17T16:55:26.005045-04:00",
+        "extra": {},
+        "task": "T2608"
+      }
+    },
+    {
+      "reference_id": "T1173",
+      "http_status_code": 201,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "automatic": false,
+        "text": "[AI-Noted] Organizational/process requirement: Verify that daemon configuration files are secured (Docker). Not applicable for code fixes.",
+        "id": 125175,
+        "created": "2026-09-17T16:55:26.058790-04:00",
+        "updater": {
+          "id": 30493,
+          "email": "isilveira+support@securitycompass.com",
+          "first_name": "ismenia",
+          "last_name": "Support",
+          "is_active": true,
+          "role": {
+            "id": "UR4",
+            "name": "Administrator"
+          }
+        },
+        "updated": "2026-09-17T16:55:26.058790-04:00",
+        "extra": {},
+        "task": "T1173"
+      }
+    },
+    {
+      "reference_id": "T85",
+      "http_status_code": 201,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "automatic": false,
+        "text": "[AI-Noted] Organizational/process requirement: Test server-side enforcement of authorization. Not applicable for code fixes.",
+        "id": 125176,
+        "created": "2026-09-17T16:55:26.113576-04:00",
+        "updater": {
+          "id": 30493,
+          "email": "isilveira+support@securitycompass.com",
+          "first_name": "ismenia",
+          "last_name": "Support",
+          "is_active": true,
+          "role": {
+            "id": "UR4",
+            "name": "Administrator"
+          }
+        },
+        "updated": "2026-09-17T16:55:26.113576-04:00",
+        "extra": {},
+        "task": "T85"
+      }
+    },
+    {
+      "reference_id": "T2140",
+      "http_status_code": 201,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "automatic": false,
+        "text": "[AI-Noted] Organizational/process requirement: Test that APIs do not expose sensitive information. Not applicable for code fixes.",
+        "id": 125177,
+        "created": "2026-09-17T16:55:26.167883-04:00",
+        "updater": {
+          "id": 30493,
+          "email": "isilveira+support@securitycompass.com",
+          "first_name": "ismenia",
+          "last_name": "Support",
+          "is_active": true,
+          "role": {
+            "id": "UR4",
+            "name": "Administrator"
+          }
+        },
+        "updated": "2026-09-17T16:55:26.167883-04:00",
+        "extra": {},
+        "task": "T2140"
+      }
+    },
+    {
+      "reference_id": "T1363",
+      "http_status_code": 201,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "automatic": false,
+        "text": "[AI-Noted] Organizational/process requirement: Verify if message throttling is properly performed in Web APIs. Not applicable for code fixes.",
+        "id": 125178,
+        "created": "2026-09-17T16:55:26.221196-04:00",
+        "updater": {
+          "id": 30493,
+          "email": "isilveira+support@securitycompass.com",
+          "first_name": "ismenia",
+          "last_name": "Support",
+          "is_active": true,
+          "role": {
+            "id": "UR4",
+            "name": "Administrator"
+          }
+        },
+        "updated": "2026-09-17T16:55:26.221196-04:00",
+        "extra": {},
+        "task": "T1363"
+      }
+    },
+    {
+      "reference_id": "T2609",
+      "http_status_code": 201,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "automatic": false,
+        "text": "[AI-Noted] Organizational/process requirement: Verify that the result set size returned by queries are controlled. Not applicable for code fixes.",
+        "id": 125179,
+        "created": "2026-09-17T16:55:26.275726-04:00",
+        "updater": {
+          "id": 30493,
+          "email": "isilveira+support@securitycompass.com",
+          "first_name": "ismenia",
+          "last_name": "Support",
+          "is_active": true,
+          "role": {
+            "id": "UR4",
+            "name": "Administrator"
+          }
+        },
+        "updated": "2026-09-17T16:55:26.275726-04:00",
+        "extra": {},
+        "task": "T2609"
+      }
+    },
+    {
+      "reference_id": "T2110",
+      "http_status_code": 201,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "automatic": false,
+        "text": "[AI-Noted] Organizational/process requirement: Verify that signed image enforcement is enabled (Docker). Not applicable for code fixes.",
+        "id": 125180,
+        "created": "2026-09-17T16:55:26.330601-04:00",
+        "updater": {
+          "id": 30493,
+          "email": "isilveira+support@securitycompass.com",
+          "first_name": "ismenia",
+          "last_name": "Support",
+          "is_active": true,
+          "role": {
+            "id": "UR4",
+            "name": "Administrator"
+          }
+        },
+        "updated": "2026-09-17T16:55:26.330601-04:00",
+        "extra": {},
+        "task": "T2110"
+      }
+    },
+    {
+      "reference_id": "T2142",
+      "http_status_code": 201,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "automatic": false,
+        "text": "[AI-Noted] Organizational/process requirement: Verify that function level authorization is implemented in API. Not applicable for code fixes.",
+        "id": 125181,
+        "created": "2026-09-17T16:55:26.384919-04:00",
+        "updater": {
+          "id": 30493,
+          "email": "isilveira+support@securitycompass.com",
+          "first_name": "ismenia",
+          "last_name": "Support",
+          "is_active": true,
+          "role": {
+            "id": "UR4",
+            "name": "Administrator"
+          }
+        },
+        "updated": "2026-09-17T16:55:26.384919-04:00",
+        "extra": {},
+        "task": "T2142"
+      }
+    },
+    {
+      "reference_id": "T35",
+      "http_status_code": 201,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "automatic": false,
+        "text": "[AI-Noted] Organizational/process requirement: Fine-tune HTTP server settings. Not applicable for code fixes.",
+        "id": 125182,
+        "created": "2026-09-17T16:55:26.439248-04:00",
+        "updater": {
+          "id": 30493,
+          "email": "isilveira+support@securitycompass.com",
+          "first_name": "ismenia",
+          "last_name": "Support",
+          "is_active": true,
+          "role": {
+            "id": "UR4",
+            "name": "Administrator"
+          }
+        },
+        "updated": "2026-09-17T16:55:26.439248-04:00",
+        "extra": {},
+        "task": "T35"
+      }
+    },
+    {
+      "reference_id": "T305",
+      "http_status_code": 201,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "automatic": false,
+        "text": "[AI-Noted] Organizational/process requirement: Verify that your application dynamically loads code only from secure locations. Not applicable for code fixes.",
+        "id": 125183,
+        "created": "2026-09-17T16:55:26.507655-04:00",
+        "updater": {
+          "id": 30493,
+          "email": "isilveira+support@securitycompass.com",
+          "first_name": "ismenia",
+          "last_name": "Support",
+          "is_active": true,
+          "role": {
+            "id": "UR4",
+            "name": "Administrator"
+          }
+        },
+        "updated": "2026-09-17T16:55:26.507655-04:00",
+        "extra": {},
+        "task": "T305"
+      }
+    },
+    {
+      "reference_id": "T151",
+      "http_status_code": 201,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "automatic": false,
+        "text": "[AI-Noted] Organizational/process requirement: Use cryptographically secure random numbers. Not applicable for code fixes.",
+        "id": 125184,
+        "created": "2026-09-17T16:55:26.561621-04:00",
+        "updater": {
+          "id": 30493,
+          "email": "isilveira+support@securitycompass.com",
+          "first_name": "ismenia",
+          "last_name": "Support",
+          "is_active": true,
+          "role": {
+            "id": "UR4",
+            "name": "Administrator"
+          }
+        },
+        "updated": "2026-09-17T16:55:26.561621-04:00",
+        "extra": {},
+        "task": "T151"
+      }
+    },
+    {
+      "reference_id": "T156",
+      "http_status_code": 201,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "automatic": false,
+        "text": "[AI-Noted] Organizational/process requirement: Validate certificate and its chain of trust properly. Not applicable for code fixes.",
+        "id": 125185,
+        "created": "2026-09-17T16:55:26.615078-04:00",
+        "updater": {
+          "id": 30493,
+          "email": "isilveira+support@securitycompass.com",
+          "first_name": "ismenia",
+          "last_name": "Support",
+          "is_active": true,
+          "role": {
+            "id": "UR4",
+            "name": "Administrator"
+          }
+        },
+        "updated": "2026-09-17T16:55:26.615078-04:00",
+        "extra": {},
+        "task": "T156"
+      }
+    },
+    {
+      "reference_id": "T1197",
+      "http_status_code": 201,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "automatic": false,
+        "text": "[AI-Noted] Organizational/process requirement: Test if only needed ports are open on the containers (Docker). Not applicable for code fixes.",
+        "id": 125186,
+        "created": "2026-09-17T16:55:26.668422-04:00",
+        "updater": {
+          "id": 30493,
+          "email": "isilveira+support@securitycompass.com",
+          "first_name": "ismenia",
+          "last_name": "Support",
+          "is_active": true,
+          "role": {
+            "id": "UR4",
+            "name": "Administrator"
+          }
+        },
+        "updated": "2026-09-17T16:55:26.668422-04:00",
+        "extra": {},
+        "task": "T1197"
+      }
+    },
+    {
+      "reference_id": "T1159",
+      "http_status_code": 201,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "automatic": false,
+        "text": "[AI-Noted] Organizational/process requirement: Verify that TLS authentication is configured for the Docker daemon (Docker). Not applicable for code fixes.",
+        "id": 125187,
+        "created": "2026-09-17T16:55:26.722793-04:00",
+        "updater": {
+          "id": 30493,
+          "email": "isilveira+support@securitycompass.com",
+          "first_name": "ismenia",
+          "last_name": "Support",
+          "is_active": true,
+          "role": {
+            "id": "UR4",
+            "name": "Administrator"
+          }
+        },
+        "updated": "2026-09-17T16:55:26.722793-04:00",
+        "extra": {},
+        "task": "T1159"
+      }
+    },
+    {
+      "reference_id": "T1215",
+      "http_status_code": 201,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "automatic": false,
+        "text": "[AI-Noted] Organizational/process requirement: Verify that containers are restricted from acquiring additional privileges (Docker). Not applicable for code fixes.",
+        "id": 125188,
+        "created": "2026-09-17T16:55:26.776694-04:00",
+        "updater": {
+          "id": 30493,
+          "email": "isilveira+support@securitycompass.com",
+          "first_name": "ismenia",
+          "last_name": "Support",
+          "is_active": true,
+          "role": {
+            "id": "UR4",
+            "name": "Administrator"
+          }
+        },
+        "updated": "2026-09-17T16:55:26.776694-04:00",
+        "extra": {},
+        "task": "T1215"
+      }
+    },
+    {
+      "reference_id": "T1889",
+      "http_status_code": 201,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "automatic": false,
+        "text": "[AI-Noted] Organizational/process requirement: Secure the configuration of the authorization server. Not applicable for code fixes.",
+        "id": 125189,
+        "created": "2026-09-17T16:55:26.830762-04:00",
+        "updater": {
+          "id": 30493,
+          "email": "isilveira+support@securitycompass.com",
+          "first_name": "ismenia",
+          "last_name": "Support",
+          "is_active": true,
+          "role": {
+            "id": "UR4",
+            "name": "Administrator"
+          }
+        },
+        "updated": "2026-09-17T16:55:26.830762-04:00",
+        "extra": {},
+        "task": "T1889"
+      }
+    },
+    {
+      "reference_id": "T2116",
+      "http_status_code": 201,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "automatic": false,
+        "text": "[AI-Noted] Organizational/process requirement: Verify that image vulnerability scanning is enabled (Docker). Not applicable for code fixes.",
+        "id": 125190,
+        "created": "2026-09-17T16:55:26.886035-04:00",
+        "updater": {
+          "id": 30493,
+          "email": "isilveira+support@securitycompass.com",
+          "first_name": "ismenia",
+          "last_name": "Support",
+          "is_active": true,
+          "role": {
+            "id": "UR4",
+            "name": "Administrator"
+          }
+        },
+        "updated": "2026-09-17T16:55:26.886035-04:00",
+        "extra": {},
+        "task": "T2116"
+      }
+    },
+    {
+      "reference_id": "T106",
+      "http_status_code": 201,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "automatic": false,
+        "text": "[AI-Noted] Organizational/process requirement: Test that site is not vulnerable to direct object access attacks. Not applicable for code fixes.",
+        "id": 125191,
+        "created": "2026-09-17T16:55:26.941453-04:00",
+        "updater": {
+          "id": 30493,
+          "email": "isilveira+support@securitycompass.com",
+          "first_name": "ismenia",
+          "last_name": "Support",
+          "is_active": true,
+          "role": {
+            "id": "UR4",
+            "name": "Administrator"
+          }
+        },
+        "updated": "2026-09-17T16:55:26.941453-04:00",
+        "extra": {},
+        "task": "T106"
+      }
+    },
+    {
+      "reference_id": "T1205",
+      "http_status_code": 201,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "automatic": false,
+        "text": "[AI-Noted] Organizational/process requirement: Test if the container's root file system is mounted as read-only (Docker). Not applicable for code fixes.",
+        "id": 125192,
+        "created": "2026-09-17T16:55:26.997337-04:00",
+        "updater": {
+          "id": 30493,
+          "email": "isilveira+support@securitycompass.com",
+          "first_name": "ismenia",
+          "last_name": "Support",
+          "is_active": true,
+          "role": {
+            "id": "UR4",
+            "name": "Administrator"
+          }
+        },
+        "updated": "2026-09-17T16:55:26.997337-04:00",
+        "extra": {},
+        "task": "T1205"
+      }
+    },
+    {
+      "reference_id": "T1145",
+      "http_status_code": 201,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "automatic": false,
+        "text": "[AI-Noted] Organizational/process requirement: Verify if web page template is vulnerable to SSTI. Not applicable for code fixes.",
+        "id": 125193,
+        "created": "2026-09-17T16:55:27.051127-04:00",
+        "updater": {
+          "id": 30493,
+          "email": "isilveira+support@securitycompass.com",
+          "first_name": "ismenia",
+          "last_name": "Support",
+          "is_active": true,
+          "role": {
+            "id": "UR4",
+            "name": "Administrator"
+          }
+        },
+        "updated": "2026-09-17T16:55:27.051127-04:00",
+        "extra": {},
+        "task": "T1145"
+      }
+    },
+    {
+      "reference_id": "T1540",
+      "http_status_code": 201,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "automatic": false,
+        "text": "[AI-Noted] Organizational/process requirement: Verify that browser data is cleared upon user logout. Not applicable for code fixes.",
+        "id": 125194,
+        "created": "2026-09-17T16:55:27.104805-04:00",
+        "updater": {
+          "id": 30493,
+          "email": "isilveira+support@securitycompass.com",
+          "first_name": "ismenia",
+          "last_name": "Support",
+          "is_active": true,
+          "role": {
+            "id": "UR4",
+            "name": "Administrator"
+          }
+        },
+        "updated": "2026-09-17T16:55:27.104805-04:00",
+        "extra": {},
+        "task": "T1540"
+      }
+    },
+    {
+      "reference_id": "T323",
+      "http_status_code": 201,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "automatic": false,
+        "text": "[AI-Noted] Organizational/process requirement: Test that default accounts are disabled or default passwords are changed. Not applicable for code fixes.",
+        "id": 125195,
+        "created": "2026-09-17T16:55:27.174714-04:00",
+        "updater": {
+          "id": 30493,
+          "email": "isilveira+support@securitycompass.com",
+          "first_name": "ismenia",
+          "last_name": "Support",
+          "is_active": true,
+          "role": {
+            "id": "UR4",
+            "name": "Administrator"
+          }
+        },
+        "updated": "2026-09-17T16:55:27.174714-04:00",
+        "extra": {},
+        "task": "T323"
+      }
+    },
+    {
+      "reference_id": "T78",
+      "http_status_code": 201,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "automatic": false,
+        "text": "[AI-Noted] Organizational/process requirement: Test strength of password reset mechanism. Not applicable for code fixes.",
+        "id": 125196,
+        "created": "2026-09-17T16:55:27.228283-04:00",
+        "updater": {
+          "id": 30493,
+          "email": "isilveira+support@securitycompass.com",
+          "first_name": "ismenia",
+          "last_name": "Support",
+          "is_active": true,
+          "role": {
+            "id": "UR4",
+            "name": "Administrator"
+          }
+        },
+        "updated": "2026-09-17T16:55:27.228283-04:00",
+        "extra": {},
+        "task": "T78"
+      }
+    },
+    {
+      "reference_id": "T119",
+      "http_status_code": 201,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "automatic": false,
+        "text": "[AI-Noted] Organizational/process requirement: Test for clickjacking. Not applicable for code fixes.",
+        "id": 125197,
+        "created": "2026-09-17T16:55:27.282735-04:00",
+        "updater": {
+          "id": 30493,
+          "email": "isilveira+support@securitycompass.com",
+          "first_name": "ismenia",
+          "last_name": "Support",
+          "is_active": true,
+          "role": {
+            "id": "UR4",
+            "name": "Administrator"
+          }
+        },
+        "updated": "2026-09-17T16:55:27.282735-04:00",
+        "extra": {},
+        "task": "T119"
+      }
+    },
+    {
+      "reference_id": "T86",
+      "http_status_code": 201,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "automatic": false,
+        "text": "[AI-Noted] Organizational/process requirement: Test session ID uniqueness and rotation after authentication. Not applicable for code fixes.",
+        "id": 125198,
+        "created": "2026-09-17T16:55:27.337456-04:00",
+        "updater": {
+          "id": 30493,
+          "email": "isilveira+support@securitycompass.com",
+          "first_name": "ismenia",
+          "last_name": "Support",
+          "is_active": true,
+          "role": {
+            "id": "UR4",
+            "name": "Administrator"
+          }
+        },
+        "updated": "2026-09-17T16:55:27.337456-04:00",
+        "extra": {},
+        "task": "T86"
+      }
+    },
+    {
+      "reference_id": "T1213",
+      "http_status_code": 201,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "automatic": false,
+        "text": "[AI-Noted] Organizational/process requirement: Verify that cgroup usage is confirmed (Docker). Not applicable for code fixes.",
+        "id": 125199,
+        "created": "2026-09-17T16:55:27.393499-04:00",
+        "updater": {
+          "id": 30493,
+          "email": "isilveira+support@securitycompass.com",
+          "first_name": "ismenia",
+          "last_name": "Support",
+          "is_active": true,
+          "role": {
+            "id": "UR4",
+            "name": "Administrator"
+          }
+        },
+        "updated": "2026-09-17T16:55:27.393499-04:00",
+        "extra": {},
+        "task": "T1213"
+      }
+    },
+    {
+      "reference_id": "T350",
+      "http_status_code": 201,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "automatic": false,
+        "text": "[AI-Noted] Organizational/process requirement: Verify that audit information is sufficiently protected. Not applicable for code fixes.",
+        "id": 125200,
+        "created": "2026-09-17T16:55:27.448314-04:00",
+        "updater": {
+          "id": 30493,
+          "email": "isilveira+support@securitycompass.com",
+          "first_name": "ismenia",
+          "last_name": "Support",
+          "is_active": true,
+          "role": {
+            "id": "UR4",
+            "name": "Administrator"
+          }
+        },
+        "updated": "2026-09-17T16:55:27.448314-04:00",
+        "extra": {},
+        "task": "T350"
+      }
+    },
+    {
+      "reference_id": "T2357",
+      "http_status_code": 201,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "automatic": false,
+        "text": "[AI-Noted] Organizational/process requirement: Verify that software is configured to have secure settings by default. Not applicable for code fixes.",
+        "id": 125201,
+        "created": "2026-09-17T16:55:27.502635-04:00",
+        "updater": {
+          "id": 30493,
+          "email": "isilveira+support@securitycompass.com",
+          "first_name": "ismenia",
+          "last_name": "Support",
+          "is_active": true,
+          "role": {
+            "id": "UR4",
+            "name": "Administrator"
+          }
+        },
+        "updated": "2026-09-17T16:55:27.502635-04:00",
+        "extra": {},
+        "task": "T2357"
+      }
+    },
+    {
+      "reference_id": "T1209",
+      "http_status_code": 201,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "automatic": false,
+        "text": "[AI-Noted] Organizational/process requirement: Verify that mount propagation mode is not set to 'shared' (Docker). Not applicable for code fixes.",
+        "id": 125202,
+        "created": "2026-09-17T16:55:27.558073-04:00",
+        "updater": {
+          "id": 30493,
+          "email": "isilveira+support@securitycompass.com",
+          "first_name": "ismenia",
+          "last_name": "Support",
+          "is_active": true,
+          "role": {
+            "id": "UR4",
+            "name": "Administrator"
+          }
+        },
+        "updated": "2026-09-17T16:55:27.558073-04:00",
+        "extra": {},
+        "task": "T1209"
+      }
+    },
+    {
+      "reference_id": "T96",
+      "http_status_code": 201,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "automatic": false,
+        "text": "[AI-Noted] Organizational/process requirement: Test if your site is vulnerable to CSRF. Not applicable for code fixes.",
+        "id": 125203,
+        "created": "2026-09-17T16:55:27.614094-04:00",
+        "updater": {
+          "id": 30493,
+          "email": "isilveira+support@securitycompass.com",
+          "first_name": "ismenia",
+          "last_name": "Support",
+          "is_active": true,
+          "role": {
+            "id": "UR4",
+            "name": "Administrator"
+          }
+        },
+        "updated": "2026-09-17T16:55:27.614094-04:00",
+        "extra": {},
+        "task": "T96"
+      }
+    },
+    {
+      "reference_id": "T536",
+      "http_status_code": 201,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "automatic": false,
+        "text": "[AI-Noted] Organizational/process requirement: Restrict the size of incoming messages in services. Not applicable for code fixes.",
+        "id": 125204,
+        "created": "2026-09-17T16:55:27.668866-04:00",
+        "updater": {
+          "id": 30493,
+          "email": "isilveira+support@securitycompass.com",
+          "first_name": "ismenia",
+          "last_name": "Support",
+          "is_active": true,
+          "role": {
+            "id": "UR4",
+            "name": "Administrator"
+          }
+        },
+        "updated": "2026-09-17T16:55:27.668866-04:00",
+        "extra": {},
+        "task": "T536"
+      }
+    },
+    {
+      "reference_id": "T1203",
+      "http_status_code": 201,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "automatic": false,
+        "text": "[AI-Noted] Organizational/process requirement: Test if container CPU priority is appropriately set (Docker). Not applicable for code fixes.",
+        "id": 125205,
+        "created": "2026-09-17T16:55:27.724313-04:00",
+        "updater": {
+          "id": 30493,
+          "email": "isilveira+support@securitycompass.com",
+          "first_name": "ismenia",
+          "last_name": "Support",
+          "is_active": true,
+          "role": {
+            "id": "UR4",
+            "name": "Administrator"
+          }
+        },
+        "updated": "2026-09-17T16:55:27.724313-04:00",
+        "extra": {},
+        "task": "T1203"
+      }
+    },
+    {
+      "reference_id": "T2106",
+      "http_status_code": 201,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "automatic": false,
+        "text": "[AI-Noted] Organizational/process requirement: Verify that the use of client certificate bundles for unprivileged users is enforced (Docker). Not applicable for code fixes.",
+        "id": 125206,
+        "created": "2026-09-17T16:55:27.780400-04:00",
+        "updater": {
+          "id": 30493,
+          "email": "isilveira+support@securitycompass.com",
+          "first_name": "ismenia",
+          "last_name": "Support",
+          "is_active": true,
+          "role": {
+            "id": "UR4",
+            "name": "Administrator"
+          }
+        },
+        "updated": "2026-09-17T16:55:27.780400-04:00",
+        "extra": {},
+        "task": "T2106"
+      }
+    },
+    {
+      "reference_id": "T1468",
+      "http_status_code": 201,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "automatic": false,
+        "text": "[AI-Noted] Organizational/process requirement: Encrypt sensitive data at rest in the browser. Not applicable for code fixes.",
+        "id": 125207,
+        "created": "2026-09-17T16:55:27.836431-04:00",
+        "updater": {
+          "id": 30493,
+          "email": "isilveira+support@securitycompass.com",
+          "first_name": "ismenia",
+          "last_name": "Support",
+          "is_active": true,
+          "role": {
+            "id": "UR4",
+            "name": "Administrator"
+          }
+        },
+        "updated": "2026-09-17T16:55:27.836431-04:00",
+        "extra": {},
+        "task": "T1468"
+      }
+    },
+    {
+      "reference_id": "T101",
+      "http_status_code": 201,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "automatic": false,
+        "text": "[AI-Noted] Organizational/process requirement: Test that application is not vulnerable to SQL injection. Not applicable for code fixes.",
+        "id": 125208,
+        "created": "2026-09-17T16:55:27.891912-04:00",
+        "updater": {
+          "id": 30493,
+          "email": "isilveira+support@securitycompass.com",
+          "first_name": "ismenia",
+          "last_name": "Support",
+          "is_active": true,
+          "role": {
+            "id": "UR4",
+            "name": "Administrator"
+          }
+        },
+        "updated": "2026-09-17T16:55:27.891912-04:00",
+        "extra": {},
+        "task": "T101"
+      }
+    },
+    {
+      "reference_id": "T296",
+      "http_status_code": 201,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "automatic": false,
+        "text": "[AI-Noted] Organizational/process requirement: Test that unencrypted confidential data is not stored without access control mechanisms. Not applicable for code fixes.",
+        "id": 125209,
+        "created": "2026-09-17T16:55:27.947162-04:00",
+        "updater": {
+          "id": 30493,
+          "email": "isilveira+support@securitycompass.com",
+          "first_name": "ismenia",
+          "last_name": "Support",
+          "is_active": true,
+          "role": {
+            "id": "UR4",
+            "name": "Administrator"
+          }
+        },
+        "updated": "2026-09-17T16:55:27.947162-04:00",
+        "extra": {},
+        "task": "T296"
+      }
+    },
+    {
+      "reference_id": "T1917",
+      "http_status_code": 201,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "automatic": false,
+        "text": "[AI-Noted] Organizational/process requirement: Perform container security assessment. Not applicable for code fixes.",
+        "id": 125210,
+        "created": "2026-09-17T16:55:28.002098-04:00",
+        "updater": {
+          "id": 30493,
+          "email": "isilveira+support@securitycompass.com",
+          "first_name": "ismenia",
+          "last_name": "Support",
+          "is_active": true,
+          "role": {
+            "id": "UR4",
+            "name": "Administrator"
+          }
+        },
+        "updated": "2026-09-17T16:55:28.002098-04:00",
+        "extra": {},
+        "task": "T1917"
+      }
+    },
+    {
+      "reference_id": "T2611",
+      "http_status_code": 201,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "automatic": false,
+        "text": "[AI-Noted] Organizational/process requirement: Verify that typical database and server activities, along with related metadata, are logged. Not applicable for code fixes.",
+        "id": 125211,
+        "created": "2026-09-17T16:55:28.062804-04:00",
+        "updater": {
+          "id": 30493,
+          "email": "isilveira+support@securitycompass.com",
+          "first_name": "ismenia",
+          "last_name": "Support",
+          "is_active": true,
+          "role": {
+            "id": "UR4",
+            "name": "Administrator"
+          }
+        },
+        "updated": "2026-09-17T16:55:28.062804-04:00",
+        "extra": {},
+        "task": "T2611"
+      }
+    },
+    {
+      "reference_id": "T128",
+      "http_status_code": 201,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "automatic": false,
+        "text": "[AI-Noted] Organizational/process requirement: Test for access control bypass through user-controlled keys. Not applicable for code fixes.",
+        "id": 125212,
+        "created": "2026-09-17T16:55:28.119664-04:00",
+        "updater": {
+          "id": 30493,
+          "email": "isilveira+support@securitycompass.com",
+          "first_name": "ismenia",
+          "last_name": "Support",
+          "is_active": true,
+          "role": {
+            "id": "UR4",
+            "name": "Administrator"
+          }
+        },
+        "updated": "2026-09-17T16:55:28.119664-04:00",
+        "extra": {},
+        "task": "T128"
+      }
+    },
+    {
+      "reference_id": "T20",
+      "http_status_code": 201,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "automatic": false,
+        "text": "[AI-Noted] Organizational/process requirement: Generate unique session IDs and reset old IDs after authentication. Not applicable for code fixes.",
+        "id": 125213,
+        "created": "2026-09-17T16:55:28.175388-04:00",
+        "updater": {
+          "id": 30493,
+          "email": "isilveira+support@securitycompass.com",
+          "first_name": "ismenia",
+          "last_name": "Support",
+          "is_active": true,
+          "role": {
+            "id": "UR4",
+            "name": "Administrator"
+          }
+        },
+        "updated": "2026-09-17T16:55:28.175388-04:00",
+        "extra": {},
+        "task": "T20"
+      }
+    },
+    {
+      "reference_id": "T1362",
+      "http_status_code": 201,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "automatic": false,
+        "text": "[AI-Noted] Organizational/process requirement: Perform message throttling in Web APIs. Not applicable for code fixes.",
+        "id": 125214,
+        "created": "2026-09-17T16:55:28.233688-04:00",
+        "updater": {
+          "id": 30493,
+          "email": "isilveira+support@securitycompass.com",
+          "first_name": "ismenia",
+          "last_name": "Support",
+          "is_active": true,
+          "role": {
+            "id": "UR4",
+            "name": "Administrator"
+          }
+        },
+        "updated": "2026-09-17T16:55:28.233688-04:00",
+        "extra": {},
+        "task": "T1362"
+      }
+    },
+    {
+      "reference_id": "T7414",
+      "http_status_code": 201,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "automatic": false,
+        "text": "[AI-Noted] Organizational/process requirement: Verify that content intended as text is rendered safely without XSS injection risk. Not applicable for code fixes.",
+        "id": 125215,
+        "created": "2026-09-17T16:55:28.291340-04:00",
+        "updater": {
+          "id": 30493,
+          "email": "isilveira+support@securitycompass.com",
+          "first_name": "ismenia",
+          "last_name": "Support",
+          "is_active": true,
+          "role": {
+            "id": "UR4",
+            "name": "Administrator"
+          }
+        },
+        "updated": "2026-09-17T16:55:28.291340-04:00",
+        "extra": {},
+        "task": "T7414"
+      }
+    },
+    {
+      "reference_id": "T241",
+      "http_status_code": 201,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "automatic": false,
+        "text": "[AI-Noted] Organizational/process requirement: Verify that third party libraries use secure settings and the latest patches. Not applicable for code fixes.",
+        "id": 125216,
+        "created": "2026-09-17T16:55:28.356072-04:00",
+        "updater": {
+          "id": 30493,
+          "email": "isilveira+support@securitycompass.com",
+          "first_name": "ismenia",
+          "last_name": "Support",
+          "is_active": true,
+          "role": {
+            "id": "UR4",
+            "name": "Administrator"
+          }
+        },
+        "updated": "2026-09-17T16:55:28.356072-04:00",
+        "extra": {},
+        "task": "T241"
+      }
+    },
+    {
+      "reference_id": "T98",
+      "http_status_code": 201,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "automatic": false,
+        "text": "[AI-Noted] Organizational/process requirement: Test for input validation on a server. Not applicable for code fixes.",
+        "id": 125217,
+        "created": "2026-09-17T16:55:28.412323-04:00",
+        "updater": {
+          "id": 30493,
+          "email": "isilveira+support@securitycompass.com",
+          "first_name": "ismenia",
+          "last_name": "Support",
+          "is_active": true,
+          "role": {
+            "id": "UR4",
+            "name": "Administrator"
+          }
+        },
+        "updated": "2026-09-17T16:55:28.412323-04:00",
+        "extra": {},
+        "task": "T98"
+      }
+    },
+    {
+      "reference_id": "T589",
+      "http_status_code": 201,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "automatic": false,
+        "text": "[AI-Noted] Organizational/process requirement: Verify that all the components are authenticated explicitly. Not applicable for code fixes.",
+        "id": 125218,
+        "created": "2026-09-17T16:55:28.468422-04:00",
+        "updater": {
+          "id": 30493,
+          "email": "isilveira+support@securitycompass.com",
+          "first_name": "ismenia",
+          "last_name": "Support",
+          "is_active": true,
+          "role": {
+            "id": "UR4",
+            "name": "Administrator"
+          }
+        },
+        "updated": "2026-09-17T16:55:28.468422-04:00",
+        "extra": {},
+        "task": "T589"
+      }
+    },
+    {
+      "reference_id": "T2607",
+      "http_status_code": 201,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "automatic": false,
+        "text": "[AI-Noted] Organizational/process requirement: Verify query-level access control is implemented. Not applicable for code fixes.",
+        "id": 125219,
+        "created": "2026-09-17T16:55:28.525747-04:00",
+        "updater": {
+          "id": 30493,
+          "email": "isilveira+support@securitycompass.com",
+          "first_name": "ismenia",
+          "last_name": "Support",
+          "is_active": true,
+          "role": {
+            "id": "UR4",
+            "name": "Administrator"
+          }
+        },
+        "updated": "2026-09-17T16:55:28.525747-04:00",
+        "extra": {},
+        "task": "T2607"
+      }
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "cm_id": "T4601",
+  "category": "IN",
+  "library_sourced": false,
+  "content_fields": {
+    "title": "Prioritize static network configuration",
+    "url": "https://staging.qa.sdelements.com/bunits/copilot-test/app/dvra-clean-for-testing/tasks/phase/deployment/4552-T4601/",
+    "priority": 8,
+    "output_path": "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T4601-prioritize-static-network-configuration/SKILL.md"
+  },
+  "output_path": "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T4601-prioritize-static-network-configuration/SKILL.md"
+}

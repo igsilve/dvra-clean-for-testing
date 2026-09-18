@@ -1,0 +1,1906 @@
+{
+  "composite_response": [
+    {
+      "reference_id": "T1156",
+      "http_status_code": 200,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "results": [
+          {
+            "db_id": 8473,
+            "id": "TA8473",
+            "title": "T1156 - SKILL.md - Docker",
+            "text": "---\nname: do-not-use-aufs-storage-driver-docker\ndescription: Enforce a no-aufs policy in Dockerized applications by detecting the aufs storage driver at runtime and failing fast; use when code may run on unknown Docker hosts or storage drivers.\n---\n\n# Do not use the aufs storage driver (Docker)\n\n## What This Skill Does\nThis skill helps you detect when an application is running on Docker with the `aufs` storage driver and enforce a strict \u201cno aufs\u201d policy. It guides you to add lightweight, dependency-free runtime checks (entrypoint guards, startup checks, health endpoints, and CLI-style checks) that abort startup or report failure when `aufs` is detected, while keeping behavior safe and predictable when mount information is missing or unreadable.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Application may run in Docker on unknown hosts/storage drivers | Add a startup guard that inspects `/proc/self/mountinfo` and exits non-zero if `aufs` is detected before the app binds to any port. |\n| There is a central entrypoint or application factory | Wrap the app with a small shell (or language-native) entrypoint that runs the `aufs` check first and fails fast with a clear message if `aufs` is detected. |\n| Operators or orchestration need to confirm storage driver via HTTP | Expose a read-only health/diagnostics endpoint or mode (e.g., `/healthz` or `healthz` subcommand) that returns `aufs_detected` boolean and appropriate HTTP/exit status. |\n| CI/CD, hooks, or external tools must enforce storage policy | Provide a pure function or CLI subcommand (e.g., `check-storage`) that runs the same `aufs` detection logic and exits 0 (no `aufs`) or 1 (aufs detected/error). |\n| Code already detects unsafe storage drivers and fails on `aufs` | Do not add duplicate guards; verify coverage and clarity of error messages, then leave implementation as-is. |\n\n## Boundaries\n\n### Can Do\n- Add or modify entrypoint/startup scripts to check `/proc/self/mountinfo` for `aufs` and abort startup when detected.\n- Introduce a small, dependency-free utility or function that encapsulates the detection logic and is reusable from multiple call sites (startup, health checks, automation).\n- Add read-only health/diagnostic endpoints or command modes that expose an `aufs`-status flag and suitable status code for monitoring and CI.\n\n### Cannot Do\n- Change the Docker daemon or host-level storage driver configuration (e.g., switch the host from `aufs` to `overlay2`); this must be done by operators.\n- Reliably detect all container runtimes or custom storage stacks that do not expose usable mount information; in these cases the app can only infer based on available data.\n- Guarantee that `grep`/mount parsing works on every non-Linux or heavily restricted environment where `/proc` is missing, virtualized, or locked down.\n\n## Gotchas\n- Treating unreadable `/proc/self/mountinfo` as \u201cno aufs\u201d: This is unsafe because the app would continue in an unknown state; instead, treat missing or unreadable metadata as a policy violation and fail closed when enforcing security rules.\n- Burying the check in a rarely used code path: If the `aufs` guard is only called from one startup flow, alternative entrypoints or scripts can bypass it; always place enforcement in the single, central startup/entrypoint path.\n- Returning detailed system information from health checks: Overly verbose diagnostics (full mount output, environment variables, etc.) can leak sensitive data; expose only a minimal `aufs` status flag and generic operator guidance.\n\n## Quick Verification\n```bash\n# 1) Build an image with an entrypoint guard (example Dockerfile adjusted for your app)\ndocker build -t no-aufs-guard .\n\n# 2) Run the image normally on a non-aufs host; it should start successfully\ndocker run --rm no-aufs-guard\n\n# 3) Simulate/validate aufs detection logic locally (without real aufs) by faking mountinfo:\n#    Create a test mountinfo file containing \"aufs\" and point the checker at it if supported,\n#    OR run the guard script directly with a temporary file.\ndocker run --rm -v \"$PWD/test-mountinfo:/tmp/mountinfo\" no-aufs-guard sh -c '\n  sed \"s@/proc/self/mountinfo@/tmp/mountinfo@\" /docker-entrypoint.sh > /tmp/test-entrypoint.sh &&\n  sh /tmp/test-entrypoint.sh || echo \"Guard correctly failed on simulated aufs\"\n'\n\n# 4) For health/CLI modes, confirm exit codes:\ndocker run --rm no-aufs-guard check-storage || echo \"CI would fail here on aufs\"\n```",
+            "type": "Built-in",
+            "ordinal": 35,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-05-21T11:39:49.932000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-05-21T11:39:49.932000-04:00",
+            "active": true
+          }
+        ]
+      }
+    },
+    {
+      "reference_id": "T1158",
+      "http_status_code": 200,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "results": [
+          {
+            "db_id": 1375,
+            "id": "TA1375",
+            "title": "FedRAMP / Moderate Baseline",
+            "text": "*** AC-17 (3): Access Control | Remote Access | Managed Access Control Points ***  \nThe information system routes all remote accesses through [Assignment: organization-defined number] managed network access control points.\n\n*** IA-5 (2): Identification And Authentication | Authenticator Management | Pki-Based Authentication ***  \nThe information system, for PKI-based authentication:\n\n(a)   Validates certifications by constructing and verifying a certification path to an accepted trust anchor including checking certificate status information;  \n(b)   Enforces authorized access to the corresponding private key;  \n(c)   Maps the authenticated identity to the account of the individual or group; and  \n(d)   Implements a local cache of revocation data to support path discovery and validation in case of inability to access revocation information via the network.",
+            "type": "Built-in",
+            "ordinal": 11,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-15T17:48:44.606000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T15:08:02.190000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 2356,
+            "id": "TA2356",
+            "title": "FedRAMP / High Baseline",
+            "text": "*** AC-17 (3): Access Control | Remote Access | Managed Access Control Points ***  \nThe information system routes all remote accesses through [Assignment: organization-defined number] managed network access control points.\n\n*** IA-5 (2): Identification And Authentication | Authenticator Management | Pki-Based Authentication ***  \nThe information system, for PKI-based authentication:  \n (a)   Validates certifications by constructing and verifying a certification path to an accepted trust anchor including checking certificate status information;  \n (b)   Enforces authorized access to the corresponding private key;  \n (c)   Maps the authenticated identity to the account of the individual or group; and  \n (d)   Implements a local cache of revocation data to support path discovery and validation in case of inability to access revocation information via the network.",
+            "type": "Built-in",
+            "ordinal": 12,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-17T18:26:42.963000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T18:38:10.957000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 8472,
+            "id": "TA8472",
+            "title": "T1158 - SKILL.md - Docker",
+            "text": "---\nname: configure-tls-auth-for-docker-daemon\ndescription: Securely configure Docker daemon and Swarm endpoints with TLS authentication; use when Docker is exposed over TCP or additional sockets and must be locked down\n---\n\n# Configure TLS authentication for the Docker daemon (Docker)\n\n## What This Skill Does\nLocks down Docker Engine (and optional Swarm) access by enforcing TLS (preferably mutual TLS) on any network-exposed daemon endpoint and by avoiding unnecessary IP/port bindings. It guides agents to remove insecure `dockerd` TCP listeners (like `0.0.0.0:2375` without TLS), enforce certificate verification and client auth when TCP is required, and ensure TLS keys/certs are handled as secrets instead of being baked into images or exposed via logs.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Docker daemon is started with `--host=tcp://0.0.0.0:2375` or any TCP host and no `--tls*` flags | Replace with a TLS-only configuration on port 2376 (or policy-approved port) using `--tlsverify`, `--tlscacert`, `--tlscert`, and `--tlskey`, or revert to Unix socket only |\n| Dockerfile or service config binds additional `--host=tcp://...` or extra Unix sockets beyond the default | Remove extra bindings; default to the standard Unix socket only unless a TLS-protected TCP endpoint is explicitly required |\n| App/client code connects to Docker using `tcp://host:2375` or `http://` without certificate validation | Update to `https://` / `tcp+tls` endpoint on 2376 (or policy port), require CA validation, and configure client certificate authentication if the daemon uses mTLS |\n| Environment requires remote daemon or Swarm access over the network | Configure `dockerd` (and Swarm settings) with TLS + client auth for all network endpoints, ensuring a consistent TLS configuration and no HTTP/plaintext fallbacks |\n| TLS certificates/keys are copied into the image or stored in source control | Refactor to load TLS materials from runtime-mounted secrets/volumes, restrict file permissions at startup, and exclude keys from logs and image layers |\n| Daemon is already only on default Unix socket and no code adds TCP access | No action needed; keep daemon local and rely on socket permissions |\n\n## Boundaries\n\n### Can Do\n- Detect and remove insecure `dockerd` TCP bindings (e.g., `0.0.0.0:2375` without TLS) in Dockerfiles and service config snippets.\n- Add secure TLS/mTLS `dockerd` flags for network-exposed daemons and Swarm endpoints, using secret-mounted certificate paths.\n- Adjust example client connection strings and code snippets to require TLS, certificate validation, and (when appropriate) client certificates.\n- Enforce use of default Unix socket only when remote access is not required, by dropping extra `--host` bindings and `EXPOSE` directives.\n\n### Cannot Do\n- Generate real, valid certificates or decide exact PKI/CA hierarchy and rotation policy; expects those to be provided by operators or external tooling.\n- Reconfigure host-level Docker installations outside the visible code/config snippets (e.g., systemd units, `/etc/docker/daemon.json` not shown to the agent).\n- Guarantee compatibility with every orchestration or CI platform\u2019s Docker-in-Docker pattern; final integration and operational rollout remain human decisions.\n- Inspect live network state or actively probe running hosts/containers; relies only on the provided files and configuration.\n\n## Gotchas\n- Assuming `--tlsverify` alone is enough: missing or misconfigured `--tlscacert`, `--tlscert`, or `--tlskey` can still leave the daemon inaccessible or missecured; always specify the full TLS set and ensure paths point to mounted secrets, not image-baked keys.\n- Keeping both insecure and secure ports: adding a TLS listener on 2376 but leaving `--host=tcp://0.0.0.0:2375` (or similar) in place leaves a backdoor; remove all plaintext listeners when enabling TLS.\n- Exposing Docker daemon when not needed: adding TCP exposure \u201cfor convenience\u201d in development images or CI jobs often becomes permanent; prefer the default Unix socket and only add a TLS-protected TCP endpoint when a real remote requirement exists.\n\n## Quick Verification\n```bash\n# 1) Confirm dockerd is NOT listening on insecure TCP ports (e.g., 2375)\nss -lntp | grep dockerd || netstat -lntp | grep dockerd || true\n\n# 2) If TCP is required, confirm only TLS port (e.g., 2376) is open\nss -lntp | grep ':2376' || netstat -lntp | grep ':2376' || true\n\n# 3) Test that unauthenticated TCP access fails\nDOCKER_HOST=tcp://localhost:2376 \\\n  docker --tlsverify --tlscacert=bad-ca.pem version || echo \"Unauthenticated/invalid cert access correctly denied\"\n\n# 4) Test that properly authenticated TLS access succeeds (paths adjusted to real secrets)\nDOCKER_HOST=tcp://localhost:2376 \\\n  docker --tlsverify \\\n    --tlscacert=/run/secrets/ca.pem \\\n    --tlscert=/run/secrets/client-cert.pem \\\n    --tlskey=/run/secrets/client-key.pem \\\n    version\n```",
+            "type": "Built-in",
+            "ordinal": 34,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-05-21T11:39:49.853000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-05-21T11:39:49.853000-04:00",
+            "active": true
+          }
+        ]
+      }
+    },
+    {
+      "reference_id": "T2258",
+      "http_status_code": 200,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "results": [
+          {
+            "db_id": 10516,
+            "id": "TA10516",
+            "title": "NIST.SP.800-218A:PO.5.2 - Harden AI development endpoints",
+            "text": "- Secure and harden development endpoints used to design, build, and test AI systems so they cannot introduce untrusted components or over-privileged agent behavior.",
+            "type": "Built-in",
+            "ordinal": 21,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-08-07T12:55:57.033000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-08-07T12:55:57.033000-04:00",
+            "active": true
+          }
+        ]
+      }
+    },
+    {
+      "reference_id": "T4751",
+      "http_status_code": 200,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "results": []
+      }
+    },
+    {
+      "reference_id": "T1196",
+      "http_status_code": 200,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "results": [
+          {
+            "db_id": 1516,
+            "id": "TA1516",
+            "title": "FedRAMP / Moderate Baseline",
+            "text": "*** CM-7 (1): Configuration Management | Least Functionality | Periodic Review ***  \nThe organization:\n\n(a)   Reviews the information system [at least monthly] to identify unnecessary and/or nonsecure functions, ports, protocols, and services; and  \n(b)   Disables [Assignment: organization-defined functions, ports, protocols, and services within the information system deemed to be unnecessary and/or nonsecure].\n\n*** CM-7 (2): Configuration Management | Least Functionality | Prevent Program Execution ***  \nThe information system prevents program execution in accordance with [Selection (one or more): [Assignment: organization-defined policies regarding software program usage and restrictions]; rules authorizing the terms and conditions of software program usage].\n\n*** SC-7: System And Communications Protection | Boundary Protection ***  \nThe information system:\n\na. Monitors and controls communications at the external boundary of the system and at key internal boundaries within the system;\n\nb. Implements subnetworks for publicly accessible system components that are [Selection: physically; logically] separated from internal organizational networks; and\n\nc. Connects to external networks or information systems only through managed interfaces consisting of boundary protection devices arranged in accordance with an organizational security architecture.",
+            "type": "Built-in",
+            "ordinal": 11,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-15T17:48:51.085000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T15:08:04.363000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 2485,
+            "id": "TA2485",
+            "title": "FedRAMP / High Baseline",
+            "text": "*** CM-7 (1): Configuration Management | Least Functionality | Periodic Review ***  \nThe organization:  \n (a)   Reviews the information system [at least monthly] to identify unnecessary and/or nonsecure functions, ports, protocols, and services; and  \n (b)   Disables [Assignment: organization-defined functions, ports, protocols, and services within the information system deemed to be unnecessary and/or nonsecure].\n\n*** CM-7 (2): Configuration Management | Least Functionality | Prevent Program Execution ***  \nThe information system prevents program execution in accordance with [Selection (one or more): [Assignment: organization-defined policies regarding software program usage and restrictions]; rules authorizing the terms and conditions of software program usage].\n\n*** SC-7: System And Communications Protection | Boundary Protection ***  \nThe information system:  \n a. Monitors and controls communications at the external boundary of the system and at key internal boundaries within the system;  \n b. Implements subnetworks for publicly accessible system components that are [Selection: physically; logically] separated from internal organizational networks; and  \n c. Connects to external networks or information systems only through managed interfaces consisting of boundary protection devices arranged in accordance with an organizational security architecture.",
+            "type": "Built-in",
+            "ordinal": 12,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-17T18:33:56.143000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T18:38:13.278000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 8442,
+            "id": "TA8442",
+            "title": "T1196 - SKILL.md - Docker",
+            "text": "---\nname: open-only-needed-ports-on-the-containers-docker\ndescription: \"Reduce Docker container exposure by keeping only approved ports in EXPOSE and runtime mappings. Use when containers declare or publish ports the application does not need.\"\n---\n# Open only needed ports on the containers (Docker)\n\n## What This Skill Does\nThis skill reduces container attack surface by removing unnecessary port declarations and published mappings from Dockerfiles and generated container configuration. Use it when a container exposes admin, debug, metrics, legacy, or inherited ports that the application does not actually listen on. The fix is to maintain a single approved list of listening ports, make `EXPOSE` and runtime port mappings match that list exactly, and reject unknown ports, including protocol-qualified values such as `80/tcp` or `5353/udp`.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Dockerfile contains `EXPOSE` entries not used by the application | Remove unneeded ports and keep only the approved ports |\n| Container config or templates generate published port mappings dynamically | Validate generated mappings against the approved port list and reject unknown ports |\n| `EXPOSE` values include protocol suffixes like `/tcp` or `/udp` | Parse and validate port plus protocol consistently against the approved list |\n| Dockerfile inherits stale ports from examples, templates, or older versions | Replace inherited declarations with the current approved ports only |\n| Dockerfile and runtime mappings already match the approved listening ports | No action needed |\n\n## Boundaries\n\n### Can Do\n- Remove unnecessary `EXPOSE` entries from Dockerfiles\n- Align Dockerfile port declarations with an approved application port list\n- Add validation so generated runtime mappings include only approved ports\n\n### Cannot Do\n- Determine the correct application ports without code, config, or team-defined requirements\n- Prevent operators from manually publishing extra ports outside the repository\n- Guarantee a service is unreachable if another proxy, sidecar, or host rule exposes it elsewhere\n\n## Gotchas\n- Treating `EXPOSE` as harmless metadata only: it still signals intended reachability and often gets copied into runtime configuration or review assumptions\n- Validating only bare numbers like `80`: this misses protocol-qualified entries such as `80/tcp` or `5353/udp`\n- Removing `EXPOSE` but leaving `ports:` or `-p` mappings in Compose or run scripts: the container can still be published at runtime\n\n## Quick Verification\n```bash\n# Find Dockerfiles and EXPOSE declarations\nfind . -iname 'Dockerfile*' -o -name '*.dockerfile' | xargs grep -nE '^\\s*EXPOSE\\s+'\n\n# Find common runtime port mappings in Compose files\nfind . \\( -name 'docker-compose*.yml' -o -name 'docker-compose*.yaml' -o -name 'compose.yml' -o -name 'compose.yaml' \\) \\\n  | xargs grep -nE '^\\s*ports:|-\\s*\"[0-9]+:[0-9]+'\n\n# Build and inspect exposed ports declared in the image\ndocker build -t port-check .\ndocker image inspect port-check --format '{{json .Config.ExposedPorts}}'\n\n# Negative test: add an unapproved port such as 9000 and confirm validation or review rejects it\ngrep -R -nE '9000(/tcp|/udp)?|9000:9000' .\n```",
+            "type": "Built-in",
+            "ordinal": 233,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-05-21T11:39:47.760000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:36.002000-04:00",
+            "active": true
+          }
+        ]
+      }
+    },
+    {
+      "reference_id": "T257",
+      "http_status_code": 200,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "results": [
+          {
+            "db_id": 3004,
+            "id": "TA3004",
+            "title": "ASD-STIG requirements",
+            "text": "## V-222603 [medium]:\n__The application must protect from Cross-Site Request Forgery (CSRF) vulnerabilities.__\n\nCross-Site Request Forgery (CSRF) is an attack where a website user is forced to execute an unwanted action on a website that he or she is currently authenticated to. An attacker, through social engineering (e.g., e-mail or chat) creates a hyperlink which executes unwanted actions on the website the victim is authenticated to and sends it to the victim. If the victim clicks on the link, the action is executed unbeknownst to the victim.\n\nA CSRF attack executes a website request on behalf of the user which can lead to a compromise of the user's data. What is needed to be successful is for the attacker to know the URL, an authenticated application user, and trick the user into clicking the malicious link.\n\nWhile XSS is not needed for a CSRF attack to work, XSS vulnerabilities can provide the attacker with a vector to obtain information from the user that may be used in mitigating the risk. The application must not be vulnerable to XSS as an XSS attack can be used to help defeat token, double-submit cookie, referrer and origin-based CSRF defenses.\n\n",
+            "type": "Built-in",
+            "ordinal": 0,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2020-11-16T13:32:50.496000-05:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2024-09-24T13:15:54.930000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 10564,
+            "id": "TA10564",
+            "title": "Restrict CORS to an explicit allowlist of trusted origins (DoD/DISA API SRG)",
+            "text": "Restrict CORS to an explicit allowlist of trusted origins. When Cross-Origin Resource Sharing is in use, the API must specify allowed origins explicitly rather than permitting arbitrary or wildcard origins, so cross-origin requests are accepted only from validated, trusted sources. If CORS is not in use this is Not Applicable.\n\nCompliance records include the CORS configuration showing the explicit allowed-origins allowlist and the absence of wildcard origins.",
+            "type": "Built-in",
+            "ordinal": 1,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-08-09T19:07:03.761000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-08-09T19:07:03.761000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9481,
+            "id": "TA9481",
+            "title": "T257 - SKILL.md - JavaScript",
+            "text": "---\nname: secure-cross-origin-resource-sharing\ndescription: \"Harden JavaScript CORS handling and CSRF defenses for browser-facing services. Use when code emits CORS headers, trusts Origin, or allows cookie-authenticated cross-origin requests.\"\n---\n\n# Secure cross origin resource sharing (CORS)\n\n## What This Skill Does\nThis skill fixes insecure CORS handling that can enable CSRF-like abuse, private data exposure, or unsafe cross-origin state changes. It separates CORS from authentication and authorization, adds CSRF validation for cookie-authenticated state-changing requests, and replaces permissive or reflective CORS logic with a centralized deny-by-default policy that uses exact origin allowlists, method/header validation, bounded caching, and safe credential handling.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Code reflects `req.headers.origin` into `Access-Control-Allow-Origin`, or uses `origin || '*'` | Replace with centralized CORS logic that parses the origin and compares by exact equality against an allowlist |\n| Code uses `Origin` or CORS success as proof of trust for protected `GET`, `POST`, `PUT`, `PATCH`, or `DELETE` endpoints | Require normal authentication and authorization for all non-`OPTIONS` protected requests; do not use `Origin` for auth decisions |\n| Cookie-authenticated state-changing routes exist (`POST`, `PUT`, `PATCH`, `DELETE`) without CSRF checks | Add CSRF validation before the state change using a synchronizer token or signed double-submit style token |\n| CORS preflight handling allows arbitrary methods or headers | Validate `Access-Control-Request-Method` and `Access-Control-Request-Headers` against explicit allowlists |\n| Code already uses exact origin allowlists, rejects wildcard-plus-credentials, and enforces auth + CSRF correctly | No action needed |\n\n## Boundaries\n\n### Can Do\n- Replace reflective or partial-match CORS logic with exact allowlist checks using parsed origins\n- Add CSRF token verification for cookie-based state-changing requests\n- Enforce safe CORS invariants such as no `*` with `Access-Control-Allow-Credentials: true`\n\n### Cannot Do\n- Decide which origins, methods, or headers are business-approved without project guidance\n- Add full session management, login flows, or complete authorization models\n- Protect non-browser clients solely through CORS; CORS is not an API authentication mechanism\n\n## Gotchas\n- Using `includes`, `startsWith`, `endsWith`, or loose regex on origins: this accepts attacker-controlled origins like `https://app.example.com.evil.com`\n- Sending `Access-Control-Allow-Origin: *` with `Access-Control-Allow-Credentials: true`: browsers reject this and it signals an unsafe policy\n- Applying CSRF checks to bearer-token APIs the same way as cookie flows: CSRF is primarily required for browser cookie-authenticated requests, not generic token clients\n\n## Quick Verification\n```bash\n# Confirm secure helpers/guards exist\nrg -n \"buildCorsHeaders|isAllowedOrigin|verifyCsrfToken|requiresAuthentication|Access-Control-Allow-Credentials\" .\n\n# Find unguarded dangerous CORS patterns and unsafe Origin trust\nrg -n \"res\\.(set|setHeader)\\(\\s*['\\\"]Access-Control-Allow-Origin['\\\"],\\s*(req\\.headers\\.origin|origin\\s*\\|\\|\\s*['\\\"]\\*['\\\"]|origin)\\)|Access-Control-Allow-Origin['\\\"]:\\s*(origin|req\\.headers\\.origin|['\\\"]\\*['\\\"])\\b|Access-Control-Allow-Credentials['\\\"]:\\s*true|req\\.headers\\.origin|headers\\.origin.*(===|==|!=|!==).*auth|includes\\(|startsWith\\(|endsWith\\(\" .\n\n# Build + test with the JavaScript project's available toolchain\nnpm test || yarn test || pnpm test || node --test\n```",
+            "type": "Built-in",
+            "ordinal": 390,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:41.032000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:41.032000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9522,
+            "id": "TA9522",
+            "title": "T257 - SKILL.md - Python",
+            "text": "---\nname: secure-cross-origin-resource-sharing\ndescription: Use when Python code treats CORS or the Origin header as access control, exposes private resources cross-origin, or skips CSRF protection on authenticated state-changing requests.\n---\n# Secure cross origin resource sharing (CORS)\n\n## What This Skill Does\nThis skill fixes Python code that misuses CORS as an authorization mechanism, trusts the `Origin` header for private access, returns permissive `Access-Control-Allow-*` headers on non-public endpoints, or skips CSRF validation for authenticated state-changing requests. Apply it to separate public, private, and explicitly shareable cross-origin resources; require normal authentication and authorization for private functionality; enforce CSRF on authenticated state changes; and only emit CORS headers when the origin, method, and requested headers exactly match approved policy.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Code reads `request.headers.get(\"Origin\")` or `request.headers[\"Origin\"]` to allow access to private functionality | Remove Origin-based access control; require normal authentication/authorization and keep behavior the same for same-origin or no-Origin requests |\n| A private endpoint returns `Access-Control-Allow-*` headers | Remove CORS headers unless the endpoint is explicitly designed for cross-origin sharing |\n| A public unauthenticated resource is intentionally shareable across origins | Return `Access-Control-Allow-Origin: *` only if no credentials are used |\n| A shareable cross-origin endpoint needs controlled access | Exact-match the full `Origin` against a whitelist and validate requested method and headers before returning CORS headers |\n| An authenticated state-changing request (`POST`, `PUT`, `PATCH`, `DELETE`) relies only on session cookies | Add CSRF validation and do not treat a trusted origin as a replacement for CSRF protection |\n\n## Boundaries\n\n### Can Do\n- Replace Origin-based authorization decisions with server-side authentication and authorization checks\n- Tighten Python CORS handling for Flask-style request/response code, including exact origin, method, and header checks\n- Add or preserve CSRF validation for authenticated state-changing requests\n\n### Cannot Do\n- Infer the correct business whitelist of allowed origins without project-specific requirements\n- Prove an endpoint is truly public and safe for wildcard CORS without understanding its data sensitivity and auth model\n- Guarantee framework-wide CSRF coverage if the application uses custom middleware, multiple frameworks, or nonstandard request handling\n\n## Gotchas\n- Using substring or suffix origin checks: `endswith`, `startswith`, `in`, or regex-style matching can allow attacker-controlled origins like `https://trusted.example.com.attacker.test`\n- Combining `Access-Control-Allow-Origin: *` with `Access-Control-Allow-Credentials: true`: browsers reject this and it signals a broken policy for credentialed flows\n- Treating `OPTIONS` as an authorization bypass: preflight should only negotiate CORS policy, not grant access to private functionality or replace auth/CSRF checks\n\n## Quick Verification\n```bash\n# Confirm secure CORS/CSRF code paths exist\nrg -n 'Access-Control-Allow-Origin|Access-Control-Allow-Credentials|Access-Control-Allow-Methods|Access-Control-Allow-Headers|Access-Control-Max-Age|validate_csrf_token|X-CSRF-Token|compare_digest|require_authenticated_user' .\n\n# Find likely unguarded dangerous patterns: Origin-based access control, permissive CORS on private code, and state-changing handlers missing CSRF validation\nrg -n 'request\\.headers\\.get\\([\"'\"'\"']Origin[\"'\"'\"']|request\\.headers\\[\"Origin\"\\]|Access-Control-Allow-Origin[\"'\"'\"']?\\s*[:=]\\s*[\"'\"'\"']\\*[\"'\"'\"']|methods=\\[[^]]*(POST|PUT|PATCH|DELETE)[^]]*\\]' .\n\n# Build/test using generic Python tooling\npython -m compileall .\npython -m pytest -q\n```",
+            "type": "Built-in",
+            "ordinal": 436,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:42.610000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:42.610000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9539,
+            "id": "TA9539",
+            "title": "T257 - SKILL.md - Node.js",
+            "text": "---\nname: secure-cross-origin-resource-sharing\ndescription: Use when Node.js code misconfigures CORS, trusts Origin, reflects broad cross-origin access, or skips CSRF validation on state-changing requests.\n---\n# Secure cross origin resource sharing\n\n## What This Skill Does\nFixes CSRF-related risk caused by unsafe CORS behavior in Node.js applications. Apply it when code treats `Origin` as a trust signal, reflects arbitrary origins into `Access-Control-Allow-Origin`, allows credentialed cross-origin requests too broadly, or processes unsafe methods without CSRF validation. The fix enforces normal authentication, requires CSRF tokens for state-changing requests, emits CORS headers only for explicitly shareable resources, and uses exact origin allowlists with method/header validation.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Request handlers use `req.headers.origin` to allow access, mark requests as trusted, or bypass auth | Remove `Origin`-based trust and enforce normal authentication/authorization |\n| Code sets `Access-Control-Allow-Origin` from request input or combines `*` with credentials | Replace with exact allowlisted origin handling for credentialed CORS, or `*` only for truly public non-credentialed resources |\n| Unsafe methods like `POST`, `PUT`, `PATCH`, or `DELETE` execute without CSRF validation | Add CSRF token issuance and server-side validation before changing state |\n| CORS checks use substring, suffix, regex, or wildcard origin matching | Replace with exact string allowlist matching and reject malformed origins |\n| Endpoint is private and not meant for cross-origin sharing | Return no `Access-Control-Allow-*` headers; no action needed beyond normal auth if already secure |\n\n## Boundaries\n\n### Can Do\n- Add exact-origin CORS policy helpers for public and credentialed resources\n- Add CSRF token generation and validation for unsafe HTTP methods\n- Replace unsafe origin reflection and loose allowlist matching in Node.js handlers and middleware\n\n### Cannot Do\n- Decide business-specific trusted origins without an explicit allowlist from the project\n- Invent a full authentication system where none exists\n- Guarantee browser safety if the application intentionally exposes private data cross-origin by design\n\n## Gotchas\n- Reflecting `req.headers.origin` into `Access-Control-Allow-Origin`: this turns attacker-controlled input into policy and can enable credentialed cross-origin abuse\n- Using `Access-Control-Allow-Origin: *` with `Access-Control-Allow-Credentials: true`: browsers reject this combination and it signals a broken CORS design\n- Treating successful preflight or allowed `OPTIONS` as authorization: CORS negotiation is not proof the caller may perform the business action\n\n## Quick Verification\n```bash\n# Confirm secure guard/wrapper patterns exist\nrg -n \"validateCsrf|issueCsrfToken|originMatchesWhitelistExactly|buildCorsHeaders|enforceAuth|isCorsRequestAllowed\" .\n\n# Find UNGUARDED dangerous patterns: origin trust, origin reflection, wildcard+credentials, and state-changing routes lacking CSRF guard nearby\nrg -n \"req\\.headers\\.origin|Access-Control-Allow-Origin['\\\"]?\\s*[:,=]\\s*(origin|req\\.headers\\.origin)|Access-Control-Allow-Credentials['\\\"]?\\s*[:,=]\\s*['\\\"]true['\\\"]|app\\.(post|put|patch|delete)\\(\" .\n\n# Build + test with generic Node.js toolchain commands\nnpm test\nnpm run build\n```",
+            "type": "Built-in",
+            "ordinal": 460,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:43.253000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:43.253000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9600,
+            "id": "TA9600",
+            "title": "T257 - SKILL.md - C#",
+            "text": "---\nname: secure-cross-origin-resource-sharing\ndescription: \"Harden C# CORS handling and CSRF enforcement for cross-origin requests. Use when code reflects Origin, emits broad Access-Control-Allow-* headers, or skips auth/CSRF on protected endpoints.\"\n---\n\n# Secure cross origin resource sharing\n\n## What This Skill Does\nThis skill fixes unsafe C# CORS handling that can expose protected resources cross-origin or weaken CSRF defenses. It separates CORS policy from authorization, requires normal authentication and authorization on all protected non-`OPTIONS` requests, enforces per-session CSRF tokens for authenticated state-changing actions, returns CORS headers only for explicitly shareable resources, matches allowed origins exactly, validates requested methods and headers before responding, and fails closed on missing, malformed, or inconsistent `Origin` input.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Code reflects `Origin` into `Access-Control-Allow-Origin` or returns permissive `Access-Control-Allow-*` headers broadly | Apply explicit CORS policy evaluation with exact allowlisted origins, methods, and headers |\n| Protected endpoint accepts cookie-authenticated state-changing requests without CSRF validation | Add session-bound CSRF token issuance and exact validation for non-`OPTIONS` protected requests |\n| Resource is private or not intended for cross-origin sharing | Return no `Access-Control-Allow-*` headers |\n| Credentialed cross-origin access is required | Return `Access-Control-Allow-Credentials: true` only with a specific approved origin, never `*` |\n| Code already uses exact origin allowlists, bounded CORS headers, authz, and CSRF checks | No action needed |\n\n## Boundaries\n\n### Can Do\n- Replace origin reflection and partial origin matching with exact allowlist comparison\n- Restrict CORS headers to explicitly shareable resources and validate requested methods and headers\n- Add or strengthen CSRF token generation and fixed-time validation for authenticated state-changing requests\n\n### Cannot Do\n- Decide business-level authorization rules or which endpoints should be public versus protected without application context\n- Infer a trustworthy origin allowlist from deployment data that is not present in code or configuration\n- Guarantee browser-side safety if other protections are missing, such as insecure session cookies or broken authentication\n\n## Gotchas\n- Using `Contains`, `StartsWith`, or `EndsWith` for origin checks: this allows lookalike origins such as `https://trusted.example.com.attacker.tld`\n- Returning `Access-Control-Allow-Origin: *` with `Access-Control-Allow-Credentials: true`: browsers reject this and it signals an unsafe policy design\n- Treating CORS as authorization: CORS controls browser access to responses, but protected endpoints still need normal authz and CSRF enforcement\n\n## Quick Verification\n```bash\n# Confirm secure CORS/CSRF primitives exist\nrg -n 'CryptographicOperations\\.FixedTimeEquals|RandomNumberGenerator\\.GetBytes|Access-Control-Allow-Origin|Access-Control-Allow-Credentials|Uri\\.TryCreate|StringComparison\\.Ordinal' .\n\n# Find likely unguarded dangerous patterns that bypass the fix\nrg -n '\\[\"Access-Control-Allow-Origin\"\\]\\s*=\\s*(origin|originHeader|request\\.Origin)|Access-Control-Allow-Credentials\"\\]\\s*=\\s*\"true\"|Contains\\(.*origin|StartsWith\\(.*origin|EndsWith\\(.*origin|ProcessTransfer\\(.*\\)[\\s\\S]{0,300}SessionCookie' .\n\n# Build all discovered C# projects/solutions\nfind . \\( -name '*.sln' -o -name '*.csproj' \\) -print0 | xargs -0 -n1 dotnet build\n\n# Run tests for all discovered C# test projects/solutions\nfind . \\( -name '*.sln' -o -name '*Tests.csproj' -o -name '*.Tests.csproj' \\) -print0 | xargs -0 -n1 dotnet test\n```",
+            "type": "Built-in",
+            "ordinal": 529,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:45.565000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:45.566000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9693,
+            "id": "TA9693",
+            "title": "T257 - SKILL.md - Java",
+            "text": "---\nname: secure-cross-origin-resource-sharing\ndescription: Use when Java code handles CORS, Origin headers, or credentialed cross-origin requests that could bypass CSRF protections or expose private resources.\n---\n# Secure cross origin resource sharing (CORS)\n\n## What This Skill Does\nThis skill hardens Java code that processes cross-origin requests so CORS is not mistaken for authorization and does not weaken CSRF defenses. It separates preflight `OPTIONS` handling from business logic, requires normal authentication and authorization for private requests, adds CSRF validation for authenticated state-changing actions, avoids sending CORS headers on private non-shareable resources, and only allows cross-origin sharing through exact origin, method, and header whitelists.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Code uses `Origin` or CORS approval to decide whether a protected action may run | Apply this fix |\n| Code handles credentialed `POST`, `PUT`, `PATCH`, or `DELETE` without CSRF validation | Add unpredictable CSRF tokens and constant-time comparison with `MessageDigest.isEqual` |\n| Code returns `Access-Control-Allow-Origin` for private resources not meant for sharing | Remove CORS headers from those responses |\n| Code allows cross-origin sharing with partial, prefix, suffix, or substring origin matching | Replace with exact full-origin whitelist matching plus method/header validation |\n| Code already requires auth, separates `OPTIONS`, enforces CSRF, and uses exact whitelists | No action needed |\n\n## Boundaries\n\n### Can Do\n- Refactor Java request handling so preflight `OPTIONS` does not execute protected business logic\n- Add CSRF token generation and constant-time validation for authenticated state-changing requests\n- Replace permissive CORS logic with exact origin, method, and header allowlists\n\n### Cannot Do\n- Prove browser-level behavior without running the application and sending real HTTP requests\n- Infer the correct trusted-origin list, allowed methods, or allowed headers without project-specific requirements\n- Fix unrelated auth flaws such as broken session management, missing authorization rules, or token leakage\n\n## Gotchas\n- Treating `Origin` as authorization: CORS approval is not access control, so protected actions still need normal auth and authorization\n- Using `Access-Control-Allow-Origin: *` with credentials: browsers forbid this combination and it weakens policy intent\n- Using `startsWith`, `endsWith`, `contains`, or regex shortcuts for origins: these allow lookalike origins such as `https://trusted.example.attacker.com`\n\n## Quick Verification\n```bash\n# Confirm secure building blocks exist\nrg -n 'MessageDigest\\.isEqual|Access-Control-Allow-Origin|Access-Control-Allow-Credentials|Access-Control-Allow-Methods|Access-Control-Allow-Headers|Access-Control-Max-Age|Vary' .\nrg -n 'ALLOWED_ORIGINS\\.contains\\(|trustedOrigins\\(\\)\\.contains\\(|Set\\.of\\(\"https://|normalizeMethod\\(|normalizeHeaders\\(' .\n\n# Find likely unguarded or dangerous patterns that bypass the fix\nrg -n 'startsWith\\(.*Origin|endsWith\\(.*Origin|contains\\(.*Origin|Access-Control-Allow-Origin\\s*\".*\\*\"|setHeader\\(\"Access-Control-Allow-Origin\",\\s*\"\\*\"\\)|addHeader\\(\"Access-Control-Allow-Origin\",\\s*\"\\*\"\\)' .\nrg -n 'Origin.*(authorize|auth|allow)|processTransfer\\(.*origin|request\\.getHeader\\(\"Origin\"\\).*if|POST|PUT|PATCH|DELETE' .\nrg -n 'POST|PUT|PATCH|DELETE' . | rg -v 'MessageDigest\\.isEqual|csrf|X-CSRF-Token|Csrf'\n\n# Build + test with the detected Java toolchain\ntest -f pom.xml && mvn test\ntest -f build.gradle -o -f build.gradle.kts && ./gradlew test\nfind . -name \"*.java\" | head -n 1 | xargs -r dirname | xargs -I{} javac $(find . -name \"*.java\")\n```",
+            "type": "Built-in",
+            "ordinal": 630,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:49.333000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:49.333000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9769,
+            "id": "TA9769",
+            "title": "T257 - SKILL.md - TypeScript",
+            "text": "---\nname: secure-cross-origin-resource-sharing\ndescription: Use when TypeScript code sets CORS headers, checks Origin, or handles authenticated cross-origin requests that could bypass auth or CSRF protections.\n---\n# Secure cross origin resource sharing\n\n## What This Skill Does\nThis skill fixes unsafe CORS patterns that can enable CSRF or cross-origin abuse in TypeScript services. It ensures protected requests are authorized regardless of `Origin`, requires CSRF validation for authenticated state-changing requests, allows CORS only on explicitly shareable routes using exact origin matching, omits CORS headers from private routes, and limits wildcard CORS to truly public resources without credentials.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Code uses `req.headers.origin`, `request.headers.origin`, or `Origin` as an access-control signal | Apply normal authentication and authorization to every non-public non-`OPTIONS` request; do not trust `Origin` for access control |\n| Code reflects the request origin into `Access-Control-Allow-Origin` or combines dynamic origin with `Access-Control-Allow-Credentials: true` | Replace with exact origin whitelist validation using parsed normalized origins and only emit CORS headers for approved shareable routes |\n| Authenticated `POST`, `PUT`, `PATCH`, or `DELETE` requests do not validate a server-bound CSRF token | Add CSRF validation before protected business logic and reject missing or invalid tokens with a generic failure |\n| Private or non-shareable routes send any `Access-Control-Allow-*` headers | Remove CORS headers from those routes and deny cross-origin use by default |\n| Route is truly public and does not require credentials | Use `Access-Control-Allow-Origin: *` with finite `Access-Control-Max-Age`, and never send `Access-Control-Allow-Credentials: true` |\n\n## Boundaries\n\n### Can Do\n- Add exact-origin CORS checks for explicitly shareable routes\n- Add auth and CSRF guards before protected TypeScript request handlers run\n- Remove unsafe CORS header reflection and separate public, private, and shareable route behavior\n\n### Cannot Do\n- Infer the correct trusted origin list, public route list, or shareable route list without application context\n- Design a full authentication or session system if the project has none\n- Guarantee browser-side safety if downstream proxies or gateways rewrite CORS headers after the app responds\n\n## Gotchas\n- Using `endsWith`, `includes`, regex fragments, or suffix checks for origins: this accepts attacker origins like `https://trusted.example.attacker.com`\n- Sending `Access-Control-Allow-Origin: *` with `Access-Control-Allow-Credentials: true`: browsers reject this combination and it signals a broken credentialed CORS design\n- Protecting only `POST` while leaving state-changing `GET` routes in place: unsafe actions must not remain reachable through unprotected methods\n\n## Quick Verification\n```bash\n# Confirm secure CORS/auth/CSRF helpers or checks exist\nrg -n \"Access-Control-Allow-Origin|Access-Control-Allow-Credentials|timingSafeEqual|x-csrf-token|access-control-request-method|new URL\\(|publicPaths|shareablePaths|allowedOrigins\" .\n\n# Find likely unguarded dangerous patterns that bypass the fix\nrg -n \"res\\.(set|header)\\(\\s*['\\\"]Access-Control-Allow-Origin['\\\"],\\s*(req|request)\\.headers\\.origin|['\\\"]Access-Control-Allow-Credentials['\\\"]\\s*,\\s*['\\\"]true['\\\"]|\\.has\\(.*origin.*\\)|includes\\(.*origin.*\\)|endsWith\\(.*origin.*\\)|startsWith\\(.*origin.*\\)|app\\.(post|put|patch|delete|get)\\(.*(transfer|change|update|delete)\" .\n\n# TypeScript build + tests\nnpx tsc --noEmit && npm test\n```",
+            "type": "Built-in",
+            "ordinal": 715,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:52.261000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:52.261000-04:00",
+            "active": true
+          }
+        ]
+      }
+    },
+    {
+      "reference_id": "T1172",
+      "http_status_code": 200,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "results": [
+          {
+            "db_id": 3322,
+            "id": "TA3322",
+            "title": "ASD-STIG requirements",
+            "text": "## V-222626 [medium]:\n__The designer must ensure the application does not store configuration and control files in the same directory as user data.__\n\nApplication configuration settings and user data are required to be stored in separate locations in order to prevent application users from possibly being able to access application configuration settings or application data files. Without proper access controls and separation of application configuration settings from user data, there is the potential that existing code or configuration settings could be changed by users. These changes in code can lead to a Denial of Service (DoS) attack or allow malicious code to be placed within the application. In addition, collocating application data and code complicates many issues such as backup, recovery, directory access privilege, and upgrades.\n\n",
+            "type": "Built-in",
+            "ordinal": 0,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2020-11-16T13:44:25.109000-05:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2022-06-02T10:13:08.693000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 1460,
+            "id": "TA1460",
+            "title": "FedRAMP / Moderate Baseline",
+            "text": "*** CM-5 (5): Configuration Management | Access Restrictions For Change | Limit Production /\nOperational Privileges ***  \nThe organization:\n\n(a)   Limits privileges to change information system components and system-related information within a production or operational environment; and  \n(b)   Reviews and reevaluates privileges [at least quarterly].",
+            "type": "Built-in",
+            "ordinal": 11,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-15T17:48:48.352000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T15:07:59.719000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 2430,
+            "id": "TA2430",
+            "title": "FedRAMP / High Baseline",
+            "text": "*** CM-5 (5): Configuration Management | Access Restrictions For Change | Limit Production /Operational Privileges ***  \nThe organization:  \n (a)   Limits privileges to change information system components and system-related information within a production or operational environment; and  \n (b)   Reviews and reevaluates privileges [at least quarterly].",
+            "type": "Built-in",
+            "ordinal": 12,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-17T18:33:53.036000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T18:38:08.613000-04:00",
+            "active": true
+          }
+        ]
+      }
+    },
+    {
+      "reference_id": "T1188",
+      "http_status_code": 200,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "results": [
+          {
+            "db_id": 956,
+            "id": "TA956",
+            "title": "More in-depth controls",
+            "text": "Verify SELinux security options, if applicable:\n\n- SELinux is an effective and easy-to-use Linux application security system. It is available on quite a few Linux distributions by default such as Red Hat and Fedora.\n- The container (process) would have set of restrictions as defined in SELinux policy. If your SELinux policy is mis-configured, then the container may not entirely work as expected.",
+            "type": "Built-in",
+            "ordinal": 0,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2018-07-18T12:24:55.015000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2018-12-31T18:47:16.779000-05:00",
+            "active": true
+          },
+          {
+            "db_id": 3326,
+            "id": "TA3326",
+            "title": "ASD-STIG requirements",
+            "text": "## V-222393 [medium]:\n__The application must associate organization-defined types of security attributes having organization-defined security attribute values with information in storage.__\n\nWithout the association of security attributes to information, there is no basis for the application to make security related access-control decisions.\n\nSecurity attributes are abstractions representing the basic properties or characteristics of an entity (e.g., subjects and objects) with respect to safeguarding information.\n\nThese attributes are typically associated with internal data structures (e.g., records, buffers, files) within the information system and are used to enable the implementation of access control and flow control policies, reflect special dissemination, handling or distribution instructions, or support other aspects of the information security policy.\n\nOne example includes marking data as classified or FOUO. These security attributes may be assigned manually or during data processing but either way, it is imperative these assignments are maintained while the data is in storage. If the security attributes are lost when the data is stored, there is the risk of a data compromise.\n\nClassify the system hosting the application with default classification.  Treat all unmarked data at the highest classification as the overall hosting system is classified.  If there is no classification, mark system high.\n\n",
+            "type": "Built-in",
+            "ordinal": 0,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2020-11-16T13:44:30.094000-05:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2022-06-02T10:13:08.718000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 1496,
+            "id": "TA1496",
+            "title": "FedRAMP / Moderate Baseline",
+            "text": "*** CM-6 (1): Configuration Management | Configuration Settings | Automated Central Management / Application / Verification ***  \nThe organization employs automated mechanisms to centrally manage, apply, and verify configuration settings for [Assignment: organization-defined information system components].",
+            "type": "Built-in",
+            "ordinal": 11,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-15T17:48:49.813000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T15:08:00.264000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 2465,
+            "id": "TA2465",
+            "title": "FedRAMP / High Baseline",
+            "text": "*** CM-6 (1): Configuration Management | Configuration Settings | Automated Central Management / Application / Verification ***  \nThe organization employs automated mechanisms to centrally manage, apply, and verify configuration settings for [Assignment: organization-defined information system components].",
+            "type": "Built-in",
+            "ordinal": 12,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-17T18:33:54.576000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T18:38:09.265000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 8458,
+            "id": "TA8458",
+            "title": "T1188 - SKILL.md - Docker",
+            "text": "---\nname: configure-linux-security-modules-docker\ndescription: Configure AppArmor-aware Python/Flask containers so they detect unconfined Docker execution and keep filesystem access within a constrained data root; use when fixing misconfigured or disabled Linux Security Modules in Dockerized apps.\n---\n\n# Configure Linux Security Modules (Docker)\n\n## What This Skill Does\nThis skill helps Dockerized Python/Flask services avoid running without expected Linux Security Module (LSM) confinement (AppArmor) and keeps their filesystem access predictable. It adds runtime checks that fail fast if AppArmor is disabled or the profile is unexpected, constrains file I/O to a single data root suitable for AppArmor profiles, and provides a protected diagnostic endpoint to inspect confinement safely.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Docker run/compose uses `--security-opt apparmor=unconfined` or no clear profile is required | Document required AppArmor profile and add startup check that rejects `unconfined` in production |\n| App code reads/writes arbitrary paths (e.g., `/tmp`, `/etc`, user-supplied paths) | Introduce a single configurable `APP_DATA_ROOT` and enforce all file I/O to stay under that directory |\n| App needs to know whether it is actually confined (for ops/debug) | Add a read-only diagnostic endpoint exposing AppArmor profile, env, and data root, protected by a secret header token |\n| Environment differences (dev vs prod) make strict checks painful | Gate strict AppArmor enforcement on `APP_ENV=production` and allow relaxed behavior elsewhere via env vars |\n| Code already validates AppArmor profile and constrains file I/O to a data root | No action needed; only consider adding a protected diagnostic endpoint if visibility is missing |\n\n## Boundaries\n\n### Can Do\n- Add or modify Python/Flask startup code to:\n  - Read `/proc/self/attr/current`\n  - Fail fast in production when profile is `unconfined` or missing\n  - Optionally enforce an expected profile prefix via env var\n- Introduce filesystem helpers that:\n  - Resolve a single `APP_DATA_ROOT`\n  - Normalize and validate requested paths\n  - Reject directory traversal or access outside the allowed subtree\n- Implement a low-privilege, token-protected diagnostic endpoint that:\n  - Reports current AppArmor profile, data root, and environment\n  - Does not allow runtime configuration changes\n\n### Cannot Do\n- Configure AppArmor itself from inside the Dockerfile or app (profile loading and attachment must be done by the orchestrator/host)\n- Guarantee that AppArmor is enabled on the host or that specific profiles exist (can only detect and react at runtime)\n- Replace a full security review of Docker flags (e.g., `--privileged`, extra capabilities); this skill focuses on LSM/AppArmor awareness and filesystem patterns\n\n## Gotchas\n- Treating dev like prod: Enforcing strict AppArmor checks unconditionally can break local/dev environments that lack AppArmor; always gate strict behavior on `APP_ENV=production`.\n- Assuming `/proc/self/attr/current` always exists: On some platforms or when AppArmor is unavailable, this file may be missing or unreadable; code must handle `None` and only fail hard in production.\n- Incomplete path validation: Checking for `\"../\"` substrings or using string prefix checks alone is unsafe; always use `Path.resolve()` and compare against the resolved `APP_DATA_ROOT` and its parents.\n\n## Quick Verification\n```bash\n# 1) Build the mitigated Flask image\ndocker build -t secure-app:latest .\n\n# 2) Run with AppArmor disabled (should FAIL in production)\ndocker run --rm \\\n  -e APP_ENV=production \\\n  --security-opt apparmor=unconfined \\\n  secure-app:latest\n\n# 3) Run with an AppArmor profile (example: docker-default) (should START)\ndocker run -d --rm \\\n  -p 8080:8080 \\\n  -e APP_ENV=production \\\n  --security-opt apparmor=docker-default \\\n  secure-app:latest\n\n# 4) Test path confinement (attempt traversal should FAIL)\ncurl -i \"http://localhost:8080/data?name=../../etc/passwd\" -d 'test'\n\n# 5) Call diagnostic endpoint with and without token\ncurl -i http://localhost:8080/internal/apparmor_status           # expect 403\ncurl -i -H \"X-Internal-Token: dev-token-override-me\" \\\n  http://localhost:8080/internal/apparmor_status                 # expect JSON with profile/env/root\n```",
+            "type": "Built-in",
+            "ordinal": 236,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-05-21T11:39:49.005000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:36.049000-04:00",
+            "active": true
+          }
+        ]
+      }
+    },
+    {
+      "reference_id": "T2665",
+      "http_status_code": 200,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "results": []
+      }
+    },
+    {
+      "reference_id": "T4601",
+      "http_status_code": 200,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "results": []
+      }
+    },
+    {
+      "reference_id": "T1214",
+      "http_status_code": 200,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "results": [
+          {
+            "db_id": 3328,
+            "id": "TA3328",
+            "title": "ASD-STIG requirements",
+            "text": "## V-222574 [medium]:\n__The application user interface must be either physically or logically separated from data storage and management interfaces.__\n\nApplication management functionality includes functions necessary for administration and requires privileged user access. Allowing non-privileged users to access application management functionality capabilities increases the risk that non-privileged users may obtain elevated privileges.\n\nThe separation of user functionality from information system management functionality is either physical or logical and is accomplished by using different computers, different central processing units, different instances of the operating system, different network addresses, different TCP/UDP ports, virtualization techniques, combinations of these methods, or other methods, as appropriate.\n\nAn example of this type of separation is observed in web administrative interfaces that use separate authentication methods for users of any other information system resources. This may include isolating the administrative interface on a different security domain and with additional access controls.\n\n",
+            "type": "Built-in",
+            "ordinal": 0,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2020-11-16T13:44:32.558000-05:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2022-06-02T10:13:08.731000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 1286,
+            "id": "TA1286",
+            "title": "FedRAMP / Moderate Baseline",
+            "text": "*** AC-6: Access Control | Least Privilege ***  \nThe organization employs the principle of least privilege, allowing only authorized accesses for users (or processes acting on behalf of users) which are necessary to accomplish assigned tasks in accordance with organizational missions and business functions.",
+            "type": "Built-in",
+            "ordinal": 11,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-15T17:48:41.958000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T15:07:57.121000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 2288,
+            "id": "TA2288",
+            "title": "FedRAMP / High Baseline",
+            "text": "*** AC-6: Access Control | Least Privilege ***  \nThe organization employs the principle of least privilege, allowing only authorized accesses for users (or processes acting on behalf of users) which are necessary to accomplish assigned tasks in accordance with organizational missions and business functions.",
+            "type": "Built-in",
+            "ordinal": 12,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-17T18:26:39.279000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T18:38:06.372000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 8449,
+            "id": "TA8449",
+            "title": "T1214 - SKILL.md - Docker",
+            "text": "---\nname: restrict-containers-from-acquiring-additional-privileges-docker\ndescription: Use when Docker Compose or similar container service definitions allow missing or inconsistent no-new-privileges protection and need explicit service-level restriction.\n---\n\n# Restrict containers from acquiring additional privileges (Docker)\n\n## What This Skill Does\nThis skill fixes Docker and Docker Compose service configurations that allow containers to gain additional privileges at runtime. It does this by adding an explicit service-level `security_opt` entry with `no-new-privileges:true` to every in-scope service, so processes inside the container cannot elevate privileges through setuid, setgid, or similar paths. It also flags obviously risky settings like `privileged: true` or broad capability grants that weaken the intended container boundary.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| A Docker Compose service lacks `security_opt` or does not include `no-new-privileges:true` | Apply the fix by adding `security_opt: [no-new-privileges:true]` at that service |\n| A project has multiple services and only some define `no-new-privileges:true` | Add the setting explicitly to each in-scope service; do not rely on another service's config |\n| A service uses `privileged: true` or `cap_add: [ALL]` | Add `no-new-privileges:true` and reduce privileges where safe, such as removing `privileged` or replacing broad adds with `cap_drop` |\n| The service already defines `security_opt` with exact `no-new-privileges:true` | No action needed |\n| The configuration is not a Docker service definition | Do not apply this skill; use a platform-specific hardening approach instead |\n\n## Boundaries\n\n### Can Do\n- Add explicit `security_opt` entries with `no-new-privileges:true` to Docker Compose services\n- Update each in-scope service individually so the restriction is not only implied elsewhere\n- Point out nearby privilege risks such as `privileged: true` and excessive capability grants\n\n### Cannot Do\n- Guarantee the application will still work if it depended on privilege escalation behavior\n- Prove runtime enforcement without checking the effective rendered or running container configuration\n- Secure non-Docker platforms such as Kubernetes, Podman, or raw host service managers with Docker-specific syntax\n\n## Gotchas\n- Adding the setting only to one service: each in-scope service must declare it explicitly or it may remain unprotected\n- Using an inexact value or wrong key: the restriction must be `security_opt` with exact `no-new-privileges:true` or the runtime may not preserve it\n- Leaving `privileged: true` in place and assuming this fix is enough: `no-new-privileges` helps, but broad privilege settings still expand attack impact\n\n## Quick Verification\n```bash\n# Render the effective Compose configuration and confirm each service includes no-new-privileges:true\ndocker compose config\n\n# Inspect a running container and check the security options applied\ndocker inspect <container_name_or_id> --format '{{json .HostConfig.SecurityOpt}}'\n\n# List containers started by Compose, then inspect the target service container\ndocker compose ps\n```",
+            "type": "Built-in",
+            "ordinal": 267,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-05-21T11:39:48.297000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:36.818000-04:00",
+            "active": true
+          }
+        ]
+      }
+    },
+    {
+      "reference_id": "T1186",
+      "http_status_code": 200,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "results": [
+          {
+            "db_id": 1590,
+            "id": "TA1590",
+            "title": "FedRAMP / Moderate Baseline",
+            "text": "*** IA-5 (6): Identification And Authentication | Authenticator Management | Protection Of Authenticators ***  \nThe organization protects authenticators commensurate with the security category of the information to which use of the authenticator permits access.",
+            "type": "Built-in",
+            "ordinal": 11,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-15T17:48:54.835000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T15:08:02.271000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 2543,
+            "id": "TA2543",
+            "title": "FedRAMP / High Baseline",
+            "text": "*** IA-5 (6): Identification And Authentication | Authenticator Management | Protection Of Authenticators ***  \nThe organization protects authenticators commensurate with the security category of the information to which use of the authenticator permits access.",
+            "type": "Built-in",
+            "ordinal": 12,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-17T18:34:00.483000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T18:38:11.010000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 8441,
+            "id": "TA8441",
+            "title": "T1186 - SKILL.md - Docker",
+            "text": "---\nname: do-not-store-secrets-in-dockerfiles\ndescription: Use when Dockerfiles or Docker build-generation code hardcode secrets in ARG, ENV, LABEL, RUN, or inline shell commands; removes embedded secrets, moves runtime secrets to container startup, and uses transient build secrets for required build-time access.\n---\n\n# Do not store secrets in Dockerfiles\n\n## What This Skill Does\nThis skill removes hardcoded secrets from Dockerfiles and Docker build-generation code so credentials do not end up in image layers, metadata, build history, or generated build content. Apply it when secrets appear in `ARG`, `ENV`, `LABEL`, `RUN`, inline shell fragments, or generated Docker build commands. Fixes include rejecting embedded secret values, requiring application secrets at runtime with fail-closed behavior, and using Docker BuildKit secret mounts for build steps that truly need secret access.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Dockerfile contains secret-like values in `ARG`, `ENV`, `LABEL`, `RUN`, or inline shell commands | Remove the secret from the Dockerfile and reject secret-bearing build content |\n| Application or script generates Dockerfiles or `docker build` commands with secret values | Centralize validation and block writing or executing secret-bearing content |\n| Container needs application secrets such as DB passwords or API keys | Load them at runtime from external input and fail closed if missing, empty, or placeholder |\n| Build step needs a secret to fetch dependencies or access a private resource | Replace `ARG`/`ENV` usage with a BuildKit `RUN --mount=type=secret,...` pattern and avoid persisting the secret |\n| Dockerfile already avoids embedded secrets and uses runtime/env or build secrets safely | No action needed |\n\n## Boundaries\n\n### Can Do\n- Remove hardcoded secrets from Dockerfile instructions and generated build content\n- Convert build-time secret handling from `ARG`/`ENV` to transient BuildKit secret mounts\n- Enforce runtime secret loading that fails when required values are missing or empty\n\n### Cannot Do\n- Provision or manage the external secret source used at runtime\n- Guarantee downstream application code will not log or persist secrets after startup\n- Recover or rotate secrets that were already exposed in image history, registries, or prior builds\n\n## Gotchas\n- Leaving secrets in `ARG` because they are \"build-only\": `ARG` values can still leak through build history and generated build configuration\n- Using runtime fallbacks like `DB_PASSWORD=${DB_PASSWORD:-devsecret}`: fallback secrets reintroduce hardcoded credentials and must be rejected\n- Using BuildKit secrets but writing them to files or exported artifacts: this defeats the transient secret mechanism and can persist the secret in layers\n\n## Quick Verification\n```bash\n# Find likely secret-bearing Dockerfile instructions\ngrep -RniE '^(ARG|ENV|LABEL|RUN).*?(secret|token|password|passwd|api[_-]?key|access[_-]?key)' .\n\n# Build should not require hardcoded secrets in the Dockerfile\ndocker build -t test-image .\n\n# Runtime should fail closed when required secret is missing or empty\ndocker run --rm test-image || true\ndocker run --rm -e DB_PASSWORD='' test-image || true\n\n# Runtime should start only when the secret is provided externally\ndocker run --rm -e DB_PASSWORD='example-runtime-value' test-image\n\n# If build-time secret is required, verify BuildKit secret usage\nDOCKER_BUILDKIT=1 docker build --secret id=pip_token,src=./pip_token.txt -t test-image .\n\n# Check image history for obvious secret leakage\ndocker history --no-trunc test-image\n```",
+            "type": "Built-in",
+            "ordinal": 231,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-05-21T11:39:47.713000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:35.955000-04:00",
+            "active": true
+          }
+        ]
+      }
+    },
+    {
+      "reference_id": "T7412",
+      "http_status_code": 200,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "results": []
+      }
+    },
+    {
+      "reference_id": "T1204",
+      "http_status_code": 200,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "results": [
+          {
+            "db_id": 2196,
+            "id": "TA2196",
+            "title": "FedRAMP / Low Baseline",
+            "text": "*** SI-3: System And Information Integrity | Malicious Code Protection ***  \nThe organization:\n\na. Employs malicious code protection mechanisms at information system entry and exit points to detect and eradicate malicious code;  \nb. Updates malicious code protection mechanisms whenever new releases are available in accordance with organizational configuration management policy and procedures;  \nc. Configures malicious code protection mechanisms to:  \n   1. Perform periodic scans of the information system [at least weekly] and real-time scans of files from external sources [to include endpoints] as the files are downloaded, opened, or executed in accordance with organizational security policy; and  \n   2. [Include alerting administrator or defined security personnel] in response to malicious code detection; and  \nd. Addresses the receipt of false positives during malicious code detection and eradication and the resulting potential impact on the availability of the information system.",
+            "type": "Built-in",
+            "ordinal": 10,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-17T16:28:57.186000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T16:44:57.474000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 1285,
+            "id": "TA1285",
+            "title": "FedRAMP / Moderate Baseline",
+            "text": "*** AC-6: Access Control | Least Privilege ***  \nThe organization employs the principle of least privilege, allowing only authorized accesses for users (or processes acting on behalf of users) which are necessary to accomplish assigned tasks in accordance with organizational missions and business functions.\n\n*** SI-3: System And Information Integrity | Malicious Code Protection ***  \nThe organization:\n\na. Employs malicious code protection mechanisms at information system entry and exit points to detect and eradicate malicious code;\n\nb. Updates malicious code protection mechanisms whenever new releases are available in accordance with organizational configuration management policy and procedures;\n\nc. Configures malicious code protection mechanisms to:\n\n1. Perform periodic scans of the information system [at least weekly] and real-time scans of files from external sources [to include endpoints] as the files are downloaded, opened, or executed in accordance with organizational security policy; and\n2. [Include alerting administrator or defined security personnel] in response to malicious code detection; and\n\nd. Addresses the receipt of false positives during malicious code detection and eradication and the resulting potential impact on the availability of the information system.",
+            "type": "Built-in",
+            "ordinal": 11,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-15T17:48:41.932000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T15:08:07.215000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 2287,
+            "id": "TA2287",
+            "title": "FedRAMP / High Baseline",
+            "text": "*** AC-6: Access Control | Least Privilege ***  \nThe organization employs the principle of least privilege, allowing only authorized accesses for users (or processes acting on behalf of users) which are necessary to accomplish assigned tasks in accordance with organizational missions and business functions.\n\n*** SI-3: System And Information Integrity | Malicious Code Protection ***  \nThe organization:  \n a. Employs malicious code protection mechanisms at information system entry and exit points to detect and eradicate malicious code;  \n b. Updates malicious code protection mechanisms whenever new releases are available in accordance with organizational configuration management policy and procedures;  \n c. Configures malicious code protection mechanisms to:  \n   1. Perform periodic scans of the information system [at least weekly] and real-time scans of files from external sources [to include endpoints] as the files are downloaded, opened, or executed in accordance with organizational security policy; and  \n   2. [Include blocking and quarantining malicious code and alerting administrator or defined security personnel near-realtime] in response to malicious code detection; and  \n d. Addresses the receipt of false positives during malicious code detection and eradication and the resulting potential impact on the availability of the information system.",
+            "type": "Built-in",
+            "ordinal": 12,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-17T18:26:39.247000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T18:38:15.718000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 8453,
+            "id": "TA8453",
+            "title": "T1204 - SKILL.md - Docker",
+            "text": "---\nname: mount-container-root-filesystem-read-only-docker\ndescription: Use when Docker Compose services leave the container root filesystem writable; applies read_only and scopes writes to explicit tmpfs or narrow volumes.\n---\n\n# Mount container's root file system as read-only (Docker)\n\n## What This Skill Does\nThis skill hardens Docker Compose services against P1091 by making the container root filesystem read-only and allowing writes only through explicitly approved paths. It applies `read_only: true` at the service level, then adds narrowly scoped `tmpfs` mounts for temporary runtime files or dedicated volumes for required persistent data so the application cannot write broadly across the image-backed filesystem.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| A Compose service has no `read_only: true` and does not need general filesystem writes | Add `read_only: true` to the service |\n| The application needs temporary writes for `/tmp`, PID files, or cache directories | Keep `read_only: true` and add narrow `tmpfs` mounts only for those paths |\n| The application needs persistent writes | Keep `read_only: true` and add a dedicated volume only for the exact data path that must be writable |\n| A volume mounts a broad application path such as `/app` only to make writes work | Replace it with a narrower writable path such as `/app/data` and reconfigure the app to write there |\n| The service already uses `read_only: true` and writes only to approved mounts | No action needed |\n\n## Boundaries\n\n### Can Do\n- Add `read_only: true` to Docker Compose services\n- Add scoped `tmpfs` mounts for ephemeral writable paths like `/tmp`\n- Replace broad writable mounts with dedicated volumes for exact approved data paths\n\n### Cannot Do\n- Guarantee the application will work without identifying all runtime write paths first\n- Automatically rewrite application code or framework settings that still write to blocked locations\n- Secure Kubernetes, Docker CLI flags, or non-Compose container definitions unless they are explicitly in scope\n\n## Gotchas\n- Adding `read_only: true` without writable exceptions: the app may fail if it writes to `/tmp`, runtime directories, or cache locations\n- Mounting a broad writable path like `/app`: this weakens the control by letting the app modify more of its filesystem than necessary\n- Assuming logs should be written to local files: many containers should log to stdout/stderr instead of opening writable filesystem paths\n\n## Quick Verification\n```bash\n# Check that Compose services now declare read_only\ngrep -n \"read_only: true\" docker-compose.yml compose.yml 2>/dev/null\n\n# Start the service\ndocker compose up -d\n\n# Confirm writes to the root filesystem fail\ndocker compose exec app sh -lc 'echo test > /etc/test-file' || true\n\n# Confirm writes to the approved writable path succeed\ndocker compose exec app sh -lc 'echo test > /tmp/test-file && cat /tmp/test-file'\n\n# If using a dedicated data volume, verify that exact path remains writable\ndocker compose exec app sh -lc 'mkdir -p /app/data && echo test > /app/data/test-file && cat /app/data/test-file'\n```",
+            "type": "Built-in",
+            "ordinal": 262,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-05-21T11:39:48.620000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:36.630000-04:00",
+            "active": true
+          }
+        ]
+      }
+    },
+    {
+      "reference_id": "T2616",
+      "http_status_code": 200,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "results": []
+      }
+    },
+    {
+      "reference_id": "T4600",
+      "http_status_code": 200,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "results": []
+      }
+    },
+    {
+      "reference_id": "T2109",
+      "http_status_code": 200,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "results": []
+      }
+    },
+    {
+      "reference_id": "T2349",
+      "http_status_code": 200,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "results": [
+          {
+            "db_id": 10541,
+            "id": "TA10541",
+            "title": "NIST.SP.800-218A:PW.9.1 - Define secure-by-default AI settings",
+            "text": "- Define a secure baseline for AI software settings, including hardened least-privilege defaults for AI clients/agents, so the default configuration is secure.",
+            "type": "Built-in",
+            "ordinal": 20,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-08-07T12:55:58.242000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-08-07T12:55:58.242000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 10542,
+            "id": "TA10542",
+            "title": "NIST.SP.800-218A:PW.9.2 - Implement and document AI secure defaults",
+            "text": "- Implement the secure default AI settings and document each setting for administrators, including resiliency, transparency, and privacy design choices.",
+            "type": "Built-in",
+            "ordinal": 21,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-08-07T12:55:58.289000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-08-07T12:55:58.289000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 8367,
+            "id": "TA8367",
+            "title": "ISASecure ICSA 311 requirements: Levels (2, 4)",
+            "text": "***ISASecure ICSA 311:***\n\n- __FSA-ICSA-1__: Components when initially placed in operational state shall by default be set in a  configuration recommended in supplier security guidelines for secure operation.",
+            "type": "Built-in",
+            "ordinal": 50,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-04-29T09:09:50.558000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-04-29T09:09:50.558000-04:00",
+            "active": true
+          }
+        ]
+      }
+    },
+    {
+      "reference_id": "T1206",
+      "http_status_code": 200,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "results": [
+          {
+            "db_id": 2187,
+            "id": "TA2187",
+            "title": "FedRAMP / Low Baseline",
+            "text": "*** SI-2: System And Information Integrity | Flaw Remediation ***  \nThe organization:\na. Identifies, reports, and corrects information system flaws;\nb. Tests software and firmware updates related to flaw remediation for effectiveness and potential side effects before installation;\nc. Installs security-relevant software and firmware updates [within 30 days of release of updates]; and\nd. Incorporates flaw remediation into the organizational configuration management process.",
+            "type": "Built-in",
+            "ordinal": 10,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-17T16:28:56.835000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T16:44:57.384000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 1675,
+            "id": "TA1675",
+            "title": "FedRAMP / Moderate Baseline",
+            "text": "*** SC-6: System And Communications Protection | Resource Availability ***  \nThe information system protects the availability of resources by allocating [Assignment: organization-defined resources] by [Selection (one or more); priority; quota; [Assignment: organization-defined security safeguards]].\n\n*** SI-2: System And Information Integrity | Flaw Remediation ***  \nThe organization:\na. Identifies, reports, and corrects information system flaws;\n\nb. Tests software and firmware updates related to flaw remediation for effectiveness and potential side effects before installation;\n\nc. Installs security-relevant software and firmware updates [within 30 days of release of updates]; and\n\nd. Incorporates flaw remediation into the organizational configuration management process.",
+            "type": "Built-in",
+            "ordinal": 11,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-15T17:48:59.477000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T15:08:07.097000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 2622,
+            "id": "TA2622",
+            "title": "FedRAMP / High Baseline",
+            "text": "*** SC-6: System And Communications Protection | Resource Availability ***  \nThe information system protects the availability of resources by allocating [Assignment: organization-defined resources] by [Selection (one or more); priority; quota; [Assignment: organization-defined security safeguards]].\n\n*** SI-2: System And Information Integrity | Flaw Remediation ***  \nThe organization:\na. Identifies, reports, and corrects information system flaws;\nb. Tests software and firmware updates related to flaw remediation for effectiveness and potential side effects before installation;\nc. Installs security-relevant software and firmware updates [within thirty (30) days of release of updates]; and\nd. Incorporates flaw remediation into the organizational configuration management process.",
+            "type": "Built-in",
+            "ordinal": 12,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-17T18:34:06.795000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T18:38:15.590000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 8452,
+            "id": "TA8452",
+            "title": "T1206 - SKILL.md - Docker",
+            "text": "---\nname: docker-on-failure-restart-policy-5\ndescription: Use when Docker Compose services must enforce the exact restart value on-failure:5 and reject missing or non-compliant restart settings.\n---\n# Set the 'on-failure' container restart policy to 5 (Docker)\n\n## What This Skill Does\nThis skill fixes Docker Compose service configuration that omits `restart` or uses a non-compliant restart policy. It updates or validates Compose YAML so each intended service has the exact value `restart: on-failure:5`, while preserving other service settings and rejecting alternate modes, missing retry counts, malformed values, or retry limits other than `5`.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| A Docker Compose service is missing the `restart` field | Add `restart: on-failure:5` for the intended service |\n| A service uses `restart: always`, `unless-stopped`, `no`, or any value other than `on-failure:5` | Replace it with the exact value `on-failure:5` |\n| A service uses `restart: on-failure` without a retry count, or `on-failure:N` where `N != 5` | Reject or rewrite it to `on-failure:5`, depending on whether the code validates or generates config |\n| Code generates or rewrites Compose service definitions | Ensure it writes `restart: on-failure:5` exactly and preserves unrelated fields |\n| The service already has `restart: on-failure:5` | No action needed |\n\n## Boundaries\n\n### Can Do\n- Update Compose YAML service definitions to set `restart: on-failure:5`\n- Add validation that requires the `restart` field and exact value `on-failure:5`\n- Preserve other service keys while changing only the restart policy for intended services\n\n### Cannot Do\n- Decide which services are in scope if the application does not define that\n- Guarantee runtime behavior outside the Compose configuration itself\n- Fix Docker Swarm `deploy.restart_policy` settings, which are different from Compose `restart`\n\n## Gotchas\n- Using `on-failure` without `:5`: this is non-compliant because the retry limit is required\n- Accepting `on-failure:3` or any count other than `5`: this still fails the requirement\n- Editing `deploy.restart_policy` instead of service-level `restart`: this changes a different setting and may not fix the actual issue\n\n## Quick Verification\n```bash\n# Show restart values in a compose file\ngrep -n \"restart:\" docker-compose.yaml\n\n# Validate that only the exact required value is present for expected services\npython - <<'PY'\nimport sys, yaml\ndata = yaml.safe_load(open(\"docker-compose.yaml\"))\nservices = data.get(\"services\", {})\nbad = []\nfor name, svc in services.items():\n    if svc.get(\"restart\") != \"on-failure:5\":\n        bad.append((name, svc.get(\"restart\")))\nif bad:\n    print(\"Non-compliant services:\", bad)\n    sys.exit(1)\nprint(\"All services use restart: on-failure:5\")\nPY\n\n# Negative check examples: should find non-compliant values if present\ngrep -nE 'restart:\\s*(\"?always\"?|\"?unless-stopped\"?|\"?on-failure\"?|\"?on-failure:[^5]\"?)' docker-compose.yaml || true\n```",
+            "type": "Built-in",
+            "ordinal": 263,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-05-21T11:39:48.542000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:36.677000-04:00",
+            "active": true
+          }
+        ]
+      }
+    },
+    {
+      "reference_id": "T279",
+      "http_status_code": 200,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "results": [
+          {
+            "db_id": 274,
+            "id": "TA274",
+            "title": "Android - Dynamic class loading",
+            "text": "Where possible in Android applications, avoid loading dynamic classes from outside your application APK.",
+            "type": "Built-in",
+            "ordinal": 0,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2016-02-01T16:40:39.917000-05:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2025-05-02T13:36:10.365000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 3013,
+            "id": "TA3013",
+            "title": "ASD-STIG requirements",
+            "text": "## V-222665 [medium]:\n__The designer must ensure uncategorized or emerging mobile code is not used in applications.__\n\nBy definition, mobile code is software obtained from remote systems outside the enclave boundary, transferred across a network, and then downloaded and executed on a local system without explicit installation or execution by the recipient.  \n\nFor a complete list of mobile code categorizations, refer to the overview document included with this STIG.\nCategorized mobile code includes but is not limited to:\n\n- ActiveX\n- Windows Scripting Host when used as mobile code\n- Unix Shell Scripts when used as mobile code\n- DOS batch scripts when used as mobile code\n- Java applets and other Java mobile code\n- Visual Basic for Applications (VBA)\n- LotusScript\n- PerfectScript\n- Postscript\n- JavaScript (including Jscript and ECMAScript variants)\n- VBScript\n- Portable Document Format (PDF)\n- Shockwave/Flash\n- Rich Internet Applications\n\nThe following technologies are not currently designated as mobile code:\n\n- XML\n- SMIL\n- QuickTime\n- VRML (exclusive of any associated Java applets or JavaScript scripts)\n\nThe following are outside the scope of the mobile code requirements:\n\n- Scripts and applets embedded in or linked to web pages and executed in the context of the web server.  Examples of this are Java servlets, Java Server pages, CGI, Active Server Pages, CFML, PHP, SSI, server-side JavaScript, server-side LotusScript.\n- Local programs and command scripts \n- Distributed object-oriented programming systems (e.g., CORBA, DCOM).\n- Software patches, updates, including self-extracting updates - software updates that must be invoked explicitly by the user are outside the mobile code policy.  Examples of technologies in this area include: Netscape SmartUpdate, Microsoft Windows Update, Netscape web browser plug-ins and Linux.\n\nIf other types of mobile code technologies are present that are not listed here, a written waiver must be granted by the CIO (allowing use of emerging mobile code technology). Also uncategorized mobile code must be submitted for AO approval.\n\n",
+            "type": "Built-in",
+            "ordinal": 0,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2020-11-16T13:33:08.908000-05:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2022-06-02T10:13:07.113000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 1000,
+            "id": "TA1000",
+            "title": "PHP considerations for dynamic code and class loading",
+            "text": "Follow these guidelines:\n\n- Disable `enable_dl` in the default configuration file (php.ini): `enable_dl=0`\n- Disable `allow_url_fopen` in the php.ini file: `allow_url_fopen=0`\n- Disable `allow_url_include` in the php.ini file: `allow_url_include=0`",
+            "type": "Built-in",
+            "ordinal": 10,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-05-21T13:12:50.498000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-05-22T10:46:20.528000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 1385,
+            "id": "TA1385",
+            "title": "FedRAMP / Moderate Baseline",
+            "text": "*** AC-20: Access Control | Use Of External Information Systems ***  \nThe organization establishes terms and conditions, consistent with any trust relationships established with other organizations owning, operating, and/or maintaining external information systems, allowing authorized individuals to:\n\na. Access the information system from external information systems; and\n\nb. Process, store, or transmit organization-controlled information using external information systems.\n\n*** SI-7: System And Information Integrity | Software, Firmware, And Information\nIntegrity ***  \nThe organization employs integrity verification tools to detect unauthorized changes to [Assignment: organization-defined software, firmware, and information].",
+            "type": "Built-in",
+            "ordinal": 11,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-15T17:48:44.874000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T15:08:07.804000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 2363,
+            "id": "TA2363",
+            "title": "FedRAMP / High Baseline",
+            "text": "*** AC-20: Access Control | Use Of External Information Systems ***  \nThe organization establishes terms and conditions, consistent with any trust relationships established with other organizations owning, operating, and/or maintaining external information systems, allowing authorized individuals to:  \n a. Access the information system from external information systems; and  \n b. Process, store, or transmit organization-controlled information using external information systems.\n\n*** SI-7: System And Information Integrity | Software, Firmware, And Information Integrity ***  \nThe organization employs integrity verification tools to detect unauthorized changes to [Assignment: organization-defined software, firmware, and information].",
+            "type": "Built-in",
+            "ordinal": 12,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-17T18:26:43.423000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T18:38:16.364000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 10456,
+            "id": "TA10456",
+            "title": "Exclude unnecessary functionality from production environment (OWASP ASVS 5.0)",
+            "text": "Implement controls for the production environment only includes functionality that is required for the application to function, and does not expose extraneous functionality such as test code, sample snippets, and development functionality. Align implementation with the ASVS requirement: Verify that the production environment only includes functionality that is required for the application to function, and does not expose extraneous functionality such as test code, sample snippets, and development functionality.",
+            "type": "Built-in",
+            "ordinal": 118,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-08-06T11:23:46.024000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-08-06T11:23:46.024000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 8608,
+            "id": "TA8608",
+            "title": "T279 - SKILL.md - Node.js",
+            "text": "---\nname: avoid-dynamically-loading-any-code-without-proper-security-considerations\ndescription: Prevents insecure dynamic code/class loading that attackers can influence; use when code builds module names, paths, or code strings from runtime data and then loads/executes them\n---\n\n# Avoid dynamically loading any code without proper security considerations\n\n## What This Skill Does\nDetects and fixes insecure dynamic code or class loading where runtime data (often user-controlled) is used to select or construct code, module names, file paths, or URLs that are then imported, evaluated, or executed. Guides replacing generic dynamic loading (`eval`, dynamic `require`/`import`, runtime compilation) with allowlisted, path-validated, integrity-checked mechanisms, or static dispatch where possible.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Code uses `eval`, `Function`, `exec`, `importlib.import_module`, `require(userInput)`, or similar with data influenced by requests, CLI args, environment, or config | Replace with static dispatch tables or explicit registries mapping fixed identifiers to vetted functions/modules |\n| Application loads plugins/modules via user-controlled names or paths from filesystem (e.g., `plugins/<user>.py` or `.js`) | Introduce logical plugin identifiers, a hard allowlist, and a single trusted base directory with canonical path checks; reject unknown identifiers and any path escape |\n| Application downloads scripts/plugins/templates over HTTP/unencrypted channels and then executes or imports them | Split network fetching from execution; treat responses as data (e.g., JSON), enforce HTTPS/auth, and forbid using network responses as code |\n| Code must load updatable or external modules from disk or a controlled remote source | Add integrity verification (hash/signature) bound to a logical module ID and fixed path before loading; abort on any mismatch |\n| Central loader or framework already enforces allowlists, base-directory checks, and integrity verification for all dynamic loads | No action needed; ensure new code routes all dynamic loading through that central, audited loader |\n\n## Boundaries\n\n### Can Do\n- Identify dangerous dynamic loading patterns where attacker-controlled data reaches code-loading APIs (e.g., `require`, `importlib`, `eval`, dynamic `Class.forName`).\n- Propose and sketch secure replacements: static dispatch tables, allowlisted loaders, base-directory and path canonicalization, integrity verification, and environment-based disabling.\n- Help refactor to separate \u201cbehavior configuration as data\u201d from \u201cexecution of code,\u201d and to centralize dynamic loading policy in one component.\n\n### Cannot Do\n- Cannot compute or maintain real production cryptographic hashes or signatures for modules; humans must generate and manage those securely.\n- Cannot guarantee that all transitive libraries/frameworks avoid unsafe dynamic loading; only code visible in the current context can be analyzed.\n- Cannot decide business-level plugin or module policies (e.g., which plugins are allowed in which environments); requires human security/ops input.\n\n## Gotchas\n- Allowlisting only filenames but still accepting arbitrary directory paths: unsafe because attackers can redirect to other locations; always bind to a single trusted base directory and use canonicalized paths that must stay under it.\n- Verifying integrity by comparing timestamps, sizes, or weak checksums (like CRC32 or MD5): insufficient because they are easily spoofed; use strong hashes (e.g., SHA-256) or signatures tied to logical module identifiers.\n- Fetching code over HTTPS and assuming it is safe to execute: transport security does not imply trust in the source; treat network content as data, not code, and never pass it into eval, dynamic import, or runtime compilation.\n\n## Quick Verification\n```bash\n# 1. Search for obvious dynamic code loading hotspots\ngrep -R --line-number -E \"eval\\\\(|Function\\\\(|exec\\\\(|importlib\\\\.import_module\\\\(|require\\\\(\" .\n\n# 2. For Node.js example: run vulnerable and fixed versions and ensure only allowlisted plugin loads\nnode app_vulnerable_code.js safePlugin   # should work, but is insecure pattern\nnode app_fix_original_code.js safePlugin # should work via allowlisted, integrity-checked loader\nnode app_fix_original_code.js ../../evil # should fail with rejection/error\n\n# 3. For Python patterns: ensure tests fail when using non-allowlisted plugin names/paths\npytest -k \"plugin or dynamic_loader\"  # expect tests to confirm unknown IDs are rejected\n\n# 4. Optional: after modifying an external module, confirm integrity checks block loading\n# (update path/name as appropriate)\npython -c \"from external_loader import load_external_module; load_external_module('reporting')\"\n```",
+            "type": "Built-in",
+            "ordinal": 170,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-05-21T11:39:57.724000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-05-21T11:39:57.724000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9399,
+            "id": "TA9399",
+            "title": "T279 - SKILL.md - Java",
+            "text": "---\nname: avoid-dynamically-loading-any-code-without-proper-security-considerations\ndescription: \"Replace unsafe dynamic code or class loading with approved static resolution or strict validation and verification gates. Use when code accepts class names, module paths, archives, or remote locations that could lead to CWE-434 style code execution.\"\n---\n# Avoid dynamically loading any code without proper security considerations\n\n## What This Skill Does\nThis skill fixes insecure dynamic code or class loading by replacing reflective or runtime-selected loading with a static registry of approved implementations whenever possible. If dynamic loading must remain, it adds strict controls before any load step: reject unknown identifiers, restrict modules to a trusted local directory, reject insecure or remote sources, and verify integrity or signatures before class definition, reflection, or instantiation.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Code passes user-controlled class names into `Class.forName`, `loadClass`, reflection, or `URLClassLoader` | Replace with a static allowlist or registry keyed by fixed logical identifiers |\n| Code accepts plugin paths, jar paths, archive names, or directories from runtime input | Normalize the path, require containment inside an application-controlled base directory, and reject anything outside it |\n| Code loads modules from `http`, scheme-less, ambiguous, or directly streamed remote sources | Reject the source; accept only trusted local files or download via encrypted transport to local storage before verification |\n| Dynamic loading is required for approved artifacts | Verify digest and digital signature with a pinned verification key before any class resolution or instantiation |\n| Code already uses a fixed registry and rejects unknown identifiers before loading | No action needed |\n\n## Boundaries\n\n### Can Do\n- Replace reflective class selection with a static registry of approved implementations\n- Add validation gates for identifiers, local file paths, and source schemes before loading\n- Add digest and signature verification checks for artifacts that must still be loaded dynamically\n\n### Cannot Do\n- Guarantee safety of dynamically loaded code after it is successfully allowed and executed\n- Invent a trustworthy allowlist, expected digest, or signing key without project-specific inputs\n- Secure code that intentionally loads arbitrary third-party code as a product feature without additional sandboxing or architecture changes\n\n## Gotchas\n- Validating after `loadClass` or instantiation: too late, because attacker-controlled code may already be resolved or executed\n- Allowlisting class names but still loading from user-controlled locations: the artifact itself can still be tampered with\n- Checking only a hash stored next to the module: wrong trust model, because an attacker who can replace the module may replace the hash too\n\n## Quick Verification\n```bash\n# Find dynamic loading patterns\ngrep -RInE 'Class\\.forName|loadClass\\(|URLClassLoader|getDeclaredConstructor\\(|newInstance\\(' .\n\n# Confirm unknown identifiers are rejected before any loader call\ngrep -RInE 'Map\\.of|HashMap|Enum|switch' .\n\n# Check that remote or insecure sources are not accepted\ngrep -RInE 'http://|https://|new URL\\(|URI\\.create|toURL\\(' .\n\n# Run a negative test: unknown class name should fail safely\njava AppFixGpt51Code . java.lang.Runtime\n```",
+            "type": "Built-in",
+            "ordinal": 297,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:37.959000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:37.959000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9775,
+            "id": "TA9775",
+            "title": "T279 - SKILL.md - TypeScript",
+            "text": "---\nname: avoid-dynamically-loading-any-code-without-proper-security-considerations\ndescription: Use when TypeScript code loads modules, files, or remote code from variable input and must prevent untrusted dynamic code/class loading with allowlists, trusted paths, transport checks, and integrity verification.\n---\n\n# Avoid Dynamically Loading Any Code\n\n## What This Skill Does\nThis skill fixes insecure dynamic code or class loading in TypeScript by replacing user-controlled module resolution with a centralized allowlist, constraining file-based loads to a trusted application directory, rejecting insecure remote module sources, and verifying integrity before executing externally sourced code. Apply it when input can influence `require`, `import()`, file-backed module execution, or remote code retrieval.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| User input controls a module name, plugin key, class name, or import target | Replace direct dynamic loading with a fixed allowlist that maps logical IDs to known internal modules |\n| Code loads a module from a filesystem path | Resolve against one trusted base directory, reject absolute/traversal paths, and only return canonical paths under that base |\n| Code fetches or loads remote module content | Reject non-`https:` and unapproved origins before any fetch or execution starts |\n| Code executes externally sourced module content from disk or network | Verify SHA-256 or signature-based integrity before `require`, `import()`, `new Function`, or `vm` execution |\n| Dynamic loading already uses centralized allowlisting, trusted paths, and integrity checks | No action needed |\n\n## Boundaries\n\n### Can Do\n- Replace unsafe dynamic module selection with an allowlisted resolver\n- Add trusted-base path validation for local plugin/module loading\n- Add remote source validation and integrity verification before execution\n\n### Cannot Do\n- Prove third-party module code is safe just because it passed integrity checks\n- Safely permit arbitrary user-supplied code execution without a separate sandbox design\n- Infer trusted hashes, signatures, or approved origins that are not already defined by the application\n\n## Gotchas\n- Allowlisting raw file paths instead of logical IDs: this still lets callers steer resolution and weakens the control point\n- Using `path.join()` without canonical validation: joined paths can still escape the trusted directory via traversal sequences\n- Hashing content after loading or executing it: integrity checks must happen before `require`, `import()`, `new Function`, or `vm` runs the code\n\n## Quick Verification\n```bash\n# Confirm secure guard helpers or allowlist-based loaders exist\nrg -n --glob '*.ts' --glob '*.tsx' 'ALLOWED_MODULES|assertLocalAppModule|assertEncryptedModuleSource|verifyFileIntegrity|getSafePluginPath'\n\n# Find unguarded dangerous dynamic code/loading APIs that may bypass the fix\nrg -n --glob '*.ts' --glob '*.tsx' '(require\\s*\\(|import\\s*\\(|new\\s+Function\\s*\\(|eval\\s*\\(|vm\\.(runInNewContext|runInContext|runInThisContext|compileFunction)\\s*\\()'\n\n# Type-check / build using the TypeScript toolchain\nnpx tsc --noEmit\n\n# Run project tests if present\nnpm test\n```",
+            "type": "Built-in",
+            "ordinal": 721,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:52.492000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:52.492000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9873,
+            "id": "TA9873",
+            "title": "T279 - SKILL.md - React",
+            "text": "---\nname: avoid-dynamically-loading-any-code-without-proper-security-considerations\ndescription: Use when React code loads or executes modules, classes, files, URLs, or strings from runtime input; replace dynamic loading with allowlists, path restrictions, HTTPS-only retrieval, and integrity verification.\n---\n# Avoid dynamically loading any code without proper security considerations\n\n## What This Skill Does\nThis skill fixes insecure dynamic code or module loading in React codebases by removing runtime execution of untrusted input where possible and constraining any remaining loading paths. It replaces `eval`, `new Function`, dynamic imports, and runtime-selected modules with explicit allowlists; restricts file-based loading to application-controlled paths; rejects non-HTTPS module URLs before any fetch; and requires integrity verification of externally sourced module bytes before import or execution.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| User input is passed to `eval`, `new Function`, string-based timers, or similar code execution APIs | Replace with explicit application logic or an allowlisted registry keyed by safe identifiers |\n| User input chooses a plugin, component, or module by name | Map the input to a predeclared `ALLOWED_*` object and reject unknown values |\n| Dynamic loading from file paths remains necessary | Canonicalize and validate the path, allow only files under an application-controlled base directory, and reject traversal or absolute paths outside it |\n| Dynamic loading from URLs remains necessary | Validate the URL before any request, allow only `https:`, and reject insecure fallback or downgrade behavior |\n| External module bytes must still be loaded | Verify the exact bytes against a trusted signature or digest before any write, import, or execution; fail closed on mismatch or missing verification data |\n\n## Boundaries\n\n### Can Do\n- Replace request-driven code execution with static references or allowlisted plugin registries\n- Add path and URL validation guards before file-based or network-based loading\n- Add integrity verification checks before externally sourced module content is executed\n\n### Cannot Do\n- Prove a dynamically loaded third-party module is safe just because it is signed\n- Secure designs that fundamentally require arbitrary user-supplied code execution\n- Guarantee path safety with string checks alone when real path canonicalization is unavailable in the runtime\n\n## Gotchas\n- Checking only for `..` in paths: this is incomplete because encoded, normalized, or indirect paths can still escape the approved directory\n- Allowing `import(userInput)` after a simple regex check: this still trusts attacker-controlled module selection and should be replaced with an explicit map\n- Verifying downloaded content after it has already been imported or executed: this is wrong because the dangerous step already happened\n\n## Quick Verification\n```bash\n# Confirm secure allowlist/guard patterns exist\nrg -n \"ALLOWED_[A-Z_]+|Invalid plugin selection|new URL\\(|protocol === ['\\\"]https:['\\\"]|verifyModuleSignature|SHA256|APPROVED_BASE_PATH|normalizePluginPath\" .\n\n# Find unguarded dangerous dynamic code execution or loading patterns\nrg -n \"\\beval\\s*\\(|new\\s+Function\\s*\\(|setTimeout\\s*\\(\\s*['\\\"]|setInterval\\s*\\(\\s*['\\\"]|import\\s*\\([^'\\\"\\)`][^)]+\\)|require\\s*\\([^'\\\"\\)`][^)]+\\)\" .\n\n# Build + test with the React project's existing toolchain\nnpm test && npm run build\n```",
+            "type": "Built-in",
+            "ordinal": 825,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:56.312000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:56.312000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9907,
+            "id": "TA9907",
+            "title": "T279 - SKILL.md - Angular",
+            "text": "---\nname: avoid-dynamically-loading-any-code-without-proper-security-considerations\ndescription: \"Replace unsafe runtime code or module loading with approved static registries, strict allowlists, and source validation in Angular. Use when user input can influence imports, script loading, class resolution, or code execution.\"\n---\n# Avoid Dynamically Loading Code\n\n## What This Skill Does\nThis skill fixes unsecure dynamic code or class loading in Angular by replacing runtime execution and user-driven loading with statically defined registries, strict identifier allowlists, and approved internal resources. Use it when request data, form values, storage, route parameters, or URLs can influence `new Function`, `eval`, dynamic `import()`, script injection, or other runtime loading paths.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Runtime input is passed to `new Function`, `eval`, or similar code execution APIs | Replace with a fixed in-code registry of approved handlers or plugins |\n| User input selects a module, component, plugin, or feature by name | Validate against a hardcoded allowlist and map the identifier to bundled code |\n| Loading uses URLs, script tags, or remote metadata | Allow only parsed `https:` URLs from hardcoded approved origins; reject `http:`, `blob:`, `data:`, and unapproved hosts |\n| Remote artifacts must still be loaded | Bind each approved artifact to a hardcoded identifier, source, and expected digest or signature, and verify before execution |\n| Loading target is already statically defined in code and not user-controlled | No action needed |\n\n## Boundaries\n\n### Can Do\n- Replace unsafe dynamic execution with a static registry of approved Angular handlers or features\n- Add strict allowlist validation for plugin or module identifiers from forms, routes, or storage\n- Add URL scheme and origin validation for unavoidable remote metadata or artifact lookups\n\n### Cannot Do\n- Make arbitrary third-party code execution safe if the design still allows attacker-chosen code\n- Guarantee integrity of remote artifacts without a real signed or hashed approval source\n- Decide business-safe plugin allowlists or trusted origins without application-specific policy\n\n## Gotchas\n- Allowlisting then still calling `new Function` or `eval`: this keeps code execution risk alive and defeats the purpose of the fix\n- Using dynamic `import(someUserValue)` after validation with loose patterns: regex-only checks often miss traversal, aliases, or future unsafe identifiers\n- Accepting `https:` alone as sufficient: HTTPS does not make a source trusted; origin approval and artifact integrity are still required\n\n## Quick Verification\n```bash\n# Confirm a safe registry or allowlist exists\nrg -n \"trustedPlugins|pluginRegistry|approvedPluginKeys|isApprovedPlugin\" ./\n\n# Find unguarded dangerous runtime code execution APIs\nrg -n \"\\b(eval|Function)\\s*\\(|new\\s+Function\\s*\\(\" ./\n\n# Find unguarded dynamic imports or script URL loading paths\nrg -n \"import\\s*\\([^'\\\"].*\\)|createElement\\(\\s*['\\\"]script['\\\"]\\s*\\)|HTMLScriptElement|script\\.src\\s*=|appendChild\\s*\\(\" ./\n\n# Build and test with Angular toolchain\nnpx ng build && npx ng test --watch=false\n```",
+            "type": "Built-in",
+            "ordinal": 859,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:57.649000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:57.649000-04:00",
+            "active": true
+          }
+        ]
+      }
+    },
+    {
+      "reference_id": "T1154",
+      "http_status_code": 200,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "results": [
+          {
+            "db_id": 954,
+            "id": "TA954",
+            "title": "Docker: Secure Docker registries - More in-depth controls",
+            "text": "**Enable content trust for Docker:** Content trust is disabled by default.\n\nIn an environment where `DOCKER_CONTENT_TRUST` is set, you are required to follow trust procedures while working with images - build, create, pull, push and run. You can use the `--disable-content-trust` flag to run individual operations on tagged images without content trust on an as-needed basis but that defeats the purpose of enabling content trust and hence, should be avoided wherever possible.\n\n**Note:** Content trust is currently only available for users of the public *Docker Hub*. It is currently not available for the *Docker Trusted Registry* or for private registries.",
+            "type": "Built-in",
+            "ordinal": 0,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2018-07-18T12:24:54.847000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2018-12-31T18:47:16.768000-05:00",
+            "active": true
+          },
+          {
+            "db_id": 2112,
+            "id": "TA2112",
+            "title": "FedRAMP / Low Baseline",
+            "text": "*** CM-8: Configuration Management | Information System Component Inventory ***  \nThe organization:\n\na. Develops and documents an inventory of information system components that:  \n   1. Accurately reflects the current information system;  \n   2. Includes all components within the authorization boundary of the information system;  \n   3. Is at the level of granularity deemed necessary for tracking and reporting; and  \n   4. Includes [Assignment: organization-defined information deemed necessary to achieve effective information system component accountability]; and  \nb. Reviews and updates the information system component inventory [at least monthly or when there is a change].",
+            "type": "Built-in",
+            "ordinal": 10,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-17T16:28:53.444000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T16:44:56.470000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 1521,
+            "id": "TA1521",
+            "title": "FedRAMP / Moderate Baseline",
+            "text": "*** CM-8: Configuration Management | Information System Component Inventory ***  \nThe organization:\n\na. Develops and documents an inventory of information system components that:\n\n1. Accurately reflects the current information system;\n2. Includes all components within the authorization boundary of the information system;\n3. Is at the level of granularity deemed necessary for tracking and reporting; and\n4. Includes [Assignment: organization-defined information deemed necessary to achieve effective information system component accountability]; and\n\nb. Reviews and updates the information system component inventory [at least monthly or when there is a change].",
+            "type": "Built-in",
+            "ordinal": 11,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-15T17:48:51.446000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T15:08:01.013000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 2490,
+            "id": "TA2490",
+            "title": "FedRAMP / High Baseline",
+            "text": "*** CM-8: Configuration Management | Information System Component Inventory ***  \nThe organization:  \n a. Develops and documents an inventory of information system components that:  \n   1. Accurately reflects the current information system;  \n   2. Includes all components within the authorization boundary of the information system;  \n   3. Is at the level of granularity deemed necessary for tracking and reporting; and  \n   4. Includes [Assignment: organization-defined information deemed necessary to achieve effective information system component accountability]; and  \n b. Reviews and updates the information system component inventory [at least monthly or when there is a change].",
+            "type": "Built-in",
+            "ordinal": 12,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-17T18:33:56.594000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T18:38:10.027000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 8474,
+            "id": "TA8474",
+            "title": "T1154 - SKILL.md - Docker",
+            "text": "---\nname: secure-docker-registries\ndescription: Secure Docker registries (Docker) by enforcing TLS, trusted CAs, and no insecure registries; Use when code or Dockerfiles interact with container registries\n---\n\n# Secure Docker registries (Docker)\n\n## What This Skill Does\nEnforces that Docker images are only pulled from or pushed to TLS-protected registries with proper certificate verification and trusted CAs. It removes insecure (`http://`) registry usage, prevents \u201cinsecure registry\u201d flags or fallbacks in production, and documents/validates the expected CA location on Docker hosts so that registry communication cannot be intercepted or tampered with.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| `FROM http://...` or any registry URL using `http` (plaintext) is found | Replace with an `https`-based registry or an approved TLS-protected image (e.g., `FROM alpine:3.20` from Docker Hub) and remove any plaintext registry usage |\n| Code, scripts, or config use `--insecure-registry`, `insecure-registries`, or flags that disable TLS/cert verification in production | Remove those flags/options for production paths; make production fail fast when such settings are present |\n| Code constructs registry URLs dynamically (e.g., `REGISTRY_URL`, `REGISTRY_HOST`) | Force `https://` scheme in those URLs, and ensure no downgrade to `http` is possible in production |\n| Images are expected to use a private registry with a custom CA | Document and enforce `/etc/docker/certs.d/<registry-name>/ca.crt` as the CA path via env vars/labels; rely on Docker host to provide the CA and treat missing CA as configuration error |\n| Registry access is already using `https` with no insecure flags and no plaintext endpoints | No action needed; optionally add labels/metadata documenting TLS and CA requirements for policy tools |\n\n## Boundaries\n\n### Can Do\n- Detect and remove obvious insecure registry usage in Dockerfiles (e.g., `FROM http://insecure-registry...`).\n- Guide replacement with secure, TLS-enabled registries and official base images (e.g., `FROM alpine:3.20`).\n- Add metadata (labels, env vars, args) that encode \u201cHTTPS-only\u201d, \u201cTLS-verify required\u201d, and CA path expectations for registries.\n\n### Cannot Do\n- Cannot verify that a given registry actually has TLS correctly configured or that its CA is properly installed on the host (this requires runtime/ops checks).\n- Cannot generate or manage real TLS certificates or CA files; only document and reference their expected locations.\n- Cannot update Docker daemon or orchestration platform settings directly (e.g., removing `--insecure-registry` from dockerd flags); can only suggest configuration changes.\n\n## Gotchas\n- Allowing `http://` in non-production code \u201cfor convenience\u201d: this often bleeds into production via shared Dockerfiles or CI pipelines; keep Dockerfiles and shared scripts HTTPS-only and enforce environment-based checks in higher-level code instead.\n- Disabling certificate or hostname verification \u201ctemporarily\u201d (e.g., `tls-verify=false`, custom HTTP client flags): this silently breaks the trust model even though `https` is used; always treat disabled verification as insecure in production.\n- Assuming CA files inside the image control Docker\u2019s pull behavior: Docker uses CA certificates on the *host* under `/etc/docker/certs.d/<registry-name>/`; placing CAs only inside the container does not secure `docker pull` operations.\n\n## Quick Verification\n```bash\n# 1. Static check: search for insecure registry usage in Dockerfiles and configs\ngrep -R --line-number --color=always -E 'FROM http://|--insecure-registry|insecure-registr' .\n\n# 2. Ensure base images use HTTPS/TLS-protected registries (no http:// in image references)\ngrep -R --line-number --color=always 'http://' Dockerfile docker-compose*.yml || echo \"No plaintext registries found\"\n\n# 3. Verify Docker host CA layout for a private registry (replace with your registry name)\nREGISTRY_NAME=\"registry.example.com\"\nls -l \"/etc/docker/certs.d/${REGISTRY_NAME}/\" || echo \"Missing Docker registry CA directory\"\ntest -s \"/etc/docker/certs.d/${REGISTRY_NAME}/ca.crt\" && echo \"CA file present and non-empty\" || echo \"CA file missing or empty\"\n\n# 4. Attack test: try to build from a plaintext registry (should fail by policy/CI)\ndocker build -f vulnerable.dockerfile . || echo \"Build blocked as expected for insecure registry\"\n```",
+            "type": "Built-in",
+            "ordinal": 36,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-05-21T11:39:50.008000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-05-21T11:39:50.008000-04:00",
+            "active": true
+          }
+        ]
+      }
+    },
+    {
+      "reference_id": "T1166",
+      "http_status_code": 200,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "results": [
+          {
+            "db_id": 3320,
+            "id": "TA3320",
+            "title": "ASD-STIG requirements",
+            "text": "## V-222596 [high]:\n__The application must protect the confidentiality and integrity of transmitted information.__\n\nWithout protection of the transmitted information, confidentiality and integrity may be compromised since unprotected communications can be intercepted and either read or altered.\n\nThis requirement applies  to those applications that transmit data, or allow access to data non-locally. Application and data owners have a responsibility for ensuring data integrity and confidentiality is maintained at every step of the data transfer and handling process. \n\nApplication and data owners need to identify the data that requires cryptographic protection. If no data protection requirements are defined as to what specific data must be encrypted and what data is non-sensitive and doesn't require encryption, all data must be encrypted.\n \nWhen transmitting data, applications need to leverage transmission protection mechanisms, such as TLS, SSL VPNs, or IPSEC.\n\nCommunication paths outside the physical protection of a controlled boundary are exposed to the possibility of interception and modification. Protecting the confidentiality and integrity of organizational information can be accomplished by physical means (e.g., employing physical distribution systems) or by logical means (e.g., employing cryptographic techniques). If physical means of protection are employed, then logical means (cryptography) do not have to be employed, and vice versa.\n\n",
+            "type": "Built-in",
+            "ordinal": 0,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2020-11-16T13:44:22.720000-05:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2022-06-02T10:13:08.681000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 1759,
+            "id": "TA1759",
+            "title": "FedRAMP / Moderate Baseline",
+            "text": "*** SC-8 (1): System And Communications Protection | Transmission Confidentiality And Integrity | Cryptographic Or Alternate Physical Protection ***  \nThe information system implements cryptographic mechanisms to [prevent unauthorized disclosure of information AND detect changes to information] during transmission unless otherwise protected by [a hardened or alarmed carrier Protective Distribution System (PDS)].",
+            "type": "Built-in",
+            "ordinal": 11,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-15T17:49:03.222000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T15:08:05.437000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 2693,
+            "id": "TA2693",
+            "title": "FedRAMP / High Baseline",
+            "text": "*** SC-8 (1): System And Communications Protection | Transmission Confidentiality And Integrity | Cryptographic Or Alternate Physical Protection ***  \nThe information system implements cryptographic mechanisms to [prevent unauthorized disclosure of information AND detect changes to information] during transmission unless otherwise protected by [a hardened or alarmed carrier Protective Distribution System (PDS)].",
+            "type": "Built-in",
+            "ordinal": 12,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-17T18:34:10.970000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T18:38:14.258000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 8467,
+            "id": "TA8467",
+            "title": "T1166 - SKILL.md - Docker",
+            "text": "---\nname: encrypt-inter-node-container-traffic-docker\ndescription: Encrypt data exchanged between containers on different nodes on a Docker overlay network; use when inter-container traffic may traverse untrusted networks or currently uses plaintext protocols.\n---\n\n# Encrypt data exchanged between containers on different nodes on the overlay network (Docker)\n\n## What This Skill Does\nThis skill detects and fixes cases where containers on different nodes communicate over plaintext (e.g., HTTP or raw TCP) across a Docker overlay network. It guides agents to enforce TLS for all cross-node service endpoints, validate peer identity, and centralize secure connection creation so that no sensitive data (credentials, tokens, business data) traverses the overlay in cleartext.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Dockerfile exposes a service on a plaintext port (e.g., 80/8080) intended for use by other containers across nodes | Replace the service configuration to listen only on a TLS-enabled port (e.g., 443/8443) and remove/stop exposing plaintext ports |\n| Application code (HTTP, gRPC, custom TCP) is called by other services across nodes using non-TLS URLs or raw sockets | Wrap all such connections in TLS (HTTPS/grpcs/TLS sockets) and update clients to use the encrypted endpoints |\n| TLS is enabled but client configuration skips certificate validation (e.g., `verify=False`, `insecureSkipVerify`, custom SSL contexts without CA) | Enforce certificate validation using a trusted CA or pinned certificates; remove insecure flags and weak contexts |\n| Multiple services create raw sockets directly for inter-container communication | Introduce centralized secure connection helpers (e.g., `create_client_ssl_context`, `tls_client_connect`) and refactor callers to use them instead of raw sockets |\n| Service already uses TLS with proper certificate validation for all cross-node traffic and no plaintext ports are exposed | No action needed |\n\n## Boundaries\n\n### Can Do\n- Identify Dockerfiles and app code that expose or consume plaintext services intended for cross-node container communication.\n- Add or configure TLS (e.g., HTTPS for Flask, TLS-wrapped sockets using Python\u2019s `ssl` and `socket`) and adjust exposed ports/health checks accordingly.\n- Introduce reusable connection-builder utilities so that all inter-container clients use encryption and certificate validation consistently.\n\n### Cannot Do\n- Provision or manage real certificate authorities, production-ready PKI, or secret distribution systems (e.g., Vault, cert-manager); assumes certs/keys will be mounted or generated securely by ops.\n- Guarantee compliance with specific regulatory frameworks (e.g., PCI, HIPAA) beyond providing encrypted transport and sane defaults.\n- Detect at runtime whether traffic stays on a single node vs. crosses nodes; it treats any inter-container service endpoint as potentially cross-node and secures it accordingly.\n\n## Gotchas\n- Generating long-lived self-signed certs inside the image: This is only acceptable for local/demo scenarios. In production, certificates and keys should be mounted at runtime or managed externally; otherwise, you bake secrets and rigid trust anchors into the image.\n- Leaving the old plaintext port exposed \u201cfor backwards compatibility\u201d: This undermines the fix because clients can keep using cleartext. Once TLS is added and tested, remove or block the plaintext endpoint (and update all clients).\n- Enabling TLS but disabling verification (e.g., `curl --insecure` in client code, `verify=False` in HTTP libraries): This is not secure against active attacks. Use a CA bundle or pinned certs and ensure hostname/peer identity is validated; `--insecure` should be limited to local container health checks when no proper CA is available.\n\n## Quick Verification\n```bash\n# 1. Build the secure image\ndocker build -t overlay-tls-service .\n\n# 2. Run two containers on an overlay network (example using a simple Swarm or compose setup)\n# Create overlay network (Swarm example)\ndocker network create --driver overlay --attachable overlay-net\n\n# Deploy the service on one node\ndocker run -d --name overlay-service --network overlay-net -p 8443:8443 overlay-tls-service\n\n# 3. Attempt plaintext HTTP (should fail or not be available)\ncurl -v http://localhost:8080/secret-data || echo \"Plaintext endpoint not available (expected)\"\n\n# 4. Call the encrypted endpoint (should succeed)\ncurl -v --insecure https://localhost:8443/health\n\n# 5. Capture traffic and confirm it is encrypted (payload not readable)\n# In another terminal, capture on the Docker bridge / host interface\nsudo tcpdump -i any port 8443 -A\n\n# Send a request with sensitive data\ncurl -v --insecure https://localhost:8443/secret-data \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"password\": \"SuperSecret123\"}'\n\n# Inspect tcpdump output to ensure no readable JSON/password appears in the capture\n```",
+            "type": "Built-in",
+            "ordinal": 29,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-05-21T11:39:49.508000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-05-21T11:39:49.508000-04:00",
+            "active": true
+          }
+        ]
+      }
+    },
+    {
+      "reference_id": "T2666",
+      "http_status_code": 200,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "results": []
+      }
+    },
+    {
+      "reference_id": "T1150",
+      "http_status_code": 200,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "results": [
+          {
+            "db_id": 958,
+            "id": "TA958",
+            "title": "Docker: Configure container networks properly - More in-depth controls",
+            "text": "- Do not use Docker's default bridge `docker0`:\n\n    Do not use Docker's default bridge `docker0`. Use docker's user-defined networks for container networking. You have to manage the user-defined networks.",
+            "type": "Built-in",
+            "ordinal": 0,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2018-07-18T12:24:55.241000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2018-12-31T18:47:16.790000-05:00",
+            "active": true
+          },
+          {
+            "db_id": 1695,
+            "id": "TA1695",
+            "title": "FedRAMP / Moderate Baseline",
+            "text": "*** SC-7: System And Communications Protection | Boundary Protection ***  \nThe information system:\n\na. Monitors and controls communications at the external boundary of the system and at key internal boundaries within the system;\n\nb. Implements subnetworks for publicly accessible system components that are [Selection: physically; logically] separated from internal organizational networks; and\n\nc. Connects to external networks or information systems only through managed interfaces consisting of boundary protection devices arranged in accordance with an organizational security architecture.\n\n*** SC-7 (5): System And Communications Protection | Boundary Protection | Deny By Default / Allow By Exception ***  \nThe information system at managed interfaces denies network communications traffic by default and allows network communications traffic by exception (i.e., deny all, permit by exception).",
+            "type": "Built-in",
+            "ordinal": 11,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-15T17:49:00.307000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T15:08:04.639000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 2646,
+            "id": "TA2646",
+            "title": "FedRAMP / High Baseline",
+            "text": "*** SC-7: System And Communications Protection | Boundary Protection ***  \nThe information system:  \n a. Monitors and controls communications at the external boundary of the system and at key internal boundaries within the system;  \n b. Implements subnetworks for publicly accessible system components that are [Selection: physically; logically] separated from internal organizational networks; and  \n c. Connects to external networks or information systems only through managed interfaces consisting of boundary protection devices arranged in accordance with an organizational security architecture.\n\n*** SC-7 (5): System And Communications Protection | Boundary Protection | Deny By Default / Allow By Exception ***  \nThe information system at managed interfaces denies network communications traffic by default and allows network communications traffic by exception (i.e., deny all, permit by exception).",
+            "type": "Built-in",
+            "ordinal": 12,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-17T18:34:07.798000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T18:38:13.407000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 8476,
+            "id": "TA8476",
+            "title": "T1150 - SKILL.md - Docker",
+            "text": "---\nname: configure-container-networks-properly-docker\ndescription: Secure Docker container networking by constraining exposure, binding to specific interfaces, and validating peers. Use when services may be reachable from unintended containers or host interfaces.\n---\n\n# Configure container networks properly (Docker)\n\n## What This Skill Does\nHelps reconfigure Docker container networking so services are not unintentionally exposed to other containers or host interfaces. It focuses on restricting inter-container traffic, validating and documenting allowed peers, binding services to explicit addresses and ports, avoiding reliance on Docker\u2019s userland proxy, and using health checks to detect network misconfiguration, all without changing Docker daemon flags directly from code.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Service listens on `0.0.0.0` inside the container and is meant to be internal-only | Change app/config to bind to `127.0.0.1` (or a specific interface) and expose only the needed port; avoid broad `EXPOSE` hints if not required |\n| Any container on the default bridge network can reach a sensitive service | Use labels and/or config to declare an allow-list of peer services, attach the container only to restricted user-defined networks, and avoid implicit exposure via `EXPOSE` + broad `-p` mappings |\n| App depends on outbound network access and \u201cjust hangs\u201d when misconfigured | Add explicit health checks (Docker `HEALTHCHECK` and/or in-app preflight) to verify outbound reachability and fail fast with clear but non-sensitive diagnostics |\n| Deployment relies on Docker\u2019s userland proxy or implicit port publishing behavior | Make binding behavior explicit in app (bind to known address/port), document expectation via `ENV` or comments, and recommend running with `--userland-proxy=false` plus explicit port mappings |\n| Code already binds to a validated address and uses an allow-list of peers with clear logging | No action needed; keep configuration and documentation up to date and avoid reintroducing broad bindings or unvalidated peers |\n\n## Boundaries\n\n### Can Do\n- Adjust Dockerfiles to: use `EXPOSE` conservatively, add labels, define `HEALTHCHECK`, and set safe default bind-related environment variables.\n- Propose and sketch application-level patterns (allow-list of peers, startup preflight checks, safe default bind addresses, logging of effective bind address/port).\n- Recommend runtime flags and orchestrator policies in comments or documentation (e.g., user-defined networks, `-p 127.0.0.1:8080:8080`, disabling userland proxy).\n\n### Cannot Do\n- Directly modify Docker daemon or orchestrator configuration files (e.g., cannot actually set `--userland-proxy=false` or iptables rules; can only document them).\n- Guarantee real network isolation or policy enforcement; that depends on the runtime environment (Swarm, Kubernetes, host firewall, etc.).\n- Look up actual IP addresses, hostnames, or live network state to verify connectivity; only static code and config can be inspected.\n\n## Gotchas\n- Assuming `EXPOSE 8080` is \u201cjust documentation\u201d: Docker and tools treat `EXPOSE` as a hint; combined with defaults and `docker run -P`, it can still broaden exposure. Use it only when you really intend that port to be reachable.\n- Binding to `0.0.0.0` \u201cfor convenience\u201d: inside a container this means \u201caccept from anywhere on attached networks.\u201d This is unsafe for services that should be reachable only from specific peers or host interfaces; prefer `127.0.0.1` or a specific interface with explicit port mappings.\n- Overloading health checks with sensitive details: health-check scripts or endpoints that print full URLs, credentials, or internal topology can leak information. Health checks should distinguish app vs. network failures without exposing secrets or detailed network maps.\n\n## Quick Verification\n```bash\n# 1. Confirm what address the app is actually listening on inside the container\ndocker run --rm --net bridge --name test-net -p 8080:8080 my-image \\\n  sh -c \"ss -tuln | grep 8080 || netstat -tuln | grep 8080\"\n\n# 2. Test from another container on the same network (should FAIL for properly isolated internal-only services)\ndocker network create test-net\ndocker run -d --name svc --network test-net my-image\ndocker run --rm --network test-net curlimages/curl curl -sS http://svc:8080/ || echo \"unreachable (expected for isolated service)\"\n\n# 3. Verify host interface binding (only localhost)\ndocker run -d --name bind-test -p 127.0.0.1:8080:8080 my-image\ncurl -sS http://127.0.0.1:8080/ || echo \"no response on localhost\"\n# Try from another host or interface; connection should fail.\n\n# 4. Check Docker health status for outbound connectivity issues\ndocker inspect --format='{{.State.Health.Status}}' svc || echo \"no healthcheck defined\"\n```",
+            "type": "Built-in",
+            "ordinal": 38,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-05-21T11:39:50.159000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-05-21T11:39:50.159000-04:00",
+            "active": true
+          }
+        ]
+      }
+    },
+    {
+      "reference_id": "T1212",
+      "http_status_code": 200,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "results": [
+          {
+            "db_id": 948,
+            "id": "TA948",
+            "title": "More in-depth controls",
+            "text": "The `--cgroup-parent` option allows you to set the default _cgroup parent_ to use for all the containers. If there is no specific use case, this setting should be left at its default.",
+            "type": "Built-in",
+            "ordinal": 0,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2018-07-18T12:24:54.332000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2018-12-31T18:47:16.735000-05:00",
+            "active": true
+          },
+          {
+            "db_id": 1676,
+            "id": "TA1676",
+            "title": "FedRAMP / Moderate Baseline",
+            "text": "*** SC-6: System And Communications Protection | Resource Availability ***  \nThe information system protects the availability of resources by allocating [Assignment: organization-defined resources] by [Selection (one or more); priority; quota; [Assignment: organization-defined security safeguards]].",
+            "type": "Built-in",
+            "ordinal": 11,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-15T17:48:59.508000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T15:08:04.049000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 2623,
+            "id": "TA2623",
+            "title": "FedRAMP / High Baseline",
+            "text": "*** SC-6: System And Communications Protection | Resource Availability ***  \nThe information system protects the availability of resources by allocating [Assignment: organization-defined resources] by [Selection (one or more); priority; quota; [Assignment: organization-defined security safeguards]].",
+            "type": "Built-in",
+            "ordinal": 12,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-17T18:34:06.827000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T18:38:12.945000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 8440,
+            "id": "TA8440",
+            "title": "T1212 - SKILL.md - Docker",
+            "text": "---\nname: confirm-cgroup-usage-docker\ndescription: Use when Docker or Compose configuration must verify each container runs under an exact expected cgroup and fail closed on missing or unverifiable runtime metadata.\n---\n\n# Confirm cgroup usage (Docker)\n\n## What This Skill Does\nThis skill fixes cases where Docker containers are allowed to run without confirming they are assigned to the required cgroup. It adds explicit cgroup configuration, stores expected cgroup identities in configuration, and verifies runtime metadata against exact expected values or an allowed set. The check must fail closed if inspection fails, returns malformed data, or does not provide a cgroup value.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Docker Compose services have no explicit `cgroup_parent` | Add an exact `cgroup_parent` value per service and store the expected value in configuration |\n| Code or scripts only check that a container is running, not which cgroup it uses | Add a runtime inspection step that compares the actual cgroup to an exact expected value or allowed set |\n| Runtime inspection uses loose string matching such as \"contains\" or non-empty checks | Replace with exact equality or membership checks against configured values |\n| Runtime metadata is missing, malformed, or inspection fails | Return fail for that container and stop treating it as compliant |\n| Containers already define exact cgroup values and verification is deterministic | No action needed |\n\n## Boundaries\n\n### Can Do\n- Add explicit `cgroup_parent` settings to Docker Compose services\n- Introduce exact expected cgroup values through configuration\n- Add or update verification logic to fail closed on missing or invalid cgroup data\n\n### Cannot Do\n- Guarantee the host runtime, orchestrator, or kernel will honor unsupported cgroup settings\n- Infer the correct expected cgroup value without project-specific requirements\n- Replace broader container isolation controls beyond confirming cgroup assignment\n\n## Gotchas\n- Using loose checks like \"value exists\" or substring matching: this can pass the wrong cgroup and makes verification non-deterministic\n- Treating inspection errors as warnings: this is wrong because the countermeasure requires fail-closed behavior\n- Setting `cgroup_parent` but never verifying it at runtime: configuration alone does not confirm the container actually runs under that cgroup\n\n## Quick Verification\n```bash\n# Start the Compose stack\ndocker compose up -d\n\n# Inspect cgroup parent values for containers in the project\ndocker ps --format '{{.Names}}' | while read c; do\n  echo \"== $c ==\"\n  docker inspect --format '{{.Name}} {{.HostConfig.CgroupParent}}' \"$c\"\ndone\n\n# Verify one expected match directly\ndocker inspect --format '{{.HostConfig.CgroupParent}}' <container-name>\n\n# Negative test: a missing, empty, or unexpected value must be treated as fail\ndocker inspect --format '{{.HostConfig.CgroupParent}}' <container-name> | grep -Fx 'app.slice'\n```",
+            "type": "Built-in",
+            "ordinal": 266,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-05-21T11:39:47.637000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:36.771000-04:00",
+            "active": true
+          }
+        ]
+      }
+    }
+  ]
+}

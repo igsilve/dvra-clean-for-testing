@@ -1,0 +1,85 @@
+{
+  "composite_response": [
+    {
+      "reference_id": "T1200",
+      "http_status_code": 200,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "results": [
+          {
+            "db_id": 1673,
+            "id": "TA1673",
+            "title": "FedRAMP / Moderate Baseline",
+            "text": "*** SC-6: System And Communications Protection | Resource Availability ***  \nThe information system protects the availability of resources by allocating [Assignment: organization-defined resources] by [Selection (one or more); priority; quota; [Assignment: organization-defined security safeguards]].",
+            "type": "Built-in",
+            "ordinal": 11,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-15T17:48:59.413000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T15:08:04.020000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 2620,
+            "id": "TA2620",
+            "title": "FedRAMP / High Baseline",
+            "text": "*** SC-6: System And Communications Protection | Resource Availability ***  \nThe information system protects the availability of resources by allocating [Assignment: organization-defined resources] by [Selection (one or more); priority; quota; [Assignment: organization-defined security safeguards]].",
+            "type": "Built-in",
+            "ordinal": 12,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-17T18:34:06.731000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T18:38:12.916000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 8455,
+            "id": "TA8455",
+            "title": "T1200 - SKILL.md - Docker",
+            "text": "---\nname: limit-resources-used-by-containers-docker\ndescription: Use when Docker Compose services lack explicit memory and PID limits; adds finite per-service caps to prevent default unlimited container resource usage.\n---\n\n# Limit resources used by containers (Docker)\n\n## What This Skill Does\nThis skill fixes Docker Compose configurations where services run without explicit resource limits, which can allow a container to consume unbounded memory or spawn excessive processes. It adds finite per-service memory caps and PID caps in the Compose file so workloads remain constrained and one container is less able to disrupt the host or neighboring services.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| A Compose service has no `mem_limit` and no `pids_limit` | Add both with finite per-service values |\n| A Compose service has `mem_limit` but no `pids_limit` | Keep the memory cap and add a finite `pids_limit` |\n| A Compose service has `pids_limit` but no `mem_limit` | Keep the PID cap and add a finite `mem_limit` |\n| A Compose service uses non-finite or effectively unlimited values | Replace them with concrete finite values sized for expected workload |\n| A service already has finite `mem_limit` and finite `pids_limit` | No action needed |\n\n## Boundaries\n\n### Can Do\n- Add finite `mem_limit` values to applicable Compose services\n- Add finite numeric `pids_limit` values to applicable Compose services\n- Preserve existing service behavior while rendering the final Compose config for verification\n\n### Cannot Do\n- Determine the exact safe limit for every workload without app-specific knowledge\n- Guarantee runtime stability if limits are set too low\n- Fix resource controls outside Docker Compose, such as Kubernetes manifests or host-level cgroup settings\n\n## Gotchas\n- Setting only one limit: adding just memory or just PID limits still leaves one resource class effectively unbounded\n- Using unrealistic caps: values that are too small can break startup or normal runtime behavior\n- Trusting raw source only: Compose files can merge overrides, so verify the rendered result with `docker compose config`\n\n## Quick Verification\n```bash\n# Render the final Compose configuration\ndocker compose config\n\n# Inspect rendered limits for each service\ndocker compose config | grep -E \"mem_limit|pids_limit\"\n\n# Start the stack and inspect runtime limits for a container\ndocker compose up -d\ndocker inspect <container_name_or_id> --format '{{.HostConfig.Memory}} {{.HostConfig.PidsLimit}}'\n```",
+            "type": "Built-in",
+            "ordinal": 260,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-05-21T11:39:48.776000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:36.534000-04:00",
+            "active": true
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "cm_id": "T7412",
+  "category": "IN",
+  "library_sourced": false,
+  "content_fields": {
+    "title": "Isolate dangerous functionality and risky third-party components using sandboxing or encapsulation",
+    "url": "https://staging.qa.sdelements.com/bunits/copilot-test/app/dvra-clean-for-testing/tasks/phase/development/4552-T7412/",
+    "priority": 9,
+    "output_path": "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T7412-isolate-dangerous-functionality-and-risk/SKILL.md"
+  },
+  "output_path": "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T7412-isolate-dangerous-functionality-and-risk/SKILL.md"
+}

@@ -1,0 +1,200 @@
+{
+  "composite_response": [
+    {
+      "reference_id": "T1144",
+      "http_status_code": 200,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "results": [
+          {
+            "db_id": 11973,
+            "id": "TA11973",
+            "title": "T1144 - SKILL.md - Go",
+            "text": "---\nname: prevent-server-side-template-injection\ndescription: Use when Go code lets untrusted input reach html/template or text/template parsing/execution as template source and you need to keep user input as data, validate templates, and restrict helpers.\n---\n# Prevent Server-Side Template Injection (SSTI)\n\n## What This Skill Does\nThis skill fixes Server-Side Template Injection in Go by ensuring untrusted input is never parsed as template source, only passed as data to pre-defined templates. It also adds parse-time validation for any accepted template content, limits `template.FuncMap` to safe helpers, and applies strict server-side allowlist validation for plain-text fields so template control patterns like `{{...}}` are rejected when not business-required.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Untrusted request, form, header, DB, or CLI input is passed to `template.New(...).Parse(...)` or `template.Parse*` | Replace with a developer-controlled static/template-file source and pass the untrusted value only to `Execute` as data |\n| Code uses `html/template` or `text/template` with a broad `template.FuncMap` | Reduce helpers to a minimal explicit allowlist; remove helpers exposing filesystem, environment, process execution, reflection, or internal objects |\n| Application intentionally accepts template content | Parse with `template.New(...).Funcs(...).Parse(src)` before use and fail closed on any parse/validation error |\n| Plain-text fields like names, titles, or labels accept arbitrary strings | Normalize, allowlist expected format/charset/length, and reject template delimiters such as `{{` and `}}` when they are not required |\n| Template source is already static/application-controlled and user input is only passed as data | No action needed |\n\n## Boundaries\n\n### Can Do\n- Replace unsafe parsing of user-controlled template text with static or application-controlled templates\n- Add parse-time validation for accepted template content and stop execution on parser errors\n- Add Go input normalization and allowlist checks for plain-text fields to reject template control patterns\n\n### Cannot Do\n- Prove a helper function is safe if it indirectly exposes privileged objects or dangerous side effects\n- Infer business rules for every field; allowlists and rejected characters must match application requirements\n- Fully sandbox template execution; this skill reduces exposure but does not turn Go templates into a secure sandbox\n\n## Gotchas\n- Using `html/template` does not by itself prevent SSTI: it helps with output escaping, but parsing untrusted template text is still dangerous\n- Falling back after parse failure is unsafe: if validation fails, do not continue with alternate dynamic rendering paths\n- Blocking only `{{` in input is not enough everywhere: fix the real issue by keeping template source developer-controlled, then use field validation as defense in depth\n\n## Quick Verification\n```bash\n# Confirm secure patterns exist: static/app-controlled Parse plus Execute with data,\n# and validation helpers for syntax or template-control rejection\nrg -n 'template\\.New\\([^)]*\\)\\.Funcs\\([^)]*\\)\\.Parse\\(|template\\.New\\([^)]*\\)\\.Parse\\(|Execute\\(&?[A-Za-z0-9_]+,\\s*[A-Za-z0-9_.{} ]+\\)|Contains\\([^,]+,\\s*\"\\{\\{\"\\)|Contains\\([^,]+,\\s*\"\\}\\}\"\\)|MustCompile\\(' .\n\n# Find likely UNGUARDED dangerous template parsing calls that may consume untrusted input\nrg -n 'template\\.(Parse|ParseFiles|ParseGlob)|template\\.New\\([^)]*\\)\\.(Funcs\\([^)]*\\)\\.)?Parse\\(' .\n\n# Build and test all Go packages in a project-agnostic way\ngo build ./... && go test ./...\n```",
+            "type": "Built-in",
+            "ordinal": 1,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-08-25T19:07:24.454000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-08-25T19:07:24.454000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 1520,
+            "id": "TA1520",
+            "title": "FedRAMP / Moderate Baseline",
+            "text": "*** CM-7 (5): Configuration Management | Least Functionality | Authorized Software / Whitelisting ***  \nThe organization:\n\n(a)   Identifies [Assignment: organization-defined software programs authorized to execute on the information system];  \n(b)   Employs a deny-all, permit-by-exception policy to allow the execution of authorized software programs on the information system; and  \n(c)   Reviews and updates the list of authorized software programs [at least annually or when there is a change].",
+            "type": "Built-in",
+            "ordinal": 11,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-15T17:48:51.385000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T15:08:00.992000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 2489,
+            "id": "TA2489",
+            "title": "FedRAMP / High Baseline",
+            "text": "*** CM-7 (5): Configuration Management | Least Functionality | Authorized Software / Whitelisting ***  \nThe organization:  \n (a)   Identifies [Assignment: organization-defined software programs authorized to execute on the information system];  \n (b)   Employs a deny-all, permit-by-exception policy to allow the execution of authorized software programs on the information system; and  \n (c)   Reviews and updates the list of authorized software programs [at least quarterly or when there is a change].",
+            "type": "Built-in",
+            "ordinal": 12,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-17T18:33:56.482000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T18:38:09.995000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 12043,
+            "id": "TA12043",
+            "title": "T1144 - SKILL.md - Rust",
+            "text": "---\nname: prevent-server-side-template-injection\ndescription: Use when Rust code lets untrusted input influence template source, template directives, helper selection, or server-side include behavior during rendering.\n---\n\n# Prevent Server-Side Template Injection (SSTI)\n\n## What This Skill Does\nThis skill fixes SSTI in Rust by ensuring untrusted input is treated only as data, never as template source or template control syntax. Apply it when code renders user-controlled template strings, lets users choose templates or helpers freely, or interprets directives like `{{include:...}}`. The fix is to use only static templates and allowlisted helpers, validate template syntax before rendering, and reject malformed, oversized, control-character, or template-control input on the server.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| User input is passed directly as a template string or parsed for directives like `{{include:...}}` | Replace runtime template construction/parsing with static, predeclared templates and reject directive syntax before rendering |\n| User input selects a template, partial, or helper by free-form string | Map input through a fixed allowlist such as `HashMap` keys or enums; reject unknown identifiers |\n| Code renders templates without validation | Add a required validation step before every render path and reject malformed or disallowed syntax |\n| Untrusted string fields can contain template markers like `{{`, `}}`, `${{`, `<%` | Add field-specific allowlist validation plus template-control rejection before binding into templates |\n| Code already uses static templates, allowlisted helpers, and server-side validation | No action needed |\n\n## Boundaries\n\n### Can Do\n- Replace user-controlled template selection with static template ID mapping\n- Add Rust validation helpers such as `validate_template`, `sanitize_input`, and `reject_template_control_chars`\n- Find and reduce risky flows into template rendering and SSI-like file include behavior\n\n### Cannot Do\n- Guarantee safety of third-party template engines without reviewing their sandbox and helper model\n- Infer business-valid character allowlists for every field without application context\n- Fix cases where the application intentionally supports user-authored templates as a product feature without a dedicated sandbox design\n\n## Gotchas\n- Sanitizing only output values is not enough: SSTI happens when input controls template source, directives, or helper choice before output encoding matters\n- Using a blocklist alone is fragile: attackers can bypass partial deny rules with alternate delimiters, encodings, or engine-specific syntax\n- Validating templates in only one code path is incomplete: every render path must validate or use only prevalidated static templates\n\n## Quick Verification\n```bash\n# Confirm secure guards/wrappers exist\nrg -n 'fn (validate_template|sanitize_input|reject_template_control_chars|render_static_template)\\b|enum Helper\\b' .\n\n# Find unguarded dangerous patterns that can bypass the fix\nrg -n 'std::fs::read_to_string\\s*\\(|\\{\\{include:|template\\.replace\\s*\\(|render_template\\s*\\(' .\n\n# Build and test with the Rust toolchain\ncargo build --all-targets && cargo test --all-targets\n```",
+            "type": "Built-in",
+            "ordinal": 77,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-08-25T19:07:28.474000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-08-25T19:07:28.474000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 8578,
+            "id": "TA8578",
+            "title": "T1144 - SKILL.md - Node.js",
+            "text": "---\nname: prevent-server-side-template-injection-ssti\ndescription: Prevents server-side template injection by hardening template engines, validating/sanitizing inputs, and blocking user-controlled template evaluation; use when user data reaches server-side templates or custom renderers.\n---\n\n# Prevent Server-Side Template Injection (SSTI)\n\n## What This Skill Does\nThis skill detects and fixes server-side template injection risks where user input controls template strings, template names, or template expressions. It replaces unsafe evaluation (for example `vm.runInThisContext`, `eval`, dynamic template compilation) with safe, data-only rendering; enforces server-side validation and allowlisting; and sanitizes rich text so template engines treat user input as inert data, not executable code.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Custom template engine evaluates `{{ ... }}` / `${...}` using `eval`, `Function`, `vm.runInThisContext`, or equivalent | Replace with a data-only renderer that supports simple placeholders (e.g., `{{name}}`) mapped to an allowlisted context; never evaluate expressions |\n| Application passes user-controlled template strings or template names directly into a powerful engine (e.g., Nunjucks, EJS, Jinja-style) | Stop accepting raw templates from users; switch to predefined templates and a safe engine configuration with an allowlisted context and auto-escaping |\n| Template engine supports syntax/AST validation or \u201csafe mode\u201d | Add a validation step at load time (e.g., parsing and checking for disallowed tags/functions) and enforce a template allowlist; reject any template that fails validation |\n| User input is interpolated into templates without strict validation (identifiers, usernames, titles) | Add server-side schema validation + character allowlisting; reject input containing template delimiters or control characters that are not required by business rules |\n| Business rules require rich text or HTML to pass through templates | Keep validation, then add sanitization and delimiter-neutralization (`{{` \u2192 `&#123;&#123;`) before rendering so the template engine cannot interpret injected syntax |\n| Review shows templates already use a safe engine, fixed templates, strict context, and validated/sanitized input | No action needed; only add targeted tests to confirm that `{{7*7}}` / `${7*7}` are not evaluated |\n\n## Boundaries\n\n### Can Do\n- Detect and remove unsafe use of `vm`, `eval`, `Function`, or dynamic compilation in custom template renderers.\n- Introduce or configure safe template engines (e.g., Nunjucks) in \u201cdata-only\u201d mode with strict auto-escaping and allowlisted globals.\n- Add robust, server-side input validation (schemas, regex allowlists) and sanitization/escaping around data that flows into templates.\n- Add template validation and allowlists to block risky tags and unknown template files.\n- Provide basic verification guidance and example payloads to confirm SSTI is mitigated.\n\n### Cannot Do\n- Cannot automatically prove the absence of all SSTI in large, multi-language systems; it focuses on evident injection paths.\n- Cannot secure inherently unsafe business requirements that demand arbitrary user-defined template logic or code execution.\n- Cannot replace full-featured HTML sanitizers or enterprise security gateways; examples are minimal and may not cover every XSS vector.\n- Cannot patch vulnerabilities in third-party closed-source template engines beyond usage patterns shown in the app code.\n- Cannot guarantee safety if developers later reintroduce dynamic evaluation (e.g., future use of `eval` with user data).\n\n## Gotchas\n- Assuming output encoding alone prevents SSTI: Output encoding protects the client but does not stop server-side evaluation if the template engine still executes user expressions. You must remove/disable expression evaluation for user-controlled content.\n- Allowing user-supplied templates with \u201cjust a few rules\u201d: Even if you block some functions or characters, exposing a powerful template language to users is usually unsafe; prefer fixed templates plus data-only placeholders.\n- Only validating some input paths: If one route performs strict validation but another passes raw user input to templates (e.g., CLI tools, background jobs), SSTI can still be exploitable. All paths into templates must be validated/sanitized.\n- Weak regex for placeholders: Custom placeholder patterns that accept dots, brackets, or operators (e.g., `/\\{\\{(.+)\\}\\}/`) may still allow expressions like `user.toString.constructor('...')()`. Restrict to simple identifiers only.\n- Forgetting dangerous objects in context: Passing `process`, `require`, DB handles, or other powerful objects into templates makes exploitation easier even if template logic is otherwise limited.\n\n## Quick Verification\n```bash\n# 1) CLI test of the fixed renderer\nnode app_fix_original_code.js \"Hello, {{{{ user }}}} and {{{{ date }}}}\"\n\n# 2) Confirm template syntax is not evaluated\nnode app_fix_original_code.js \"{{ 7 * 7 }}\"\n# Expect: literal text containing braces or cleaned text, not \"49\"\n\n# 3) HTTP smoke test (safe server)\nSTART_EXPRESS=1 node app_fix_original_code.js &\nSERVER_PID=$!\nsleep 2\n\n# 3a) Status endpoint\ncurl -s http://localhost:3000/status\n\n# 3b) Attempt SSTI via /render\ncurl -s -X POST http://localhost:3000/render \\\n  -H 'Content-Type: application/json' \\\n  -d '{\"template\":\"Result: {{{{ user }}}} {{ 7*7 }}\",\"user\":\"Attacker\"}'\n\n# Expect:\n# - The {{{{ user }}}} placeholder is replaced with \"Attacker\"\n# - The `{{ 7*7 }}` fragment is not evaluated as math; it is removed or appears as inert text\n\nkill $SERVER_PID || true\n```",
+            "type": "Built-in",
+            "ordinal": 140,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-05-21T11:39:55.986000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-05-21T11:39:55.986000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9360,
+            "id": "TA9360",
+            "title": "T1144 - SKILL.md - Python",
+            "text": "---\nname: prevent-server-side-template-injection-ssti\ndescription: Hardens template usage to prevent Server-Side Template Injection (SSTI) and Improper Neutralization of SSI; use when untrusted input reaches server-side template engines.\n---\n\n# Prevent Server-Side Template Injection (SSTI)\n\n## What This Skill Does\nDetects and fixes patterns where untrusted input is interpreted as template syntax by server-side template engines (e.g., Jinja2), leading to Server-Side Template Injection (SSTI). It guides the assistant to replace unsafe template construction and rendering with sandboxed environments, strict validation, allowlists, and/or removal of templating when not needed.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Code passes user-controlled strings directly into a template constructor (e.g., `Template(user_input)` or `env.from_string(user_input)`) | Remove dynamic templating: treat input as plain data, or validate with strict allowlist and render as literal text instead of executing as a template |\n| Application uses a general-purpose template environment with many globals/filters exposed and autoescaping/undefined checks disabled | Introduce a restricted or sandboxed environment: enable autoescape, use `StrictUndefined`, clear default globals/filters, and only allow a minimal safe set |\n| Code must support dynamic templates (e.g., admin-configurable templates) and already uses a supported engine (e.g., Jinja2) | Add a validation/compilation step (parse/compile API) before rendering, fail closed on errors, and ensure rendering uses the validated/sandboxed environment only |\n| Rendering logic is duplicated across the app, each place constructing templates or environments ad hoc | Centralize into a single rendering module/service that exposes only template identifiers and strongly-typed data, never raw template source from callers |\n| Input fields are later interpolated into templates but have no server-side validation | Add strict server-side validation and per-field allowlists that exclude template control characters (`{`, `}`, `%`) and limit length/format before passing to templates |\n\n## Boundaries\n\n### Can Do\n- Identify obvious SSTI sinks such as `Template(user_input)` or `env.from_string(untrusted_str)` and rewrite them to non-templating or safe templating patterns.\n- Introduce and configure safe/sandboxed template environments (e.g., Jinja2 `SandboxedEnvironment`, `StrictUndefined`, cleared globals/filters, blocked dunder access).\n- Add server-side validation and allowlist-based checks on inputs that eventually reach templates, including regex-based enforcement and rejection of template delimiters.\n- Centralize rendering behind a small, controlled API that only accepts known template names and validated data structures.\n- Replace \"smart\" templating with literal output when the app does not need template logic at all.\n\n### Cannot Do\n- Guarantee safety for every possible template engine or framework without project-specific knowledge (custom template languages, proprietary engines may need human review).\n- Decide business-acceptable input formats or user experience tradeoffs (e.g., how strict allowlists should be, what characters users must be allowed to enter).\n- Re-architect template-heavy applications that deeply rely on runtime expression evaluation or metaprogramming; human design input is needed.\n- Provide full runtime isolation (containers, separate processes, OS-level sandboxing); can only recommend and show how to plug code into such environments.\n- Detect SSTI solely from comments, obfuscated code, or dynamic constructs that are not visible in static source.\n\n## Gotchas\n- Assuming client-side validation is enough: Relying on JavaScript or HTML constraints alone leaves the template engine exposed; all critical checks must run server-side before templating.\n- Over-sanitizing instead of validating: Blindly stripping `{`/`}` or template delimiters from all inputs can break legitimate data and hide issues; prefer strict allowlists plus explicit rejection, only sanitizing in well-documented, narrow cases.\n- Leaving default globals/filters intact: Using a sandbox or environment but forgetting to clear/limit globals and filters can still permit dangerous access paths (e.g., `__mro__`, filesystem helpers, or reflection via exposed functions).\n\n## Quick Verification\n```bash\n# Run vulnerable example and show exploitation\npython app_vulnerable.py \"Hello {{ 7 * 7 }}\"\n# Expect: outputs \"Hello 49\" (evidence of SSTI)\n\npython app_vulnerable.py \"{{ ''.__class__.__mro__[1].__subclasses__() }}\"\n# Expect: stack trace / sensitive internal objects (dangerous)\n\n# Run fixed example that removed templating and added allowlist\npython app_fixed.py \"Hello {{ 7 * 7 }}\"\n# Expect: ValueError about disallowed characters (SSTI blocked)\n\n# Smoke-test a safe input path\npython app_fixed.py \"Hello, world!\"\n# Expect: \"Hello, world!\"\n\n# Optional: for safe Jinja2 env, run unit tests\npytest -q  # assuming tests cover SSTI payloads like \"{{ ''.__class__.__mro__ }}\"\n```",
+            "type": "Built-in",
+            "ordinal": 177,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:35.319000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:35.319000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9415,
+            "id": "TA9415",
+            "title": "T1144 - SKILL.md - Java",
+            "text": "---\nname: prevent-server-side-template-injection-ssti\ndescription: Use when code renders templates from untrusted input, allows dynamic template selection, or passes unsafe objects into a server-side template engine to prevent SSTI.\n---\n\n# Prevent Server-Side Template Injection (SSTI)\n\n## What This Skill Does\nThis skill fixes SSTI by ensuring untrusted input never becomes template source or executable template syntax. It replaces user-controlled template text and unsafe dynamic template selection with trusted server-side templates chosen from fixed identifiers, validates trusted templates before use, and limits template models to validated string data so user input is rendered only as inert content.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Request data, query params, form fields, headers, or database content are rendered as template source | Replace with trusted static templates selected by server-side allowlisted identifiers |\n| Template selection depends on user input such as `templateId`, file name, or path | Enforce a strict allowlist of known template IDs and reject unknown values |\n| A template engine is given complex objects, framework contexts, request/session objects, or runtime handles | Pass a minimal string-only model with explicitly approved keys |\n| Trusted templates may contain expression syntax like `${...}`, `#{...}`, `<%...%>`, `th:`, or reflective access patterns | Validate templates before use and reject unsupported directives and expression forms |\n| Code already uses fixed trusted templates, validates model values, and treats user input only as data | No action needed |\n\n## Boundaries\n\n### Can Do\n- Replace user-controlled template source with fixed server-side templates\n- Add allowlist validation for template IDs, placeholder names, and model values\n- Add pre-render validation to reject dangerous template syntax and unsupported features\n\n### Cannot Do\n- Guarantee safety if the application must execute full template expressions from untrusted sources\n- Infer every dangerous syntax for every template engine without engine-specific rules\n- Fix downstream XSS or HTML injection if rendered output is inserted into HTML without output encoding\n\n## Gotchas\n- Blocking only one payload form like `${7*7}`: attackers can use other syntaxes such as `{{...}}`, `<%...%>`, `#{...}`, or engine-specific directives\n- Passing \"safe\" domain objects to templates: object methods, class metadata, or framework context can reopen code execution paths even if template text is trusted\n- Sanitizing after model binding or rendering: validation must happen before data enters the template model or render path\n\n## Quick Verification\n```bash\n# Search for likely SSTI patterns\ngrep -RInE 'render|template|thymeleaf|freemarker|velocity|mustache|handlebars|processServerSideExpressions' .\n\n# Look for user-controlled template sources or dynamic template selection\ngrep -RInE 'request|getParameter|userInput|templateId|templateName|userTemplate' .\n\n# Verify dangerous payloads are rejected or treated as inert data\njava AppVulnerableCode '${7*7}'\njava AppVulnerableCode '{{7*7}}'\njava AppVulnerableCode '<%= 7*7 %>'\n\n# Verify only allowlisted template identifiers succeed\njava AppVulnerableCode default\njava AppVulnerableCode ../../admin\n```",
+            "type": "Built-in",
+            "ordinal": 315,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:38.554000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:38.554000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9719,
+            "id": "TA9719",
+            "title": "T1144 - SKILL.md - TypeScript",
+            "text": "---\nname: prevent-server-side-template-injection-ssti\ndescription: \"Prevent server-side template injection in TypeScript by replacing dynamic template execution with trusted templates and strict input validation. Use when untrusted input can reach template rendering, expression parsing, or dynamic evaluation.\"\n---\n\n# Prevent Server-Side Template Injection (SSTI)\n\n## What This Skill Does\nThis skill fixes server-side template injection in TypeScript by ensuring untrusted input is never treated as template code. It replaces dynamic template execution such as `new Function(...)`, template compilation from user input, or expression-capable rendering with developer-controlled templates, approved placeholders, and server-side validation of every template-bound field. The goal is to render user data as inert text, not executable template syntax.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| User input is rendered through `new Function`, `eval`, or dynamically built template literals | Replace with a trusted template allowlist and placeholder-only substitution |\n| A template string comes from a request body, query param, CLI arg, DB field, or other untrusted source | Do not compile or evaluate it; accept only a known template key or reject it |\n| Template-bound fields can contain delimiters like `{{`, `${`, `<%`, backticks, or control characters | Add server-side normalization and field-specific validation that rejects those tokens |\n| Code already renders only developer-controlled templates with approved keys and validates bound input | No action needed |\n| A template engine supports expressions, object traversal, or helper execution from data | Disable those features if possible, or replace with a minimal placeholder renderer |\n\n## Boundaries\n\n### Can Do\n- Replace dangerous dynamic template execution with trusted template selection and string-only placeholder replacement\n- Add validation for template syntax, approved placeholder names, and template-bound input fields\n- Find common TypeScript SSTI sinks such as `new Function`, `eval`, and untrusted template compilation paths\n\n### Cannot Do\n- Guarantee safety if another code path still passes untrusted content into a template engine or expression evaluator\n- Safely preserve advanced template features like arbitrary expressions, property traversal, loops, or helper invocation from user input\n- Infer project-specific business rules for every field without explicit validation requirements\n\n## Gotchas\n- Blocking only one syntax family: rejecting `{{...}}` but allowing `${...}` or `<% ... %>` still leaves exploitable render paths\n- Validating templates only at creation time: templates loaded later from config, storage, or alternate endpoints must also be validated on every render path\n- Converting values to strings without field validation: stringification prevents object execution in simple renderers, but dangerous delimiters and control characters can still reach downstream template handling\n\n## Quick Verification\n```bash\n# Confirm secure validation and trusted rendering helpers exist\nrg -n \"validateTrustedTemplates|renderTrustedTemplate|validateTemplateBoundInput|TRUSTED_TEMPLATES|PLACEHOLDER_PATTERN\" .\n\n# Find unguarded dangerous dynamic execution sinks that bypass the fix\nrg -n \"new Function\\s*\\(|eval\\s*\\(|vm\\.(runInNewContext|runInContext|runInThisContext)\\s*\\(\" .\n\n# Find suspicious direct handling of user-controlled template expressions\nrg -n \"\\$\\{[^}]+\\}|\\\\{\\\\{[^}]+\\\\}\\\\}|<%[=-]?.*%>\" src test . || true\n\n# Build the TypeScript project\nnpx tsc --noEmit\n\n# Run tests across common TypeScript project setups\nnpm test\n```",
+            "type": "Built-in",
+            "ordinal": 659,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:50.340000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:50.340000-04:00",
+            "active": true
+          }
+        ]
+      }
+    }
+  ]
+}

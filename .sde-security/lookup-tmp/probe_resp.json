@@ -1,0 +1,660 @@
+{
+  "composite_response": [
+    {
+      "reference_id": "T2663",
+      "http_status_code": 200,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "results": []
+      }
+    },
+    {
+      "reference_id": "T2141",
+      "http_status_code": 200,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "results": [
+          {
+            "db_id": 3467,
+            "id": "TA3467",
+            "title": "ASD-STIG requirements",
+            "text": "## V-222517 [medium]:\n__The application must employ a deny-all, permit-by-exception (whitelist) policy to allow the execution of authorized software programs.__\n\nUtilizing a whitelist provides a configuration management method for allowing the execution of only authorized software. Using only authorized software decreases risk by limiting the number of potential vulnerabilities.\n\nThe organization must identify authorized software programs and permit execution of authorized software. The process used to identify software programs that are authorized to execute on organizational information systems is commonly referred to as whitelisting.\n\nVerification of whitelisted software can occur either prior to execution or at system startup.\n\nThis requirement applies to configuration management applications or similar types of applications designed to manage system processes and configurations (e.g., HBSS and software wrappers).\n\n",
+            "type": "Built-in",
+            "ordinal": 0,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2020-11-16T13:48:56.213000-05:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2022-06-02T10:13:09.902000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 11990,
+            "id": "TA11990",
+            "title": "T2141 - SKILL.md - Go",
+            "text": "---\nname: perform-function-level-authorization-in-api\ndescription: Use when Go code exposes privileged API or handler functions that may be called directly without explicit deny-by-default authorization based on trusted server-side user, group, or role data.\n---\n# Perform function level authorization in API\n\n## What This Skill Does\nThis skill fixes direct request and forced browsing flaws in Go applications by requiring every privileged function, handler, or controller action to perform an explicit authorization check at function entry. It centralizes the allow decision in a shared authorization function, uses only trusted server-side identity attributes such as user name, groups, and roles, and denies access by default when identity data is missing, malformed, unknown, or unmatched.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Privileged handler or function performs admin work with no explicit check at entry | Apply a function-level authorization check before any read, write, export, delete, or dispatch |\n| Administrative controllers or handlers share the same access model | Add a shared `AuthorizationCheck` in an administrative base controller and reuse it from all privileged actions |\n| A regular controller or non-controller function exposes one admin-only operation | Add a dedicated local guard such as `AuthorizationCheckAdminFunction` and call it at the start of that function |\n| Authorization depends on client request fields, headers, or body values for roles/groups | Replace with checks against trusted server-side identity data only |\n| Code already denies by default on missing or unmatched rules and guards each privileged function | No action needed |\n\n## Boundaries\n\n### Can Do\n- Add or reuse a shared Go authorization function such as `AuthorizationCheck`\n- Insert deny-by-default checks at the start of privileged functions and handlers\n- Refactor administrative controllers to inherit or embed shared authorization logic\n\n### Cannot Do\n- Define the correct business policy for which users, groups, or roles should be allowed\n- Prove that upstream authentication or identity population is trustworthy\n- Prevent authorization bypasses in external services, reverse proxies, or separately deployed components\n\n## Gotchas\n- Checking client-supplied role or group fields: this is wrong because callers can forge request data; use trusted server-side identity only\n- Guarding routes but not the target function: this is wrong because internal calls, alternate routes, or refactors can still reach the privileged code\n- Allowing empty or unmapped rules to pass: this is wrong because unknown actions and missing metadata must deny by default\n\n## Quick Verification\n```bash\n# Confirm a shared or dedicated authorization guard exists\nrg -n 'func .*AuthorizationCheck|func .*AuthorizationCheckAdminFunction|ErrAccessDenied|access denied' .\n\n# Find likely unguarded privileged functions and direct sensitive calls that may bypass the guard\nrg -n 'func .*([Dd]elete|[Rr]emove|[Uu]pdate|[Cc]reate|[Ll]istAll|[Ee]xport|[Aa]dmin)|return (deleteRecord|listAllRecords)\\(|\\b(deleteRecord|listAllRecords)\\(' .\n\n# Build and test with the Go toolchain across packages\ngo build ./... && go test ./...\n```",
+            "type": "Built-in",
+            "ordinal": 20,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-08-25T19:07:25.679000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-08-25T19:07:25.679000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 12060,
+            "id": "TA12060",
+            "title": "T2141 - SKILL.md - Rust",
+            "text": "---\nname: perform-function-level-authorization-in-api\ndescription: Use when Rust code exposes administrative actions that can be reached by direct requests or alternate paths and needs shared deny-by-default function-level authorization.\n---\n# Perform Function Level Authorization in API\n\n## What This Skill Does\nThis skill fixes function-level authorization failures that allow forced browsing or direct requests to reach administrative behavior without a server-side permission check. It introduces one shared Rust authorization path that evaluates the current `User` plus the requested `Action`, applies that check before protected business logic runs, reuses the same policy in admin and mixed-purpose entry points, and denies by default when role, group, action, or caller context is missing or not explicitly allowed.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| A Rust function performs admin behavior such as listing users, deleting users, cleanup, or admin record changes without calling `authorization_check` first | Add a shared `authorization_check(&self, user: &User, action: Action) -> Result<(), AuthError>` and call it before any protected work |\n| Administrative handlers/controllers define their own inline role checks or drift across endpoints | Move the policy into a shared abstraction like `AdministrativeAbstractController` with `AdminAuthBase` and route all admin actions through it |\n| A regular or mixed-purpose module exposes admin-only behavior | Reuse the same shared admin authorization function for each protected function, not just for admin-named types |\n| The code accepts unknown admin actions or missing caller/group/role data | Deny by default with `Err(AuthError::Forbidden)` |\n| Protected functions already call the shared authorization function before side effects and reject unauthorized callers | No action needed |\n\n## Boundaries\n\n### Can Do\n- Add a shared Rust authorization trait/base such as `AdministrativeAbstractController` and `AdminAuthBase`\n- Insert per-function checks using `authorization_check(user, action)?` before protected logic executes\n- Convert public admin functions to return `Result<_, AuthError>` and fail closed on unauthorized access\n\n### Cannot Do\n- Infer the correct business authorization matrix if roles, groups, and allowed actions are not defined by the application\n- Replace framework-wide authentication, session handling, or identity proofing\n- Guarantee every external route is protected if some entry points are generated, indirect, or outside the scanned codebase\n\n## Gotchas\n- Checking only controller type and not each protected function: mixed-purpose modules can still expose admin behavior through alternate paths\n- Passing no explicit `Action` into the policy: this weakens authorization and makes different admin operations collapse into one coarse check\n- Returning allow on unknown or incomplete context: missing role/group/action data must end in `Err(AuthError::Forbidden)`, not fallback access\n\n## Quick Verification\n```bash\n# Confirm the shared authorization guard exists\nrg -n 'fn\\s+authorization_check\\s*\\(&self,\\s*user:\\s*&User,\\s*action:\\s*Action\\)\\s*->\\s*Result<\\(\\),\\s*AuthError>' .\n\n# Find dangerous admin functions that do not appear to use the shared guard nearby\nrg -n -U 'pub\\s+fn\\s+(admin_[a-zA-Z0-9_]*|delete_user|create_admin_record|admin_only_cleanup|handle_request)\\b[\\s\\S]{0,400}(?!(authorization_check|authorization_check_admin_function|AdminAuthBase\\.authorization_check))' .\n\n# Find direct protected operations that may bypass authorization\nrg -n '(state\\.users\\.remove\\(|audit_log\\.push\\(|\"/admin/)' .\n\n# Build and run tests with the Rust toolchain\ncargo build --all-targets && cargo test --all-targets\n```",
+            "type": "Built-in",
+            "ordinal": 95,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-08-25T19:07:29.346000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-08-25T19:07:29.346000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 8555,
+            "id": "TA8555",
+            "title": "T2141 - SKILL.md - Python",
+            "text": "---\nname: perform-function-level-authorization-in-api\ndescription: Enforce server-side, role- and group-based checks on each admin or sensitive API function to prevent direct request / forced browsing; Use when APIs expose admin actions without consistent function-level authorization.\n---\n\n# Perform function level authorization in API\n\n## What This Skill Does\nEnsures every administrative or sensitive API function performs centralized, server-side authorization based on users, roles, and groups, denying access by default. It fixes missing function-level authorization that lets attackers directly call admin endpoints (forced browsing) by requiring explicit privileges and consistent checks in abstract/regular controllers before any sensitive logic runs.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Admin or sensitive endpoint has no explicit server-side authorization check at function entry | Add a centralized admin-check helper and call it as the first line in that function |\n| Project has dedicated admin controllers but no shared authorization base | Introduce an `AdminAbstractController` with a strict `checkAdminAccess` method and make all admin controllers extend it |\n| Regular controller includes occasional admin-like actions (e.g., promote user, reset password) | Add a dedicated admin-check function in that controller and invoke it in each admin-like method |\n| Authorization decisions vary across controllers (different role names / logic) | Standardize on one role/group model and shared helpers (`isAdminAllowed`, `checkAdminAccess`) reused everywhere |\n| User/context is sometimes missing or malformed | Normalize context and enforce deny-by-default (treat any missing/invalid user/attributes as unauthorized/forbidden) |\n| Code already calls a robust, centralized, deny-by-default authorization helper on every admin function | No action needed (keep existing pattern) |\n\n## Boundaries\n\n### Can Do\n- Detect when admin or sensitive API functions lack explicit server-side authorization checks.\n- Introduce/extend an abstract admin controller with a centralized `checkAdminAccess` that uses roles and groups and fails closed.\n- Add per-function admin checks in regular controllers that host administrative behaviors.\n- Refactor scattered conditional checks into a single reusable helper that denies-by-default on missing or invalid user context.\n\n### Cannot Do\n- Redesign or harden the entire authentication mechanism (e.g., token issuance, identity proof); this focuses on authorization at function level.\n- Infer correct business roles/groups or privilege mappings without guidance from existing code/config or comments.\n- Guarantee that every sensitive function is identified when business logic is deeply obfuscated or misnamed (may need human review).\n- Fix broader issues like insecure transport (HTTP instead of HTTPS) or broken session management.\n\n## Gotchas\n- Forgetting to call the check at the start of every admin function: Adding a helper but only using it on some methods leaves bypass paths; always invoke the check as the first line of each admin/sensitive function.\n- Relying on client-side indicators (e.g., `isAdmin` flag in request body/query) instead of server-side roles/groups: Attackers can forge these; always derive authorization from trusted server-side user context.\n- Allowing on error or missing data: Treating \u201cno user\u201d, parse failures, or missing `roles/groups` as allowed is dangerous; the helper must deny in all ambiguous or error cases.\n- Mixing different role names/rules across controllers: Inconsistent rules cause accidental privilege; centralize role/group constants and reuse the same helper everywhere.\n\n## Quick Verification\n```bash\n# 1. Run tests (or app) for the fixed example\nnode app_fix_javascript_code.js alice   # non-admin: should get UNAUTHORIZED/FORBIDDEN style message\nnode app_fix_javascript_code.js bob     # admin: should be able to perform admin action\n\n# 2. Manual HTTP checks (assuming Express app on localhost:3000)\n# Non-admin calling admin endpoint (should be 401/403)\ncurl -i \"http://localhost:3000/admin/deleteUser?username=alice&target=bob\"\n\n# Admin calling admin endpoint (should succeed)\ncurl -i \"http://localhost:3000/admin/deleteUser?username=bob&target=alice\"\n\n# 3. Grep for unprotected admin functions (heuristic)\nrg \"admin\" . | rg -v \"checkAdminAccess|ensureAdmin|isAdminAllowed\"\n```",
+            "type": "Built-in",
+            "ordinal": 117,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-05-21T11:39:54.694000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-05-21T11:39:54.694000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9345,
+            "id": "TA9345",
+            "title": "T2141 - SKILL.md - JavaScript",
+            "text": "---\nname: perform-function-level-authorization-in-api\ndescription: Enforce server-side, role- and group-based checks on each admin or sensitive API function to prevent direct request / forced browsing; Use when APIs expose admin actions without consistent function-level authorization.\n---\n\n# Perform function level authorization in API\n\n## What This Skill Does\nEnsures every administrative or sensitive API function performs centralized, server-side authorization based on users, roles, and groups, denying access by default. It fixes missing function-level authorization that lets attackers directly call admin endpoints (forced browsing) by requiring explicit privileges and consistent checks in abstract/regular controllers before any sensitive logic runs.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Admin or sensitive endpoint has no explicit server-side authorization check at function entry | Add a centralized admin-check helper and call it as the first line in that function |\n| Project has dedicated admin controllers but no shared authorization base | Introduce an `AdminAbstractController` with a strict `checkAdminAccess` method and make all admin controllers extend it |\n| Regular controller includes occasional admin-like actions (e.g., promote user, reset password) | Add a dedicated admin-check function in that controller and invoke it in each admin-like method |\n| Authorization decisions vary across controllers (different role names / logic) | Standardize on one role/group model and shared helpers (`isAdminAllowed`, `checkAdminAccess`) reused everywhere |\n| User/context is sometimes missing or malformed | Normalize context and enforce deny-by-default (treat any missing/invalid user/attributes as unauthorized/forbidden) |\n| Code already calls a robust, centralized, deny-by-default authorization helper on every admin function | No action needed (keep existing pattern) |\n\n## Boundaries\n\n### Can Do\n- Detect when admin or sensitive API functions lack explicit server-side authorization checks.\n- Introduce/extend an abstract admin controller with a centralized `checkAdminAccess` that uses roles and groups and fails closed.\n- Add per-function admin checks in regular controllers that host administrative behaviors.\n- Refactor scattered conditional checks into a single reusable helper that denies-by-default on missing or invalid user context.\n\n### Cannot Do\n- Redesign or harden the entire authentication mechanism (e.g., token issuance, identity proof); this focuses on authorization at function level.\n- Infer correct business roles/groups or privilege mappings without guidance from existing code/config or comments.\n- Guarantee that every sensitive function is identified when business logic is deeply obfuscated or misnamed (may need human review).\n- Fix broader issues like insecure transport (HTTP instead of HTTPS) or broken session management.\n\n## Gotchas\n- Forgetting to call the check at the start of every admin function: Adding a helper but only using it on some methods leaves bypass paths; always invoke the check as the first line of each admin/sensitive function.\n- Relying on client-side indicators (e.g., `isAdmin` flag in request body/query) instead of server-side roles/groups: Attackers can forge these; always derive authorization from trusted server-side user context.\n- Allowing on error or missing data: Treating \"no user\", parse failures, or missing `roles/groups` as allowed is dangerous; the helper must deny in all ambiguous or error cases.\n- Mixing different role names/rules across controllers: Inconsistent rules cause accidental privilege; centralize role/group constants and reuse the same helper everywhere.\n\n## Quick Verification\n```bash\n# 1. Run tests (or app) for the fixed example\nnode app_fixed.js alice   # non-admin: should get UNAUTHORIZED/FORBIDDEN style message\nnode app_fixed.js bob     # admin: should be able to perform admin action\n\n# 2. Manual HTTP checks (assuming Express app on localhost:3000)\n# Non-admin calling admin endpoint (should be 401/403)\ncurl -i \"http://localhost:3000/admin/deleteUser?username=alice&target=bob\"\n\n# Admin calling admin endpoint (should succeed)\ncurl -i \"http://localhost:3000/admin/deleteUser?username=bob&target=alice\"\n\n# 3. Grep for unprotected admin functions (heuristic)\nrg \"admin\" . | rg -v \"checkAdminAccess|ensureAdmin|isAdminAllowed\"\n```",
+            "type": "Built-in",
+            "ordinal": 125,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:34.713000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:34.713000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9383,
+            "id": "TA9383",
+            "title": "T2141 - SKILL.md - Java",
+            "text": "---\nname: perform-function-level-authorization-in-api\ndescription: Use when API or controller actions expose privileged functions without per-function authorization checks; centralize explicit user, group, and role checks and deny by default.\n---\n\n# Perform Function Level Authorization in API\n\n## What This Skill Does\nThis skill fixes forced browsing and missing function-level authorization in APIs by adding a shared authorization guard for privileged actions, mapping each administrative function to explicit allowed users, groups, or roles, and enforcing deny-by-default behavior when no rule matches. Use it when administrative or sensitive endpoints can be called directly without checking whether the current user is allowed to perform that specific function.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Controller or API action performs an administrative or privileged operation without checking the current user's identity, group, or role | Apply a function-level authorization guard before any business logic runs |\n| Multiple admin endpoints duplicate authorization logic | Move checks into a shared administrative base controller or reusable guard method |\n| A regular controller exposes an admin-only action | Reuse the same authorization routine and bind it to that explicit function name |\n| Function names or authorization attributes are compared inconsistently | Normalize function identifiers and compared attributes before lookup |\n| Unknown, missing, or unconfigured privileged function is requested | Deny access immediately and stop execution |\n\n## Boundaries\n\n### Can Do\n- Add a shared authorization method that checks explicit allow rules by user, group, and role\n- Refactor administrative controllers to call the same guard at the start of each privileged action\n- Enforce deny-by-default behavior for unknown functions and unmatched callers\n\n### Cannot Do\n- Infer correct authorization policy when the application has no trustworthy user, group, or role model\n- Replace authentication, session validation, or token verification mechanisms\n- Guarantee object-level access control for specific records or resources beyond the targeted function check\n\n## Gotchas\n- Checking only that the user is authenticated: authentication alone does not authorize a privileged function\n- Placing the guard after business logic starts: side effects may already occur before access is denied\n- Allowing missing policy entries to fall through: unknown or unconfigured functions must be denied, not treated as harmless defaults\n\n## Quick Verification\n```bash\n# Find privileged handlers that may be missing a guard\ngrep -RniE 'delete|admin|audit|export|manage' src/\n\n# Find controller methods that throw or return access denied\ngrep -RniE 'requireAuthorization|isAuthorized|Access denied|SecurityException' src/\n\n# Verify unknown or unconfigured actions are denied\n# Replace with the app's actual endpoint or test command\ncurl -i http://localhost:8080/admin/unknown-action\n\n# Verify a non-admin caller cannot invoke an admin function\ncurl -i http://localhost:8080/admin/delete-user\n```",
+            "type": "Built-in",
+            "ordinal": 281,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:37.351000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:37.351000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9707,
+            "id": "TA9707",
+            "title": "T2141 - SKILL.md - TypeScript",
+            "text": "---\nname: perform-function-level-authorization-in-api\ndescription: Use when TypeScript code exposes privileged or administrative functions without a centralized server-side authorization check that denies by default.\n---\n# Perform Function Level Authorization in API\n\n## What This Skill Does\nThis skill fixes broken function-level authorization in TypeScript APIs and services by centralizing privileged-access decisions in one reusable server-side authorization function, requiring administrative controllers to inherit or reuse that logic, guarding privileged actions in mixed-purpose controllers, and denying access by default when the subject, role, group, or action data is missing, malformed, or not explicitly allowed.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Privileged/admin action runs without a shared authorization check | Add a centralized `authorizeAdminAction()` or `isAuthorized()` function and call it before business logic |\n| Administrative controller has its own ad hoc checks | Move checks into an abstract/base admin controller such as `AdminBaseController` or `AdminAbstractController` and have admin controllers inherit it |\n| Regular controller, service, CLI handler, or job exposes an admin capability | Guard that specific function with the same centralized authorization function before executing the privileged action |\n| Authorization trusts request parameters, body fields, or client-supplied role/group values | Replace with trusted server-side authenticated subject data only |\n| Subject, roles, groups, or action/policy entry is missing or unknown | Deny by default and return/throw forbidden without running the action |\n| Code already performs centralized server-side authorization first and fails closed | No action needed |\n\n## Boundaries\n\n### Can Do\n- Add or strengthen a centralized authorization function using trusted server-side user, group, and role data\n- Refactor admin controllers to inherit or reuse a shared authorization guard\n- Insert authorization checks at the start of privileged functions in controllers, services, jobs, or CLI handlers\n\n### Cannot Do\n- Design a full authentication system or prove the identity source itself is trustworthy\n- Infer business-specific authorization policy values that are not defined by the application\n- Guarantee every route is truly privileged without reading application intent and tests\n\n## Gotchas\n- Checking authorization after business logic starts: this is wrong because the protected action may already have read, changed, or deleted sensitive data\n- Trusting `req.body.role`, `req.query.user`, or similar client input: this is wrong because attackers can forge privilege indicators\n- Returning allow on unknown actions or incomplete identity data: this is wrong because function-level authorization must fail closed by default\n\n## Quick Verification\n```bash\n# Confirm a centralized authorization guard exists\nrg -n --glob '*.ts' 'authorizeAdminAction\\s*\\(|isAuthorized\\s*\\(|ensureAuthorized\\s*\\(' .\n\n# Find likely unguarded privileged actions and admin endpoints that may bypass the guard\nrg -n --glob '*.ts' '(delete|remove|destroy|createSystemUser|deleteAccount|deletePost|admin)' . \\\n  | rg -v 'authorizeAdminAction|isAuthorized|ensureAuthorized|forbidden|403|AdminBaseController|AdminAbstractController'\n\n# Type-check/build across common TypeScript project layouts\nnpx tsc --noEmit\n\n# Run tests if present using the project's configured TypeScript-compatible test command\nnpm test\n```",
+            "type": "Built-in",
+            "ordinal": 645,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:49.880000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:49.880000-04:00",
+            "active": true
+          }
+        ]
+      }
+    },
+    {
+      "reference_id": "T29",
+      "http_status_code": 200,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "results": [
+          {
+            "db_id": 995,
+            "id": "TA995",
+            "title": "Protecting against CSRF in Angular applications",
+            "text": "__ CSRF vulnerabilities in API-based applications__\n\nCross-Site Request Forgery (CSRF) vulnerabilities in the backend exist when it accepts requests from any page in the user's browser. In traditional applications, form-based input is often vulnerable to CSRF. However, in Angular applications, requests are sent from within Angular, using the underlying XMLHttpRequest or Fetch APIs.\n\nHowever, **the use of JavaScript to send requests does not automatically rule out the presence of CSRF attacks**. An API-based backend can still be vulnerable to CSRF if they lack proper protection. For example, an API accepting form-encoded data on a `POST` endpoint might suffer from CSRF. \n\nUse the guidelines below to determine **how to protect against CSRF** in your application.\n\n* Is authorization information automatically sent by the browser (e.g., cookies, HTTP Basic authentication)?\n    * __*Yes*__: CSRF might be an issue, continue with this list\n    * __*No*__: Requests can only be launched from within the application, so CSRF is not an issue\n* Is the API running on a different origin than the Angular frontend?\n    * __*Yes*__: Use CORS to whitelist the origin of the frontend. Reject requests without `Origin` header.\n    * __*No*__: CSRF might be an issue, continue with this list\n* Does the API accept any form-based content type (i.e., `application/x-www-form-urlencoded`, `multipart/form-data` or `text/plain`)?\n    * __*Yes*__: The backend requires CSRF protection. Implement the defense covered below.\n    * __*No*__: CSRF requests can only be sent from JavaScript, making your CORS policy the primary CSRF defense. Configure a strict CORS policy.\n\n\n__*Note*__ Relying on the content types you actively use is not sufficient. You need to verify that the API explicitly rejects unexpected content types, such as `text/plain`.\n\n\n__Defending against CSRF__ \n\nA common defense against CSRF is to use session-specific tokens. These tokens are kept in the server-side session object. Since **APIs are often stateless**, such an approach is likely to cause conflicts. An alternative technique uses cookies to keep track of the CSRF token. This technique is known as double-submit cookies or transparent tokens.\n\nIn this technique, the backend sends a CSRF token in a cookie. The client copies the value of the cookie into a custom request header. For each request, the backend compares the cookie value with the header value. If they match, the client was able to read the cookie, hence is considered to be legitimate. A mismatch indicates that the request did not originate from within the legitimate client application.\n\n**Angular has built-in support for this technique**. To benefit from this protection, the backend needs to fulfill the following responsibilities:\n\n* Generate a \"session\"-specific CSRF token\n* Send the CSRF token to the client using the `Set-Cookie` header\n* Verify the presence of the CSRF token in the `Cookie` header on incoming requests that perform state-changing operations\n* Compare the value in the `Cookie` header to the value in a custom request header (e.g., `X-XSRF-TOKEN`)",
+            "type": "Built-in",
+            "ordinal": 0,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-05-10T12:12:03.437000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-05-15T16:26:36.501000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 1807,
+            "id": "TA1807",
+            "title": "FedRAMP / Moderate Baseline",
+            "text": "*** SC-23: System And Communications Protection | Session Authenticity ***  \nThe information system protects the authenticity of communications sessions.",
+            "type": "Built-in",
+            "ordinal": 11,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-15T17:49:05.898000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T15:08:06.531000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 2734,
+            "id": "TA2734",
+            "title": "FedRAMP / High Baseline",
+            "text": "*** SC-23: System And Communications Protection | Session Authenticity ***  \nThe information system protects the authenticity of communications sessions.",
+            "type": "Built-in",
+            "ordinal": 12,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-17T18:34:13.818000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T18:38:15.101000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 11998,
+            "id": "TA11998",
+            "title": "T29 - SKILL.md - Go",
+            "text": "---\nname: use-anti-cross-site-request-forgery-csrf-tokens\ndescription: Use anti-CSRF tokens for Go applications that accept browser-authenticated state-changing requests; use when handlers trust session cookies alone and do not validate request origin with a token.\n---\n\n# Use anti-Cross-Site Request Forgery (CSRF) tokens\n\n## What This Skill Does\nThis skill fixes CSRF in Go code by ensuring every browser-authenticated, state-changing request is protected with a shared CSRF mechanism that generates unguessable tokens, places them in hidden form fields or headers, and validates them before the handler performs the action. It also adds `Origin`/`Referer` checks as defense in depth and can require explicit confirmation for high-risk actions.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| A Go handler accepts `POST`, `PUT`, `PATCH`, or `DELETE` and relies on cookies or an existing browser session | Apply CSRF protection with shared token generation and verification before the state change |\n| The project already uses `github.com/gorilla/csrf` | Wrap the protected routes with `csrf.Protect(...)` and use `csrf.Token(r)` in forms or response headers |\n| The app serves HTML forms for state-changing actions | Place the token in a hidden field such as `csrf_token` or the library\u2019s expected field name |\n| The app uses script-driven browser requests | Return the token to the client and require it in a request header such as `X-CSRF-Token` |\n| A state-changing endpoint already validates CSRF tokens on every request and rejects invalid origin signals | No action needed |\n\n## Boundaries\n\n### Can Do\n- Add shared CSRF token generation and verification to Go HTTP handlers and middleware\n- Update forms and browser-driven requests to send tokens in hidden fields or headers\n- Add supplementary `Origin`/`Referer` validation and explicit confirmation for sensitive actions\n\n### Cannot Do\n- Protect endpoints that are not browser-authenticated if they use bearer tokens or other non-cookie auth and are not exposed to browser CSRF\n- Infer trusted origins, secret management, or session architecture without project-specific configuration\n- Guarantee full coverage if state-changing logic is reachable outside the protected HTTP path\n\n## Gotchas\n- Token only on the form page, not on validation: issuing a token is not enough; the state-changing endpoint must reject missing, malformed, expired, or invalid tokens before doing work\n- Using `Origin` or `Referer` as the only control: these headers are supplementary and must not replace CSRF token validation\n- Putting CSRF tokens in URLs: query strings leak through logs, browser history, and referrers, so use hidden fields or headers instead\n\n## Quick Verification\n```bash\n# Confirm shared CSRF protection exists\nrg -n 'csrf\\.Protect\\(|csrf\\.Token\\(|VerifyCSRFToken\\(|CheckOriginReferer\\(' .\n\n# Find likely unguarded state-changing handlers that may bypass the fix\nrg -n 'http\\.Method(Post|Put|Patch|Delete)|HandleFunc\\(|FormValue\\(|ParseForm\\(|r\\.Cookie\\(' . \\\n  -g '!vendor' -g '!**/*_test.go'\n\n# Build and test with the Go toolchain\ngo build ./...\ngo test ./...\n```",
+            "type": "Built-in",
+            "ordinal": 29,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-08-25T19:07:26.089000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-08-25T19:07:26.089000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9301,
+            "id": "TA9301",
+            "title": "T29 - SKILL.md - Python",
+            "text": "---\nname: use-anti-cross-site-request-forgery-csrf-tokens\ndescription: Enforce CSRF tokens on state-changing HTTP requests to prevent Cross-Site Request Forgery; use when endpoints rely on browser cookies or auth headers without CSRF defenses.\n---\n\n# Use anti-Cross-Site Request Forgery (CSRF) tokens\n\n## What This Skill Does\nAdds or strengthens CSRF token protections on state-changing endpoints. It ensures each authenticated user/session gets an unpredictable token, that the token is embedded in client requests (form fields or headers), and that every unsafe request validates the token before performing any state change.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| State-changing endpoint (POST/PUT/PATCH/DELETE) relies only on cookies/session for auth and has no CSRF token check | Integrate a CSRF library, generate per-session token, embed in form/JS, and validate on every unsafe request |\n| HTML form performs account or data changes and has no hidden CSRF field | Add hidden `csrf_token` input populated from a server-side generator, and verify it server-side before processing |\n| SPA or AJAX calls modify server state and send only cookies | Expose CSRF token via safe endpoint or non-HttpOnly cookie, send it in a custom header (e.g., `X-CSRF-Token`), and validate it on the server |\n| Framework already provides CSRF middleware (e.g., Django, Rails, Spring Security) and it is enabled on the route | No action needed; only verify the route is not exempted and that templates include the framework's CSRF helpers |\n| Endpoint is read-only (idempotent GET) and does not change server-side state | No CSRF token required; leave as-is unless GET has side effects |\n\n## Boundaries\n\n### Can Do\n- Detect missing CSRF tokens on clearly state-changing endpoints that trust browser cookies or authentication headers.\n- Add secure token generation and validation using libraries like `itsdangerous` or framework-native CSRF support.\n- Refactor forms and handlers so that tokens are consistently embedded and validated before sensitive operations.\n\n### Cannot Do\n- Guarantee protection if the framework's own CSRF middleware is misconfigured, disabled elsewhere, or bypassed via alternate routes.\n- Fix broader authentication/session design issues (weak session IDs, missing HTTPS, missing SameSite) beyond ensuring tokens exist and are checked.\n- Decide business-specific exemptions (e.g., public APIs, webhook endpoints) without human input about intended usage and clients.\n\n## Gotchas\n- Relying only on a CSRF token cookie: If the server checks only a cookie value, a cross-site request will send it automatically; you must also require the token in a header or body field that an attacker cannot set with a simple cross-site form.\n- Putting CSRF tokens in URLs (query strings): Tokens can leak via logs, browser history, and Referer headers; use hidden form fields or headers instead.\n- Protecting only some state-changing routes: Leaving even one POST/PUT/PATCH/DELETE endpoint without CSRF validation can still allow impactful attacks; apply checks consistently across all state-changing handlers.\n\n## Quick Verification\n```bash\n# 1) Start the fixed Flask demo app\nexport FLASK_APP=app_fixed.py\nflask run\n\n# 2) In one terminal, log in via browser at http://127.0.0.1:5000/login\n#    Then open http://127.0.0.1:5000/transfer and capture the csrf_token value.\n\n# 3) Test missing/invalid token is rejected\ncurl -i -X POST \\\n  -H \"Cookie: session_id=<your_session_id>; username=<your_username>\" \\\n  -d \"to=bob&amount=100\" \\\n  http://127.0.0.1:5000/transfer\n\n# Expect: HTTP 4xx response or error page indicating invalid/missing CSRF token.\n\n# 4) Test valid token is accepted\ncurl -i -X POST \\\n  -H \"Cookie: session_id=<your_session_id>; username=<your_username>; csrf_token=<csrf_token_from_app>\" \\\n  -d \"to=bob&amount=100&csrf_token=<csrf_token_from_app>\" \\\n  http://127.0.0.1:5000/transfer\n\n# Expect: Success response indicating transfer completed.\n\n# 5) (Optional) Negative test with tampered token\ncurl -i -X POST \\\n  -H \"Cookie: session_id=<your_session_id>; username=<your_username>; csrf_token=INVALID\" \\\n  -d \"to=bob&amount=100&csrf_token=INVALID\" \\\n  http://127.0.0.1:5000/transfer\n\n# Expect: Same failure as the missing/invalid token case.\n```",
+            "type": "Built-in",
+            "ordinal": 32,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:33.077000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:33.077000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 905,
+            "id": "TA905",
+            "title": "ASD-STIG requirements",
+            "text": "## V-222603 [medium]:\n__The application must protect from Cross-Site Request Forgery (CSRF) vulnerabilities.__\n\nCross-Site Request Forgery (CSRF) is an attack where a website user is forced to execute an unwanted action on a website that he or she is currently authenticated to. An attacker, through social engineering (e.g., e-mail or chat) creates a hyperlink which executes unwanted actions on the website the victim is authenticated to and sends it to the victim. If the victim clicks on the link, the action is executed unbeknownst to the victim.\n\nA CSRF attack executes a website request on behalf of the user which can lead to a compromise of the user's data. What is needed to be successful is for the attacker to know the URL, an authenticated application user, and trick the user into clicking the malicious link.\n\nWhile XSS is not needed for a CSRF attack to work, XSS vulnerabilities can provide the attacker with a vector to obtain information from the user that may be used in mitigating the risk. The application must not be vulnerable to XSS as an XSS attack can be used to help defeat token, double-submit cookie, referrer and origin-based CSRF defenses.\n\n",
+            "type": "Built-in",
+            "ordinal": 40,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2018-02-20T11:21:13.557000-05:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2024-09-24T13:15:57.674000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 8523,
+            "id": "TA8523",
+            "title": "T29 - SKILL.md - Node.js",
+            "text": "---\nname: use-anti-cross-site-request-forgery-csrf-tokens\ndescription: Add and enforce CSRF tokens for state-changing, cookie-authenticated endpoints; use when fixing Cross-Site Request Forgery (CWE-352/P677) issues\n---\n\n# Use anti-Cross-Site Request Forgery (CSRF) tokens\n\n## What This Skill Does\nAdds robust CSRF protection to web apps that rely on browser-managed authentication (typically cookies) by generating server-side CSRF tokens, sending them to the client in a controlled way (cookie + body/header), and verifying them for every state-changing request. Use this when endpoints change server state and currently accept requests based only on cookies or similar ambient credentials.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| State-changing route (POST/PUT/PATCH/DELETE) uses cookie-based auth and has no CSRF check | Introduce CSRF token generation and verification (double-submit or framework middleware) and require a valid token on that route |\n| App is Express/Node.js and already uses `express-session` and cookies | Prefer framework/middleware-based CSRF (e.g., `csurf` or central `csrfAutoVerify` middleware) to cover all unsafe methods automatically |\n| Forms are server-rendered HTML and JS fetch/XHR is minimal | Embed CSRF token as a hidden field in each form and verify on the server; avoid custom JS where not needed |\n| SPA or heavy AJAX usage reads cookies client-side | Use a readable CSRF cookie (`csrf_token`) and send its value in a custom header (e.g., `X-CSRF-Token`) for each unsafe request; verify on the server |\n| Endpoint is strictly read-only and does not modify state (GET/HEAD) | Typically skip CSRF checks; only add them if framework requires or if endpoint has side effects |\n| Endpoint uses bearer tokens / Authorization headers without cookies | Do not add CSRF tokens here; rely on proper auth and CORS instead (CSRF mainly affects cookie-based auth) |\n| Existing code already issues, reads, and validates a structured CSRF token for all unsafe methods | No action needed; only verify configuration and coverage |\n\n## Boundaries\n\n### Can Do\n- Add CSRF token generation based on a server-side secret and strong randomness.\n- Insert CSRF tokens into forms and AJAX requests (hidden fields or headers).\n- Implement or configure centralized CSRF verification middleware for unsafe HTTP methods.\n- Convert a vulnerable Express/Node.js example from no-CSRF to robust CSRF protection using cookies + tokens.\n- Recognize when endpoints are cookie-authenticated and need CSRF defense.\n\n### Cannot Do\n- Cannot retrofit CSRF protection into non-HTTP protocols or purely token-based APIs that do not use browser cookies.\n- Cannot guarantee security if the surrounding session/auth setup is broken (e.g., hardcoded secrets, session fixation).\n- Cannot by itself prevent XSS, which can steal or misuse CSRF tokens; XSS must be addressed separately.\n- Cannot decide deployment-specific flags (e.g., exact `secure` cookie setting) without environment knowledge, only recommend them.\n\n## Gotchas\n- Relying only on `SameSite` cookies as \u201cCSRF protection\u201d: `SameSite` helps but is not a full defense; still generate and verify CSRF tokens.\n- Forgetting to protect all unsafe methods: protecting only POST while leaving PUT/PATCH/DELETE unprotected still leaves CSRF paths open.\n- Putting CSRF tokens in URLs (query string) by default: this leaks tokens via logs and referrers; prefer hidden form fields or headers.\n- Making CSRF cookies `httpOnly` when the client must read them for AJAX: `httpOnly` CSRF cookies cannot be read by JS; for the double-submit/header patterns, the CSRF cookie must be readable (but session/auth cookies should remain `httpOnly`).\n- Using predictable or static tokens: tokens must be derived from a secret plus fresh randomness and verified with integrity (e.g., HMAC), not hardcoded or user-controlled.\n\n## Quick Verification\n```bash\n# 1. Start the fixed CSRF-protected app (Node.js example)\nnode app_fix_javascript_code.js\n\n# 2. In browser:\n#    - Visit /login to obtain auth cookie and CSRF token.\n#    - Submit the form normally and confirm the transfer works.\n\n# 3. Simulate a forged cross-site POST without a CSRF token\ncurl -i -X POST http://localhost:3000/transfer \\\n  -H \"Cookie: authUser=alice\" \\\n  -d \"to=bob&amount=10\"\n\n# Expected: HTTP 403 with an \"Invalid CSRF token\" style message,\n# and NO balance change.\n\n# 4. Simulate a valid same-origin-style request with matching CSRF cookie+body\n#    (replace TOKEN_VALUE and COOKIE_VALUE with real values captured from browser)\ncurl -i -X POST http://localhost:3000/transfer \\\n  -H \"Cookie: authUser=alice; csrf_token=COOKIE_VALUE\" \\\n  -d \"to=bob&amount=10&csrf_token=TOKEN_VALUE\"\n\n# Expected: HTTP 200 and successful transfer response.\n\n# 5. Confirm balances reflect only the valid CSRF-protected transfer\ncurl -s http://localhost:3000/balance | jq .\n```",
+            "type": "Built-in",
+            "ordinal": 85,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-05-21T11:39:52.819000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-05-21T11:39:52.819000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 12067,
+            "id": "TA12067",
+            "title": "T29 - SKILL.md - Rust",
+            "text": "---\nname: use-anti-cross-site-request-forgery-csrf-tokens\ndescription: Use anti-CSRF tokens to protect Rust code that handles browser-authenticated state-changing requests; use when cookie-based authentication could allow forged POST/PUT/PATCH/DELETE or unsafe state-changing GET requests.\n---\n\n# Use anti-Cross-Site Request Forgery (CSRF) tokens\n\n## What This Skill Does\nThis skill fixes CSRF weaknesses by ensuring state-changing Rust request handlers do not trust browser-sent credentials such as cookies by themselves. It adds a shared server-validated CSRF mechanism, typically a signed double-submit token using an HMAC over a random salt, requires verification on every state-changing request, optionally checks `Origin` or `Referer` as defense in depth, and adds explicit confirmation for high-risk actions.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| A `POST`, `PUT`, `PATCH`, or `DELETE` handler accepts cookie-based authentication and changes state | Apply a shared CSRF verification path and reject missing, malformed, or invalid tokens |\n| A `GET` endpoint or hyperlink performs a state change | Convert it to a protected non-GET action and require CSRF validation |\n| The code generates tokens from client input, predictable values, or without a server secret | Replace with a signed double-submit or equivalent server-validated token using `hmac`, `sha2`, `rand::rngs::OsRng`, and constant-time comparison |\n| Browser-driven JSON or API endpoints use cookies for auth | Require CSRF validation there too, usually with a custom header such as `x-csrf-token` plus related cookie state |\n| The endpoint already uses a centralized verifier and rejects invalid tokens on all state-changing paths | No action needed |\n\n## Boundaries\n\n### Can Do\n- Add Rust helpers to generate and verify CSRF token pairs using a server secret and random salt\n- Route state-changing handlers through one shared verification function for form or header tokens\n- Add optional `Origin`/`Referer` checks and extra confirmation for sensitive actions\n\n### Cannot Do\n- Prove an endpoint is safe if it changes state through behavior hidden outside the scanned code path\n- Replace authentication, authorization, or XSS defenses with CSRF tokens\n- Reliably protect clients that do not use browser-sent credentials or flows that need a different threat model\n\n## Gotchas\n- Using `Origin` or `Referer` instead of a token: header checks are only secondary signals and should not replace token validation\n- Protecting only HTML forms: cookie-authenticated JSON or AJAX endpoints also need CSRF validation, usually via `x-csrf-token`\n- Comparing tokens with normal equality: non-constant-time comparison can leak information and should be replaced with `subtle::ConstantTimeEq`\n\n## Quick Verification\n```bash\n# Confirm a shared CSRF guard/wrapper exists\nrg -n 'fn (generate_csrf_token_pair|verify_csrf_token|must_verify_form_request|verify_request_form|verify_request_header|validate_form_request)\\b|ConstantTimeEq|ct_eq|x-csrf-token|csrf_token|csrf_salt' .\n\n# Find likely unguarded state-changing handlers or unsafe state-changing GET-style endpoints\nrg -n 'fn (change|update|delete|remove|toggle|create|set|reset|grant|revoke|authorize)[a-zA-Z0-9_]*\\b|method=\"?GET\"?|<a href=|/toggle_|/delete_|/update_' . \\\n  | rg -v 'must_verify_form_request|verify_request_form|verify_request_header|validate_form_request|verify_csrf_token|authorize_sensitive_request'\n\n# Build and run tests with the Rust toolchain\ncargo test --all-targets\ncargo check --all-targets\n```",
+            "type": "Built-in",
+            "ordinal": 103,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-08-25T19:07:29.695000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-08-25T19:07:29.695000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9405,
+            "id": "TA9405",
+            "title": "T29 - SKILL.md - Java",
+            "text": "---\nname: use-anti-cross-site-request-forgery-csrf-tokens\ndescription: Use framework-backed CSRF tokens to protect browser-authenticated state-changing requests from forgery. Use when Java endpoints accept unsafe browser requests with ambient credentials.\n---\n# Use anti-Cross-Site Request Forgery (CSRF) tokens\n\n## What This Skill Does\nThis skill fixes CSRF weaknesses in Java web applications by ensuring every browser-authenticated state-changing request uses a valid anti-CSRF token that the server verifies before running business logic. Prefer framework support such as Spring Security CSRF, send the token in a hidden form field or custom header, validate it for `POST`, `PUT`, `PATCH`, and `DELETE`, reject invalid or missing tokens, and add defense-in-depth checks such as `Origin`/`Referer` validation and avoiding state changes on `GET`.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| A Java endpoint changes server state and relies on browser cookies, session auth, or other ambient credentials | Apply CSRF protection to all unsafe methods and enforce validation before business logic |\n| Spring Security is available | Use Spring Security CSRF token generation, storage, request binding, and verification instead of custom token code |\n| Server-rendered HTML forms submit unsafe requests | Send the CSRF token in a hidden form field and verify it on receipt |\n| Script-driven requests (AJAX/fetch/XHR) submit unsafe requests | Send the CSRF token in a custom header and verify it on receipt |\n| The endpoint is read-only, uses only safe methods, or is already protected by correct framework CSRF handling | No action needed |\n\n## Boundaries\n\n### Can Do\n- Add or strengthen CSRF protection for Java endpoints handling browser-authenticated `POST`, `PUT`, `PATCH`, or `DELETE`\n- Replace ad hoc token handling with vetted framework support such as Spring Security CSRF\n- Add defense-in-depth checks like blocking state change on `GET` and validating `Origin` with `Referer` fallback\n\n### Cannot Do\n- Prove that a request is safe if the application intentionally performs state changes on `GET`\n- Secure non-browser clients that do not use ambient browser credentials unless the application's auth model is reviewed separately\n- Fix unrelated issues such as authorization flaws, XSS, or business-logic abuse by only adding CSRF tokens\n\n## Gotchas\n- Putting CSRF tokens in URLs: tokens can leak through logs, browser history, caches, and referrers; use form fields or headers instead\n- Protecting only `POST`: `PUT`, `PATCH`, and `DELETE` are also unsafe and need the same validation\n- Writing custom predictable token logic: tokens must come from framework support or strong server-side secrets plus strong randomness, and comparisons should be constant time\n\n## Quick Verification\n```bash\n# Spring projects: check whether CSRF support is configured\ngrep -R \"csrf\" -n src/main/java src/main/resources\n\n# Look for unsafe handlers that may need protection\ngrep -R \"@PostMapping\\|@PutMapping\\|@PatchMapping\\|@DeleteMapping\" -n src/main/java\n\n# Verify forged requests fail without a token\ncurl -i -X POST http://localhost:8080/transfer\n\n# Verify a bad token is rejected\ncurl -i -X POST \\\n  -H \"X-CSRF-Token: bad-token\" \\\n  http://localhost:8080/transfer\n\n# Verify state-changing behavior is not exposed on GET\ncurl -i -X GET http://localhost:8080/transfer\n```",
+            "type": "Built-in",
+            "ordinal": 303,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:38.183000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:38.183000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9778,
+            "id": "TA9778",
+            "title": "T29 - SKILL.md - TypeScript",
+            "text": "---\nname: use-anti-cross-site-request-forgery-csrf-tokens\ndescription: Use anti-CSRF tokens and supplementary origin checks for browser-authenticated state-changing requests; use when TypeScript code trusts cookies or other ambient authentication for mutations.\n---\n\n# Use anti-Cross-Site Request Forgery Tokens\n\n## What This Skill Does\nThis skill fixes CSRF weaknesses in TypeScript applications by adding centralized anti-CSRF token generation and validation for browser-submitted state-changing requests, ensuring validation happens before any mutation logic runs, and adding `Origin`/`Referer` checks as a supplementary browser-origin signal. It is most relevant for apps that use cookies or other ambient browser authentication and expose POST/PUT/PATCH/DELETE or similar state-changing flows.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| State-changing browser endpoint accepts cookies/session auth and has no CSRF validation | Apply CSRF middleware or wrapper before the handler and require a token in a hidden field or custom header |\n| Express or similar TypeScript server manually generates or compares CSRF-like values | Replace with a proven library such as `csurf` and centralize token issuance/verification |\n| Browser form or AJAX flow mutates state but does not send `_csrf` or `x-csrf-token` | Add token issuance in the rendering/API path and include it in the protected request |\n| Sensitive action such as email change, transfer, or privilege update is protected only by a token | Keep CSRF protection and add a second user-interaction step for that action |\n| Endpoint is already protected by CSRF validation before mutation and rejects bad `Origin`/`Referer` | No action needed |\n\n## Boundaries\n\n### Can Do\n- Add centralized CSRF protection middleware for TypeScript/Node browser-facing handlers\n- Update forms or JSON responses to issue and return CSRF tokens for protected requests\n- Add supplementary exact-match `Origin`/`Referer` validation for browser-originated state-changing requests\n\n### Cannot Do\n- Prove an endpoint is safe if it is not reachable from browsers or does not use ambient authentication without reviewing architecture\n- Replace authorization, authentication, or input validation; CSRF protection is only one control\n- Reliably secure every framework with the same API; library wiring differs across Express, Nest, Next, Fastify, and custom servers\n\n## Gotchas\n- Hand-rolling token logic: easy to get secret binding, randomness, expiry, or comparison wrong; use a maintained library instead\n- Validating after the state change: if `changeEmail`, `transferFunds`, database writes, or queue publishes happen first, the request is still exploitable\n- Trusting `Origin` or `Referer` alone: these headers are supplementary checks and must not replace CSRF token validation for cookie-authenticated browser flows\n\n## Quick Verification\n```bash\n# Confirm a CSRF guard exists in TypeScript/JavaScript server code\nrg -n --glob '*.{ts,tsx,js,jsx,mjs,cjs}' '\\b(csurf|csrfProtection|req\\.csrfToken\\(|applyCsrfProtection|verifyTrustedOrigin)\\b' .\n\n# Find likely unguarded state-changing endpoints or mutation handlers bypassing CSRF checks\nrg -n --glob '*.{ts,tsx,js,jsx,mjs,cjs}' '(\\.post\\(|\\.put\\(|\\.patch\\(|\\.delete\\()|(\\b(changeEmail|transferFunds)\\s*\\()' .\n\n# Type-check/build using the TypeScript toolchain when present\nnpx tsc --noEmit\n\n# Run project tests through the package script when available\nnpm test\n```",
+            "type": "Built-in",
+            "ordinal": 724,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:52.607000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:52.607000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9874,
+            "id": "TA9874",
+            "title": "T29 - SKILL.md - React",
+            "text": "---\nname: use-anti-cross-site-request-forgery-csrf-tokens\ndescription: Use vetted CSRF token patterns in React clients and paired server validation for state-changing requests. Use when authenticated POST/PUT/PATCH/DELETE flows or forms could be forged by another site.\n---\n\n# Use anti-Cross-Site Request Forgery (CSRF) tokens\n\n## What This Skill Does\nThis skill fixes CSRF weaknesses by centralizing how React code reads a server-issued CSRF token, attaches it to every state-changing request, includes hidden token fields in native forms, and adds confirmation for sensitive actions. It should be used when authenticated React flows submit POST, PUT, PATCH, or DELETE requests or native forms, and the current code relies on cookies or ambient session state without token transport and server-side verification.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| React code performs `fetch` mutations with `POST`, `PUT`, `PATCH`, or `DELETE` and no CSRF header | Introduce a shared `csrfFetch`/`useCsrfFetch` helper that reads a server-issued token and sets `X-CSRF-Token` on mutating requests |\n| Native form submission changes server state and lacks a hidden CSRF field | Add a centralized hidden input such as `CsrfHiddenInput` that submits the server-issued token using a consistent field name like `_csrf` |\n| Token is read from component state, localStorage, or generated in the browser | Replace with a trusted server-controlled source such as `<meta name=\"csrf-token\">` or a dedicated CSRF cookie read by one shared helper |\n| Sensitive account or destructive action happens immediately on submit | Add explicit confirmation or re-authentication before the final mutation request |\n| Requests already use a shared CSRF helper, forms include hidden token fields, and the server validates tokens | No action needed |\n\n## Boundaries\n\n### Can Do\n- Add a shared React token reader such as `useCsrfToken` backed by a server-controlled source\n- Wrap mutating `fetch` calls with `csrfFetch` or `useCsrfFetch` to attach `X-CSRF-Token` consistently\n- Add hidden CSRF fields to native forms and confirmation UI for sensitive actions\n\n### Cannot Do\n- Implement the server-side CSRF library or guarantee token validation if backend code is missing\n- Treat `Origin` or `Referer` checks as a replacement for token verification\n- Secure state-changing requests sent outside the shared helper if callers bypass it directly\n\n## Gotchas\n- Client-only token generation: wrong because CSRF tokens must come from a trusted server-controlled source bound to session or cookie state\n- Adding tokens only to some `POST` calls: wrong because all state-changing `POST`, `PUT`, `PATCH`, and `DELETE` paths must use the same protection\n- Relying only on hidden form fields or client headers: wrong because the server must reject missing, invalid, expired, or malformed tokens\n\n## Quick Verification\n```bash\n# Confirm the secure CSRF helpers/components exist\nrg -n \"useCsrfToken|useCsrfFetch|csrfFetch|CsrfHiddenInput|X-CSRF-Token|_csrf|meta\\\\[name=['\\\"]csrf-token['\\\"]\\\\]\" .\n\n# Find unguarded mutating fetch calls that may bypass the CSRF wrapper\nrg -n \"fetch\\\\([^\\\\n]*\\\\)|method:\\\\s*['\\\"](POST|PUT|PATCH|DELETE)['\\\"]\" . \\\n  -g '!node_modules' -g '!dist' -g '!build'\n\n# Build + test with whichever React project toolchain is present\nsh -c 'if [ -f package.json ]; then npm test -- --runInBand || npm test || true; npm run build; else echo \"package.json not found\"; exit 1; fi'\n```",
+            "type": "Built-in",
+            "ordinal": 826,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:56.349000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:56.349000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9908,
+            "id": "TA9908",
+            "title": "T29 - SKILL.md - Angular",
+            "text": "---\nname: use-anti-cross-site-request-forgery-csrf-tokens\ndescription: Use Angular XSRF token handling and guarded request paths for cookie-authenticated unsafe requests. Use when fixing Cross-Site Request Forgery (CSRF) in Angular apps.\n---\n\n# Use anti-CSRF tokens\n\n## What This Skill Does\nThis skill fixes CSRF exposure in Angular code that sends state-changing requests while the browser automatically includes authentication cookies. It standardizes unsafe requests on Angular `HttpClient` with `withXsrfConfiguration(...)`, avoids bypasses such as `fetch`, `XMLHttpRequest`, or direct form posts for protected writes, and adds explicit confirmation for high-impact actions. Token validation still must happen on the server; client changes only ensure the token is consistently attached.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Unsafe `POST`/`PUT`/`PATCH`/`DELETE` request uses Angular `HttpClient` but XSRF is not configured | Add `provideHttpClient(withXsrfConfiguration({ cookieName: 'XSRF-TOKEN', headerName: 'X-XSRF-TOKEN' }))` |\n| State-changing request uses `fetch`, `XMLHttpRequest`, raw form submit, or ad hoc transport | Replace with Angular `HttpClient` so XSRF cookie-to-header handling stays automatic |\n| Sensitive action deletes data, changes privileges, resets credentials, or moves money | Add explicit confirmation or recent re-authentication check before sending the request |\n| Code relies on `Origin` or `Referer` checks alone for unsafe requests | Keep origin/referrer as secondary validation only; require CSRF token validation as the primary control |\n| Request path is already on `HttpClient`, XSRF is configured, and server validates the token | No action needed |\n\n## Boundaries\n\n### Can Do\n- Configure Angular app-wide XSRF cookie/header handling with `withXsrfConfiguration(...)`\n- Refactor unsafe requests onto Angular `HttpClient` from unguarded browser request APIs\n- Add client-side confirmation gates for highly sensitive actions before the protected request is sent\n\n### Cannot Do\n- Implement or verify server-side CSRF token generation and validation logic from Angular code alone\n- Guarantee protection for endpoints that do not use cookie-based authentication or do not validate tokens server-side\n- Safely preserve custom behavior when replacing raw transports if their semantics are unknown without review\n\n## Gotchas\n- Configuring Angular XSRF but keeping `fetch` or `XMLHttpRequest` for writes: Angular only auto-attaches the token on `HttpClient` requests\n- Treating `Origin` or `Referer` as a replacement for tokens: browser metadata is supplementary and can be absent or unsuitable for primary enforcement\n- Adding confirmation only in the template: UI-only checks are easy to bypass if the component or service logic still sends the request directly\n\n## Quick Verification\n```bash\n# Confirm Angular XSRF configuration exists\nrg -n \"withXsrfConfiguration\\s*\\(|X-XSRF-TOKEN|XSRF-TOKEN\" .\n\n# Find unguarded dangerous request APIs that may bypass Angular XSRF handling\nrg -n \"\\b(fetch\\s*\\(|new\\s+XMLHttpRequest\\s*\\(|\\.submit\\s*\\(|document\\.forms|\\$http\\.(post|put|patch|delete)\\b)\" .\n\n# Build and test with Angular/Node toolchain in a project-shape-tolerant way\nnpm run build && npm test\n```",
+            "type": "Built-in",
+            "ordinal": 860,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:57.688000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:57.688000-04:00",
+            "active": true
+          }
+        ]
+      }
+    },
+    {
+      "reference_id": "T1541",
+      "http_status_code": 200,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "results": [
+          {
+            "db_id": 3400,
+            "id": "TA3400",
+            "title": "ASD-STIG requirements",
+            "text": "## V-222603 [medium]:\n__The application must protect from Cross-Site Request Forgery (CSRF) vulnerabilities.__\n\nCross-Site Request Forgery (CSRF) is an attack where a website user is forced to execute an unwanted action on a website that he or she is currently authenticated to. An attacker, through social engineering (e.g., e-mail or chat) creates a hyperlink which executes unwanted actions on the website the victim is authenticated to and sends it to the victim. If the victim clicks on the link, the action is executed unbeknownst to the victim.\n\nA CSRF attack executes a website request on behalf of the user which can lead to a compromise of the user's data. What is needed to be successful is for the attacker to know the URL, an authenticated application user, and trick the user into clicking the malicious link.\n\nWhile XSS is not needed for a CSRF attack to work, XSS vulnerabilities can provide the attacker with a vector to obtain information from the user that may be used in mitigating the risk. The application must not be vulnerable to XSS as an XSS attack can be used to help defeat token, double-submit cookie, referrer and origin-based CSRF defenses.\n\n",
+            "type": "Built-in",
+            "ordinal": 0,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2020-11-16T13:47:33.164000-05:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2024-09-24T13:15:55.146000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 1805,
+            "id": "TA1805",
+            "title": "FedRAMP / Moderate Baseline",
+            "text": "*** SC-23: System And Communications Protection | Session Authenticity ***  \nThe information system protects the authenticity of communications sessions.",
+            "type": "Built-in",
+            "ordinal": 11,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-15T17:49:05.807000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T15:08:06.501000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 2731,
+            "id": "TA2731",
+            "title": "FedRAMP / High Baseline",
+            "text": "*** SC-23: System And Communications Protection | Session Authenticity ***  \nThe information system protects the authenticity of communications sessions.",
+            "type": "Built-in",
+            "ordinal": 12,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-17T18:34:13.635000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T18:38:15.037000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 8290,
+            "id": "TA8290",
+            "title": "Add React CSRF defense specifics (React)",
+            "text": "- Synchronize token strategy, same-site cookie strategy, anti-forgery header validation, and state-changing request protections.",
+            "type": "Built-in",
+            "ordinal": 18,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-04-22T15:42:16.719000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-04-22T15:42:16.719000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9324,
+            "id": "TA9324",
+            "title": "T1541 - SKILL.md - Python",
+            "text": "---\nname: decide-on-the-best-csrf-defense\ndescription: Use when Python code handles state-changing requests with browser-managed cookies or sessions and must choose and apply the correct CSRF defense.\n---\n# Decide on the best CSRF defense for your application\n\n## What This Skill Does\nThis skill helps an agent identify Python application flows that are exposed to Cross-Site Request Forgery (CSRF) and choose the right protection based on how requests are authenticated and delivered. It applies synchronizer tokens for server-rendered dynamic pages, double submit cookies for same-origin simple/browser-submittable requests, or strict CORS validation for cross-origin state-changing requests, while also hardening cookies with `SameSite` and preventing token-bearing responses from being cached.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| State-changing endpoint does not use browser-managed auth cookies or sessions | No CSRF change needed |\n| Server-rendered dynamic form/page submits a state-changing request | Apply synchronizer token bound to the session and validate it centrally |\n| Same-origin state-changing request can be sent as an HTML form or simple request and synchronizer tokens do not fit | Apply double submit cookie with exact token comparison |\n| Cross-origin frontend must send state-changing requests | Enforce secure CORS with explicit allowed origins, methods, and headers; reject unknown origins |\n| Session or CSRF cookies are used for same-domain flows | Set `SameSite=\"Lax\"` by default, or `Strict` only if cross-site navigations are not needed |\n\n## Boundaries\n\n### Can Do\n- Add Python decision logic that enables CSRF protection only for state-changing requests using browser-managed authentication\n- Implement synchronizer token or double submit cookie validation using `secrets.compare_digest`\n- Harden session and CSRF cookie settings and add non-cache headers to token-bearing responses\n\n### Cannot Do\n- Prove business intent for whether an endpoint truly changes backend state\n- Safely use wildcard CORS or infer allowed origins without explicit application requirements\n- Protect clients that authenticate with non-browser tokens where cookies/sessions are not automatically sent\n\n## Gotchas\n- Protecting every endpoint the same way: unnecessary CSRF checks on token-auth APIs or safe methods can break valid clients and add noise\n- Accepting CSRF tokens from arbitrary query parameters: tokens should come from a hidden form field or dedicated header only, or they are easier to leak\n- Using normal equality for token comparison: `==` is the wrong comparison for secrets; use `secrets.compare_digest` for exact constant-time checks\n\n## Quick Verification\n```bash\n# Confirm a CSRF decision/helper or enforcement path exists\nrg -n \"select_csrf_strategy|enforce_csrf_for_state_change|validate_synchronizer_token|validate_double_submit_cookie|validate_cors_request\" .\n\n# Find potentially unguarded Flask state-changing endpoints that may bypass CSRF validation\nrg -n '@app\\.route\\([^)]*methods=\\[(?:[^\\]]*\"POST\"|[^\\]]*\"PUT\"|[^\\]]*\"PATCH\"|[^\\]]*\"DELETE\")[^\\]]*\\][^)]*\\)|request\\.(form|get_json)\\(' .\n\n# Confirm secure token comparison and cookie hardening are present\nrg -n \"secrets\\.compare_digest|SESSION_COOKIE_SAMESITE|set_cookie\\(\" .\n\n# Run the project's Python test suite if present\npython -m pytest -q\n```",
+            "type": "Built-in",
+            "ordinal": 76,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:33.938000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:33.938000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 8603,
+            "id": "TA8603",
+            "title": "T1541 - SKILL.md - Node.js",
+            "text": "---\nname: decide-best-csrf-defense\ndescription: Choose and enforce an appropriate CSRF defense (tokens, double-submit, CORS, SameSite) for apps with state-changing endpoints using browser-managed authentication; Use when mitigating CWE-352 / CSRF (P677)\n---\n\n# Decide on the best CSRF defense for your application\n\n## What This Skill Does\nThis skill helps select and apply a consistent CSRF defense for each application surface that performs state changes with browser-managed authentication (cookies, HTTP auth). It encodes decision rules to determine whether CSRF protection is needed, picks between synchronizer tokens, double submit cookies, strict CORS, and SameSite settings, and guides how to wire them through middleware so all relevant routes are protected in a uniform way.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| App has state-changing routes, uses cookies/browser auth, and accepts HTML form posts | Use CSRF risk decision logic; select **synchronizer token** as primary defense and apply middleware on all state-changing routes |\n| Same-origin SPA or API uses `fetch`/XHR with cookie-based auth (no third-party origins) | Use decision logic; choose **double submit cookie** and enforce cookie+header/body token check on all state-changing endpoints |\n| Cross-origin API needs credentialed requests from specific front-end origins with preflight | Use decision logic; choose **secure CORS policy** (strict allowlist of origins/methods/headers) and ensure it covers all credentialed operations |\n| Auth/session cookies do not need true cross-site behavior | Configure cookies as **SameSite=Lax or Strict + Secure**, via a shared utility, and still apply a primary CSRF mechanism when risk conditions are met |\n| Endpoint does not change server-side state or does not rely on browser-managed auth (e.g., pure token-in-header APIs) | Document as **no CSRF protection required** for that surface; do not add CSRF tokens but keep cookie flags hardened if cookies exist |\n\n## Boundaries\n\n### Can Do\n- Detect when CSRF protection is needed based on app characteristics (state change + browser-managed auth + browser/form input).\n- Recommend and describe wiring of one primary CSRF strategy per surface (synchronizer token, double submit cookie, secure CORS), plus SameSite cookie settings.\n- Help centralize CSRF decisions in pure functions and drive framework middleware/filters from these decisions.\n- Suggest verification steps (forged cross-site requests vs. valid same-origin/tokened requests).\n\n### Cannot Do\n- Cannot automatically infer all state-changing routes or current CSRF coverage without explicit code/context; relies on developer to identify them.\n- Cannot fully mitigate CSRF solely via SameSite cookies or CORS when business requirements demand broad cross-site behavior or support legacy browsers.\n- Cannot fix unrelated issues such as XSS, broken authentication, or business logic flaws that could still enable unauthorized actions even with CSRF defenses in place.\n\n## Gotchas\n- Relying **only on SameSite cookies** as a CSRF defense: this can be bypassed by misconfigurations, browser quirks, or when `SameSite=None` is later required; still use a primary CSRF mechanism (synchronizer or double submit) where risk conditions are met.\n- Mixing **multiple CSRF strategies on overlapping routes** (e.g., some POSTs use synchronizer tokens, others double submit, others only CORS) without clear decision logic: leads to gaps where new routes skip defenses; always drive middleware from centralized decision rules.\n- Assuming **CORS alone prevents CSRF** for cookie-based APIs: simple cross-site form POSTs without preflight can still succeed if the server accepts them; secure CORS helps for credentialed XHR/fetch, but state-changing endpoints that accept form posts still need a token-based defense.\n\n## Quick Verification\n```bash\n# 1) From an attacker-origin HTML page, attempt a forged POST without CSRF token\n# (update URL, body, and Origin to match your app)\ncurl -i -X POST https://your-app.example.com/transfer \\\n  -H 'Content-Type: application/x-www-form-urlencoded' \\\n  -H 'Origin: https://attacker.example.com' \\\n  --data 'to=bob&amount=100' \\\n  --cookie \"session_id=VICTIM_SESSION_COOKIE\"\n\n# Expect: 403 or equivalent CSRF rejection (invalid/missing token)\n\n# 2) From same origin, send a valid state-changing request with correct CSRF token\n# (synchronizer token example)\ncurl -i -X POST https://your-app.example.com/transfer \\\n  -H 'Content-Type: application/json' \\\n  -H \"X-CSRF-Token: VALID_TOKEN_FROM_LOGIN_OR_CSRF-ENDPOINT\" \\\n  --data '{\"to\":\"bob\",\"amount\":100}' \\\n  --cookie \"session_id=VALID_SESSION_COOKIE\"\n\n# Expect: 200 and successful business response\n\n# 3) For double submit cookie setups, ensure mismatch is blocked\ncurl -i -X POST https://your-app.example.com/transfer \\\n  -H 'Content-Type: application/json' \\\n  -H \"X-CSRF-Token: WRONG_TOKEN\" \\\n  --data '{\"to\":\"bob\",\"amount\":100}' \\\n  --cookie \"session_id=VALID_SESSION_COOKIE; csrf_token=REAL_TOKEN\"\n\n# Expect: 403 CSRF rejection\n```",
+            "type": "Built-in",
+            "ordinal": 165,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-05-21T11:39:57.462000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-05-21T11:39:57.462000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9733,
+            "id": "TA9733",
+            "title": "T1541 - SKILL.md - TypeScript",
+            "text": "---\nname: decide-on-the-best-csrf-defense\ndescription: Use when TypeScript code has state-changing endpoints that rely on browser-managed credentials and needs the right CSRF defense selected and enforced.\n---\n\n# Decide on the best CSRF defense for your application\n\n## What This Skill Does\nThis skill helps choose and apply the correct CSRF defense for TypeScript applications that perform state-changing operations while relying on browser-managed authentication such as cookies or HTTP authentication. It first checks whether CSRF protection is actually needed, then guides the agent to use synchronizer tokens for server-rendered session flows, double-submit cookies for same-origin browser requests that can avoid preflight, strict origin allowlists for credentialed cross-origin requests, and `SameSite` cookies as an additional browser-side restriction.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| State-changing endpoint uses cookie/session auth or HTTP auth | Apply CSRF protection and reject missing or invalid proof |\n| Server-rendered forms or session-backed app with token stored server-side | Use the Synchronizer Token pattern with a session-bound token |\n| Same-origin frontend/backend and requests may come from forms or simple requests without preflight | Use the Double Submit Cookie pattern with exact cookie/header matching |\n| Cross-origin state-changing requests with credentials are required | Enforce a strict CORS origin allowlist and reject missing or unexpected origins |\n| Endpoint is read-only or does not use browser-managed credentials | No action needed |\n\n## Boundaries\n\n### Can Do\n- Determine whether CSRF defenses apply based on state change and browser-managed authentication\n- Replace unguarded state-changing handlers with synchronizer-token or double-submit-cookie validation\n- Add exact origin checks and appropriate `SameSite` cookie settings as defense in depth\n\n### Cannot Do\n- Guarantee protection for endpoints that still accept unsafe state changes without the chosen guard\n- Infer business intent for every cross-origin flow without reviewing frontend and deployment topology\n- Replace authorization, XSS prevention, or general session security controls\n\n## Gotchas\n- Using CSRF tokens on bearer-token APIs only: this is often unnecessary because browsers do not attach bearer tokens automatically like cookies\n- Trusting `Access-Control-Allow-Origin: *` with credentials: this breaks secure credentialed CORS and defeats strict origin control\n- Relying on `SameSite` alone for every app: it helps, but token or origin validation is still needed when legitimate flows require cross-site or same-site state-changing requests\n\n## Quick Verification\n```bash\n# Confirm secure CSRF guards/helpers exist\nrg -n \"analyzeCsrfApplicability|ensureCsrfToken|validateCsrfToken|issueDoubleSubmitToken|requireTrustedOrigin|sameSite\\s*:\\s*['\\\"](strict|lax)['\\\"]|timingSafeEqual|x-csrf-token\" .\n\n# Find likely unguarded state-changing handlers or direct state updates lacking CSRF/origin checks\nrg -n \"app\\.(post|put|patch|delete)\\(|router\\.(post|put|patch|delete)\\(|fetch\\(.+\\{[^}]*method:\\s*['\\\"](POST|PUT|PATCH|DELETE)['\\\"]\" .\nrg -n \"session\\.(username|user|auth)|req\\.session|profileStore\\[.*\\]\\.(email|name|role)|resave:\\s*false\" .\n\n# Build + test with the TypeScript toolchain\nnpx tsc --noEmit\nnpm test\n```",
+            "type": "Built-in",
+            "ordinal": 673,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:50.879000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:50.879000-04:00",
+            "active": true
+          }
+        ]
+      }
+    },
+    {
+      "reference_id": "T2600",
+      "http_status_code": 200,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "results": []
+      }
+    }
+  ]
+}

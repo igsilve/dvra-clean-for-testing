@@ -1,0 +1,269 @@
+{
+  "composite_response": [
+    {
+      "reference_id": "T42",
+      "http_status_code": 200,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "results": [
+          {
+            "db_id": 2207,
+            "id": "TA2207",
+            "title": "FedRAMP / Low Baseline",
+            "text": "*** SI-3: System And Information Integrity | Malicious Code Protection ***  \nThe organization:\n\na. Employs malicious code protection mechanisms at information system entry and exit points to detect and eradicate malicious code;  \nb. Updates malicious code protection mechanisms whenever new releases are available in accordance with organizational configuration management policy and procedures;  \nc. Configures malicious code protection mechanisms to:  \n   1. Perform periodic scans of the information system [at least weekly] and real-time scans of files from external sources [to include endpoints] as the files are downloaded, opened, or executed in accordance with organizational security policy; and  \n   2. [Include alerting administrator or defined security personnel] in response to malicious code detection; and  \nd. Addresses the receipt of false positives during malicious code detection and eradication and the resulting potential impact on the availability of the information system.",
+            "type": "Built-in",
+            "ordinal": 10,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-17T16:28:57.640000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T16:44:57.596000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 1852,
+            "id": "TA1852",
+            "title": "FedRAMP / Moderate Baseline",
+            "text": "*** SI-3: System And Information Integrity | Malicious Code Protection ***  \nThe organization:\n\na. Employs malicious code protection mechanisms at information system entry and exit points to detect and eradicate malicious code;\n\nb. Updates malicious code protection mechanisms whenever new releases are available in accordance with organizational configuration management policy and procedures;\n\nc. Configures malicious code protection mechanisms to:\n\n1. Perform periodic scans of the information system [at least weekly] and real-time scans of files from external sources [to include endpoints] as the files are downloaded, opened, or executed in accordance with organizational security policy; and\n2. [Include alerting administrator or defined security personnel] in response to malicious code detection; and\n\nd. Addresses the receipt of false positives during malicious code detection and eradication and the resulting potential impact on the availability of the information system.\n\n*** SI-10: System And Information Integrity | Information Input Validation ***  \nThe information system checks the validity of [Assignment: organization-defined information inputs].",
+            "type": "Built-in",
+            "ordinal": 11,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-15T17:49:08.085000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T15:08:08.602000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 2767,
+            "id": "TA2767",
+            "title": "FedRAMP / High Baseline",
+            "text": "*** SI-3: System And Information Integrity | Malicious Code Protection ***  \nThe organization:  \n a. Employs malicious code protection mechanisms at information system entry and exit points to detect and eradicate malicious code;  \n b. Updates malicious code protection mechanisms whenever new releases are available in accordance with organizational configuration management policy and procedures;  \n c. Configures malicious code protection mechanisms to:  \n   1. Perform periodic scans of the information system [at least weekly] and real-time scans of files from external sources [to include endpoints] as the files are downloaded, opened, or executed in accordance with organizational security policy; and  \n   2. [Include blocking and quarantining malicious code and alerting administrator or defined security personnel near-realtime] in response to malicious code detection; and  \n d. Addresses the receipt of false positives during malicious code detection and eradication and the resulting potential impact on the availability of the information system.\n\n*** SI-10: System And Information Integrity | Information Input Validation ***  \nThe information system checks the validity of [Assignment: organization-defined information inputs].",
+            "type": "Built-in",
+            "ordinal": 12,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-17T18:34:16.176000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T18:38:17.024000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9979,
+            "id": "TA9979",
+            "title": "T42 - SKILL.md - C++",
+            "text": "---\nname: avoid-relying-on-untrusted-data-for-server-side-selection\ndescription: Use when C++ code lets untrusted input choose a server-side page, view, template, include target, or resource-sensitive count; replace raw selection with strict validation, allowlists, and bounded internal identifiers.\n---\n# Avoid relying on untrusted data for server-side selection\n\n## What This Skill Does\nThis skill fixes cases where C++ code uses request, CLI, or other untrusted input to choose a server-side page, view, template, file, include target, or loop/allocation size. The safe pattern is to validate input early with a strict token rule, map accepted values to a fixed internal enum-like selection, reject unknown values, and bound any numeric input before it affects iteration or memory use.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Raw user input is passed to template, file, page, or view selection code | Apply this fix |\n| Input is used with `std::ifstream`, template loaders, include targets, or routing selectors | Replace raw string selection with an allowlist resolver that returns an internal enum or fixed identifier |\n| Text selection input is expected | Validate with a strict alphanumeric whitelist, reject empty or oversized values, then check membership in a known set |\n| The same untrusted input also controls counts, indexes, loops, or allocation sizes | Parse to a numeric type and enforce explicit min/max bounds before use |\n| Code already maps validated input to fixed internal selections and rejects unknown values | No action needed |\n\n## Boundaries\n\n### Can Do\n- Replace raw selector strings with fixed allowlist resolution and enum-like internal IDs\n- Add strict validation for selection tokens such as alphanumeric-only and length limits\n- Add bounded numeric parsing when untrusted input also drives loops, pagination, or allocation\n\n### Cannot Do\n- Infer the correct business allowlist values without project context\n- Guarantee template engines or routing frameworks are safe if they still accept dynamic raw names elsewhere\n- Fix unrelated file access, authorization, or path traversal issues beyond the selection flow being changed\n\n## Gotchas\n- Validating format without checking allowed values: alphanumeric input like `admin` or `unknown` can still select unintended code paths if membership is not enforced\n- Checking the allowlist but continuing to use the original string: this defeats the fix; use only the mapped internal enum or fixed identifier afterward\n- Bounding counts but not rejecting overflow or parse failures: very large numeric strings can still cause exceptions, wraparound, or excessive allocation if parsing is not strict\n\n## Quick Verification\n```bash\n# Confirm a secure resolver/validator exists\nrg -n --glob '*.{c,cc,cpp,cxx,h,hpp,hxx}' '(resolve_template_id|select_page|validate_selection|is_strict_token|is_alphanumeric_only|parse_bounded_count|enum class (TemplateId|Page))'\n\n# Find likely unguarded dangerous server-side selection/file-loading calls fed by variables\nrg -n --glob '*.{c,cc,cpp,cxx,h,hpp,hxx}' '(std::ifstream\\s+\\w+\\s*\\(\\s*\\w+\\s*\\)|loadTemplate\\s*\\(\\s*\\w+\\s*\\)|renderPage\\s*\\(\\s*\\w+\\s*\\)|fopen\\s*\\(\\s*\\w+\\s*,|open\\s*\\(\\s*\\w+\\s*,)'\n\n# Build and test with the detected C++ toolchain/project shape\nif [ -f CMakeLists.txt ]; then cmake -S . -B build && cmake --build build && ctest --test-dir build --output-on-failure; elif [ -f Makefile ]; then make && make test; else find . -type f \\( -name '*.cpp' -o -name '*.cc' -o -name '*.cxx' \\) -print0 | xargs -0 -r g++ -std=c++17 -Wall -Wextra -O2 -o /tmp/verify-cpp-build && /tmp/verify-cpp-build; fi\n```",
+            "type": "Built-in",
+            "ordinal": 54,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-29T01:43:03.773000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-29T01:43:03.773000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 10051,
+            "id": "TA10051",
+            "title": "T42 - SKILL.md - C",
+            "text": "---\nname: avoid-untrusted-data-for-server-side-selection\ndescription: Use when C code uses request or other untrusted input to choose server-side files, pages, views, or templates; replace direct selection with strict validation, length checks, and a fixed allowlist resolver.\n---\n# Avoid relying on untrusted data for server-side selection\n\n## What This Skill Does\nThis skill fixes CWE-673 style server-side selection flaws in C code where untrusted input is used to pick a page, template, include, or file for rendering or processing. It replaces direct use of user-controlled selectors in APIs such as `fopen()` with one shared resolver that enforces a maximum length, full-string allowlist-style format validation, exact membership in a fixed approved set, and fail-closed behavior for missing or unknown values.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Request data, argv, env, headers, or form input is passed directly or indirectly to `fopen()`, template loading, or server-side rendering selection | Apply this fix |\n| Template or page names are built by concatenating, formatting, or transforming untrusted input | Replace with a static allowlist resolver that maps approved selector keys to fixed paths |\n| Selector validation checks only for \"bad\" characters or does partial matching | Replace with full-string positive validation plus exact allowlist membership checks |\n| Selector accepts arbitrary-length alphanumeric input | Add a strict maximum length check before format validation or lookup |\n| Code already resolves selectors only through a shared static allowlist and rejects invalid input | No action needed |\n\n## Boundaries\n\n### Can Do\n- Add a shared resolver such as `resolve_allowed_template()` that maps approved selector names to fixed server-owned paths\n- Add strict selector validation using length checks, `isalnum()`, and exact `strcmp()` membership checks\n- Refactor direct `fopen(selector, ...)` style selection to use a resolved path returned by the allowlist\n\n### Cannot Do\n- Prove that every possible server-side renderer or include mechanism in the whole program is safe without code review of all call paths\n- Safely preserve behavior that depends on free-form user-selected template or file names\n- Fix separate issues such as unsafe SSI execution, command injection via `system()`, or unsafe template engine features unless they are also explicitly changed\n\n## Gotchas\n- Validating format but not membership: alphanumeric-only input like `admin` or `debug` can still select unintended resources if you do not enforce an exact approved set\n- Falling back to user-derived defaults: rejecting bad input is required; do not strip characters and continue, and do not derive fallback file names from the rejected selector\n- Duplicating validation at call sites: inconsistent checks lead to bypasses; route every selector through one shared resolver before any `fopen()` or similar server-side selection call\n\n## Quick Verification\n```bash\n# Confirm the secure resolver/validation functions exist\nrg -n 'resolve_allowed_template|validate_template_name_length|validate_template_name_format|validate_template_name_allowed|ALLOWED_TEMPLATES' .\n\n# Find unguarded dangerous file-selection calls that may still use untrusted input directly\nrg -n 'fopen\\s*\\([^,)]*(argv\\[|getenv\\s*\\(|scanf\\s*\\(|fgets\\s*\\(|recv\\s*\\(|read\\s*\\(|user_selected_template|selector|template|path)' .\n\n# Build all C files generically with warnings enabled\nfind . -type f \\( -name '*.c' -o -name '*.h' \\) >/dev/null && cc -Wall -Wextra -Werror -std=c11 $(find . -type f -name '*.c') -o /tmp/skill-check-bin\n\n# Run available project tests if present; otherwise at least execute the built binary if creation succeeded\n[ -f Makefile ] && make test || [ -f CMakeLists.txt ] && cmake -S . -B build && cmake --build build && ctest --test-dir build --output-on-failure || [ -x /tmp/skill-check-bin ] && /tmp/skill-check-bin home\n```",
+            "type": "Built-in",
+            "ordinal": 126,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-29T01:43:06.367000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-29T01:43:06.367000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9458,
+            "id": "TA9458",
+            "title": "T42 - SKILL.md - JavaScript",
+            "text": "---\nname: avoid-untrusted-server-side-selection\ndescription: \"Prevent server-side page, view, template, and include selection from untrusted input in JavaScript. Use when request or CLI data influences fs/path-based resource selection or template/view names.\"\n---\n# Avoid Untrusted Data for Server-Side Selection\n\n## What This Skill Does\nThis skill fixes cases where untrusted input is used to choose a server-side page, view, template, include target, or file. In JavaScript, this often appears as request data or CLI arguments being concatenated into template names, file paths, or `res.render()` selectors. The fix is to validate type, enforce a strict whitelist and small maximum length, then resolve input only through a server-controlled immutable allowlist of permitted resources, rejecting unknown values without fallback.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Request data, route params, query params, body fields, headers, env vars, or CLI args are concatenated into template names, file names, include paths, or `res.render()` values | Apply this fix |\n| Code uses `fs.readFileSync`, `fs.readFile`, `path.join`, `path.resolve`, or `res.render` with user-controlled selectors | Replace direct selection with a frozen mapping or explicit allowed set |\n| Selector is intended to choose one of a small known set such as `home`, `about`, or `profile` | Add type check, strict whitelist regex, max length check, and allowed-set membership check |\n| Code already uses a server-controlled immutable mapping and rejects unknown, non-whitelisted, or oversized values | No action needed |\n| Code falls back to a default page when validation fails | Reject the input instead of silently selecting a resource |\n\n## Boundaries\n\n### Can Do\n- Replace direct server-side resource selection with a fixed server-controlled mapping\n- Add strict selector validation for type, format, length, and allowed values\n- Find common JavaScript danger patterns involving `fs`, `path`, and template rendering APIs\n\n### Cannot Do\n- Guarantee safety if other code later uses the validated value to build new paths or dynamic includes\n- Infer the correct business allowlist without project knowledge of valid pages or templates\n- Fix client-side template injection or unrelated file access issues outside the selection flow\n\n## Gotchas\n- Validating with a loose regex only: this is wrong because `admin` may match the format but still be an unapproved selector unless checked against an explicit allowed set\n- Falling back to `home` on invalid input: this is wrong because it hides attacks and still performs server-side selection instead of rejecting unsafe input\n- Using `path.join(viewsDir, userInput + '.html')` after validation alone: this is wrong because selection should come from a server-defined mapping, not directly from user data\n\n## Quick Verification\n```bash\n# Confirm a guard or allowlist exists\nrg -n \"Object\\.freeze|new Set\\(|ALLOWED_[A-Z_]+|TEMPLATE_MAP|PAGE_NAME_PATTERN|isAllowed[A-Z]\\w+\" .\n\n# Find likely unguarded dangerous server-side selection patterns\nrg -n \"res\\.render\\s*\\(\\s*(req|request|ctx|argv|process\\.argv)|fs\\.(readFileSync|readFile)\\s*\\(\\s*path\\.(join|resolve)\\([^)]*(req|request|ctx|argv|process\\.argv)|path\\.(join|resolve)\\([^)]*(req\\.|request\\.|ctx\\.|argv|process\\.argv)\" .\n\n# Build + test using whichever JavaScript toolchain the project provides\nnpm test || yarn test || pnpm test || bun test\n```",
+            "type": "Built-in",
+            "ordinal": 364,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:40.168000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:40.168000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9489,
+            "id": "TA9489",
+            "title": "T42 - SKILL.md - Python",
+            "text": "---\nname: avoid-untrusted-server-side-selection\ndescription: Use when Python code lets request or other untrusted input choose a server-side page, view, template, include target, or file-backed template resource.\n---\n\n# Avoid relying on untrusted data for server-side selection\n\n## What This Skill Does\nThis skill fixes cases where untrusted input controls which server-side page, view, template, or file-backed template resource gets selected. In Python, the safe pattern is to treat user input only as a lookup key into a fixed server-defined mapping, validate it with a strict full-input allowlist, enforce membership in an approved set, and fail closed for unknown values instead of concatenating input into template names, file paths, include targets, or `open()` calls.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| User input is passed to `open()`, template loaders, or path-building code to choose a page/template | Replace direct selection with a fixed server-side mapping such as `TEMPLATES[validated_key]` |\n| A selector comes from request params, route params, CLI args, env vars, or job payloads | Validate type, length, and full-input allowlist before any selection logic |\n| Selector format is valid but value is not one of the known server-defined choices | Reject with a safe error or use a fixed safe default chosen by server code |\n| Code uses Flask/Jinja rendering such as `render_template_string()` after reading a file chosen by input | Remove the file selection path and select only from approved in-memory or server-defined templates |\n| Code already validates with `fullmatch()` and checks membership in a fixed set/map before selection | No action needed |\n\n## Boundaries\n\n### Can Do\n- Replace untrusted selector-driven resource selection with a fixed mapping\n- Add strict selector validation using `re.fullmatch()` plus length/type checks\n- Add explicit membership checks against a server-defined allowed set\n\n### Cannot Do\n- Prove a selector is safe if it still directly controls file paths, template names, or include targets\n- Infer the correct business-approved selector list without project knowledge\n- Fix unrelated template injection, XSS, or authorization flaws beyond selector handling\n\n## Gotchas\n- Using regex validation alone: syntactically valid but unknown values can still select unintended resources unless membership is checked too\n- Using `re.match()` instead of `fullmatch()`: partial matches can allow dangerous trailing content such as traversal or markup\n- Falling back to `open(page_name)` or dynamic template names on validation failure: this reintroduces untrusted server-side selection instead of failing closed\n\n## Quick Verification\n```bash\n# Confirm a strict validator or approved mapping exists\nrg -n \"fullmatch\\(|re\\.compile\\(|ALLOWED_SELECTORS|TEMPLATES\\s*=\\s*\\{|validate_page_name\\(\" .\n\n# Find unguarded dangerous file/template selection patterns driven by input\nrg -n \"open\\s*\\(|render_template\\s*\\(|render_template_string\\s*\\(\" . \n\n# Build + test using common Python entry points across app types\npython -m compileall . && (python -m pytest -q || python -m unittest discover -v)\n```",
+            "type": "Built-in",
+            "ordinal": 398,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:41.337000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:41.337000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9547,
+            "id": "TA9547",
+            "title": "T42 - SKILL.md - Node.js",
+            "text": "---\nname: avoid-untrusted-server-side-selection\ndescription: Use when Node.js code uses request data or other untrusted input to choose server-side pages, views, templates, or include targets; replace raw selection with strict validation and fixed allowlists.\n---\n# Avoid relying on untrusted data for server-side selection\n\n## What This Skill Does\nThis skill fixes cases where Node.js code lets untrusted input control which server-side page, view, template, or include file gets selected or processed. The safe pattern is to treat external input only as a small validated key, enforce strict type/length/character checks, compare it against a fixed allowlist, and map it to internal identifiers instead of concatenating raw input into file paths, template names, `res.render(...)` arguments, or SSI/include targets.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Request params, query, body, headers, cookies, CLI args, or stored user settings are used to build a template name, page name, or file path | Apply this fix |\n| Code concatenates input into `path.join(...)`, `fs.readFileSync(...)`, `require(...)`, or `res.render(...)` for server-side selection | Replace raw selection with strict validation plus a fixed allowlist mapping |\n| A template/include key is already validated for type, max length, character set, and membership in an explicit allowlist | No action needed |\n| Well-formed but unknown values such as `admin` or `contact` are currently accepted | Reject them unless they exist in the server-side mapping |\n| SSI-style include directives are processed from selected files | Restrict include targets to a separate fixed allowlist or remove dynamic include handling |\n\n## Boundaries\n\n### Can Do\n- Replace raw page or template selection with allowlist-backed lookup functions\n- Add strict validation for selection keys using built-in checks or Ajv schemas\n- Flag unguarded Node.js sinks such as `fs.readFileSync`, `path.join`, and `res.render` when they use untrusted input\n\n### Cannot Do\n- Prove whether every upstream input source is trusted without reviewing calling code\n- Secure arbitrary template engines or custom SSI processors beyond enforcing fixed allowed targets\n- Prevent issues in files that are already unsafe internally if the selected file itself contains dangerous logic\n\n## Gotchas\n- Allowing regex-only validation without an allowlist: a value like `admin` can match the pattern and still select unintended content\n- Using `path.normalize()` or `path.join()` as the main defense: these APIs build paths; they do not make attacker-controlled selection safe\n- Mapping keys directly to user-influenced filenames: the mapping must return fixed internal identifiers, not partially concatenated input\n\n## Quick Verification\n```bash\n# Confirm a secure allowlist/mapping or guard exists\nrg -n \"ALLOWED_[A-Z_]+|TEMPLATE_MAP|PAGE_NAME_PATTERN|isAllowedPageName|validateTemplateSelection|hasOwnProperty\\.call\\(\" .\n\n# Find likely unguarded dangerous selection sinks\nrg -n \"res\\.render\\([^)]*(req\\.|params\\.|query\\.|body\\.|cookies\\.|headers\\.)|fs\\.(readFileSync|readFile)\\([^)]*(req\\.|params\\.|query\\.|body\\.|cookies\\.|headers\\.)|path\\.join\\([^)]*(req\\.|params\\.|query\\.|body\\.|cookies\\.|headers\\.)|require\\([^)]*(req\\.|params\\.|query\\.|body\\.|cookies\\.|headers\\.)\" .\n\n# Build if a build script exists, then run tests if a test script exists\nnpm run build --if-present && npm test --if-present\n```",
+            "type": "Built-in",
+            "ordinal": 468,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:43.556000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:43.556000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9612,
+            "id": "TA9612",
+            "title": "T42 - SKILL.md - C#",
+            "text": "---\nname: avoid-untrusted-server-side-selection\ndescription: Use when C# code lets untrusted input choose a server-side page, view, template, include, or file path; replace raw selection with strict allowlisted mapping and trusted path guards.\n---\n# Avoid relying on untrusted data for server-side selection\n\n## What This Skill Does\nThis skill fixes cases where C# code lets request data, command input, or other untrusted values decide which server-side page, view, template, include, or file gets resolved. The safe pattern is to normalize input, validate it as a short symbolic selector, enforce exact membership in a finite allowlist, and return only server-defined targets from a fixed mapping. If legacy file-backed templates remain, canonicalize the mapped path and verify it stays under a trusted root. Never concatenate raw input into template names, view names, include directives, or file paths.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| User input is concatenated into `Path.Combine(...)`, `File.ReadAllText(...)`, view/template names, or `\".tpl\"`/`\".cshtml\"` suffixes | Apply a selector-to-target mapping and stop using raw input for server-side selection |\n| Code accepts a page/view/template selector from HTTP, CLI, config, queue, or deserialized input | Normalize, length-check, regex-validate, and enforce exact allowlist membership before resolution |\n| Legacy code still resolves file-backed templates after mapping | Canonicalize with `Path.GetFullPath` and ensure the resolved file stays under one trusted root |\n| User input can reach dynamic rendering, include, or template execution flows | Reject unknown selectors and pass only constant server-defined targets into rendering/include APIs |\n| Code already uses exact allowlisted mapping with constant targets and optional trusted-root path check | No action needed |\n\n## Boundaries\n\n### Can Do\n- Replace raw page/view/template/file selection with a fixed `Dictionary` or `HashSet` allowlist\n- Add strict selector validation using `Trim`, length checks, `Regex`, and `StringComparer.Ordinal`\n- Add canonical path enforcement with `Path.GetFullPath` for legacy file-backed templates\n\n### Cannot Do\n- Prove every downstream template engine is safe if it interprets file contents as executable server-side syntax\n- Infer the correct business allowlist of selectors without application knowledge\n- Fix unrelated output encoding or content injection issues inside the selected template\n\n## Gotchas\n- Trimming without allowlist mapping: trimmed input like `Home` may still be dangerous if raw input is later concatenated into a path or view name\n- Using case-insensitive matching by default: `StringComparer.OrdinalIgnoreCase` can allow near matches that resolve to unintended targets; prefer exact deterministic matching unless the app explicitly requires otherwise\n- Checking path traversal before mapping: validating attacker input directly is weaker than mapping first to trusted internal relative paths, then canonicalizing the resolved path\n\n## Quick Verification\n```bash\n# Confirm secure selector guards/mappings exist\nrg -n 'TryGetValue\\(|Contains\\(|StringComparer\\.Ordinal|Path\\.GetFullPath\\(|Regex\\(\"^\\[A-Za-z0-9\\]\\{1,32\\}\\$\"' .\n\n# Find likely unguarded dangerous server-side selection/file resolution calls\nrg -n 'Path\\.Combine\\(|File\\.ReadAllText\\(|File\\.OpenRead\\(|FileStream\\(|Directory\\.GetFiles\\(|return\\s+View\\(|PartialView\\(|View\\(\\s*[A-Za-z_][A-Za-z0-9_]*\\s*\\)|new\\s+Regex\\(' . \\\n  -g '!bin' -g '!obj'\n\n# Build and run tests across common C# project layouts\ndotnet build\ndotnet test\n```",
+            "type": "Built-in",
+            "ordinal": 541,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:46.020000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:46.020000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9660,
+            "id": "TA9660",
+            "title": "T42 - SKILL.md - Java",
+            "text": "---\nname: avoid-untrusted-server-side-selection\ndescription: Use when Java code lets request or user input choose server-side views, templates, fragments, includes, or other internal resources; replace direct selection with fixed mapping plus strict validation and membership checks\n---\n# Avoid relying on untrusted data for server-side selection\n\n## What This Skill Does\nThis skill fixes cases where untrusted input influences which server-side page, template, fragment, include target, or view gets resolved in Java code. The safe pattern is to treat user input only as a logical selector, validate it with strict anchored allowlist and length checks, require membership in a closed approved set, and resolve it through a fixed server-side mapping that fails closed for unknown values.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| User input is concatenated into a JSP path, template name, fragment path, SSI directive, or include target | Replace direct construction with a server-side `Map` from logical keys to constant internal resources |\n| Code accepts selectors such as `page`, `view`, `template`, `fragment`, or `section` from request, CLI, message, or job input | Add strict validation with `Pattern.compile(\"^[A-Za-z0-9]+$\")` and explicit min/max length checks before lookup |\n| Input is syntactically valid but may name internal or debug-only resources | Enforce membership with an immutable `Set.of(...)` approved selector list and reject unknown values |\n| Unknown selector currently falls back to user-derived resolution | Fail closed with a safe error result or exception; do not attempt fallback resolution from input |\n| Code already uses constant internal paths resolved only from validated approved keys | No action needed |\n\n## Boundaries\n\n### Can Do\n- Replace user-controlled server-side resource selection with fixed `Map`-based resolution\n- Add Java validation using `java.util.regex.Pattern` and explicit length checks\n- Add immutable membership checks with `Set.of(...)` and closed failure behavior\n\n### Cannot Do\n- Prove every framework-specific render path is safe without reviewing all call sites\n- Infer the correct approved selector list or internal view mapping without application context\n- Fix client-side routing or browser-side template selection issues unrelated to server-side resolution\n\n## Gotchas\n- Validation without membership checks: alphanumeric values like `debug` or `admin` may still reach unintended resources if they are not rejected by an approved set\n- Partial or unanchored regex checks: patterns that do not enforce full-string matches can let dangerous input through after substring matches\n- Safe validator but unsafe fallback: even validated code is still vulnerable if unknown selectors trigger string concatenation, `getOrDefault(...)`, or dynamic include/render behavior from user input\n\n## Quick Verification\n```bash\n# Confirm secure guard/wrapper pieces exist\nrg -n 'Pattern\\.compile\\(\"\\^\\[A-Za-z0-9\\]\\+\\$\"\\)|Set\\.of\\(|Map\\.of\\(|resolveAllowedView|requireAllowedSelector|validateSelector|resolveOrDefault' .\n\n# Find likely unguarded dangerous server-side selection patterns\nrg -n 'getParameter\\(|args\\[|System\\.getProperty\\(|System\\.getenv\\(|@RequestParam|request\\.getParameter|getOrDefault\\(|RequestDispatcher\\(|getRequestDispatcher\\(|forward\\(|include\\(|<!--#include|ModelAndView\\s*\\(|setViewName\\(|return\\s+\".*\\.jsp\"|return\\s+\".*\\.ftl\"|return\\s+\".*\\.vm\"|return\\s+\".*\\.html\"' .\n\n# Build and test with the detected Java toolchain\nif [ -f pom.xml ]; then mvn test; elif [ -f build.gradle ] || [ -f build.gradle.kts ] || [ -f settings.gradle ] || [ -f settings.gradle.kts ]; then ./gradlew test || gradle test; else find src -name \"*.java\" -print0 2>/dev/null | xargs -0 -r javac; fi\n```",
+            "type": "Built-in",
+            "ordinal": 591,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:48.078000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:48.078000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9804,
+            "id": "TA9804",
+            "title": "T42 - SKILL.md - TypeScript",
+            "text": "---\nname: avoid-untrusted-server-side-selection\ndescription: Use when TypeScript code lets request or user input choose a server-side page, view, template, or file-backed selector; replace raw selection with strict validation and developer-controlled allowlists.\n---\n\n# Avoid relying on untrusted data for server-side selection\n\n## What This Skill Does\nThis skill fixes cases where untrusted input controls which server-side page, view, template, or file-backed resource gets loaded. In TypeScript, the safe pattern is to validate the selector early, enforce short alphanumeric-only keys, reject oversized or unknown values, and map the validated key to a developer-defined target instead of building paths or template names directly from raw input.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Request data, CLI args, message payloads, or config values are concatenated into template names or file paths | Replace raw selection with a small validated key and a fixed in-code map such as `ALLOWED_VIEWS` or `TEMPLATE_MAP` |\n| Code uses `fs.readFileSync`, `fs.readFile`, or `path.join` with user-controlled page/view/template input | Validate type, length, and `^[a-z0-9]+$` format first, then resolve only through an allowlist lookup |\n| Code validates format but still accepts any matching identifier like `admin` | Add an explicit allowed set check with `Set.has()` or object-key lookup |\n| Selector input can be very long even if alphanumeric | Add a strict maximum length and reject before lookup or file access |\n| Code already uses a developer-controlled mapping after strict validation and unknown keys are rejected | No action needed |\n\n## Boundaries\n\n### Can Do\n- Replace direct user-controlled page or template selection with fixed allowlist mapping\n- Add strict TypeScript validation for selector type, length, format, and allowed values\n- Flag unguarded filesystem or path resolution patterns that still use raw selector input\n\n### Cannot Do\n- Prove that every template engine usage is safe if selection happens through complex framework internals\n- Infer business-approved page keys without developer input when no existing allowlist exists\n- Fix authorization problems where a valid allowed page should still be restricted by user role\n\n## Gotchas\n- Format validation only: `^[a-z0-9]+$` is not enough by itself because `admin` or other unintended internal identifiers may still pass\n- Building the path before the allowlist check: joining `viewsDir` with raw input first defeats the purpose of safe selection\n- Silent fallback for invalid values: defaulting unknown input to a page can hide attacks and produce unsafe or confusing behavior; reject unknown selectors unless a deliberate default is applied before validation flow\n\n## Quick Verification\n```bash\n# Confirm a secure allowlist mapping or resolver exists\nrg -n \"ALLOWED_VIEWS|TEMPLATE_MAP|resolveSafeView|requireAllowedPageKey|validatePageKey\" --glob '*.ts' .\n\n# Find likely unguarded dangerous file/template selection using raw input with Node APIs\nrg -n \"fs\\.(readFileSync|readFile)\\(|path\\.join\\(|res\\.(render|sendFile)\\(\" --glob '*.ts' . \n\n# Build TypeScript code\nnpx tsc --noEmit\n\n# Run project tests if present\nnpm test\n```",
+            "type": "Built-in",
+            "ordinal": 753,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:53.633000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:53.633000-04:00",
+            "active": true
+          }
+        ]
+      }
+    }
+  ]
+}

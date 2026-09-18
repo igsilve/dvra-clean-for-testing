@@ -1,0 +1,269 @@
+{
+  "composite_response": [
+    {
+      "reference_id": "T186",
+      "http_status_code": 200,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "results": [
+          {
+            "db_id": 102,
+            "id": "TA102",
+            "title": "MDS2 Notes",
+            "text": "The following MDS2-2013 questions relate to this task:\n\n__5-1.__ Can relevant OS and device security patches be applied to the device as they become available?\n\n__14-1.__ In the notes section, list the provided or required (separately purchased and/or delivered) operating system(s) - including version number(s).",
+            "type": "Built-in",
+            "ordinal": 0,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2015-05-04T16:14:04.655000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2022-06-02T10:13:04.959000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 10310,
+            "id": "TA10310",
+            "title": "UK Cyber Essentials - Insurance - Security update management - A6.6",
+            "text": "Document an up-to-date inventory of all software on in-scope devices, including versions and vendor support status.\n \n List any software that is no longer supported by the manufacturer (examples: older web browsers, operating systems, and application software) and, for each entry, provide the action taken and dates of action.\n \n Confirm removal of unsupported software from in-scope devices, or confirm that unsupported software has been removed from scope by placing it in a defined subset that prevents all traffic to/from the internet.\n \n Describe the process and criteria used to identify when software is no longer supported and to decide between removal and scope exclusion, including who is responsible and the frequency of reviews.\n \n Provide evidence of removal (installation logs, change records, or device screenshots) or evidence of network/segmentation controls that demonstrate the defined subset prevents all traffic to/from the internet.\n \n Confirm ongoing compliance with the CE Requirement: all software on in-scope devices is removed when it becomes unsupported, or removed from scope by using a defined subset that prevents all traffic to/from the internet.",
+            "type": "Built-in",
+            "ordinal": 0,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-31T13:27:15.942000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-31T13:27:15.942000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 692,
+            "id": "TA692",
+            "title": "NIST 800-82 / Low Baseline",
+            "text": "*** SI-2: System and Information Integrity | Flaw Remediation ***\nFlaw Remediation is complicated since many ICS employ operating systems and other software that is not current, is no longer being maintained by the vendors, and is not resistant to current threats. When you have no choice but to accept additional risk, implement compensating controls such as:\n\n- Limit the exposure of the vulnerable system\n- Provide a timely response in case of an incident\n- Devise a plan to ensure the ICS can identify the exploitation of the flaw",
+            "type": "Built-in",
+            "ordinal": 10,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2016-05-25T19:48:31.252000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2018-12-31T18:47:17.521000-05:00",
+            "active": true
+          },
+          {
+            "db_id": 693,
+            "id": "TA693",
+            "title": "NIST 800-82 / Moderate Baseline",
+            "text": "*** SI-2 (2): System and Information Integrity | Flaw Remediation | Automated Flaw Remediation Status ***  \nIn situations where the ICS cannot support the use of automated mechanisms to conduct and report on the status of flaw remediation, the organization employs nonautomated mechanisms or procedures which incorporate methods to apply, track, and verify mitigation efforts as compensating controls in accordance with the general tailoring guidance.",
+            "type": "Built-in",
+            "ordinal": 11,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2016-05-25T19:48:31.292000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2018-12-31T18:47:17.850000-05:00",
+            "active": true
+          },
+          {
+            "db_id": 575,
+            "id": "TA575",
+            "title": "NIST 800-53 / Optional Controls",
+            "text": "*** SI-2 (5): System and Information Integrity | Flaw Remediation | Automatic Software / Firmware Updates ***  \nAutomatically, install security-relevant software and firmware updates to system components.",
+            "type": "Built-in",
+            "ordinal": 13,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2016-05-17T02:06:50.422000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2018-12-31T18:47:18.149000-05:00",
+            "active": true
+          },
+          {
+            "db_id": 740,
+            "id": "TA740",
+            "title": "NIST 800-82 / Optional Controls",
+            "text": "*** SI-2 (5): System and Information Integrity | Flaw Remediation | Automatic Software / Firmware Updates ***  \nAutomatically, install security-relevant software and firmware updates to system components.",
+            "type": "Built-in",
+            "ordinal": 13,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2016-06-28T13:18:41.503000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2018-12-31T18:47:18.445000-05:00",
+            "active": true
+          },
+          {
+            "db_id": 8288,
+            "id": "TA8288",
+            "title": "Add dependency defense workflow (React)",
+            "text": "- Ensure version pinning, automated SCA triage, patch SLA, and controlled upgrade testing for React ecosystem packages.",
+            "type": "Built-in",
+            "ordinal": 16,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-04-22T15:42:16.547000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-04-22T15:42:16.547000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 8342,
+            "id": "TA8342",
+            "title": "TR-03161 (Mobile Applications) Control- Keep components updated and address vulnerabilities.",
+            "text": "- Integrate security updates promptly and make them available to users.\n \n - Define a security concept for tolerated continued use and legal entity responsibility.\n \n **Compliance records:** policy references, control implementation evidence, audit logs, and test results demonstrating the requirement is enforced.",
+            "type": "Built-in",
+            "ordinal": 24,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-04-28T18:31:23.339000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-04-28T18:31:23.340000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 863,
+            "id": "TA863",
+            "title": "ASD-STIG requirements",
+            "text": "## V-222513 [medium]:\n__The application must have the capability to prevent the installation of patches, service packs, or application components without verification the software component has been digitally signed using a certificate that is recognized and approved by the organization.__\n\nChanges to any software components can have significant effects on the overall security of the application. Verifying software components have been digitally signed using a certificate that is recognized and approved by the organization ensures the software has not been tampered with and that it has been provided by a trusted vendor.\n\nAccordingly, patches, service packs, or application components must be signed with a certificate recognized and approved by the organization.\n\nVerifying the authenticity of the software prior to installation validates the integrity of the patch or upgrade received from a vendor. This ensures the software has not been tampered with and that it has been provided by a trusted vendor. Self-signed certificates are disallowed by this requirement. The application should not have to verify the software again. This requirement does not mandate DoD certificates for this purpose; however, the certificate used to verify the software must be from an approved CA.\n\nIf this capability is not present, the vendor must provide a cryptographic hash value that can be verified by a system administrator prior to installation.\n\n## V-222614 [medium]:\n__Security-relevant software updates and patches must be kept up to date.__\n\nSecurity flaws with software applications are discovered daily. Vendors are constantly updating and patching their products to address newly discovered security vulnerabilities. Organizations (including any contractor to the organization) are required to promptly install security-relevant software updates (e.g., patches, service packs, and hot fixes). Flaws discovered during security assessments, continuous monitoring, incident response activities, or information system error handling must also be addressed expeditiously.\n\nOrganization-defined time periods for updating security-relevant software may vary based on a variety of factors including, for example, the security category of the information system or the criticality of the update (i.e., severity of the vulnerability related to the discovered flaw).\n\nThis requirement will apply to software patch management solutions that are used to install patches across the enclave and also to applications themselves that are not part of that patch management solution. For example, many browsers today provide the capability to install their own patch software. Patch criticality, as well as system criticality will vary. Therefore, the tactical situations regarding the patch management process will also vary. This means that the time period utilized must be a configurable parameter. Time frames for application of security-relevant software updates may be dependent upon the Information Assurance Vulnerability Management (IAVM) process.\n\nThe application, or the patch management solution that is configured to patch the application, must be configured to check for and install security-relevant software updates and patches at least weekly. Patches must be applied immediately or in accordance with POA&Ms, IAVMs, CTOs, DTMs or other authoritative patching guidelines or sources.\n\n## V-222627 [medium]:\n__The ISSO must ensure if a DoD STIG or NSA guide is not available, a third-party product will be configured by following available guidance.__\n\nNot all COTS products are covered by a STIG. Those products not covered by a STIG, should follow commercially accepted best practices, independent testing results and vendors lock down guides and recommendations if they are available.\n\n## V-222646 [medium]:\n__At least one tester must be designated to test for security flaws in addition to functional testing.__\n\nIf there is no person designated to test for security flaws, vulnerabilities can potentially be missed during testing.\n\nThis requirement is meant to apply to developers or organizations that are doing development work.\n\n## V-222650 [medium]:\n__Flaws found during a code review must be tracked in a defect tracking system.__\n\nThis requirement is meant to apply to developers or organizations that are doing application development work.\n\nIf flaws are not tracked they may possibly be forgotten to be included in a release. Tracking flaws in the configuration management repository will help identify code elements to be changed, as well as the requested change.\n\n## V-222652 [medium]:\n__Security flaws must be fixed or addressed in the project plan.__\n\nThis requirement is meant to apply to developers or organizations that are doing application development work.\n\nApplication development efforts include the creation of a project plan to track and organize the development work.\n\nIf security flaws are not tracked within the project plan, it is possible the flaws will be overlooked and included in a release.\n\nTracking flaws in the project plan will help identify code elements to be changed as well as the requested change.\n\n## V-222653 [low]:\n__The application development team must follow a set of coding standards.__\n\nCoding standards are guidelines established by the development team or individual developers that recommend programming style, practices and methods.  The coding standards employed will vary based upon the programming language that is being used to develop the application and the development team.\n\nCoding standards often cover the use of white space characters, variable naming conventions, function naming conventions, and comment styles.  Implementing coding standards provides many benefits to the development process.  These benefits include code readability, coding consistency among both individual and teams of developers as well as ease of code integration.  \n\nThe following are examples of what will typically be in a coding standards document.  This list is an example of what one can expect to find in typical coding standard documents and is not a comprehensive list:\n\n- Indent style conventions\n- Naming conventions\n- Line length conventions\n- Comment conventions\n- Programming best practices\n- Programming style conventions\n\nCoding standards allow developers to quickly adapt to code which has been developed by various members of a development team.  Coding standards are useful in the code review process as well as in situations where a team member leaves and duties must then be assigned to another team member.  \n\nCode conforming to a standard format is easier to read, especially if someone other than the original developer is examining the code.  In addition, formatted code can be debugged and corrected faster than unformatted code.\n\nIntroducing coding standards can help increase the consistency, reliability, and security of the application by ensuring common programming structures and tasks are handled by similar methods, as well as, reducing the occurrence of common logic errors.\n\n## V-222658 [high]:\n__All products must be supported by the vendor or the development team.__\n\nUnsupported commercial and government developed software products should not be used because fixes to newly identified bugs will not be implemented by the vendor or development team. The lack of security updates can result in potential vulnerabilities.\n\n## V-222659 [high]:\n__The application must be decommissioned when maintenance or support is no longer available.__\n\nUnsupported software products should not be used because fixes to newly identified bugs will not be implemented by the vendor or development team. The lack of security updates can result in potential vulnerabilities.\n\nWhen maintenance updates and patches are no longer available, the application is no longer considered supported, and should be decommissioned.\n\n## V-222660 [low]:\n__Procedures must be in place to notify users when an application is decommissioned.__\n\nWhen maintenance no longer exists for an application, there are no individuals responsible for making security updates. The application support staff should maintain procedures for decommissioning. The decommissioning process should include notifying users of the pending decommissioning event. If the users are not informed of the decommissioning event, attackers may be able to stand up similar looking system and fool users into attempting to log onto a duplicate system. This can be as simple as a banner informing users.\n\nThis risk is primarily geared towards insider threat scenarios and externally accessible applications that provide access to publicly releasable data but should also be applied to internal systems as a best practice.\n\n## V-222670 [low]:\n__The application must provide notifications or alerts when product update and security related patches are available.__\n\nAn application vulnerability management and update process must be in place to notify and provide users and administrators with a means of obtaining security patches and updates for the application.\n\nAn important part of the maintenance phase of an application is managing vulnerabilities for updated versions of the application after the application is released.  When a security flaw is discovered in an application deployed in a production environment, notification to the user community must take place as quickly as possible. \n\nThis notification should be planned for in the design phase of the application. This notification should be a warning of any potential risks to the application or data. A notification mechanism will be established to notify users of the vulnerability and the potential risks, the availability of a solution, and/or potential mitigations reducing risks to the application.\n\n",
+            "type": "Built-in",
+            "ordinal": 40,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2018-02-15T17:17:08.133000-05:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2022-06-02T10:13:11.005000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 8358,
+            "id": "TA8358",
+            "title": "TR-03161 (Backend systems) Control- Keep components updated and address vulnerabilities.",
+            "text": "- Integrate security updates promptly and make them available to users.\n \n - Define a security concept for tolerated continued use based on vulnerability criticality.\n \n **Compliance records:** policy references, control implementation evidence, audit logs, and test results demonstrating the requirement is enforced.",
+            "type": "Built-in",
+            "ordinal": 40,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-04-28T18:31:23.989000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-04-28T18:31:23.989000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9369,
+            "id": "TA9369",
+            "title": "T186 - SKILL.md - Python",
+            "text": "---\nname: use-recommended-settings-and-latest-patches\ndescription: Use when Python applications rely on third-party packages or framework defaults and need startup version enforcement, secure configuration, and fail-closed secret validation for P728/CWE-1104.\n---\n\n# Use recommended settings and the latest patches for third party libraries and software\n\n## What This Skill Does\nThis skill hardens Python applications against outdated or insecure third-party components by adding startup checks for minimum approved package versions, explicitly setting secure framework options instead of relying on defaults, rejecting weak or placeholder secrets before startup, and optionally building a normalized dependency inventory for advisory review. Apply it when code uses external packages, exposes runtime versions without enforcement, or depends on framework defaults for security-sensitive behavior.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Code imports third-party packages but does not enforce approved minimum versions at startup | Add a `MINIMUM_PATCHED_VERSIONS` mapping and call `assert_patched_dependencies()` before serving requests or running main app logic |\n| Code uses Flask or similar framework defaults for security-sensitive behavior | Explicitly set secure config such as `DEBUG=False`, `TESTING=False`, secure cookie flags, and no-store response headers |\n| Code reads `SECRET_KEY` or similar signing/session secret without validation | Add fail-closed validation that rejects missing, placeholder, or too-short values before app initialization |\n| Code exposes package versions via `requests.__version__` or similar but does not block insecure versions | Replace passive version reporting with enforced checks using `importlib.metadata.version()` and `packaging.version.Version` |\n| Code already enforces minimum versions, secure settings, and strong secret validation | No action needed |\n\n## Boundaries\n\n### Can Do\n- Add Python startup guards that block execution when required packages are missing or below approved minimum versions\n- Replace insecure framework defaults with explicit secure application settings in code\n- Add secret validation and optional dependency inventory functions using standard Python package metadata APIs\n\n### Cannot Do\n- Determine the correct minimum safe version numbers without a maintained approved-version policy or vendor advisory input\n- Guarantee every installed dependency is free of vulnerabilities solely from version comparisons in application code\n- Fix vulnerabilities inside third-party packages without upgrading or replacing the affected package\n\n## Gotchas\n- Using string comparison for versions: `\"2.10\"` and `\"2.9\"` compare incorrectly as strings, so use `packaging.version.Version`\n- Checking versions too late: if the guard runs after app creation or after request handling starts, vulnerable code may already execute\n- Reading `SECRET_KEY` but allowing defaults like `dev` or `changeme`: this leaves signing and session protection weak even if dependency checks exist\n\n## Quick Verification\n```bash\n# Confirm the secure dependency/version guard exists\nrg -n \"MINIMUM_PATCHED_VERSIONS|APPROVED_VERSIONS|assert_patched_dependencies|get_unpatched_packages|PackageNotFoundError|importlib\\.metadata\\.version|Version\\(\" .\n\n# Find unguarded dangerous version usage that reports or trusts package versions without enforcement\nrg -n \"requests\\.__version__|[A-Za-z0-9_]+\\.__version__|importlib\\.metadata\\.version\\(\" . \n\n# Find insecure Flask defaults or missing explicit secure settings in Python code\nrg -n \"DEBUG\\s*=\\s*True|TESTING\\s*=\\s*True|SESSION_COOKIE_SECURE\\s*=\\s*False|SESSION_COOKIE_HTTPONLY\\s*=\\s*False|SECRET_KEY\\s*=\\s*[\\\"'](dev|development|changeme|default|secret)?[\\\"']\" .\n\n# Build + test using common Python toolchain commands\npython -m compileall .\npython -m pytest -q\n```",
+            "type": "Built-in",
+            "ordinal": 219,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:35.695000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:35.695000-04:00",
+            "active": true
+          }
+        ]
+      }
+    }
+  ]
+}

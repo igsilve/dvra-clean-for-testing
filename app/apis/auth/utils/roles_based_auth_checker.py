@@ -14,4 +14,4 @@ class RolesBasedAuthChecker:
         if user.role not in self.required_roles:
             raise HTTPException(status_code=403, detail="Unauthorized")
 
-        return True
+        return user

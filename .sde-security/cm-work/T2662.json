@@ -1,0 +1,12 @@
+{
+  "cm_id": "T2662",
+  "category": "IN",
+  "library_sourced": false,
+  "content_fields": {
+    "title": "Restrict network access to the database server",
+    "url": "https://staging.qa.sdelements.com/bunits/copilot-test/app/dvra-clean-for-testing/tasks/phase/deployment/4552-T2662/",
+    "priority": 10,
+    "output_path": "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T2662-restrict-network-access-to-the-database/SKILL.md"
+  },
+  "output_path": "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T2662-restrict-network-access-to-the-database/SKILL.md"
+}

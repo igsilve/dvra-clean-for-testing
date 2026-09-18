@@ -1,0 +1,5084 @@
+[
+  {
+    "section": "Application General",
+    "subsection_path": [
+      "Components"
+    ],
+    "question_id": "Q101",
+    "question_text": "Components In Development",
+    "answer_options": [
+      {
+        "id": "A4",
+        "text": "Web application",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "A component that is accessed using a web browser as a client. For example, an online shopping or banking website.\r\n\r\n# Select this answer: \r\n- If you are developing a web application component.\r\n\r\n# This answer brings into scope:\r\n- Requirements and development tasks for generic servers and web applications."
+      },
+      {
+        "id": "A6",
+        "text": "Web service",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "A component that is a Simple Object Access Protocol (SOAP) or Representational State Transfer (REST) web service. For example, a component that provides public APIs for your web application.\r\n\r\n# Select this answer:\r\n- If you are developing a SOAP-based or RESTful web service component. For some organizations, this includes using an API proxy.\r\n\r\n# This answer brings into scope: \r\n- Architecture, requirements and development tasks for generic servers and web services."
+      },
+      {
+        "id": "A1264",
+        "text": "Microservice backend",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "A backend component of a microservice application. For example, an identity and access management microservice that is used in your application.\r\n\r\n# Select this answer:\r\n- If you are developing a microservice component that corresponds to a single business function that has requirements for basic communication and security.\r\n\r\n# This answer brings into scope:\r\n- Requirement and development tasks for generic servers and backend software."
+      },
+      {
+        "id": "A1289",
+        "text": "Frontend",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "A frontend component. For example, a JavaScript library to be used in frontend clients.\r\n\r\n# Select this answer:\r\n- If you are developing a generic frontend component or a frontend component of a microservice application.\r\n\r\n# This answer brings into scope:\r\n- Requirements and development tasks for frontend technologies such as HTML5 and iframe."
+      },
+      {
+        "id": "A5",
+        "text": "Generic server",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "A generic server component that is accessed using network connections from clients that are not a web browser. For example, the server side of a backup system.\r\n\r\n# Select this answer:\r\n- If you are developing a component with a generic client-server architecture model.\r\n\r\n# This answer brings into scope: \r\n- Requirement and development tasks for generic servers and more specific tasks such as input validation on servers."
+      },
+      {
+        "id": "A713",
+        "text": "Mobile app",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "A mobile component that relies on a remote server or service for its operation. For example, a banking app that runs on an iOS or Android phone.\r\n\r\n# Select this answer:\r\n- If you are developing a mobile component.\r\n\r\n# This answer brings into scope: \r\n- Requirements and development tasks for generic clients and mobile environments."
+      },
+      {
+        "id": "A194",
+        "text": "Generic client",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "A generic client that is used to connect to a server through a network connection. For example, an instant messaging application or a backup agent.\r\n\r\n# Select this answer:\r\n- If you are developing a rich/thick client.\r\n- If you are writing a library or SDK that connects to a server as a generic client.\r\n\r\n# This answer brings into scope:\r\n- Requirements and development tasks for generic clients."
+      },
+      {
+        "id": "A1077",
+        "text": "Hardware",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "A component that is either a hardware solution or an embedded device.\r\n\r\n# Select this answer:\r\n- If you are designing or manufacturing a hardware or smart device.\r\n\r\n# This answer brings into scope:\r\n- Hardware security requirements."
+      },
+      {
+        "id": "A8",
+        "text": "Stand-alone",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "A stand-alone software component that is intended for installation on a desktop or mainframe computer. For example, a stand-alone accounting application for personal use cases.\r\n\r\n# Select this answer:\r\n- If you are developing a stand-alone component that does not rely on any external server.\r\n- If you are writing a library or SDK that doesn't connect to a server as a generic client.\r\n\r\n# This answer brings into scope:\r\n- The bare minimum security requirements for a software component."
+      },
+      {
+        "id": "A2322",
+        "text": "Firmware",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "A component that is firmware intended for use within a hardware device.\r\n\r\n# Select this answer:\r\nIf you are developing firmware for an embedded system or a hardware device.\r\n\r\n# This answer brings into scope:\r\nFirmware-related security requirements."
+      }
+    ]
+  },
+  {
+    "section": "Application General",
+    "subsection_path": [
+      "Components"
+    ],
+    "question_id": "Q253",
+    "question_text": "Components In Use",
+    "answer_options": [
+      {
+        "id": "A1078",
+        "text": "Uses a database",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Applications that store, retrieve, or manipulate data using systems like MySQL, MongoDB, or PostgreSQL involve database usage. Security work includes examining access controls, investigating injection vulnerabilities, and ensuring data encryption standards."
+      },
+      {
+        "id": "A1084",
+        "text": "Third-party component governance and acquisition",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "The application uses components that are developed by third parties, such as Commercial off-the-shelf (COTS) software or hardware."
+      },
+      {
+        "id": "A2416",
+        "text": "Uses SaaS component",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Select this option if the application relies on or integrates with externally hosted SaaS services, cloud-based platforms, or third-party SaaS components that provide business or security-related functionality"
+      }
+    ]
+  },
+  {
+    "section": "Application General",
+    "subsection_path": [
+      "Components"
+    ],
+    "question_id": "CQ5",
+    "question_text": "test q",
+    "answer_options": [
+      {
+        "id": "CA15",
+        "text": "test",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": ""
+      }
+    ]
+  },
+  {
+    "section": "Application General",
+    "subsection_path": [
+      "Architecture/Environment"
+    ],
+    "question_id": "Q500",
+    "question_text": "Architectural Features",
+    "answer_options": [
+      {
+        "id": "A2303",
+        "text": "Fault Tolerance",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Systems have to stay available when parts fail through redundant web servers behind a load balancer, database replication, clustered message brokers, or automatic failover across zones. Security work covers removing single points of failure, hardening failover paths, validating backup and recovery integrity, and protecting redundancy mechanisms from disruption or abuse."
+      },
+      {
+        "id": "A1142",
+        "text": "Contains components that communicate through a network",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Select this answer if your application has one or more components that communicate through a network stack using either an internal network or the Internet."
+      }
+    ]
+  },
+  {
+    "section": "Application General",
+    "subsection_path": [
+      "Architecture/Environment"
+    ],
+    "question_id": "Q322",
+    "question_text": "Architecture",
+    "answer_options": [
+      {
+        "id": "A2013",
+        "text": "Blockchain",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Blockchain refers to a decentralized digital ledger technology used in cryptocurrencies like Bitcoin, supply chain management, and smart contracts in Ethereum platforms. Security work involves ensuring consensus protocol integrity, cryptographic implementation, and safeguarding against 51% attacks and smart contract vulnerabilities."
+      },
+      {
+        "id": "A1262",
+        "text": "Microservices ecosystem",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "A microservice ecosystem is an architectural style that splits a monolithic application into individual microservices, each corresponding to a single business function.\r\n\r\n# Select this answer:\r\n- If you are developing a project for designing and implementing security measures in your microservice ecosystem.\r\n\r\n# This answer brings into scope:\r\n- Architecture level microservice related tasks."
+      },
+      {
+        "id": "A1137",
+        "text": "IoT ecosystem",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "This is an Internet of Things (IoT) system consisting of a set of devices that connect to the cloud."
+      }
+    ]
+  },
+  {
+    "section": "Application General",
+    "subsection_path": [
+      "Context and Characteristics"
+    ],
+    "question_id": "Q460",
+    "question_text": "Accessibility Requirements",
+    "answer_options": [
+      {
+        "id": "A2016",
+        "text": "Does this project need to meet accessibility requirements?",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Select this answer if the application needs to comply with accessibility requirements, such as those outlined in the Web Content Accessibility Guidelines (WCAG) by the World Wide Web Consortium. Accessibility tasks ensure that applications are usable by everyone, including people with disabilities. Selecting this option adds requirements such as providing text alternatives for images and audio, and ensuring content is readable and logically navigable."
+      }
+    ]
+  },
+  {
+    "section": "Application General",
+    "subsection_path": [
+      "Context and Characteristics"
+    ],
+    "question_id": "Q252",
+    "question_text": "Application's Context and Characteristics",
+    "answer_options": [
+      {
+        "id": "A1350",
+        "text": "Include general countermeasures in the Activity phase (process engineering tasks) in this project",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Select this feature if you want general countermeasures in the Activity phase to be included in your project. Those Activities are a set of process-level (process engineering) tasks that are performed to engineer a secure software development lifecycle. Examples of such activities include: performing threat and risk assessment, creating release change summaries, and performing security testing using SAST and DAST tools. These activities apply to most software projects but may be outside the scope of some."
+      },
+      {
+        "id": "A759",
+        "text": "This is a financial application",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "The application provides financial services for the user. This includes banking applications, investment self-service portals, and insurance brokerage."
+      },
+      {
+        "id": "A744",
+        "text": "The application handles health data",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "The application handles Personal Health Information (PHI) that can be used to identify an individual."
+      },
+      {
+        "id": "A1093",
+        "text": "Handles payment through another service provider",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Handles payment through a payment service provider (PSP) or another payment gateway e.g. the credit card data is processed by another PSP."
+      },
+      {
+        "id": "A1075",
+        "text": "This is an ICS or IACS",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Industrial Control Systems (ICS) and Industrial Automation and Control Systems (IACS) encompass Supervisory Control and Data Acquisition (SCADA) systems. These systems are made up of control components and policies used in the operation of the industrial process."
+      },
+      {
+        "id": "A1150",
+        "text": "This is a game application",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "A game application involves components like game engines such as Unity or Unreal, interactive media workflows, and multiplayer connection protocols like WebSockets. Security work focuses on protecting user data through secure authentication, preventing cheating and exploiting bugs, and ensuring digital rights management to prevent piracy."
+      },
+      {
+        "id": "A1145",
+        "text": "This is a mainframe application",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "A mainframe application typically runs critical processes, or bulk data processes for large organizations."
+      },
+      {
+        "id": "A1283",
+        "text": "This is an automotive application",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Select this answer if you are an automotive manufacturer, particularly those producing connected cars and are required to address the security measures needed for infotainment systems, external communications, OBD ports, protections against Denial of Service attacks, etc."
+      },
+      {
+        "id": "A1291",
+        "text": "Consumes cloud services",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "The application consumes cloud services (such as IaaS, SaaS, PaaS)."
+      },
+      {
+        "id": "A1292",
+        "text": "Provides cloud services",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "The application provides cloud services (such as IaaS, SaaS, PaaS)."
+      }
+    ]
+  },
+  {
+    "section": "Application General",
+    "subsection_path": [
+      "Context and Characteristics"
+    ],
+    "question_id": "Q124",
+    "question_text": "Payment Service Provider",
+    "answer_options": [
+      {
+        "id": "A1163",
+        "text": "PayPal",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Uses PayPal as the Payment Service Provider (PSP)."
+      }
+    ]
+  },
+  {
+    "section": "Application General",
+    "subsection_path": [
+      "Context and Characteristics"
+    ],
+    "question_id": "Q295",
+    "question_text": "Game Applications",
+    "answer_options": [
+      {
+        "id": "A1153",
+        "text": "Has a rating",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "The game application has been classified as being suitable to a particular group."
+      }
+    ]
+  },
+  {
+    "section": "Application General",
+    "subsection_path": [
+      "Context and Characteristics"
+    ],
+    "question_id": "Q165",
+    "question_text": "Health Care Systems",
+    "answer_options": [
+      {
+        "id": "A1081",
+        "text": "Has critical operations or emergency functions",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "The system may also enable a special type of access to data in emergency situations."
+      }
+    ]
+  },
+  {
+    "section": "Application General",
+    "subsection_path": [
+      "Context and Characteristics"
+    ],
+    "question_id": "Q239",
+    "question_text": "Application Runs at a Higher Access Level Than Its Users",
+    "answer_options": [
+      {
+        "id": "A785",
+        "text": "Yes",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "A regular user has no access to the host running the app, or the app is running at a level of privilege that is higher than its user."
+      }
+    ]
+  },
+  {
+    "section": "Application General",
+    "subsection_path": [
+      "Context and Characteristics"
+    ],
+    "question_id": "Q285",
+    "question_text": "ICS",
+    "answer_options": [
+      {
+        "id": "A1076",
+        "text": "Has critical operations",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "The system is used in a context where an operational failure can cause unacceptable consequences, such as health, safety and environmental (HSE) consequences."
+      },
+      {
+        "id": "A1089",
+        "text": "The system consists of zones, and channels or conduits",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "The system is comprised of zones and channels (also known as conduits). Zones are collections of assets that share common security requirements. Channels and conduits are collections of communication channels that share common security requirements."
+      }
+    ]
+  },
+  {
+    "section": "Platform and Language",
+    "subsection_path": [
+      "Platform/Operating System"
+    ],
+    "question_id": "Q294",
+    "question_text": "Application Target Platform",
+    "answer_options": [
+      {
+        "id": "A2301",
+        "text": "Windows",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Windows refers to software designed to run on Microsoft Windows operating systems, such as desktop applications or enterprise software using .NET Framework. Security work includes addressing potential vulnerabilities like privilege escalation, improper handling of registry permissions, and securing Windows-specific services or API calls."
+      },
+      {
+        "id": "A714",
+        "text": "iOS",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "This is an iOS application."
+      },
+      {
+        "id": "A715",
+        "text": "Android",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "This is an Android application."
+      }
+    ]
+  },
+  {
+    "section": "Platform and Language",
+    "subsection_path": [
+      "Platform/Operating System"
+    ],
+    "question_id": "Q498",
+    "question_text": "OS Hardening",
+    "answer_options": [
+      {
+        "id": "A1151",
+        "text": "Windows",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Windows refers to the Microsoft operating system used in environments ranging from personal computers to enterprise servers, often requiring configurations like local group policy for security enhancements. Security tasks include hardening services through disabling unnecessary features, applying patches, and implementing authentication protocols to address vulnerabilities specific to Windows."
+      },
+      {
+        "id": "A1152",
+        "text": "Linux/Unix",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Linux/Unix refers to a family of versatile, often open-source operating systems that power everything from mobile devices and desktops to the world's most powerful web servers. Security tasks center on hardening the system by disabling unused services, managing user permissions, and configuring firewalls to minimize exposure."
+      }
+    ]
+  },
+  {
+    "section": "Platform and Language",
+    "subsection_path": [
+      "Language and Framework"
+    ],
+    "question_id": "Q109",
+    "question_text": "Programming Language",
+    "answer_options": [
+      {
+        "id": "A781",
+        "text": "Apex for Force.com",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Apex is a proprietary programming language by Salesforce's Force.com platform."
+      },
+      {
+        "id": "A2353",
+        "text": "ABAP (SAP)",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "ABAP is SAP’s main programming language for building enterprise business logic and customizations inside SAP systems."
+      },
+      {
+        "id": "A2",
+        "text": "C#",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "C# is a multi-paradigm programming language developed by Microsoft within its .NET framework."
+      },
+      {
+        "id": "A1284",
+        "text": "VB",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Visual Basic .NET (VB.NET) is a multi-paradigm, object-oriented programming language, implemented on the .NET Framework."
+      },
+      {
+        "id": "A193",
+        "text": "C/C++",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "C/C++ is used in developing system software like operating systems, embedded systems, and performance-critical applications like video games and financial systems. Security work focuses on vulnerabilities such as buffer overflows, memory corruption, and manipulation of standard libraries, requiring thorough code audits and adherence to secure coding standards."
+      },
+      {
+        "id": "A1164",
+        "text": "Go",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Go is an open source programming language."
+      },
+      {
+        "id": "A1",
+        "text": "Java",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Java is a popular programming language used for building web applications, mobile apps, and enterprise-grade solutions, leveraging Java EE, Spring, and Android. Security tasks involve assessing code for vulnerabilities like SQL injection, securing mobile environments, and ensuring data protection compliance."
+      },
+      {
+        "id": "A3",
+        "text": "JavaScript",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "JavaScript is a high-level programming language commonly used for creating interactive effects within web browsers, often seen in frameworks like React or Node.js. Security work involves addressing vulnerabilities such as cross-site scripting (XSS) and ensuring secure handling of user inputs and data exposure."
+      },
+      {
+        "id": "A1352",
+        "text": "TypeScript",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "TypeScript is a programming language that builds on JavaScript by adding static types, often used in front-end frameworks like Angular and React for building scalable web applications. Security work involves ensuring type safety to enhance secure data handling and code integrity, with a focus on preventing runtime vulnerabilities and ensuring robust application security."
+      },
+      {
+        "id": "A1272",
+        "text": "Kotlin",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Kotlin is a modern programming language primarily used for Android app development, providing enhanced readability and interoperability with Java. Security work involves assessing code vulnerabilities, securing Android app components against API misuse, and protecting user data from unintended exposure."
+      },
+      {
+        "id": "A716",
+        "text": "Objective-C",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Objective-C is an object-oriented reflective extension to the standard C language."
+      },
+      {
+        "id": "A782",
+        "text": "PHP",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "PHP is a server-side scripting language often used for web development, powering platforms like WordPress and Laravel by generating dynamic HTML content. Security work involves addressing vulnerabilities such as SQL injection and cross-site scripting, requiring code audits and input validation techniques."
+      },
+      {
+        "id": "A707",
+        "text": "Python",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Python is a general-purpose, high-level programming language."
+      },
+      {
+        "id": "A719",
+        "text": "Ruby",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Ruby is a programming and scripting language."
+      },
+      {
+        "id": "A1129",
+        "text": "Swift for iOS",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Swift for iOS is a compiled programming language that is used for developing iOS applications."
+      },
+      {
+        "id": "CA14",
+        "text": "Framework",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": ""
+      },
+      {
+        "id": "A1621",
+        "text": "Bash/Shell",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Bash/Shell involves writing scripts or commands for Unix-based systems to automate tasks like file management and system monitoring. Security work includes checking for script injection vulnerabilities and ensuring secure handling of environment variables and user input."
+      },
+      {
+        "id": "A2108",
+        "text": "Low-code/No-code",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Low-code/No-code refers to platforms like Microsoft PowerApps and Mendix that enable application development with minimal coding expertise, often using visual interfaces. Security work involves assessing data protection, user authentication mechanisms, and vulnerabilities arising from platform default settings."
+      },
+      {
+        "id": "A1365",
+        "text": "Rust",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Rust is a programming language that emphasizes on performance and type safety. Rust is designed to provide low-level control over system resources while also preventing common programming errors."
+      }
+    ]
+  },
+  {
+    "section": "Platform and Language",
+    "subsection_path": [
+      "Web Technologies"
+    ],
+    "question_id": "Q108",
+    "question_text": "Web Server Used",
+    "answer_options": [
+      {
+        "id": "A74",
+        "text": "Apache",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "The application uses the Apache HTTP web server."
+      },
+      {
+        "id": "A75",
+        "text": "Microsoft IIS",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "The application uses the Microsoft Internet Information Services (IIS) web server."
+      },
+      {
+        "id": "A1149",
+        "text": "NGINX",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "The application uses the NGINX web server."
+      }
+    ]
+  },
+  {
+    "section": "Platform and Language",
+    "subsection_path": [
+      "Web Technologies"
+    ],
+    "question_id": "Q516",
+    "question_text": "Low-Code Website Development Tools",
+    "answer_options": [
+      {
+        "id": "A2352",
+        "text": "Power Pages",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": ""
+      }
+    ]
+  },
+  {
+    "section": "Platform and Language",
+    "subsection_path": [
+      "Web Technologies"
+    ],
+    "question_id": "Q191",
+    "question_text": "Web Client Technologies Used",
+    "answer_options": [
+      {
+        "id": "A721",
+        "text": "jQuery",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "jQuery is a cross-browser JavaScript library."
+      },
+      {
+        "id": "A792",
+        "text": "HTML5",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "HTML5 is the latest standard for the web. It provides several new functionalities for developers, including new HTML tags and a new API."
+      },
+      {
+        "id": "A1192",
+        "text": "CORS",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Cross-origin resource sharing (CORS) allows web pages to request resources from certain domains outside the original domain from which the first resource was served. Select this answer if your web page embeds cross-origin stylesheets, images, fonts, etc."
+      }
+    ]
+  },
+  {
+    "section": "Platform and Language",
+    "subsection_path": [
+      "Mobile Technologies"
+    ],
+    "question_id": "Q264",
+    "question_text": "Mobile App Features",
+    "answer_options": [
+      {
+        "id": "A1106",
+        "text": "Enables in-app purchases",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "The application allows users to make purchases, or microtransactions, from within the application."
+      }
+    ]
+  },
+  {
+    "section": "Platform and Language",
+    "subsection_path": [
+      "Mobile Technologies"
+    ],
+    "question_id": "Q256",
+    "question_text": "Mobile Components",
+    "answer_options": [
+      {
+        "id": "A1088",
+        "text": "Uses a WebView component",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "A WebView component allows the user to view web content from within the application."
+      }
+    ]
+  },
+  {
+    "section": "Platform and Language",
+    "subsection_path": [
+      "Mobile Technologies"
+    ],
+    "question_id": "Q287",
+    "question_text": "Android App Features",
+    "answer_options": [
+      {
+        "id": "A1139",
+        "text": "Shares data or files with other local applications",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "The application shares data with other applications on the device through Intents, or through file-sharing."
+      }
+    ]
+  },
+  {
+    "section": "Platform and Language",
+    "subsection_path": [
+      "Mobile Technologies"
+    ],
+    "question_id": "CQ4",
+    "question_text": "Mobile Backend as a Service",
+    "answer_options": [
+      {
+        "id": "CA11",
+        "text": "Apple CloudKit",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": ""
+      }
+    ]
+  },
+  {
+    "section": "Platform and Language",
+    "subsection_path": [
+      "Database Technologies"
+    ],
+    "question_id": "Q440",
+    "question_text": "Data Platforms",
+    "answer_options": [
+      {
+        "id": "A1927",
+        "text": "Snowflake",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Snowflake is a cloud-based data platform that enables data warehousing and analytics, supporting integrations with tools like Tableau and Python for data processing. Security work includes ensuring encryption standards, managing data access controls, and monitoring for unauthorized access or anomalies in data handling."
+      },
+      {
+        "id": "A2425",
+        "text": "Databricks",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Guidelines for DataBricks cover securing multi-cloud lakehouse workspaces with Unity Catalog, identity integration, network isolation, and operational governance aligned to your cloud providers. Security work includes account-level SSO and SCIM provisioning, least-privilege Unity Catalog grants and workspace bindings, customer-managed networking and private connectivity, secrets and credential hygiene, audit logging to your SIEM, secure software delivery for notebooks and jobs, encryption and sharing controls, compliance baselines, access reviews, and governance of analytics, AI, and Delta Sharing workloads."
+      }
+    ]
+  },
+  {
+    "section": "Platform and Language",
+    "subsection_path": [
+      "Database Technologies"
+    ],
+    "question_id": "Q103",
+    "question_text": "Database",
+    "answer_options": [
+      {
+        "id": "A11",
+        "text": "Stand-alone database that supports SQL",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "The application uses a relational database that can run independently."
+      },
+      {
+        "id": "A732",
+        "text": "NoSQL Database",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "The application uses a non-relational database such as MongoDB or CouchDB."
+      }
+    ]
+  },
+  {
+    "section": "Platform and Language",
+    "subsection_path": [
+      "Database Technologies"
+    ],
+    "question_id": "Q305",
+    "question_text": "Database Management System (DBMS)",
+    "answer_options": [
+      {
+        "id": "A1126",
+        "text": "MongoDB",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "MongoDB is a NoSQL database management system known for its horizontal scalability and support for JSON-like document data models. Security work involves assessing risks related to data integrity, authentication mechanisms, and securing data at rest and in transit."
+      },
+      {
+        "id": "A1195",
+        "text": "MySQL",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "MySQL is a widely-used open-source relational database management system that supports SQL, commonly utilized in web applications like WordPress and Drupal. Security work involves implementing encryption, regular vulnerability assessments, and ensuring proper access controls to prevent unauthorized data access."
+      },
+      {
+        "id": "A1252",
+        "text": "PostgreSQL",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "PostgreSQL is an open-source relational Database Management System (DBMS) used for storing and managing structured data in applications, supporting SQL queries and ACID compliance. Security work involves assessing database authentication, securing data encryption, and regularly addressing vulnerabilities in SQL injection, privilege escalation, and access control."
+      },
+      {
+        "id": "A765",
+        "text": "SQLite local data storage",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "The application uses SQLite, which is a lightweight, locally accessible data storage that supports SQL."
+      },
+      {
+        "id": "A1221",
+        "text": "Oracle",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "The application uses Oracle"
+      },
+      {
+        "id": "A1222",
+        "text": "Microsoft SQL Server",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "The application uses Microsoft SQL Server"
+      },
+      {
+        "id": "CA10",
+        "text": "ACME Secure MySQL",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": ""
+      },
+      {
+        "id": "A1368",
+        "text": "InfluxDB",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "InfluxDB is a time-series database management system designed for storing and querying data over time, often used in monitoring, analytics, and IoT applications. Security work includes ensuring data integrity, protecting against unauthorized access, and implementing encryption protocols to safeguard sensitive time-series data."
+      },
+      {
+        "id": "A1369",
+        "text": "Neo4j",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Neo4j is a graph database management system that specializes in handling connected data using nodes and relationships, commonly utilized for recommendation engines and social networks. Security work focuses on data integrity, access control, and encryption to protect sensitive graph data from unauthorized access and modification."
+      },
+      {
+        "id": "A1370",
+        "text": "MariaDB",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "MariaDB is an open-source relational database management system, commonly used with applications requiring robust SQL compliance and compatibility with MySQL. Security work focuses on implementing access controls, encryption for data-at-rest, and regular audits for SQL injection vulnerabilities."
+      },
+      {
+        "id": "A2355",
+        "text": "IBM Db2",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Db2 is a Relational Database Management System (RDBMS) developed by IBM."
+      },
+      {
+        "id": "A1371",
+        "text": "CockroachDB",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "CockroachDB is a distributed SQL database management system designed for cloud infrastructures, known for its horizontal scalability and PostgreSQL wire protocol compatibility. Security work includes addressing potential distributed transaction vulnerabilities and ensuring robust encryption protocols to protect data integrity and confidentiality."
+      },
+      {
+        "id": "A1372",
+        "text": "Apache Cassandra",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Apache Cassandra is a highly scalable open-source NoSQL database management system used for handling large amounts of data across many commodity servers. Security work includes assessing data consistency models, integration with authentication protocols like Kerberos, and ensuring encryption standards for data at rest and in transit are met."
+      },
+      {
+        "id": "A1373",
+        "text": "MarkLogic",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "MarkLogic is a multi-model NoSQL database designed for structured and unstructured data, often used in data-intensive applications such as content management and data integration. Security work includes addressing potential vulnerabilities related to data access controls, encryption mechanisms, and compliance with data protection regulations."
+      }
+    ]
+  },
+  {
+    "section": "Platform and Language",
+    "subsection_path": [
+      "Network Technologies"
+    ],
+    "question_id": "Q372",
+    "question_text": "Network Components",
+    "answer_options": [
+      {
+        "id": "A1566",
+        "text": "Directory Server",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Directory servers, such as Microsoft Active Directory or OpenLDAP, manage network resources and user authentication through protocols like LDAP. Security work includes hardening authentication mechanisms, protecting data integrity, and ensuring secure access controls against unauthorized modifications or access."
+      },
+      {
+        "id": "A1567",
+        "text": "DNS Server",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "A DNS Server translates domain names like 'example.com' into IP addresses to route internet traffic and is essential for network communication. Security work includes preventing DNS spoofing, cache poisoning, and ensuring secure configurations to prevent unauthorized data exposure and service disruptions."
+      },
+      {
+        "id": "A1568",
+        "text": "Firewall",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "A firewall is a network security device or software, like pfSense or Cisco ASA, that monitors and controls incoming and outgoing network traffic based on predetermined security rules. Security work involves configuring access control policies, monitoring for unauthorized access attempts, and maintaining rule sets to protect the network infrastructure."
+      },
+      {
+        "id": "A1569",
+        "text": "FTP Server",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "An FTP Server is a network component used for transferring files, commonly involving software like FileZilla or ProFTPD, operating over protocols like FTP or SFTP. Security work focuses on protecting file integrity and confidentiality, addressing vulnerabilities like credential sniffing and ensuring compliance with standards like TLS for encrypted sessions."
+      },
+      {
+        "id": "A1570",
+        "text": "IDS/IPS",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "IDS/IPS are cybersecurity tools like Snort, Suricata, and Palo Alto Networks that monitor and protect networks from malicious activity by analyzing packet data. Security work involves configuring and fine-tuning detection algorithms to recognize and mitigate threats in real-time environments."
+      },
+      {
+        "id": "A1571",
+        "text": "Load Balancer",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "A Load Balancer is a network component that distributes incoming HTTP requests across multiple servers to ensure availability and scalability, exemplified by technologies like NGINX or AWS Elastic Load Balancing. Security work includes addressing vulnerabilities in traffic routing, such as interception risks and DDoS attacks, ensuring data integrity and confidentiality."
+      },
+      {
+        "id": "A1572",
+        "text": "Message Broker",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Message Broker refers to middleware technology like Apache Kafka or RabbitMQ that facilitates communication between distributed systems by relaying messages asynchronously. Security work focuses on securing data integrity and confidentiality in message queues and implementing robust access controls and authentication measures."
+      },
+      {
+        "id": "A1575",
+        "text": "Proxy Server",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "A proxy server acts as an intermediary for requests from clients seeking resources from other servers, commonly used with technologies like HTTP and SOCKS. Security work includes assessing potential vulnerabilities in proxy configurations and ensuring proper data traffic logging and encryption standards to prevent unauthorized access and data leakage."
+      },
+      {
+        "id": "A1576",
+        "text": "Router",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Routers are devices that forward data packets between computer networks, commonly using technologies such as BGP, OSPF, and NAT in scenarios like home networking or enterprise WANs. Security work involves assessing vulnerabilities in routing protocols, implementing secure configurations, and protecting against attacks like DDoS or route hijacking."
+      },
+      {
+        "id": "A1577",
+        "text": "Service Bus",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "A Service Bus facilitates communication between distributed applications using queuing, pub/sub messaging, and protocols like AMQP and MQTT, enabling decoupled system interaction. Security work involves ensuring message integrity, authentication, and access control to prevent unauthorized data access and tampering in these distributed systems."
+      },
+      {
+        "id": "A1578",
+        "text": "Virtual Private Network (VPN) Server",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "A Virtual Private Network (VPN) Server facilitates secure, encrypted connections over the internet using protocols like OpenVPN, IPsec, or WireGuard to keep data private. Security work targets vulnerabilities in these protocols, ensuring data integrity and protection against unauthorized access during data transmission."
+      },
+      {
+        "id": "A1585",
+        "text": "Content Delivery Network (CDN)",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "A Content Delivery Network (CDN) is a distributed server network that accelerates web content delivery by caching it closer to users, using providers like Cloudflare and Akamai. Security work involves protecting against DDoS attacks and ensuring secure data transmission through encryption protocols like TLS."
+      }
+    ]
+  },
+  {
+    "section": "Platform and Language",
+    "subsection_path": [
+      "Java Technologies"
+    ],
+    "question_id": "Q146",
+    "question_text": "Java EE Technologies Used",
+    "answer_options": [
+      {
+        "id": "A96",
+        "text": "JSF",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "The application uses Java Server Faces (JSF)."
+      },
+      {
+        "id": "A97",
+        "text": "JAXB",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "The application uses Java Architecture for XML Binding (JAXB)."
+      },
+      {
+        "id": "A98",
+        "text": "JPA",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "The application uses Java Persistence Architecture (JPA)."
+      }
+    ]
+  },
+  {
+    "section": "Platform and Language",
+    "subsection_path": [
+      "Java Technologies"
+    ],
+    "question_id": "Q147",
+    "question_text": "Third-Party Libraries Used",
+    "answer_options": [
+      {
+        "id": "A164",
+        "text": "Struts",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Struts (Apache Struts 1) is an open-source web application framework from Apache used for developing Java EE web applications."
+      },
+      {
+        "id": "A165",
+        "text": "Spring",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Spring (Spring Framework) is an application framework for Java used for building web applications."
+      },
+      {
+        "id": "A726",
+        "text": "Apache Wicket",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Apache Wicket (Wicket) is a lightweight component-based web application framework for the Java programming language similar to JavaServer Faces and Tapestry."
+      },
+      {
+        "id": "A100",
+        "text": "RichFaces",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "RichFaces is an open source Ajax-enabled component library for JavaServer Faces (JSF)."
+      },
+      {
+        "id": "A101",
+        "text": "Hibernate",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Hibernate is an open source Java persistence framework project."
+      }
+    ]
+  },
+  {
+    "section": "Platform and Language",
+    "subsection_path": [
+      "Java Technologies"
+    ],
+    "question_id": "Q150",
+    "question_text": "Java EE Container Used",
+    "answer_options": [
+      {
+        "id": "A106",
+        "text": "WebSphere",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "WebSphere (WebSphere Application Server, or WAS) is a web application server developed by IBM that hosts Java-based web applications."
+      },
+      {
+        "id": "A107",
+        "text": "WebLogic",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "WebLogic (Oracle WebLogic Server) is a Java EE application server developed by Oracle Corporation."
+      },
+      {
+        "id": "A108",
+        "text": "Tomcat",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Tomcat (Apache Tomcat or Tomcat Server) is an open-source Java Servlet Container developed by the Apache Software Foundation (ASF)."
+      }
+    ]
+  },
+  {
+    "section": "Platform and Language",
+    "subsection_path": [
+      "Java Technologies"
+    ],
+    "question_id": "Q152",
+    "question_text": "Library Used for Cryptography",
+    "answer_options": [
+      {
+        "id": "A114",
+        "text": "Bouncy Castle",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "The application uses Bouncy Castle instead of the default cryptographic provider for Java cryptography."
+      }
+    ]
+  },
+  {
+    "section": "Platform and Language",
+    "subsection_path": [
+      "Java Technologies"
+    ],
+    "question_id": "Q111",
+    "question_text": "Uses only Prepared Statements for Database Interaction",
+    "answer_options": [
+      {
+        "id": "A76",
+        "text": "Yes",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "The application uses PreparedStatements rather than stored procedures, or dynamic SQL for interacting with the database."
+      }
+    ]
+  },
+  {
+    "section": "Platform and Language",
+    "subsection_path": [
+      "Low Code/No Code Technologies"
+    ],
+    "question_id": "Q524",
+    "question_text": "Microsoft Power Platform",
+    "answer_options": [
+      {
+        "id": "A2392",
+        "text": "Power Platform Administration",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Select this option to include countermeasures for Power Platform administrators that manage access, enforce security policies, monitor activity, and control environments and connectors."
+      },
+      {
+        "id": "A2368",
+        "text": "Power Platform Application Development",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Select this option if you are developing an application that uses Power Platform technology. These countermeasures encompass identity and access management, connection and environment governance, secure configuration and change control, data protection and DLP enforcement, input validation and injection prevention, component and dependency lifecycle management, logging and audit monitoring (including capabilities such as Microsoft Purview), and user/developer security awareness practices specific to Microsoft Power Platform environments."
+      },
+      {
+        "id": "A2430",
+        "text": "Microsoft Copilot Studio",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Guidelines for Microsoft Copilot Studio cover GitHub Copilot and Power Platform agent development with prompt hygiene, repository guardrails, tenant DLP, Entra authentication, and environment segregation. Security work includes blocking unauthenticated Studio chat and risky connectors, scoping knowledge and sharing, enforcing managed-environment publishing and promotion gates, protecting secrets and network endpoints, validating AI-assisted code through review and CI checks, and governing transcripts, MCP tools, and regional data movement."
+      }
+    ]
+  },
+  {
+    "section": "Platform and Language",
+    "subsection_path": [
+      ".NET Technologies"
+    ],
+    "question_id": "Q227",
+    "question_text": ".NET Application Framework Used",
+    "answer_options": [
+      {
+        "id": "A1185",
+        "text": "ASP.NET Core Web Application Framework",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "The next generation of ASP.NET, developed by Microsoft and the community. It runs over .NET Core that is a free, open-source, and cross-platform managed software framework."
+      },
+      {
+        "id": "A767",
+        "text": "ASP.NET Web Application Framework",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "ASP.NET is a web application framework developed by Microsoft to allow programmers to build dynamic websites, web applications, and web services."
+      },
+      {
+        "id": "A1090",
+        "text": "WCF Framework",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Windows Communication Foundation (WCF) is a framework for building service-oriented applications."
+      },
+      {
+        "id": "A766",
+        "text": ".NET WinForms",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Windows Forms (WinForms) is a graphical Application Programming Interface (API) included as a part of Microsoft .NET Framework. It provides access to native Microsoft Windows interface elements by wrapping the existing Windows API in managed code."
+      }
+    ]
+  },
+  {
+    "section": "Platform and Language",
+    "subsection_path": [
+      ".NET Technologies"
+    ],
+    "question_id": "Q170",
+    "question_text": ".NET Database Persistence Tools Used",
+    "answer_options": [
+      {
+        "id": "A155",
+        "text": "Linq",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Language Integrated Query (LINQ) is a Microsoft .NET Framework component. The application uses the LINQ library for persistence."
+      },
+      {
+        "id": "A156",
+        "text": "SqlClient",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "SqlClient is a resource for database administration using Structured Query Language (SQL). The application uses the SqlClient library for persistence."
+      },
+      {
+        "id": "A157",
+        "text": "OleDb",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Object Linking and Embedding, Database (OLE DB, OLE-DB) is an Application Programming Interface (API) developed by Microsoft. Your application uses OLE DB for persistence."
+      },
+      {
+        "id": "A158",
+        "text": "ODBC",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Open Database Connectivity (ODBC) is a standard Application Programming Interface (API) for accessing Database Management Systems (DBMS). The application used ODBC for persistence."
+      },
+      {
+        "id": "A1211",
+        "text": "Entity",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Entity Framework (EF) is an open source object-relational mapping (ORM) framework for ADO.NET."
+      }
+    ]
+  },
+  {
+    "section": "Platform and Language",
+    "subsection_path": [
+      ".NET Technologies"
+    ],
+    "question_id": "Q209",
+    "question_text": ".NET Libraries/Components Used",
+    "answer_options": [
+      {
+        "id": "A159",
+        "text": "Uses Microsoft Enterprise Libraries",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "The application uses Enterprise Library application blocks, including one or more of the following: Caching, Cryptography, Data Access, Logging, Policy Injection, Security, and Validation."
+      }
+    ]
+  },
+  {
+    "section": "Platform and Language",
+    "subsection_path": [
+      "C/C++ Technologies"
+    ],
+    "question_id": "Q242",
+    "question_text": "What C/C++ Environment is Targeted?",
+    "answer_options": [
+      {
+        "id": "A789",
+        "text": "POSIX",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "The Portable Operating System Interface (POSIX) defines a standard Application Programming Interface (API) for software compatibility between variants of Unix and other operating systems."
+      },
+      {
+        "id": "A788",
+        "text": "ANSI C / ISO C++",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "ANSI C (ISO C, Standard C) is the standard for the C programming language published by the American National Standards Institute (ANSI) and the International Organization for Standardization (ISO). This is the most portable standard of C/C++ with the fewest compatibility issues across operating systems."
+      },
+      {
+        "id": "A790",
+        "text": "Windows (Microsoft C/C++)",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Microsoft C/C++ is designed to use the Windows operating system Application Programming Interfaces (APIs) and libraries."
+      }
+    ]
+  },
+  {
+    "section": "Platform and Language",
+    "subsection_path": [
+      "Data Formats"
+    ],
+    "question_id": "Q499",
+    "question_text": "Handles Data Files",
+    "answer_options": [
+      {
+        "id": "A2302",
+        "text": "The application reads/writes data from/to files",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "The application manages data through file operations such as reading configuration settings from JSON files or writing results to CSV documents on disk. Security work involves auditing file handling procedures to prevent data exposure and ensure integrity, focusing on issues like file permissions and secure storage locations."
+      }
+    ]
+  },
+  {
+    "section": "Platform and Language",
+    "subsection_path": [
+      "Data Formats"
+    ],
+    "question_id": "Q115",
+    "question_text": "Generates or reads data/files in the following formats:",
+    "answer_options": [
+      {
+        "id": "A13",
+        "text": "XML",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "The system receives/sends Extensible Markup Language (XML) messages, such as Simple Object Access Protocol (SOAP) web service requests."
+      },
+      {
+        "id": "A733",
+        "text": "JSON",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "The application uses JavaScript Object Notation (JSON)."
+      },
+      {
+        "id": "A1193",
+        "text": "CSV or Excel",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Generates data or files in the CSV or Excel format."
+      },
+      {
+        "id": "A1285",
+        "text": "YAML",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "The application may work with YAML data format for configuration files."
+      },
+      {
+        "id": "A1286",
+        "text": "SVG",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Scalable Vector Graphics (SVG) is a vector graphic format based on XML. It is used to display a variety of graphics on the web and other environments."
+      },
+      {
+        "id": "A2356",
+        "text": "Protocol Buffers (Protobuf)",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Protocol Buffers (Protobuf) is a data serialization format developed by Google. It’s used to structure, serialize, and transmit data efficiently between systems, services, or components — similar in purpose to JSON or XML."
+      }
+    ]
+  },
+  {
+    "section": "Features and Functions",
+    "subsection_path": [
+      "Interfaces and APIs"
+    ],
+    "question_id": "Q270",
+    "question_text": "Interfaces and APIs Provided",
+    "answer_options": [
+      {
+        "id": "A754",
+        "text": "Provides web services or external APIs",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "The application exposes some of its functionality as a web service, or provides externally callable Application Programming Interfaces (APIs) to other applications, processes, or devices (The function calls are not necessarily HTTP or web based). Note that if application type is web services, you don't need to check this box as it is covered elsewhere in the survey."
+      },
+      {
+        "id": "A1155",
+        "text": "Provides UDDI web service registry",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "UDDI (Universal Description, Discovery, and Integration) is an XML-based registry for business internet services."
+      },
+      {
+        "id": "A1593",
+        "text": "Uses API gateway for providing web APIs",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Select this option if your application uses API gateway for providing web APIs."
+      }
+    ]
+  },
+  {
+    "section": "Features and Functions",
+    "subsection_path": [
+      "Hardware and IoT"
+    ],
+    "question_id": "Q278",
+    "question_text": "Hardware Features",
+    "answer_options": [
+      {
+        "id": "A1134",
+        "text": "Physical protection of hardware is in-scope",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "The project will have security measures that physically protect the hardware components of the project. This includes circuit boards, microchips, wiring, and physical interfaces."
+      },
+      {
+        "id": "A1121",
+        "text": "Uses RFID or NFC transmissions",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "The project is a Radio-Frequency Identification (RFID) or a Near Field Communication (NFC) technology that consists of tags and readers. Do not select this option if the project is not being designed to use NFC or RFID with tags and readers, such as a mobile application that uses NFC."
+      },
+      {
+        "id": "A1300",
+        "text": "Hardware design and manufacturing is in scope",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "The design and manufacturing of hardware is in scope for this project. For example, chip manufacturing, System on Chip (SoC) design, or hardware description language (HDL) programming are in scope."
+      },
+      {
+        "id": "A1306",
+        "text": "Hardware configuration is in scope",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "The configuration of the hardware is in scope for this project. For example, hardware settings, such as setting default values."
+      }
+    ]
+  },
+  {
+    "section": "Features and Functions",
+    "subsection_path": [
+      "Hardware and IoT"
+    ],
+    "question_id": "Q268",
+    "question_text": "Internet of Things (IoT) Features",
+    "answer_options": [
+      {
+        "id": "A1114",
+        "text": "Device registration and discovery",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "The application provides or depends on IoT device registration and discovery services. The device registration service helps the IoT system register devices with a central inventory to know what devices are in the system. The discovery service helps find a device in the inventory after registration."
+      }
+    ]
+  },
+  {
+    "section": "Features and Functions",
+    "subsection_path": [
+      "Hardware and IoT"
+    ],
+    "question_id": "Q534",
+    "question_text": "System Software & Firmware",
+    "answer_options": [
+      {
+        "id": "A2404",
+        "text": "Has bootloader",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "The device uses a dedicated program that runs at startup to initialize hardware and load firmware or an operating system."
+      },
+      {
+        "id": "A2405",
+        "text": "Has software debugging functions",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "The device or its firmware includes built-in debugging features such as debug ports (e.g., JTAG, SWD), diagnostic modes, logging interfaces, or developer access tools."
+      },
+      {
+        "id": "A2406",
+        "text": "Has operating system",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "The device runs an operating system (e.g., Linux, Android, Windows, RTOS) that manages hardware resources and supports applications or services."
+      },
+      {
+        "id": "A2407",
+        "text": "Has isolation and virtualization",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "The device uses hardware or software mechanisms to separate workloads or environments (e.g., virtual machines, containers, hypervisors, secure enclaves, or trusted execution environments)."
+      },
+      {
+        "id": "A2408",
+        "text": "Has root of trust",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "The device includes a hardware- or firmware-based trust anchor (e.g., secure element, TPM, ROM-based key storage) used to verify firmware integrity or enable secure boot."
+      },
+      {
+        "id": "A2409",
+        "text": "Has firmware update functionality",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "The device supports updating its firmware after deployment (e.g., OTA updates, USB update, service tool flashing, or remote patching)."
+      },
+      {
+        "id": "A2410",
+        "text": "Has on-device system logging",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "The device records operational, security, or diagnostic events locally (e.g., system logs, audit logs, error logs) for review or troubleshooting."
+      },
+      {
+        "id": "A1302",
+        "text": "Implements cryptographic algorithms",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "The implementation of cryptographic algorithms is in scope for this project. \r\n\r\nFor example:\r\n\r\n-  For implementing a cryptographic function, you rely on another Random Number Generator (RNG) unit and must supply correct input to that.\r\n- The project involves the design and implementation of cryptographic primitives in a hardware module."
+      },
+      {
+        "id": "A1304",
+        "text": "Has Access Control settings",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Hardware Access Control settings are in scope. Access Control measures are used to prevent any unauthorized actions on the hardware."
+      },
+      {
+        "id": "A2411",
+        "text": "Has network features",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "The device provides network functions beyond basic connectivity (e.g., web interface, API endpoints, remote management, file sharing, or cloud integration)."
+      },
+      {
+        "id": "A2433",
+        "text": "Trusted Execution Environments (TEEs) for processors are in scope.",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Trusted Execution Environments (TEEs) are hardware-based secure areas in a processor that isolate sensitive code and data from the operating system and other software, helping protect them even if the system is compromised. Security work includes defining TEE boundaries, verifying attestation, controlling key release based on trusted measurements, securing and signing enclave workloads, minimizing sensitive processing inside TEEs, and maintaining patched, fail-closed TEE components."
+      }
+    ]
+  },
+  {
+    "section": "Features and Functions",
+    "subsection_path": [
+      "Hardware and IoT"
+    ],
+    "question_id": "Q535",
+    "question_text": "Device Application Software",
+    "answer_options": [
+      {
+        "id": "A2412",
+        "text": "Device Application Software is in scope",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "The device has the capability to run application-level code (e.g., dedicated, custom, or third-party apps) beyond its core firmware or operating system, and that software is part of this assessment."
+      }
+    ]
+  },
+  {
+    "section": "Features and Functions",
+    "subsection_path": [
+      "Authentication"
+    ],
+    "question_id": "Q508",
+    "question_text": "Secrets Management Software",
+    "answer_options": [
+      {
+        "id": "A2323",
+        "text": "HashiCorp Vault",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Select this option if you are deploying HashiCorp Vault to securely store your application's secrets."
+      },
+      {
+        "id": "A2396",
+        "text": "CyberArk Secret Management",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Guidelines for CyberArk Secret Management involve operating an enterprise secrets and privileged access platform with centralized vaulting, least-privilege access, and audited credential lifecycle across CI/CD, cloud, and containers. Security work includes enterprise brokered secret delivery, Conjur RBAC with rotation, removing hardcoded and image-stored secrets, encryption and certificate hygiene, workload authenticators, pipeline integrations, rotation and revocation, minimizing exposure in env vars, and logging and compliance controls."
+      }
+    ]
+  },
+  {
+    "section": "Features and Functions",
+    "subsection_path": [
+      "Authentication"
+    ],
+    "question_id": "Q120",
+    "question_text": "Authentication Features",
+    "answer_options": [
+      {
+        "id": "A758",
+        "text": "Has direct or third party authentication for end users, devices or nodes",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "The application includes a feature that authenticates users, such as with a user ID and password."
+      }
+    ]
+  },
+  {
+    "section": "Features and Functions",
+    "subsection_path": [
+      "Authentication"
+    ],
+    "question_id": "Q129",
+    "question_text": "Requires Server-to-Server Authentication",
+    "answer_options": [
+      {
+        "id": "A17",
+        "text": "Yes",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "The application requires at least one server (e.g., an app server, API gateway, or background worker) to authenticate itself when connecting to another server (e.g., a database server, external API, or internal service)."
+      }
+    ]
+  },
+  {
+    "section": "Features and Functions",
+    "subsection_path": [
+      "Authentication"
+    ],
+    "question_id": "CQ3",
+    "question_text": "Does this application use the My Auth Service v1.1?",
+    "answer_options": [
+      {
+        "id": "CA5",
+        "text": "Yes",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": ""
+      },
+      {
+        "id": "CA4",
+        "text": "No",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": ""
+      },
+      {
+        "id": "CA12",
+        "text": "ACME Webapp v1.03",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": ""
+      }
+    ]
+  },
+  {
+    "section": "Features and Functions",
+    "subsection_path": [
+      "Password Management"
+    ],
+    "question_id": "Q213",
+    "question_text": "Password Management Features",
+    "answer_options": [
+      {
+        "id": "A43",
+        "text": "Has change existing password function",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "The application allows end users to change their own passwords. This is not the same as a 'Forgot Password' function."
+      },
+      {
+        "id": "A182",
+        "text": "Has forgot password function",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "The application allows users to reset or retrieve a forgotten password."
+      },
+      {
+        "id": "A184",
+        "text": "Auto-generates passwords for new users",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "The application, or administrator, can generate passwords for new users. Do not select this option if users set their own passwords, or use a different authentication system, such as a Single Sign-On (SSO)."
+      }
+    ]
+  },
+  {
+    "section": "Features and Functions",
+    "subsection_path": [
+      "Authorization"
+    ],
+    "question_id": "Q127",
+    "question_text": "Authorizes Subjects",
+    "answer_options": [
+      {
+        "id": "A23",
+        "text": "Yes",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "The application has features, services or data that are only accessible to some subjects. A subject is any entity that actively makes changes to data or system state, such as a person, process, or device."
+      }
+    ]
+  },
+  {
+    "section": "Features and Functions",
+    "subsection_path": [
+      "Session Management"
+    ],
+    "question_id": "Q126",
+    "question_text": "Has Session Management",
+    "answer_options": [
+      {
+        "id": "A37",
+        "text": "Yes",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "The application uses session IDs to maintain a state for authenticated users. For example, web applications store cookies with session information."
+      }
+    ]
+  },
+  {
+    "section": "Features and Functions",
+    "subsection_path": [
+      "External Dependencies"
+    ],
+    "question_id": "Q263",
+    "question_text": "Software Updates",
+    "answer_options": [
+      {
+        "id": "A1104",
+        "text": "Has software/firmware update functionality",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Installs other applications on the user's device or gets updated in the background"
+      },
+      {
+        "id": "A1144",
+        "text": "This is an update server",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "The server provides software updates to other devices."
+      }
+    ]
+  },
+  {
+    "section": "Features and Functions",
+    "subsection_path": [
+      "External Dependencies"
+    ],
+    "question_id": "Q259",
+    "question_text": "External Code/Data",
+    "answer_options": [
+      {
+        "id": "A1102",
+        "text": "Uses dynamic code/library loading",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "The application dynamically loads code or library during execution. For example, DLL loading or Java's dynamic class loading."
+      },
+      {
+        "id": "A1157",
+        "text": "Uses remote procedure calls (RPC) or object serialization/deserialization",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Your application, as a client, downloads serialized objects and deserializes them or uses RPC to call remote servers; or as a server, sends serialized objects to remote clients or is called remotely through RPC by clients.\r\n\r\nThis may include Java RMI, Go's \"net/rpc\" package, or XML-RPC."
+      }
+    ]
+  },
+  {
+    "section": "Features and Functions",
+    "subsection_path": [
+      "External Dependencies"
+    ],
+    "question_id": "Q288",
+    "question_text": "Service Chaining",
+    "answer_options": [
+      {
+        "id": "A1140",
+        "text": "Forwards user requests to remote services",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Forwards some user requests to other external or remote services"
+      },
+      {
+        "id": "A1141",
+        "text": "Receives user requests through remote services",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "The service is not the initial point of contact for the user but instead receives the request from another service in the chain that has identified it as capable of fulfilling the request."
+      }
+    ]
+  },
+  {
+    "section": "Features and Functions",
+    "subsection_path": [
+      "External Dependencies"
+    ],
+    "question_id": "Q281",
+    "question_text": "Webhooks",
+    "answer_options": [
+      {
+        "id": "A1128",
+        "text": "Sends webhook notifications",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "The application uses webhooks, or custom callbacks, to send notifications to other sites."
+      },
+      {
+        "id": "A1135",
+        "text": "Receives webhook notifications",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Implements uses webhooks, or custom callbacks, to receive notifications from other sites."
+      }
+    ]
+  },
+  {
+    "section": "Features and Functions",
+    "subsection_path": [
+      "AI and Machine Learning"
+    ],
+    "question_id": "Q357",
+    "question_text": "Artificial Intelligence/Machine Learning",
+    "answer_options": [
+      {
+        "id": "A1362",
+        "text": "Uses Large Language Models (LLMs)",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "The application is designed to consume and interact with existing Large Language Models (LLMs) to power features and intelligent workflows. It serves as an integration layer that securely connects to foundational models via APIs."
+      },
+      {
+        "id": "A2414",
+        "text": "Fine-tune or train Large Language Models (LLMs)",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "The application is designed to manage the entire lifecycle of Large Language Models (LLMs) and LLM-based systems, enabling users to either train custom models from scratch or fine-tune existing foundational models for specific use cases."
+      },
+      {
+        "id": "A1367",
+        "text": "Builds and deploys machine learning (ML) models",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "The application aims to build, train, and deploy ML models."
+      },
+      {
+        "id": "A1363",
+        "text": "AI governance tasks are in scope (based on NIST AI RMF)",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Include Countermeasures based on NIST's recommended guidelines to provide a risk management framework for AI."
+      },
+      {
+        "id": "A1504",
+        "text": "LLM-based Code Generation",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "LLM-based Code Generation involves using large language models, like OpenAI's GPT, to automatically generate code snippets or full programs from natural language prompts. Security work focuses on ensuring the generated code is free from vulnerabilities, such as injection flaws or inadequate input validation, that could be introduced during automatic generation."
+      },
+      {
+        "id": "A1505",
+        "text": "EU AI Act",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Include countermeasures to identify the type of your AI system based on the European Union Act classification. Select the risk level of your AI system in the section below to include the countermeasures specific to your AI system's type  based on the EU AI Act."
+      },
+      {
+        "id": "A2223",
+        "text": "Agentic AI",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Autonomous AI systems that perceive, reason, plan, and act independently to complete complex tasks using large language models (LLMs) and generative AI. Often interacting with tools, APIs, and external environments with minimal human intervention."
+      },
+      {
+        "id": "A2359",
+        "text": "Internal/External AI Marketplace",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Sharing or publishing agents, tools, plugins, extensions, or model-powered components"
+      },
+      {
+        "id": "A2441",
+        "text": "OWASP Agentic Skills Top 10",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "OWASP guidance highlighting the 10 most critical security risks affecting agentic AI skills and their execution across AI agent platforms."
+      },
+      {
+        "id": "A2442",
+        "text": "Include AI controls from NIST.SP.800-218A",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "AI-specific extension of NIST SSDF (SP 800-218) for securely developing generative AI and foundation models."
+      }
+    ]
+  },
+  {
+    "section": "Features and Functions",
+    "subsection_path": [
+      "AI and Machine Learning"
+    ],
+    "question_id": "Q458",
+    "question_text": "AI/ML Frameworks",
+    "answer_options": [
+      {
+        "id": "A2012",
+        "text": "TensorFlow/Keras",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "TensorFlow is an open-source machine-learning framework widely used for building, training, and deploying machine learning and deep learning models. Keras, integrated into TensorFlow, provides a user-friendly, high-level API for creating and managing neural networks."
+      }
+    ]
+  },
+  {
+    "section": "Features and Functions",
+    "subsection_path": [
+      "AI and Machine Learning"
+    ],
+    "question_id": "Q513",
+    "question_text": "Model Context Protocol (MCP)",
+    "answer_options": [
+      {
+        "id": "A2344",
+        "text": "MCP Client",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Client to interact with MCP Servers"
+      },
+      {
+        "id": "A2345",
+        "text": "MCP Server",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Provides tools for MCP Clients"
+      }
+    ]
+  },
+  {
+    "section": "Features and Functions",
+    "subsection_path": [
+      "More Features"
+    ],
+    "question_id": "Q215",
+    "question_text": "Input Validation",
+    "answer_options": [
+      {
+        "id": "A2307",
+        "text": "Receives text input from users",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "A system that receives text input from users could involve web forms, mobile app input fields, or command-line interfaces where users type messages or commands. Security work includes preventing injection attacks such as SQL injection, ensuring input sanitation, and validating user input to protect against malicious content."
+      },
+      {
+        "id": "A174",
+        "text": "Uses regular expressions on end-user input",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Applies regular expressions on end user input. Typically, this is for validation such as checking that user-supplied input is only alpha numeric"
+      }
+    ]
+  },
+  {
+    "section": "Features and Functions",
+    "subsection_path": [
+      "More Features"
+    ],
+    "question_id": "Q303",
+    "question_text": "OS Interactions",
+    "answer_options": [
+      {
+        "id": "A9",
+        "text": "OS shell commands",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "The application issues shell commands directly to the Operating System (OS) rather than using existing language-based libraries. For example, os.runCommand('ping 10.1.1.1') is a direct interaction with the OS through the 'ping' shell command."
+      },
+      {
+        "id": "A1194",
+        "text": "System calls",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "The application consumes the Operating System's (OS) resources (e.g., filesystem, I/O, etc.) using existing language-based libraries and wrappers. For example, open(filename, flags) is an indirect interaction with the OS through the 'open' system call in C/C++."
+      }
+    ]
+  },
+  {
+    "section": "Features and Functions",
+    "subsection_path": [
+      "More Features"
+    ],
+    "question_id": "Q131",
+    "question_text": "Encryption",
+    "answer_options": [
+      {
+        "id": "A21",
+        "text": "Passwords stored in configuration files",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "The application stores passwords in configuration files, such as passwords for database connection strings."
+      },
+      {
+        "id": "A27",
+        "text": "Uses encryption functions (not including SSL)",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "The application encrypts data in storage or in transit using (custom) encryption that is not Secure Socket Layer (SSL) encryption. The application may use SSL in other areas. For example, the application stores encrypted credit card numbers."
+      },
+      {
+        "id": "A102",
+        "text": "Uses WS-Security standards",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Web Services Security (WS-Security, WSS) is a Simple Object Access Protocol (SOAP) extension for web security published by the Organization for the Advancement of Structured Information Standards (OASIS)."
+      }
+    ]
+  },
+  {
+    "section": "Features and Functions",
+    "subsection_path": [
+      "More Features"
+    ],
+    "question_id": "Q214",
+    "question_text": "Miscellaneous",
+    "answer_options": [
+      {
+        "id": "A33",
+        "text": "Uses multi-threaded programming",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Uses multi-threaded programming refers to the development practice where programs are designed to run tasks concurrently using threads, such as Java's ExecutorService or Python's threading module. Security work involves addressing thread safety concerns, preventing race conditions, and ensuring proper management of shared resources to comply with standards like OWASP or ISO 27001."
+      },
+      {
+        "id": "A35",
+        "text": "Generates temporary files",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "The application dynamically creates temporary files on the operating system."
+      },
+      {
+        "id": "A39",
+        "text": "Has file upload or file transfer functions",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "The application allows end users to upload files to the system, or the system to transfer files from a remote location."
+      },
+      {
+        "id": "A90",
+        "text": "Performs diagnostic/debug logging",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Application performs logging in production for troubleshooting purposes."
+      },
+      {
+        "id": "A1143",
+        "text": "Generates random numbers",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "The application generates random numbers to generate unpredictable values such as encryption mechanism's parameters, session IDs, passwords, and unique IDs."
+      },
+      {
+        "id": "A1186",
+        "text": "Installs other applications on the user's device or gets updated in the background",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "If your application, at any point, installs other software on the user's device or gets updated in the background you should select this answer."
+      },
+      {
+        "id": "A1260",
+        "text": "Requires certificate or public key pinning",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "[Deact.] You can configure the client app to accept only certain certificates for specific domain names instead of trusting any valid CA-signed certificate. This restricter security measure protects your app against fraudulent certificates signed by compromised CAs. However, this is possible only if you own the server-side and client-side code and have an out-of-band channel to embed the certificate in the client app. For example, you can store your server's certificate in you mobile application bundle. In case you need to rotate the pinned certificate, you can force clients to upgrade the app to a new version via mobile app stores."
+      },
+      {
+        "id": "A1288",
+        "text": "Sends electronic messages and/or emails",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "The application sends electronic messages and/or emails."
+      },
+      {
+        "id": "A2367",
+        "text": "Utilizes cron jobs",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Select this option if your application needs to run scheduled tasks automatically at defined intervals (Cron Jobs)."
+      },
+      {
+        "id": "A1122",
+        "text": "Requires non-repudiation",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "The application requires non-repudiation, or the ability to assure that parties that initiate an event or action cannot deny that it has taken place, or that they were involved."
+      }
+    ]
+  },
+  {
+    "section": "Protocols",
+    "subsection_path": [
+      "Application Layer"
+    ],
+    "question_id": "Q186",
+    "question_text": "Application Layer Protocols Used",
+    "answer_options": [
+      {
+        "id": "A195",
+        "text": "Uses an HTTP-based protocol",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "The client-server application is using a network communication protocol based on the Hypertext Transfer Protocol (HTTP) standard."
+      },
+      {
+        "id": "A1112",
+        "text": "Uses an XMPP-based protocol",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "The application uses Extensible Messaging and Presence Protocol (XMPP), or one of its extensions (XEPs) as an application layer protocol."
+      },
+      {
+        "id": "A1127",
+        "text": "Uses Hypercat protocol ",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "The application uses Hypercat, a specification that allows Internet of Things (IoT) devices to communicate with one another, or be interoperable."
+      },
+      {
+        "id": "A2357",
+        "text": "Uses HTTP/2 protocol",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "HTTP/2 is the second major version of the HTTP protocol. HTTP/2 mainly improves how data is transported over the network and it is designed to make web communication faster and more efficient than HTTP/1.1—without changing the semantics of HTTP (methods, status codes, URIs, etc.)."
+      },
+      {
+        "id": "A1125",
+        "text": "Uses MQTT protocol",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "The application uses Message Queue Telemetry Transport (MQTT) as a publish/subscribe messaging tool."
+      },
+      {
+        "id": "A2327",
+        "text": "Server Message Block (SMB)",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Select this option if your application uses Server Message Block (SMB) protocol."
+      },
+      {
+        "id": "A1573",
+        "text": "File Transfer Protocol (FTP)",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "File Transfer Protocol (FTP) is used to transfer files between a client and server over a network, such as uploading website files to a host. Security work includes identifying vulnerabilities such as plain-text credentials and implementing secure alternatives like FTPS or SFTP to prevent data interception."
+      },
+      {
+        "id": "A1583",
+        "text": "Modbus",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Modbus is an application layer protocol commonly used for communication between industrial electronic devices, such as PLCs and remote terminal units in SCADA systems. The associated security work involves addressing vulnerabilities like unauthorized command execution and data interception due to lack of encryption."
+      },
+      {
+        "id": "A1584",
+        "text": "Advanced Message Queuing Protocol (AMQP)",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Advanced Message Queuing Protocol (AMQP) is used for enabling message-oriented middleware communication between distributed systems like microservices in a cloud environment. Security work involves ensuring secure authentication, encryption of message queues, and protection against potential threats like message interception and unauthorized access."
+      },
+      {
+        "id": "A2317",
+        "text": "gRPC",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "gRPC Remote Procedure Calls"
+      }
+    ]
+  },
+  {
+    "section": "Protocols",
+    "subsection_path": [
+      "Application Layer"
+    ],
+    "question_id": "Q231",
+    "question_text": "Authentication and Identity Exchange Protocols",
+    "answer_options": [
+      {
+        "id": "A762",
+        "text": "SAML",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Security Assertion Markup Language (SAML) is an XML-based open standard for exchanging authentication and authorization data between security domains."
+      },
+      {
+        "id": "A763",
+        "text": "OAuth",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "OAuth is an open standard for authorization."
+      },
+      {
+        "id": "A764",
+        "text": "OpenID",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "OpenID is an open standard that describes how users can be authenticated in a decentralized manner, eliminating the need for services to provide their own ad hoc systems and allowing users to consolidate their digital identities."
+      }
+    ]
+  },
+  {
+    "section": "Protocols",
+    "subsection_path": [
+      "Network Layer"
+    ],
+    "question_id": "Q371",
+    "question_text": "Virtual Private Network (VPN)",
+    "answer_options": [
+      {
+        "id": "A1574",
+        "text": "Virtual Private Network (VPN)",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "A Virtual Private Network (VPN) is a technology that establishes a secure and encrypted connection over a less secure network, such as the internet, commonly using protocols like OpenVPN or IPsec. Security work in this context involves assessing vulnerabilities in encryption standards and ensuring secure key management and data integrity."
+      }
+    ]
+  },
+  {
+    "section": "Protocols",
+    "subsection_path": [
+      "Network Layer"
+    ],
+    "question_id": "Q282",
+    "question_text": "Low-Power Protocols Used",
+    "answer_options": [
+      {
+        "id": "A1130",
+        "text": "ZigBee",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "The application uses ZigBee, a communication protocol that can create personal area networks (PANs) for low-power, low-bandwidth, personal area wireless devices."
+      },
+      {
+        "id": "A1131",
+        "text": "Thread protocol",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Thread is a networking protocol for Internet of Things (IoT) wireless devices that enables communication on a local wireless mesh network."
+      }
+    ]
+  },
+  {
+    "section": "Protocols",
+    "subsection_path": [
+      "Network Layer"
+    ],
+    "question_id": "Q349",
+    "question_text": "Broadband cellular networks",
+    "answer_options": [
+      {
+        "id": "A1579",
+        "text": "3G",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "3G networks represent the third generation of wireless mobile telecommunications technology, including systems like UMTS, CDMA2000, and EDGE, which offer data transfer rates suitable for mobile internet access. Security work involves assessing protocols like WCDMA for vulnerabilities in encryption and authentication mechanisms to protect against unauthorized access and data breaches."
+      },
+      {
+        "id": "A1580",
+        "text": "4G/LTE",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "4G/LTE refers to the fourth generation of mobile network technology, primarily used in smartphones, tablets, and IoT devices for high-speed internet access. Security work involves analyzing vulnerabilities in network protocols like the Evolved Packet Core (EPC) and addressing risks related to encrypted transmission interception."
+      },
+      {
+        "id": "A1581",
+        "text": "5G",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "5G represents the fifth generation of mobile network technology, providing faster speeds and improved connectivity for devices like smartphones and IoT devices through protocols such as NR (New Radio). Security work for 5G involves assessing and mitigating vulnerabilities in encryption standards, authentication mechanisms, and network slicing features to ensure data integrity and privacy."
+      }
+    ]
+  },
+  {
+    "section": "Protocols",
+    "subsection_path": [
+      "Network Layer"
+    ],
+    "question_id": "Q332",
+    "question_text": "Microcontroller Protocols Used",
+    "answer_options": [
+      {
+        "id": "A1282",
+        "text": "CAN",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "CAN refers to the Controller Area Network protocol commonly used in automotive and industrial applications for reliable and robust communications between microcontroller systems. When applied, security work focuses on analyzing CAN bus vulnerabilities such as spoofing, denial of service, and ensuring secure communication through authentication and encryption mechanisms."
+      }
+    ]
+  },
+  {
+    "section": "Protocols",
+    "subsection_path": [
+      "Network Layer"
+    ],
+    "question_id": "Q339",
+    "question_text": "Wireless Protocols Used",
+    "answer_options": [
+      {
+        "id": "A1314",
+        "text": "Bluetooth",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "The application/device uses Bluetooth protocol."
+      },
+      {
+        "id": "A1316",
+        "text": "WiFi",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "The application/device uses the WiFi protocol."
+      },
+      {
+        "id": "A1582",
+        "text": "LoRa",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "LoRa is a long-range, low-power wireless protocol commonly used in IoT devices, such as smart city sensors and agricultural monitors, for wide-area connectivity. Security work should focus on encryption, authentication, and integrity measures to counteract vulnerabilities in data transmission and network breaches."
+      }
+    ]
+  },
+  {
+    "section": "Protocols",
+    "subsection_path": [
+      "Transport Layer"
+    ],
+    "question_id": "Q518",
+    "question_text": "Transport Layer Protocols Used",
+    "answer_options": [
+      {
+        "id": "A2358",
+        "text": "QUIC",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "QUIC is a transport layer network protocol designed to make web communication faster, more secure, and more reliable than the combination of TCP and TLS."
+      }
+    ]
+  },
+  {
+    "section": "Compliance Requirements",
+    "subsection_path": [
+      "Geography"
+    ],
+    "question_id": "Q159",
+    "question_text": "Organization is Subject to Laws of:",
+    "answer_options": [
+      {
+        "id": "A128",
+        "text": "Canada",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "The business operates (or has a substantial user base) in Canada, and is subject to its laws."
+      },
+      {
+        "id": "A127",
+        "text": "USA",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "The business operates (or has a substantial user base) in the United States of America, and is subject to its laws."
+      },
+      {
+        "id": "A129",
+        "text": "European Union",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "The business operates (or has a substantial user base) in the European Union, and is subject to its laws."
+      },
+      {
+        "id": "A1326",
+        "text": "United Kingdom",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "The business operates (or has a substantial user base) in the United Kingdom."
+      },
+      {
+        "id": "A1334",
+        "text": "France",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "The business operates (or has a substantial user base) in France, and is subject to its laws."
+      },
+      {
+        "id": "A1253",
+        "text": "Asia Pacific",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "The business operates (or has a substantial user base) in the Asia Pacific, and is subject to its laws."
+      },
+      {
+        "id": "A1257",
+        "text": "Latin America",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "The business operates (or has a substantial user base) in Latin America, and is subject to its laws."
+      }
+    ]
+  },
+  {
+    "section": "Compliance Requirements",
+    "subsection_path": [
+      "Financial Systems"
+    ],
+    "question_id": "Q229",
+    "question_text": "Financial Regulations",
+    "answer_options": [
+      {
+        "id": "A1094",
+        "text": "In-scope for the EBA's security of Internet payments",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Payment Services Providers (PSPs) in the EU must follow guidelines for the security of Internet payments as outlined by the European Banking Authority (EBA)."
+      },
+      {
+        "id": "A149",
+        "text": "In-scope for GLBA compliance",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Financial institutions in the USA are subject to the Gramm-Leach-Bliley Act (GLBA), which requires them to explain to customers how sensitive information is shared and safeguarded."
+      },
+      {
+        "id": "A1246",
+        "text": "In-scope for NYDFS Cybersecurity Regulation",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Financial institutions regulated by the New York Department of Financial Services (NYDFS), and their service providers, must abide by the NYDFS Cybersecurity Regulation when they process non-public information."
+      },
+      {
+        "id": "A1254",
+        "text": "In-scope for MAS-TRMG Guidelines",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "The Monetary Authority of Singapore (MAS) issues Technology Risk Management Guidelines (TRMG). These guidelines set out risk management principles and best practice standards to guide financial institutions operating in Singapore."
+      },
+      {
+        "id": "A2351",
+        "text": "In-scope for Central Bank of Brazil (BACEN)'s Regulations",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Financial applications processing transactions in Brazil, like online banking platforms and currency exchange systems, must comply with Central Bank of Brazil (BACEN)'s regulations. Security work includes auditing for compliance gaps, ensuring data encryption standards meet regulatory requirements, and implementing secure transaction protocols."
+      }
+    ]
+  },
+  {
+    "section": "Compliance Requirements",
+    "subsection_path": [
+      "Financial Systems"
+    ],
+    "question_id": "Q161",
+    "question_text": "Payment Components",
+    "answer_options": [
+      {
+        "id": "A132",
+        "text": "In-scope for PCI-DSS 3.2",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "The application handles credit card and payments data, and is therefore subject to the Payment Card Industry Data Security Standard (PCI-DSS). Every organization that handles credit card data is required to comply with PCI-DSS. PCI DSS 3.2 will be officially retired on March 31, 2024. After this date, PCI-DSS 4.0 is enforced."
+      },
+      {
+        "id": "A1357",
+        "text": "In-scope for PCI-DSS 4.0",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "The application handles credit card and payments data, and is therefore subject to the Payment Card Industry Data Security Standard (PCI-DSS). Every organization that handles credit card data is required to comply with PCI-DSS. PCI-DSS 4.0 is enforced March 31, 2024."
+      },
+      {
+        "id": "A1327",
+        "text": "In-scope for PCI-SSS",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Any payment software that is sold, distributed, or licensed to third parties is subject to the Payment Card Industry Secure Software Standard (PCI-SSS). PCI-SSS does not apply to software applications developed for internal company use."
+      },
+      {
+        "id": "A784",
+        "text": "In-scope for PA-DSS",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "The application provides, processes, stores, or transmits credit card and payments data, and is subject to the Payment Application Data Security Standard (PA-DSS). This includes shopping cart applications, payment processing gateways, and other applications that have a payment handling component."
+      }
+    ]
+  },
+  {
+    "section": "Compliance Requirements",
+    "subsection_path": [
+      "Health Care Systems"
+    ],
+    "question_id": "Q223",
+    "question_text": "Health Regulations",
+    "answer_options": [
+      {
+        "id": "A145",
+        "text": "In-scope for HIPAA compliance",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "The application is subject to the Health Insurance Portability and Accountability Act (HIPAA), which regulates the use and disclosure of Protected Health Information (PHI) in the United States."
+      }
+    ]
+  },
+  {
+    "section": "Compliance Requirements",
+    "subsection_path": [
+      "Health Care Systems"
+    ],
+    "question_id": "Q520",
+    "question_text": "In-scope for MDS2",
+    "answer_options": [
+      {
+        "id": "A1083",
+        "text": "Yes",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "The business must provide a Manufacturer Disclosure Statement for Medical Device Security (MDS2), which outlines a set of safeguards and guidelines for securing medical devices and the sensitive data associated with them."
+      }
+    ]
+  },
+  {
+    "section": "Compliance Requirements",
+    "subsection_path": [
+      "Health Care Systems"
+    ],
+    "question_id": "Q528",
+    "question_text": "In-Scope for FDA Cybersecurity Guideline",
+    "answer_options": [
+      {
+        "id": "A2397",
+        "text": "Yes",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "FDA premarket and postmarket guidelines create a total product (medical device) life cycle approach that ensures patient safety from initial design through commercial use."
+      }
+    ]
+  },
+  {
+    "section": "Compliance Requirements",
+    "subsection_path": [
+      "Health Care Systems"
+    ],
+    "question_id": "Q533",
+    "question_text": "In-Scope for France Health Data Hosting (HDS) Certification",
+    "answer_options": [
+      {
+        "id": "A2400",
+        "text": "Yes",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Hébergeur de Données de Santé, a mandatory French legal framework mandated by the Agence du Numérique en Santé (ANS) that regulates the hosting and processing of personal health data."
+      }
+    ]
+  },
+  {
+    "section": "Compliance Requirements",
+    "subsection_path": [
+      "Health Care Systems"
+    ],
+    "question_id": "Q530",
+    "question_text": "In-Scope for Germany BSI TR-03161 (Healthcare)",
+    "answer_options": [
+      {
+        "id": "A2399",
+        "text": "Yes",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "BSI TR-03161 is a Technical Guideline (TR) created by the German BSI (the government agency) specifically for healthcare applications."
+      }
+    ]
+  },
+  {
+    "section": "Compliance Requirements",
+    "subsection_path": [
+      "Organizational Cybersecurity"
+    ],
+    "question_id": "Q525",
+    "question_text": "Organizational Cybersecurity Governance",
+    "answer_options": [
+      {
+        "id": "A2369",
+        "text": "Organizational Cybersecurity Governance (Aligned to Australian ISM)",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Select this option if your application is required to comply with Organizational Cybersecurity Governance controls aligned to the Australian Signals Directorate Information Security Manual (ISM)."
+      },
+      {
+        "id": "A2432",
+        "text": "Cyber Essentials (Aligned to UK Cyber Essentials)",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Cyber Essentials is a UK government-backed cybersecurity certification scheme that defines a baseline set of technical security controls organizations should implement to protect against common cyber attacks. It focuses on fundamental areas such as firewalls, secure configuration, access control, malware protection, vulnerability management, and software updates to improve organizational cybersecurity resilience."
+      }
+    ]
+  },
+  {
+    "section": "Compliance Requirements",
+    "subsection_path": [
+      "Industrial Control Systems"
+    ],
+    "question_id": "Q273",
+    "question_text": "In-Scope for NIST 800-82 Compliance",
+    "answer_options": [
+      {
+        "id": "A1116",
+        "text": "Yes",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "NIST 800-82 is a special publication by the National Institution of Standards and Technology (NIST) that provides a set of guidelines for securing Industrial Control Systems (ICS). This includes Supervisory Control and Data Acquisition (SCADA), Distributed Control Systems (DCS), and configurations such as Programmable Logic Controllers (PLC)."
+      }
+    ]
+  },
+  {
+    "section": "Compliance Requirements",
+    "subsection_path": [
+      "Industrial Control Systems"
+    ],
+    "question_id": "Q544",
+    "question_text": "In-Scope for ANSI/ISA 62443 or CSA/SSA-311",
+    "answer_options": [
+      {
+        "id": "A2465",
+        "text": "ANSI/ISA 62443-4-2 or CSA/ICSA 311",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "The application must comply with ANSI/ISA 62443-4-2 or ISASecure CSA/ICSA 311, which provides technical security for Industrial Automation and Control System (IACS) components and subsystems."
+      },
+      {
+        "id": "A2466",
+        "text": "ANSI/ISA 62443-3-3 or SSA 311",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "The application must comply with ANSI/ISA 62443-3-3 or ISASecure SSA 311, which provides technical security for Industrial Automation and Control System (IACS) subsystems."
+      },
+      {
+        "id": "A2467",
+        "text": "ANSI/ISA 62443-4-1 or SDLA 312",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "The application must comply with ANSI/ISA 62443-4-1 or SDLA 312. ISASecure SDLA is a certification program that applies to the development lifecycle processes of suppliers for control system products."
+      }
+    ]
+  },
+  {
+    "section": "Compliance Requirements",
+    "subsection_path": [
+      "Industrial Control Systems"
+    ],
+    "question_id": "Q250",
+    "question_text": "In-Scope for ANSI/ISA 62443 or CSA/SSA-311 (Old Content)",
+    "answer_options": [
+      {
+        "id": "A1319",
+        "text": "ANSI/ISA 62443-4-2 or CSA/ICSA 311 (Old content)",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "The application must comply with ANSI/ISA 62443-4-2 or ISASecure CSA/ICSA 311, which provides technical security for Industrial Automation and Control System (IACS) components and subsystems."
+      },
+      {
+        "id": "A1320",
+        "text": "ANSI/ISA 62443-3-3 or SSA 311 (Old content)",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "The application must comply with ANSI/ISA 62443-3-3 or ISASecure SSA 311, which provides technical security for Industrial Automation and Control System (IACS) subsystems."
+      },
+      {
+        "id": "A1374",
+        "text": "ANSI/ISA 62443-4-1 or SDLA 312 (Old content)",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "The application must comply with ANSI/ISA 62443-4-1 or SDLA 312. ISASecure SDLA is a certification program that applies to the development lifecycle processes of suppliers for control system products."
+      }
+    ]
+  },
+  {
+    "section": "Compliance Requirements",
+    "subsection_path": [
+      "Cloud"
+    ],
+    "question_id": "Q319",
+    "question_text": "In-Scope for FedRAMP Compliance",
+    "answer_options": [
+      {
+        "id": "A1247",
+        "text": "Yes",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "The Federal Risk and Authorization Management Program (FedRAMP) is a US government program that provides a standard approach to security assessment, authorization, and monitoring for cloud services and products (CSPs) used by US federal agencies."
+      }
+    ]
+  },
+  {
+    "section": "Compliance Requirements",
+    "subsection_path": [
+      "Cloud"
+    ],
+    "question_id": "Q326",
+    "question_text": "In-Scope for Cloud Controls Matrix (CCM)",
+    "answer_options": [
+      {
+        "id": "A1268",
+        "text": "Yes",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "The Cloud Security Alliance Cloud Controls Matrix (CSA CCM) provides fundamental security principles to guide cloud vendors, and assists prospective cloud customers in assessing the overall security risk of a cloud provider."
+      }
+    ]
+  },
+  {
+    "section": "Compliance Requirements",
+    "subsection_path": [
+      "Privacy"
+    ],
+    "question_id": "Q160",
+    "question_text": "Handles Personal Data",
+    "answer_options": [
+      {
+        "id": "A130",
+        "text": "Yes",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "The application stores, processes, or transmits personal data (PD) or personally identifiable information (PII). Personal data includes any attribute that can be traced back to a real person or an entity, such as a real name or a real address."
+      }
+    ]
+  },
+  {
+    "section": "Compliance Requirements",
+    "subsection_path": [
+      "Privacy"
+    ],
+    "question_id": "Q236",
+    "question_text": "In-Scope with Children's Privacy Compliance",
+    "answer_options": [
+      {
+        "id": "A779",
+        "text": "Yes",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "The application processes the personal data of, or is directed to, children that are under the age of 16 (ages under 13 in some jurisdictions)."
+      }
+    ]
+  },
+  {
+    "section": "Compliance Requirements",
+    "subsection_path": [
+      "Automotive"
+    ],
+    "question_id": "Q353",
+    "question_text": "In-scope for Automotive Cybersecurity Regulations",
+    "answer_options": [
+      {
+        "id": "A1358",
+        "text": "ISO/SAE 21434",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Select this option if your project falls within the scope of ISO/SAE 21434. The standard consists of high-level guidelines (mostly Activities) that adopt a proactive and risk-based approach towards automotive cybersecurity, aiming to identify and address potential vulnerabilities throughout the vehicle's lifecycle. Please make sure that you select the \"Include general countermeasures in the Activity phase\" survey answer to include the Activities of the standard in your project."
+      },
+      {
+        "id": "A1359",
+        "text": "WP.29 R155",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Select this option if your project falls within the scope of UN Regulation No. 155. This regulation provides uniform provisions concerning the approval of vehicles with regard to cybersecurity and cybersecurity management systems."
+      }
+    ]
+  },
+  {
+    "section": "Compliance Requirements",
+    "subsection_path": [
+      "US Federal and NIST"
+    ],
+    "question_id": "Q265",
+    "question_text": "In-Scope for NIST 800-53 Compliance",
+    "answer_options": [
+      {
+        "id": "A1107",
+        "text": "Yes",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "NIST 800-53 is a special publication by the National Institution of Standards and Technology (NIST) that provides a set of guidelines for security and privacy controls for federal information systems and organizations. [Revision 5](https://csrc.nist.gov/publications/detail/sp/800-53/rev-5/final) captures the latest version of the standard."
+      }
+    ]
+  },
+  {
+    "section": "Compliance Requirements",
+    "subsection_path": [
+      "US Federal and NIST"
+    ],
+    "question_id": "Q348",
+    "question_text": "In-Scope for EO 14028 compliance",
+    "answer_options": [
+      {
+        "id": "A1340",
+        "text": "NIST EO Critical Software",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "In response to the EO 14028, NIST published a definition of 'critical software' and a list of security measures for EO-critical software use.\r\nEO-critical software is defined as any software that has or has direct software dependencies upon one or more components with at least one of these attributes: \r\n- is designed to run with elevated privilege or manage privileges; \r\n- has direct or privileged access to networking or computing resources;\r\n- is designed to control access to data or operational technology; \r\n- performs a function critical to trust; or, \r\n- operates outside of normal trust boundaries with privileged access."
+      },
+      {
+        "id": "A1341",
+        "text": "NIST EO Software-Verification",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "In response to Section 4(r) of the EO 14028, NIST has developed a document recommending minimum standards for vendor or developer software verification. These recommendations encompass many static and active assurance techniques, tools, and related processes to identify and remediate security defects while continuously improving the methodology and supporting processes."
+      }
+    ]
+  },
+  {
+    "section": "Compliance Requirements",
+    "subsection_path": [
+      "US Federal and NIST"
+    ],
+    "question_id": "Q333",
+    "question_text": "In-Scope for NIST Cybersecurity Framework (CSF)",
+    "answer_options": [
+      {
+        "id": "A1290",
+        "text": "CSF 2.0",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "The NIST Cybersecurity Framework (CSF) is voluntary guidance, based on existing standards, guidelines, and practices for organizations to better manage and reduce cybersecurity risk."
+      },
+      {
+        "id": "A2426",
+        "text": "CSF Transit Profile",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "For organizations that operates or supports public transit systems and wants to implement CSF guidance tailored to transit IT, operational technology, safety, service continuity, suppliers, vehicles, stations, and control environments."
+      },
+      {
+        "id": "A2427",
+        "text": "Elevated (for transit profile)",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Controls that transit agencies should generally address first because of their stronger connection to safety, operational continuity, service reliability, and the protection of critical transit systems and infrastructure."
+      },
+      {
+        "id": "A2428",
+        "text": "Supporting (for transit profile)",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Controls that support the Transit Profile’s overall cybersecurity objectives and should be addressed based on the agency’s risk, operational needs, dependencies, and available resources after higher-priority Elevated controls."
+      }
+    ]
+  },
+  {
+    "section": "Compliance Requirements",
+    "subsection_path": [
+      "US Federal and NIST"
+    ],
+    "question_id": "Q347",
+    "question_text": "In-Scope for NIST SSDF compliance",
+    "answer_options": [
+      {
+        "id": "A1339",
+        "text": "Yes",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Secure Software Development Framework (SSDF) is provided by NIST in response to Section 4 of Executive Order (EO) 14028 on “Improving the Nation’s Cybersecurity\", and contains recommendations for mitigating the risk of software vulnerabilities. It is a core set of high-level secure software development practices that can be integrated into each SDLC implementation."
+      }
+    ]
+  },
+  {
+    "section": "Compliance Requirements",
+    "subsection_path": [
+      "US Federal and NIST"
+    ],
+    "question_id": "Q328",
+    "question_text": "In-Scope for CMMC",
+    "answer_options": [
+      {
+        "id": "A1275",
+        "text": "CMMC V1",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "The Cybersecurity Maturity Model Certification (CMMC) certifies that DoD contractors have implemented appropriate levels of cybersecurity controls to protect controlled unclassified information (CUI)."
+      },
+      {
+        "id": "A1356",
+        "text": "CMMC V2",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "The Cybersecurity Maturity Model Certification Version 2  (CMMC v2) certifies that DoD contractors have implemented appropriate levels of cybersecurity controls to protect controlled unclassified information (CUI)  or Federal Contract Information (FCI)."
+      }
+    ]
+  },
+  {
+    "section": "Compliance Requirements",
+    "subsection_path": [
+      "US Federal and NIST"
+    ],
+    "question_id": "Q255",
+    "question_text": "In-Scope for DIACAP",
+    "answer_options": [
+      {
+        "id": "A1086",
+        "text": "Yes",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "The application must comply with the Department of Defense Information Assurance Certification and Accreditation Process (DIACAP), which ensures that risk management is applied to information systems in the Department of Defense (DoD)."
+      }
+    ]
+  },
+  {
+    "section": "Compliance Requirements",
+    "subsection_path": [
+      "US Federal and NIST"
+    ],
+    "question_id": "Q302",
+    "question_text": "In-Scope for ASD-STIG",
+    "answer_options": [
+      {
+        "id": "A1189",
+        "text": "Yes",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Application Security and Development Security Technical Implementation Guide (ASD-STIG) is published as a tool to improve the security of Department of Defense (DoD) information systems."
+      }
+    ]
+  },
+  {
+    "section": "Compliance Requirements",
+    "subsection_path": [
+      "US Federal and NIST"
+    ],
+    "question_id": "Q337",
+    "question_text": "In-Scope for CNSSI Controls",
+    "answer_options": [
+      {
+        "id": "A1309",
+        "text": "Baseline",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "The application is in-scope for CNSSI baseline controls."
+      },
+      {
+        "id": "A1310",
+        "text": "Overlays",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "The application is in-scope for CNSSI overlays."
+      }
+    ]
+  },
+  {
+    "section": "Compliance Requirements",
+    "subsection_path": [
+      "US Federal and NIST"
+    ],
+    "question_id": "Q539",
+    "question_text": "In-Scope for DISA API SRG",
+    "answer_options": [
+      {
+        "id": "A2443",
+        "text": "Yes",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "API Security Requirements Guide created Defense Information Security Agency supported by US Department of Defense"
+      }
+    ]
+  },
+  {
+    "section": "Compliance Requirements",
+    "subsection_path": [
+      "European Union (EU)"
+    ],
+    "question_id": "Q473",
+    "question_text": "In-Scope for EU Data Act",
+    "answer_options": [
+      {
+        "id": "A2028",
+        "text": "Yes",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "EU Data Act"
+      }
+    ]
+  },
+  {
+    "section": "Compliance Requirements",
+    "subsection_path": [
+      "European Union (EU)"
+    ],
+    "question_id": "Q485",
+    "question_text": "In scope for EU RED",
+    "answer_options": [
+      {
+        "id": "A2127",
+        "text": "Yes",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "The answer means the project needs to comply with the EU Radio Equipment Directive (RED), covering components like Bluetooth, Wi-Fi, and cellular devices used within the EU. Security work involves ensuring encryption standards, implementing secure boot processes, and verifying wireless communication protocols against unauthorized access."
+      }
+    ]
+  },
+  {
+    "section": "Compliance Requirements",
+    "subsection_path": [
+      "European Union (EU)"
+    ],
+    "question_id": "Q378",
+    "question_text": "In-Scope for EU Cyber Resilience Act",
+    "answer_options": [
+      {
+        "id": "A1609",
+        "text": "Yes",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "General Applicability Factors\nA product must meet three main criteria to fall under the scope of the CRA:\n\n- Commercial Activity: The product must be placed on the EU market in the course of a commercial activity (whether for payment or free of charge).\n- Data Connectivity: It must have a digital element that communicates with networks or other devices (covering almost all modern IoT devices, hardware, and software).\n- Exclusions: It must not already be strictly regulated by equivalent or stricter cybersecurity frameworks."
+      },
+      {
+        "id": "A2434",
+        "text": "Default (Low Risk)",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Baseline category: Products that do not have critical system vulnerabilities or systemic impacts if compromised.\n\nExamples: Smart home appliances (smart fridges, connected lightbulbs), video games, photo editing software, word processors, and basic consumer electronics.\n\nApproximately 90% of all software and hardware on the market."
+      },
+      {
+        "id": "A2435",
+        "text": "Class I (Medium Risk)",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Products that perform functions critical to the security of the device or network, or whose failure could pose a significant security risk.\n\nExamples: \n- Identity management systems and access control software\n- Browsers\n- Password managers\n- Antivirus and anti-malware software\n- Network interfaces and virtual private networks (VPNs)\n- Operating systems not covered by Class II\n- Home routers and gateways"
+      },
+      {
+        "id": "A2436",
+        "text": "Class II (High Risk)",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Products that present a highly substantial cybersecurity risk due to their deep integration into systems, critical functions, or wide deployment in sensitive environments.\n\nExamples:\n- Operating systems for smartphones, laptops, and enterprise servers\n- Hypervisors and container runtime systems\n- PKI issuers\n- Firewalls, IDS, IPS\n- Smart biometric readers\n- IACS / SCADA systems intended for critical infrastructure\n- Microprocessors and microcontrollers with security-related architectures"
+      },
+      {
+        "id": "A2437",
+        "text": "Critical (Very High Risk)",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Highly sensitive components used in critical infrastructure where a cyberattack could cause systemic national or European-level disruptions.\n\nExamples: Hardware security modules (HSMs), smart card chips, secure elements, and central cryptographic infrastructure."
+      },
+      {
+        "id": "A1610",
+        "text": "Open-source software steward",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "The EU CRA defines an open-source software steward as a legal person, other than a manufacturer, whose objective is to provide ongoing support for the development of free and open-source software intended for commercial activities. Selecting this option will apply the related responsibilities to the project, such as vulnerability management, reporting, information sharing, authority collaboration, and documentation."
+      }
+    ]
+  },
+  {
+    "section": "Compliance Requirements",
+    "subsection_path": [
+      "European Union (EU)"
+    ],
+    "question_id": "Q456",
+    "question_text": "In scope for EU NIS2",
+    "answer_options": [
+      {
+        "id": "A2006",
+        "text": "Yes",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "- Applicable entities provide essential services or play important roles in critical sectors in EU member states.\r\n- Large-sized applicable entities have at least 250 employees or annual turnover greater than €50 million and annual balance sheet total greater than €43 million.\r\n- Medium-sized applicable entities have at least 50 employees or annual turnover or balance sheet total greater than €10 million.\r\n- Small-sized entities are only applicable if they are\r\n   - Public Administration Entities.\r\n   - Trust Service Providers.\r\n   - DNS Providers or TLD name registries.\r\n   - Providers of electronic communication networks."
+      }
+    ]
+  },
+  {
+    "section": "Compliance Requirements",
+    "subsection_path": [
+      "European Union (EU)"
+    ],
+    "question_id": "Q345",
+    "question_text": "In-Scope for Regulation (EU) 910/2014 (eIDAS Regulation)",
+    "answer_options": [
+      {
+        "id": "A1335",
+        "text": "Yes",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Regulation (EU) 910/2014 on electronic identification and trust services for electronic transactions in the internal market (eIDAS Regulation)"
+      }
+    ]
+  },
+  {
+    "section": "Compliance Requirements",
+    "subsection_path": [
+      "European Union (EU)"
+    ],
+    "question_id": "Q489",
+    "question_text": "Select the EN 18031 standard that you are required to comply with",
+    "answer_options": [
+      {
+        "id": "A2258",
+        "text": "In scope for EN 18031-1",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "The EN 18031-1 standard applies to cryptographic security protocols such as SSL/TLS used for securing data in transit across networks. Security work in this scope involves ensuring cryptographic algorithms are properly implemented and addressing vulnerabilities like man-in-the-middle attacks."
+      },
+      {
+        "id": "A2334",
+        "text": "In scope for EN 18031-2",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": ""
+      },
+      {
+        "id": "A2335",
+        "text": "In scope for EN 18031-3",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": ""
+      }
+    ]
+  },
+  {
+    "section": "Compliance Requirements",
+    "subsection_path": [
+      "Compliance Scope: Other"
+    ],
+    "question_id": "Q360",
+    "question_text": "In scope for EN 303 645",
+    "answer_options": [
+      {
+        "id": "A1364",
+        "text": "Yes",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "This application must comply with EN 303 645 which is an international standard that defines baseline security for Consumer IoT devices."
+      }
+    ]
+  },
+  {
+    "section": "Compliance Requirements",
+    "subsection_path": [
+      "Compliance Scope: Other"
+    ],
+    "question_id": "Q324",
+    "question_text": "In-Scope for AICPA Trust Services Criteria (SOC2)",
+    "answer_options": [
+      {
+        "id": "A1266",
+        "text": "Yes",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "The AICPA Trust Services Criteria for Security, Availability, Processing Integrity, Confidentiality and Privacy are used to evaluate controls for cyber risk, and SOC2 engagements."
+      }
+    ]
+  },
+  {
+    "section": "Compliance Requirements",
+    "subsection_path": [
+      "Compliance Scope: Other"
+    ],
+    "question_id": "Q374",
+    "question_text": "In scope for UK PSTI",
+    "answer_options": [
+      {
+        "id": "A1595",
+        "text": "Yes",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "The project involves components or functionalities that must comply with the UK's Product Security and Telecommunications Infrastructure (PSTI) requirements, such as IoT devices and smart home systems. Security efforts will focus on addressing compliance issues like encryption, user data protection, and secure software updates."
+      }
+    ]
+  },
+  {
+    "section": "Compliance Requirements",
+    "subsection_path": [
+      "Compliance Scope: Other"
+    ],
+    "question_id": "Q325",
+    "question_text": "In-Scope for ISO 27001 Compliance",
+    "answer_options": [
+      {
+        "id": "A1267",
+        "text": "Yes",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "The ISO/IEC 27000 series of standards specifies the controls required for establishing, implementing, maintaining, and continually improving Information Security Management Systems (ISMS). You can access compliance reports for ISO/IEC 27001 (2013) and ISO/IEC 27001 (2022) using the Compliance Report option in the Reports menu."
+      }
+    ]
+  },
+  {
+    "section": "Compliance Requirements",
+    "subsection_path": [
+      "Compliance Scope: Other"
+    ],
+    "question_id": "Q538",
+    "question_text": "In-Scope for ASVS",
+    "answer_options": [
+      {
+        "id": "A2438",
+        "text": "Level 1",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Minimum requirements (~20% of ASVS); critical, first-layer defenses; lower barrier to entry; may not be fully black-box penetration testable."
+      },
+      {
+        "id": "A2439",
+        "text": "Level 2",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Target level for most applications (~50% of requirements are L2; ~70% total including L1); covers less common or more complex protections."
+      },
+      {
+        "id": "A2440",
+        "text": "Level 3",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Highest assurance (~30% of requirements); defense-in-depth and harder-to-implement controls."
+      }
+    ]
+  },
+  {
+    "section": "Compliance Requirements",
+    "subsection_path": [
+      "Compliance Scope: Other"
+    ],
+    "question_id": "Q529",
+    "question_text": "In-Scope for Cyber Trust Mark",
+    "answer_options": [
+      {
+        "id": "A2398",
+        "text": "Yes",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "The Cyber Trust Mark is a voluntary federal labeling program, managed by the FCC, designed to help consumers identify smart devices that meet rigorous cybersecurity standards."
+      }
+    ]
+  },
+  {
+    "section": "Compliance Requirements",
+    "subsection_path": [
+      "Compliance Scope: Other"
+    ],
+    "question_id": "Q225",
+    "question_text": "Types of Emails Sent by the Application",
+    "answer_options": [
+      {
+        "id": "A752",
+        "text": "Advertisement or other solicitation emails",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "The application sends advertising, commercial, or other emails that can be categorized as solicitation. These emails are usually not essential to using the application. \r\n\r\n- The \"Controlling the Assault of Non-Solicited Pornography And Marketing (CAN-SPAM) Act\" is a federal regulation in the United States of America that restricts email solicitation. \r\n\r\n- \"Canada's Anti-Spam Legislation (CASL)\" is a federal regulation in Canada that prohibits spam in all communications sent by Canadian companies."
+      }
+    ]
+  },
+  {
+    "section": "Compliance Requirements",
+    "subsection_path": [
+      "Compliance Scope: Other"
+    ],
+    "question_id": "Q334",
+    "question_text": "MASVS Level",
+    "answer_options": [
+      {
+        "id": "A1295",
+        "text": "Level 1",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "A mobile app that achieves MASVS-L1 adheres to mobile application security best practices."
+      },
+      {
+        "id": "A1296",
+        "text": "Level 2",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "MASVS-L2 introduces advanced security controls that go beyond the standard requirements."
+      },
+      {
+        "id": "A1297",
+        "text": "R",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "The application is in-scope for MASVS Resiliency Against Reverse Engineering and Tampering (MASVS-R) controls."
+      }
+    ]
+  },
+  {
+    "section": "Compliance Requirements",
+    "subsection_path": [
+      "Compliance Scope: Other"
+    ],
+    "question_id": "Q336",
+    "question_text": "In-Scope for China Cybersecurity Law",
+    "answer_options": [
+      {
+        "id": "A1308",
+        "text": "Yes",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "The China Cybersecurity Law applies to all network operators, critical information infrastructure operators, and network products and services providers in China."
+      }
+    ]
+  },
+  {
+    "section": "Development/Test Tools",
+    "subsection_path": [
+      "Development Tools"
+    ],
+    "question_id": "Q364",
+    "question_text": "Version Control Platforms",
+    "answer_options": [
+      {
+        "id": "A1390",
+        "text": "GitHub",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "This application uses GitHub to manage the codebase, track changes, and collaborate on development. GitHub provides version control, issue tracking, and project management tools."
+      }
+    ]
+  },
+  {
+    "section": "Development/Test Tools",
+    "subsection_path": [
+      "Development Tools"
+    ],
+    "question_id": "Q235",
+    "question_text": "Uses Static or Dynamic Security Code Analysis",
+    "answer_options": [
+      {
+        "id": "A777",
+        "text": "Yes",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "The application uses code analysis tools, or code scanners. These tools can perform an automated review of the source code (static analysis), or review the application during runtime (dynamic analysis) to provide a list of potential defects. Commonly used tools include Veracode and Fortify scanners."
+      }
+    ]
+  },
+  {
+    "section": "Development/Test Tools",
+    "subsection_path": [
+      "Development Tools"
+    ],
+    "question_id": "Q105",
+    "question_text": "Open Source Security Library Use Permitted",
+    "answer_options": [
+      {
+        "id": "A56",
+        "text": "Yes",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Developers can use open source security libraries in application development."
+      }
+    ]
+  },
+  {
+    "section": "Development/Test Tools",
+    "subsection_path": [
+      "Test Tools"
+    ],
+    "question_id": "Q212",
+    "question_text": "Test Tools Permitted",
+    "answer_options": [
+      {
+        "id": "A188",
+        "text": "Burp Suite",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Burp Suite is an HTTP proxy tool that facilitates security testing for client-server, mobile, and web applications. Selecting this option will bring in some Howtos in the scope for testing common web‑application vulnerabilities such as access‑control bypasses, authentication weaknesses, session‑handling flaws, CSRF token validation, input‑validation bypasses, path‑traversal attempts, open redirects, cache‑control issues, and XSS injection points."
+      }
+    ]
+  },
+  {
+    "section": "Deployment",
+    "subsection_path": [
+      "General"
+    ],
+    "question_id": "Q375",
+    "question_text": "CI/CD Tools",
+    "answer_options": [
+      {
+        "id": "A1596",
+        "text": "CircleCI",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "CircleCI is a CI/CD platform that automates the process of building, testing, and deploying code, integrating seamlessly with version control systems like GitHub and Bitbucket."
+      },
+      {
+        "id": "A2257",
+        "text": "JFrog",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "The JFrog is a Software Supply Chain Platform that powers organizations to build, manage, and distribute trusted software quickly and securely in a unified platform."
+      }
+    ]
+  },
+  {
+    "section": "Deployment",
+    "subsection_path": [
+      "General"
+    ],
+    "question_id": "Q346",
+    "question_text": "IaC Tools",
+    "answer_options": [
+      {
+        "id": "A1338",
+        "text": "Terraform",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "An Open-Source IaC tool created by HashiCorp to create, change and improve your infrastructure."
+      },
+      {
+        "id": "A1342",
+        "text": "Ansible",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Ansible is an open-source IaC suite that supports software provisioning, configuration management, and application deployment functionality."
+      }
+    ]
+  },
+  {
+    "section": "Deployment",
+    "subsection_path": [
+      "General"
+    ],
+    "question_id": "Q296",
+    "question_text": "Assurance Level",
+    "answer_options": [
+      {
+        "id": "A1161",
+        "text": "Include more in-depth controls",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "SD Elements' / SD Blueprint's deployment controls are based on the Center for Internet Security (CIS) benchmarks. This assigns Level 2 controls to your project, which exhibit one or more of the following: (1) intended for environments or use cases where security is paramount; (2) act as a defense-in-depth measure; (3) may reduce performance and functionality."
+      }
+    ]
+  },
+  {
+    "section": "Deployment",
+    "subsection_path": [
+      "Cloud Computing"
+    ],
+    "question_id": "Q343",
+    "question_text": "Generic Cloud Content",
+    "answer_options": [
+      {
+        "id": "A1332",
+        "text": "Include generic, story-driven cloud countermeasures",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Select this answer if your application is deployed in a cloud environment. By doing so, high-level, generic, story-driven cloud countermeasures will be added to your project. Additionally, any other requirements for specific services, if applicable, based on different answers, will be included as additional requirements under those countermeasures."
+      }
+    ]
+  },
+  {
+    "section": "Deployment",
+    "subsection_path": [
+      "Cloud Computing"
+    ],
+    "question_id": "Q290",
+    "question_text": "Cloud Providers",
+    "answer_options": [
+      {
+        "id": "A1333",
+        "text": "Story-Driven Amazon Web Services (AWS) Content",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "By selecting this answer, AWS content based on the CIS AWS Foundations v4.0.1 and CIS AWS Three-Tier Web Architecture v1.0.0 benchmarks will be added to your project as Additional Requirements and How-Tos under the generic, story-driven cloud countermeasures selected above."
+      },
+      {
+        "id": "A1159",
+        "text": "Non-Story-Driven Amazon Web Services (AWS) Content",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "The content is based on a granular model used by SD Elements, which is not story-driven. By selecting this answer, AWS content based on the CIS AWS Foundations v4.0.1 and CIS AWS Three-Tier Web Architecture v1.0.0 benchmarks will be added to your project as independent SD Elements countermeasures (which are neither generic nor shared among cloud providers). Relevant Additional Requirements and How-Tos will be appended to those countermeasures."
+      },
+      {
+        "id": "A1336",
+        "text": "Story-Driven Google Cloud Content",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "By selecting this answer, generic, story-driven Google Cloud content based on the CIS Google Cloud Platform Foundations v1.2.0 benchmark will be added to your project as Additional Requirements and How-Tos under the generic, story-driven cloud countermeasures selected above."
+      },
+      {
+        "id": "A1212",
+        "text": "Non-Story-Driven Google Cloud Content",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "The content is based on a granular model used by SD Elements, which is not story-driven. By selecting this answer, GCP content based on the CIS Google Cloud Platform Foundations v1.0.0 benchmark will be added to your project as independent SD Elements countermeasures (which are neither generic nor shared among cloud providers). Relevant Additional Requirements and How-Tos will be appended to these countermeasures."
+      },
+      {
+        "id": "A1190",
+        "text": "Microsoft Azure",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "You use Microsoft Azure to deploy your application. Microsoft Azure content is structured in a granular model and is not story-driven."
+      },
+      {
+        "id": "A2121",
+        "text": "Oracle",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "You use Oracle Cloud to deploy your application. Oracle Cloud content is structured in a granular model and is not story-driven."
+      },
+      {
+        "id": "CA8",
+        "text": "ACME Secure AWS",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": ""
+      },
+      {
+        "id": "A2308",
+        "text": "IBM Cloud",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "You use IBM Cloud to deploy your application."
+      },
+      {
+        "id": "A2328",
+        "text": "Alibaba Cloud",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "You use Alibaba Cloud to deploy your application."
+      }
+    ]
+  },
+  {
+    "section": "Deployment",
+    "subsection_path": [
+      "Amazon Web Services (AWS)"
+    ],
+    "question_id": "Q366",
+    "question_text": "AWS Cloud Configuration",
+    "answer_options": [
+      {
+        "id": "A1392",
+        "text": "AWS Cloud Configuration",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Cloud Configuration countermeasures focus on configuring and securing various aspects of the cloud environment. These countermeasures cover many topics, such as securing infrastructure, network segmentation, identity management, data protection, log configuration, vulnerability assessments, and many DevOps security best practices."
+      }
+    ]
+  },
+  {
+    "section": "Deployment",
+    "subsection_path": [
+      "Amazon Web Services (AWS)"
+    ],
+    "question_id": "Q298",
+    "question_text": "AWS Services",
+    "answer_options": [
+      {
+        "id": "A1167",
+        "text": "AWS AMI",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "AWS Machine Image"
+      },
+      {
+        "id": "A1345",
+        "text": "AWS API Gateway",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "API Gateway"
+      },
+      {
+        "id": "A1510",
+        "text": "AWS App Mesh",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "AWS App Mesh"
+      },
+      {
+        "id": "A1598",
+        "text": "AWS Athena",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "AWS Athena"
+      },
+      {
+        "id": "A1251",
+        "text": "AWS Aurora",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Amazon Aurora"
+      },
+      {
+        "id": "A1172",
+        "text": "AWS Auto Scaling",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Dynamically scaling your Amazon EC2 capacity."
+      },
+      {
+        "id": "A1599",
+        "text": "AWS Backup",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "AWS Backup"
+      },
+      {
+        "id": "A1511",
+        "text": "AWS Bedrock",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "AWS Bedrock"
+      },
+      {
+        "id": "A2429",
+        "text": "AWS Bedrock AgentCore",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Guidelines for Amazon Bedrock AgentCore require teams to deploy and operate agent runtimes, gateways, memory, and supporting AWS services aligned to the shared responsibility model. Security work includes hardening CLI-generated policies and execution roles, enforcing VPC and resource-based access controls, securing sessions and OAuth flows, isolating agent execution surfaces, governing Gateway tools and Registry catalogs, protecting data with KMS, enabling telemetry and evaluations, and applying guardrails to model interactions."
+      },
+      {
+        "id": "A1375",
+        "text": "AWS Certificate Manager",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "AWS Certificate Manager"
+      },
+      {
+        "id": "A1376",
+        "text": "AWS CloudFormation",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "AWS CloudFormation"
+      },
+      {
+        "id": "A1175",
+        "text": "AWS CloudFront",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "AWS Content Delivery Network (CDN) service."
+      },
+      {
+        "id": "A2111",
+        "text": "AWS CloudShell",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "AWS CloudShell"
+      },
+      {
+        "id": "A2299",
+        "text": "AWS CloudTrail",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "AWS CloudTrail"
+      },
+      {
+        "id": "A1174",
+        "text": "AWS CloudWatch",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Monitoring service for AWS cloud resources and the applications you run on AWS."
+      },
+      {
+        "id": "A1608",
+        "text": "AWS CodeArtifact",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "AWS CodeArtifact"
+      },
+      {
+        "id": "A1588",
+        "text": "AWS CodePipeline",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "AWS CodePipeline"
+      },
+      {
+        "id": "A1346",
+        "text": "AWS Cognito",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "AWS Cognito"
+      },
+      {
+        "id": "A1176",
+        "text": "AWS Config",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "AWS service for assessing, auditing, and evaluating the configurations of your AWS resources."
+      },
+      {
+        "id": "A1600",
+        "text": "AWS DataSync",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "AWS DataSync"
+      },
+      {
+        "id": "A1601",
+        "text": "AWS Direct Connect",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "AWS Direct Connect"
+      },
+      {
+        "id": "A1271",
+        "text": "AWS DynamoDB",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "AWS DynamoDB NoSQL Database Service"
+      },
+      {
+        "id": "A1166",
+        "text": "AWS EBS",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "AWS Elastic Block Store"
+      },
+      {
+        "id": "A1171",
+        "text": "AWS EC2",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "AWS Elastic Compute Cloud"
+      },
+      {
+        "id": "A1377",
+        "text": "AWS ECR",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "AWS Elastic Container Registry"
+      },
+      {
+        "id": "A1270",
+        "text": "AWS ECS",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "AWS Elastic Container Service"
+      },
+      {
+        "id": "A1378",
+        "text": "AWS EFS",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "AWS Elastic File System"
+      },
+      {
+        "id": "A1331",
+        "text": "AWS EKS",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "AWS Elastic Kubernetes Service"
+      },
+      {
+        "id": "A1379",
+        "text": "AWS ElastiCache",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "AWS ElastiCache"
+      },
+      {
+        "id": "A1168",
+        "text": "AWS ELB",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "AWS Elastic Load Balancing"
+      },
+      {
+        "id": "A1602",
+        "text": "AWS EventBridge",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "AWS EventBridge"
+      },
+      {
+        "id": "A1603",
+        "text": "AWS Fargate",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "AWS Fargate"
+      },
+      {
+        "id": "A1627",
+        "text": "AWS FSx for Lustre",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "AWS FSx for Lustre"
+      }
+    ]
+  },
+  {
+    "section": "Deployment",
+    "subsection_path": [
+      "Containerization"
+    ],
+    "question_id": "Q308",
+    "question_text": "Containerization Technologies",
+    "answer_options": [
+      {
+        "id": "A2015",
+        "text": "Containerd",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Containerd is a container runtime that provides basic functionalities for container lifecycle, managing container images and executing OCI containers on typical Linux distributions. Security work involves examining vulnerabilities in the runtime engine, ensuring conformance to OCI standards and integrating secure image management practices."
+      },
+      {
+        "id": "A1208",
+        "text": "Docker",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Docker is a platform for developing, shipping, and running applications inside lightweight containers, examples include running microservices in isolated environments. Security work involves ensuring container images are free from vulnerabilities, managing access controls, and auditing container orchestration configurations."
+      },
+      {
+        "id": "A1235",
+        "text": "Swarm",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Swarm refers to Docker Swarm, a native clustering tool for Docker containers, providing container orchestration and management capabilities through tasks, services, and nodes. Security work involves assessing the orchestration infrastructure, ensuring secure container communications, and protecting against unauthorized access to nodes or data leaks."
+      },
+      {
+        "id": "A1209",
+        "text": "Unmanaged Kubernetes",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Choose this answer if you are not using managed Kubernetes services, such as Google Kubernetes Engine (GKE), Azure Kubernetes Service (AKS), and Amazon Elastic Kubernetes Service (EKS)."
+      },
+      {
+        "id": "A1329",
+        "text": "Managed Kubernetes",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Choose this answer if you are using managed Kubernetes services, such as Google Kubernetes Engine (GKE), Azure Kubernetes Service (AKS), and Amazon Elastic Kubernetes Service (EKS)."
+      },
+      {
+        "id": "A1245",
+        "text": "OpenShift",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Open source container application platform by Red Hat."
+      },
+      {
+        "id": "A1591",
+        "text": "Podman",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Podman is an open-source containerization technology that allows users to manage OCI containers similar to Docker without requiring a persistent daemon, suitable for deploying applications in isolated environments. Security work involves assessing container isolation, managing image vulnerabilities, and implementing access controls to secure container runtimes and registries."
+      },
+      {
+        "id": "A1926",
+        "text": "Singularity (Apptainer)",
+        "selected": false,
+        "valid": true,
+        "hidden": false,
+        "description": "Singularity is a containerization technology designed for high-performance computing environments, enabling users to run applications within secure, isolated containers. Security work involves auditing container image vulnerabilities, managing access controls, and ensuring compliance with isolation and execution standards within HPC systems."
+      }
+    ]
+  },
+  {
+    "section": "Deployment",
+    "subsection_path": [
+      "Microsoft Azure"
+    ],
+    "question_id": "Q365",
+    "question_text": "Azure Cloud Configuration",
+    "answer_options": [
+      {
+        "id": "A1391",
+        "text": "Azure Cloud Configuration",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Cloud Configuration countermeasures focus on configuring and securing various aspects of the cloud environment. These countermeasures cover many topics, such as securing infrastructure, network segmentation, identity management, data protection, log configuration, vulnerability assessments, and many DevOps security best practices."
+      },
+      {
+        "id": "A2132",
+        "text": "Azure Subscriptions",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Azure Subscriptions refer to business accounts under Microsoft Azure, dictating resource allocation like VMs and databases tied to a billing structure. Security work involves managing access control using role-based access control (RBAC) and ensuring compliance with policies regulating resource provisioning and utilization."
+      }
+    ]
+  },
+  {
+    "section": "Deployment",
+    "subsection_path": [
+      "Microsoft Azure"
+    ],
+    "question_id": "Q306",
+    "question_text": "Azure Services",
+    "answer_options": [
+      {
+        "id": "A1197",
+        "text": "Azure Active Directory (Entra ID)",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": ""
+      },
+      {
+        "id": "A1427",
+        "text": "Azure Active Directory External Identities",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Azure Active Directory External Identities"
+      },
+      {
+        "id": "A1394",
+        "text": "Azure AI Bot Service",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Azure AI Bot Service"
+      },
+      {
+        "id": "A1351",
+        "text": "Azure AKS",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": ""
+      },
+      {
+        "id": "A1398",
+        "text": "Azure Analysis Services",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Azure Analysis Services"
+      },
+      {
+        "id": "A1428",
+        "text": "Azure API Management",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Azure API Management"
+      },
+      {
+        "id": "A1423",
+        "text": "Azure App Configuration",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Azure App Configuration"
+      },
+      {
+        "id": "A1404",
+        "text": "Azure App Service",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Azure App Service"
+      },
+      {
+        "id": "A1452",
+        "text": "Azure Application Gateway",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Azure Application Gateway"
+      },
+      {
+        "id": "A1425",
+        "text": "Azure Arc",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Azure Arc"
+      },
+      {
+        "id": "A1470",
+        "text": "Azure Attestation",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Azure Attestation"
+      },
+      {
+        "id": "A1436",
+        "text": "Azure Automation",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Azure Automation"
+      },
+      {
+        "id": "A1476",
+        "text": "Azure Backup",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Azure Backup"
+      },
+      {
+        "id": "A1453",
+        "text": "Azure Bastion",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Azure Bastion"
+      },
+      {
+        "id": "A1405",
+        "text": "Azure Batch",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Azure Batch"
+      },
+      {
+        "id": "A1536",
+        "text": "Azure Blob Storage",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Azure Blob Storage"
+      },
+      {
+        "id": "A1416",
+        "text": "Azure Cache for Redis",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Azure Cache for Redis"
+      },
+      {
+        "id": "A1437",
+        "text": "Azure Cloud Shell",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Azure Cloud Shell"
+      },
+      {
+        "id": "A1482",
+        "text": "Azure Communication Services",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Azure Communication Services"
+      },
+      {
+        "id": "A1454",
+        "text": "Azure Communications Gateway",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Azure Communications Gateway"
+      },
+      {
+        "id": "A1412",
+        "text": "Azure Container Apps",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Azure Container Apps"
+      },
+      {
+        "id": "A1413",
+        "text": "Azure Container Instances",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Azure Container Instances"
+      },
+      {
+        "id": "A1414",
+        "text": "Azure Container Registry",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Azure Container Registry"
+      },
+      {
+        "id": "A1455",
+        "text": "Azure Content Delivery Network",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Azure Content Delivery Network"
+      },
+      {
+        "id": "A1417",
+        "text": "Azure Cosmos DB",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Azure Cosmos DB"
+      },
+      {
+        "id": "A1438",
+        "text": "Azure Cost Management",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Azure Cost Management"
+      },
+      {
+        "id": "A2112",
+        "text": "Azure CycleCloud",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Azure CycleCloud"
+      },
+      {
+        "id": "A1477",
+        "text": "Azure Data Box",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Azure Data Box"
+      },
+      {
+        "id": "A1399",
+        "text": "Azure Data Explorer",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Azure Data Explorer"
+      },
+      {
+        "id": "A1418",
+        "text": "Azure Data Factory",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Azure Data Factory"
+      },
+      {
+        "id": "A1400",
+        "text": "Azure Data Lake Analytics",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Azure Data Lake Analytics"
+      },
+      {
+        "id": "A1537",
+        "text": "Azure Data Lake Storage",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Azure Data Lake Storage"
+      },
+      {
+        "id": "A1478",
+        "text": "Azure Data Share",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Azure Data Share"
+      },
+      {
+        "id": "A1419",
+        "text": "Azure Database for MariaDB",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Azure Database for MariaDB"
+      },
+      {
+        "id": "A1420",
+        "text": "Azure Database for MySQL",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Azure Database for MySQL"
+      },
+      {
+        "id": "A1446",
+        "text": "Azure Database Migration Service",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Azure Database Migration Service"
+      },
+      {
+        "id": "A1395",
+        "text": "Azure Databricks",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Azure Databricks"
+      },
+      {
+        "id": "A1456",
+        "text": "Azure DDoS Protection",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Azure DDoS Protection"
+      },
+      {
+        "id": "A1471",
+        "text": "Azure Dedicated HSM",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Azure Dedicated HSM"
+      },
+      {
+        "id": "A1472",
+        "text": "Azure Defender for Cloud",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Azure Defender for Cloud"
+      },
+      {
+        "id": "A1424",
+        "text": "Azure DevTest Labs",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Azure DevTest Labs"
+      },
+      {
+        "id": "A1449",
+        "text": "Azure Digital Twins",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Azure Digital Twins"
+      },
+      {
+        "id": "A1457",
+        "text": "Azure DNS",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Azure DNS"
+      },
+      {
+        "id": "A1429",
+        "text": "Azure Event Grid",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Azure Event Grid"
+      },
+      {
+        "id": "A1401",
+        "text": "Azure Event Hubs",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Azure Event Hubs"
+      },
+      {
+        "id": "A1458",
+        "text": "Azure Firewall",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Azure Firewall"
+      },
+      {
+        "id": "A1459",
+        "text": "Azure Firewall Manager",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Azure Firewall Manager"
+      },
+      {
+        "id": "A1460",
+        "text": "Azure Front Door",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Azure Front Door"
+      },
+      {
+        "id": "A1210",
+        "text": "Azure Functions",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": ""
+      },
+      {
+        "id": "A1479",
+        "text": "Azure HPC Cache",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Azure HPC Cache"
+      },
+      {
+        "id": "A1473",
+        "text": "Azure Information Protection",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Azure Information Protection"
+      },
+      {
+        "id": "A1433",
+        "text": "Azure IoT Central",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Azure IoT Central"
+      },
+      {
+        "id": "A1434",
+        "text": "Azure IoT Hub",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Azure IoT Hub"
+      },
+      {
+        "id": "A1204",
+        "text": "Azure Key Vault",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": ""
+      }
+    ]
+  },
+  {
+    "section": "Deployment",
+    "subsection_path": [
+      "IBM Cloud"
+    ],
+    "question_id": "Q488",
+    "question_text": "IBM Cloud Services",
+    "answer_options": [
+      {
+        "id": "A2255",
+        "text": "IBM Cloud Activity Tracker",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": ""
+      },
+      {
+        "id": "A2254",
+        "text": "IBM Cloud Block Storage",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": ""
+      },
+      {
+        "id": "A2249",
+        "text": "IBM Cloud Container Registry",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": ""
+      },
+      {
+        "id": "A2250",
+        "text": "IBM Cloud Database",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": ""
+      },
+      {
+        "id": "A2252",
+        "text": "IBM Cloud Internet Services",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": ""
+      },
+      {
+        "id": "A2256",
+        "text": "IBM Cloud Kubernetes Service",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": ""
+      },
+      {
+        "id": "A2247",
+        "text": "IBM Cloud Object Storage",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": ""
+      },
+      {
+        "id": "A2246",
+        "text": "IBM Cloud VPC",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": ""
+      },
+      {
+        "id": "A2251",
+        "text": "IBM Cloudant",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": ""
+      },
+      {
+        "id": "A2248",
+        "text": "IBM Key Management Services",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": ""
+      },
+      {
+        "id": "A2253",
+        "text": "IBM Key Protect",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": ""
+      }
+    ]
+  },
+  {
+    "section": "Deployment",
+    "subsection_path": [
+      "Google Cloud Platform (GCP)"
+    ],
+    "question_id": "Q367",
+    "question_text": "GCP Cloud Configuration",
+    "answer_options": [
+      {
+        "id": "A1393",
+        "text": "GCP Cloud Configuration",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Cloud Configuration countermeasures focus on configuring and securing various aspects of the cloud environment. These countermeasures cover many topics, such as securing infrastructure, network segmentation, identity management, data protection, log configuration, vulnerability assessments, and many DevOps security best practices."
+      }
+    ]
+  },
+  {
+    "section": "Deployment",
+    "subsection_path": [
+      "Google Cloud Platform (GCP)"
+    ],
+    "question_id": "Q309",
+    "question_text": "Google Cloud Services",
+    "answer_options": [
+      {
+        "id": "A1337",
+        "text": "Google BigQuery",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Google Cloud Data Warehouse service."
+      },
+      {
+        "id": "A1241",
+        "text": "Google Cloud Audit Logs",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Google Cloud's user activity logging service."
+      },
+      {
+        "id": "A1242",
+        "text": "Google Cloud DNS",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Google Cloud's DNS service."
+      },
+      {
+        "id": "A1236",
+        "text": "Google Cloud IAM",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Google Cloud identity and access management service."
+      },
+      {
+        "id": "A1238",
+        "text": "Google Cloud Key Management Service",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Google Cloud service for management of encryption keys."
+      },
+      {
+        "id": "A1243",
+        "text": "Google Cloud SQL",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Google Cloud's service for MySQL, PostgreSQL, and SQL Server database."
+      },
+      {
+        "id": "A1240",
+        "text": "Google Cloud Storage",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Google Cloud object storage service."
+      },
+      {
+        "id": "A1237",
+        "text": "Google Compute Engine",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Google Cloud VM management service."
+      },
+      {
+        "id": "A1213",
+        "text": "Google Kubernetes Engine",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Google Cloud service for running containerized applications."
+      },
+      {
+        "id": "A1244",
+        "text": "Google Stackdriver",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Google Cloud's service for monitoring and management of services, containers, applications, and infrastructure."
+      },
+      {
+        "id": "A1592",
+        "text": "Google Vertex AI Platform",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "GCP Vertex AI Platform"
+      },
+      {
+        "id": "A1239",
+        "text": "Google Virtual Private Cloud (VPC)",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Google Cloud networking service."
+      }
+    ]
+  },
+  {
+    "section": "Deployment",
+    "subsection_path": [
+      "Oracle Cloud"
+    ],
+    "question_id": "Q483",
+    "question_text": "Oracle Cloud Configuration",
+    "answer_options": [
+      {
+        "id": "A2122",
+        "text": "Oracle Cloud Configuration",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Cloud Configuration countermeasures focus on configuring and securing various aspects of the cloud environment. These countermeasures cover many topics, such as securing infrastructure, network segmentation, identity management, data protection, log configuration, vulnerability assessments, and many DevOps security best practices."
+      }
+    ]
+  },
+  {
+    "section": "Deployment",
+    "subsection_path": [
+      "Oracle Cloud"
+    ],
+    "question_id": "Q484",
+    "question_text": "Oracle Cloud Services",
+    "answer_options": [
+      {
+        "id": "A2125",
+        "text": "Block Volume",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Oracle Block Volume provides persistent storage that acts like a hard drive for Compute Instances."
+      },
+      {
+        "id": "A2123",
+        "text": "Compute Instance",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "A Compute Instance in Oracle can be either a VM or a bare metal server)"
+      },
+      {
+        "id": "A2126",
+        "text": "File Storage",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Oracle File Storage is a fully managed Network File System (NFS) that allows multiple Compute Instances to share files seamlessly. It is designed for applications that require shared, scalable, and high-performance file storage."
+      },
+      {
+        "id": "A2124",
+        "text": "Object Storage",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "A scalable, durable, and secure service for storing unstructured data such as files, images, backups, and logs"
+      }
+    ]
+  },
+  {
+    "section": "Deployment",
+    "subsection_path": [
+      "Alibaba Cloud"
+    ],
+    "question_id": "Q511",
+    "question_text": "Alibaba Cloud Configuration",
+    "answer_options": [
+      {
+        "id": "A2329",
+        "text": "Alibaba Cloud Configuration",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Alibaba Cloud Configuration involves setting up and managing cloud resources on Alibaba Cloud, such as ECS instances, VPC networks, and RDS databases. Security work includes assessing and mitigating risks associated with configuration errors, access permissions, and network security controls."
+      }
+    ]
+  },
+  {
+    "section": "Deployment",
+    "subsection_path": [
+      "Alibaba Cloud"
+    ],
+    "question_id": "Q512",
+    "question_text": "Alibaba Cloud Services",
+    "answer_options": [
+      {
+        "id": "A2330",
+        "text": "Virtual Machine",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Virtual Machines hosted on Alibaba Cloud, used to run applications, services, or workloads in the cloud."
+      },
+      {
+        "id": "A2331",
+        "text": "Object Storage Service (OSS)",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Object Storage Service (OSS) is Alibaba Cloud’s scalable, secure, and durable cloud storage service"
+      },
+      {
+        "id": "A2332",
+        "text": "Relational Database Service (RDS)",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Relational Database Service (RDS) is a managed database solution by Alibaba Cloud that supports multiple database engines such as MySQL, PostgreSQL, SQL Server, and MariaDB"
+      },
+      {
+        "id": "A2333",
+        "text": "Alibaba Cloud Kubernetes (ACK)",
+        "selected": false,
+        "valid": false,
+        "hidden": false,
+        "description": "Alibaba Cloud Container Service for Kubernetes (ACK), which is a fully managed service"
+      }
+    ]
+  },
+  {
+    "section": "Changes Since Last Release",
+    "subsection_path": [
+      "General Changes"
+    ],
+    "question_id": "Q220",
+    "question_text": "Changes Since Last Release",
+    "answer_options": [
+      {
+        "id": "A1307",
+        "text": "Changes to hardware design",
+        "selected": true,
+        "valid": true,
+        "hidden": false,
+        "description": "Changes to hardware design refer to modifications like updating to a newer CPU architecture, integrating additional sensors such as accelerometers, or altering connectivity modules like switching from Wi-Fi 5 to Wi-Fi 6. This necessitates security evaluations focusing on hardware attack surfaces, secure boot mechanisms, and the integration of new cryptographic modules for safeguarding data transmission."
+      },
+      {
+        "id": "A1626",
+        "text": "Changes to AI",
+        "selected": true,
+        "valid": true,
+        "hidden": false,
+        "description": "You've added or changed the underlying AI features and technologies in the application."
+      },
+      {
+        "id": "A739",
+        "text": "Changes to servers/frameworks and/or configuration",
+        "selected": true,
+        "valid": true,
+        "hidden": false,
+        "description": "You've added or changed the underlying servers/frameworks, or server/framework configuration for the application (e.g. new database server)"
+      },
+      {
+        "id": "A734",
+        "text": "Changes to authentication",
+        "selected": true,
+        "valid": true,
+        "hidden": false,
+        "description": "You've changed something with respect to authentication since the last release (e.g. you've created a new login page)"
+      },
+      {
+        "id": "A735",
+        "text": "Changes to session management",
+        "selected": true,
+        "valid": true,
+        "hidden": false,
+        "description": "You've changed something with respect to session management since the last release (e.g. you've changed the way you manage sessions for users)"
+      },
+      {
+        "id": "A736",
+        "text": "New transactions / use cases",
+        "selected": true,
+        "valid": true,
+        "hidden": false,
+        "description": "You've enabled new transactions or use cases for the system (e.g. users can now access a settings page)"
+      },
+      {
+        "id": "A738",
+        "text": "Changes to inbound/outbound interfaces",
+        "selected": true,
+        "valid": true,
+        "hidden": false,
+        "description": "You've changed or modified interfaces into or out of the system (e.g. a new interface with a third party system)"
+      },
+      {
+        "id": "A1294",
+        "text": "Changes to processes/activities",
+        "selected": true,
+        "valid": true,
+        "hidden": false,
+        "description": "You've added or changed the processes or activities around the application's Software Development Life Cycle (SDLC)."
+      }
+    ]
+  },
+  {
+    "section": "Changes Since Last Release",
+    "subsection_path": [
+      "User Input/Output Changes"
+    ],
+    "question_id": "Q222",
+    "question_text": "Changes to User Input/Output Since Last Release",
+    "answer_options": [
+      {
+        "id": "A737",
+        "text": "Changes to user output",
+        "selected": true,
+        "valid": true,
+        "hidden": false,
+        "description": "You have added or changed the output shown to users (e.g. changed or added a new a web page)"
+      },
+      {
+        "id": "A742",
+        "text": "New/modified user input OR changes to how user input is used",
+        "selected": true,
+        "valid": true,
+        "hidden": false,
+        "description": "You have added or modified input from the user (e.g. a new form field on a web page) or you have changed the way that user input interacts with the system (e.g. a new SQL query based on existing input fields) "
+      }
+    ]
+  }
+]

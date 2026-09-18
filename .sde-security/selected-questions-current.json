@@ -1,0 +1,112 @@
+[
+  {
+    "section": null,
+    "question_id": "Q101",
+    "question_text": "Components In Development"
+  },
+  {
+    "section": null,
+    "question_id": "Q253",
+    "question_text": "Components In Use"
+  },
+  {
+    "section": null,
+    "question_id": "Q500",
+    "question_text": "Architectural Features"
+  },
+  {
+    "section": null,
+    "question_id": "Q109",
+    "question_text": "Programming Language"
+  },
+  {
+    "section": null,
+    "question_id": "Q191",
+    "question_text": "Web Client Technologies Used"
+  },
+  {
+    "section": null,
+    "question_id": "Q103",
+    "question_text": "Database"
+  },
+  {
+    "section": null,
+    "question_id": "Q305",
+    "question_text": "Database Management System (DBMS)"
+  },
+  {
+    "section": null,
+    "question_id": "Q120",
+    "question_text": "Authentication Features"
+  },
+  {
+    "section": null,
+    "question_id": "Q121",
+    "question_text": "Authentication Method"
+  },
+  {
+    "section": null,
+    "question_id": "Q129",
+    "question_text": "Requires Server-to-Server Authentication"
+  },
+  {
+    "section": null,
+    "question_id": "Q213",
+    "question_text": "Password Management Features"
+  },
+  {
+    "section": null,
+    "question_id": "Q127",
+    "question_text": "Authorizes Subjects"
+  },
+  {
+    "section": null,
+    "question_id": "Q215",
+    "question_text": "Input Validation"
+  },
+  {
+    "section": null,
+    "question_id": "Q303",
+    "question_text": "OS Interactions"
+  },
+  {
+    "section": null,
+    "question_id": "Q131",
+    "question_text": "Encryption"
+  },
+  {
+    "section": null,
+    "question_id": "Q214",
+    "question_text": "Miscellaneous"
+  },
+  {
+    "section": null,
+    "question_id": "Q186",
+    "question_text": "Application Layer Protocols Used"
+  },
+  {
+    "section": null,
+    "question_id": "Q231",
+    "question_text": "Authentication and Identity Exchange Protocols"
+  },
+  {
+    "section": null,
+    "question_id": "Q364",
+    "question_text": "Version Control Platforms"
+  },
+  {
+    "section": null,
+    "question_id": "Q308",
+    "question_text": "Containerization Technologies"
+  },
+  {
+    "section": null,
+    "question_id": "Q220",
+    "question_text": "Changes Since Last Release"
+  },
+  {
+    "section": null,
+    "question_id": "Q222",
+    "question_text": "Changes to User Input/Output Since Last Release"
+  }
+]

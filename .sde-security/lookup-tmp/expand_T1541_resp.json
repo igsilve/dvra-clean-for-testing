@@ -1,0 +1,177 @@
+{
+  "composite_response": [
+    {
+      "reference_id": "T1541",
+      "http_status_code": 200,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "results": [
+          {
+            "db_id": 3400,
+            "id": "TA3400",
+            "title": "ASD-STIG requirements",
+            "text": "## V-222603 [medium]:\n__The application must protect from Cross-Site Request Forgery (CSRF) vulnerabilities.__\n\nCross-Site Request Forgery (CSRF) is an attack where a website user is forced to execute an unwanted action on a website that he or she is currently authenticated to. An attacker, through social engineering (e.g., e-mail or chat) creates a hyperlink which executes unwanted actions on the website the victim is authenticated to and sends it to the victim. If the victim clicks on the link, the action is executed unbeknownst to the victim.\n\nA CSRF attack executes a website request on behalf of the user which can lead to a compromise of the user's data. What is needed to be successful is for the attacker to know the URL, an authenticated application user, and trick the user into clicking the malicious link.\n\nWhile XSS is not needed for a CSRF attack to work, XSS vulnerabilities can provide the attacker with a vector to obtain information from the user that may be used in mitigating the risk. The application must not be vulnerable to XSS as an XSS attack can be used to help defeat token, double-submit cookie, referrer and origin-based CSRF defenses.\n\n",
+            "type": "Built-in",
+            "ordinal": 0,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2020-11-16T13:47:33.164000-05:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2024-09-24T13:15:55.146000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 1805,
+            "id": "TA1805",
+            "title": "FedRAMP / Moderate Baseline",
+            "text": "*** SC-23: System And Communications Protection | Session Authenticity ***  \nThe information system protects the authenticity of communications sessions.",
+            "type": "Built-in",
+            "ordinal": 11,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-15T17:49:05.807000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T15:08:06.501000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 2731,
+            "id": "TA2731",
+            "title": "FedRAMP / High Baseline",
+            "text": "*** SC-23: System And Communications Protection | Session Authenticity ***  \nThe information system protects the authenticity of communications sessions.",
+            "type": "Built-in",
+            "ordinal": 12,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-17T18:34:13.635000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T18:38:15.037000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 8290,
+            "id": "TA8290",
+            "title": "Add React CSRF defense specifics (React)",
+            "text": "- Synchronize token strategy, same-site cookie strategy, anti-forgery header validation, and state-changing request protections.",
+            "type": "Built-in",
+            "ordinal": 18,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-04-22T15:42:16.719000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-04-22T15:42:16.719000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9324,
+            "id": "TA9324",
+            "title": "T1541 - SKILL.md - Python",
+            "text": "---\nname: decide-on-the-best-csrf-defense\ndescription: Use when Python code handles state-changing requests with browser-managed cookies or sessions and must choose and apply the correct CSRF defense.\n---\n# Decide on the best CSRF defense for your application\n\n## What This Skill Does\nThis skill helps an agent identify Python application flows that are exposed to Cross-Site Request Forgery (CSRF) and choose the right protection based on how requests are authenticated and delivered. It applies synchronizer tokens for server-rendered dynamic pages, double submit cookies for same-origin simple/browser-submittable requests, or strict CORS validation for cross-origin state-changing requests, while also hardening cookies with `SameSite` and preventing token-bearing responses from being cached.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| State-changing endpoint does not use browser-managed auth cookies or sessions | No CSRF change needed |\n| Server-rendered dynamic form/page submits a state-changing request | Apply synchronizer token bound to the session and validate it centrally |\n| Same-origin state-changing request can be sent as an HTML form or simple request and synchronizer tokens do not fit | Apply double submit cookie with exact token comparison |\n| Cross-origin frontend must send state-changing requests | Enforce secure CORS with explicit allowed origins, methods, and headers; reject unknown origins |\n| Session or CSRF cookies are used for same-domain flows | Set `SameSite=\"Lax\"` by default, or `Strict` only if cross-site navigations are not needed |\n\n## Boundaries\n\n### Can Do\n- Add Python decision logic that enables CSRF protection only for state-changing requests using browser-managed authentication\n- Implement synchronizer token or double submit cookie validation using `secrets.compare_digest`\n- Harden session and CSRF cookie settings and add non-cache headers to token-bearing responses\n\n### Cannot Do\n- Prove business intent for whether an endpoint truly changes backend state\n- Safely use wildcard CORS or infer allowed origins without explicit application requirements\n- Protect clients that authenticate with non-browser tokens where cookies/sessions are not automatically sent\n\n## Gotchas\n- Protecting every endpoint the same way: unnecessary CSRF checks on token-auth APIs or safe methods can break valid clients and add noise\n- Accepting CSRF tokens from arbitrary query parameters: tokens should come from a hidden form field or dedicated header only, or they are easier to leak\n- Using normal equality for token comparison: `==` is the wrong comparison for secrets; use `secrets.compare_digest` for exact constant-time checks\n\n## Quick Verification\n```bash\n# Confirm a CSRF decision/helper or enforcement path exists\nrg -n \"select_csrf_strategy|enforce_csrf_for_state_change|validate_synchronizer_token|validate_double_submit_cookie|validate_cors_request\" .\n\n# Find potentially unguarded Flask state-changing endpoints that may bypass CSRF validation\nrg -n '@app\\.route\\([^)]*methods=\\[(?:[^\\]]*\"POST\"|[^\\]]*\"PUT\"|[^\\]]*\"PATCH\"|[^\\]]*\"DELETE\")[^\\]]*\\][^)]*\\)|request\\.(form|get_json)\\(' .\n\n# Confirm secure token comparison and cookie hardening are present\nrg -n \"secrets\\.compare_digest|SESSION_COOKIE_SAMESITE|set_cookie\\(\" .\n\n# Run the project's Python test suite if present\npython -m pytest -q\n```",
+            "type": "Built-in",
+            "ordinal": 76,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:33.938000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:33.938000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 8603,
+            "id": "TA8603",
+            "title": "T1541 - SKILL.md - Node.js",
+            "text": "---\nname: decide-best-csrf-defense\ndescription: Choose and enforce an appropriate CSRF defense (tokens, double-submit, CORS, SameSite) for apps with state-changing endpoints using browser-managed authentication; Use when mitigating CWE-352 / CSRF (P677)\n---\n\n# Decide on the best CSRF defense for your application\n\n## What This Skill Does\nThis skill helps select and apply a consistent CSRF defense for each application surface that performs state changes with browser-managed authentication (cookies, HTTP auth). It encodes decision rules to determine whether CSRF protection is needed, picks between synchronizer tokens, double submit cookies, strict CORS, and SameSite settings, and guides how to wire them through middleware so all relevant routes are protected in a uniform way.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| App has state-changing routes, uses cookies/browser auth, and accepts HTML form posts | Use CSRF risk decision logic; select **synchronizer token** as primary defense and apply middleware on all state-changing routes |\n| Same-origin SPA or API uses `fetch`/XHR with cookie-based auth (no third-party origins) | Use decision logic; choose **double submit cookie** and enforce cookie+header/body token check on all state-changing endpoints |\n| Cross-origin API needs credentialed requests from specific front-end origins with preflight | Use decision logic; choose **secure CORS policy** (strict allowlist of origins/methods/headers) and ensure it covers all credentialed operations |\n| Auth/session cookies do not need true cross-site behavior | Configure cookies as **SameSite=Lax or Strict + Secure**, via a shared utility, and still apply a primary CSRF mechanism when risk conditions are met |\n| Endpoint does not change server-side state or does not rely on browser-managed auth (e.g., pure token-in-header APIs) | Document as **no CSRF protection required** for that surface; do not add CSRF tokens but keep cookie flags hardened if cookies exist |\n\n## Boundaries\n\n### Can Do\n- Detect when CSRF protection is needed based on app characteristics (state change + browser-managed auth + browser/form input).\n- Recommend and describe wiring of one primary CSRF strategy per surface (synchronizer token, double submit cookie, secure CORS), plus SameSite cookie settings.\n- Help centralize CSRF decisions in pure functions and drive framework middleware/filters from these decisions.\n- Suggest verification steps (forged cross-site requests vs. valid same-origin/tokened requests).\n\n### Cannot Do\n- Cannot automatically infer all state-changing routes or current CSRF coverage without explicit code/context; relies on developer to identify them.\n- Cannot fully mitigate CSRF solely via SameSite cookies or CORS when business requirements demand broad cross-site behavior or support legacy browsers.\n- Cannot fix unrelated issues such as XSS, broken authentication, or business logic flaws that could still enable unauthorized actions even with CSRF defenses in place.\n\n## Gotchas\n- Relying **only on SameSite cookies** as a CSRF defense: this can be bypassed by misconfigurations, browser quirks, or when `SameSite=None` is later required; still use a primary CSRF mechanism (synchronizer or double submit) where risk conditions are met.\n- Mixing **multiple CSRF strategies on overlapping routes** (e.g., some POSTs use synchronizer tokens, others double submit, others only CORS) without clear decision logic: leads to gaps where new routes skip defenses; always drive middleware from centralized decision rules.\n- Assuming **CORS alone prevents CSRF** for cookie-based APIs: simple cross-site form POSTs without preflight can still succeed if the server accepts them; secure CORS helps for credentialed XHR/fetch, but state-changing endpoints that accept form posts still need a token-based defense.\n\n## Quick Verification\n```bash\n# 1) From an attacker-origin HTML page, attempt a forged POST without CSRF token\n# (update URL, body, and Origin to match your app)\ncurl -i -X POST https://your-app.example.com/transfer \\\n  -H 'Content-Type: application/x-www-form-urlencoded' \\\n  -H 'Origin: https://attacker.example.com' \\\n  --data 'to=bob&amount=100' \\\n  --cookie \"session_id=VICTIM_SESSION_COOKIE\"\n\n# Expect: 403 or equivalent CSRF rejection (invalid/missing token)\n\n# 2) From same origin, send a valid state-changing request with correct CSRF token\n# (synchronizer token example)\ncurl -i -X POST https://your-app.example.com/transfer \\\n  -H 'Content-Type: application/json' \\\n  -H \"X-CSRF-Token: VALID_TOKEN_FROM_LOGIN_OR_CSRF-ENDPOINT\" \\\n  --data '{\"to\":\"bob\",\"amount\":100}' \\\n  --cookie \"session_id=VALID_SESSION_COOKIE\"\n\n# Expect: 200 and successful business response\n\n# 3) For double submit cookie setups, ensure mismatch is blocked\ncurl -i -X POST https://your-app.example.com/transfer \\\n  -H 'Content-Type: application/json' \\\n  -H \"X-CSRF-Token: WRONG_TOKEN\" \\\n  --data '{\"to\":\"bob\",\"amount\":100}' \\\n  --cookie \"session_id=VALID_SESSION_COOKIE; csrf_token=REAL_TOKEN\"\n\n# Expect: 403 CSRF rejection\n```",
+            "type": "Built-in",
+            "ordinal": 165,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-05-21T11:39:57.462000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-05-21T11:39:57.462000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9733,
+            "id": "TA9733",
+            "title": "T1541 - SKILL.md - TypeScript",
+            "text": "---\nname: decide-on-the-best-csrf-defense\ndescription: Use when TypeScript code has state-changing endpoints that rely on browser-managed credentials and needs the right CSRF defense selected and enforced.\n---\n\n# Decide on the best CSRF defense for your application\n\n## What This Skill Does\nThis skill helps choose and apply the correct CSRF defense for TypeScript applications that perform state-changing operations while relying on browser-managed authentication such as cookies or HTTP authentication. It first checks whether CSRF protection is actually needed, then guides the agent to use synchronizer tokens for server-rendered session flows, double-submit cookies for same-origin browser requests that can avoid preflight, strict origin allowlists for credentialed cross-origin requests, and `SameSite` cookies as an additional browser-side restriction.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| State-changing endpoint uses cookie/session auth or HTTP auth | Apply CSRF protection and reject missing or invalid proof |\n| Server-rendered forms or session-backed app with token stored server-side | Use the Synchronizer Token pattern with a session-bound token |\n| Same-origin frontend/backend and requests may come from forms or simple requests without preflight | Use the Double Submit Cookie pattern with exact cookie/header matching |\n| Cross-origin state-changing requests with credentials are required | Enforce a strict CORS origin allowlist and reject missing or unexpected origins |\n| Endpoint is read-only or does not use browser-managed credentials | No action needed |\n\n## Boundaries\n\n### Can Do\n- Determine whether CSRF defenses apply based on state change and browser-managed authentication\n- Replace unguarded state-changing handlers with synchronizer-token or double-submit-cookie validation\n- Add exact origin checks and appropriate `SameSite` cookie settings as defense in depth\n\n### Cannot Do\n- Guarantee protection for endpoints that still accept unsafe state changes without the chosen guard\n- Infer business intent for every cross-origin flow without reviewing frontend and deployment topology\n- Replace authorization, XSS prevention, or general session security controls\n\n## Gotchas\n- Using CSRF tokens on bearer-token APIs only: this is often unnecessary because browsers do not attach bearer tokens automatically like cookies\n- Trusting `Access-Control-Allow-Origin: *` with credentials: this breaks secure credentialed CORS and defeats strict origin control\n- Relying on `SameSite` alone for every app: it helps, but token or origin validation is still needed when legitimate flows require cross-site or same-site state-changing requests\n\n## Quick Verification\n```bash\n# Confirm secure CSRF guards/helpers exist\nrg -n \"analyzeCsrfApplicability|ensureCsrfToken|validateCsrfToken|issueDoubleSubmitToken|requireTrustedOrigin|sameSite\\s*:\\s*['\\\"](strict|lax)['\\\"]|timingSafeEqual|x-csrf-token\" .\n\n# Find likely unguarded state-changing handlers or direct state updates lacking CSRF/origin checks\nrg -n \"app\\.(post|put|patch|delete)\\(|router\\.(post|put|patch|delete)\\(|fetch\\(.+\\{[^}]*method:\\s*['\\\"](POST|PUT|PATCH|DELETE)['\\\"]\" .\nrg -n \"session\\.(username|user|auth)|req\\.session|profileStore\\[.*\\]\\.(email|name|role)|resave:\\s*false\" .\n\n# Build + test with the TypeScript toolchain\nnpx tsc --noEmit\nnpm test\n```",
+            "type": "Built-in",
+            "ordinal": 673,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:50.879000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:50.879000-04:00",
+            "active": true
+          }
+        ]
+      }
+    }
+  ]
+}

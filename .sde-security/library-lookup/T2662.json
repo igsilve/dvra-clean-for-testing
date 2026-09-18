@@ -1,0 +1,9 @@
+{
+  "cm_id": "T2662",
+  "endpoint": "library/tasks/T2662/amendments/",
+  "http_status": 200,
+  "result": "TEMPLATE_NO_MATCH",
+  "retry_count": 0,
+  "queried_at": "2026-09-17T20:56:20.688499+00:00",
+  "matched_amendments": []
+}

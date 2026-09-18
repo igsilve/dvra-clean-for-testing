@@ -1,0 +1,8 @@
+{
+  "skill": "generate-security-skill-files",
+  "fetched_at": "2026-09-17T20:23:52Z",
+  "sha256_skill": "5301636eba778751b99c265e3265e87620c16e60e42c8e7df656c56823906c9e",
+  "sha256_agents": "5468bdd141218720ece777642a54f9c0076f9a843bf70072e0cc78f5ffe9dc57",
+  "skill_chars": 88930,
+  "agents_chars": 20252
+}

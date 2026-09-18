@@ -1,0 +1,108 @@
+{
+  "composite_response": [
+    {
+      "reference_id": "T1204",
+      "http_status_code": 200,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "results": [
+          {
+            "db_id": 2196,
+            "id": "TA2196",
+            "title": "FedRAMP / Low Baseline",
+            "text": "*** SI-3: System And Information Integrity | Malicious Code Protection ***  \nThe organization:\n\na. Employs malicious code protection mechanisms at information system entry and exit points to detect and eradicate malicious code;  \nb. Updates malicious code protection mechanisms whenever new releases are available in accordance with organizational configuration management policy and procedures;  \nc. Configures malicious code protection mechanisms to:  \n   1. Perform periodic scans of the information system [at least weekly] and real-time scans of files from external sources [to include endpoints] as the files are downloaded, opened, or executed in accordance with organizational security policy; and  \n   2. [Include alerting administrator or defined security personnel] in response to malicious code detection; and  \nd. Addresses the receipt of false positives during malicious code detection and eradication and the resulting potential impact on the availability of the information system.",
+            "type": "Built-in",
+            "ordinal": 10,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-17T16:28:57.186000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T16:44:57.474000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 1285,
+            "id": "TA1285",
+            "title": "FedRAMP / Moderate Baseline",
+            "text": "*** AC-6: Access Control | Least Privilege ***  \nThe organization employs the principle of least privilege, allowing only authorized accesses for users (or processes acting on behalf of users) which are necessary to accomplish assigned tasks in accordance with organizational missions and business functions.\n\n*** SI-3: System And Information Integrity | Malicious Code Protection ***  \nThe organization:\n\na. Employs malicious code protection mechanisms at information system entry and exit points to detect and eradicate malicious code;\n\nb. Updates malicious code protection mechanisms whenever new releases are available in accordance with organizational configuration management policy and procedures;\n\nc. Configures malicious code protection mechanisms to:\n\n1. Perform periodic scans of the information system [at least weekly] and real-time scans of files from external sources [to include endpoints] as the files are downloaded, opened, or executed in accordance with organizational security policy; and\n2. [Include alerting administrator or defined security personnel] in response to malicious code detection; and\n\nd. Addresses the receipt of false positives during malicious code detection and eradication and the resulting potential impact on the availability of the information system.",
+            "type": "Built-in",
+            "ordinal": 11,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-15T17:48:41.932000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T15:08:07.215000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 2287,
+            "id": "TA2287",
+            "title": "FedRAMP / High Baseline",
+            "text": "*** AC-6: Access Control | Least Privilege ***  \nThe organization employs the principle of least privilege, allowing only authorized accesses for users (or processes acting on behalf of users) which are necessary to accomplish assigned tasks in accordance with organizational missions and business functions.\n\n*** SI-3: System And Information Integrity | Malicious Code Protection ***  \nThe organization:  \n a. Employs malicious code protection mechanisms at information system entry and exit points to detect and eradicate malicious code;  \n b. Updates malicious code protection mechanisms whenever new releases are available in accordance with organizational configuration management policy and procedures;  \n c. Configures malicious code protection mechanisms to:  \n   1. Perform periodic scans of the information system [at least weekly] and real-time scans of files from external sources [to include endpoints] as the files are downloaded, opened, or executed in accordance with organizational security policy; and  \n   2. [Include blocking and quarantining malicious code and alerting administrator or defined security personnel near-realtime] in response to malicious code detection; and  \n d. Addresses the receipt of false positives during malicious code detection and eradication and the resulting potential impact on the availability of the information system.",
+            "type": "Built-in",
+            "ordinal": 12,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-17T18:26:39.247000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T18:38:15.718000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 8453,
+            "id": "TA8453",
+            "title": "T1204 - SKILL.md - Docker",
+            "text": "---\nname: mount-container-root-filesystem-read-only-docker\ndescription: Use when Docker Compose services leave the container root filesystem writable; applies read_only and scopes writes to explicit tmpfs or narrow volumes.\n---\n\n# Mount container's root file system as read-only (Docker)\n\n## What This Skill Does\nThis skill hardens Docker Compose services against P1091 by making the container root filesystem read-only and allowing writes only through explicitly approved paths. It applies `read_only: true` at the service level, then adds narrowly scoped `tmpfs` mounts for temporary runtime files or dedicated volumes for required persistent data so the application cannot write broadly across the image-backed filesystem.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| A Compose service has no `read_only: true` and does not need general filesystem writes | Add `read_only: true` to the service |\n| The application needs temporary writes for `/tmp`, PID files, or cache directories | Keep `read_only: true` and add narrow `tmpfs` mounts only for those paths |\n| The application needs persistent writes | Keep `read_only: true` and add a dedicated volume only for the exact data path that must be writable |\n| A volume mounts a broad application path such as `/app` only to make writes work | Replace it with a narrower writable path such as `/app/data` and reconfigure the app to write there |\n| The service already uses `read_only: true` and writes only to approved mounts | No action needed |\n\n## Boundaries\n\n### Can Do\n- Add `read_only: true` to Docker Compose services\n- Add scoped `tmpfs` mounts for ephemeral writable paths like `/tmp`\n- Replace broad writable mounts with dedicated volumes for exact approved data paths\n\n### Cannot Do\n- Guarantee the application will work without identifying all runtime write paths first\n- Automatically rewrite application code or framework settings that still write to blocked locations\n- Secure Kubernetes, Docker CLI flags, or non-Compose container definitions unless they are explicitly in scope\n\n## Gotchas\n- Adding `read_only: true` without writable exceptions: the app may fail if it writes to `/tmp`, runtime directories, or cache locations\n- Mounting a broad writable path like `/app`: this weakens the control by letting the app modify more of its filesystem than necessary\n- Assuming logs should be written to local files: many containers should log to stdout/stderr instead of opening writable filesystem paths\n\n## Quick Verification\n```bash\n# Check that Compose services now declare read_only\ngrep -n \"read_only: true\" docker-compose.yml compose.yml 2>/dev/null\n\n# Start the service\ndocker compose up -d\n\n# Confirm writes to the root filesystem fail\ndocker compose exec app sh -lc 'echo test > /etc/test-file' || true\n\n# Confirm writes to the approved writable path succeed\ndocker compose exec app sh -lc 'echo test > /tmp/test-file && cat /tmp/test-file'\n\n# If using a dedicated data volume, verify that exact path remains writable\ndocker compose exec app sh -lc 'mkdir -p /app/data && echo test > /app/data/test-file && cat /app/data/test-file'\n```",
+            "type": "Built-in",
+            "ordinal": 262,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-05-21T11:39:48.620000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:36.630000-04:00",
+            "active": true
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "composite_response": [
+    {
+      "reference_id": "T2610",
+      "http_status_code": 201,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "automatic": false,
+        "text": "[AI-Noted] Organizational/process requirement: Verify that Transparent Data Encryption is utilized with Enterprise Databases. Not applicable for code fixes.",
+        "id": 125220,
+        "created": "2026-09-17T16:55:28.981619-04:00",
+        "updater": {
+          "id": 30493,
+          "email": "isilveira+support@securitycompass.com",
+          "first_name": "ismenia",
+          "last_name": "Support",
+          "is_active": true,
+          "role": {
+            "id": "UR4",
+            "name": "Administrator"
+          }
+        },
+        "updated": "2026-09-17T16:55:28.981619-04:00",
+        "extra": {},
+        "task": "T2610"
+      }
+    }
+  ]
+}

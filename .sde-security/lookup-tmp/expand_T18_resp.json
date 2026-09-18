@@ -1,0 +1,177 @@
+{
+  "composite_response": [
+    {
+      "reference_id": "T18",
+      "http_status_code": 200,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "results": [
+          {
+            "db_id": 2903,
+            "id": "TA2903",
+            "title": "ASD-STIG requirements",
+            "text": "## V-222393 [medium]:\n__The application must associate organization-defined types of security attributes having organization-defined security attribute values with information in storage.__\n\nWithout the association of security attributes to information, there is no basis for the application to make security related access-control decisions.\n\nSecurity attributes are abstractions representing the basic properties or characteristics of an entity (e.g., subjects and objects) with respect to safeguarding information.\n\nThese attributes are typically associated with internal data structures (e.g., records, buffers, files) within the information system and are used to enable the implementation of access control and flow control policies, reflect special dissemination, handling or distribution instructions, or support other aspects of the information security policy.\n\nOne example includes marking data as classified or FOUO. These security attributes may be assigned manually or during data processing but either way, it is imperative these assignments are maintained while the data is in storage. If the security attributes are lost when the data is stored, there is the risk of a data compromise.\n\nClassify the system hosting the application with default classification.  Treat all unmarked data at the highest classification as the overall hosting system is classified.  If there is no classification, mark system high.\n\n## V-222425 [high]:\n__The application must enforce approved authorizations for logical access to information and system resources in accordance with applicable access control policies.__\n\nTo mitigate the risk of unauthorized access to sensitive information by entities that have been issued certificates by DoD-approved PKIs, all DoD systems (e.g., networks, web servers, and web portals) must be properly configured to incorporate access control methods that do not rely solely on the possession of a certificate for access. \n\nSuccessful authentication must not automatically give an entity access to a restricted asset or security boundary.\n\nAuthorization procedures and controls must be implemented to ensure each authenticated entity also has a validated and current authorization.\n\nAuthorization is the process of determining whether an entity, once authenticated, is permitted to access a specific asset.\n\nInformation systems use access control policies and enforcement mechanisms to implement this requirement.\n\nAccess control policies include identity-based policies, role-based policies, and attribute-based policies.\n\nAccess enforcement mechanisms include access control lists, access control matrices, and cryptography.\n\nThese policies and mechanisms must be employed by the application to control access between users (or processes acting on behalf of users) and objects (e.g., devices, files, records, processes, programs, and domains) in the information system.\n\nThis requirement is applicable to access control enforcement applications (e.g., authentication servers) and other applications that perform information and system access control functions.\n\n## V-222426 [medium]:\n__The application must enforce organization-defined discretionary access control policies over defined subjects and objects.__\n\nDiscretionary Access Control allows users to determine who is allowed to access their data. To mitigate the risk of unauthorized access to sensitive information by entities that have been issued certificates by DoD-approved PKIs, all DoD systems (e.g., networks, web servers, and web portals) must be properly configured to incorporate access control methods that do not rely solely on the possession of a certificate for access. Successful authentication must not automatically give an entity access to an asset or security boundary. Authorization procedures and controls must be implemented to ensure each authenticated entity also has a validated and current authorization. Authorization is the process of determining whether an entity, once authenticated, is permitted to access a specific asset. Information systems use access control policies and enforcement mechanisms to implement this requirement.\n\nAccess control policies include identity-based policies, role-based policies, and attribute-based policies. Access enforcement mechanisms include access control lists, access control matrices, and cryptography. These policies and mechanisms must be employed by the application to control access between users (or processes acting on behalf of users) and objects (e.g., devices, files, records, processes, programs, and domains) in the information system.\n\nThis requirement is applicable to access control enforcement applications (e.g., authentication servers) and other applications that perform information and system access control functions.\n\n## V-222517 [medium]:\n__The application must employ a deny-all, permit-by-exception (whitelist) policy to allow the execution of authorized software programs.__\n\nUtilizing a whitelist provides a configuration management method for allowing the execution of only authorized software. Using only authorized software decreases risk by limiting the number of potential vulnerabilities.\n\nThe organization must identify authorized software programs and permit execution of authorized software. The process used to identify software programs that are authorized to execute on organizational information systems is commonly referred to as whitelisting.\n\nVerification of whitelisted software can occur either prior to execution or at system startup.\n\nThis requirement applies to configuration management applications or similar types of applications designed to manage system processes and configurations (e.g., HBSS and software wrappers).\n\n",
+            "type": "Built-in",
+            "ordinal": 0,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2020-11-16T13:26:21.661000-05:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2022-06-02T10:13:06.432000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9456,
+            "id": "TA9456",
+            "title": "T18 - SKILL.md - JavaScript",
+            "text": "---\nname: make-authorization-decisions-using-full-context\ndescription: Use when JavaScript authorization checks or downstream service calls make access decisions with only partial identity data, missing permissions/scope, or untrusted propagated claims.\n---\n# Make authorization decisions using full context\n\n## What This Skill Does\nThis skill fixes insufficient authorization checks caused by missing end-user context. It updates JavaScript code so business logic and downstream services receive an explicit `authContext` object with the minimum required authorization attributes such as `userId`, `permissions`, `roles`, `tenantId`, and ownership scope. It also standardizes fail-closed behavior when context is missing, malformed, expired, incomplete, or untrusted, and ensures propagated claims are verified before use.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Authorization functions accept only `userId`, `documentId`, `action`, or similar partial inputs | Refactor the function to accept a canonical `authContext` object and make the decision from that full context plus resource attributes |\n| Business/model/service-layer code re-fetches permissions or infers them from global/request state | Pass normalized permission and scope data directly into the method instead of re-fetching or inferring it |\n| Downstream authorization relies on JWT or forwarded claims | Verify claims with `jwt.verify(...)`, validate required fields, audience, and freshness, then map only trusted claims into `authContext` |\n| Client-supplied headers/body fields are used directly for authorization | Reject untrusted raw fields and authorize only from validated server-side or integrity-protected context |\n| Code already passes normalized context and denies when required fields are missing | No action needed |\n\n## Boundaries\n\n### Can Do\n- Refactor JavaScript authorization helpers and business methods to accept an explicit `authContext`\n- Add normalization and fail-closed validation for required authorization fields\n- Verify propagated JWT claims before downstream authorization decisions\n\n### Cannot Do\n- Invent the correct authorization policy when required permissions, roles, or scopes are undefined by the application\n- Guarantee end-to-end trust across services without real signing keys, issuer rules, and deployment configuration\n- Fix unrelated authentication flaws such as weak login, session handling, or broken identity proofing\n\n## Gotchas\n- Passing only `userId` as \"context\": this is still incomplete if the decision also depends on permissions, tenant, roles, ownership, or request scope\n- Normalizing missing permissions to an empty array and then treating that as sufficient context: missing required claims should deny authorization, not silently downgrade checks\n- Trusting decoded but unverified JWT data with `jwt.decode(...)`: decoded claims are not integrity-checked and must not drive authorization\n\n## Quick Verification\n```bash\n# Confirm a canonical authorization context or verifier exists\nrg -n \"function\\s+(normalizeAuthContext|authorizeDocumentAccess|verifyDownstreamAuthContext)\\b|jwt\\.verify\\(\" .\n\n# Find likely unguarded or partial authorization patterns that bypass full-context checks\nrg -n \"function\\s+\\w*authoriz\\w*\\([^)]*(action|documentId|userId)[^)]*\\)|\\b(authoriz\\w*|readDocument|canDeletePost)\\([^,)]*(documentId|userId|action)[^)]*\\)|jwt\\.decode\\(\" .\n\n# Build + test using the project's available JavaScript toolchain\nnpm test || yarn test || pnpm test || bun test\n```",
+            "type": "Built-in",
+            "ordinal": 361,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:40.095000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:40.095000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9505,
+            "id": "TA9505",
+            "title": "T18 - SKILL.md - Python",
+            "text": "---\nname: make-authorization-decisions-using-full-context\ndescription: Use when Python code makes authorization decisions with partial identity or resource data and must require a complete server-derived authorization context at the enforcement point.\n---\n# Make authorization decisions using full context\n\n## What This Skill Does\nThis skill fixes insufficient authorization checks caused by missing actor or resource information. It updates Python code so protected operations receive one complete, server-derived authorization context object and evaluate access using both actor attributes and trusted resource attributes at the exact layer that returns or mutates protected data. It also preserves end-user context across service boundaries when downstream code performs the authorization check.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Protected function reads, returns, updates, or deletes sensitive data using only `document_id`, `user_id`, `username`, `role`, or request parameters | Apply this fix |\n| Authorization inputs are scattered across multiple parameters or reconstructed from globals/session/request state | Replace with a single required immutable `AuthzContext`-style object |\n| Authorization checks use client-supplied owner, tenant, or scope values instead of trusted server-side resource data | Load the target resource from a trusted source first and authorize against both actor and resource |\n| A downstream service or repository makes the authorization decision | Forward end-user authorization context in a structured form and reconstruct it before the check |\n| Code already requires full server-derived actor context and trusted resource context at the enforcement point | No action needed |\n\n## Boundaries\n\n### Can Do\n- Refactor Python service, model, repository, and helper functions to require a complete authorization context input\n- Replace partial authorization checks with checks that compare actor context to trusted resource attributes\n- Add validation for missing or malformed authorization context and preserve end-user context across service calls\n\n### Cannot Do\n- Invent correct authorization rules, roles, tenant semantics, or ownership policy without evidence from the codebase\n- Prove distributed callers actually authenticate or sign propagated context unless that mechanism already exists\n- Guarantee security if other code paths still access the same protected resource without the required context\n\n## Gotchas\n- Passing only `user_id` or `role`: this is still incomplete because ownership, tenant, scopes, and other required attributes may be missing\n- Trusting request JSON, headers, or query parameters for `owner`, `tenant_id`, or `role`: these are client-controlled and cannot replace server-derived authorization attributes\n- Adding checks only in controllers: deeper service or repository functions may still be called directly and bypass authorization if they do not require context\n\n## Quick Verification\n```bash\n# Confirm a required authz context or equivalent guard exists in protected code\nrg -n \"class AuthzContext|@dataclass\\(frozen=True\\)\\s*class AuthzContext|def .*?\\((ctx|authz_context|user): .*?, document_id: str\\)\" .\n\n# Find likely unguarded dangerous access patterns that bypass full-context authorization\nrg -n \"def (fetch|get|read|update|delete)_[a-z_]*\\((document_id|resource_id|user_id): .*?\\):|return document\\.content|\\.content\\s*=|DOCUMENTS\\[[^\\]]+\\]\" .\n\n# Build + test using common Python toolchain commands; run what exists\npython -m compileall .\npytest -q\npython -m unittest discover\n```",
+            "type": "Built-in",
+            "ordinal": 417,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:41.940000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:41.940000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9531,
+            "id": "TA9531",
+            "title": "T18 - SKILL.md - Node.js",
+            "text": "---\nname: make-authorization-decisions-using-full-context\ndescription: Use when Node.js authorization checks run with incomplete user or resource context and need explicit trusted authContext propagation, validation, and fail-closed handling.\n---\n# Make authorization decisions using full context\n\n## What This Skill Does\nThis skill fixes insufficient authorization checks caused by making access decisions without enough end-user context in the enforcing layer. In Node.js code, it replaces checks based only on `userId`, request presence, or ambient state with explicit `authContext` inputs that carry trusted identity, permissions, tenant, and resource-scoping data; it also ensures downstream services validate signed context and that missing or malformed context denies access.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Authorization logic accepts only `userId`, request data, or a truthy caller value | Refactor the enforcing function to accept an explicit `authContext` object and validate required fields before deciding access |\n| Service/model/data-layer code needs permissions but reads them from request input or inferred state | Build `authContext` from a trusted server-side lookup such as `getPermissionsForUser(userId)` and deny if lookup fails |\n| A separate service or tier makes the authorization decision | Propagate only needed claims in a signed token, verify with `jwt.verify(...)`, validate required claims, then convert to internal `authContext` |\n| Authorization already validates explicit identity, permissions, tenant/resource scope, and fails closed on missing data | No action needed |\n| Code uses ambient globals like `req.user`, thread-local state, or process-wide context inside reusable authorization helpers | Pass the needed context as a function argument instead of relying on implicit state |\n\n## Boundaries\n\n### Can Do\n- Refactor Node.js authorization helpers and service functions to take explicit `authContext` parameters\n- Add trusted permission-loading and normalization such as `buildAuthContext(userId, tenantId)`\n- Add signed downstream context handling with `jsonwebtoken` verification and required-claim checks\n\n### Cannot Do\n- Invent correct authorization rules, roles, or resource ownership semantics that the application does not define\n- Prove that an upstream identity source or permission store is trustworthy without project-specific evidence\n- Secure systems that intentionally allow access without authentication or where business logic depends on unavailable domain context\n\n## Gotchas\n- Passing raw request claims straight into authorization: this is wrong because client-controlled fields can be altered and are not trusted permission data\n- Using `jwt.decode(...)` or reading token payloads without `jwt.verify(...)`: this is wrong because integrity is not checked before authorization use\n- Treating partial context as \"good enough\": this is wrong because missing fields like `tenantId`, ownership attributes, or permissions must cause deny-by-default\n\n## Quick Verification\n```bash\n# Confirm explicit authorization context or trusted builders exist\nrg -n \"authContext|buildAuthContext|getPermissionsForUser|canReadDocument|jwt\\.verify\\(\" .\n\n# Find likely unguarded authorization-sensitive calls that still rely on incomplete context\nrg -n \"if\\s*\\(\\s*userId\\s*\\)|getDocumentForUser\\s*\\(\\s*userId\\s*,\\s*documentId|req\\.(query|body)\\.(roles?|permissions|tenantId)|jwt\\.decode\\(\" .\n\n# Build the project if a build script exists\nnpm run build --if-present\n\n# Run tests if present; works for apps, libraries, CLIs, and services using npm\nnpm test --if-present\n```",
+            "type": "Built-in",
+            "ordinal": 446,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:42.956000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:42.956000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9589,
+            "id": "TA9589",
+            "title": "T18 - SKILL.md - C#",
+            "text": "---\nname: make-authorization-decisions-using-full-context\ndescription: Use when C# authorization checks rely on partial identity, ambient request state, or caller assertions instead of explicit end-user context with subject, permissions, and scope.\n---\n# Make authorization decisions using full context\n\n## What This Skill Does\nThis skill fixes authorization flaws caused by making access decisions without the full end-user context. In C#, it replaces partial checks such as role-only decisions, `ClaimsPrincipal` lookups deep in the stack, or trusted `isAuthorized` flags with an explicit strongly typed authorization context that carries the required subject, permissions, tenant, ownership, and resource scope data. The receiving layer must recompute authorization where resource facts are available and fail closed if required context is missing or malformed.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Methods or service calls pass only `userId`, `role`, `callerRole`, or a boolean like `isAuthorized` | Introduce a strongly typed `AuthorizationContextData` parameter and pass explicit identity, permissions, and required scope values |\n| Deeper layers read `ClaimsPrincipal`, `HttpContext`, or ambient request state directly | Move claim extraction to the entry point, normalize values once, and pass the resulting authorization context explicitly |\n| Authorization depends on tenant, owner, account, project, or resource attributes | Include those exact inputs in the receiving-layer check and recompute authorization next to the resource facts |\n| Cross-service or serialization boundaries drop end-user authorization details | Serialize and validate the minimal authorization context needed by the downstream decision point |\n| Code already uses explicit context, validates required fields, and recomputes authorization in the receiving layer | No action needed |\n\n## Boundaries\n\n### Can Do\n- Introduce a typed authorization context object and thread it through C# methods and service calls\n- Replace ambient or partial authorization inputs with explicit subject, permission, and scope data\n- Add fail-closed validation when identity, permissions, tenant, or ownership inputs are required\n\n### Cannot Do\n- Infer the correct authorization model when business rules for ownership, tenanting, or permission names are unknown\n- Replace a full policy engine or redesign an application's entire identity architecture\n- Guarantee secure authorization if downstream code still trusts caller-supplied approval flags or omits resource facts\n\n## Gotchas\n- Passing only `userId` or only `role`: this is still incomplete when the decision also depends on permissions, tenant, ownership, or action\n- Reusing `ClaimsPrincipal` in deep layers: this keeps authorization dependent on ambient state and makes background jobs, libraries, and service boundaries inconsistent\n- Treating missing scope as optional: defaulting to anonymous, default tenant, or caller identity turns malformed context into unintended access\n\n## Quick Verification\n```bash\n# Confirm a typed authorization context is present\nrg -n --glob '*.cs' 'class\\s+AuthorizationContextData|record\\s+AuthorizationContextData|CreateFromPrincipal\\s*\\(|RequireContext\\s*\\(' .\n\n# Find likely unguarded ambient authorization usage or partial checks that bypass explicit context propagation\nrg -n --glob '*.cs' 'IHttpContextAccessor|HttpContext\\.User|Thread\\.CurrentPrincipal|ClaimsPrincipal\\.Current|callerRole|isAuthorized|alreadyAuthorized|FindFirst\\s*\\(|FindAll\\s*\\(' .\n\n# Build all discovered C# projects/solutions\nfind . \\( -name '*.sln' -o -name '*.csproj' \\) -print0 | xargs -0 -I{} dotnet build \"{}\"\n\n# Run tests for all discovered C# test projects/solutions\nfind . \\( -name '*.sln' -o -name '*Tests.csproj' -o -name '*.Tests.csproj' \\) -print0 | xargs -0 -I{} dotnet test \"{}\"\n```",
+            "type": "Built-in",
+            "ordinal": 511,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:45.155000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:45.155000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9673,
+            "id": "TA9673",
+            "title": "T18 - SKILL.md - Java",
+            "text": "---\nname: make-authorization-decisions-using-full-context\ndescription: Use when Java code makes authorization decisions with partial inputs and must require complete immutable subject, action, tenant, and resource context before allowing access.\n---\n# Make authorization decisions using full context\n\n## What This Skill Does\nThis skill fixes authorization flaws caused by making allow/deny decisions with incomplete information, such as only a user ID, only a role, only a tenant, or only a resource identifier. In Java code, it introduces a strongly typed immutable authorization context, passes that context and the target resource/action through every layer involved in access control, centralizes policy checks where full context exists, and makes missing or inconsistent data fail closed instead of falling back to allow.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Methods authorize or access protected data using only `userId`, `role`, `tenantId`, `documentName`, or similar partial values | Apply this fix |\n| Services, repositories, or internal APIs assume an upstream layer already checked authorization | Add explicit `AuthorizationContext`, `Action`, and resource inputs, then re-check where full context exists |\n| Authorization logic is spread across controllers, services, and helpers with inconsistent inputs | Replace with a shared authorizer that evaluates full subject + action + resource + tenant context |\n| Downstream/internal service calls rely on caller trust, network location, DTO shape, or service identity alone | Require propagated end-user authorization context and deny when it is missing |\n| Code already uses immutable typed context, explicit action/resource checks, tenant matching, and deny-by-default on missing inputs | No action needed |\n\n## Boundaries\n\n### Can Do\n- Refactor Java authorization code to accept a typed immutable `AuthorizationContext`\n- Add explicit `Action` and resource metadata inputs to authorization checks\n- Change allow logic to deny by default when context is null, partial, or inconsistent\n\n### Cannot Do\n- Invent trusted user, tenant, role, or permission data that the application does not already authenticate or resolve\n- Define business authorization policy that is not already implied by the code or requirements\n- Guarantee security if some call paths still bypass the shared authorizer or protected service boundary\n\n## Gotchas\n- Passing raw request fields into `AuthorizationContext`: this is wrong because tenant, roles, and permissions must come from authenticated and trusted server-side data, not caller-controlled input\n- Checking only `hasRole(\"ADMIN\")` or only `hasPermission(...)`: this is wrong because authorization often also requires tenant match, resource ownership, sensitivity, workflow state, and exact action\n- Making the check in the wrong layer: this is wrong because repositories or helpers often lack full resource and action context, which leads to partial-input allow decisions\n\n## Quick Verification\n```bash\n# Confirm a typed authorization context or equivalent authorizer exists\nrg -n --glob '*.java' 'record AuthorizationContext|class AuthorizationContext|class .*Authorizer|boolean isAllowed\\s*\\(' .\n\n# Find likely unguarded protected-data access paths that bypass full-context authorization\nrg -n --glob '*.java' 'public .*readDocument\\s*\\(\\s*String\\b|public .*process\\s*\\(\\s*String\\b|Files\\.readString\\s*\\(|Files\\.newInputStream\\s*\\(|Files\\.readAllBytes\\s*\\(' .\n\n# Find dangerous authorization patterns that use partial inputs only\nrg -n --glob '*.java' 'hasRole\\s*\\(|hasPermission\\s*\\(|tenantId\\s*\\(|userId\\s*\\(' .\n\n# Build and test with the detected Java toolchain\ntest -f pom.xml && mvn test\ntest -f build.gradle && ./gradlew test\ntest -f build.gradle.kts && ./gradlew test\n```",
+            "type": "Built-in",
+            "ordinal": 607,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:48.571000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:48.571000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9710,
+            "id": "TA9710",
+            "title": "T18 - SKILL.md - TypeScript",
+            "text": "---\nname: make-authorization-decisions-using-full-context\ndescription: Use when TypeScript code makes authorization decisions from partial security data and needs a single validated authorization context with authoritative resource attributes and protected forwarding.\n---\n\n# Make authorization decisions using full context\n\n## What This Skill Does\nThis skill fixes authorization flaws caused by deciding access from incomplete inputs such as `role`, `userId`, request-local fields, or caller-supplied resource metadata. It standardizes authorization around one structured `AuthContext`, validates required fields before every decision, loads ownership and tenant data from authoritative application records, and preserves end-user, permission, delegation, and freshness data when context crosses service boundaries.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Authorization checks use only `role`, `userId`, or request params/body fields | Replace the check with a single `AuthContext` passed into one authorization function |\n| Resource ownership, tenant, or classification comes from request input | Load resource attributes from authoritative application data before authorizing |\n| Context is forwarded across services or queues | Verify integrity/freshness, preserve subject/permissions/delegation metadata, and reject malformed or stale context |\n| Required context fields are missing, empty, or malformed | Deny access by default before making the authorization decision |\n| Code already validates full context and uses authoritative resource attributes | No action needed |\n\n## Boundaries\n\n### Can Do\n- Refactor TypeScript authorization flows to accept one validated `AuthContext`\n- Add schema validation and fail-closed checks before authorization decisions\n- Replace caller-supplied resource metadata with authoritative loaded attributes\n\n### Cannot Do\n- Invent missing business rules for ownership, delegation, or tenant isolation\n- Guarantee security of external identity tokens or service-to-service trust by itself\n- Fix every authorization bug if the application lacks authoritative resource data sources\n\n## Gotchas\n- Rebuilding context from partial fields at lower layers: this reintroduces the same bug because services/repositories lose tenant, delegation, or permission data\n- Trusting `ownerUserId`, `tenantId`, or classification from request input: caller-controlled metadata must not drive the authorization decision\n- Validating shape but not freshness or integrity for forwarded context: signed-looking or well-formed context can still be stale, replayed, or tampered with\n\n## Quick Verification\n```bash\n# Confirm a structured authorization context and validation path exist\nrg -n --glob '*.ts' 'AuthContext(Schema)?|authorize\\(|parseAuthContext\\(|hasRequiredContext\\(|isFullAuthContext\\(' .\n\n# Find likely unguarded authorization decisions based on partial fields or caller-controlled metadata\nrg -n --glob '*.ts' '(role\\s*===|userId\\s*===|req\\.(user|query|params|body).*(owner|tenant|role)|getDocumentForRole\\(|readDocument\\(.*role)' .\n\n# Type-check/build the project using the TypeScript toolchain\nnpx tsc --noEmit\n\n# Run project tests if present\nnpm test\n```",
+            "type": "Built-in",
+            "ordinal": 648,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:49.995000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:49.995000-04:00",
+            "active": true
+          }
+        ]
+      }
+    }
+  ]
+}

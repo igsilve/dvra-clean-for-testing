@@ -1,0 +1,12 @@
+{
+  "cm_id": "T378",
+  "category": "CF",
+  "library_sourced": false,
+  "content_fields": {
+    "title": "Authorize every request for data objects",
+    "url": "https://staging.qa.sdelements.com/bunits/copilot-test/app/dvra-clean-for-testing/tasks/phase/development/4552-T378/",
+    "priority": 8,
+    "output_path": "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T378-authorize-every-request-for-data-objects/SKILL.md"
+  },
+  "output_path": "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T378-authorize-every-request-for-data-objects/SKILL.md"
+}

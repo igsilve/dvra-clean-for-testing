@@ -1,0 +1,12 @@
+{
+  "cm_id": "T2663",
+  "category": "CF",
+  "library_sourced": false,
+  "content_fields": {
+    "title": "Use a secure authentication mechanism for database connections",
+    "url": "https://staging.qa.sdelements.com/bunits/copilot-test/app/dvra-clean-for-testing/tasks/phase/deployment/4552-T2663/",
+    "priority": 9,
+    "output_path": "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T2663-use-a-secure-authentication-mechanism-fo/SKILL.md"
+  },
+  "output_path": "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T2663-use-a-secure-authentication-mechanism-fo/SKILL.md"
+}

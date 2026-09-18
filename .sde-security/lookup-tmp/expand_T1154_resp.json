@@ -1,0 +1,131 @@
+{
+  "composite_response": [
+    {
+      "reference_id": "T1154",
+      "http_status_code": 200,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "results": [
+          {
+            "db_id": 954,
+            "id": "TA954",
+            "title": "Docker: Secure Docker registries - More in-depth controls",
+            "text": "**Enable content trust for Docker:** Content trust is disabled by default.\n\nIn an environment where `DOCKER_CONTENT_TRUST` is set, you are required to follow trust procedures while working with images - build, create, pull, push and run. You can use the `--disable-content-trust` flag to run individual operations on tagged images without content trust on an as-needed basis but that defeats the purpose of enabling content trust and hence, should be avoided wherever possible.\n\n**Note:** Content trust is currently only available for users of the public *Docker Hub*. It is currently not available for the *Docker Trusted Registry* or for private registries.",
+            "type": "Built-in",
+            "ordinal": 0,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2018-07-18T12:24:54.847000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2018-12-31T18:47:16.768000-05:00",
+            "active": true
+          },
+          {
+            "db_id": 2112,
+            "id": "TA2112",
+            "title": "FedRAMP / Low Baseline",
+            "text": "*** CM-8: Configuration Management | Information System Component Inventory ***  \nThe organization:\n\na. Develops and documents an inventory of information system components that:  \n   1. Accurately reflects the current information system;  \n   2. Includes all components within the authorization boundary of the information system;  \n   3. Is at the level of granularity deemed necessary for tracking and reporting; and  \n   4. Includes [Assignment: organization-defined information deemed necessary to achieve effective information system component accountability]; and  \nb. Reviews and updates the information system component inventory [at least monthly or when there is a change].",
+            "type": "Built-in",
+            "ordinal": 10,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-17T16:28:53.444000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T16:44:56.470000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 1521,
+            "id": "TA1521",
+            "title": "FedRAMP / Moderate Baseline",
+            "text": "*** CM-8: Configuration Management | Information System Component Inventory ***  \nThe organization:\n\na. Develops and documents an inventory of information system components that:\n\n1. Accurately reflects the current information system;\n2. Includes all components within the authorization boundary of the information system;\n3. Is at the level of granularity deemed necessary for tracking and reporting; and\n4. Includes [Assignment: organization-defined information deemed necessary to achieve effective information system component accountability]; and\n\nb. Reviews and updates the information system component inventory [at least monthly or when there is a change].",
+            "type": "Built-in",
+            "ordinal": 11,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-15T17:48:51.446000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T15:08:01.013000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 2490,
+            "id": "TA2490",
+            "title": "FedRAMP / High Baseline",
+            "text": "*** CM-8: Configuration Management | Information System Component Inventory ***  \nThe organization:  \n a. Develops and documents an inventory of information system components that:  \n   1. Accurately reflects the current information system;  \n   2. Includes all components within the authorization boundary of the information system;  \n   3. Is at the level of granularity deemed necessary for tracking and reporting; and  \n   4. Includes [Assignment: organization-defined information deemed necessary to achieve effective information system component accountability]; and  \n b. Reviews and updates the information system component inventory [at least monthly or when there is a change].",
+            "type": "Built-in",
+            "ordinal": 12,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-17T18:33:56.594000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T18:38:10.027000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 8474,
+            "id": "TA8474",
+            "title": "T1154 - SKILL.md - Docker",
+            "text": "---\nname: secure-docker-registries\ndescription: Secure Docker registries (Docker) by enforcing TLS, trusted CAs, and no insecure registries; Use when code or Dockerfiles interact with container registries\n---\n\n# Secure Docker registries (Docker)\n\n## What This Skill Does\nEnforces that Docker images are only pulled from or pushed to TLS-protected registries with proper certificate verification and trusted CAs. It removes insecure (`http://`) registry usage, prevents \u201cinsecure registry\u201d flags or fallbacks in production, and documents/validates the expected CA location on Docker hosts so that registry communication cannot be intercepted or tampered with.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| `FROM http://...` or any registry URL using `http` (plaintext) is found | Replace with an `https`-based registry or an approved TLS-protected image (e.g., `FROM alpine:3.20` from Docker Hub) and remove any plaintext registry usage |\n| Code, scripts, or config use `--insecure-registry`, `insecure-registries`, or flags that disable TLS/cert verification in production | Remove those flags/options for production paths; make production fail fast when such settings are present |\n| Code constructs registry URLs dynamically (e.g., `REGISTRY_URL`, `REGISTRY_HOST`) | Force `https://` scheme in those URLs, and ensure no downgrade to `http` is possible in production |\n| Images are expected to use a private registry with a custom CA | Document and enforce `/etc/docker/certs.d/<registry-name>/ca.crt` as the CA path via env vars/labels; rely on Docker host to provide the CA and treat missing CA as configuration error |\n| Registry access is already using `https` with no insecure flags and no plaintext endpoints | No action needed; optionally add labels/metadata documenting TLS and CA requirements for policy tools |\n\n## Boundaries\n\n### Can Do\n- Detect and remove obvious insecure registry usage in Dockerfiles (e.g., `FROM http://insecure-registry...`).\n- Guide replacement with secure, TLS-enabled registries and official base images (e.g., `FROM alpine:3.20`).\n- Add metadata (labels, env vars, args) that encode \u201cHTTPS-only\u201d, \u201cTLS-verify required\u201d, and CA path expectations for registries.\n\n### Cannot Do\n- Cannot verify that a given registry actually has TLS correctly configured or that its CA is properly installed on the host (this requires runtime/ops checks).\n- Cannot generate or manage real TLS certificates or CA files; only document and reference their expected locations.\n- Cannot update Docker daemon or orchestration platform settings directly (e.g., removing `--insecure-registry` from dockerd flags); can only suggest configuration changes.\n\n## Gotchas\n- Allowing `http://` in non-production code \u201cfor convenience\u201d: this often bleeds into production via shared Dockerfiles or CI pipelines; keep Dockerfiles and shared scripts HTTPS-only and enforce environment-based checks in higher-level code instead.\n- Disabling certificate or hostname verification \u201ctemporarily\u201d (e.g., `tls-verify=false`, custom HTTP client flags): this silently breaks the trust model even though `https` is used; always treat disabled verification as insecure in production.\n- Assuming CA files inside the image control Docker\u2019s pull behavior: Docker uses CA certificates on the *host* under `/etc/docker/certs.d/<registry-name>/`; placing CAs only inside the container does not secure `docker pull` operations.\n\n## Quick Verification\n```bash\n# 1. Static check: search for insecure registry usage in Dockerfiles and configs\ngrep -R --line-number --color=always -E 'FROM http://|--insecure-registry|insecure-registr' .\n\n# 2. Ensure base images use HTTPS/TLS-protected registries (no http:// in image references)\ngrep -R --line-number --color=always 'http://' Dockerfile docker-compose*.yml || echo \"No plaintext registries found\"\n\n# 3. Verify Docker host CA layout for a private registry (replace with your registry name)\nREGISTRY_NAME=\"registry.example.com\"\nls -l \"/etc/docker/certs.d/${REGISTRY_NAME}/\" || echo \"Missing Docker registry CA directory\"\ntest -s \"/etc/docker/certs.d/${REGISTRY_NAME}/ca.crt\" && echo \"CA file present and non-empty\" || echo \"CA file missing or empty\"\n\n# 4. Attack test: try to build from a plaintext registry (should fail by policy/CI)\ndocker build -f vulnerable.dockerfile . || echo \"Build blocked as expected for insecure registry\"\n```",
+            "type": "Built-in",
+            "ordinal": 36,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-05-21T11:39:50.008000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-05-21T11:39:50.008000-04:00",
+            "active": true
+          }
+        ]
+      }
+    }
+  ]
+}

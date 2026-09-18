@@ -1,0 +1,12 @@
+{
+  "cm_id": "T61",
+  "category": "CF",
+  "library_sourced": false,
+  "content_fields": {
+    "title": "Disable default accounts or change all default passwords",
+    "url": "https://staging.qa.sdelements.com/bunits/copilot-test/app/dvra-clean-for-testing/tasks/phase/deployment/4552-T61/",
+    "priority": 9,
+    "output_path": "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T61-disable-default-accounts-or-change-all-d/SKILL.md"
+  },
+  "output_path": "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T61-disable-default-accounts-or-change-all-d/SKILL.md"
+}

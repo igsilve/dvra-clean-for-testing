@@ -1,0 +1,12 @@
+{
+  "cm_id": "T2652",
+  "category": "CF",
+  "library_sourced": false,
+  "content_fields": {
+    "title": "Consider adding plugins for stronger authentication protocols and stricter password complexity rules (MariaDB)",
+    "url": "https://staging.qa.sdelements.com/bunits/copilot-test/app/dvra-clean-for-testing/tasks/phase/deployment/4552-T2652/",
+    "priority": 9,
+    "output_path": "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T2652-consider-adding-plugins-for-stronger-aut/SKILL.md"
+  },
+  "output_path": "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T2652-consider-adding-plugins-for-stronger-aut/SKILL.md"
+}

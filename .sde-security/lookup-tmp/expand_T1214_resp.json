@@ -1,0 +1,108 @@
+{
+  "composite_response": [
+    {
+      "reference_id": "T1214",
+      "http_status_code": 200,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "results": [
+          {
+            "db_id": 3328,
+            "id": "TA3328",
+            "title": "ASD-STIG requirements",
+            "text": "## V-222574 [medium]:\n__The application user interface must be either physically or logically separated from data storage and management interfaces.__\n\nApplication management functionality includes functions necessary for administration and requires privileged user access. Allowing non-privileged users to access application management functionality capabilities increases the risk that non-privileged users may obtain elevated privileges.\n\nThe separation of user functionality from information system management functionality is either physical or logical and is accomplished by using different computers, different central processing units, different instances of the operating system, different network addresses, different TCP/UDP ports, virtualization techniques, combinations of these methods, or other methods, as appropriate.\n\nAn example of this type of separation is observed in web administrative interfaces that use separate authentication methods for users of any other information system resources. This may include isolating the administrative interface on a different security domain and with additional access controls.\n\n",
+            "type": "Built-in",
+            "ordinal": 0,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2020-11-16T13:44:32.558000-05:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2022-06-02T10:13:08.731000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 1286,
+            "id": "TA1286",
+            "title": "FedRAMP / Moderate Baseline",
+            "text": "*** AC-6: Access Control | Least Privilege ***  \nThe organization employs the principle of least privilege, allowing only authorized accesses for users (or processes acting on behalf of users) which are necessary to accomplish assigned tasks in accordance with organizational missions and business functions.",
+            "type": "Built-in",
+            "ordinal": 11,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-15T17:48:41.958000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T15:07:57.121000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 2288,
+            "id": "TA2288",
+            "title": "FedRAMP / High Baseline",
+            "text": "*** AC-6: Access Control | Least Privilege ***  \nThe organization employs the principle of least privilege, allowing only authorized accesses for users (or processes acting on behalf of users) which are necessary to accomplish assigned tasks in accordance with organizational missions and business functions.",
+            "type": "Built-in",
+            "ordinal": 12,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-17T18:26:39.279000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T18:38:06.372000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 8449,
+            "id": "TA8449",
+            "title": "T1214 - SKILL.md - Docker",
+            "text": "---\nname: restrict-containers-from-acquiring-additional-privileges-docker\ndescription: Use when Docker Compose or similar container service definitions allow missing or inconsistent no-new-privileges protection and need explicit service-level restriction.\n---\n\n# Restrict containers from acquiring additional privileges (Docker)\n\n## What This Skill Does\nThis skill fixes Docker and Docker Compose service configurations that allow containers to gain additional privileges at runtime. It does this by adding an explicit service-level `security_opt` entry with `no-new-privileges:true` to every in-scope service, so processes inside the container cannot elevate privileges through setuid, setgid, or similar paths. It also flags obviously risky settings like `privileged: true` or broad capability grants that weaken the intended container boundary.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| A Docker Compose service lacks `security_opt` or does not include `no-new-privileges:true` | Apply the fix by adding `security_opt: [no-new-privileges:true]` at that service |\n| A project has multiple services and only some define `no-new-privileges:true` | Add the setting explicitly to each in-scope service; do not rely on another service's config |\n| A service uses `privileged: true` or `cap_add: [ALL]` | Add `no-new-privileges:true` and reduce privileges where safe, such as removing `privileged` or replacing broad adds with `cap_drop` |\n| The service already defines `security_opt` with exact `no-new-privileges:true` | No action needed |\n| The configuration is not a Docker service definition | Do not apply this skill; use a platform-specific hardening approach instead |\n\n## Boundaries\n\n### Can Do\n- Add explicit `security_opt` entries with `no-new-privileges:true` to Docker Compose services\n- Update each in-scope service individually so the restriction is not only implied elsewhere\n- Point out nearby privilege risks such as `privileged: true` and excessive capability grants\n\n### Cannot Do\n- Guarantee the application will still work if it depended on privilege escalation behavior\n- Prove runtime enforcement without checking the effective rendered or running container configuration\n- Secure non-Docker platforms such as Kubernetes, Podman, or raw host service managers with Docker-specific syntax\n\n## Gotchas\n- Adding the setting only to one service: each in-scope service must declare it explicitly or it may remain unprotected\n- Using an inexact value or wrong key: the restriction must be `security_opt` with exact `no-new-privileges:true` or the runtime may not preserve it\n- Leaving `privileged: true` in place and assuming this fix is enough: `no-new-privileges` helps, but broad privilege settings still expand attack impact\n\n## Quick Verification\n```bash\n# Render the effective Compose configuration and confirm each service includes no-new-privileges:true\ndocker compose config\n\n# Inspect a running container and check the security options applied\ndocker inspect <container_name_or_id> --format '{{json .HostConfig.SecurityOpt}}'\n\n# List containers started by Compose, then inspect the target service container\ndocker compose ps\n```",
+            "type": "Built-in",
+            "ordinal": 267,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-05-21T11:39:48.297000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:36.818000-04:00",
+            "active": true
+          }
+        ]
+      }
+    }
+  ]
+}

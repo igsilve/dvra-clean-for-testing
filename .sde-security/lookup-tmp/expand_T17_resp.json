@@ -1,0 +1,269 @@
+{
+  "composite_response": [
+    {
+      "reference_id": "T17",
+      "http_status_code": 200,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "results": [
+          {
+            "db_id": 2902,
+            "id": "TA2902",
+            "title": "ASD-STIG requirements",
+            "text": "## V-222438 [medium]:\n__The application must protect against an individual (or process acting on behalf of an individual) falsely denying having performed organization-defined actions to be covered by non-repudiation.__\n\nWithout non-repudiation, it is impossible to positively attribute an action to an individual (or process acting on behalf of an individual).\n\nNon-repudiation services can be used to determine if information originated from a particular individual, or if an individual took specific actions (e.g., sending an email, signing a contract, approving a procurement request) or received specific information. Non-repudiation protects individuals against later claims by an author of not having authored a particular document, a sender of not having transmitted a message, a receiver of not having received a message, or a signatory of not having signed a document. The application will be configured to provide non-repudiation services for an organization-defined set of commands that are used by the user (or processes action on behalf of the user).\n\nDoD PKI provides for non-repudiation through the use of digital signatures. Non-repudiation requirements will vary from one application to another and will be defined based on application functionality, data sensitivity, and mission requirements.\n\n## V-222522 [high]:\n__The application must uniquely identify and authenticate organizational users (or processes acting on behalf of organizational users).__\n\nTo assure accountability and prevent unauthenticated access, organizational users must be identified and authenticated to prevent potential misuse and compromise of the system.\n\nOrganizational users include organizational employees or individuals the organization deems to have equivalent status of employees (e.g., contractors). \n\nOrganizational users (and any processes acting on behalf of users) must be uniquely identified and authenticated for all accesses, except the following:\n\n(i) Accesses explicitly identified and documented by the organization. Organizations document specific user actions that can be performed on the information system without identification or authentication; and \n(ii) Accesses that occur through authorized use of group authenticators without individual authentication. Organizations may require unique identification of individuals in group accounts (e.g., shared privilege accounts) or for detailed accountability of individual activity.\n\n## V-222556 [medium]:\n__The application must uniquely identify and authenticate non-organizational users (or processes acting on behalf of non-organizational users).__\n\nLack of authentication and identification enables non-organizational users to gain access to the application or possibly other information systems and provides an opportunity for intruders to compromise resources within the application or information system.\n\nNon-organizational users include all information system users other than organizational users which include organizational employees or individuals the organization deems to have equivalent status of employees (e.g., contractors and guest researchers).\n\nNon-organizational users must be uniquely identified and authenticated for all accesses other than those accesses explicitly identified and documented by the organization when related to the use of anonymous access, such as accessing a web server.\n\n",
+            "type": "Built-in",
+            "ordinal": 0,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2020-11-16T13:26:20.134000-05:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2022-06-02T10:13:06.418000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 1534,
+            "id": "TA1534",
+            "title": "FedRAMP / Moderate Baseline",
+            "text": "*** IA-2: Identification And Authentication | Identification And Authentication (Organizational Users) ***  \nThe information system uniquely identifies and authenticates organizational users (or processes acting on behalf of organizational users).",
+            "type": "Built-in",
+            "ordinal": 11,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-15T17:48:52.376000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T15:08:01.371000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 2506,
+            "id": "TA2506",
+            "title": "FedRAMP / High Baseline",
+            "text": "*** IA-2: Identification And Authentication | Identification And Authentication (Organizational Users) ***  \nThe information system uniquely identifies and authenticates organizational users (or processes acting on behalf of organizational users).",
+            "type": "Built-in",
+            "ordinal": 12,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-17T18:33:58.012000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T18:38:10.343000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9296,
+            "id": "TA9296",
+            "title": "T17 - SKILL.md - Python",
+            "text": "---\nname: do-not-only-rely-on-client-side-authorization\ndescription: Use when Python code makes authorization decisions from client-controlled data or fails to enforce access checks on protected server-side routes, handlers, or resources.\n---\n# Do not only rely on client-side authorization\n\n## What This Skill Does\nThis skill fixes Client-Side Enforcement of Server-Side Security (CWE-602 / P494) in Python by moving authorization decisions to the server, using only server-controlled identity and permission data, and enforcing the same check on every protected action or resource. It applies when code trusts request headers, parameters, cookies, form fields, or UI state such as `X-User-Role`, hidden fields, or client flags to decide who may access sensitive pages, APIs, files, or actions.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| A route, handler, CLI path, or service method uses client input like headers, params, cookies, or JSON fields to decide admin/user access | Replace the decision with a server-side authorization helper that validates identity and checks roles/permissions from server-controlled data |\n| Flask or similar Python web code protects access only in the UI or front-end behavior | Add a server-side guard/decorator/helper and apply it to every protected endpoint and response path |\n| Code reads fields such as `X-User-Role`, `role`, `is_admin`, or `permissions` from the request and trusts them for access control | Ignore those client-supplied authorization fields for decision-making; use them only as untrusted input if needed for logging or compatibility |\n| Multiple protected routes need the same rule | Centralize the rule in a reusable function or decorator such as `require_role(...)` or `check_server_side_admin(...)` |\n| Authorization already uses validated server identity plus server-side role lookup on every protected path | No action needed |\n\n## Boundaries\n\n### Can Do\n- Replace client-trusted authorization checks with server-side role or permission checks in Python code\n- Add reusable authorization helpers or decorators for protected routes and handlers\n- Deny access by default when identity is missing, invalid, or lacks the required permission\n\n### Cannot Do\n- Create a full authentication system or identity provider integration from scratch\n- Decide business-specific role models or permission mappings without project guidance\n- Guarantee every sensitive path is found if protection happens outside the visible Python codebase or in external infrastructure\n\n## Gotchas\n- Checking a client role before a server check: this is wrong because a forged header or request field can still influence access decisions\n- Protecting only the page link or front-end button: this is wrong because attackers can directly request the underlying URL or action\n- Verifying identity but not re-checking authorization on each protected route: this is wrong because authenticated users may still access resources they are not allowed to use\n\n## Quick Verification\n```bash\n# Confirm a reusable server-side authorization guard/helper exists\nrg -n --glob '*.py' 'def (require_role|check_server_side_admin|has_required_role)\\b|@require_role\\(' .\n\n# Find likely unguarded dangerous authorization decisions that trust client-controlled role/admin fields\nrg -n --glob '*.py' '(request\\.(headers|get_json\\(\\)|args|form|cookies).*(X-User-Role|role|is_admin|permissions)|==\\s*[\"'\"'\"']admin[\"'\"'\"'])' .\n\n# Build/test with common Python toolchains across project types\npython -m compileall .\npytest -q\n```",
+            "type": "Built-in",
+            "ordinal": 25,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:32.859000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:32.859000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 8562,
+            "id": "TA8562",
+            "title": "T17 - SKILL.md - Node.js",
+            "text": "---\nname: do-not-only-rely-on-client-side-authorization\ndescription: Enforce authorization on the server instead of trusting client-side checks or client-supplied roles/IDs; use when fixing client-side enforcement of server-side security (CWE-602).\n---\n\n# Do not only rely on client-side authorization\n\n## What This Skill Does\nThis skill helps replace insecure patterns where authorization is done in the browser (hidden buttons, disabled links, client role flags, query params) or based on client-supplied IDs/roles, with consistent server-side authorization tied to authenticated identity and server-owned data. It ensures every sensitive server entry point and data access path performs its own authorization, so direct API calls, URL guessing, or forged role values cannot bypass protections.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Endpoint or function decides access based on a client-supplied `role`, `userId`, or similar field (query/body/header/localStorage) | Move authorization to server-side helpers using authenticated user context; ignore client-supplied role/ID for auth decisions |\n| UI hides admin/owner features with JavaScript/CSS but server endpoint trusts parameters like `?role=admin` or `?isAdmin=true` | Add explicit server-side auth checks (role/ownership) in the handler and/or data layer; treat UI checks as cosmetic only |\n| Data access functions fetch by raw ID only (e.g., `getOrder(id)`) for user-specific data | Change to subject-scoped access (e.g., `getOrderForUser(id, user)`), filtering by authenticated user or verified owner, with an explicit admin branch |\n| Multiple routes/jobs access the same protected resource (e.g., admin UI, public API, background job) with slightly different checks | Centralize rules in shared `can*` helpers (role/ownership) and reuse them across handlers and jobs for consistent decisions |\n| Code already derives `req.user` from a verified session/JWT and all sensitive handlers check roles/ownership before data access | No action needed; keep tests that prove direct calls or tampered parameters are still denied |\n\n## Boundaries\n\n### Can Do\n- Detect when authorization relies on client-controlled values (query/body/header/JS state) and refactor to server-side checks.\n- Introduce or reuse a server-controlled identity context (`req.user`, verified JWT/session) and pass it into authorization helpers.\n- Integrate authorization into handlers and repositories (scoped queries, ownership checks, explicit admin branches) for protected resources.\n\n### Cannot Do\n- Cannot design your entire auth architecture or choose specific auth frameworks for you (OAuth provider selection, SSO topology).\n- Cannot infer business-specific role/ownership rules without hints; you must state who should access what (e.g., \u201conly owners and admins can edit orders\u201d).\n- Cannot fix missing authentication (no way to know who the user is at all); this skill assumes some form of server-verifiable identity exists or will be added separately.\n\n## Gotchas\n- Treating client-side role claims as \u201cverified\u201d: Reading `role` from JWT payload or localStorage without server verification is still client-controlled; always verify tokens or sessions on the server and derive identity from there.\n- Doing checks only in controllers but leaving repositories wide open: If a new route or job calls a repository that ignores ownership, attackers may bypass controller checks; enforce scoping in data access for sensitive resources.\n- Allowing partial bypass through \u201cinternal\u201d or background paths: Cron jobs, admin tools, or message consumers that accept user IDs or roles as parameters must still use the same authorization helpers; \u201cinternal\u201d does not mean \u201ctrusted client input.\u201d\n\n## Quick Verification\n```bash\n# 1. Directly call a previously vulnerable endpoint with forged role\ncurl -i \"http://localhost:3000/admin-data?role=admin\"\n\n# EXPECTATION after fix:\n# - Response is 403 or a generic denial message\n# - Or only allowed when server-side admin condition (e.g., env/real auth) is satisfied\n\n# 2. Simulate allowed server-side admin access (per example fix)\nADMIN_ACCESS=true node app_fix_original_code.js admin\n\n# EXPECTATION:\n# - CLI prints SECRET_ADMIN_DATA only when ADMIN_ACCESS=true\n# - Changing the CLI argument from \"guest\" to \"admin\" alone should NOT change access\n\n# 3. Try accessing another user\u2019s resource by guessing ID\ncurl -i -H \"Authorization: Bearer <non_admin_token>\" \\\n  \"http://localhost:3000/orders/1234\"\n\n# EXPECTATION:\n# - Returns 404 or 403 when the authenticated user is not the owner and not admin\n# - No data leakage based solely on ID guessing\n```",
+            "type": "Built-in",
+            "ordinal": 124,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-05-21T11:39:55.106000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-05-21T11:39:55.106000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9438,
+            "id": "TA9438",
+            "title": "T17 - SKILL.md - JavaScript",
+            "text": "---\nname: do-not-only-rely-on-client-side-authorization\ndescription: \"Enforce server-side authorization for protected JavaScript reads and mutations. Use when code trusts client-controlled roles, flags, route guards, or raw resource IDs for access control.\"\n---\n# Do not only rely on client-side authorization\n\n## What This Skill Does\nThis skill fixes client-side enforcement of server-side security by moving authorization decisions to trusted server code. It replaces checks based on `req.body`, `req.query`, UI flags, local storage, or hidden routes with a centralized server-side authorization function that uses session-derived identity, scopes resource access by owner or tenant on the server, and denies unknown or missing inputs by default before protected data is returned or state is changed.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Authorization depends on `req.body.isAdmin`, `req.query.role`, client flags, route guards, or local storage values | Replace with server-side `buildTrustedUser(...)` from session/auth context and call `authorize(user, action, resource)` |\n| Protected read or write accepts a raw resource ID such as document, account, or file ID | Scope the server lookup by both resource ID and authenticated user ownership/tenant rules using parameterized queries or ORM filters |\n| A mutation updates or deletes sensitive state directly | Wrap the mutation in a server-side function that checks `authorize(...)` first and denies by default |\n| Multiple handlers implement ad hoc permission logic | Centralize checks in one `authorize(user, action, resource)` or `enforceAuthorization(...)` function and reuse it at every entry point |\n| Code already uses trusted session identity, server-side resource scoping, and deny-by-default authorization | No action needed |\n\n## Boundaries\n\n### Can Do\n- Replace client-controlled authorization decisions with server-side checks based on trusted session identity\n- Add centralized authorization guards for reads, updates, deletes, exports, admin actions, and background-triggered operations\n- Scope resource access on the server with parameterized SQL or safe ORM filtering by both resource ID and user scope\n\n### Cannot Do\n- Create a full authentication system if the application has no trusted identity source at all\n- Infer correct business authorization rules when ownership, tenant, or role requirements are undefined\n- Prevent client-side UX hints from being bypassed; it only ensures the server denies unauthorized access\n\n## Gotchas\n- Checking client role fields before calling the server guard: this is wrong because `req.body.role`, `req.query.role`, and similar inputs are attacker-controlled\n- Authorizing once but loading the resource without scope constraints: this is wrong because guessed IDs can still expose another user's object if the query is only filtered by `id`\n- Allowing unknown actions or missing resource fields to fall through: this is wrong because permissive defaults turn new code paths into silent authorization bypasses\n\n## Quick Verification\n```bash\n# Confirm the secure server-side guard/wrapper exists\nrg -n \"function (authorize|enforceAuthorization|buildTrustedUser|getUserFromSession)\\b|const (authorize|enforceAuthorization|buildTrustedUser|getUserFromSession)\\b\" .\n\n# Find unguarded dangerous client-controlled authorization inputs\nrg -n \"req\\.(body|query|params)\\.(role|isAdmin|userId)|localStorage\\.getItem\\(['\\\"]role['\\\"]\\)|window\\.isAdmin|clientRole\\s*===\\s*['\\\"]admin['\\\"]\" .\n\n# Build + test with the project's JavaScript toolchain\nnpm test && npm run build --if-present\n```",
+            "type": "Built-in",
+            "ordinal": 342,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:39.418000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:39.418000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9588,
+            "id": "TA9588",
+            "title": "T17 - SKILL.md - C#",
+            "text": "---\nname: do-not-only-rely-on-client-side-authorization\ndescription: Use when C# code makes authorization decisions from client-controlled roles, flags, hidden fields, or UI state instead of enforcing access on the server for each protected action or resource.\n---\n# Do not only rely on client-side authorization\n\n## What This Skill Does\nThis skill fixes client-side enforcement of server-side security by moving authorization decisions into trusted C# server code and applying them on every protected request, handler, page, and resource. It replaces checks based on client-controlled inputs such as `roleFromClient`, hidden fields, query parameters, or UI visibility flags with server-side checks derived from trusted identity data like `ClaimsPrincipal`, server-stored roles, or centralized authorization services, while denying access by default for unknown resources, unauthenticated users, and missing permissions.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| A C# method grants access based on request data such as `roleFromClient`, form fields, headers, query values, or JSON flags | Replace the decision with a server-side authorization check using `ClaimsPrincipal`, server-loaded permissions, or a shared authorization service |\n| A page or feature is only hidden in JavaScript, Razor, Blazor, or client UI logic | Keep UI hiding only as presentation; add server-side authorization on the endpoint, page handler, API action, or resource loader |\n| Protected paths like `/admin` or `/reports` are handled directly | Enforce authorization for each path/action on the server and deny by default for unknown or unauthorized requests |\n| Authorization rules are duplicated across controllers, handlers, services, or background entry points | Centralize rules in a shared server-side authorization routine so all entry points apply the same checks |\n| Code already authorizes using trusted server identity and denies by default | No action needed |\n\n## Boundaries\n\n### Can Do\n- Replace client-trusting role or permission checks with server-side checks in C# code\n- Introduce shared authorization helpers or services for protected resources\n- Enforce deny-by-default behavior for unknown resources, unauthenticated users, and missing permissions\n\n### Cannot Do\n- Invent the correct business authorization model if the required roles or permissions are unclear\n- Configure external identity providers, SSO, or role provisioning without project-specific details\n- Guarantee every route is protected unless all entry points and resource paths are actually reviewed\n\n## Gotchas\n- Checking UI visibility only: hiding links or buttons in JavaScript, Razor, or Blazor does not protect direct requests to the underlying endpoint\n- Trusting client-sent role data: values like `roleFromClient`, hidden fields, cookies, headers, or request JSON can be forged and must not decide access\n- Failing open on unknown resources: returning content for unrecognized pages or skipping checks for unmapped actions breaks deny-by-default behavior\n\n## Quick Verification\n```bash\n# Confirm trusted server-side authorization primitives or a shared authorization service exist\nrg -n --glob '*.cs' 'ClaimsPrincipal|IsInRole\\s*\\(|Identity\\?\\.(IsAuthenticated|Name)|IAuthorizationService|Authorize(Attribute)?|GetServerRole|ResourceAuthorizationService'\n\n# Find likely unguarded dangerous authorization decisions that trust client-controlled role/permission data\nrg -n --glob '*.cs' '(roleFromClient|userRole|canSeeAdminLink|isAdmin|isAuthorized|permissionFromClient).*(==|!=|Equals\\()|(Request\\.(Query|Form|Headers)|HttpContext\\.Request).*?(role|permission|admin)'\n\n# Build and test across common C# project types\ndotnet build\ndotnet test\n```",
+            "type": "Built-in",
+            "ordinal": 510,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:45.117000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:45.117000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9671,
+            "id": "TA9671",
+            "title": "T17 - SKILL.md - Java",
+            "text": "---\nname: do-not-only-rely-on-client-side-authorization\ndescription: Use when Java code exposes protected pages, endpoints, or business actions that trust client-side roles, hidden fields, UI guards, or direct URL flow instead of enforcing server-side authorization.\n---\n# Do not only rely on client-side authorization\n\n## What This Skill Does\nThis skill fixes client-side enforcement of server-side security by moving authorization decisions into trusted Java server code before protected content is returned or sensitive actions run. It helps detect places where code trusts client-provided role flags, hidden form values, UI visibility, route guards, or request parameters, and replaces that pattern with fail-closed server-side checks based on authenticated user context and explicit authorization rules for the requested action or resource.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| A Java method returns protected content or performs a sensitive action without checking trusted server-side identity or permissions | Apply a server-side authorization check before the action or response |\n| Code uses client-controlled values such as `clientSideRole`, request parameters, hidden fields, or UI state to decide access | Remove those values from authorization decisions and use trusted session/request context instead |\n| Multiple endpoints or methods enforce access inconsistently | Centralize checks in a shared authorization service or helper and call it from every protected entry point |\n| Direct path, page, file, or resource access is possible by guessing URLs or identifiers | Validate the requested target on the server against explicit allow/deny rules and reject unknown targets by default |\n| The code already checks trusted authenticated user context and resource-specific permissions server-side | No action needed |\n\n## Boundaries\n\n### Can Do\n- Add server-side authorization checks to Java methods, handlers, controllers, and services before protected logic executes\n- Replace trust in client-provided role or authorization flags with checks against trusted server-side user context\n- Centralize repeated allow/deny logic into a shared authorization routine and fail closed on missing or invalid data\n\n### Cannot Do\n- Infer the correct business authorization model when roles, permissions, or resource ownership rules are not defined\n- Prove a system is secure only by finding one guard; every protected entry point still needs review\n- Establish authentication, session integrity, or identity binding if those mechanisms are missing or broken\n\n## Gotchas\n- Checking only the UI path: hiding buttons or using front-end route guards does not stop direct requests to server methods or URLs\n- Checking only broad roles: `ADMIN`/`USER` checks alone may miss resource ownership or action-specific rules and still allow improper access\n- Trusting request data for authorization: parameters, headers, cookies, hidden fields, and body fields can be attacker-controlled unless verified against trusted server state\n\n## Quick Verification\n```bash\n# Confirm a server-side authorization guard/helper exists\nrg -n \"isAuthorizedForAdmin|isAllowed\\(|AccessDeniedException|403 Forbidden|roles\\(\\)\\.contains\\(\" .\n\n# Find likely unguarded dangerous flows that still return admin/protected content or trust client-side role input\nrg -n \"getAdminPage\\(|clientSideRole|return\\s+\\\"<html><body><h1>Admin Console|Payroll Report|System Secret\" .\n\n# Build and test with the project's Java toolchain\n./gradlew test || mvn test || ./mvnw test || ./gradlew build || mvn -q -DskipTests compile || find . -name '*.java' -print0 | xargs -0 -r javac\n```",
+            "type": "Built-in",
+            "ordinal": 605,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:48.494000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:48.494000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9709,
+            "id": "TA9709",
+            "title": "T17 - SKILL.md - TypeScript",
+            "text": "---\nname: do-not-only-rely-on-client-side-authorization\ndescription: Use when TypeScript code trusts client-side role flags, hidden fields, query params, or UI state for access control instead of enforcing authorization on the server.\n---\n# Do not only rely on client-side authorization\n\n## What This Skill Does\nThis skill fixes Client-Side Enforcement of Server-Side Security (CWE-602 / P494) by moving authorization decisions into server-side TypeScript code. It replaces trust in client-controlled values such as `req.query.role`, hidden form fields, request body flags, or browser UI state with checks based on server-controlled authenticated user state. Apply it when protected routes, pages, API handlers, file downloads, or service functions return sensitive data or perform privileged actions without first verifying that the server-side user is allowed to access the specific resource or action.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| A handler, page, or service authorizes using client input such as `req.query.role`, `req.body.role`, hidden fields, or flags from the browser | Replace that logic with a server-side authorization check that reads authenticated user state from session/token context maintained by the server |\n| A protected route or resource can be reached directly by URL, bookmark, script, or API call | Add an authorization check in that handler before loading or returning protected data |\n| Authorization only checks whether the user is logged in | Bind the decision to the requested resource or action, not just authentication presence |\n| A shared function returns protected data based on a caller-provided role or permission string | Change the function to accept a trusted server-side user/auth context and enforce access inside the function |\n| Code already uses trusted server-side user context and denies by default before exposing data | No action needed |\n\n## Boundaries\n\n### Can Do\n- Add or centralize server-side authorization helpers such as `isAuthorized`, `assertAuthorized`, `getTrustedUser`, or `authorizeFromSession`\n- Replace client-controlled authorization inputs with server-controlled authenticated user context\n- Add fail-closed checks to Express handlers, service functions, page loaders, APIs, and reusable data-access wrappers\n\n### Cannot Do\n- Invent a real authentication system, session middleware, or identity provider configuration if the project has none\n- Determine business authorization rules that are not clear from the codebase or requirements\n- Guarantee complete protection if some routes, background jobs, or resource paths are outside the updated authorization path\n\n## Gotchas\n- Checking only for login state: authenticated users may still be unauthorized for a specific record, report, tenant, or action\n- Reading roles from `req.query`, `req.body`, headers, or hidden fields: these are client-controlled and cannot prove authorization\n- Performing the check after fetching or constructing protected data: sensitive data may already be exposed through logs, errors, side effects, or partial responses\n\n## Quick Verification\n```bash\n# Confirm secure server-side authorization helpers or guards exist\nrg -n --glob '*.ts' \"assertAuthorized|isAuthorized|getTrustedUser|authorizeFromSession|handleProtectedPage\"\n\n# Find likely unguarded dangerous authorization patterns that trust client input\nrg -n --glob '*.ts' \"req\\.(query|body|params)\\.(role|isAdmin|isAuthorized|permission)|roleFromClient|userRole\\s*:\\s*string|getSecretReport\\([^)]*(req\\.(query|body|params)|roleFromClient)\"\n\n# Type-check / build using the TypeScript toolchain\nnpx tsc --noEmit\n\n# Run project tests if present\nnpm test\n```",
+            "type": "Built-in",
+            "ordinal": 647,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:49.955000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:49.955000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9860,
+            "id": "TA9860",
+            "title": "T17 - SKILL.md - React",
+            "text": "---\nname: do-not-only-rely-on-client-side-authorization\ndescription: Use when React code treats route guards, hidden controls, or client state as authorization; move enforcement to server-side handlers and treat client checks as UI only\n---\n# Do not only rely on client-side authorization\n\n## What This Skill Does\nThis skill fixes client-side enforcement of server-side security by ensuring React authorization logic only controls rendering and navigation, while every protected route, action, and resource access is re-checked by trusted server-side code. It helps replace patterns where `user.role`, route guards, hidden buttons, or client-supplied permission flags are treated as the final authorization decision.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| React components hide or disable protected actions based on local auth state | Keep the UI behavior, but require the action to call a server endpoint that returns `401` or `403` when unauthorized |\n| `react-router-dom` routes use guards such as `ProtectedRoute`, `useLocation`, `Navigate`, or role checks to block pages | Treat the guard as navigation UX only; add server-side authorization for the backing route, page data, and resource request |\n| Client requests send role or permission claims in `fetch` bodies, headers, or state | Ignore client-supplied authorization claims on the server and derive access from validated session/token plus resource policy |\n| Resource IDs from params such as `useParams()` or guessed URLs are used to load protected data | Authorize the specific server-side resource access for that ID before returning data |\n| Code already handles protected operations by calling a server action/API and honoring `401`/`403` responses | No action needed |\n\n## Boundaries\n\n### Can Do\n- Refactor React components so authorization decisions come from server responses, not only client state\n- Preserve route guards and conditional rendering as usability features while removing their security role\n- Update fetch/action flows so denied requests are handled explicitly with `401` or `403`\n\n### Cannot Do\n- Implement the missing server-side authorization layer if the application has no backend or protected API to enforce it\n- Prove business rules are correct for every endpoint, object, or tenant without reviewing server code and policies\n- Secure purely static assets or third-party systems that bypass the application's server-side authorization path\n\n## Gotchas\n- Hidden or disabled buttons are not authorization: users can still send the same `fetch` request directly\n- Route guards are not server protection: direct navigation or replayed requests can bypass client-side navigation logic\n- Client role flags are not trusted input: values like `role: 'admin'` or `canDelete: true` can be tampered with before the request is sent\n\n## Quick Verification\n```bash\n# Confirm React code handles explicit server-side authorization outcomes\nrg -n \"401|403|authorized|allowed|forbidden|unauthorized\" --glob '*.{js,jsx,ts,tsx}' .\n\n# Find likely client-side-only authorization patterns that need server enforcement review\nrg -n \"ProtectedRoute|FakeProtectedRoute|ServerAuthorizedRoute|user\\?\\.role|user\\.role|canDelete|authorizeAdminAccess|useLocation\\(|useNavigate\\(|useParams\\(|<Navigate|navigate\\('/admin|navigate\\(\\\"/admin|fetch\\(\" --glob '*.{js,jsx,ts,tsx}' .\n\n# Find unguarded dangerous direct requests to protected endpoints/resources from React code\nrg -n \"fetch\\(['\\\"]/api/(admin|reports|customers|users)|fetch\\(`?/api/\\$\\{?.*(admin|reports|customers|users)\" --glob '*.{js,jsx,ts,tsx}' .\n\n# Build + test with the project's React/JS toolchain\nnpm run build && npm test\n```",
+            "type": "Built-in",
+            "ordinal": 812,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:55.814000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:55.814000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9894,
+            "id": "TA9894",
+            "title": "T17 - SKILL.md - Angular",
+            "text": "---\nname: do-not-only-rely-on-client-side-authorization\ndescription: Use when Angular code relies on route guards, UI state, or client-submitted role data to protect sensitive pages or actions; move authorization decisions to trusted server-side checks.\n---\n\n# Do not only rely on client-side authorization\n\n## What This Skill Does\nThis skill fixes client-side enforcement of server-side security by removing trust in Angular-only authorization decisions such as route guards, hidden UI, component checks, or client-submitted role values. It updates the app so protected data and actions are allowed only after a server-side authorization check based on trusted server state, and it treats client checks as UX only, not as the real security boundary.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| A component, service, or guard grants access from `BehaviorSubject`, `signal`, form input, local storage, or any client-managed role value | Replace the authorization decision with a server call such as `HttpClient.get<boolean>('/api/authz/...')` and deny access when it fails |\n| A protected page loads sensitive data directly in Angular without a server authorization check | Move the protection to the backing API and call the API only after server authorization is enforced |\n| A route uses `CanActivateFn` or UI hiding to protect admin areas | Keep the guard only for UX; make it deny by default or redirect to forbidden unless trusted server authorization confirms access |\n| Code uses client-submitted fields like `role`, `isAdmin`, or `permission` to decide access | Stop trusting those fields for authorization; derive permissions from authenticated server-side state |\n| Code already uses server-enforced endpoints for protected actions and denies unauthorized direct requests | No action needed |\n\n## Boundaries\n\n### Can Do\n- Replace client-trusted authorization checks with server-validated authorization requests in Angular code\n- Convert route guards and component logic to deny by default unless trusted server authorization succeeds\n- Identify suspicious patterns such as `isAdmin()` based on client state, forged role setters, and direct loading of sensitive data\n\n### Cannot Do\n- Implement the actual backend authorization policy or session model from Angular code alone\n- Prove security if the server still returns protected data without enforcing authorization\n- Infer correct roles, permissions, or forbidden routes without project-specific requirements\n\n## Gotchas\n- Keeping only a route guard: guards improve navigation UX but do not protect server resources or direct requests by themselves\n- Calling a protected API but trusting a client-sent `role` or `isAdmin` flag: this still lets attackers forge privilege data\n- Hiding links or buttons and calling it fixed: UI visibility is not authorization and does not stop manual URL entry or forged requests\n\n## Quick Verification\n```bash\n# Confirm server-backed authorization checks exist in Angular code\nrg -n \"HttpClient|get<boolean>\\('/api/authz/|get\\('/api/admin/|responseType:\\s*'text'\" .\n\n# Find unguarded dangerous client-side authorization patterns that bypass the fix\nrg -n \"BehaviorSubject<string>\\(|setRole\\(|getRole\\(\\)|isAdmin\\(\\)\\s*:\\s*boolean|isAdmin\\s*=\\s*this\\.authService\\.isAdmin\\(\\)|roleSubject\\.next\\(|===\\s*'admin'|formControlName=\\\"role\\\"\" .\n\n# Build the Angular workspace or project\nnpx ng build\n\n# Run Angular tests\nnpx ng test --watch=false\n```",
+            "type": "Built-in",
+            "ordinal": 846,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:57.130000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:57.130000-04:00",
+            "active": true
+          }
+        ]
+      }
+    }
+  ]
+}

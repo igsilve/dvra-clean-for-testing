@@ -1,0 +1,85 @@
+{
+  "composite_response": [
+    {
+      "reference_id": "T1158",
+      "http_status_code": 200,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "results": [
+          {
+            "db_id": 1375,
+            "id": "TA1375",
+            "title": "FedRAMP / Moderate Baseline",
+            "text": "*** AC-17 (3): Access Control | Remote Access | Managed Access Control Points ***  \nThe information system routes all remote accesses through [Assignment: organization-defined number] managed network access control points.\n\n*** IA-5 (2): Identification And Authentication | Authenticator Management | Pki-Based Authentication ***  \nThe information system, for PKI-based authentication:\n\n(a)   Validates certifications by constructing and verifying a certification path to an accepted trust anchor including checking certificate status information;  \n(b)   Enforces authorized access to the corresponding private key;  \n(c)   Maps the authenticated identity to the account of the individual or group; and  \n(d)   Implements a local cache of revocation data to support path discovery and validation in case of inability to access revocation information via the network.",
+            "type": "Built-in",
+            "ordinal": 11,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-15T17:48:44.606000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T15:08:02.190000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 2356,
+            "id": "TA2356",
+            "title": "FedRAMP / High Baseline",
+            "text": "*** AC-17 (3): Access Control | Remote Access | Managed Access Control Points ***  \nThe information system routes all remote accesses through [Assignment: organization-defined number] managed network access control points.\n\n*** IA-5 (2): Identification And Authentication | Authenticator Management | Pki-Based Authentication ***  \nThe information system, for PKI-based authentication:  \n (a)   Validates certifications by constructing and verifying a certification path to an accepted trust anchor including checking certificate status information;  \n (b)   Enforces authorized access to the corresponding private key;  \n (c)   Maps the authenticated identity to the account of the individual or group; and  \n (d)   Implements a local cache of revocation data to support path discovery and validation in case of inability to access revocation information via the network.",
+            "type": "Built-in",
+            "ordinal": 12,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-17T18:26:42.963000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T18:38:10.957000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 8472,
+            "id": "TA8472",
+            "title": "T1158 - SKILL.md - Docker",
+            "text": "---\nname: configure-tls-auth-for-docker-daemon\ndescription: Securely configure Docker daemon and Swarm endpoints with TLS authentication; use when Docker is exposed over TCP or additional sockets and must be locked down\n---\n\n# Configure TLS authentication for the Docker daemon (Docker)\n\n## What This Skill Does\nLocks down Docker Engine (and optional Swarm) access by enforcing TLS (preferably mutual TLS) on any network-exposed daemon endpoint and by avoiding unnecessary IP/port bindings. It guides agents to remove insecure `dockerd` TCP listeners (like `0.0.0.0:2375` without TLS), enforce certificate verification and client auth when TCP is required, and ensure TLS keys/certs are handled as secrets instead of being baked into images or exposed via logs.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Docker daemon is started with `--host=tcp://0.0.0.0:2375` or any TCP host and no `--tls*` flags | Replace with a TLS-only configuration on port 2376 (or policy-approved port) using `--tlsverify`, `--tlscacert`, `--tlscert`, and `--tlskey`, or revert to Unix socket only |\n| Dockerfile or service config binds additional `--host=tcp://...` or extra Unix sockets beyond the default | Remove extra bindings; default to the standard Unix socket only unless a TLS-protected TCP endpoint is explicitly required |\n| App/client code connects to Docker using `tcp://host:2375` or `http://` without certificate validation | Update to `https://` / `tcp+tls` endpoint on 2376 (or policy port), require CA validation, and configure client certificate authentication if the daemon uses mTLS |\n| Environment requires remote daemon or Swarm access over the network | Configure `dockerd` (and Swarm settings) with TLS + client auth for all network endpoints, ensuring a consistent TLS configuration and no HTTP/plaintext fallbacks |\n| TLS certificates/keys are copied into the image or stored in source control | Refactor to load TLS materials from runtime-mounted secrets/volumes, restrict file permissions at startup, and exclude keys from logs and image layers |\n| Daemon is already only on default Unix socket and no code adds TCP access | No action needed; keep daemon local and rely on socket permissions |\n\n## Boundaries\n\n### Can Do\n- Detect and remove insecure `dockerd` TCP bindings (e.g., `0.0.0.0:2375` without TLS) in Dockerfiles and service config snippets.\n- Add secure TLS/mTLS `dockerd` flags for network-exposed daemons and Swarm endpoints, using secret-mounted certificate paths.\n- Adjust example client connection strings and code snippets to require TLS, certificate validation, and (when appropriate) client certificates.\n- Enforce use of default Unix socket only when remote access is not required, by dropping extra `--host` bindings and `EXPOSE` directives.\n\n### Cannot Do\n- Generate real, valid certificates or decide exact PKI/CA hierarchy and rotation policy; expects those to be provided by operators or external tooling.\n- Reconfigure host-level Docker installations outside the visible code/config snippets (e.g., systemd units, `/etc/docker/daemon.json` not shown to the agent).\n- Guarantee compatibility with every orchestration or CI platform\u2019s Docker-in-Docker pattern; final integration and operational rollout remain human decisions.\n- Inspect live network state or actively probe running hosts/containers; relies only on the provided files and configuration.\n\n## Gotchas\n- Assuming `--tlsverify` alone is enough: missing or misconfigured `--tlscacert`, `--tlscert`, or `--tlskey` can still leave the daemon inaccessible or missecured; always specify the full TLS set and ensure paths point to mounted secrets, not image-baked keys.\n- Keeping both insecure and secure ports: adding a TLS listener on 2376 but leaving `--host=tcp://0.0.0.0:2375` (or similar) in place leaves a backdoor; remove all plaintext listeners when enabling TLS.\n- Exposing Docker daemon when not needed: adding TCP exposure \u201cfor convenience\u201d in development images or CI jobs often becomes permanent; prefer the default Unix socket and only add a TLS-protected TCP endpoint when a real remote requirement exists.\n\n## Quick Verification\n```bash\n# 1) Confirm dockerd is NOT listening on insecure TCP ports (e.g., 2375)\nss -lntp | grep dockerd || netstat -lntp | grep dockerd || true\n\n# 2) If TCP is required, confirm only TLS port (e.g., 2376) is open\nss -lntp | grep ':2376' || netstat -lntp | grep ':2376' || true\n\n# 3) Test that unauthenticated TCP access fails\nDOCKER_HOST=tcp://localhost:2376 \\\n  docker --tlsverify --tlscacert=bad-ca.pem version || echo \"Unauthenticated/invalid cert access correctly denied\"\n\n# 4) Test that properly authenticated TLS access succeeds (paths adjusted to real secrets)\nDOCKER_HOST=tcp://localhost:2376 \\\n  docker --tlsverify \\\n    --tlscacert=/run/secrets/ca.pem \\\n    --tlscert=/run/secrets/client-cert.pem \\\n    --tlskey=/run/secrets/client-key.pem \\\n    version\n```",
+            "type": "Built-in",
+            "ordinal": 34,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-05-21T11:39:49.853000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-05-21T11:39:49.853000-04:00",
+            "active": true
+          }
+        ]
+      }
+    }
+  ]
+}

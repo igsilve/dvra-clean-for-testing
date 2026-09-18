@@ -1,0 +1,85 @@
+{
+  "composite_response": [
+    {
+      "reference_id": "T1202",
+      "http_status_code": 200,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "results": [
+          {
+            "db_id": 1674,
+            "id": "TA1674",
+            "title": "FedRAMP / Moderate Baseline",
+            "text": "*** SC-6: System And Communications Protection | Resource Availability ***  \nThe information system protects the availability of resources by allocating [Assignment: organization-defined resources] by [Selection (one or more); priority; quota; [Assignment: organization-defined security safeguards]].",
+            "type": "Built-in",
+            "ordinal": 11,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-15T17:48:59.445000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T15:08:04.029000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 2621,
+            "id": "TA2621",
+            "title": "FedRAMP / High Baseline",
+            "text": "*** SC-6: System And Communications Protection | Resource Availability ***  \nThe information system protects the availability of resources by allocating [Assignment: organization-defined resources] by [Selection (one or more); priority; quota; [Assignment: organization-defined security safeguards]].",
+            "type": "Built-in",
+            "ordinal": 12,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-17T18:34:06.762000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T18:38:12.925000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 8454,
+            "id": "TA8454",
+            "title": "T1202 - SKILL.md - Docker",
+            "text": "---\nname: set-container-cpu-priority-docker\ndescription: Use when Docker or Compose container definitions lack explicit CPU shares or CPU consumption controls and need fair scheduling or hard CPU limits.\n---\n# Set container CPU priority (Docker)\n\n## What This Skill Does\nThis skill fixes Docker container configurations that omit explicit CPU scheduling weight or CPU allocation controls. It adds `cpu_shares` when services need relative CPU priority under contention, or `cpus` when a service must not exceed a defined CPU amount. It also helps validate that configured values are present, numeric, and positive so containers cannot run with accidental unlimited CPU access.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Docker Compose service has no `cpu_shares`, `cpus`, or equivalent CPU control | Apply explicit CPU control based on service needs |\n| Service needs relative priority over other containers during CPU contention | Add positive `cpu_shares` and use higher values for higher-priority services |\n| Service must not exceed a defined CPU amount | Add positive `cpus` value as a hard CPU allocation |\n| Generated or templated container config may contain missing, non-numeric, or non-positive CPU values | Add validation and reject invalid configuration |\n| Service already has explicit, valid CPU controls appropriate for its runtime | No action needed |\n\n## Boundaries\n\n### Can Do\n- Add `cpu_shares` for relative CPU priority in Docker Compose or similar Docker configuration\n- Add `cpus` limits to prevent a container from consuming unlimited host CPU\n- Flag missing, invalid, or non-positive CPU control values for validation\n\n### Cannot Do\n- Guarantee CPU reservation behavior on runtimes that do not support or enforce the chosen setting\n- Infer the correct business priority of services without context from the application\n- Replace broader resource isolation needs such as memory, PID, I/O, or orchestration-level policy\n\n## Gotchas\n- Using `cpu_shares` as if it were a hard limit: `cpu_shares` is only a relative weight during contention, not a maximum CPU cap\n- Setting only one service's priority and leaving peers unconfigured: relative weighting is clearer and safer when comparable services all have intentional values\n- Using zero, negative, or non-numeric CPU values: invalid values can be ignored, rejected, or lead to unintended unlimited CPU usage\n\n## Quick Verification\n```bash\n# Validate the Compose file\ndocker compose config\n\n# Start the services\ndocker compose up -d\n\n# Observe CPU usage under load\ndocker stats\n\n# Inspect rendered container settings\ndocker inspect <container_name> | grep -E 'CpuShares|NanoCpus'\n\n# Optional: generate CPU contention and re-check relative behavior\ndocker exec -it <worker_container> sh -c 'python -c \"while True: pass\"'\n```",
+            "type": "Built-in",
+            "ordinal": 261,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-05-21T11:39:48.697000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:36.582000-04:00",
+            "active": true
+          }
+        ]
+      }
+    }
+  ]
+}

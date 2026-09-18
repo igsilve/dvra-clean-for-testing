@@ -1,0 +1,1664 @@
+{
+  "source_skill": "generate-security-skill-files",
+  "stage": "skill-files-generated",
+  "evidence_source": "codebase",
+  "assessment_mode": "initial",
+  "version_label": null,
+  "repository_path": "/Users/isilveira/dvra-clean-for-testing",
+  "project_id": 4552,
+  "project_name": "dvra-clean-for-testing",
+  "business_unit_id": 1094,
+  "application_id": 1543,
+  "risk_policy_id": "1696",
+  "sde_host": "https://staging.qa.sdelements.com",
+  "technology_pool": [
+    "Burp Suite",
+    "CORS",
+    "Changes to AI",
+    "Changes to authentication",
+    "Changes to hardware design",
+    "Changes to inbound/outbound interfaces",
+    "Changes to servers/frameworks and/or configuration",
+    "Changes to session management",
+    "Changes to user output",
+    "Contains components that communicate through a network",
+    "Docker",
+    "ESAPI",
+    "Generates random numbers",
+    "Generates temporary files",
+    "Has change existing password function",
+    "Has direct or third party authentication for end users, devices or nodes",
+    "Has forgot password function",
+    "JavaScript",
+    "New transactions / use cases",
+    "New/modified user input OR changes to how user input is used",
+    "OAuth",
+    "Passwords stored in configuration files",
+    "Performs diagnostic/debug logging",
+    "PostgreSQL",
+    "Python",
+    "Receives text input from users",
+    "SQLite local data storage",
+    "Stand-alone database that supports SQL",
+    "Uses a database",
+    "Uses an HTTP-based protocol",
+    "Uses dynamic code/library loading",
+    "Uses multi-threaded programming",
+    "Uses passwords",
+    "Web application",
+    "Web service",
+    "Yes"
+  ],
+  "agents_md": "/Users/isilveira/dvra-clean-for-testing/AGENTS.md",
+  "skill_files": [
+    "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T2663-use-a-secure-authentication-mechanism-fo/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T2141-python/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T2141-javascript/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T29-python/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T1541-python/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/data-security/T2600-control-the-result-set-size-returned-by/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T15-centralize-authorization/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T373-design-and-regulate-access-to-unauthenti/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/data-security/T2598-javascript/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/data-security/T2598-python/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/data-security/T2139-python/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T378-authorize-every-request-for-data-objects/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/input-validation/T32-python/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/input-validation/T7411-implement-controls-for-content-intended/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T2652-consider-adding-plugins-for-stronger-aut/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/input-validation/T1542-python/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/input-validation/T1542-javascript/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T18-javascript/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T18-python/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T1922-javascript/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T1922-python/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/data-security/T38-python/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T66-prevent-web-pages-from-being-loaded-insi/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T37-javascript/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T37-python/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/data-security/T2597-implement-rbac-instead-of-individual-acc/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T61-disable-default-accounts-or-change-all-d/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/data-security/T2602-log-typical-database-and-server-activiti/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/input-validation/T36-python/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/input-validation/T36-javascript/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T1365-javascript/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T1365-python/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T1887-javascript/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T1887-python/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T17-python/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T17-javascript/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/input-validation/T2348-perform-code-reviews/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/input-validation/T42-javascript/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/input-validation/T42-python/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/input-validation/T2603-protect-backup-archive-bits/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/data-security/T186-python/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T340-use-an-account-and-identity-management-s/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T76-javascript/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T76-python/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/cryptography/T2621-use-file-volume-encryption-and-consider/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T1194-docker/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T2115-enable-image-vulnerability-scanning-dock/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T4746-ensure-container-images-are-secure/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T1176-docker/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T2105-enforce-the-use-of-client-certificate-bu/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T2661-change-insecure-configuration-defaults-a/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T1190-docker/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/data-security/T2605-validate-database-traffic/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T2599-protect-against-connection-string-parame/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T1144-python/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T1174-docker/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T1198-docker/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T1208-docker/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/cryptography/T2620-protect-data-in-transit-with-tls-postgre/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T4748-implement-role-based-access-control-rbac/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T2615-limit-network-access-by-blocking-connect/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T2257-regularly-update-and-patch-containerizat/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T1156-docker/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T1158-docker/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T2258-minimize-host-os-attack-surface/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T4751-reduce-the-attack-surface-of-container-i/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T1196-docker/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T257-javascript/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T257-python/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T1172-secure-daemon-configuration-files-docker/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T1188-docker/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/cryptography/T2665-protect-sensitive-data-at-rest-with-encr/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T4601-prioritize-static-network-configuration/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T1214-docker/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T1186-docker/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T7412-isolate-dangerous-functionality-and-risk/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T1204-docker/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T2616-use-a-secure-authentication-mechanism-fo/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/secure-coding/T4600-establish-out-of-band-communications-cha/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T2109-enable-signed-image-enforcement-docker/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T2349-configure-software-to-have-secure-settin/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T1206-docker/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/cryptography/T279-avoid-dynamically-loading-any-code-witho/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T1154-docker/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T1166-docker/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/cryptography/T2666-protect-data-in-transit-with-tls-databas/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T1150-docker/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T1212-docker/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T2601-use-transparent-data-encryption-with-ent/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T4750-isolate-container-networks/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T1200-docker/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T4749-monitor-containers-in-real-time/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T1202-docker/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/authentication/T2662-restrict-network-access-to-the-database/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T4747-limit-container-privileges/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T1210-docker/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/data-security/T2619-ensure-that-row-level-security-is-correc/SKILL.md",
+    "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T1192-docker/SKILL.md"
+  ],
+  "selection_mode": "all",
+  "task_status_filter": "all_statuses",
+  "verification_status_filter": "no_filter",
+  "status_filtered_count": 186,
+  "selected_cm_ids": [
+    "T1199",
+    "T87",
+    "T21",
+    "T1207",
+    "T60",
+    "T2621",
+    "T2663",
+    "T114",
+    "T59",
+    "T2141",
+    "T29",
+    "T2612",
+    "T49",
+    "T1541",
+    "T2276",
+    "T2600",
+    "T122",
+    "T1392",
+    "T1194",
+    "T50",
+    "T1175",
+    "T446",
+    "T15",
+    "T1195",
+    "T373",
+    "T2115",
+    "T4746",
+    "T1176",
+    "T374",
+    "T175",
+    "T2598",
+    "T295",
+    "T1151",
+    "T2105",
+    "T2139",
+    "T2614",
+    "T228",
+    "T2661",
+    "T1190",
+    "T1187",
+    "T105",
+    "T378",
+    "T230",
+    "T32",
+    "T2605",
+    "T1157",
+    "T587",
+    "T445",
+    "T338",
+    "T349",
+    "T2356",
+    "T2599",
+    "T1144",
+    "T1211",
+    "T1174",
+    "T2282",
+    "T1198",
+    "T1208",
+    "T7411",
+    "T2652",
+    "T2277",
+    "T2606",
+    "T70",
+    "T2620",
+    "T558",
+    "T2256",
+    "T1189",
+    "T1155",
+    "T4748",
+    "T2615",
+    "T1539",
+    "T1193",
+    "T1542",
+    "T2257",
+    "T1177",
+    "T1201",
+    "T214",
+    "T69",
+    "T169",
+    "T537",
+    "T1156",
+    "T18",
+    "T1167",
+    "T1191",
+    "T226",
+    "T318",
+    "T89",
+    "T1158",
+    "T2258",
+    "T4751",
+    "T1196",
+    "T257",
+    "T7415",
+    "T2608",
+    "T1172",
+    "T1188",
+    "T1173",
+    "T85",
+    "T1922",
+    "T38",
+    "T2665",
+    "T4601",
+    "T1214",
+    "T2140",
+    "T66",
+    "T1363",
+    "T2609",
+    "T1186",
+    "T2110",
+    "T7412",
+    "T2142",
+    "T1204",
+    "T35",
+    "T37",
+    "T305",
+    "T2616",
+    "T4600",
+    "T151",
+    "T2597",
+    "T2109",
+    "T61",
+    "T156",
+    "T1197",
+    "T1159",
+    "T1215",
+    "T1889",
+    "T2602",
+    "T2349",
+    "T2116",
+    "T1206",
+    "T36",
+    "T1365",
+    "T106",
+    "T1205",
+    "T1145",
+    "T279",
+    "T1540",
+    "T323",
+    "T78",
+    "T119",
+    "T86",
+    "T1154",
+    "T1166",
+    "T1887",
+    "T1213",
+    "T2666",
+    "T350",
+    "T1150",
+    "T2357",
+    "T1209",
+    "T96",
+    "T17",
+    "T2348",
+    "T536",
+    "T1203",
+    "T2106",
+    "T42",
+    "T2603",
+    "T1468",
+    "T101",
+    "T296",
+    "T1212",
+    "T186",
+    "T1917",
+    "T2611",
+    "T340",
+    "T2601",
+    "T4750",
+    "T128",
+    "T20",
+    "T1362",
+    "T76",
+    "T1200",
+    "T7414",
+    "T241",
+    "T98",
+    "T4749",
+    "T1202",
+    "T2662",
+    "T589",
+    "T2607",
+    "T2610",
+    "T4747",
+    "T1210",
+    "T2619",
+    "T1192"
+  ],
+  "total_countermeasures": 186,
+  "project_total_countermeasures": 186,
+  "expected_skill_files": 98,
+  "code_fix_count": 32,
+  "documentation_count": 53,
+  "process_count": 101,
+  "git_enabled": true,
+  "security_branch": "security-hardening/dvra-clean-for-testing-20260917",
+  "ai_backup_archive": null,
+  "scaffold": null,
+  "initial_commit": null,
+  "spec_sources": null,
+  "library_sourced_cms": [
+    {
+      "cm_id": "T2141",
+      "amendment_id": "TA8555",
+      "matched_technology": "Python"
+    },
+    {
+      "cm_id": "T2141",
+      "amendment_id": "TA9345",
+      "matched_technology": "JavaScript"
+    },
+    {
+      "cm_id": "T29",
+      "amendment_id": "TA9301",
+      "matched_technology": "Python"
+    },
+    {
+      "cm_id": "T1541",
+      "amendment_id": "TA9324",
+      "matched_technology": "Python"
+    },
+    {
+      "cm_id": "T2598",
+      "amendment_id": "TA9474",
+      "matched_technology": "JavaScript"
+    },
+    {
+      "cm_id": "T2598",
+      "amendment_id": "TA9511",
+      "matched_technology": "Python"
+    },
+    {
+      "cm_id": "T2139",
+      "amendment_id": "TA9362",
+      "matched_technology": "Python"
+    },
+    {
+      "cm_id": "T32",
+      "amendment_id": "TA9302",
+      "matched_technology": "Python"
+    },
+    {
+      "cm_id": "T1542",
+      "amendment_id": "TA9315",
+      "matched_technology": "Python"
+    },
+    {
+      "cm_id": "T1542",
+      "amendment_id": "TA9466",
+      "matched_technology": "JavaScript"
+    },
+    {
+      "cm_id": "T18",
+      "amendment_id": "TA9456",
+      "matched_technology": "JavaScript"
+    },
+    {
+      "cm_id": "T18",
+      "amendment_id": "TA9505",
+      "matched_technology": "Python"
+    },
+    {
+      "cm_id": "T1922",
+      "amendment_id": "TA9454",
+      "matched_technology": "JavaScript"
+    },
+    {
+      "cm_id": "T1922",
+      "amendment_id": "TA9523",
+      "matched_technology": "Python"
+    },
+    {
+      "cm_id": "T38",
+      "amendment_id": "TA9283",
+      "matched_technology": "Python"
+    },
+    {
+      "cm_id": "T37",
+      "amendment_id": "TA9334",
+      "matched_technology": "JavaScript"
+    },
+    {
+      "cm_id": "T37",
+      "amendment_id": "TA8540",
+      "matched_technology": "Python"
+    },
+    {
+      "cm_id": "T36",
+      "amendment_id": "TA9293",
+      "matched_technology": "Python"
+    },
+    {
+      "cm_id": "T36",
+      "amendment_id": "TA8479",
+      "matched_technology": "JavaScript"
+    },
+    {
+      "cm_id": "T1365",
+      "amendment_id": "TA9284",
+      "matched_technology": "JavaScript"
+    },
+    {
+      "cm_id": "T1365",
+      "amendment_id": "TA8521",
+      "matched_technology": "Python"
+    },
+    {
+      "cm_id": "T1887",
+      "amendment_id": "TA9444",
+      "matched_technology": "JavaScript"
+    },
+    {
+      "cm_id": "T1887",
+      "amendment_id": "TA9507",
+      "matched_technology": "Python"
+    },
+    {
+      "cm_id": "T17",
+      "amendment_id": "TA9296",
+      "matched_technology": "Python"
+    },
+    {
+      "cm_id": "T17",
+      "amendment_id": "TA9438",
+      "matched_technology": "JavaScript"
+    },
+    {
+      "cm_id": "T42",
+      "amendment_id": "TA9458",
+      "matched_technology": "JavaScript"
+    },
+    {
+      "cm_id": "T42",
+      "amendment_id": "TA9489",
+      "matched_technology": "Python"
+    },
+    {
+      "cm_id": "T186",
+      "amendment_id": "TA9369",
+      "matched_technology": "Python"
+    },
+    {
+      "cm_id": "T76",
+      "amendment_id": "TA9291",
+      "matched_technology": "JavaScript"
+    },
+    {
+      "cm_id": "T76",
+      "amendment_id": "TA8509",
+      "matched_technology": "Python"
+    },
+    {
+      "cm_id": "T1194",
+      "amendment_id": "TA8460",
+      "matched_technology": "Docker"
+    },
+    {
+      "cm_id": "T1176",
+      "amendment_id": "TA8447",
+      "matched_technology": "Docker"
+    },
+    {
+      "cm_id": "T1190",
+      "amendment_id": "TA8457",
+      "matched_technology": "Docker"
+    },
+    {
+      "cm_id": "T1144",
+      "amendment_id": "TA9360",
+      "matched_technology": "Python"
+    },
+    {
+      "cm_id": "T1174",
+      "amendment_id": "TA8448",
+      "matched_technology": "Docker"
+    },
+    {
+      "cm_id": "T1198",
+      "amendment_id": "TA8456",
+      "matched_technology": "Docker"
+    },
+    {
+      "cm_id": "T1208",
+      "amendment_id": "TA8451",
+      "matched_technology": "Docker"
+    },
+    {
+      "cm_id": "T1156",
+      "amendment_id": "TA8473",
+      "matched_technology": "Docker"
+    },
+    {
+      "cm_id": "T1158",
+      "amendment_id": "TA8472",
+      "matched_technology": "Docker"
+    },
+    {
+      "cm_id": "T1196",
+      "amendment_id": "TA8442",
+      "matched_technology": "Docker"
+    },
+    {
+      "cm_id": "T257",
+      "amendment_id": "TA9481",
+      "matched_technology": "JavaScript"
+    },
+    {
+      "cm_id": "T257",
+      "amendment_id": "TA9522",
+      "matched_technology": "Python"
+    },
+    {
+      "cm_id": "T1188",
+      "amendment_id": "TA8458",
+      "matched_technology": "Docker"
+    },
+    {
+      "cm_id": "T1214",
+      "amendment_id": "TA8449",
+      "matched_technology": "Docker"
+    },
+    {
+      "cm_id": "T1186",
+      "amendment_id": "TA8441",
+      "matched_technology": "Docker"
+    },
+    {
+      "cm_id": "T1204",
+      "amendment_id": "TA8453",
+      "matched_technology": "Docker"
+    },
+    {
+      "cm_id": "T1206",
+      "amendment_id": "TA8452",
+      "matched_technology": "Docker"
+    },
+    {
+      "cm_id": "T1154",
+      "amendment_id": "TA8474",
+      "matched_technology": "Docker"
+    },
+    {
+      "cm_id": "T1166",
+      "amendment_id": "TA8467",
+      "matched_technology": "Docker"
+    },
+    {
+      "cm_id": "T1150",
+      "amendment_id": "TA8476",
+      "matched_technology": "Docker"
+    },
+    {
+      "cm_id": "T1212",
+      "amendment_id": "TA8440",
+      "matched_technology": "Docker"
+    },
+    {
+      "cm_id": "T1200",
+      "amendment_id": "TA8455",
+      "matched_technology": "Docker"
+    },
+    {
+      "cm_id": "T1202",
+      "amendment_id": "TA8454",
+      "matched_technology": "Docker"
+    },
+    {
+      "cm_id": "T1210",
+      "amendment_id": "TA8450",
+      "matched_technology": "Docker"
+    },
+    {
+      "cm_id": "T1192",
+      "amendment_id": "TA8439",
+      "matched_technology": "Docker"
+    }
+  ],
+  "library_lookup_audit": [
+    {
+      "cm_id": "T1144",
+      "endpoint": "library/tasks/T1144/amendments/",
+      "http_status": 200,
+      "result": "LIBRARY_SOURCED",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:13.927023+00:00",
+      "matched_amendments": [
+        {
+          "amendment_id": "TA9360",
+          "technology": "Python"
+        }
+      ]
+    },
+    {
+      "cm_id": "T1150",
+      "endpoint": "library/tasks/T1150/amendments/",
+      "http_status": 200,
+      "result": "LIBRARY_SOURCED",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:19.383948+00:00",
+      "matched_amendments": [
+        {
+          "amendment_id": "TA8476",
+          "technology": "Docker"
+        }
+      ]
+    },
+    {
+      "cm_id": "T1154",
+      "endpoint": "library/tasks/T1154/amendments/",
+      "http_status": 200,
+      "result": "LIBRARY_SOURCED",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:18.765080+00:00",
+      "matched_amendments": [
+        {
+          "amendment_id": "TA8474",
+          "technology": "Docker"
+        }
+      ]
+    },
+    {
+      "cm_id": "T1156",
+      "endpoint": "library/tasks/T1156/amendments/",
+      "http_status": 200,
+      "result": "LIBRARY_SOURCED",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:16.013420+00:00",
+      "matched_amendments": [
+        {
+          "amendment_id": "TA8473",
+          "technology": "Docker"
+        }
+      ]
+    },
+    {
+      "cm_id": "T1158",
+      "endpoint": "library/tasks/T1158/amendments/",
+      "http_status": 200,
+      "result": "LIBRARY_SOURCED",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:16.326654+00:00",
+      "matched_amendments": [
+        {
+          "amendment_id": "TA8472",
+          "technology": "Docker"
+        }
+      ]
+    },
+    {
+      "cm_id": "T1166",
+      "endpoint": "library/tasks/T1166/amendments/",
+      "http_status": 200,
+      "result": "LIBRARY_SOURCED",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:19.073249+00:00",
+      "matched_amendments": [
+        {
+          "amendment_id": "TA8467",
+          "technology": "Docker"
+        }
+      ]
+    },
+    {
+      "cm_id": "T1172",
+      "endpoint": "library/tasks/T1172/amendments/",
+      "http_status": 200,
+      "result": "TEMPLATE_NO_MATCH",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:16.983432+00:00",
+      "matched_amendments": []
+    },
+    {
+      "cm_id": "T1174",
+      "endpoint": "library/tasks/T1174/amendments/",
+      "http_status": 200,
+      "result": "LIBRARY_SOURCED",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:14.220593+00:00",
+      "matched_amendments": [
+        {
+          "amendment_id": "TA8448",
+          "technology": "Docker"
+        }
+      ]
+    },
+    {
+      "cm_id": "T1176",
+      "endpoint": "library/tasks/T1176/amendments/",
+      "http_status": 200,
+      "result": "LIBRARY_SOURCED",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:13.334819+00:00",
+      "matched_amendments": [
+        {
+          "amendment_id": "TA8447",
+          "technology": "Docker"
+        }
+      ]
+    },
+    {
+      "cm_id": "T1186",
+      "endpoint": "library/tasks/T1186/amendments/",
+      "http_status": 200,
+      "result": "LIBRARY_SOURCED",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:17.886407+00:00",
+      "matched_amendments": [
+        {
+          "amendment_id": "TA8441",
+          "technology": "Docker"
+        }
+      ]
+    },
+    {
+      "cm_id": "T1188",
+      "endpoint": "library/tasks/T1188/amendments/",
+      "http_status": 200,
+      "result": "LIBRARY_SOURCED",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:17.284322+00:00",
+      "matched_amendments": [
+        {
+          "amendment_id": "TA8458",
+          "technology": "Docker"
+        }
+      ]
+    },
+    {
+      "cm_id": "T1190",
+      "endpoint": "library/tasks/T1190/amendments/",
+      "http_status": 200,
+      "result": "LIBRARY_SOURCED",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:13.614924+00:00",
+      "matched_amendments": [
+        {
+          "amendment_id": "TA8457",
+          "technology": "Docker"
+        }
+      ]
+    },
+    {
+      "cm_id": "T1192",
+      "endpoint": "library/tasks/T1192/amendments/",
+      "http_status": 200,
+      "result": "LIBRARY_SOURCED",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:21.282523+00:00",
+      "matched_amendments": [
+        {
+          "amendment_id": "TA8439",
+          "technology": "Docker"
+        }
+      ]
+    },
+    {
+      "cm_id": "T1194",
+      "endpoint": "library/tasks/T1194/amendments/",
+      "http_status": 200,
+      "result": "LIBRARY_SOURCED",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:13.048062+00:00",
+      "matched_amendments": [
+        {
+          "amendment_id": "TA8460",
+          "technology": "Docker"
+        }
+      ]
+    },
+    {
+      "cm_id": "T1196",
+      "endpoint": "library/tasks/T1196/amendments/",
+      "http_status": 200,
+      "result": "LIBRARY_SOURCED",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:16.635227+00:00",
+      "matched_amendments": [
+        {
+          "amendment_id": "TA8442",
+          "technology": "Docker"
+        }
+      ]
+    },
+    {
+      "cm_id": "T1198",
+      "endpoint": "library/tasks/T1198/amendments/",
+      "http_status": 200,
+      "result": "LIBRARY_SOURCED",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:14.524837+00:00",
+      "matched_amendments": [
+        {
+          "amendment_id": "TA8456",
+          "technology": "Docker"
+        }
+      ]
+    },
+    {
+      "cm_id": "T1200",
+      "endpoint": "library/tasks/T1200/amendments/",
+      "http_status": 200,
+      "result": "LIBRARY_SOURCED",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:20.392680+00:00",
+      "matched_amendments": [
+        {
+          "amendment_id": "TA8455",
+          "technology": "Docker"
+        }
+      ]
+    },
+    {
+      "cm_id": "T1202",
+      "endpoint": "library/tasks/T1202/amendments/",
+      "http_status": 200,
+      "result": "LIBRARY_SOURCED",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:20.687777+00:00",
+      "matched_amendments": [
+        {
+          "amendment_id": "TA8454",
+          "technology": "Docker"
+        }
+      ]
+    },
+    {
+      "cm_id": "T1204",
+      "endpoint": "library/tasks/T1204/amendments/",
+      "http_status": 200,
+      "result": "LIBRARY_SOURCED",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:18.185385+00:00",
+      "matched_amendments": [
+        {
+          "amendment_id": "TA8453",
+          "technology": "Docker"
+        }
+      ]
+    },
+    {
+      "cm_id": "T1206",
+      "endpoint": "library/tasks/T1206/amendments/",
+      "http_status": 200,
+      "result": "LIBRARY_SOURCED",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:18.486896+00:00",
+      "matched_amendments": [
+        {
+          "amendment_id": "TA8452",
+          "technology": "Docker"
+        }
+      ]
+    },
+    {
+      "cm_id": "T1208",
+      "endpoint": "library/tasks/T1208/amendments/",
+      "http_status": 200,
+      "result": "LIBRARY_SOURCED",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:14.815524+00:00",
+      "matched_amendments": [
+        {
+          "amendment_id": "TA8451",
+          "technology": "Docker"
+        }
+      ]
+    },
+    {
+      "cm_id": "T1210",
+      "endpoint": "library/tasks/T1210/amendments/",
+      "http_status": 200,
+      "result": "LIBRARY_SOURCED",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:20.982255+00:00",
+      "matched_amendments": [
+        {
+          "amendment_id": "TA8450",
+          "technology": "Docker"
+        }
+      ]
+    },
+    {
+      "cm_id": "T1212",
+      "endpoint": "library/tasks/T1212/amendments/",
+      "http_status": 200,
+      "result": "LIBRARY_SOURCED",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:19.672564+00:00",
+      "matched_amendments": [
+        {
+          "amendment_id": "TA8440",
+          "technology": "Docker"
+        }
+      ]
+    },
+    {
+      "cm_id": "T1214",
+      "endpoint": "library/tasks/T1214/amendments/",
+      "http_status": 200,
+      "result": "LIBRARY_SOURCED",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:17.591854+00:00",
+      "matched_amendments": [
+        {
+          "amendment_id": "TA8449",
+          "technology": "Docker"
+        }
+      ]
+    },
+    {
+      "cm_id": "T1365",
+      "endpoint": "library/tasks/T1365/amendments/",
+      "http_status": 200,
+      "result": "LIBRARY_SOURCED",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:09.606018+00:00",
+      "matched_amendments": [
+        {
+          "amendment_id": "TA9284",
+          "technology": "JavaScript"
+        },
+        {
+          "amendment_id": "TA8521",
+          "technology": "Python"
+        }
+      ]
+    },
+    {
+      "cm_id": "T15",
+      "endpoint": "library/tasks/T15/amendments/",
+      "http_status": 200,
+      "result": "TEMPLATE_NO_MATCH",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:06.207194+00:00",
+      "matched_amendments": []
+    },
+    {
+      "cm_id": "T1541",
+      "endpoint": "library/tasks/T1541/amendments/",
+      "http_status": 200,
+      "result": "LIBRARY_SOURCED",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:06.205793+00:00",
+      "matched_amendments": [
+        {
+          "amendment_id": "TA9324",
+          "technology": "Python"
+        }
+      ]
+    },
+    {
+      "cm_id": "T1542",
+      "endpoint": "library/tasks/T1542/amendments/",
+      "http_status": 200,
+      "result": "LIBRARY_SOURCED",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:07.612118+00:00",
+      "matched_amendments": [
+        {
+          "amendment_id": "TA9315",
+          "technology": "Python"
+        },
+        {
+          "amendment_id": "TA9466",
+          "technology": "JavaScript"
+        }
+      ]
+    },
+    {
+      "cm_id": "T17",
+      "endpoint": "library/tasks/T17/amendments/",
+      "http_status": 200,
+      "result": "LIBRARY_SOURCED",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:11.381052+00:00",
+      "matched_amendments": [
+        {
+          "amendment_id": "TA9296",
+          "technology": "Python"
+        },
+        {
+          "amendment_id": "TA9438",
+          "technology": "JavaScript"
+        }
+      ]
+    },
+    {
+      "cm_id": "T18",
+      "endpoint": "library/tasks/T18/amendments/",
+      "http_status": 200,
+      "result": "LIBRARY_SOURCED",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:07.960606+00:00",
+      "matched_amendments": [
+        {
+          "amendment_id": "TA9456",
+          "technology": "JavaScript"
+        },
+        {
+          "amendment_id": "TA9505",
+          "technology": "Python"
+        }
+      ]
+    },
+    {
+      "cm_id": "T186",
+      "endpoint": "library/tasks/T186/amendments/",
+      "http_status": 200,
+      "result": "LIBRARY_SOURCED",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:12.086499+00:00",
+      "matched_amendments": [
+        {
+          "amendment_id": "TA9369",
+          "technology": "Python"
+        }
+      ]
+    },
+    {
+      "cm_id": "T1887",
+      "endpoint": "library/tasks/T1887/amendments/",
+      "http_status": 200,
+      "result": "LIBRARY_SOURCED",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:09.971771+00:00",
+      "matched_amendments": [
+        {
+          "amendment_id": "TA9444",
+          "technology": "JavaScript"
+        },
+        {
+          "amendment_id": "TA9507",
+          "technology": "Python"
+        }
+      ]
+    },
+    {
+      "cm_id": "T1922",
+      "endpoint": "library/tasks/T1922/amendments/",
+      "http_status": 200,
+      "result": "LIBRARY_SOURCED",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:08.277793+00:00",
+      "matched_amendments": [
+        {
+          "amendment_id": "TA9454",
+          "technology": "JavaScript"
+        },
+        {
+          "amendment_id": "TA9523",
+          "technology": "Python"
+        }
+      ]
+    },
+    {
+      "cm_id": "T2105",
+      "endpoint": "library/tasks/T2105/amendments/",
+      "http_status": 200,
+      "result": "TEMPLATE_NO_MATCH",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:13.335390+00:00",
+      "matched_amendments": []
+    },
+    {
+      "cm_id": "T2109",
+      "endpoint": "library/tasks/T2109/amendments/",
+      "http_status": 200,
+      "result": "TEMPLATE_NO_MATCH",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:18.186879+00:00",
+      "matched_amendments": []
+    },
+    {
+      "cm_id": "T2115",
+      "endpoint": "library/tasks/T2115/amendments/",
+      "http_status": 200,
+      "result": "TEMPLATE_NO_MATCH",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:13.048734+00:00",
+      "matched_amendments": []
+    },
+    {
+      "cm_id": "T2139",
+      "endpoint": "library/tasks/T2139/amendments/",
+      "http_status": 200,
+      "result": "LIBRARY_SOURCED",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:06.885063+00:00",
+      "matched_amendments": [
+        {
+          "amendment_id": "TA9362",
+          "technology": "Python"
+        }
+      ]
+    },
+    {
+      "cm_id": "T2141",
+      "endpoint": "library/tasks/T2141/amendments/",
+      "http_status": 200,
+      "result": "LIBRARY_SOURCED",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:05.495147+00:00",
+      "matched_amendments": [
+        {
+          "amendment_id": "TA8555",
+          "technology": "Python"
+        },
+        {
+          "amendment_id": "TA9345",
+          "technology": "JavaScript"
+        }
+      ]
+    },
+    {
+      "cm_id": "T2257",
+      "endpoint": "library/tasks/T2257/amendments/",
+      "http_status": 200,
+      "result": "TEMPLATE_NO_MATCH",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:14.818137+00:00",
+      "matched_amendments": []
+    },
+    {
+      "cm_id": "T2258",
+      "endpoint": "library/tasks/T2258/amendments/",
+      "http_status": 200,
+      "result": "TEMPLATE_NO_MATCH",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:16.327565+00:00",
+      "matched_amendments": []
+    },
+    {
+      "cm_id": "T2348",
+      "endpoint": "library/tasks/T2348/amendments/",
+      "http_status": 200,
+      "result": "TEMPLATE_NO_MATCH",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:11.381945+00:00",
+      "matched_amendments": []
+    },
+    {
+      "cm_id": "T2349",
+      "endpoint": "library/tasks/T2349/amendments/",
+      "http_status": 200,
+      "result": "TEMPLATE_NO_MATCH",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:18.187398+00:00",
+      "matched_amendments": []
+    },
+    {
+      "cm_id": "T257",
+      "endpoint": "library/tasks/T257/amendments/",
+      "http_status": 200,
+      "result": "LIBRARY_SOURCED",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:16.982403+00:00",
+      "matched_amendments": [
+        {
+          "amendment_id": "TA9481",
+          "technology": "JavaScript"
+        },
+        {
+          "amendment_id": "TA9522",
+          "technology": "Python"
+        }
+      ]
+    },
+    {
+      "cm_id": "T2597",
+      "endpoint": "library/tasks/T2597/amendments/",
+      "http_status": 200,
+      "result": "TEMPLATE_NO_MATCH",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:08.927685+00:00",
+      "matched_amendments": []
+    },
+    {
+      "cm_id": "T2598",
+      "endpoint": "library/tasks/T2598/amendments/",
+      "http_status": 200,
+      "result": "LIBRARY_SOURCED",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:06.543502+00:00",
+      "matched_amendments": [
+        {
+          "amendment_id": "TA9474",
+          "technology": "JavaScript"
+        },
+        {
+          "amendment_id": "TA9511",
+          "technology": "Python"
+        }
+      ]
+    },
+    {
+      "cm_id": "T2599",
+      "endpoint": "library/tasks/T2599/amendments/",
+      "http_status": 200,
+      "result": "TEMPLATE_NO_MATCH",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:13.615656+00:00",
+      "matched_amendments": []
+    },
+    {
+      "cm_id": "T2600",
+      "endpoint": "library/tasks/T2600/amendments/",
+      "http_status": 200,
+      "result": "TEMPLATE_NO_MATCH",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:06.206534+00:00",
+      "matched_amendments": []
+    },
+    {
+      "cm_id": "T2601",
+      "endpoint": "library/tasks/T2601/amendments/",
+      "http_status": 200,
+      "result": "TEMPLATE_NO_MATCH",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:20.115068+00:00",
+      "matched_amendments": []
+    },
+    {
+      "cm_id": "T2602",
+      "endpoint": "library/tasks/T2602/amendments/",
+      "http_status": 200,
+      "result": "TEMPLATE_NO_MATCH",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:08.928623+00:00",
+      "matched_amendments": []
+    },
+    {
+      "cm_id": "T2603",
+      "endpoint": "library/tasks/T2603/amendments/",
+      "http_status": 200,
+      "result": "TEMPLATE_NO_MATCH",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:11.732908+00:00",
+      "matched_amendments": []
+    },
+    {
+      "cm_id": "T2605",
+      "endpoint": "library/tasks/T2605/amendments/",
+      "http_status": 200,
+      "result": "TEMPLATE_NO_MATCH",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:13.615339+00:00",
+      "matched_amendments": []
+    },
+    {
+      "cm_id": "T2615",
+      "endpoint": "library/tasks/T2615/amendments/",
+      "http_status": 200,
+      "result": "TEMPLATE_NO_MATCH",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:14.817611+00:00",
+      "matched_amendments": []
+    },
+    {
+      "cm_id": "T2616",
+      "endpoint": "library/tasks/T2616/amendments/",
+      "http_status": 200,
+      "result": "TEMPLATE_NO_MATCH",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:18.186069+00:00",
+      "matched_amendments": []
+    },
+    {
+      "cm_id": "T2619",
+      "endpoint": "library/tasks/T2619/amendments/",
+      "http_status": 200,
+      "result": "TEMPLATE_NO_MATCH",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:20.983213+00:00",
+      "matched_amendments": []
+    },
+    {
+      "cm_id": "T2620",
+      "endpoint": "library/tasks/T2620/amendments/",
+      "http_status": 200,
+      "result": "TEMPLATE_NO_MATCH",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:14.816426+00:00",
+      "matched_amendments": []
+    },
+    {
+      "cm_id": "T2621",
+      "endpoint": "library/tasks/T2621/amendments/",
+      "http_status": 200,
+      "result": "TEMPLATE_NO_MATCH",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:12.454118+00:00",
+      "matched_amendments": []
+    },
+    {
+      "cm_id": "T2652",
+      "endpoint": "library/tasks/T2652/amendments/",
+      "http_status": 200,
+      "result": "TEMPLATE_NO_MATCH",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:07.273703+00:00",
+      "matched_amendments": []
+    },
+    {
+      "cm_id": "T2661",
+      "endpoint": "library/tasks/T2661/amendments/",
+      "http_status": 200,
+      "result": "TEMPLATE_NO_MATCH",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:13.335706+00:00",
+      "matched_amendments": []
+    },
+    {
+      "cm_id": "T2662",
+      "endpoint": "library/tasks/T2662/amendments/",
+      "http_status": 200,
+      "result": "TEMPLATE_NO_MATCH",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:20.688499+00:00",
+      "matched_amendments": []
+    },
+    {
+      "cm_id": "T2663",
+      "endpoint": "library/tasks/T2663/amendments/",
+      "http_status": 200,
+      "result": "TEMPLATE_NO_MATCH",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:05.160873+00:00",
+      "matched_amendments": []
+    },
+    {
+      "cm_id": "T2665",
+      "endpoint": "library/tasks/T2665/amendments/",
+      "http_status": 200,
+      "result": "TEMPLATE_NO_MATCH",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:17.284901+00:00",
+      "matched_amendments": []
+    },
+    {
+      "cm_id": "T2666",
+      "endpoint": "library/tasks/T2666/amendments/",
+      "http_status": 200,
+      "result": "TEMPLATE_NO_MATCH",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:19.073820+00:00",
+      "matched_amendments": []
+    },
+    {
+      "cm_id": "T279",
+      "endpoint": "library/tasks/T279/amendments/",
+      "http_status": 200,
+      "result": "TEMPLATE_NO_MATCH",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:18.487731+00:00",
+      "matched_amendments": []
+    },
+    {
+      "cm_id": "T29",
+      "endpoint": "library/tasks/T29/amendments/",
+      "http_status": 200,
+      "result": "LIBRARY_SOURCED",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:05.886894+00:00",
+      "matched_amendments": [
+        {
+          "amendment_id": "TA9301",
+          "technology": "Python"
+        }
+      ]
+    },
+    {
+      "cm_id": "T32",
+      "endpoint": "library/tasks/T32/amendments/",
+      "http_status": 200,
+      "result": "LIBRARY_SOURCED",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:07.272515+00:00",
+      "matched_amendments": [
+        {
+          "amendment_id": "TA9302",
+          "technology": "Python"
+        }
+      ]
+    },
+    {
+      "cm_id": "T340",
+      "endpoint": "library/tasks/T340/amendments/",
+      "http_status": 200,
+      "result": "TEMPLATE_NO_MATCH",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:12.087464+00:00",
+      "matched_amendments": []
+    },
+    {
+      "cm_id": "T36",
+      "endpoint": "library/tasks/T36/amendments/",
+      "http_status": 200,
+      "result": "LIBRARY_SOURCED",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:09.260986+00:00",
+      "matched_amendments": [
+        {
+          "amendment_id": "TA9293",
+          "technology": "Python"
+        },
+        {
+          "amendment_id": "TA8479",
+          "technology": "JavaScript"
+        }
+      ]
+    },
+    {
+      "cm_id": "T37",
+      "endpoint": "library/tasks/T37/amendments/",
+      "http_status": 200,
+      "result": "LIBRARY_SOURCED",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:08.927023+00:00",
+      "matched_amendments": [
+        {
+          "amendment_id": "TA9334",
+          "technology": "JavaScript"
+        },
+        {
+          "amendment_id": "TA8540",
+          "technology": "Python"
+        }
+      ]
+    },
+    {
+      "cm_id": "T373",
+      "endpoint": "library/tasks/T373/amendments/",
+      "http_status": 200,
+      "result": "TEMPLATE_NO_MATCH",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:06.207977+00:00",
+      "matched_amendments": []
+    },
+    {
+      "cm_id": "T378",
+      "endpoint": "library/tasks/T378/amendments/",
+      "http_status": 200,
+      "result": "TEMPLATE_NO_MATCH",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:06.885884+00:00",
+      "matched_amendments": []
+    },
+    {
+      "cm_id": "T38",
+      "endpoint": "library/tasks/T38/amendments/",
+      "http_status": 200,
+      "result": "LIBRARY_SOURCED",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:08.613126+00:00",
+      "matched_amendments": [
+        {
+          "amendment_id": "TA9283",
+          "technology": "Python"
+        }
+      ]
+    },
+    {
+      "cm_id": "T42",
+      "endpoint": "library/tasks/T42/amendments/",
+      "http_status": 200,
+      "result": "LIBRARY_SOURCED",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:11.731936+00:00",
+      "matched_amendments": [
+        {
+          "amendment_id": "TA9458",
+          "technology": "JavaScript"
+        },
+        {
+          "amendment_id": "TA9489",
+          "technology": "Python"
+        }
+      ]
+    },
+    {
+      "cm_id": "T4600",
+      "endpoint": "library/tasks/T4600/amendments/",
+      "http_status": 200,
+      "result": "TEMPLATE_NO_MATCH",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:18.186559+00:00",
+      "matched_amendments": []
+    },
+    {
+      "cm_id": "T4601",
+      "endpoint": "library/tasks/T4601/amendments/",
+      "http_status": 200,
+      "result": "TEMPLATE_NO_MATCH",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:17.285355+00:00",
+      "matched_amendments": []
+    },
+    {
+      "cm_id": "T4746",
+      "endpoint": "library/tasks/T4746/amendments/",
+      "http_status": 200,
+      "result": "TEMPLATE_NO_MATCH",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:13.049310+00:00",
+      "matched_amendments": []
+    },
+    {
+      "cm_id": "T4747",
+      "endpoint": "library/tasks/T4747/amendments/",
+      "http_status": 200,
+      "result": "TEMPLATE_NO_MATCH",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:20.688874+00:00",
+      "matched_amendments": []
+    },
+    {
+      "cm_id": "T4748",
+      "endpoint": "library/tasks/T4748/amendments/",
+      "http_status": 200,
+      "result": "TEMPLATE_NO_MATCH",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:14.817102+00:00",
+      "matched_amendments": []
+    },
+    {
+      "cm_id": "T4749",
+      "endpoint": "library/tasks/T4749/amendments/",
+      "http_status": 200,
+      "result": "TEMPLATE_NO_MATCH",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:20.393359+00:00",
+      "matched_amendments": []
+    },
+    {
+      "cm_id": "T4750",
+      "endpoint": "library/tasks/T4750/amendments/",
+      "http_status": 200,
+      "result": "TEMPLATE_NO_MATCH",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:20.115434+00:00",
+      "matched_amendments": []
+    },
+    {
+      "cm_id": "T4751",
+      "endpoint": "library/tasks/T4751/amendments/",
+      "http_status": 200,
+      "result": "TEMPLATE_NO_MATCH",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:16.327904+00:00",
+      "matched_amendments": []
+    },
+    {
+      "cm_id": "T61",
+      "endpoint": "library/tasks/T61/amendments/",
+      "http_status": 200,
+      "result": "TEMPLATE_NO_MATCH",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:08.928278+00:00",
+      "matched_amendments": []
+    },
+    {
+      "cm_id": "T66",
+      "endpoint": "library/tasks/T66/amendments/",
+      "http_status": 200,
+      "result": "TEMPLATE_NO_MATCH",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:08.613579+00:00",
+      "matched_amendments": []
+    },
+    {
+      "cm_id": "T7411",
+      "endpoint": "library/tasks/T7411/amendments/",
+      "http_status": 200,
+      "result": "TEMPLATE_NO_MATCH",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:07.273243+00:00",
+      "matched_amendments": []
+    },
+    {
+      "cm_id": "T7412",
+      "endpoint": "library/tasks/T7412/amendments/",
+      "http_status": 200,
+      "result": "TEMPLATE_NO_MATCH",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:17.887027+00:00",
+      "matched_amendments": []
+    },
+    {
+      "cm_id": "T76",
+      "endpoint": "library/tasks/T76/amendments/",
+      "http_status": 200,
+      "result": "LIBRARY_SOURCED",
+      "retry_count": 0,
+      "queried_at": "2026-09-17T20:56:12.453467+00:00",
+      "matched_amendments": [
+        {
+          "amendment_id": "TA9291",
+          "technology": "JavaScript"
+        },
+        {
+          "amendment_id": "TA8509",
+          "technology": "Python"
+        }
+      ]
+    }
+  ],
+  "created_at": "2026-09-18T01:03:18.928212+00:00"
+}

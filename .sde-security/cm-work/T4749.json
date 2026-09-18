@@ -1,0 +1,12 @@
+{
+  "cm_id": "T4749",
+  "category": "IN",
+  "library_sourced": false,
+  "content_fields": {
+    "title": "Monitor containers in real-time",
+    "url": "https://staging.qa.sdelements.com/bunits/copilot-test/app/dvra-clean-for-testing/tasks/phase/deployment/4552-T4749/",
+    "priority": 10,
+    "output_path": "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T4749-monitor-containers-in-real-time/SKILL.md"
+  },
+  "output_path": "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T4749-monitor-containers-in-real-time/SKILL.md"
+}

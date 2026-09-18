@@ -1,0 +1,12 @@
+{
+  "cm_id": "T2257",
+  "category": "IN",
+  "library_sourced": false,
+  "content_fields": {
+    "title": "Regularly update and patch containerization systems",
+    "url": "https://staging.qa.sdelements.com/bunits/copilot-test/app/dvra-clean-for-testing/tasks/phase/deployment/4552-T2257/",
+    "priority": 10,
+    "output_path": "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T2257-regularly-update-and-patch-containerizat/SKILL.md"
+  },
+  "output_path": "/Users/isilveira/dvra-clean-for-testing/skills/container-security/T2257-regularly-update-and-patch-containerizat/SKILL.md"
+}

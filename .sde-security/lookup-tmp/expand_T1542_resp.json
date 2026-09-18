@@ -1,0 +1,200 @@
+{
+  "composite_response": [
+    {
+      "reference_id": "T1542",
+      "http_status_code": 200,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "results": [
+          {
+            "db_id": 3401,
+            "id": "TA3401",
+            "title": "ASD-STIG requirements",
+            "text": "## V-222400 [high]:\n__Validity periods must be verified on all application messages using WS-Security or SAML assertions.__\n\nWhen using WS-Security in SOAP messages, the application should check the validity of the time stamps with creation and expiration times. Time stamps that are not validated may lead to a replay event and provide immediate unauthorized access of the application. Unauthorized access results in an immediate loss of confidentiality.\n\n",
+            "type": "Built-in",
+            "ordinal": 0,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2020-11-16T13:47:34.283000-05:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2022-06-02T10:13:09.311000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9315,
+            "id": "TA9315",
+            "title": "T1542 - SKILL.md - Python",
+            "text": "---\nname: use-correct-http-methods-for-state-changing-operations\ndescription: Use when Python code allows GET or HEAD to trigger creates, updates, deletes, logout, or other server-side mutations; enforce method gating and return 405 for wrong methods.\n---\n\n# Use the correct HTTP methods for making state-changing operations\n\n## What This Skill Does\nThis skill fixes CSRF-prone request handling where Python code lets `GET` or `HEAD` perform state changes such as create, update, delete, logout, token invalidation, or balance transfers. It moves mutating logic behind `POST`, `PUT`, `PATCH`, or `DELETE`, adds an explicit request-method gate before parsing input or calling mutators, and ensures unsupported methods fail with `405 Method Not Allowed` so read-only requests stay free of side effects.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| A Flask/Django/FastAPI/Python HTTP handler uses `GET` or `HEAD` and then calls a mutating function or writes session/database state | Move the mutation to a `POST`/`PUT`/`PATCH`/`DELETE` route and reject `GET`/`HEAD` with `405` |\n| A handler reads mutation input from `request.args`, query strings, or URL parameters for an action like transfer, logout, delete, or update | Replace query-driven mutation with form or body input on a non-GET method |\n| Code parses request data before checking `request.method` | Add method gating first, then parse input, then run business logic |\n| The framework route is already limited to `POST`/`PUT`/`PATCH`/`DELETE` and `GET`/`HEAD` handlers are read-only | No action needed |\n| A state-changing endpoint is exposed via hyperlink, image URL, prefetchable URL, or redirect target | Replace it with a form or API call using the intended non-GET method |\n\n## Boundaries\n\n### Can Do\n- Refactor Python request handlers so `GET` and `HEAD` are read-only\n- Add explicit method checks such as `if request.method != \"POST\": abort(405)`\n- Separate read handlers from mutating handlers and route writes through `POST`/`PUT`/`PATCH`/`DELETE`\n\n### Cannot Do\n- Guarantee CSRF safety by method changes alone; mutating non-GET routes may still need CSRF tokens or origin checks\n- Infer full business semantics for choosing between `POST`, `PUT`, `PATCH`, and `DELETE` without application context\n- Prove the absence of side effects hidden inside downstream helpers, ORMs, caches, or audit hooks without code review\n\n## Gotchas\n- Allowing `HEAD` because \"it has no body\": wrong, `HEAD` must follow the same no-state-change rule as `GET`\n- Only changing the route decorator and leaving shared mutating logic callable from a read path: wrong, `GET` code paths can still trigger writes indirectly\n- Returning a redirect instead of `405` for wrong methods on a mutating endpoint: wrong, the unsafe method should be rejected explicitly and state must remain unchanged\n\n## Quick Verification\n```bash\n# Confirm method gating or non-GET route restrictions exist in Python handlers\nrg -n 'request\\.method\\s*!=\\s*\"(POST|PUT|PATCH|DELETE)\"|abort\\(405\\)|methods\\s*=\\s*\\[(?:[^]]*\"(POST|PUT|PATCH|DELETE)\"[^]]*)\\]' .\n\n# Find likely unguarded dangerous patterns: GET/HEAD routes or query args feeding state-changing actions\nrg -n '@app\\.route\\(.*methods\\s*=\\s*\\[[^]]*\"(GET|HEAD)\"[^]]*\\].*\\)|request\\.args\\.get\\(|request\\.GET\\[|request\\.query_params|request\\.method\\s*==\\s*\"GET\"' .\n\n# Build + test with generic Python toolchain commands\npython -m compileall .\npython -m pytest -q\n```",
+            "type": "Built-in",
+            "ordinal": 54,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:33.606000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:33.606000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 8556,
+            "id": "TA8556",
+            "title": "T1542 - SKILL.md - Node.js",
+            "text": "---\nname: use-correct-http-methods-for-state-changes\ndescription: Enforce safe HTTP verb semantics so state-changing operations never use GET/HEAD, reducing CSRF risk; use when GET endpoints mutate state or when CRUD actions are on the wrong methods.\n---\n\n# Use the correct HTTP methods for making state-changing operations\n\n## What This Skill Does\nAligns HTTP methods with their intended semantics so that state-changing actions (create/update/delete, logout, transfers, etc.) are never performed via GET/HEAD. This preserves the security assumption that safe methods are side\u2011effect free, simplifies CSRF protection (tokens/origin checks on non\u2011GET only), and prevents attackers from triggering sensitive actions via cross-site GET requests, links, or prefetch/caching.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| A GET/HEAD handler performs logout, balance reset, or any data mutation | Move the state-changing logic to a POST/PUT/PATCH/DELETE handler; keep GET/HEAD strictly read-only or return 405 |\n| A resource creation (signup, transfer, create item) is exposed on GET or mixed into another method | Expose creation via POST only; ensure body parsing and validation run only on POST for that action |\n| An update/delete is implemented via GET or POST for an existing resource | Map full/partial updates to PUT/PATCH and deletions to DELETE; remove mutation from GET and, where practical, from POST |\n| Shared business logic can mutate state regardless of HTTP method | Add a method parameter/guard so helpers reject calls when method is GET/HEAD; call this from all mutation helpers |\n| CSRF middleware is configured to protect GET routes or not used consistently | Centralize a \u201cmethod requires CSRF\u201d helper that treats GET/HEAD as safe and apply CSRF checks only to non\u2011safe methods, after verifying GET/HEAD truly never change state |\n\n## Boundaries\n\n### Can Do\n- Detect and refactor endpoints where GET/HEAD perform state changes (logout, resets, writes).\n- Reorganize route handlers so creates use POST and updates/deletes use PUT/PATCH/DELETE, keeping GET/HEAD read-only.\n- Introduce method-aware helper functions and CSRF policies that enforce \u201cGET/HEAD are safe\u201d as a strict invariant.\n\n### Cannot Do\n- Cannot add full CSRF protection (tokens/origin checks) by itself; it only prepares the method model CSRF relies on.\n- Cannot fix other CSRF-related issues such as missing SameSite cookies, weak session secrets, or XSS.\n- Cannot change external clients or third-party integrations that depend on legacy semantics without human review and migration planning.\n\n## Gotchas\n- Keeping the old GET route and silently redirecting to a mutating POST handler: still dangerous if the redirect causes the POST to run with user cookies; instead, make GET non-mutating and return 405 or a confirmation view that uses POST.\n- Allowing \u201charmless\u201d counters or logging side effects on GET: these can break assumptions for caching, idempotency, and CSRF tooling; all observable state changes must be on non\u2011GET methods.\n- Applying CSRF protection to POST/PUT/PATCH/DELETE while leaving some state changes on GET: gives a false sense of security because attackers will target the unprotected GET endpoints instead.\n\n## Quick Verification\n```bash\n# 1) Grep for obvious state-changing GET routes (logout/reset/etc.)\ngrep -R --line-number -E \"app\\.get\\(.+(logout|delete|reset|update|create| transfer|balance)\" .\n\n# 2) Run a crafted GET against formerly mutating endpoints and confirm no state change\ncurl -i -b cookies.txt \"https://your-app.example/logout\"\ncurl -i -b cookies.txt \"https://your-app.example/reset-balance\"\n\n# 3) Confirm state changes only occur via non-GET methods\ncurl -i -X POST   -b cookies.txt \"https://your-app.example/logout\"\ncurl -i -X POST   -b cookies.txt \"https://your-app.example/reset-balance\"\ncurl -i -X PATCH  -b cookies.txt \"https://your-app.example/profiles/alice\"\ncurl -i -X DELETE -b cookies.txt \"https://your-app.example/profiles/alice\"\n\n# 4) If using Node/Express example, run the fixed app and simulate the method guard\nnode app_fix_original_code.js GET   # should print \"Method not allowed\" for logout\nnode app_fix_original_code.js POST  # should perform logout\n```",
+            "type": "Built-in",
+            "ordinal": 118,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-05-21T11:39:54.742000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-05-21T11:39:54.742000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9466,
+            "id": "TA9466",
+            "title": "T1542 - SKILL.md - JavaScript",
+            "text": "---\nname: use-correct-http-methods-for-state-changing-operations\ndescription: Use when JavaScript code allows GET or HEAD to create, update, delete, log out, or otherwise change server-side state; move mutations to non-safe methods and ensure they require CSRF protection.\n---\n\n# Use the Correct HTTP Methods for State-Changing Operations\n\n## What This Skill Does\nThis skill fixes CSRF exposure caused by treating `GET` or `HEAD` as state-changing operations. In JavaScript applications, it finds handlers, route definitions, and helper functions where safe methods perform mutations such as logout, session invalidation, create/update/delete actions, or persistent state changes, then moves those operations to `POST`, `PUT`, `PATCH`, or `DELETE`. It also adds method classification and fail-closed guards so safe methods stay read-only and non-safe methods remain eligible for CSRF protection.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| A `GET` or `HEAD` route logs out users, destroys sessions, resets data, deletes data, or updates state | Move the mutation to `POST`, `PUT`, `PATCH`, or `DELETE`; return `405` or no-op on `GET`/`HEAD` |\n| Route registration is centralized or can be wrapped | Add a route-definition guard that rejects mutating handlers bound to `get` or `head` |\n| The code classifies request methods for security checks | Explicitly treat only safe methods as read-only and require CSRF protection for all other methods |\n| A `GET` or `HEAD` request includes mutation-like inputs such as `action=logout` or unexpected bodies | Reject the request and do not perform any state change |\n| Code already keeps `GET`/`HEAD` read-only and protects non-safe methods with CSRF validation | No action needed |\n\n## Boundaries\n\n### Can Do\n- Change JavaScript route handlers and helper functions so mutations use `POST`, `PUT`, `PATCH`, or `DELETE`\n- Add method guards such as `isSafeMethod`, `methodRequiresCsrfProtection`, or route-registration validation\n- Add explicit rejection for `GET` or `HEAD` calls that attempt logout, session destruction, updates, deletes, or other mutations\n\n### Cannot Do\n- Implement complete CSRF token issuance and client integration for every framework automatically\n- Infer business intent when a handler has mixed read and write behavior without code evidence\n- Guarantee protection if state changes still occur in downstream code paths triggered by nominally read-only handlers\n\n## Gotchas\n- Allowing logout on `GET` because it seems harmless: logout changes authentication state and is still a CSRF-sensitive mutation\n- Moving a route from `GET` to `POST` but leaving helper functions to mutate on `GET`: direct calls, CLI paths, tests, or background invocations can still preserve the bug\n- Treating all non-`GET` methods as automatically protected: changing the verb is not enough unless non-safe methods also go through CSRF validation\n\n## Quick Verification\n```bash\n# Confirm secure method-classification or guard helpers exist\nrg -n \"isSafeMethod|methodRequiresCsrfProtection|ensureNonSafeMethodForMutation|rejectSuspiciousSafeMethodMutations|defineRoute\" .\n\n# Find unguarded dangerous patterns where GET/HEAD still appears to perform mutations\nrg -n \"app\\.(get|head)\\s*\\([^)]*(logout|reset|delete|destroy|update|invalidate)|router\\.(get|head)\\s*\\([^)]*(logout|reset|delete|destroy|update|invalidate)|req\\.session\\.destroy\\s*\\(|\\.destroy\\s*\\(|\\b(balance|state|session|user)\\b\\s*=\" .\n\n# Build if a build script exists, then run tests if present\nnpm run build --if-present && npm test --if-present\n```",
+            "type": "Built-in",
+            "ordinal": 374,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:40.466000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:40.466000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9586,
+            "id": "TA9586",
+            "title": "T1542 - SKILL.md - C#",
+            "text": "---\nname: use-correct-http-methods-for-state-changing-operations\ndescription: Use when C# code exposes browser-triggerable state changes through GET or HEAD and must enforce correct verb binding and CSRF-safe request handling.\n---\n# Use the Correct HTTP Methods for State-Changing Operations\n\n## What This Skill Does\nThis skill fixes CSRF-prone designs where C# applications let browser-triggerable `GET` or `HEAD` requests perform state-changing work such as logout, create, update, delete, or transfer actions. It enforces correct HTTP method semantics by binding read-only behavior to `GET`/`HEAD`, moving mutations to `POST`/`PUT`/`PATCH`/`DELETE`, adding centralized method policy and guard checks where dispatch paths are shared, and preserving anti-forgery validation for unsafe browser-authenticated requests.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| A controller action, minimal API, helper, or request handler performs mutation from `GET` or `HEAD` semantics | Apply this fix |\n| ASP.NET Core code uses broad route bindings like `[Route]`, shared dispatch, or custom method parsing that can bypass verb-specific attributes | Add a centralized `HttpMethodPolicy`/`HttpMethodGuard` and reject disallowed methods before mutation |\n| Logout is exposed through `GET` | Replace with `POST` only and reject `GET` |\n| Browser-authenticated `POST`, `PUT`, `PATCH`, or `DELETE` endpoints exist without anti-forgery validation | Keep the unsafe verb and add anti-forgery validation; do not convert the action to `GET` |\n| Endpoint already uses exact verb binding, read-only `GET`/`HEAD`, and guarded mutation paths | No action needed |\n\n## Boundaries\n\n### Can Do\n- Change C# endpoint declarations and handler code so state changes do not execute via `GET` or `HEAD`\n- Add or centralize verb-allow rules with `HttpMethodPolicy`, `HttpMethodGuard`, or explicit ASP.NET Core verb attributes\n- Separate query-only code paths from command/mutation code paths and preserve anti-forgery checks on unsafe browser methods\n\n### Cannot Do\n- Infer full business intent for ambiguous endpoints without code clues, route names, or handler behavior\n- Guarantee CSRF protection if the application uses unsafe ambient authentication but anti-forgery middleware or token plumbing is missing\n- Fix non-HTTP invocation paths such as message queues, cron jobs, or internal method calls unless they explicitly model HTTP method semantics\n\n## Gotchas\n- Adding anti-forgery to `GET` instead of fixing the verb: this is wrong because `GET` must remain read-only; anti-forgery is not a substitute for correct method semantics\n- Relying only on route attributes in shared handlers: this is wrong when custom dispatch or utility methods can still call mutation logic without checking the actual method\n- Treating logout as harmless `GET`: this is wrong because logout changes authenticated session state and is browser-triggerable\n\n## Quick Verification\n```bash\n# Confirm centralized guard/policy or explicit secure verb bindings exist\nrg -n --glob '*.cs' 'HttpMethodPolicy|HttpMethodGuard|EnsureAllowed|IsMethodAllowed|\\[Http(Post|Put|Patch|Delete)\\]|\\[ValidateAntiForgeryToken\\]'\n\n# Find dangerous GET-style state-changing patterns that likely bypass the fix\nrg -n --glob '*.cs' '(\\[HttpGet[^\\]]*\\][\\s\\S]{0,300}(Delete|Remove|Update|Create|Transfer|Logout|SignOut|Save))|(ProcessGetTransferRequest)|(MapGet\\s*\\([^)]*(delete|remove|update|create|transfer|logout|signout))'\n\n# Build all discovered C# projects or solutions\nfind . \\( -name '*.sln' -o -name '*.csproj' \\) -print0 | xargs -0 -n1 dotnet build\n\n# Run tests for all discovered test projects; if none exist, command does nothing\nfind . -name '*Test*.csproj' -o -name '*Tests*.csproj' -print0 | xargs -0 -r -n1 dotnet test\n```",
+            "type": "Built-in",
+            "ordinal": 508,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:45.042000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:45.042000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9663,
+            "id": "TA9663",
+            "title": "T1542 - SKILL.md - Java",
+            "text": "---\nname: use-correct-http-methods-for-state-changing-operations\ndescription: Use when Java code allows GET or HEAD to create, update, delete, submit, or log out; enforce method-to-action rules so safe methods stay read-only and state changes require POST, PUT, PATCH, or DELETE.\n---\n\n# Use the correct HTTP methods for making state-changing operations\n\n## What This Skill Does\nThis skill fixes CSRF-prone request handling where Java code lets safe HTTP methods such as `GET` or `HEAD` trigger server-side state changes. It adds a single method-to-action policy, normalizes and validates the incoming method before business logic runs, rejects unknown or disallowed methods instead of falling back, and ensures logout and other mutations only happen through state-changing methods such as `POST`, `PUT`, `PATCH`, or `DELETE`.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| A Java handler, controller, servlet, filter, CLI dispatch method, or router performs logout, create, update, delete, or submit logic without checking `httpMethod` / `request.getMethod()` | Apply this fix |\n| `GET` or `HEAD` reaches code that changes fields, session state, stored data, or invokes delete/update operations | Move the action to `POST`, `PUT`, `PATCH`, or `DELETE` and reject `GET` / `HEAD` before state changes |\n| Logout is reachable with `GET` or `HEAD` | Require `POST` for logout and reject safe methods |\n| Method parsing uses raw strings, defaults unknown methods, or falls through to an action | Normalize method names, validate against an allowlist, and reject unknown methods |\n| Code already enforces a shared allowlist where `GET` / `HEAD` are read-only and state-changing actions require intended methods | No action needed |\n\n## Boundaries\n\n### Can Do\n- Add or tighten Java method checks before state-changing business logic runs\n- Introduce a shared action-to-allowed-method mapping using core Java types like `EnumMap` and `EnumSet`\n- Reject unknown, malformed, or disallowed methods without falling back to a default action\n\n### Cannot Do\n- Add complete framework-specific routing changes for every Java web stack automatically\n- Prove all side effects are gone if state changes happen indirectly in downstream services or database triggers\n- Replace CSRF tokens or same-site cookie protections where those are still needed for allowed state-changing requests\n\n## Gotchas\n- Checking only for `GET` and allowing everything else: this is wrong because unknown or unexpected methods may still reach state-changing code\n- Enforcing methods after mutation logic starts: this is wrong because session or data changes may already have happened before rejection\n- Allowing logout over `GET` for convenience: this is wrong because logout changes server-side session state and can be triggered cross-site\n\n## Quick Verification\n```bash\n# Confirm a shared method guard or allowlist exists\nrg -n --glob '*.java' '(request\\.getMethod\\(\\)|httpMethod|HttpMethod\\.from|EnumSet\\.of|allowedMethods|REJECTED_METHOD|method not allowed)' .\n\n# Find likely unguarded dangerous state-changing actions tied to logout/update/delete/change flows\nrg -n --glob '*.java' '(logout|changeEmail|delete|remove|update|save|set[A-Z]\\w*|create)' . | rg -v '(request\\.getMethod\\(\\)|httpMethod|HttpMethod\\.from|allowedMethods|EnumSet\\.of|method not allowed|REJECTED_METHOD)'\n\n# Build and test with whichever Java toolchain file exists\n./mvnw test || mvn test || ./gradlew test || gradle test || javac $(find . -name \"*.java\")\n```",
+            "type": "Built-in",
+            "ordinal": 596,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:48.193000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:48.193000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9734,
+            "id": "TA9734",
+            "title": "T1542 - SKILL.md - TypeScript",
+            "text": "---\nname: use-correct-http-methods-for-state-changing-operations\ndescription: Use when TypeScript code exposes create, update, delete, submit, or logout behavior through GET or HEAD and needs method enforcement to reduce CSRF risk.\n---\n# Use the correct HTTP methods for making state-changing operations\n\n## What This Skill Does\nThis skill fixes CSRF-prone request handling where TypeScript applications allow `GET` or `HEAD` to trigger server-side state changes such as updates, deletes, submits, or logout. It moves state-changing behavior to `POST`, `PUT`, `PATCH`, or `DELETE`, and adds centralized method validation so mismatched methods are rejected with `405 Method Not Allowed` before business logic runs.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| A `GET` or `HEAD` route performs create, update, delete, submit, or logout work | Change the endpoint to `POST`, `PUT`, `PATCH`, or `DELETE` and reject `GET`/`HEAD` with `405` |\n| Request handling is spread across controllers, services, or route files | Add a centralized method policy or middleware that normalizes `req.method` and enforces allowed methods before business logic |\n| Logout is exposed as `app.get('/logout', ...)` or equivalent | Replace it with a non-GET endpoint, usually `POST /logout`, and ensure GET is rejected |\n| A route is marked CSRF-exempt because it uses `GET` | Keep the exemption only if code guarantees the route is read-only with no state mutation |\n| Code already uses read-only `GET`/`HEAD` and state changes only on `POST`/`PUT`/`PATCH`/`DELETE` | No action needed |\n\n## Boundaries\n\n### Can Do\n- Convert state-changing Express or similar TypeScript routes from `GET`/`HEAD` to the correct HTTP methods\n- Add method normalization and enforcement that rejects mismatched methods before handlers execute\n- Identify obvious logout, update, create, delete, and submit flows that should not be reachable by `GET`\n\n### Cannot Do\n- Prove an endpoint is truly read-only if side effects are hidden in downstream services, jobs, or database triggers\n- Add full CSRF token protection; this skill only fixes unsafe HTTP method usage\n- Infer the correct REST design for every application when route semantics are ambiguous\n\n## Gotchas\n- Leaving business logic reachable outside the route guard: changing `app.get` to `app.post` is not enough if helper functions are still invoked by unsafe request paths\n- Treating logout as safe to expose on `GET`: logout changes session or authentication state and must be handled as a state-changing operation\n- Checking methods without normalization: comparing raw method strings inconsistently can let alternate casing or framework shortcuts bypass enforcement\n\n## Quick Verification\n```bash\n# Confirm method enforcement exists (middleware, helper, or explicit 405 guard)\nrg -n --glob '*.ts' \"Method Not Allowed|status\\s*\\(\\s*405\\s*\\)|req\\.method|normalizeMethod|app\\.(post|put|patch|delete)\\(\" .\n\n# Find dangerous GET/HEAD handlers on state-changing endpoints or names that suggest mutation\nrg -n --glob '*.ts' \"app\\.(get|head)\\s*\\(\\s*['\\\"][^'\\\"]*(logout|delete|remove|update|create|save|submit|settings|notifications)[^'\\\"]*['\\\"]|router\\.(get|head)\\s*\\(\\s*['\\\"][^'\\\"]*(logout|delete|remove|update|create|save|submit|settings|notifications)[^'\\\"]*['\\\"]\" .\n\n# Build TypeScript if a project config exists\ntest -f tsconfig.json && npx tsc --noEmit\n\n# Run the available test suite with the detected package manager\nif [ -f package.json ]; then npm test || pnpm test || yarn test; fi\n```",
+            "type": "Built-in",
+            "ordinal": 674,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:50.920000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:50.920000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9857,
+            "id": "TA9857",
+            "title": "T1542 - SKILL.md - React",
+            "text": "---\nname: use-correct-http-methods-for-state-changing-operations\ndescription: Use when React code performs logout or other state-changing actions through GET or HEAD and must enforce mutation-only HTTP methods to reduce CSRF risk.\n---\n# Use the correct HTTP methods for making state-changing operations\n\n## What This Skill Does\nThis skill fixes CSRF-prone request design in React code by ensuring safe methods (`GET`, `HEAD`) are used only for reads and that state-changing actions such as logout, create, update, and delete use mutation methods (`POST`, `PUT`, `PATCH`, `DELETE`). It applies intent-to-method mapping or centralized request builders so unsafe method assignments are blocked and `GET` routes cannot trigger side effects.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| A React route, effect, link, or navigation triggers logout, delete, create, or update from a `GET` or `HEAD` path | Refactor to an explicit mutation flow using `POST`, `PUT`, `PATCH`, or `DELETE` |\n| Request-building code accepts arbitrary method strings for state-changing actions | Replace it with a typed mutation-only builder such as `writeRequest`, `buildResourceMutation`, or a validated intent-to-method map |\n| Logout is exposed via `<Link to=\"/logout\">`, route visit, query string, or `useEffect` on page load | Replace with a button or submit action that sends a non-`GET` request, typically `POST /logout` |\n| Read-only fetch/display logic already uses `GET` or `HEAD` with no state change | No action needed |\n| Intent-based request mapping exists but maps `create`, `update`, `delete`, or logout to `GET` or `HEAD` | Correct the mapping so reads use `GET`/`HEAD` and mutations use `POST`/`PUT`/`PATCH`/`DELETE` |\n\n## Boundaries\n\n### Can Do\n- Convert logout and other mutation flows away from `GET`/`HEAD`\n- Add or tighten centralized request builders and intent-to-method policies\n- Preserve read-only flows while blocking unsafe mutation method assignments\n\n### Cannot Do\n- Guarantee server-side route handlers reject `GET` unless backend code is also changed\n- Add full CSRF protection by itself if tokens, cookies, or origin checks are missing\n- Infer business intent perfectly when a route or helper has ambiguous read/write behavior\n\n## Gotchas\n- Replacing a logout link with a button only in the UI: this is not enough if `/logout` still performs state change on `GET`\n- Allowing generic `method: string` inputs in helpers: this lets unsafe `GET` or `HEAD` values slip back into mutation code paths\n- Treating client-side state updates as harmless: local actions like logout or cart mutation still change application state and should not be driven by `GET`\n\n## Quick Verification\n```bash\n# Confirm centralized safe method policy or mutation-only wrapper exists\nrg -n \"assertSafeWriteMethod|writeRequest|buildResourceMutation|methodPolicy|type MutationMethod = 'POST' \\| 'PUT' \\| 'PATCH' \\| 'DELETE'\" .\n\n# Find unguarded dangerous React patterns that perform logout/state change from GET routes or navigation\nrg -n \"Link to=['\\\"]/?logout|navigate\\(['\\\"]/?logout|useEffect\\(\\s*\\(\\)\\s*=>[\\s\\S]*logout\\(|action\\s*===\\s*['\\\"]logout['\\\"]|new URLSearchParams\\(location\\.search\\)[\\s\\S]*logout\\(\" .\n\n# Build + test using whichever React project toolchain is present\nsh -c 'if [ -f package.json ]; then npm test -- --runInBand 2>/dev/null || npm test 2>/dev/null || npm run test -- --runInBand 2>/dev/null || npm run test 2>/dev/null; npm run build 2>/dev/null || true; elif [ -f pnpm-lock.yaml ]; then pnpm test && pnpm build; elif [ -f yarn.lock ]; then yarn test && yarn build; else echo \"No supported JS package manifest found\"; fi'\n```",
+            "type": "Built-in",
+            "ordinal": 809,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:55.701000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:55.701000-04:00",
+            "active": true
+          }
+        ]
+      }
+    }
+  ]
+}

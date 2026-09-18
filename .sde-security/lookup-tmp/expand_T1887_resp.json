@@ -1,0 +1,269 @@
+{
+  "composite_response": [
+    {
+      "reference_id": "T1887",
+      "http_status_code": 200,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "results": [
+          {
+            "db_id": 3430,
+            "id": "TA3430",
+            "title": "ASD-STIG requirements",
+            "text": "## V-222400 [high]:\n__Validity periods must be verified on all application messages using WS-Security or SAML assertions.__\n\nWhen using WS-Security in SOAP messages, the application should check the validity of the time stamps with creation and expiration times. Time stamps that are not validated may lead to a replay event and provide immediate unauthorized access of the application. Unauthorized access results in an immediate loss of confidentiality.\n\n",
+            "type": "Built-in",
+            "ordinal": 0,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2020-11-16T13:48:08.245000-05:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2022-06-02T10:13:09.536000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 1013,
+            "id": "TA1013",
+            "title": "Purpose of each OAuth 2.0 flow",
+            "text": "Each OAuth 2.0 flow serves a specific purpose. Below, we illustrate these purposes using a client application suite for an imaginary SocialNetwork. The clients offer the following features:\n\n* A client displaying a live feed of a timeline in a browser\n    * This client requires involvement of the end-user\n    * This is a frontend web application, without server-side component (i.e., a public client)\n* A client displaying a live feed of a timeline on a smart TV\n    * This client requires involvement of the end-user\n    * This is a native frontend application, without server-side component (i.e., a public client)\n* A client that offers a UI allowing the users to schedule posts to their timeline ahead of time\n    * This client requires involvement of the end-user\n    * This is a full stack web application (i.e., a confidential client)\n* A client that retrieves logging information from the SocialNetwork for security purposes\n    * This client does not require involvement of the end-user\n    * This is a native application running on a server (i.e., a confidential client)\n\n\n#### Client Credentials flow\n\nIn our SocialNetwork scenario, there is a dedicated client application to retrieve logging information from the SocialNetwork. It can retrieve all logging events associated with the different set of clients from this developer. Granting access to those logs is the responsibility of the SocialNetwork. \n\nNote how this type of access does not require the involvement of the end user. There is no action to be performed on behalf of the user. The client can access the logs directly after having authenticated itself to the SocialNetwork. \n\nIn essence, you can view the Client Credentials Grant as a flow to enable authenticated machine-to-machine communication. The Client Credentials flow allows a client to authenticate itself and receive an access token to access its protected resources. Since the Client Credentials flow depends on the use of the client secret, it can only be used with confidential clients.\n\n\n#### Authorization Code flow with PKCE\n\nThe Authorization Code flow with PKCE is targeted towards clients that need to act on behalf of the user. With the recent addition of *Proof Key for Code Exchange (PKCE)*, this flow is both suited for public and confidential clients. In our SocialNetwork scenario, these clients can both use this flow:\n\n* A client displaying a live feed of a timeline in a browser\n* A client that offers a UI allowing the users to schedule posts to their timeline ahead of time\n\nNote that the type of client influences the security considerations for these flows. We already discussed these briefly earlier in this task, and go into more detail in the Amendment.\n\n\n#### Device flow\n\nSince the introduction of OAuth 2.0, the client landscape has changed significantly. Today, users sign in to applications from smart TVs, game consoles, and streaming devices.\n\nWhen the authorization server needs the user to authenticate, the user will need to enter credentials, along with a potential second factor. Doing so on a device with constrained input provides bad user experience, or is even impossible when no browser is present.\n\nThe recently added device flow explicitly supports browserless and input constrained devices. The specification proposes a user-friendly way to enable clients running on such a device to run a proper OAuth 2.0 flow, by offloading the authentication to a regular device.\n\nRefer to the [specification](https://oauth.net/2/device-flow/) for more details.",
+            "type": "Built-in",
+            "ordinal": 1,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-07-08T14:04:40.321000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-07-22T13:49:35.086000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 1015,
+            "id": "TA1015",
+            "title": "Understanding the Authorization Code Grant flow with PKCE",
+            "text": "In this amendment, we provide details on the _**Authorization Code flow with PKCE**_. We provide two scenarios: one for confidential clients and one for public clients. Implementation details can be found in How-to section 'Implementing the Authorization Code Grant flow with PKCE'.\n\n### Overview of the flow\n\nThis amendment gives a high-level overview of the Authorization Code flow with PKCE, as shown in the scenario. In contrast to the Authorization Code Grant flow, the client is a native client-side application. The user's browser is also depicted, as it still plays a crucial role in the delegation process. \n\n![](https://staging.qa.sdelements.com/static/screenshots/TA1015_OAuth_2_Confidential_Client.png)\n\nThe flow is initialized by the client application, which is the backend of the full-stack application (Step 1). To direct the flow to the authorization server, the application instructs the browser to follow a redirect. \n\nThe client informs the authorization server it is running an Authorization Code Grant flow (Step 2). It provides the necessary information in the initial URI using query parameters. One of these parameters is a _**code challenge**_. This code challenge is used to ensure that only this client can use the issued authorization code to request an access token. We will cover the details of the parameters, as well as the code challenge, in ['Implementing the Authorization Code Grant flow with PKCE'](TODO-REF-HOWTO) How-to .\n\nWhen handling the request, the authorization server is supposed to authenticate the resource owner, and request permission to delegate access to the client application. (Step 3 and 4). After successful completion of these steps, the authorization server issues an authorization code. \n\nThis authorization code is sent back to the user's browser (Step 5). To do so, the authorization server constructs a redirect URI, pointing back to the client application. The user agent loads this redirect URI, which transmits the necessary information to the client application (Step 6). \n\nThe client application now needs to exchange the authorization code for an access token. To perform the exchange, the client makes a backchannel request to the authorization server (Step 7). In the request, the client includes the authorization code, its client credentials, and the code verifier. This verifier is uniquely linked to the code challenge from before.\n\nThe authorization server, in turn, checks if the client credentials are valid and if the authorization code belongs to this particular client (step 8). The authorization server also checks if the code challenge from earlier matches the code verifier presented here. If everything checks out, it generates an access token for the client and sends it to the client in the response (step 9).\n\nThe decision to issue a refresh token to the client is at the discretion of the authorization server. If desired, the authorization server can issue a refresh token in the same response alongside the access token.\n\n\n### The Authorization Code flow with PKCE for public clients\n\nHere, you can find an overview of the Authorization Code flow with PKCE for public clients. The client is a frontend browser application, incapable of keeping a secret. Note that the flow itself remains mostly unchanged. \n\nThe main difference is that the flow is not initialized from the browser application, instead of from the backend application. To differentiate between the client application and the browser, they are displayed separately in the diagram.\n\n![](https://staging.qa.sdelements.com/static/screenshots/TA1015_OAuth_2_Public_Client.png)\n\nWe will not cover each step of the flow again. Instead, we highlight the differences:\n\n* The flow starts directly in the browser, instead of in the backend of the application (step 1).\n* The code challenge and verifier are handled by the frontend application.\n* When loading the callback, the browser will make a request to a server to load the HTML page of the client (step 6). This request is not depicted here.\n* The frontend application exchanges the authorization code for an access token (step 7).\n* The code exchange does not use client credentials (step 7).",
+            "type": "Built-in",
+            "ordinal": 1,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-07-10T12:47:27.893000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-07-22T14:24:28.818000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 1016,
+            "id": "TA1016",
+            "title": "Understanding the Client Credentials flow",
+            "text": "This amendment provides details on the _**Client Credentials flow**_. This flow allows a client to authenticate itself to the authorization server to receive an access token. The client credentials flow is typically used to enable *machine-to-machine* communication.\n\n\n### Overview of the flow\n\nThe Client Credentials flow is used when the client needs to access protected resources directly. As the scenario shows, there is no need for delegation on behalf of the user, hence no need to involve the end user in the flow. \n\n![](https://staging.qa.sdelements.com/static/screenshots/TA1016_OAuth_2_Client_Credentials_Flow.png)\n\nThe scenario of the Client Credentials flow aptly reflects its simplicity. The client reaches out to the token endpoint of the authorization server to request an access token (Step 1). It authenticates itself, typically by including client credentials.\n\nThe authorization server is responsible for authenticating the client. Next, it issues a response containing an access token (Step 2). With this access token, the client can access its protected resources by contacting the resource server.\n\n\n### Relevant considerations\n\nThe most significant limitation of the Client Credentials flow is its intended purpose. This flow is intended to give a client access to its own resources. As a result, it cannot be used to delegate access to a client on behalf of the user.\n\nHowever, the Client Credentials flow is useful to implement proper server-to-server authentication and authorization. Since it fits within the OAuth 2.0 framework, it provides the proper structure to register clients and manage client secrets (See Amendment section 'Securing client registration' under [Task 1889](/library/tasks/T1889/) for more details). Additionally, it enables the use of a single authorization mechanism to protect APIs for various types of access.\n\nFinally, the authorization server does not issue refresh tokens during the Client Credentials flow. Refresh tokens allow a client to obtain previously authorized access tokens without involving the end user. Since the client can directly request access tokens with the Client Credentials flow, there is no need for refresh tokens.",
+            "type": "Built-in",
+            "ordinal": 1,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-07-10T14:12:12.308000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-07-22T14:24:42.522000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 10435,
+            "id": "TA10435",
+            "title": "Ensure OpenID Provider only allows values \u2018code\u2019, \u2018ciba\u2019, \u2018id_token\u2019, or \u2018id_token code\u2019for response mode (OWASP ASVS 5.0)",
+            "text": "Implement controls for the OpenID Provider only allows values \u2018code\u2019, \u2018ciba\u2019, \u2018id_token\u2019, or \u2018id_token code\u2019for response mode. Note that \u2018code\u2019is preferred over \u2018id_token code\u2019(the OIDC Hybrid flow), and \u2018token\u2019(any Implicit flow) must not be used. Align implementation with the ASVS requirement: Verify that the OpenID Provider only allows values \u2018code\u2019, \u2018ciba\u2019, \u2018id_token\u2019, or \u2018id_token code\u2019for response mode. Note that \u2018code\u2019is preferred over \u2018id_token code\u2019(the OIDC Hybrid flow), and \u2018token\u2019(any Implicit flow) must not be used.",
+            "type": "Built-in",
+            "ordinal": 97,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-08-06T11:23:44.975000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-08-06T11:23:44.975000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9444,
+            "id": "TA9444",
+            "title": "T1887 - SKILL.md - JavaScript",
+            "text": "---\nname: decide-on-the-right-oauth-2-0-flow-for-your-application\ndescription: \"Select and enforce safe OAuth 2.0 flows, PKCE, token validation, and scope checks for JavaScript apps. Use when OAuth flow choice or token-based authorization may break access control.\"\n---\n# Decide on the right OAuth 2.0 flow for your application\n\n## What This Skill Does\nThis skill fixes authorization weaknesses caused by choosing the wrong OAuth 2.0 flow or trusting tokens before proper validation. It adds fail-closed flow selection, forbids Implicit Grant, requires Authorization Code + PKCE with `S256` for end-user apps that can use it, uses Device Authorization Grant for constrained-input public clients, limits Client Credentials to confidential machine-to-machine clients, blocks secrets in public clients, and ensures validated token claims and exact scope checks are used before access is granted.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Code selects or accepts `implicit` as an OAuth flow | Reject it and replace with `authorization_code_pkce_public`, `authorization_code_pkce_confidential`, or `device_flow` based on client type and device constraints |\n| End user is involved and client is public without constrained input | Apply Authorization Code flow with PKCE and require `code_challenge_method: 'S256'` |\n| End user is involved and client is public with constrained input | Use Device Authorization Grant and fail closed on any other flow |\n| No end user is involved | Allow `client_credentials` only for confidential clients; reject public clients |\n| Code already validates tokens with allowed algorithms and enforces exact required scopes | No action needed |\n\n## Boundaries\n\n### Can Do\n- Add or tighten JavaScript flow-selection logic that rejects mismatched OAuth client/flow combinations\n- Remove exposed public client secrets or private keys and enforce PKCE `S256`, `state`, and scope checks\n- Add local token validation gates before authorization decisions and deny access when validation or scope checks fail\n\n### Cannot Do\n- Prove the configured issuer, audience, redirect URIs, or key material are correct for your identity provider\n- Safely implement browser refresh-token storage where the platform does not provide secure storage\n- Replace a full OAuth client or authorization server integration without project-specific design decisions\n\n## Gotchas\n- Treating `client_credentials` as a shortcut for user login: wrong because it is only for confidential clients when no end user is involved\n- Allowing caller input to override `response_type`, PKCE method, or required parameters: wrong because it can silently downgrade the flow or disable protections\n- Checking scopes before token verification or by substring matching token text: wrong because unvalidated claims must not drive authorization\n\n## Quick Verification\n```bash\n# Confirm guard functions and secure checks exist\nrg -n \"selectOAuthFlow|implicit_flow_forbidden|authorization_code_pkce_public|authorization_code_pkce_confidential|device_flow|client_credentials|code_challenge_method['\\\"]?\\s*:\\s*['\\\"]S256['\\\"]|jwt\\.verify|hasRequiredScope|normalizeScopes\" .\n\n# Find unguarded dangerous patterns that bypass the fix\nrg -n \"flow\\s*:\\s*['\\\"]implicit['\\\"]|requestedFlow\\s*===\\s*['\\\"]implicit['\\\"]|clientSecret\\s*:\\s*['\\\"][^'\\\"]+['\\\"]|privateKey\\s*:\\s*['\\\"][^'\\\"]+['\\\"]|access_token=|token\\.indexOf\\(['\\\"]admin['\\\"]\\)|jwt\\.decode\\(|jsonwebtoken\\.decode\\(\" .\n\n# Build + test using the JavaScript project toolchain when available\nnpm test\n```",
+            "type": "Built-in",
+            "ordinal": 348,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:39.644000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:39.644000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9507,
+            "id": "TA9507",
+            "title": "T1887 - SKILL.md - Python",
+            "text": "---\nname: decide-on-the-right-oauth-2-0-flow-for-your-application\ndescription: \"Select and enforce safe OAuth 2.0 flows in Python to prevent improper authorization; Use when flow choice, PKCE, client authentication, refresh token use, or grant construction is derived from config, input, or inconsistent logic.\"\n---\n\n# Decide on the right OAuth 2.0 flow for your application\n\n## What This Skill Does\nThis skill fixes improper authorization caused by selecting unsafe or inconsistent OAuth 2.0 flows in Python. It replaces ad hoc flow selection with one deterministic selector, rejects unsupported flows such as Implicit Grant, requires PKCE with S256 for Authorization Code, restricts client authentication to confidential clients only, blocks refresh token use for browser-based clients, and ensures each token request uses only the exact grant fields allowed for the selected flow.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| OAuth flow is chosen from config strings, request parameters, or scattered endpoint logic | Add a single `select_oauth_flow(...)` function with an allowlist of `authorization_code_pkce`, `device_flow`, and `client_credentials`; reject anything else |\n| End-user client is web, desktop, or mobile and is not a constrained-input device | Use Authorization Code with PKCE and require `code_challenge`, `code_challenge_method=\"S256\"`, and `code_verifier` |\n| Public client is browser-based, mobile, or otherwise cannot keep secrets | Do not send `client_secret` or private-key client auth; reject public-client token requests that include secret-based authentication |\n| Constrained-input public client needs user authorization | Use Device Flow and require `device_code`; do not fall back to Implicit Grant |\n| Code already derives flow from explicit client traits, enforces PKCE, forbids public-client secrets, and gates refresh tokens consistently | No action needed |\n\n## Boundaries\n\n### Can Do\n- Centralize OAuth flow selection in a deterministic Python function or policy module\n- Enforce PKCE with S256 for Authorization Code flows at authorization and token exchange time\n- Split confidential-client and public-client token request construction and reject invalid grant payloads\n\n### Cannot Do\n- Prove the identity provider is configured securely server-side if the application never validates its own requests\n- Invent secure storage for refresh tokens where the platform cannot protect them\n- Determine business authorization scopes or user entitlements beyond enforcing safe flow and grant usage\n\n## Gotchas\n- Treating browser or mobile apps as confidential clients: client secrets on end-user devices are exposed and must not be relied on\n- Adding PKCE only to the authorization request: token exchange must also require and send the matching `code_verifier`\n- Allowing `grant_type` or flow names from runtime input: this reintroduces unsafe flows such as `implicit` or mixed grant payloads\n\n## Quick Verification\n```bash\n# Confirm the secure selector / guards exist\nrg -n \"select_oauth_flow|ALLOWED_FLOWS|authorization_code_pkce|device_flow|client_credentials|may_use_refresh_tokens|build_grant_payload|code_challenge_method[\\\"']?\\s*[:=]\\s*[\\\"']S256[\\\"']\" .\n\n# Find unguarded or unsafe OAuth usage that may bypass the fix\nrg -n \"implicit|response_type[\\\"']?\\s*[:=]\\s*[\\\"']token[\\\"']|grant_type[\\\"']?\\s*[:=]\\s*[\\\"']implicit[\\\"']|client_secret\\s*=|HTTPBasicAuth\\(|grant_type[\\\"']?\\s*[:=]\\s*[\\\"']authorization_code[\\\"']\" .\n\n# Basic Python build check for syntax across app, library, CLI, or service code\npython -m compileall .\n\n# Run tests if present\npython -m unittest discover -v\n```",
+            "type": "Built-in",
+            "ordinal": 420,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:42.014000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:42.014000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9532,
+            "id": "TA9532",
+            "title": "T1887 - SKILL.md - Node.js",
+            "text": "---\nname: decide-on-the-right-oauth-2-0-flow-for-your-application\ndescription: \"Choose and enforce safe OAuth 2.0 flows in Node.js apps; Use when code selects grant types, handles client secrets or refresh tokens, builds auth/token requests, or authorizes access from bearer tokens.\"\n---\n\n# Decide on the right OAuth 2.0 flow for your application\n\n## What This Skill Does\nThis skill fixes improper OAuth flow selection that lets the app use the wrong grant type for the client or user context, expose secrets in public clients, skip PKCE, issue refresh tokens where they cannot be protected, or authorize requests from token presence alone. It applies flow selection rules, separates public and confidential client behavior, requires Authorization Code with PKCE for interactive clients, rejects deprecated flows such as Implicit Grant, and validates tokens plus required scopes before granting access.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Code chooses `client_credentials` for a browser, mobile, SPA, or other public client | Reject that combination and use Authorization Code with PKCE instead |\n| Code builds an authorization request for `authorization_code` | Require `code_challenge`, `code_challenge_method: 'S256'`, and include `state` and `nonce` where applicable |\n| Public-client config includes `client_secret`, private key auth, or refresh-token handling | Remove secret-based auth and disable refresh tokens for browser/public clients |\n| Device or TV-style app has constrained input but needs user involvement | Use Device Authorization Grant instead of browser redirect or secret-based flows |\n| Protected endpoint only checks token presence/decoding but not `iss`, `aud`, `exp`, allowed `alg`, and required scopes | Add full token verification and scope enforcement; deny on missing scope or invalid claims |\n\n## Boundaries\n\n### Can Do\n- Add explicit flow-selection logic from app traits such as user involvement, client type, and constrained input\n- Enforce PKCE and reject unsupported flows like Implicit Grant in Node.js OAuth client code\n- Harden resource authorization by verifying JWT claims and requiring endpoint-specific scopes\n\n### Cannot Do\n- Register OAuth clients, rotate secrets, or change authorization-server policy outside this codebase\n- Guarantee secure token storage on every runtime platform or browser environment\n- Replace protocol-specific OIDC requirements beyond basic `state`/`nonce` handling and token checks\n\n## Gotchas\n- Treating `authorization_code` as secure without PKCE: public clients still need `code_challenge`, `code_challenge_method: 'S256'`, and verifier enforcement at token exchange\n- Allowing public clients to send `client_secret`: this turns a public client into a fake confidential client and leaks credentials that cannot be protected\n- Checking only that `jwt.verify` or token decoding succeeds: authorization is still wrong if required scopes are missing or if code accepts weak algorithms or wrong `issuer`/`audience`\n\n## Quick Verification\n```bash\n# Confirm secure flow-selection / PKCE / token-validation patterns exist\nrg -n \"authorization_code_pkce|code_challenge_method\\s*[:=]\\s*['\\\"]S256['\\\"]|jwt\\.verify\\(|requiredScopes|client_credentials|device_code\" .\n\n# Find likely unguarded dangerous patterns: implicit flow, public client secrets, unsafe client_credentials use, or token checks without verification\nrg -n \"response_type\\s*[:=]\\s*['\\\"]token['\\\"]|grant_type\\s*[:=]\\s*['\\\"]implicit['\\\"]|client_secret|OAUTH_CLIENT_SECRET|grantType\\s*===\\s*['\\\"]client_credentials['\\\"]|jwt\\.decode\\(|Authorization.*Bearer\" .\n\n# Build + test with the Node.js toolchain, using whichever script the project defines\nnpm run build && npm test\n```",
+            "type": "Built-in",
+            "ordinal": 448,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:42.993000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:42.993000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9591,
+            "id": "TA9591",
+            "title": "T1887 - SKILL.md - C#",
+            "text": "---\nname: decide-on-the-right-oauth-2-0-flow-for-your-application\ndescription: Use when C# code configures OAuth client flows, client authentication, refresh tokens, or token-to-resource authorization and needs to enforce safe flow selection and reject unsupported or deprecated combinations.\n---\n# Decide on the right OAuth 2.0 flow for your application\n\n## What This Skill Does\nThis skill hardens C# OAuth 2.0 client and authorization logic against improper access control caused by choosing the wrong flow, allowing secrets in public clients, permitting unsafe refresh-token use, or accepting deprecated Implicit Grant behavior. It adds explicit policy validation so unsupported client capability combinations fail early, and it ensures service tokens are not treated as end-user tokens for user-scoped operations.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Code selects an OAuth flow from client capabilities or request context | Add a central selector/validator that permits only `AuthorizationCodeWithPkce`, `DeviceFlow`, or `ClientCredentials` under approved conditions and rejects unsupported combinations |\n| A client has end-user involvement | Use `AuthorizationCodeWithPkce`; use `DeviceFlow` only when application-controlled metadata says input/display capabilities are constrained |\n| A client has no end user and needs machine-to-machine access | Allow `ClientCredentials` only if the client is explicitly confidential; otherwise reject configuration |\n| A public client includes `client_secret`, private keys, or other client-auth credentials | Reject configuration independently of flow selection |\n| Code allows `ImplicitGrant`, browser refresh tokens, or refresh tokens without secure storage | Reject the configuration/request and require safer alternatives |\n\n## Boundaries\n\n### Can Do\n- Add C# policy classes that validate flow selection, client type, refresh-token eligibility, and deprecated flow rejection\n- Reject public clients that embed secrets or private keys\n- Tighten resource access checks so user-centric operations require a user-bound token rather than a client-credentials token\n\n### Cannot Do\n- Prove PKCE is correctly implemented by an external identity provider\n- Infer real client capabilities or secure-storage guarantees without application metadata\n- Repair provider-side OAuth configuration, consent screens, or token lifetime policy outside the codebase\n\n## Gotchas\n- Replacing `ImplicitGrant` with plain authorization code: wrong because end-user apps should use Authorization Code with PKCE, not code flow without PKCE protection\n- Checking confidentiality only inside one flow branch: wrong because public clients must be blocked from carrying secrets even if flow selection changes later\n- Allowing any valid access token to reach user data: wrong because `client_credentials` tokens are not end-user authorization and must not satisfy user-bound access checks\n\n## Quick Verification\n```bash\n# Confirm the secure guard/wrapper classes or validations exist\nrg -n --glob '*.cs' 'OAuthFlowSelector|OAuthTokenSafetyPolicy|PublicClientSecretRules|FlowDeprecationRules|RefreshTokenPolicyValidator|ValidateNoEmbeddedSecrets|ValidateNoImplicitGrant|AuthorizationCodeWithPkce|DeviceFlow|ClientCredentials'\n\n# Find unguarded dangerous/deprecated flow usage or risky config bypasses\nrg -n --glob '*.cs' 'ImplicitGrant|response_type\\s*=\\s*\"token\"|client_credentials|RequestsRefreshTokens\\s*=\\s*true|HasClientCredentialsConfigured\\s*=\\s*true|HasPrivateKeyConfigured\\s*=\\s*true'\n\n# Build all detected .NET solutions/projects\nfind . \\( -name '*.sln' -o -name '*.csproj' \\) -print0 | xargs -0 -I{} dotnet build \"{}\"\n\n# Run tests for all detected .NET test projects\nfind . -name '*Test*.csproj' -o -name '*Tests*.csproj' | while read -r proj; do dotnet test \"$proj\"; done\n```",
+            "type": "Built-in",
+            "ordinal": 514,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:45.228000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:45.228000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9676,
+            "id": "TA9676",
+            "title": "T1887 - SKILL.md - Java",
+            "text": "---\nname: decide-on-the-right-oauth-2-0-flow-for-your-application\ndescription: Use when Java code selects OAuth 2.0 flows unsafely, permits deprecated grants, or authorizes requests without token validation and scope checks for protected actions.\n---\n\n# Decide on the right OAuth 2.0 flow for your application\n\n## What This Skill Does\nThis skill fixes improper OAuth 2.0 flow selection and authorization gaps in Java applications. It guides the agent to replace ad hoc flow choices with profile-based selection, reject insecure options such as Implicit Grant and public-client secrets, block unsafe refresh token usage, and ensure resource-server code validates access tokens before enforcing explicit required scopes for each protected action.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Code selects OAuth flow from user input, string flags, or scattered conditionals | Add a central selector such as `OAuthFlowSelector.selectFlow(OAuthClientProfile)` and derive the flow from end-user involvement, client type, and constrained-input status |\n| User-facing Java client is present | Use Authorization Code with PKCE; require client authentication only if the client is confidential |\n| Constrained-input public device client is present | Use Device Flow only; reject it for non-constrained clients |\n| Machine-to-machine client has no end user | Use Client Credentials only for confidential clients; reject public clients |\n| Authorization uses a valid login/token alone or reads scopes before validating the token | Validate the token first, then enforce endpoint/action-specific scopes; deny when any required scope is missing |\n\n## Boundaries\n\n### Can Do\n- Add a centralized Java flow-selection and policy-validation class\n- Replace insecure OAuth decisions such as Implicit Grant or public-client secrets\n- Add scope-based authorization and token-validation ordering to resource-server code\n\n### Cannot Do\n- Register OAuth clients, flows, scopes, or redirect URIs in the identity provider for you\n- Prove signature validation is correct without the real issuer, keys, audience, and token format\n- Decide business-specific scopes or ownership rules without application context\n\n## Gotchas\n- Treating authentication as authorization: a valid token or logged-in user is not enough; protected actions still need explicit scope checks\n- Allowing refresh tokens in browser-based apps: this is unsafe because browser storage is not suitable for long-lived bearer credentials\n- Checking scopes before token validation: this trusts unverified claims and can authorize forged, expired, or wrong-audience tokens\n\n## Quick Verification\n```bash\n# Confirm secure guard/wrapper classes or methods exist\nrg -n \"class OAuthFlowSelector|selectFlow\\\\s*\\\\(|validatePolicy\\\\s*\\\\(|class ScopeAuthorizer|isAllowed\\\\s*\\\\(|validateSelfContainedToken\\\\s*\\\\(\" .\n\n# Find unguarded dangerous OAuth patterns and bypasses\nrg -n \"implicit|response_type=token|grant_type=implicit|client_secret|private_key|bearerToken\\\\.split\\\\(|SignedJWT\\\\.parse\\\\(|JWTClaimsSet|getClaim\\\\(\\\"scope\\\"\\\\)|contains\\\\(\\\"read\\\"\\\\)|contains\\\\(\\\"scope\\\"\\\\)\" .\n\n# Build and test using the detected Java toolchain\nif [ -f mvnw ]; then ./mvnw test;\nelif [ -f pom.xml ]; then mvn test;\nelif [ -f gradlew ]; then ./gradlew test;\nelif [ -f build.gradle ] || [ -f build.gradle.kts ]; then gradle test;\nelse find src -name \"*.java\" -print0 | xargs -0 -r javac; fi\n```",
+            "type": "Built-in",
+            "ordinal": 611,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:48.686000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:48.686000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9745,
+            "id": "TA9745",
+            "title": "T1887 - SKILL.md - TypeScript",
+            "text": "---\nname: decide-on-the-right-oauth-2-0-flow-for-your-application\ndescription: Use when TypeScript code selects OAuth 2.0 flows, mixes public and confidential client behavior, allows deprecated grants, or trusts token claims without explicit authorization checks.\n---\n\n# Decide on the right OAuth 2.0 flow for your application\n\n## What This Skill Does\nThis skill fixes improper OAuth 2.0 flow selection that weakens authorization by letting applications use flows that do not match client type, user presence, or runtime constraints. It adds explicit TypeScript policy logic to choose a single allowed flow, requires Authorization Code with PKCE using `S256` for end-user clients, restricts Device flow to public clients with constrained input, limits Client Credentials to confidential machine clients, disables browser refresh tokens, and ensures token claims are validated before authorization decisions.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| End-user client is present in TypeScript code (`involvesEndUser: true`) | Apply Authorization Code with PKCE and require `response_type=code`, `state`, `code_challenge`, and `code_challenge_method=S256` |\n| Public client has constrained input/device UX | Use Device Authorization flow and disable refresh tokens unless secure storage rules explicitly allow them |\n| No end user is involved and the client is confidential | Use Client Credentials only; reject public clients for this flow |\n| Code accepts `implicit`, builds `response_type=token`, or embeds `clientSecret` in a public/browser client | Replace with explicit flow-selection policy, remove deprecated flow handling, and reject public client authentication material |\n| Token claims are already validated for issuer, audience, expiration, and required scopes before access decisions | No action needed |\n\n## Boundaries\n\n### Can Do\n- Add explicit flow-selection functions such as `selectOAuthFlow()` and config validation such as `validateOAuthConfig()`\n- Enforce PKCE `S256`, `state`, trusted `redirect_uri`, and trusted scopes when building authorization requests\n- Reject public-client secrets, reject `client_credentials` for public clients, and add claim-based authorization checks\n\n### Cannot Do\n- Configure the OAuth provider or identity platform outside the repository\n- Prove that external token issuers correctly enforce PKCE or client authentication server-side\n- Infer business-specific scope, audience, or subject policy without application context\n\n## Gotchas\n- Allowing `implicit` or `response_type=token`: this keeps deprecated browser token delivery paths that bypass the PKCE requirement\n- Treating browser apps as confidential because they have a build-time secret: browser-delivered code cannot safely hold client authentication material\n- Assuming the chosen flow is enough for authorization: access control still requires explicit checks on `iss`, `aud`, `exp`, and required scopes\n\n## Quick Verification\n```bash\n# Confirm secure policy helpers or PKCE S256 request building exist\nrg -n \"selectOAuthFlow|validateOAuthConfig|resolveTokenEndpointAuthMethod|code_challenge_method['\\\"]?,\\s*['\\\"]S256['\\\"]|response_type['\\\"]?,\\s*['\\\"]code['\\\"]\" .\n\n# Find unguarded or insecure OAuth patterns that bypass the fix\nrg -n \"response_type\\s*[:=]\\s*['\\\"]token['\\\"]|flow\\s*[:=]\\s*['\\\"]implicit['\\\"]|client_credentials|clientSecret|privateKey|jwt\\.verify\\(\" . \\\n  -g '!node_modules' -g '!dist' -g '!build'\n\n# Build and test with the TypeScript toolchain\nnpx tsc --noEmit && npm test\n```",
+            "type": "Built-in",
+            "ordinal": 686,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:51.345000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:51.345000-04:00",
+            "active": true
+          }
+        ]
+      }
+    }
+  ]
+}

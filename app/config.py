@@ -1,5 +1,5 @@
 import os
-import random
+import secrets
 from pathlib import Path
 from typing import Optional
 
@@ -20,7 +20,7 @@ ENVIRONMENT = ENV(os.getenv("ENV", ENV.PRODUCTION.value))
 
 
 def generate_random_secret():
-    return "".join(random.choices("1234567890", k=6))
+    return secrets.token_urlsafe(48)
 
 
 class Settings:
@@ -30,10 +30,11 @@ class Settings:
     JWT_VERIFY_SIGNATURE = os.getenv("JWT_VERIFY_SIGNATURE")
 
     POSTGRES_USER: str = os.getenv("POSTGRES_USER", "admin")
-    POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD", "password")
+    POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD", generate_random_secret())
     POSTGRES_SERVER: str = os.getenv("POSTGRES_SERVER", "localhost")
     POSTGRES_PORT: str = os.getenv("POSTGRES_PORT", 5432)
     POSTGRES_DB: str = os.getenv("POSTGRES_DB", "restaurant")
+    POSTGRES_SSL_MODE: str = os.getenv("POSTGRES_SSL_MODE", "require")
 
     TITLE: str = "RESTaurant API"
     DESCRIPTION: str = (

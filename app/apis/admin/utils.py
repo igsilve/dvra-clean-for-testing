@@ -1,15 +1,24 @@
-import subprocess
+from pathlib import Path
+
+import psutil
 
 
 def get_disk_usage(parameters: str):
-    command = "df -h " + parameters
+    target_path = parameters.strip() if parameters and parameters.strip() else "/"
+    path_obj = Path(target_path).resolve()
+
+    if not path_obj.exists():
+        raise Exception("Path not found")
 
     try:
-        result = subprocess.run(
-            command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True
-        )
-        usage = result.stdout.strip().decode()
-    except:
+        usage = psutil.disk_usage(str(path_obj))
+    except Exception:
         raise Exception("An unexpected error was observed")
 
-    return usage
+    return (
+        f"Filesystem: {path_obj}\n"
+        f"Total: {usage.total}\n"
+        f"Used: {usage.used}\n"
+        f"Free: {usage.free}\n"
+        f"Percent: {usage.percent}%"
+    )

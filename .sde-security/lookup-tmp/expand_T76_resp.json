@@ -1,0 +1,338 @@
+{
+  "composite_response": [
+    {
+      "reference_id": "T76",
+      "http_status_code": 200,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "results": [
+          {
+            "db_id": 72,
+            "id": "TA72",
+            "title": "MDS2 Notes",
+            "text": "The following MDS2-2013 question(s) relate to this task:\n\n__3-1.__ Can the device prevent access to unauthorized users through user login requirements or other mechanism?",
+            "type": "Built-in",
+            "ordinal": 0,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2015-05-04T16:14:04.025000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2022-06-02T10:13:04.621000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 1600,
+            "id": "TA1600",
+            "title": "FedRAMP / Moderate Baseline",
+            "text": "*** IA-5 (7): Identification And Authentication | Authenticator Management | No Embedded Unencrypted Static Authenticators ***  \nThe organization ensures that unencrypted static authenticators are not embedded in applications or access scripts or stored on function keys.",
+            "type": "Built-in",
+            "ordinal": 11,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-15T17:48:55.321000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T15:08:02.455000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 2549,
+            "id": "TA2549",
+            "title": "FedRAMP / High Baseline",
+            "text": "*** IA-5 (7): Identification And Authentication | Authenticator Management | No Embedded Unencrypted Static Authenticators ***  \nThe organization ensures that unencrypted static authenticators are not embedded in applications or access scripts or stored on function keys.",
+            "type": "Built-in",
+            "ordinal": 12,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-17T18:34:00.808000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T18:38:11.115000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9291,
+            "id": "TA9291",
+            "title": "T76 - SKILL.md - JavaScript",
+            "text": "---\nname: do-not-hardcode-passwords\ndescription: Use when JavaScript code embeds passwords, API keys, tokens, or secret fallbacks in source and must be changed to load and validate secrets from runtime configuration.\n---\n# Do not hardcode passwords\n\n## What This Skill Does\nThis skill removes hardcoded passwords and other secrets from JavaScript source code and replaces them with centralized runtime secret loading, validation, and safe use. Apply it when code compares user input to embedded secret literals, stores reusable credentials in source, uses insecure fallback defaults like `process.env.SECRET || 'secret'`, or logs secret-bearing values. It also covers password hashing for stored user credentials and encrypted local config handling when file-based secret storage is unavoidable.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| A password, token, API key, or DB credential appears as a string literal in JavaScript code | Replace the literal with a runtime loader such as `requireEnv()` or `getConfiguredAdminPassword()` and fail closed when missing |\n| Code uses `process.env.SECRET || 'default-secret'` or similar fallback literals | Remove the fallback literal and require a non-empty runtime value |\n| Code compares a runtime input directly to a loaded secret with `===` | Replace with a constant-time comparison using `crypto.timingSafeEqual` via a helper like `timingSafeEqualString()` |\n| Code stores or verifies user passwords | Store password hashes with `bcryptjs` and verify with `bcrypt.compareSync()` or equivalent |\n| Secrets are already loaded from runtime config, validated, redacted from logs, and no source literals remain | No action needed |\n\n## Boundaries\n\n### Can Do\n- Replace hardcoded secret literals with runtime configuration reads such as `process.env`\n- Centralize secret loading and validate missing, empty, malformed, or placeholder values before use\n- Convert plaintext password storage or checks to password-hash verification with `bcryptjs`\n\n### Cannot Do\n- Provision a real secret manager, environment variables, or deployment-time secret injection outside the codebase\n- Recover safe secret values or generate production credentials for the application\n- Guarantee that comments, tests, fixtures, committed `.env` files, build artifacts, or logs contain no secrets without broader review\n\n## Gotchas\n- Replacing a hardcoded secret with `process.env.SECRET || 'changeme'`: this is still a hardcoded fallback and defeats the fix\n- Using `===` for secret comparison after moving the secret to config: the secret is no longer hardcoded, but direct comparison can still leak timing information\n- Logging `process.env`, request bodies, or decrypted config objects: this can re-expose secrets even after source literals are removed\n\n## Quick Verification\n```bash\n# Confirm secure runtime secret loading / guard helpers exist\nrg -n \"process\\.env\\.[A-Z0-9_]+|requireEnv\\(|requireRuntimeSecret\\(|getConfiguredAdminPassword\\(|timingSafeEqualString\\(|bcrypt\\.(hashSync|compareSync)\\(\" .\n\n# Find likely unguarded hardcoded secrets or insecure secret fallbacks\nrg -n \"(PASSWORD|PASS|SECRET|TOKEN|API_KEY|ACCESS_KEY|PRIVATE_KEY)[A-Z0-9_ \\t]*=[ \\t]*['\\\"][^'\\\"]+['\\\"]|process\\.env\\.[A-Z0-9_]+[ \\t]*\\|\\|[ \\t]*['\\\"][^'\\\"]+['\\\"]|===\\s*(ADMIN_PASSWORD|.*SECRET|.*TOKEN)|\\b(ADMIN_PASSWORD|DB_PASSWORD|API_KEY|SECRET)\\b\" .\n\n# Build + test with the available JavaScript toolchain\nnpm test || yarn test || pnpm test\n```",
+            "type": "Built-in",
+            "ordinal": 14,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:32.535000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:32.535000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 877,
+            "id": "TA877",
+            "title": "ASD-STIG requirements",
+            "text": "## V-222642 [high]:\n__The application must not contain embedded authentication data.__\n\nAuthentication data stored in code could potentially be read and used by anonymous users to gain access to a backend database or application servers. This could lead to compromise of application data.\n\n",
+            "type": "Built-in",
+            "ordinal": 40,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2018-02-20T11:06:41.288000-05:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2022-06-02T10:13:11.215000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9974,
+            "id": "TA9974",
+            "title": "T76 - SKILL.md - C++",
+            "text": "---\nname: do-not-hardcode-passwords\ndescription: Use when C++ code embeds passwords, API tokens, or secret keys in string literals, constants, defaults, or fallback values; replace them with runtime configuration and fail closed on missing or malformed secrets.\n---\n# Do not hardcode passwords\n\n## What This Skill Does\nThis skill removes hard-coded passwords, API tokens, and secret keys from C++ source and compiled values by moving secret lookup into runtime configuration, validating required secret fields, optionally decrypting encrypted configuration values before use, and failing closed when secrets are missing, empty, malformed, or undecryptable.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Passwords, tokens, or keys appear in C++ string literals, `constexpr`, `const`, or static globals | Replace with a runtime secret lookup function and remove the embedded value |\n| Code reads a secret from config but falls back to `\"\"`, `\"default\"`, test credentials, or another literal | Remove the fallback and reject startup or the operation when the secret is absent or invalid |\n| Passwords are stored in configuration files | Prefer encrypted config values and decrypt them at runtime with authenticated encryption and input validation |\n| Secret lookup logic is duplicated across multiple call sites | Centralize loading and validation in a small set of helper functions |\n| Code already loads required secrets from runtime config, validates them, and fails closed | No action needed |\n\n## Boundaries\n\n### Can Do\n- Replace hard-coded C++ passwords, keys, and tokens with runtime configuration access\n- Add validation for required secret keys and reject empty or malformed values\n- Isolate decryption logic for encrypted secret configuration and return failure on decrypt errors\n\n### Cannot Do\n- Provide or generate real secret values, encryption keys, or production configuration contents\n- Guarantee secrets are fully removed from repository history, binaries already shipped, or external logs\n- Design a complete secret-management platform beyond localized C++ code and config changes\n\n## Gotchas\n- Leaving a fallback secret in code: this defeats the fix because the application still works with an embedded secret when config is missing\n- Treating encrypted config as optional integrity-free text: ciphertext must be validated and decrypted with authenticated encryption so tampering is rejected\n- Returning detailed secret-loading errors to callers: verbose failures can expose secret names, formats, or parsing details that should stay internal\n\n## Quick Verification\n```bash\n# Confirm secure runtime secret loading or validation helpers exist\nrg -n 'getRequiredValue|loadPasswordFromConfig(File)?|decryptPassword|db\\.password|auth\\.admin\\.password|db\\.password\\.encrypted' .\n\n# Find likely unguarded hard-coded secret declarations or fallback secrets that bypass the fix\nrg -n '(\"([^\"]*(password|passwd|token|secret|api[_-]?key)[^\"]*)\"|HARDCODED_PASSWORD|constexpr .*password|const .*password|static .*password|=\\s*\"default\"|=\\s*\"secret\"|=\\s*\"Admin123!\")' --glob '*.[ch]pp' --glob '*.[ch]xx' --glob '*.cc' --glob '*.hh' --glob '*.hpp' .\n\n# Build and test using the project's available C++ toolchain\nsh -c 'if [ -f CMakeLists.txt ]; then cmake -S . -B build && cmake --build build && ctest --test-dir build --output-on-failure; elif [ -f Makefile ]; then make && make test; else echo \"Run the project'\\''s standard C++ build and test commands\"; fi'\n```",
+            "type": "Built-in",
+            "ordinal": 49,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-29T01:43:03.597000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-29T01:43:03.597000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 8509,
+            "id": "TA8509",
+            "title": "T76 - SKILL.md - Python",
+            "text": "---\nname: do-not-hardcode-passwords\ndescription: Use when code embeds passwords, API tokens, or secret keys in source and they must be moved to runtime inputs or encrypted external configuration.\n---\n\n# Do not hardcode passwords\n\n## What This Skill Does\nThis skill removes hardcoded passwords, secret keys, and API tokens from application source and replaces them with runtime-loaded secrets from environment variables or external configuration. When secrets must be stored outside memory, it enforces encrypted-only configuration entries with required metadata, runtime key derivation, authenticated decryption, and fail-fast rejection of plaintext secret properties.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Passwords, tokens, or secret keys appear as string literals, constants, or inline constructor arguments in source code | Apply this fix: move secret loading to runtime input or external configuration and remove the hardcoded literal |\n| A config file contains plaintext secret properties such as `db.password=secret123` | Replace plaintext entries with encrypted-only secret fields and reject plaintext properties at startup |\n| Secrets are persisted outside memory for later use | Store only encrypted values plus required metadata (`.enc`, `.iv`, `.salt`, `.iterations`, `.keyLength`) and decrypt at runtime |\n| Java code derives keys or decrypts stored secrets | Use PBKDF2WithHmacSHA256 with per-secret random salt and AES/GCM/NoPadding with a unique random IV |\n| Code already loads secrets from runtime inputs or encrypted external config and rejects plaintext fallback | No action needed |\n\n## Boundaries\n\n### Can Do\n- Replace hardcoded secret literals with environment-variable or external-config loading\n- Enforce encrypted-only configuration structure for stored secrets\n- Add fail-fast validation for missing, blank, malformed, or plaintext secret properties\n\n### Cannot Do\n- Provision a real secret manager, rotate existing credentials, or clean leaked secrets from repository history\n- Guarantee all sensitive values are fully erased from memory in every library or runtime\n- Invent deployment-specific secret sources beyond the app's available runtime inputs and configuration model\n\n## Gotchas\n- Leaving a plaintext fallback property in config: this defeats the fix because the app may still accept an exposed secret\n- Using plain `String` everywhere for secret handling: immutable strings can linger in memory longer than needed\n- Encrypting stored secrets without authentication: unauthenticated encryption can allow tampered ciphertext to be accepted\n\n## Quick Verification\n```bash\n# Find likely hardcoded secrets in Java source\ngrep -RInE 'password|secret|token|api[_-]?key|private static final String .*=' src/\n\n# Confirm plaintext secret properties are rejected\nprintf 'admin.password=secret123\\n' > /tmp/app-secrets.properties\nAPP_SECRET_CONFIG=/tmp/app-secrets.properties APP_MASTER_PASSWORD=test ./gradlew test\n\n# Confirm startup or login fails when required runtime inputs are missing\nenv -u APP_MASTER_PASSWORD -u APP_SECRET_CONFIG ./gradlew test\n```",
+            "type": "Built-in",
+            "ordinal": 71,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-05-21T11:39:52.065000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-05-21T11:39:52.065000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 12040,
+            "id": "TA12040",
+            "title": "T76 - SKILL.md - Go",
+            "text": "---\nname: do-not-hardcode-passwords\ndescription: \"Removes hard-coded passwords, secret keys, and API tokens in Go by loading encrypted secrets from runtime configuration and failing fast on invalid data. Use when source code embeds static credentials or fallback secret values.\"\n---\n# Do not hardcode passwords\n\n## What This Skill Does\nThis skill fixes CWE-798 / P156 cases in Go where passwords, secret keys, or API tokens are embedded directly in source code as constants, literals, defaults, or fallback values. It replaces embedded secrets with runtime-loaded configuration, keeps password values encrypted at rest, decrypts them only when needed with authenticated encryption such as AES-GCM, and fails fast if encrypted secret data is missing, malformed, or cannot be decrypted.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| A Go constant, variable, struct literal, or inline string contains a password, token, API key, or secret key | Replace the hard-coded value with runtime configuration and decrypt the stored encrypted value before use |\n| Code uses fallback secrets such as `os.Getenv(\"X\")` with a literal default or `if empty { use \"secret\" }` | Remove the fallback secret and return an error when configuration or decryption input is missing |\n| A secret is read from config as plaintext | Change the config field to an encrypted value and add AES-GCM decryption before use |\n| Decryption or config loading errors are ignored and execution continues | Fail fast and reject missing, malformed, or undecryptable encrypted secret data |\n| Code already loads encrypted secrets at runtime and rejects invalid data | No action needed |\n\n## Boundaries\n\n### Can Do\n- Replace obvious hard-coded passwords, secret keys, and API tokens in Go code\n- Add runtime config loading plus AES-GCM decryption for encrypted secret values\n- Enforce early validation so missing or invalid encrypted secrets stop execution\n\n### Cannot Do\n- Recover safe replacement values for secrets that are already exposed\n- Invent secure key management or rotate compromised secrets outside the codebase\n- Reliably detect every secret by name alone when literals are ambiguous or generated elsewhere\n\n## Gotchas\n- Using plaintext config instead of encrypted config: this removes the hard-coded secret from code but still leaves the password exposed at rest\n- Keeping a fallback like `if key == \"\" { key = \"dev-secret\" }`: this reintroduces an embedded secret and defeats fail-fast validation\n- Using unauthenticated decryption or manual parsing instead of `cipher.NewGCM`: tampering or wrong-key cases may not fail safely\n\n## Quick Verification\n```bash\n# Confirm secure runtime loading / decryption helpers exist\nrg -n 'DecryptPassword|decryptPassword|ResolveDBPassword|resolveDBPassword|cipher\\.NewGCM|aes\\.NewCipher|EncryptedDBPassword|encrypted_db_password' .\n\n# Find likely unguarded hard-coded secret patterns still present in Go source\nrg -n --glob '*.go' '(?i)(password|passwd|pwd|secret|token|api[_-]?key).*=.*\"[^\"]+\"|const\\s+\\w*(Password|Secret|Token|Key)\\w*\\s*=\\s*\"[^\"]+\"|os\\.Getenv\\(\"[^\"]+\"\\)\\s*==\\s*\"\"\\s*\\{[^}]*\"[^\"]+\"' .\n\n# Build and test all packages\ngo build ./...\ngo test ./...\n```",
+            "type": "Built-in",
+            "ordinal": 73,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-08-25T19:07:28.320000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-08-25T19:07:28.320000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 10046,
+            "id": "TA10046",
+            "title": "T76 - SKILL.md - C",
+            "text": "---\nname: do-not-hardcode-passwords\ndescription: \"Removes embedded passwords, secret keys, and API tokens from C code and binaries by loading them at runtime and failing closed. Use when source contains secret literals, secret constants, or fallback credentials.\"\n---\n\n# Do not hardcode passwords\n\n## What This Skill Does\nThis skill fixes C code that embeds passwords, secret keys, or API tokens in string literals, global constants, defaults, or compiled artifacts. It replaces hardcoded secrets with runtime-loaded values such as environment variables or external configuration, adds validation to reject missing, empty, malformed, or oversized values, uses bounded copy logic when moving secrets into buffers, and fails closed when the secret is unavailable.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| A password, API token, or secret key appears as a C string literal or `static const char *`/array in source | Remove the literal and load the secret at runtime with `getenv()` or approved external config parsing |\n| Authentication or service access compares input against an embedded secret using `strcmp()` or similar | Replace the embedded secret with a validated runtime-loaded buffer before comparison |\n| Code uses fallback values like `\"changeme\"`, `\"test\"`, `\"\"`, or default secret constants when env/config is missing | Remove the fallback and return failure immediately |\n| Secret data is copied into a buffer with `strcpy()`, unbounded `sprintf()`, or unchecked formatting | Replace with bounded copy logic such as length checks plus `memcpy()`/`snprintf()` and explicit terminator handling |\n| Code already loads secrets at runtime, validates length, and fails closed without defaults | No action needed |\n\n## Boundaries\n\n### Can Do\n- Replace hardcoded secret literals in C source with runtime loading via `getenv()` or bounded config-file parsing\n- Add validation for missing, empty, malformed, or oversized secret values before use\n- Add bounded copy and optional buffer clearing with `memset()` for temporary in-memory secret storage\n\n### Cannot Do\n- Provision secret managers, deployment environment variables, or encrypted config infrastructure outside the codebase\n- Guarantee removal of secrets already committed to git history, logs, backups, or released binaries\n- Invent valid secret values, encryption keys, or external configuration paths without project-specific guidance\n\n## Gotchas\n- Using a default secret when `getenv()` returns `NULL`: this keeps a recoverable credential in code and defeats fail-closed behavior\n- Loading the secret from the environment but copying it with `strcpy()` or unchecked `sprintf()`: this replaces one weakness with a buffer-handling bug\n- Removing the hardcoded password but leaving test literals or token examples in source comments, fixtures, or compiled strings: scanners and attackers can still recover them\n\n## Quick Verification\n```bash\n# Confirm the secure runtime-loading guard exists\nrg -n 'getenv\\(|load_(password|secret_key|api_token)_from_env\\(|require_env_value\\(' .\n\n# Find likely unguarded hardcoded-secret patterns and dangerous direct comparisons\nrg -n 'HARDCODED_(PASSWORD|SECRET|TOKEN)|static const char \\*.*(PASS|PASSWORD|SECRET|TOKEN)|char .*[(\\[][^)\\]]*[)\\]].*\"(?:[^\"]{4,})\"|strcmp\\s*\\([^,]+,\\s*\"(?:[^\"]+)\"\\)' .\n\n# Build and run tests using whichever common C toolchain file the project provides\nsh -c 'if [ -f Makefile ] || [ -f makefile ]; then make && (make test || true); elif [ -f CMakeLists.txt ]; then cmake -S . -B build && cmake --build build && (ctest --test-dir build --output-on-failure || true); else cc -Wall -Wextra -Werror -c $(find . -type f \\( -name \"*.c\" -o -name \"*.h\" \\) | tr \"\\n\" \" \") >/dev/null; fi'\n```",
+            "type": "Built-in",
+            "ordinal": 121,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-29T01:43:06.189000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-29T01:43:06.189000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 12109,
+            "id": "TA12109",
+            "title": "T76 - SKILL.md - Rust",
+            "text": "---\nname: do-not-hardcode-passwords\ndescription: Use when Rust code embeds passwords, secret keys, or API tokens in source or unsafe defaults and must be changed to runtime-loaded encrypted configuration secrets.\n---\n\n# Do not hard-code passwords\n\n## What This Skill Does\nThis skill removes hard-coded passwords, secret keys, and API tokens from Rust source and replaces them with runtime-loaded configuration values that store secrets in encrypted form. It also enforces fail-closed behavior by rejecting missing secret fields, refusing plaintext secret config keys, requiring a separate runtime unlock secret, and verifying integrity before decryption so modified encrypted data is not accepted.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Rust code compares credentials against string literals or `const`/`static` secret values | Remove embedded secrets and load them from runtime configuration instead |\n| Config parsing accepts keys like `password`, `api_token`, or `secret_key` in plaintext | Reject those keys and require encrypted secret fields only |\n| Secret loading uses `std::env::var(...).unwrap_or(...)`, `unwrap_or_else(...)`, or other fallback defaults for secrets | Remove fallback defaults and fail closed when required secret inputs are missing |\n| Encrypted secret data is loaded without integrity verification before decryption | Add integrity verification and reject tampered ciphertext before decrypting |\n| Code already loads required secrets at runtime, rejects plaintext secret fields, and fails closed on missing or invalid secret data | No action needed |\n\n## Boundaries\n\n### Can Do\n- Replace hard-coded Rust secret literals, constants, and embedded default credentials with runtime-loaded config access\n- Add validation that rejects plaintext secret config keys and missing required encrypted secret fields\n- Add runtime unlock-key checks and integrity verification before decrypting stored secret data\n\n### Cannot Do\n- Recover or rotate secrets that were already committed to git history, logs, artifacts, or published crates\n- Guarantee cryptographic design quality beyond the chosen implementation if the project needs production-grade secret management\n- Infer every secret automatically from arbitrary business strings without reviewing context\n\n## Gotchas\n- Using fallback defaults for secrets: this silently reintroduces hard-coded credentials through `unwrap_or`, `unwrap_or_else`, or similar patterns\n- Encrypting secret data but skipping integrity checks: modified ciphertext may still be processed, which violates the countermeasure\n- Moving secrets from Rust code into plaintext config: this is still insecure because the secret remains directly readable\n\n## Quick Verification\n```bash\n# Confirm the secure guard/loader paths exist\nrg -n 'validate_config_security|load_encrypted_secret_file|decrypt_password|load_master_secret|get_required' --glob '*.rs' .\n\n# Find likely unguarded hard-coded secret usage or fallback secret defaults\nrg -n 'const\\s+[A-Z0-9_]*(PASSWORD|SECRET|TOKEN|KEY)\\b|static\\s+[A-Z0-9_]*(PASSWORD|SECRET|TOKEN|KEY)\\b|std::env::var\\([^)]*(PASSWORD|SECRET|TOKEN|KEY)[^)]*\\)\\s*\\.(unwrap_or|unwrap_or_else)|password\\s*==\\s*\"|api[_-]?token\\s*==\\s*\"|secret[_-]?key\\s*==\\s*\"' --glob '*.rs' .\n\n# Build and test with the Rust toolchain\ncargo test --workspace --all-targets\ncargo build --workspace --all-targets\n```",
+            "type": "Built-in",
+            "ordinal": 147,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-08-25T19:07:31.828000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-08-25T19:07:31.828000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9372,
+            "id": "TA9372",
+            "title": "T76 - SKILL.md - Java",
+            "text": "---\nname: do-not-hardcode-passwords\ndescription: Use when code or configuration embeds passwords, secret keys, or API tokens and they must be moved to runtime-loaded or encrypted secret handling.\n---\n\n# Do not hardcode passwords\n\n## What This Skill Does\nThis skill removes hardcoded passwords, secret keys, and API tokens from source code and plaintext configuration. It replaces embedded secret literals with runtime-loaded values such as environment variables or dedicated configuration loaders, enforces fail-closed validation for missing or placeholder secrets, and uses encrypted local configuration when secrets must be stored on disk.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Passwords, API tokens, secret keys, or auth credentials appear as string literals, constants, defaults, or inline constructor arguments | Apply this fix |\n| Secrets are currently read from source code but can be provided at runtime | Replace embedded literals with runtime-loaded values from environment variables, startup input, or a dedicated secret-loading path |\n| Secrets must be stored in local configuration | Replace plaintext values with encrypted values and decrypt only when needed using authenticated encryption |\n| Secret-loading code accepts missing, blank, malformed, or placeholder values such as `changeme` | Add validation and fail closed at startup or call time |\n| Code already loads secrets externally, rejects invalid values, and does not store plaintext credentials in source or config | No action needed |\n\n## Boundaries\n\n### Can Do\n- Replace hardcoded password and token literals with runtime-loaded secret retrieval\n- Add validation that rejects missing, blank, malformed, or placeholder secret values\n- Move locally stored plaintext passwords to encrypted configuration with validated decryption paths\n\n### Cannot Do\n- Provision or rotate real secrets in external secret managers or deployment systems\n- Guarantee complete in-memory secret erasure on platforms where immutable strings or runtime internals keep copies\n- Infer safe replacement values for unknown credentials without a defined runtime secret source\n\n## Gotchas\n- Replacing a hardcoded secret with a new default like `changeme`: this is still an embedded secret and remains vulnerable\n- Moving the secret from source code into plaintext properties files: this removes one exposure path but still leaves credentials recoverable from disk and repositories\n- Using `String` for sensitive values when avoidable: immutable strings can persist in memory longer and cannot be cleared directly\n\n## Quick Verification\n```bash\n# Search for likely hardcoded secrets in source and config\ngrep -RInE '(password|passwd|secret|token|api[_-]?key)\\s*[:=]\\s*[\"'\\''][^\"'\\'']+[\"'\\'']' .\n\n# Check for known example secrets that must not remain in code or config\ngrep -RInE 'SuperSecret123!|db-password|changeme' .\n\n# Verify the app fails closed when a required runtime secret is missing\nenv -u APP_ADMIN_PASSWORD java -cp target/classes PasswordAuth || true\n\n# Verify encrypted config property is used instead of plaintext password fields\ngrep -RInE 'admin\\.password(\\.encrypted)?' config/ .\n```",
+            "type": "Built-in",
+            "ordinal": 270,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:36.911000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:36.911000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9578,
+            "id": "TA9578",
+            "title": "T76 - SKILL.md - Node.js",
+            "text": "---\nname: do-not-hardcode-passwords\ndescription: Use when Node.js code embeds passwords, API tokens, or secret keys in source or default config; replace literals with a dedicated runtime secrets loader and fail closed.\n---\n# Do Not Hardcode Passwords\n\n## What This Skill Does\nThis skill removes hard-coded passwords, secret keys, and API tokens from Node.js source code, fixtures, and default configuration by routing secret access through a dedicated loader that reads runtime-provided secret input or encrypted configuration. It also ensures decryption happens only inside that loader, rejects missing or invalid key material, and prevents plaintext secrets from leaking through logs, errors, exports, or fallback defaults.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| String literals or exported constants look like passwords, API tokens, bearer tokens, or secret keys | Remove the literal from code and load it through a dedicated secrets function such as `getAdminPassword()` or `getConfigKeyFromEnv()` |\n| Code reads secrets directly in many places from `process.env`, files, or config objects | Centralize access in one loader function and have callers request only the needed value |\n| Secret configuration is stored on disk or in checked-in config | Replace plaintext storage with encrypted config decrypted by a dedicated loader using `crypto.createDecipheriv()` with authenticated encryption |\n| Error handling logs decrypted values, raw exceptions, or secret-bearing config blobs | Replace with generic error messages and redact secret content |\n| Code already loads secrets at runtime, validates key material, and fails closed on missing or invalid secrets | No action needed |\n\n## Boundaries\n\n### Can Do\n- Replace hard-coded password and token literals with a dedicated runtime secrets loader\n- Centralize decryption and secret retrieval using Node.js `process.env`, `fs.readFileSync`, and `crypto`\n- Remove secret exposure from logs, responses, thrown errors, and exported constants\n\n### Cannot Do\n- Provision or rotate real secrets in deployment systems, vaults, or cloud secret managers\n- Infer whether every string literal is truly sensitive without code and domain context\n- Guarantee encrypted secret files are generated correctly unless the project also adds matching encryption tooling and tests\n\n## Gotchas\n- Replacing a hard-coded secret with a fallback default like `process.env.ADMIN_PASSWORD || 'SuperSecret123!'`: this still hard-codes a usable secret path\n- Logging `err.message`, decrypted config objects, or `process.env` during failures: this can leak plaintext secrets even after the literal is removed\n- Decrypting secrets in multiple call sites instead of one loader: this spreads sensitive handling and makes auditing and error control harder\n\n## Quick Verification\n```bash\n# Confirm a dedicated runtime secret loader or decryption guard exists\nrg -n \"getAdminPassword|getConfigKeyFromEnv|decryptConfigBuffer|createDecipheriv|CONFIG_ENCRYPTION_KEY|ADMIN_PASSWORD\" .\n\n# Find likely unguarded hard-coded secrets or exported secret constants still in code\nrg -n \"(PASSWORD|SECRET|TOKEN|API_KEY)\\s*=\\s*['\\\"][^'\\\"]+['\\\"]|module\\.exports\\s*=.*(PASSWORD|SECRET|TOKEN)|exports\\.(PASSWORD|SECRET|TOKEN)\\s*=\" .\n\n# Build if a build script exists, then run tests if present\nnpm run build --if-present && npm test --if-present\n```",
+            "type": "Built-in",
+            "ordinal": 500,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:44.740000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:44.740000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9647,
+            "id": "TA9647",
+            "title": "T76 - SKILL.md - C#",
+            "text": "---\nname: do-not-hardcode-passwords\ndescription: Use when C# code embeds passwords, API tokens, or cryptographic keys in literals, constants, static initializers, or fallback defaults; replace them with validated runtime secret loading and point-of-use handling.\n---\n# Do not hardcode passwords\n\n## What This Skill Does\nThis skill removes hard-coded passwords, secret keys, and tokens from C# source code by replacing embedded secret literals, constants, static field initializers, and insecure fallback defaults with runtime secret loading. It also guides safe handling of loaded secret material by centralizing access, rejecting missing or malformed inputs, using authenticated encryption for configuration-stored secrets, and limiting plaintext lifetime in memory.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| A password, API token, or key appears as a string literal, `const`, `static readonly`, or field/property initializer | Replace it with runtime loading via `Environment.GetEnvironmentVariable(...)` or another protected runtime source; validate presence and fail fast |\n| Code uses a fallback default secret when configuration is missing, such as `?? \"secret\"` or `GetEnvironmentVariable(...) ?? \"P@ssw0rd\"` | Remove the fallback literal and throw `InvalidOperationException` or reject startup/access |\n| Secret-loading logic is duplicated across multiple classes or methods | Centralize retrieval in a single accessor/service so secret loading is consistent and easier to audit |\n| Encrypted secret values are stored in configuration | Store only structured encrypted fields (`Ciphertext`, `Nonce`, `Tag`), load the key separately at runtime, and decrypt with authenticated encryption such as `AesGcm` |\n| Code already loads secrets at runtime, rejects missing values, and does not keep plaintext in long-lived fields | No action needed |\n\n## Boundaries\n\n### Can Do\n- Replace hard-coded passwords, tokens, and keys in C# code with runtime secret loading\n- Remove insecure default secret fallbacks and add validation that rejects missing or malformed secret input\n- Centralize secret retrieval and improve point-of-use decryption and buffer clearing with .NET cryptography APIs\n\n### Cannot Do\n- Provision a real secret manager, environment variables, or deployment-time secret injection by itself\n- Erase secrets already committed to Git history, logs, binaries, or external configuration stores\n- Guarantee all hard-coded secrets are found purely by pattern matching, especially when values are obfuscated or constructed indirectly\n\n## Gotchas\n- Replacing a literal with another literal config default: `GetEnvironmentVariable(\"APP_DB_PASSWORD\") ?? \"changeme\"` still hardcodes a password and keeps the weakness\n- Caching plaintext secrets in static fields: this reduces repeated loading but keeps sensitive data alive in memory longer than necessary\n- Storing decryption keys next to encrypted config data: encryption at rest does not help if the key is embedded in code or persisted in the same place\n\n## Quick Verification\n```bash\n# Confirm runtime secret loading or secure handling APIs exist\nrg -n 'Environment\\.GetEnvironmentVariable|AesGcm|CryptographicOperations\\.ZeroMemory|RandomNumberGenerator\\.Fill' .\n\n# Find likely unguarded hard-coded secret patterns in C# source\nrg -n --glob '*.cs' '(const|string|static\\s+readonly\\s+string).*(Password|Pwd|Token|Secret|ApiKey|Key)\\s*=\\s*\"|GetEnvironmentVariable\\s*\\([^)]*\\)\\s*\\?\\?\\s*\"|GetEnvironmentVariable\\s*\\([^)]*\\)\\s*\\|\\|\\s*\"|new\\s+AesGcm\\s*\\(\\s*Encoding|Convert\\.FromBase64String\\s*\\(\\s*\"|Password\\s*=' .\n\n# Build all discovered .NET projects or solutions\nfind . \\( -name '*.sln' -o -name '*.csproj' \\) -print0 | xargs -0 -n1 dotnet build\n\n# Run tests for all discovered .NET test projects\nfind . -name '*Tests.csproj' -print0 | xargs -0 -n1 dotnet test\n```",
+            "type": "Built-in",
+            "ordinal": 577,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:47.366000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:47.366000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9708,
+            "id": "TA9708",
+            "title": "T76 - SKILL.md - TypeScript",
+            "text": "---\nname: do-not-hardcode-passwords\ndescription: Use when TypeScript code embeds passwords, tokens, secrets, API keys, or fallback credential literals and must be changed to validated runtime or encrypted secret loading.\n---\n# Do not hardcode passwords\n\n## What This Skill Does\nThis skill removes hard-coded passwords and other secrets from TypeScript code by routing secret access through one validated path, typically runtime environment variables or encrypted configuration decrypted at runtime. It also helps fail closed when secrets are missing or invalid, avoids fallback literals, and prevents accidental exposure of secrets in logs. For user-authentication passwords, it replaces plaintext storage with one-way hashing rather than treating them like runtime service secrets.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| A string literal is assigned to variables or fields named `password`, `secret`, `token`, `apiKey`, `key`, or similar | Replace the literal with a centralized accessor such as `getRequiredSecret()` that reads from `process.env` or approved encrypted config |\n| Code compares user input against a constant like `ADMIN_PASSWORD = '...'` | Remove the constant and resolve the secret at runtime through a validated accessor |\n| Code uses fallback secrets like `process.env.ADMIN_PASSWORD || 'default123'` | Remove the fallback literal and throw an error when the secret is missing or empty |\n| Code stores encrypted secret material in config | Decrypt only the required field at runtime using authenticated encryption and reject malformed payloads |\n| Code already reads secrets through one validated path and fails on missing values | No action needed |\n\n## Boundaries\n\n### Can Do\n- Replace hard-coded secret literals with a centralized runtime secret accessor in TypeScript\n- Remove insecure fallback defaults for secrets and add fail-closed validation\n- Add log redaction for known secret fields and password hashing for user credentials\n\n### Cannot Do\n- Provision or rotate real secrets in deployment systems, CI, or cloud secret managers\n- Infer which exact config source your organization approves beyond env vars or encrypted config already in use\n- Recover safely from missing required secrets without changing application startup behavior\n\n## Gotchas\n- Using `process.env.MY_SECRET || 'fallback'`: this is still a hard-coded secret path because the literal becomes the credential when config is missing\n- Logging config or thrown errors directly: secret values can leak through structured objects, stack traces, or diagnostics even after removing source literals\n- Hashing service credentials instead of user passwords: runtime service secrets usually must be retrieved and used as plaintext, while user passwords should be stored only as one-way hashes\n\n## Quick Verification\n```bash\n# Confirm a centralized secret accessor or runtime secret read exists\nrg -n \"getRequiredSecret\\\\(|process\\\\.env\\\\.[A-Z0-9_]+|createDecipheriv\\\\(\" .\n\n# Find likely unguarded hard-coded secret assignments or insecure fallback literals\nrg -n \"(password|secret|token|api[_-]?key)\\\\s*[:=]\\\\s*['\\\"][^'\\\"]+['\\\"]|process\\\\.env\\\\.[A-Z0-9_]+\\\\s*\\\\|\\\\|\\\\s*['\\\"][^'\\\"]+['\\\"]\" .\n\n# Build TypeScript projects\nnpx tsc --noEmit\n\n# Run tests if present\nnpm test\n```",
+            "type": "Built-in",
+            "ordinal": 646,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:49.918000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:49.918000-04:00",
+            "active": true
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,177 @@
+{
+  "composite_response": [
+    {
+      "reference_id": "T2141",
+      "http_status_code": 200,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "results": [
+          {
+            "db_id": 3467,
+            "id": "TA3467",
+            "title": "ASD-STIG requirements",
+            "text": "## V-222517 [medium]:\n__The application must employ a deny-all, permit-by-exception (whitelist) policy to allow the execution of authorized software programs.__\n\nUtilizing a whitelist provides a configuration management method for allowing the execution of only authorized software. Using only authorized software decreases risk by limiting the number of potential vulnerabilities.\n\nThe organization must identify authorized software programs and permit execution of authorized software. The process used to identify software programs that are authorized to execute on organizational information systems is commonly referred to as whitelisting.\n\nVerification of whitelisted software can occur either prior to execution or at system startup.\n\nThis requirement applies to configuration management applications or similar types of applications designed to manage system processes and configurations (e.g., HBSS and software wrappers).\n\n",
+            "type": "Built-in",
+            "ordinal": 0,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2020-11-16T13:48:56.213000-05:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2022-06-02T10:13:09.902000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 11990,
+            "id": "TA11990",
+            "title": "T2141 - SKILL.md - Go",
+            "text": "---\nname: perform-function-level-authorization-in-api\ndescription: Use when Go code exposes privileged API or handler functions that may be called directly without explicit deny-by-default authorization based on trusted server-side user, group, or role data.\n---\n# Perform function level authorization in API\n\n## What This Skill Does\nThis skill fixes direct request and forced browsing flaws in Go applications by requiring every privileged function, handler, or controller action to perform an explicit authorization check at function entry. It centralizes the allow decision in a shared authorization function, uses only trusted server-side identity attributes such as user name, groups, and roles, and denies access by default when identity data is missing, malformed, unknown, or unmatched.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Privileged handler or function performs admin work with no explicit check at entry | Apply a function-level authorization check before any read, write, export, delete, or dispatch |\n| Administrative controllers or handlers share the same access model | Add a shared `AuthorizationCheck` in an administrative base controller and reuse it from all privileged actions |\n| A regular controller or non-controller function exposes one admin-only operation | Add a dedicated local guard such as `AuthorizationCheckAdminFunction` and call it at the start of that function |\n| Authorization depends on client request fields, headers, or body values for roles/groups | Replace with checks against trusted server-side identity data only |\n| Code already denies by default on missing or unmatched rules and guards each privileged function | No action needed |\n\n## Boundaries\n\n### Can Do\n- Add or reuse a shared Go authorization function such as `AuthorizationCheck`\n- Insert deny-by-default checks at the start of privileged functions and handlers\n- Refactor administrative controllers to inherit or embed shared authorization logic\n\n### Cannot Do\n- Define the correct business policy for which users, groups, or roles should be allowed\n- Prove that upstream authentication or identity population is trustworthy\n- Prevent authorization bypasses in external services, reverse proxies, or separately deployed components\n\n## Gotchas\n- Checking client-supplied role or group fields: this is wrong because callers can forge request data; use trusted server-side identity only\n- Guarding routes but not the target function: this is wrong because internal calls, alternate routes, or refactors can still reach the privileged code\n- Allowing empty or unmapped rules to pass: this is wrong because unknown actions and missing metadata must deny by default\n\n## Quick Verification\n```bash\n# Confirm a shared or dedicated authorization guard exists\nrg -n 'func .*AuthorizationCheck|func .*AuthorizationCheckAdminFunction|ErrAccessDenied|access denied' .\n\n# Find likely unguarded privileged functions and direct sensitive calls that may bypass the guard\nrg -n 'func .*([Dd]elete|[Rr]emove|[Uu]pdate|[Cc]reate|[Ll]istAll|[Ee]xport|[Aa]dmin)|return (deleteRecord|listAllRecords)\\(|\\b(deleteRecord|listAllRecords)\\(' .\n\n# Build and test with the Go toolchain across packages\ngo build ./... && go test ./...\n```",
+            "type": "Built-in",
+            "ordinal": 20,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-08-25T19:07:25.679000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-08-25T19:07:25.679000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 12060,
+            "id": "TA12060",
+            "title": "T2141 - SKILL.md - Rust",
+            "text": "---\nname: perform-function-level-authorization-in-api\ndescription: Use when Rust code exposes administrative actions that can be reached by direct requests or alternate paths and needs shared deny-by-default function-level authorization.\n---\n# Perform Function Level Authorization in API\n\n## What This Skill Does\nThis skill fixes function-level authorization failures that allow forced browsing or direct requests to reach administrative behavior without a server-side permission check. It introduces one shared Rust authorization path that evaluates the current `User` plus the requested `Action`, applies that check before protected business logic runs, reuses the same policy in admin and mixed-purpose entry points, and denies by default when role, group, action, or caller context is missing or not explicitly allowed.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| A Rust function performs admin behavior such as listing users, deleting users, cleanup, or admin record changes without calling `authorization_check` first | Add a shared `authorization_check(&self, user: &User, action: Action) -> Result<(), AuthError>` and call it before any protected work |\n| Administrative handlers/controllers define their own inline role checks or drift across endpoints | Move the policy into a shared abstraction like `AdministrativeAbstractController` with `AdminAuthBase` and route all admin actions through it |\n| A regular or mixed-purpose module exposes admin-only behavior | Reuse the same shared admin authorization function for each protected function, not just for admin-named types |\n| The code accepts unknown admin actions or missing caller/group/role data | Deny by default with `Err(AuthError::Forbidden)` |\n| Protected functions already call the shared authorization function before side effects and reject unauthorized callers | No action needed |\n\n## Boundaries\n\n### Can Do\n- Add a shared Rust authorization trait/base such as `AdministrativeAbstractController` and `AdminAuthBase`\n- Insert per-function checks using `authorization_check(user, action)?` before protected logic executes\n- Convert public admin functions to return `Result<_, AuthError>` and fail closed on unauthorized access\n\n### Cannot Do\n- Infer the correct business authorization matrix if roles, groups, and allowed actions are not defined by the application\n- Replace framework-wide authentication, session handling, or identity proofing\n- Guarantee every external route is protected if some entry points are generated, indirect, or outside the scanned codebase\n\n## Gotchas\n- Checking only controller type and not each protected function: mixed-purpose modules can still expose admin behavior through alternate paths\n- Passing no explicit `Action` into the policy: this weakens authorization and makes different admin operations collapse into one coarse check\n- Returning allow on unknown or incomplete context: missing role/group/action data must end in `Err(AuthError::Forbidden)`, not fallback access\n\n## Quick Verification\n```bash\n# Confirm the shared authorization guard exists\nrg -n 'fn\\s+authorization_check\\s*\\(&self,\\s*user:\\s*&User,\\s*action:\\s*Action\\)\\s*->\\s*Result<\\(\\),\\s*AuthError>' .\n\n# Find dangerous admin functions that do not appear to use the shared guard nearby\nrg -n -U 'pub\\s+fn\\s+(admin_[a-zA-Z0-9_]*|delete_user|create_admin_record|admin_only_cleanup|handle_request)\\b[\\s\\S]{0,400}(?!(authorization_check|authorization_check_admin_function|AdminAuthBase\\.authorization_check))' .\n\n# Find direct protected operations that may bypass authorization\nrg -n '(state\\.users\\.remove\\(|audit_log\\.push\\(|\"/admin/)' .\n\n# Build and run tests with the Rust toolchain\ncargo build --all-targets && cargo test --all-targets\n```",
+            "type": "Built-in",
+            "ordinal": 95,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-08-25T19:07:29.346000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-08-25T19:07:29.346000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 8555,
+            "id": "TA8555",
+            "title": "T2141 - SKILL.md - Python",
+            "text": "---\nname: perform-function-level-authorization-in-api\ndescription: Enforce server-side, role- and group-based checks on each admin or sensitive API function to prevent direct request / forced browsing; Use when APIs expose admin actions without consistent function-level authorization.\n---\n\n# Perform function level authorization in API\n\n## What This Skill Does\nEnsures every administrative or sensitive API function performs centralized, server-side authorization based on users, roles, and groups, denying access by default. It fixes missing function-level authorization that lets attackers directly call admin endpoints (forced browsing) by requiring explicit privileges and consistent checks in abstract/regular controllers before any sensitive logic runs.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Admin or sensitive endpoint has no explicit server-side authorization check at function entry | Add a centralized admin-check helper and call it as the first line in that function |\n| Project has dedicated admin controllers but no shared authorization base | Introduce an `AdminAbstractController` with a strict `checkAdminAccess` method and make all admin controllers extend it |\n| Regular controller includes occasional admin-like actions (e.g., promote user, reset password) | Add a dedicated admin-check function in that controller and invoke it in each admin-like method |\n| Authorization decisions vary across controllers (different role names / logic) | Standardize on one role/group model and shared helpers (`isAdminAllowed`, `checkAdminAccess`) reused everywhere |\n| User/context is sometimes missing or malformed | Normalize context and enforce deny-by-default (treat any missing/invalid user/attributes as unauthorized/forbidden) |\n| Code already calls a robust, centralized, deny-by-default authorization helper on every admin function | No action needed (keep existing pattern) |\n\n## Boundaries\n\n### Can Do\n- Detect when admin or sensitive API functions lack explicit server-side authorization checks.\n- Introduce/extend an abstract admin controller with a centralized `checkAdminAccess` that uses roles and groups and fails closed.\n- Add per-function admin checks in regular controllers that host administrative behaviors.\n- Refactor scattered conditional checks into a single reusable helper that denies-by-default on missing or invalid user context.\n\n### Cannot Do\n- Redesign or harden the entire authentication mechanism (e.g., token issuance, identity proof); this focuses on authorization at function level.\n- Infer correct business roles/groups or privilege mappings without guidance from existing code/config or comments.\n- Guarantee that every sensitive function is identified when business logic is deeply obfuscated or misnamed (may need human review).\n- Fix broader issues like insecure transport (HTTP instead of HTTPS) or broken session management.\n\n## Gotchas\n- Forgetting to call the check at the start of every admin function: Adding a helper but only using it on some methods leaves bypass paths; always invoke the check as the first line of each admin/sensitive function.\n- Relying on client-side indicators (e.g., `isAdmin` flag in request body/query) instead of server-side roles/groups: Attackers can forge these; always derive authorization from trusted server-side user context.\n- Allowing on error or missing data: Treating \u201cno user\u201d, parse failures, or missing `roles/groups` as allowed is dangerous; the helper must deny in all ambiguous or error cases.\n- Mixing different role names/rules across controllers: Inconsistent rules cause accidental privilege; centralize role/group constants and reuse the same helper everywhere.\n\n## Quick Verification\n```bash\n# 1. Run tests (or app) for the fixed example\nnode app_fix_javascript_code.js alice   # non-admin: should get UNAUTHORIZED/FORBIDDEN style message\nnode app_fix_javascript_code.js bob     # admin: should be able to perform admin action\n\n# 2. Manual HTTP checks (assuming Express app on localhost:3000)\n# Non-admin calling admin endpoint (should be 401/403)\ncurl -i \"http://localhost:3000/admin/deleteUser?username=alice&target=bob\"\n\n# Admin calling admin endpoint (should succeed)\ncurl -i \"http://localhost:3000/admin/deleteUser?username=bob&target=alice\"\n\n# 3. Grep for unprotected admin functions (heuristic)\nrg \"admin\" . | rg -v \"checkAdminAccess|ensureAdmin|isAdminAllowed\"\n```",
+            "type": "Built-in",
+            "ordinal": 117,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-05-21T11:39:54.694000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-05-21T11:39:54.694000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9345,
+            "id": "TA9345",
+            "title": "T2141 - SKILL.md - JavaScript",
+            "text": "---\nname: perform-function-level-authorization-in-api\ndescription: Enforce server-side, role- and group-based checks on each admin or sensitive API function to prevent direct request / forced browsing; Use when APIs expose admin actions without consistent function-level authorization.\n---\n\n# Perform function level authorization in API\n\n## What This Skill Does\nEnsures every administrative or sensitive API function performs centralized, server-side authorization based on users, roles, and groups, denying access by default. It fixes missing function-level authorization that lets attackers directly call admin endpoints (forced browsing) by requiring explicit privileges and consistent checks in abstract/regular controllers before any sensitive logic runs.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Admin or sensitive endpoint has no explicit server-side authorization check at function entry | Add a centralized admin-check helper and call it as the first line in that function |\n| Project has dedicated admin controllers but no shared authorization base | Introduce an `AdminAbstractController` with a strict `checkAdminAccess` method and make all admin controllers extend it |\n| Regular controller includes occasional admin-like actions (e.g., promote user, reset password) | Add a dedicated admin-check function in that controller and invoke it in each admin-like method |\n| Authorization decisions vary across controllers (different role names / logic) | Standardize on one role/group model and shared helpers (`isAdminAllowed`, `checkAdminAccess`) reused everywhere |\n| User/context is sometimes missing or malformed | Normalize context and enforce deny-by-default (treat any missing/invalid user/attributes as unauthorized/forbidden) |\n| Code already calls a robust, centralized, deny-by-default authorization helper on every admin function | No action needed (keep existing pattern) |\n\n## Boundaries\n\n### Can Do\n- Detect when admin or sensitive API functions lack explicit server-side authorization checks.\n- Introduce/extend an abstract admin controller with a centralized `checkAdminAccess` that uses roles and groups and fails closed.\n- Add per-function admin checks in regular controllers that host administrative behaviors.\n- Refactor scattered conditional checks into a single reusable helper that denies-by-default on missing or invalid user context.\n\n### Cannot Do\n- Redesign or harden the entire authentication mechanism (e.g., token issuance, identity proof); this focuses on authorization at function level.\n- Infer correct business roles/groups or privilege mappings without guidance from existing code/config or comments.\n- Guarantee that every sensitive function is identified when business logic is deeply obfuscated or misnamed (may need human review).\n- Fix broader issues like insecure transport (HTTP instead of HTTPS) or broken session management.\n\n## Gotchas\n- Forgetting to call the check at the start of every admin function: Adding a helper but only using it on some methods leaves bypass paths; always invoke the check as the first line of each admin/sensitive function.\n- Relying on client-side indicators (e.g., `isAdmin` flag in request body/query) instead of server-side roles/groups: Attackers can forge these; always derive authorization from trusted server-side user context.\n- Allowing on error or missing data: Treating \"no user\", parse failures, or missing `roles/groups` as allowed is dangerous; the helper must deny in all ambiguous or error cases.\n- Mixing different role names/rules across controllers: Inconsistent rules cause accidental privilege; centralize role/group constants and reuse the same helper everywhere.\n\n## Quick Verification\n```bash\n# 1. Run tests (or app) for the fixed example\nnode app_fixed.js alice   # non-admin: should get UNAUTHORIZED/FORBIDDEN style message\nnode app_fixed.js bob     # admin: should be able to perform admin action\n\n# 2. Manual HTTP checks (assuming Express app on localhost:3000)\n# Non-admin calling admin endpoint (should be 401/403)\ncurl -i \"http://localhost:3000/admin/deleteUser?username=alice&target=bob\"\n\n# Admin calling admin endpoint (should succeed)\ncurl -i \"http://localhost:3000/admin/deleteUser?username=bob&target=alice\"\n\n# 3. Grep for unprotected admin functions (heuristic)\nrg \"admin\" . | rg -v \"checkAdminAccess|ensureAdmin|isAdminAllowed\"\n```",
+            "type": "Built-in",
+            "ordinal": 125,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:34.713000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:34.713000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9383,
+            "id": "TA9383",
+            "title": "T2141 - SKILL.md - Java",
+            "text": "---\nname: perform-function-level-authorization-in-api\ndescription: Use when API or controller actions expose privileged functions without per-function authorization checks; centralize explicit user, group, and role checks and deny by default.\n---\n\n# Perform Function Level Authorization in API\n\n## What This Skill Does\nThis skill fixes forced browsing and missing function-level authorization in APIs by adding a shared authorization guard for privileged actions, mapping each administrative function to explicit allowed users, groups, or roles, and enforcing deny-by-default behavior when no rule matches. Use it when administrative or sensitive endpoints can be called directly without checking whether the current user is allowed to perform that specific function.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Controller or API action performs an administrative or privileged operation without checking the current user's identity, group, or role | Apply a function-level authorization guard before any business logic runs |\n| Multiple admin endpoints duplicate authorization logic | Move checks into a shared administrative base controller or reusable guard method |\n| A regular controller exposes an admin-only action | Reuse the same authorization routine and bind it to that explicit function name |\n| Function names or authorization attributes are compared inconsistently | Normalize function identifiers and compared attributes before lookup |\n| Unknown, missing, or unconfigured privileged function is requested | Deny access immediately and stop execution |\n\n## Boundaries\n\n### Can Do\n- Add a shared authorization method that checks explicit allow rules by user, group, and role\n- Refactor administrative controllers to call the same guard at the start of each privileged action\n- Enforce deny-by-default behavior for unknown functions and unmatched callers\n\n### Cannot Do\n- Infer correct authorization policy when the application has no trustworthy user, group, or role model\n- Replace authentication, session validation, or token verification mechanisms\n- Guarantee object-level access control for specific records or resources beyond the targeted function check\n\n## Gotchas\n- Checking only that the user is authenticated: authentication alone does not authorize a privileged function\n- Placing the guard after business logic starts: side effects may already occur before access is denied\n- Allowing missing policy entries to fall through: unknown or unconfigured functions must be denied, not treated as harmless defaults\n\n## Quick Verification\n```bash\n# Find privileged handlers that may be missing a guard\ngrep -RniE 'delete|admin|audit|export|manage' src/\n\n# Find controller methods that throw or return access denied\ngrep -RniE 'requireAuthorization|isAuthorized|Access denied|SecurityException' src/\n\n# Verify unknown or unconfigured actions are denied\n# Replace with the app's actual endpoint or test command\ncurl -i http://localhost:8080/admin/unknown-action\n\n# Verify a non-admin caller cannot invoke an admin function\ncurl -i http://localhost:8080/admin/delete-user\n```",
+            "type": "Built-in",
+            "ordinal": 281,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:37.351000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:37.351000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 9707,
+            "id": "TA9707",
+            "title": "T2141 - SKILL.md - TypeScript",
+            "text": "---\nname: perform-function-level-authorization-in-api\ndescription: Use when TypeScript code exposes privileged or administrative functions without a centralized server-side authorization check that denies by default.\n---\n# Perform Function Level Authorization in API\n\n## What This Skill Does\nThis skill fixes broken function-level authorization in TypeScript APIs and services by centralizing privileged-access decisions in one reusable server-side authorization function, requiring administrative controllers to inherit or reuse that logic, guarding privileged actions in mixed-purpose controllers, and denying access by default when the subject, role, group, or action data is missing, malformed, or not explicitly allowed.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| Privileged/admin action runs without a shared authorization check | Add a centralized `authorizeAdminAction()` or `isAuthorized()` function and call it before business logic |\n| Administrative controller has its own ad hoc checks | Move checks into an abstract/base admin controller such as `AdminBaseController` or `AdminAbstractController` and have admin controllers inherit it |\n| Regular controller, service, CLI handler, or job exposes an admin capability | Guard that specific function with the same centralized authorization function before executing the privileged action |\n| Authorization trusts request parameters, body fields, or client-supplied role/group values | Replace with trusted server-side authenticated subject data only |\n| Subject, roles, groups, or action/policy entry is missing or unknown | Deny by default and return/throw forbidden without running the action |\n| Code already performs centralized server-side authorization first and fails closed | No action needed |\n\n## Boundaries\n\n### Can Do\n- Add or strengthen a centralized authorization function using trusted server-side user, group, and role data\n- Refactor admin controllers to inherit or reuse a shared authorization guard\n- Insert authorization checks at the start of privileged functions in controllers, services, jobs, or CLI handlers\n\n### Cannot Do\n- Design a full authentication system or prove the identity source itself is trustworthy\n- Infer business-specific authorization policy values that are not defined by the application\n- Guarantee every route is truly privileged without reading application intent and tests\n\n## Gotchas\n- Checking authorization after business logic starts: this is wrong because the protected action may already have read, changed, or deleted sensitive data\n- Trusting `req.body.role`, `req.query.user`, or similar client input: this is wrong because attackers can forge privilege indicators\n- Returning allow on unknown actions or incomplete identity data: this is wrong because function-level authorization must fail closed by default\n\n## Quick Verification\n```bash\n# Confirm a centralized authorization guard exists\nrg -n --glob '*.ts' 'authorizeAdminAction\\s*\\(|isAuthorized\\s*\\(|ensureAuthorized\\s*\\(' .\n\n# Find likely unguarded privileged actions and admin endpoints that may bypass the guard\nrg -n --glob '*.ts' '(delete|remove|destroy|createSystemUser|deleteAccount|deletePost|admin)' . \\\n  | rg -v 'authorizeAdminAction|isAuthorized|ensureAuthorized|forbidden|403|AdminBaseController|AdminAbstractController'\n\n# Type-check/build across common TypeScript project layouts\nnpx tsc --noEmit\n\n# Run tests if present using the project's configured TypeScript-compatible test command\nnpm test\n```",
+            "type": "Built-in",
+            "ordinal": 645,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-07-03T02:57:49.880000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:49.880000-04:00",
+            "active": true
+          }
+        ]
+      }
+    }
+  ]
+}

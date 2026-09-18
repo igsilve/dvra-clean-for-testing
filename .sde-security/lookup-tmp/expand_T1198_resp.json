@@ -1,0 +1,62 @@
+{
+  "composite_response": [
+    {
+      "reference_id": "T1198",
+      "http_status_code": 200,
+      "http_headers": {
+        "Content-Type": "application/json",
+        "Allow": "GET, POST, HEAD, OPTIONS"
+      },
+      "body": {
+        "results": [
+          {
+            "db_id": 2656,
+            "id": "TA2656",
+            "title": "FedRAMP / High Baseline",
+            "text": "*** SC-7 (21): System And Communications Protection | Boundary Protection | Isolation Of Information System Components ***  \nThe organization employs boundary protection mechanisms to separate [Assignment: organization-defined information system components] supporting [Assignment: organization- defined missions and/or business functions].",
+            "type": "Built-in",
+            "ordinal": 12,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2019-10-17T18:34:09.033000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2019-10-17T18:38:13.616000-04:00",
+            "active": true
+          },
+          {
+            "db_id": 8456,
+            "id": "TA8456",
+            "title": "T1198 - SKILL.md - Docker",
+            "text": "---\nname: do-not-share-host-network-namespace-docker\ndescription: Use when Docker or Compose service configuration may set network_mode to host; validate resolved config and reject explicit host network namespace sharing.\n---\n# Do not share the host's network namespace (Docker)\n\n## What This Skill Does\nThis skill prevents containers from joining the host network namespace by detecting and rejecting any resolved Docker or Docker Compose service configuration that explicitly sets `network_mode: host`. It should be applied where code generates, merges, mutates, parses, or validates container configuration before deployment. The fix is to validate the fully resolved configuration, fail closed on parse or resolution errors, and allow services that simply omit `network_mode`.\n\n## Decision Table\n| Situation | Action |\n|-----------|--------|\n| A Docker Compose service resolves to `network_mode: host` | Reject the configuration and require removal of host networking |\n| Configuration is built from multiple files, templates, or overrides | Validate the fully resolved configuration after merges, not just source fragments |\n| Parsing, interpolation, or resolution fails | Fail closed and reject deployment or generation |\n| A service omits `network_mode` entirely | No action needed |\n| Code directly emits or mutates Compose YAML with `network_mode: host` | Remove that setting and keep the service on Docker-managed networking |\n\n## Boundaries\n\n### Can Do\n- Detect and block explicit `network_mode: host` in resolved Docker Compose service definitions\n- Update generators or validators to inspect merged or overridden service configuration\n- Preserve compliant services that do not set any `network_mode`\n\n### Cannot Do\n- Guarantee runtime isolation if deployment happens outside the validated configuration path\n- Infer intent from broken or partial configuration; invalid input must be rejected\n- Fix unrelated Docker hardening issues such as privileged mode, broad port exposure, or dangerous volume mounts\n\n## Gotchas\n- Checking only raw source files: this is wrong because overrides, anchors, env substitution, or generated config may still resolve to `network_mode: host`\n- Rejecting missing `network_mode`: this is wrong because only explicit host mode is non-compliant; omission is allowed\n- Auto-rewriting invalid config to \"something safe\": this is wrong because unevaluable or malformed input should fail closed, not be guessed\n\n## Quick Verification\n```bash\n# Show the fully resolved Compose configuration\ndocker compose -f docker-compose.yml config\n\n# Confirm no service resolves to host networking\ndocker compose -f docker-compose.yml config | grep -n \"network_mode: host\" && echo \"FAIL\" || echo \"PASS\"\n\n# Negative test: a file with host networking should be rejected by the application validator\ndocker compose -f vulnerable-compose.yml config\n\n# Positive test: a compliant file without host networking should resolve cleanly\ndocker compose -f mitigated-compose.yml config\n```",
+            "type": "Built-in",
+            "ordinal": 259,
+            "created_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "created_date_time": "2026-05-21T11:39:48.851000-04:00",
+            "last_updated_by": {
+              "id": 30564,
+              "email": "no-reply+content_ismenia_no_cam@localhost",
+              "first_name": "SD",
+              "last_name": "Elements"
+            },
+            "last_updated_date": "2026-07-03T02:57:36.484000-04:00",
+            "active": true
+          }
+        ]
+      }
+    }
+  ]
+}
