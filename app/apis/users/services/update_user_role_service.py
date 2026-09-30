@@ -3,6 +3,7 @@ from apis.users.schemas import UserRoleUpdate
 from db import models
 from db.session import get_db
 from fastapi import APIRouter, Depends, HTTPException, status
+from jwt_tokens import invalidate_issued_tokens
 from sqlalchemy.orm import Session
 from typing_extensions import Annotated
 
@@ -22,4 +23,10 @@ def update_user_role(
         )
 
     db_user = update_user(db, user.username, user)
+    # A privilege change must not leave tokens minted under the old role
+    # usable, so outstanding tokens for the affected account are revoked.
+    invalidate_issued_tokens(db_user)
+    db.add(db_user)
+    db.commit()
+
     return current_user

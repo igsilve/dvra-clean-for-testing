@@ -1,11 +1,9 @@
 import hashlib
 
-from config import settings
-from jose import JWTError, jwt
+from jose import JWTError
+from jwt_tokens import decode_token
 from slowapi import Limiter
 from slowapi.util import get_remote_address
-
-JWT_ALGORITHM = "HS256"
 
 
 def identify_client(request) -> str:
@@ -20,9 +18,7 @@ def identify_client(request) -> str:
     scheme, _, token = header.partition(" ")
     if scheme.lower() == "bearer" and token:
         try:
-            subject = jwt.decode(
-                token, settings.JWT_SECRET_KEY, algorithms=[JWT_ALGORITHM]
-            ).get("sub")
+            subject = decode_token(token).get("sub")
         except JWTError:
             subject = None
         if subject:

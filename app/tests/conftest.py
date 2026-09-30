@@ -54,6 +54,22 @@ def override_get_db():
         db.close()
 
 
+@pytest.fixture(autouse=True)
+def reset_rate_limiter():
+    """Clear throttling counters between tests.
+
+    The limiter is a module-level singleton and every test client presents
+    the same source address, so without this the per-minute budget for
+    endpoints like /token is consumed cumulatively across the suite and
+    later tests get 429s that have nothing to do with what they assert.
+    """
+    from rate_limiting import limiter
+
+    limiter.reset()
+    yield
+    limiter.reset()
+
+
 @pytest.fixture(scope="function")
 def app():
     app = init_app()

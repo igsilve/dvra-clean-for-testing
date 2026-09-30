@@ -1,14 +1,10 @@
-from datetime import datetime, timedelta, timezone
+from datetime import timedelta
 from typing import Union
 
 from apis.auth.exceptions import UserAlreadyExistsException
-from config import Settings
 from db.models import User, UserRole
-from jose import jwt
+from jwt_tokens import encode_token, invalidate_issued_tokens
 from passlib.context import CryptContext
-
-SECRET_KEY = Settings.JWT_SECRET_KEY
-ALGORITHM = "HS256"
 
 # argon2 is listed first, so it is the scheme used for every new hash;
 # passlib's argon2 handler is argon2id. bcrypt stays in the list for
@@ -58,6 +54,11 @@ def get_user_by_id(db, user_id: int) -> User:
 def update_user_password(db, username: str, password: str) -> User:
     db_user = get_user_by_username(db, username)
     db_user.password = get_password_hash(password)
+    # Every password change revokes the tokens issued under the old one, so
+    # an attacker holding a stolen token loses access the moment the victim
+    # resets. This is the choke point for both the self-service reset and the
+    # administrative chef reset.
+    invalidate_issued_tokens(db_user)
     db.add(db_user)
     db.commit()
     db.refresh(db_user)
@@ -150,14 +151,9 @@ def update_user(db, username: str, user):
 
 
 def create_access_token(data: dict, expires_delta: Union[timedelta, None] = None):
-    to_encode = data.copy()
-    if expires_delta:
-        expire = datetime.now(timezone.utc) + expires_delta
-    else:
-        expire = datetime.now(timezone.utc) + timedelta(minutes=15)
-    to_encode.update({"exp": expire})
-    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
-    return encoded_jwt
+    # Issuance and verification share one module so the algorithm used to
+    # sign cannot drift from the algorithm accepted on the way back in.
+    return encode_token(data, expires_delta)
 
 
 def send_code_to_phone_number(phone_number: str, code: str):

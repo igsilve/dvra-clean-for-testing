@@ -439,3 +439,53 @@ def test_security_headers_survive_middleware_short_circuits(test_db, anon_client
     bad_host = anon_client.get("/healthcheck", headers={"Host": "attacker.example"})
     assert bad_host.status_code == 400
     assert bad_host.headers.get("X-Frame-Options") == "DENY"
+
+
+# --- JWT handling centralization -------------------------------------------
+
+
+@pytest.mark.security
+def test_jwt_algorithm_is_defined_in_exactly_one_place():
+    """Three copies of the algorithm were three chances to loosen one.
+
+    Guards against a verifying path being reintroduced with its own
+    constant, which could drift from the algorithm used to sign.
+    """
+    import pathlib
+
+    app_dir = pathlib.Path(__file__).resolve().parents[2]
+    offenders = []
+    for path in app_dir.rglob("*.py"):
+        if "tests" in path.parts or path.name == "jwt_tokens.py":
+            continue
+        text = path.read_text()
+        if "HS256" in text or "algorithms=[" in text:
+            offenders.append(str(path.relative_to(app_dir)))
+
+    assert offenders == [], f"JWT algorithm referenced outside jwt_tokens.py: {offenders}"
+
+
+@pytest.mark.security
+def test_token_issuance_and_verification_agree():
+    """A token minted by the issuing path must satisfy the verifying path."""
+    from jwt_tokens import decode_token
+    from apis.auth.utils import create_access_token
+
+    claims = decode_token(create_access_token({"sub": "roundtrip"}))
+
+    assert claims["sub"] == "roundtrip"
+    assert "exp" in claims
+
+
+@pytest.mark.security
+def test_issued_tokens_always_carry_an_expiry():
+    """Even when the caller passes no expiry, exp must be set."""
+    from jwt_tokens import DECODE_OPTIONS, decode_token
+    from apis.auth.utils import create_access_token
+
+    assert DECODE_OPTIONS["require_exp"] is True
+    assert DECODE_OPTIONS["require_sub"] is True
+    assert DECODE_OPTIONS["verify_signature"] is True
+
+    # Would raise if exp were absent, since decoding requires it.
+    assert decode_token(create_access_token({"sub": "noexpiry"}))["exp"]

@@ -45,6 +45,11 @@ class User(Base):
     reset_password_code = Column(String, nullable=True)
     reset_password_code_expiry_date = Column(DateTime, nullable=True)
     referral_code = Column(String, unique=True, index=True, nullable=True)
+    # Stamped into every issued token and compared on each request. Bumping
+    # it invalidates every token already handed out for this account, which
+    # is how a credential or privilege change takes effect immediately in a
+    # stateless token scheme that has no server-side session to delete.
+    token_version = Column(Integer, nullable=False, default=0, server_default="0")
 
     orders = relationship("Order", back_populates="user")
 

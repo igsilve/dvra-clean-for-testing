@@ -30,6 +30,12 @@ class Settings:
     # There is deliberately no JWT_VERIFY_SIGNATURE setting. Signature
     # verification is not configurable, so no environment value can disable it.
 
+    # Token issuer and audience. Not secrets, so a default is fine, but both
+    # are validated on decode, so a token minted for another audience or by
+    # another issuer is rejected rather than merely labelled.
+    JWT_ISSUER: str = os.getenv("JWT_ISSUER", "restaurant-api")
+    JWT_AUDIENCE: str = os.getenv("JWT_AUDIENCE", "restaurant-api-clients")
+
     POSTGRES_USER: str = os.getenv("POSTGRES_USER", "admin")
     POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD", "password")
     POSTGRES_SERVER: str = os.getenv("POSTGRES_SERVER", "localhost")

@@ -48,6 +48,7 @@ def get_token(
     register_success("login", form_data.username)
     access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     access_token = create_access_token(
-        data={"sub": user.username}, expires_delta=access_token_expires
+        data={"sub": user.username, "ver": user.token_version or 0},
+        expires_delta=access_token_expires,
     )
     return Token(access_token=access_token, token_type="bearer")
