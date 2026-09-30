@@ -1,5 +1,13 @@
 from apis.auth.utils import get_password_hash
-from db.models import DiscountCoupon, MenuItem, Order, OrderItem, User, UserRole
+from db.models import (
+    DiscountCoupon,
+    MenuItem,
+    Order,
+    OrderItem,
+    OrderStatus,
+    User,
+    UserRole,
+)
 from fastapi import status
 
 
@@ -602,13 +610,41 @@ def test_get_order_status_returns_200_for_customer(customer_client, test_db):
     test_db.add(order_item)
     test_db.commit()
 
-    # Call the order status endpoint
+    # The read route reports the stored status and does not sync.
     response = customer_client.get(f"/orders/status/{order.id}")
 
     assert response.status_code == status.HTTP_200_OK
     response_json = response.json()
     assert response_json.get("order_id") == order.id
-    assert response_json.get("status") == "ON_THE_WAY"  # From the simulated service
+    assert response_json.get("status") == "Pending"
+
+    # Syncing from the delivery service is a state change, so it is a POST.
+    refreshed = customer_client.post(f"/orders/status/{order.id}/refresh")
+
+    assert refreshed.status_code == status.HTTP_200_OK
+    assert refreshed.json().get("status") == "OnTheWay"
+
+    # The refreshed value is now what the read route reports.
+    assert customer_client.get(f"/orders/status/{order.id}").json().get(
+        "status"
+    ) == "OnTheWay"
+
+
+def test_get_order_status_does_not_mutate_the_order(customer_client, test_db):
+    """A GET must be side-effect free: it must not sync from the delivery service."""
+    order = Order(
+        delivery_address="12 Readonly Way",
+        phone_number="555-7777",
+        user_id=3,
+        status="Pending",
+    )
+    test_db.add(order)
+    test_db.commit()
+
+    customer_client.get(f"/orders/status/{order.id}")
+
+    test_db.refresh(order)
+    assert order.status == OrderStatus.PENDING
 
 
 def test_get_order_status_returns_401_for_unauthenticated(anon_client, test_db):

@@ -7,7 +7,7 @@ from apis.referrals.utils import get_referral_code
 from db.models import DiscountCoupon
 from db.models import User as UserModel
 from db.session import get_db
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
 from typing_extensions import Annotated
@@ -37,7 +37,29 @@ def get_referral_code_endpoint(
     current_user: Annotated[User, Depends(get_current_user)],
     db: Session = Depends(get_db),
 ):
-    """Obtains or creates a referral code for the current user."""
+    """Return the current user's referral code.
+
+    Read-only: generating a code is a state change and therefore lives on the
+    POST route below. A GET must stay side-effect free so that a prefetch, a
+    link or an image URL cannot provoke a write.
+    """
+    db_user = db.query(UserModel).filter(UserModel.id == current_user.id).first()
+    if db_user is None or db_user.referral_code is None:
+        raise HTTPException(status_code=404, detail="No referral code has been issued")
+
+    return ReferralCodeResponse(code=db_user.referral_code)
+
+
+@router.post(
+    "/referral-code",
+    response_model=ReferralCodeResponse,
+    status_code=status.HTTP_201_CREATED,
+)
+def create_referral_code_endpoint(
+    current_user: Annotated[User, Depends(get_current_user)],
+    db: Session = Depends(get_db),
+):
+    """Issue the current user's referral code, or return the existing one."""
     db_user = db.query(UserModel).filter(UserModel.id == current_user.id).first()
     code = get_referral_code(db, db_user)
 

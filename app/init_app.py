@@ -79,11 +79,15 @@ def init_app():
         docs_url=None,
         redoc_url=None,
     )
+    # Starlette makes the LAST-registered middleware the outermost layer, so
+    # these are added innermost-first. SecurityHeadersMiddleware must be
+    # registered last: the layers below it short-circuit with their own
+    # responses (TrustedHost 400, BodySizeLimit 413/400), and those replies
+    # only carry the security headers if they pass back out through it.
     app.add_middleware(TrustedHostMiddleware, allowed_hosts=settings.ALLOWED_HOSTS)
     if settings.ENVIRONMENT is ENV.PRODUCTION:
         app.add_middleware(HTTPSRedirectMiddleware)
 
-    app.add_middleware(SecurityHeadersMiddleware)
     app.add_middleware(BodySizeLimitMiddleware, max_bytes=settings.MAX_BODY_BYTES)
     app.add_middleware(
         CORSMiddleware,
@@ -93,6 +97,7 @@ def init_app():
         allow_headers=["Authorization", "Content-Type"],
         max_age=600,
     )
+    app.add_middleware(SecurityHeadersMiddleware)
     app.state.limiter = limiter
     app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 

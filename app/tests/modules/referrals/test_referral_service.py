@@ -2,34 +2,62 @@ from apis.auth.utils import get_password_hash
 from db.models import DiscountCoupon, User, UserRole
 
 
-def test_get_referral_code_should_return_200(test_db, customer_client):
-    """Test that getting a referral code returns 200 and a code."""
-    response = customer_client.get("/referral-code")
+def test_create_referral_code_should_return_201(test_db, customer_client):
+    """Test that issuing a referral code returns 201 and a code."""
+    response = customer_client.post("/referral-code")
 
-    assert response.status_code == 200
+    assert response.status_code == 201
     data = response.json()
     assert data.get("code") is not None
     assert len(data.get("code")) == 8
 
 
-def test_get_referral_code_should_return_same_code_on_second_call(
+def test_get_referral_code_should_return_issued_code(test_db, customer_client):
+    """Test that the read route returns the code issued by the write route."""
+    created = customer_client.post("/referral-code")
+    code = created.json().get("code")
+
+    response = customer_client.get("/referral-code")
+
+    assert response.status_code == 200
+    assert response.json().get("code") == code
+
+
+def test_create_referral_code_should_return_same_code_on_second_call(
     test_db, customer_client
 ):
-    """Test that getting a referral code twice returns the same code."""
-    response1 = customer_client.get("/referral-code")
+    """Test that issuing a referral code twice returns the same code."""
+    response1 = customer_client.post("/referral-code")
     code1 = response1.json().get("code")
 
-    response2 = customer_client.get("/referral-code")
+    response2 = customer_client.post("/referral-code")
     code2 = response2.json().get("code")
 
-    assert response1.status_code == 200
-    assert response2.status_code == 200
+    assert response1.status_code == 201
+    assert response2.status_code == 201
     assert code1 == code2
+
+
+def test_get_referral_code_does_not_issue_one(test_db, customer_client):
+    """A GET must not create state: with no code issued it returns 404."""
+    response = customer_client.get("/referral-code")
+
+    assert response.status_code == 404
+
+    # Still absent, so the read really was side-effect free.
+    assert customer_client.get("/referral-code").status_code == 404
 
 
 def test_get_referral_code_unauthorised_should_return_401(test_db, anon_client):
     """Test that unauthenticated request returns 401."""
     response = anon_client.get("/referral-code")
+
+    assert response.status_code == 401
+
+
+def test_create_referral_code_unauthorised_should_return_401(test_db, anon_client):
+    """Test that unauthenticated request to issue a code returns 401."""
+    response = anon_client.post("/referral-code")
 
     assert response.status_code == 401
 

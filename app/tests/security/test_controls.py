@@ -8,6 +8,7 @@ regression barrier rather than a functional one. Run with `pytest -m security`.
 import datetime
 
 import pytest
+from config import settings
 from db.models import Order, OrderStatus, User, UserRole
 from jose import jwt
 
@@ -158,3 +159,22 @@ def test_security_headers_are_present(test_db, anon_client):
 def test_debug_endpoint_does_not_leak_environment(test_db, anon_client):
     response = anon_client.get("/debug")
     assert response.status_code == 404
+
+
+@pytest.mark.security
+def test_security_headers_survive_middleware_short_circuits(test_db, anon_client):
+    # Layers below SecurityHeadersMiddleware answer without reaching a route.
+    # Their replies must still carry the headers, which only holds while
+    # SecurityHeadersMiddleware is the outermost layer.
+    oversized = anon_client.post(
+        "/register", json={"description": "A" * (settings.MAX_BODY_BYTES + 1024)}
+    )
+    assert oversized.status_code == 413
+    assert oversized.headers.get("X-Frame-Options") == "DENY"
+    assert "frame-ancestors 'none'" in oversized.headers.get(
+        "content-security-policy", ""
+    )
+
+    bad_host = anon_client.get("/healthcheck", headers={"Host": "attacker.example"})
+    assert bad_host.status_code == 400
+    assert bad_host.headers.get("X-Frame-Options") == "DENY"
