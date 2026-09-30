@@ -1,7 +1,7 @@
 from apis.auth.utils.text_code_utils import generate_and_send_code_to_user
 from db.models import User, UserRole
 from db.session import get_db
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, Request, status
 from pydantic import BaseModel
 from rate_limiting import limiter
 from sqlalchemy.orm import Session
@@ -17,7 +17,9 @@ class ResetPasswordData(BaseModel):
     "/reset-password",
     status_code=status.HTTP_200_OK,
 )
+@limiter.limit("3/minute")
 def reset_password(
+    request: Request,
     data: ResetPasswordData,
     db: Session = Depends(get_db),
 ):

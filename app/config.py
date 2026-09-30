@@ -35,6 +35,27 @@ class Settings:
     POSTGRES_PORT: str = os.getenv("POSTGRES_PORT", 5432)
     POSTGRES_DB: str = os.getenv("POSTGRES_DB", "restaurant")
 
+    # Host and origin allow-lists. Comma-separated in the environment; the
+    # defaults cover local development only and are deliberately not wildcards.
+    ALLOWED_HOSTS: list[str] = [
+        h.strip()
+        for h in os.getenv("ALLOWED_HOSTS", "localhost,127.0.0.1").split(",")
+        if h.strip()
+    ]
+    ALLOWED_ORIGINS: list[str] = [
+        o.strip()
+        for o in os.getenv(
+            "ALLOWED_ORIGINS", "http://localhost:8091,http://127.0.0.1:8091"
+        ).split(",")
+        if o.strip()
+    ]
+
+    # Request-size ceilings enforced by middleware.
+    MAX_BODY_BYTES: int = int(os.getenv("MAX_BODY_BYTES", 1 * 1024 * 1024))
+    MAX_UPLOAD_BYTES: int = int(os.getenv("MAX_UPLOAD_BYTES", 5 * 1024 * 1024))
+
+    ENVIRONMENT: ENV = ENVIRONMENT
+
     TITLE: str = "RESTaurant API"
     DESCRIPTION: str = (
         "RESTaurant API - a restaurant ordering and menu management service."

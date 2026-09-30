@@ -4,7 +4,7 @@ from apis.auth.utils import get_current_user, get_user_by_username
 from db.models import User
 from db.session import get_db
 from fastapi import APIRouter, Depends, status
-from pydantic import BaseModel, Extra
+from pydantic import BaseModel, ConfigDict
 from sqlalchemy.orm import Session
 from typing_extensions import Annotated
 
@@ -19,7 +19,9 @@ class UserRead(BaseModel):
     role: str
 
 
-class UserUpdate(BaseModel, extra=Extra.allow):
+class UserUpdate(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
     first_name: Union[str, None] = None
     last_name: Union[str, None] = None
     phone_number: Union[str, None] = None
@@ -33,9 +35,8 @@ def patch_profile(
 ):
     db_user = get_user_by_username(db, current_user.username)
 
-    for var, value in user.dict().items():
-        if value:
-            setattr(db_user, var, value)
+    for field, value in user.model_dump(exclude_unset=True).items():
+        setattr(db_user, field, value)
 
     db.add(db_user)
     db.commit()

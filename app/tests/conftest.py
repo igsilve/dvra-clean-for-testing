@@ -11,6 +11,17 @@ from sqlalchemy.pool import StaticPool
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 # this is to include app dir in sys.path so that we can import from db,main.py
 
+# Settings read the environment at import time, so the test host/origin
+# allow-lists must be in place before `config` is first imported. TestClient
+# issues requests against http://testserver, which TrustedHostMiddleware
+# rejects unless it is allow-listed.
+os.environ.setdefault("ENV", "testing")
+os.environ.setdefault("ALLOWED_HOSTS", "testserver,localhost,127.0.0.1")
+os.environ.setdefault(
+    "ALLOWED_ORIGINS", "http://localhost:8091,http://127.0.0.1:8091"
+)
+os.environ.setdefault("JWT_SECRET_KEY", "test-only-secret-not-used-in-any-deployment")
+
 from init_app import init_app
 
 # disable tests caching

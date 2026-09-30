@@ -3,6 +3,7 @@ from apis.auth.schemas import UserCreate, UserRead
 from apis.auth.utils import create_user
 from db.session import get_db
 from fastapi import APIRouter, Depends, HTTPException, Request, status
+from rate_limiting import limiter
 from sqlalchemy.orm import Session
 
 ACCESS_TOKEN_EXPIRE_MINUTES = 7 * 24 * 60  # 1 week
@@ -16,9 +17,10 @@ router = APIRouter()
     response_model_exclude_unset=True,
     status_code=status.HTTP_201_CREATED,
 )
-async def register_user(
-    user: UserCreate,
+@limiter.limit("5/minute")
+def register_user(
     request: Request,
+    user: UserCreate,
     db: Session = Depends(get_db),
 ):
     auth = request.headers.get("Authorization")

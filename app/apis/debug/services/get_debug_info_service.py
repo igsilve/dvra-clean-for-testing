@@ -1,54 +1,27 @@
-import os
-import platform
-import sys
-
-import psutil
-from fastapi import APIRouter, status
+from apis.auth.utils import RolesBasedAuthChecker
+from config import settings
+from db.models import UserRole
+from fastapi import APIRouter, Depends, status
+from pydantic import BaseModel
+from typing_extensions import Annotated
 
 router = APIRouter()
 
 
-@router.get("/debug", status_code=status.HTTP_200_OK)
-def get_debug_info_service():
-    os_info = {
-        "system": platform.system(),
-        "node": platform.node(),
-        "release": platform.release(),
-        "version": platform.version(),
-        "machine": platform.machine(),
-        "processor": platform.processor(),
-    }
+class StatusResponse(BaseModel):
+    status: str
+    version: str
 
-    env_vars = dict(os.environ)
-    local_paths = {
-        "current_working_directory": os.getcwd(),
-        "sys_path": sys.path,
-        "cwd_listing": os.listdir(os.getcwd()),
-    }
 
-    disk_usage = psutil.disk_usage(os.getcwd())
-    disk_info = {
-        "total": disk_usage.total,
-        "used": disk_usage.used,
-        "free": disk_usage.free,
-        "percent": disk_usage.percent,
-    }
-
-    mem = psutil.virtual_memory()
-    memory_info = {
-        "total": mem.total,
-        "available": mem.available,
-        "used": mem.used,
-        "free": mem.free,
-        "percent": mem.percent,
-    }
-
-    debug_info = {
-        "os_info": os_info,
-        "env_vars": env_vars,
-        "local_paths": local_paths,
-        "disk_usage": disk_info,
-        "memory_usage": memory_info,
-    }
-
-    return debug_info
+# The former /debug endpoint returned os.environ, sys.path and a working
+# directory listing to anonymous callers. It is replaced by a Chef-only
+# liveness view whose response_model allows two non-sensitive fields.
+@router.get(
+    "/internal/status",
+    response_model=StatusResponse,
+    status_code=status.HTTP_200_OK,
+)
+def get_internal_status(
+    _: Annotated[bool, Depends(RolesBasedAuthChecker([UserRole.CHEF]))],
+):
+    return StatusResponse(status="ok", version=settings.VERSION)

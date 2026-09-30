@@ -1,4 +1,6 @@
-from config import settings
+from pathlib import Path
+
+from config import ENV, settings
 from db.base import Base
 from db.session import engine
 from fastapi import FastAPI
@@ -7,10 +9,14 @@ from fastapi.staticfiles import StaticFiles
 from init import load_initial_data
 from init_app import init_app
 
+# Resolved from the module location, never from the process working directory,
+# and pointing at a directory that holds public assets only.
+STATIC_DIR = Path(__file__).resolve().parent / "static"
+
 
 def setup_static_files_and_docs(app: FastAPI):
     """Setup static files and custom documentation endpoints with favicon"""
-    app.mount("/static", StaticFiles(directory="static"), name="static")
+    app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 
     @app.get("/", include_in_schema=False)
     def root_docs():

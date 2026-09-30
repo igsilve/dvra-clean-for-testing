@@ -6,11 +6,32 @@ from db.models import MenuItem, OrderItem
 from fastapi import HTTPException
 
 
-def _image_url_to_base64(image_url: str):
-    response = requests.get(image_url, stream=True)
-    encoded_image = base64.b64encode(response.content).decode()
+MAX_IMAGE_BYTES = 2 * 1024 * 1024
+IMAGE_FETCH_TIMEOUT = (3, 5)  # (connect, read) seconds
 
-    return encoded_image
+
+def _image_url_to_base64(image_url: str) -> str:
+    with requests.get(
+        image_url, stream=True, timeout=IMAGE_FETCH_TIMEOUT, allow_redirects=False
+    ) as response:
+        response.raise_for_status()
+
+        declared = response.headers.get("Content-Length")
+        if declared is not None:
+            try:
+                if int(declared) > MAX_IMAGE_BYTES:
+                    raise HTTPException(status_code=413, detail="Image too large")
+            except ValueError:
+                raise HTTPException(status_code=502, detail="Invalid image response")
+
+        chunks, total = [], 0
+        for chunk in response.iter_content(64 * 1024):
+            total += len(chunk)
+            if total > MAX_IMAGE_BYTES:
+                raise HTTPException(status_code=413, detail="Image too large")
+            chunks.append(chunk)
+
+    return base64.b64encode(b"".join(chunks)).decode()
 
 
 def create_menu_item(
