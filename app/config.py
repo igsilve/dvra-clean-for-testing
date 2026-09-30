@@ -42,12 +42,15 @@ class Settings:
         for h in os.getenv("ALLOWED_HOSTS", "localhost,127.0.0.1").split(",")
         if h.strip()
     ]
+    # Credentialed CORS is enabled, so a wildcard origin would let any site
+    # read authenticated responses. Drop "*" rather than trusting the operator
+    # to never set it.
     ALLOWED_ORIGINS: list[str] = [
         o.strip()
         for o in os.getenv(
             "ALLOWED_ORIGINS", "http://localhost:8091,http://127.0.0.1:8091"
         ).split(",")
-        if o.strip()
+        if o.strip() and o.strip() != "*"
     ]
 
     # Request-size ceilings enforced by middleware.

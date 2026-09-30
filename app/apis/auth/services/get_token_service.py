@@ -19,7 +19,7 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 30
 router = APIRouter()
 
 
-@router.post("/token")
+@router.post("/token", response_model=Token)
 @limiter.limit("5/minute")
 def get_token(
     request: Request,

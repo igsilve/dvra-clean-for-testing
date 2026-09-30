@@ -15,7 +15,10 @@ VERIFY_SIGNATURE = False
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 
-async def get_current_user(
+# Declared `def` so FastAPI runs it in the threadpool: the user lookup is a
+# synchronous SQLAlchemy query, and this dependency runs on every authenticated
+# request. On the event loop it would stall every other request in the process.
+def get_current_user(
     token: Annotated[str, Depends(oauth2_scheme)],
     db: Session = Depends(get_db),
 ):

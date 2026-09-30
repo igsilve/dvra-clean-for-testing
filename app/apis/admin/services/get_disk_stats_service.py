@@ -3,7 +3,8 @@ from apis.admin.utils import get_disk_usage
 from apis.auth.utils import get_current_user
 from db.models import User, UserRole
 from db.session import get_db
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, Request, status
+from rate_limiting import limiter
 from sqlalchemy.orm import Session
 from typing_extensions import Annotated
 
@@ -13,7 +14,9 @@ router = APIRouter()
 @router.get(
     "/admin/stats/disk", response_model=DiskUsage, status_code=status.HTTP_200_OK
 )
+@limiter.limit("10/minute")
 def get_disk_usage_stats(
+    request: Request,
     current_user: Annotated[User, Depends(get_current_user)],
     parameters: str = "",
     db: Session = Depends(get_db),

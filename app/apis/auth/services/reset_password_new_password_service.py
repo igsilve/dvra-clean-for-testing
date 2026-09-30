@@ -11,6 +11,7 @@ from apis.auth.utils.lockout import (
 from db.models import User
 from db.session import get_db
 from fastapi import APIRouter, Depends, HTTPException, Request, status
+from pydantic import BaseModel
 from rate_limiting import limiter
 from sqlalchemy.orm import Session
 
@@ -19,8 +20,13 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 7 * 24 * 60  # 1 week
 router = APIRouter()
 
 
+class NewPasswordResponse(BaseModel):
+    detail: str
+
+
 @router.post(
     "/reset-password/new-password",
+    response_model=NewPasswordResponse,
     status_code=status.HTTP_200_OK,
 )
 @limiter.limit("5/minute")

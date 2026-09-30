@@ -5,19 +5,28 @@ from apis.auth.utils import RolesBasedAuthChecker, update_user_password
 from config import settings
 from db.models import UserRole
 from db.session import get_db
-from fastapi import APIRouter, Depends, status
+from fastapi import APIRouter, Depends, Request, status
+from pydantic import BaseModel
+from rate_limiting import limiter
 from sqlalchemy.orm import Session
 from typing_extensions import Annotated
 
 router = APIRouter()
 
 
+class ChefPasswordResponse(BaseModel):
+    password: str
+
+
 @router.post(
     "/admin/reset-chef-password",
+    response_model=ChefPasswordResponse,
     include_in_schema=False,
     status_code=status.HTTP_200_OK,
 )
+@limiter.limit("3/minute")
 def reset_chef_password(
+    request: Request,
     _: Annotated[bool, Depends(RolesBasedAuthChecker([UserRole.CHEF]))],
     db: Session = Depends(get_db),
 ):

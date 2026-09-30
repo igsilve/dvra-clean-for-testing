@@ -13,8 +13,13 @@ class ResetPasswordData(BaseModel):
     username: str
 
 
+class ResetPasswordResponse(BaseModel):
+    detail: str
+
+
 @router.post(
     "/reset-password",
+    response_model=ResetPasswordResponse,
     status_code=status.HTTP_200_OK,
 )
 @limiter.limit("3/minute")

@@ -33,7 +33,7 @@ class ApplyReferralResponse(BaseModel):
 
 
 @router.get("/referral-code", response_model=ReferralCodeResponse)
-async def get_referral_code_endpoint(
+def get_referral_code_endpoint(
     current_user: Annotated[User, Depends(get_current_user)],
     db: Session = Depends(get_db),
 ):
@@ -45,7 +45,7 @@ async def get_referral_code_endpoint(
 
 
 @router.post("/apply-referral", response_model=ApplyReferralResponse)
-async def apply_referral_code(
+def apply_referral_code(
     request: ApplyReferralRequest,
     current_user: Annotated[User, Depends(get_current_user)],
     db: Session = Depends(get_db),
@@ -75,7 +75,7 @@ async def apply_referral_code(
 
 
 @router.get("/discount-coupons", response_model=List[DiscountCouponRead])
-async def get_discount_coupons(
+def get_discount_coupons(
     current_user: Annotated[User, Depends(get_current_user)],
     db: Session = Depends(get_db),
 ):

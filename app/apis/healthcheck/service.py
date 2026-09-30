@@ -1,9 +1,15 @@
-from fastapi import APIRouter, Response
+from fastapi import APIRouter
+from pydantic import BaseModel
 
 router = APIRouter()
 
 
-@router.get("/healthcheck")
-def healthcheck(response: Response):
-    response.headers["X-Powered-By"] = "Python 3.10, FastAPI ^0.103.0"
-    return {"ok": True}
+class HealthcheckResponse(BaseModel):
+    ok: bool
+
+
+@router.get("/healthcheck", response_model=HealthcheckResponse)
+def healthcheck():
+    # The response carries no version or runtime details: an unauthenticated
+    # liveness probe must not help an attacker fingerprint the stack.
+    return HealthcheckResponse(ok=True)
