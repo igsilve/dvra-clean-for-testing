@@ -1,0 +1,6 @@
+# SD Elements security-hardening tooling artifacts
+.sde-handoff.json
+.sde-apply-handoff.json
+.sde-security/
+AGENTS.md
+skills/
