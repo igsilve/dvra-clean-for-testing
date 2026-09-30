@@ -17,7 +17,7 @@ def test_get_menu_returns_200_with_data(test_db, anon_client):
     response = anon_client.get("/menu")
     assert response.status_code == 200
 
-    menu_items = response.json()
+    menu_items = response.json()["items"]
     assert len(menu_items) == 2
     assert menu_items[0]["name"] == "Item 1"
     assert menu_items[0]["price"] == 10.99

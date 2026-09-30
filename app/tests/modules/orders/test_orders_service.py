@@ -111,7 +111,7 @@ def test_get_orders_returns_one_item_with_200(customer_client, test_db):
     response = customer_client.get("/orders")
 
     assert response.status_code == status.HTTP_200_OK
-    orders_response = response.json()
+    orders_response = response.json()["items"]
 
     # Assertions for the response
     assert len(orders_response) == 1
@@ -131,7 +131,7 @@ def test_get_orders_empty_returns_empty_list_with_200(customer_client):
     response = customer_client.get("/orders")
 
     assert response.status_code == status.HTTP_200_OK
-    orders_response = response.json()
+    orders_response = response.json()["items"]
 
     assert len(orders_response) == 0
 
@@ -260,7 +260,7 @@ def test_list_multiple_orders(customer_client, test_db):
     response = customer_client.get("/orders")
 
     assert response.status_code == status.HTTP_200_OK
-    response_json = response.json()
+    response_json = response.json()["items"]
     assert len(response_json) == 2
     assert response_json[0]["delivery_address"] in ["456 Main St", "789 Side St"]
     assert response_json[1]["delivery_address"] in ["456 Main St", "789 Side St"]

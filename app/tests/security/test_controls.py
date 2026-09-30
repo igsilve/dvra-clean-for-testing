@@ -162,6 +162,33 @@ def test_debug_endpoint_does_not_leak_environment(test_db, anon_client):
 
 
 @pytest.mark.security
+def test_oversized_page_request_is_rejected(test_db, customer_client):
+    # Rejected outright rather than clamped, so a caller cannot probe for the
+    # effective ceiling by watching where the response size stops growing.
+    response = customer_client.get("/orders", params={"limit": 100000})
+    assert response.status_code == 422
+
+    assert customer_client.get("/orders", params={"limit": 0}).status_code == 422
+    assert customer_client.get("/orders", params={"skip": -1}).status_code == 422
+
+
+@pytest.mark.security
+def test_collection_responses_are_not_top_level_arrays(test_db, anon_client):
+    # A bare top-level JSON array is script-includable; an object envelope is
+    # not. Applies even to non-sensitive collections, so the shape cannot
+    # regress once the data becomes sensitive.
+    response = anon_client.get("/menu")
+
+    assert response.status_code == 200
+    assert response.headers["content-type"].startswith("application/json")
+    assert response.headers.get("x-content-type-options") == "nosniff"
+
+    body = response.json()
+    assert isinstance(body, dict)
+    assert isinstance(body["items"], list)
+
+
+@pytest.mark.security
 def test_security_headers_survive_middleware_short_circuits(test_db, anon_client):
     # Layers below SecurityHeadersMiddleware answer without reaching a route.
     # Their replies must still carry the headers, which only holds while

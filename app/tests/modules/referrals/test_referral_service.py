@@ -141,7 +141,7 @@ def test_get_discount_coupons_should_return_200_with_coupons(test_db, customer_c
     response = customer_client.get("/discount-coupons")
 
     assert response.status_code == 200
-    assert isinstance(response.json(), list)
+    assert isinstance(response.json()["items"], list)
 
 
 def test_get_discount_coupons_should_return_user_coupons(test_db, customer_client):
@@ -168,7 +168,7 @@ def test_get_discount_coupons_should_return_user_coupons(test_db, customer_clien
     response = customer_client.get("/discount-coupons")
 
     assert response.status_code == 200
-    coupons = response.json()
+    coupons = response.json()["items"]
     assert len(coupons) == 1
     assert coupons[0].get("discount_percentage") == 20
     assert coupons[0].get("used") is False

@@ -6,6 +6,7 @@ from apis.referrals.schemas import DiscountCouponRead
 from apis.referrals.utils import get_referral_code
 from db.models import DiscountCoupon
 from db.models import User as UserModel
+from db.result_limits import fetch_bounded
 from db.session import get_db
 from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import BaseModel
@@ -96,13 +97,19 @@ def apply_referral_code(
     )
 
 
-@router.get("/discount-coupons", response_model=List[DiscountCouponRead])
+class DiscountCouponsResponse(BaseModel):
+    """Object envelope rather than a bare array (script-include protection)."""
+
+    items: List[DiscountCouponRead]
+
+
+@router.get("/discount-coupons", response_model=DiscountCouponsResponse)
 def get_discount_coupons(
     current_user: Annotated[User, Depends(get_current_user)],
     db: Session = Depends(get_db),
 ):
     """Retrieve all discount coupons for the current user."""
-    coupons = (
-        db.query(DiscountCoupon).filter(DiscountCoupon.user_id == current_user.id).all()
+    coupons = fetch_bounded(
+        db.query(DiscountCoupon).filter(DiscountCoupon.user_id == current_user.id)
     )
-    return coupons
+    return DiscountCouponsResponse(items=coupons)
