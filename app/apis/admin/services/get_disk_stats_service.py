@@ -2,8 +2,7 @@ from typing import Literal
 
 from apis.admin.schemas import DiskUsage
 from apis.admin.utils import get_disk_usage
-from apis.auth.utils import RolesBasedAuthChecker
-from db.models import UserRole
+from apis.auth.utils import Permission, Requires
 from fastapi import APIRouter, Depends, Request, status
 from rate_limiting import limiter
 from typing_extensions import Annotated
@@ -22,7 +21,7 @@ MountPoint = Literal["/", "/var", "/tmp"]
 @limiter.limit("10/minute")
 def get_disk_usage_stats(
     request: Request,
-    _: Annotated[bool, Depends(RolesBasedAuthChecker([UserRole.CHEF]))],
+    _: Annotated[bool, Depends(Requires(Permission.READ_DISK_STATS))],
     mount_point: MountPoint = "/",
 ):
     usage = get_disk_usage(mount_point)

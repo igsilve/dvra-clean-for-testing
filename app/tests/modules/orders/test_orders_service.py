@@ -156,7 +156,13 @@ def test_get_order_should_return_200_on_success(customer_client, test_db):
     test_db.commit()
 
     # Create an order and add to the database
-    order = Order(delivery_address="123 Main St", phone_number="555-1234", user_id=1)
+    # The order belongs to the calling customer. It used to be created with a
+    # hard-coded user_id that matched nobody, and the request still succeeded
+    # because the lookup ignored ownership.
+    caller = test_db.query(User).filter(User.username == "customer").one()
+    order = Order(
+        delivery_address="123 Main St", phone_number="555-1234", user_id=caller.id
+    )
     test_db.add(order)
     test_db.commit()
 
@@ -175,7 +181,7 @@ def test_get_order_should_return_200_on_success(customer_client, test_db):
     assert order_response.get("id") == order.id
     assert order_response.get("delivery_address") == "123 Main St"
     assert order_response.get("phone_number") == "555-1234"
-    assert order_response.get("user_id") == 1
+    assert order_response.get("user_id") == caller.id
     assert order_response.get("status") == "Pending"
     assert (
         len(order_response.get("items")) == 1
@@ -584,8 +590,20 @@ def test_create_order_with_multiple_items_and_coupon_applies_discount_to_total(
     assert order_response.get("final_price") == 22.50
 
 
-def test_get_order_status_returns_200_for_customer(customer_client, test_db):
+def test_get_order_status_returns_200_for_customer(customer_client, test_db, mocker):
     """Test that get_order_status endpoint successfully returns order status."""
+    # The delivery integration is a real authenticated HTTP call now, so the
+    # refresh below needs a stand-in rather than the fabricated reply the
+    # old stub returned unconditionally.
+    mocker.patch(
+        "apis.orders.services.get_order_status."
+        "fetch_order_status_from_delivery_service",
+        return_value={
+            "order_id": 1,
+            "status": "ON_THE_WAY",
+            "delivery_notes": "Your order is on the way!",
+        },
+    )
     # Create a menu item and order
     menu_item = MenuItem(
         name="Pasta",

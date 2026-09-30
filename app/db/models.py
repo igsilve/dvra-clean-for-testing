@@ -16,6 +16,24 @@ from sqlalchemy import (
     text,
 )
 from sqlalchemy.orm import relationship
+from sqlalchemy.sql import expression
+
+
+class RevokedToken(Base):
+    """Tokens explicitly revoked before their natural expiry.
+
+    Bumping the user's token_version would also end every other session that
+    account has open, so logging out on one device would sign the holder out
+    everywhere. Keying on the token's own jti revokes exactly the one
+    presented. Rows are prunable once expires_at has passed, because an
+    expired token is already refused on its own.
+    """
+
+    __tablename__ = "revoked_tokens"
+
+    jti = Column(String, primary_key=True, index=True)
+    revoked_at = Column(DateTime, nullable=False, default=datetime.datetime.now)
+    expires_at = Column(DateTime, nullable=False, index=True)
 
 
 class UserRole(str, enum.Enum):
@@ -50,6 +68,24 @@ class User(Base):
     # is how a credential or privilege change takes effect immediately in a
     # stateless token scheme that has no server-side session to delete.
     token_version = Column(Integer, nullable=False, default=0, server_default="0")
+    # Set on accounts whose password was issued by the system rather than
+    # chosen by the holder. Such an account can authenticate, but can do
+    # nothing else until the password is replaced, so a bootstrap credential
+    # that leaks in transit has a short useful life.
+    must_change_password = Column(
+        Boolean, nullable=False, default=False, server_default=expression.false()
+    )
+    # Persisted lockout state. The in-process throttle in auth.utils.lockout
+    # also guards usernames that have no row here, but it dies with the
+    # worker and is not shared between them; these columns survive a restart
+    # and are seen by every worker, so the threshold means what it says.
+    failed_logins = Column(Integer, nullable=False, default=0, server_default="0")
+    locked_until = Column(DateTime, nullable=True)
+    # Guesses spent against the current reset code. Persisted for the same
+    # reason as failed_logins, and reset when a new code is issued.
+    reset_password_attempts = Column(
+        Integer, nullable=False, default=0, server_default="0"
+    )
 
     orders = relationship("Order", back_populates="user")
 

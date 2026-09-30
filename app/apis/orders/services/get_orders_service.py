@@ -1,8 +1,8 @@
 from typing import List
 
-from apis.auth.utils import RolesBasedAuthChecker, get_current_user
+from apis.auth.utils import Permission, Requires, get_current_user
 from apis.orders import schemas
-from db.models import Order, User, UserRole
+from db.models import Order, User
 from db.session import get_db
 from fastapi import APIRouter, Depends, Query
 from pydantic import BaseModel
@@ -28,7 +28,7 @@ def get_orders(
     skip: int = Query(0, ge=0),
     limit: int = Query(DEFAULT_PAGE_SIZE, ge=1, le=MAX_PAGE_SIZE),
     db: Session = Depends(get_db),
-    auth=Depends(RolesBasedAuthChecker([UserRole.CUSTOMER])),
+    auth=Depends(Requires(Permission.READ_OWN_ORDERS)),
 ):
     # The bounds are declared on the parameters, so an out-of-range page size
     # is rejected with 422 before the query runs rather than quietly clamped.

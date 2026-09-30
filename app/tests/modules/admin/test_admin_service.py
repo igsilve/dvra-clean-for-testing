@@ -23,9 +23,31 @@ def test_reset_chef_password_source_address_grants_nothing(
 
 
 def test_reset_chef_password_as_chef_returns_200(test_db, chef_client):
-    response = chef_client.post("/admin/reset-chef-password")
+    # Rotating the privileged account's password now requires proving
+    # possession of the current one, so a replayed token alone is not
+    # enough to take the account over.
+    response = chef_client.post(
+        "/admin/reset-chef-password", json={"current_password": "password"}
+    )
     assert response.status_code == 200
     assert response.json().get("password") is not None
+
+
+def test_reset_chef_password_rejects_a_wrong_current_password(test_db, chef_client):
+    response = chef_client.post(
+        "/admin/reset-chef-password", json={"current_password": "not-the-password"}
+    )
+    assert response.status_code == 401
+
+    # The refusal does not say whether the password or the authorization
+    # was the problem.
+    assert response.json().get("detail") == "Unauthorized"
+
+
+def test_reset_chef_password_requires_the_step_up_field(test_db, chef_client):
+    """A token alone, with no proof of the current password, is refused."""
+    response = chef_client.post("/admin/reset-chef-password")
+    assert response.status_code == 422
 
 
 def test_stats_disk_returns_output_with_200(test_db, chef_client):

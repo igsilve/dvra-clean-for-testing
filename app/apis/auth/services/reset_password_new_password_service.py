@@ -1,8 +1,8 @@
-import secrets
 from datetime import datetime
 
 from apis.auth.schemas import NewPasswordData
 from apis.auth.utils import update_user_password
+from apis.auth.utils.text_code_utils import reset_code_matches
 from apis.auth.utils.lockout import (
     register_failure,
     register_success,
@@ -16,6 +16,8 @@ from rate_limiting import limiter
 from sqlalchemy.orm import Session
 
 ACCESS_TOKEN_EXPIRE_MINUTES = 7 * 24 * 60  # 1 week
+
+MAX_CODE_ATTEMPTS = 5
 
 router = APIRouter()
 
@@ -55,20 +57,41 @@ def set_new_password(
         register_failure("reset-code", data.username)
         raise invalid
 
+    # Every guess is counted against the code itself and persisted, so the
+    # bound survives a restart and holds across workers.
+    user.reset_password_attempts = (user.reset_password_attempts or 0) + 1
+
+    def fail_and_maybe_destroy():
+        """Record the failure, destroying the code once its budget is spent.
+
+        The code is destroyed rather than merely refused, because leaving a
+        valid code alive would let an attacker wait out the in-process lock
+        and resume guessing against it.
+        """
+        if user.reset_password_attempts >= MAX_CODE_ATTEMPTS:
+            user.reset_password_code = None
+            user.reset_password_code_expiry_date = None
+        db.add(user)
+        db.commit()
+        register_failure("reset-code", data.username)
+        return invalid
+
     if (
         not user.reset_password_code_expiry_date
         or datetime.now() > user.reset_password_code_expiry_date
     ):
-        register_failure("reset-code", data.username)
-        raise invalid
+        raise fail_and_maybe_destroy()
 
-    if not secrets.compare_digest(user.reset_password_code, data.reset_password_code):
-        register_failure("reset-code", data.username)
-        raise invalid
+    # The submitted code is derived the same way before comparison; the
+    # plaintext is never stored, so there is nothing to compare against
+    # directly.
+    if not reset_code_matches(user, data.reset_password_code):
+        raise fail_and_maybe_destroy()
 
     update_user_password(db, user.username, data.new_password)
     user.reset_password_code = None
     user.reset_password_code_expiry_date = None
+    user.reset_password_attempts = 0
     db.add(user)
     db.commit()
     register_success("reset-code", data.username)

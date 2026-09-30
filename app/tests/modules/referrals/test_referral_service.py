@@ -1,5 +1,6 @@
 import pytest
 from apis.auth.utils import get_password_hash
+from apis.referrals.utils import CODE_LENGTH
 from db.models import DiscountCoupon, User, UserRole
 
 
@@ -10,7 +11,10 @@ def test_create_referral_code_should_return_201(test_db, customer_client):
     assert response.status_code == 201
     data = response.json()
     assert data.get("code") is not None
-    assert len(data.get("code")) == 8
+    # Tracks the generator rather than restating a number. The literal 8
+    # this used to assert was the guessable length the code was changed
+    # away from, so the test was holding the weakness in place.
+    assert len(data.get("code")) == CODE_LENGTH
 
 
 def test_get_referral_code_should_return_issued_code(test_db, customer_client):

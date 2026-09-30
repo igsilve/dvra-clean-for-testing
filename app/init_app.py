@@ -1,6 +1,7 @@
 import secrets
 
 from apis.router import api_router
+from audit_log import audit, configure_logging
 from config import ENV, settings
 from error_handlers import (
     http_exception_handler,
@@ -111,7 +112,46 @@ class BodySizeLimitMiddleware(BaseHTTPMiddleware):
         return await call_next(request)
 
 
+class AccessAuditMiddleware(BaseHTTPMiddleware):
+    """Record the security-relevant outcome of requests.
+
+    Not every request: an audit trail that logs each menu read is one nobody
+    reads. What is recorded is every refusal (401, 403, 429), every server
+    error, and every state-changing method whatever its outcome -- the three
+    categories an incident review actually asks about.
+
+    `request.url.path` and not the full URL: the query string is where a
+    reset code or a token ends up when a client puts one there, and it would
+    otherwise be copied into the log verbatim.
+    """
+
+    async def dispatch(self, request, call_next):
+        response = await call_next(request)
+
+        changes_state = request.method in ("POST", "PUT", "PATCH", "DELETE")
+        refused = response.status_code in (401, 403, 429)
+
+        if changes_state or refused or response.status_code >= 500:
+            audit(
+                "http_request",
+                outcome="denied" if refused else (
+                    "error" if response.status_code >= 400 else "success"
+                ),
+                method=request.method,
+                path=request.url.path,
+                status_code=response.status_code,
+                client_ip=request.client.host if request.client else None,
+            )
+
+        return response
+
+
 def init_app():
+    # Before the app object exists, so that a failure during startup is
+    # itself recorded in the structured format rather than in whatever
+    # logging.basicConfig would have improvised on first use.
+    configure_logging()
+
     app = FastAPI(
         title=settings.TITLE,
         description=settings.DESCRIPTION,
@@ -146,6 +186,9 @@ def init_app():
         max_age=600,
     )
     app.add_middleware(CsrfMiddleware)
+    # Registered after CSRF and before the header layer, so a request the
+    # CSRF check refuses is still recorded.
+    app.add_middleware(AccessAuditMiddleware)
     app.add_middleware(SecurityHeadersMiddleware)
     app.state.limiter = limiter
     app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)

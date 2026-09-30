@@ -1,23 +1,41 @@
 import secrets
 import string
 
-from apis.auth.utils import create_user_if_not_exists
+from apis.auth.utils import create_user_if_not_exists, system_authz
 from apis.menu.schemas import MenuItemCreate
 from apis.menu.utils import create_menu_item
-from config import settings
+from config import ENV, settings
 from db.models import MenuItem, Order, OrderItem, OrderStatus, User, UserRole
 from db.session import get_db
+from password_policy import PasswordPolicyError, validate_password_policy
 from sqlalchemy.orm import Session
 
 
 def generate_random_secret():
-    characters = string.ascii_letters + string.digits + string.punctuation
-    password = "".join(secrets.choice(characters) for i in range(32))
+    """Generate a 32-character password that satisfies the shared policy.
 
-    return password
+    Drawing 32 characters from a large alphabet almost always covers every
+    required character class, but "almost always" is not a guarantee, so the
+    result is checked and redrawn rather than assumed.
+    """
+    characters = string.ascii_letters + string.digits + string.punctuation
+
+    while True:
+        password = "".join(secrets.choice(characters) for _ in range(32))
+        try:
+            return validate_password_policy(password)
+        except PasswordPolicyError:
+            continue
 
 
 def load_users(db: Session):
+    """Create the one account operation requires: the initial Chef.
+
+    Its password is generated and never printed or logged, so it is unknown
+    even to whoever runs the seeding. Operations obtain a working credential
+    through the password-reset flow rather than from a value in source or in
+    the startup output.
+    """
     create_user_if_not_exists(
         db,
         username=settings.CHEF_USERNAME,
@@ -26,57 +44,54 @@ def load_users(db: Session):
         last_name="",
         phone_number="(505) 146-0195",
         role=UserRole.CHEF,
+        # The password was issued by the system, not chosen by the operator,
+        # so the account is unusable until it is replaced.
+        must_change_password=True,
     )
-    create_user_if_not_exists(
-        db,
-        username="Mike",
-        password="kaylee123",
-        first_name="Mike",
-        last_name="",
-        phone_number="(505) 146-0190",
-        role=UserRole.EMPLOYEE,
-    )
-    create_user_if_not_exists(
-        db,
-        username="Saul",
-        password="Th4tsMyP4ssw0rd!",
-        first_name="Saul",
-        last_name="",
-        phone_number="(505) 842-5662",
-        role=UserRole.EMPLOYEE,
-    )
-    create_user_if_not_exists(
-        db,
-        username="hhm",
-        password="12345678",
-        first_name="Howard",
-        last_name="Hamlin",
-        phone_number="(505) 56434-7345",
-        role=UserRole.CUSTOMER,
-    )
-    create_user_if_not_exists(
-        db,
-        username="johndoe",
-        password="password123",
-        first_name="John",
-        last_name="Doe",
-        phone_number="(505) 56434-7346",
-        role=UserRole.CUSTOMER,
-    )
-    create_user_if_not_exists(
-        db,
-        username="alicesmith",
-        password="password456",
-        first_name="Alice",
-        last_name="Smith",
-        phone_number="(505) 53436-7347",
-        role=UserRole.CUSTOMER,
-    )
+
+
+# Sample staff and customer accounts. These exist to make the application
+# explorable in development and are not required for it to operate, so they
+# are never created in production. Each password is generated per run, so no
+# credential here is guessable from the source.
+DEMO_USERS = (
+    ("Mike", "Mike", "", "(505) 146-0190", UserRole.EMPLOYEE),
+    ("Saul", "Saul", "", "(505) 842-5662", UserRole.EMPLOYEE),
+    ("hhm", "Howard", "Hamlin", "(505) 56434-7345", UserRole.CUSTOMER),
+    ("johndoe", "John", "Doe", "(505) 56434-7346", UserRole.CUSTOMER),
+    ("alicesmith", "Alice", "Smith", "(505) 53436-7347", UserRole.CUSTOMER),
+)
+
+
+def load_demo_users(db: Session):
+    for username, first_name, last_name, phone_number, role in DEMO_USERS:
+        create_user_if_not_exists(
+            db,
+            username=username,
+            password=generate_random_secret(),
+            first_name=first_name,
+            last_name=last_name,
+            phone_number=phone_number,
+            role=role,
+            must_change_password=True,
+        )
+
+
+
+def _seed_menu_item(db, menu_item: MenuItemCreate):
+    """Create a menu item during seeding.
+
+    The service function requires an authorization context. Seeding runs
+    before any user exists, so it passes the system context — in one place
+    here rather than at each of the call sites below, so there is a single
+    line to audit.
+    """
+    return create_menu_item(db, menu_item, system_authz())
 
 
 def load_menu(db: Session):
     # Breakfasts
-    create_menu_item(
+    _seed_menu_item(
         db,
         MenuItemCreate(
             name="Pollos Classic Breakfast",
@@ -84,7 +99,7 @@ def load_menu(db: Session):
             category="Pollos Breakfasts",
         ),
     )
-    create_menu_item(
+    _seed_menu_item(
         db,
         MenuItemCreate(
             name="Pollos Chicken Biscuit",
@@ -93,7 +108,7 @@ def load_menu(db: Session):
             description="Fried chicken filet on a buttered biscuit",
         ),
     )
-    create_menu_item(
+    _seed_menu_item(
         db,
         MenuItemCreate(
             name="Pollos Breakfast Sandwich",
@@ -102,7 +117,7 @@ def load_menu(db: Session):
             description="Two eggs, boneless grilled chicken, green chile and salsa served on our classic bun",
         ),
     )
-    create_menu_item(
+    _seed_menu_item(
         db,
         MenuItemCreate(
             name="Pollos Breakfast Tacos",
@@ -112,7 +127,7 @@ def load_menu(db: Session):
     )
 
     # Burritos
-    create_menu_item(
+    _seed_menu_item(
         db,
         MenuItemCreate(
             name="Basic Hand Held",
@@ -121,7 +136,7 @@ def load_menu(db: Session):
             description="Egg & potato",
         ),
     )
-    create_menu_item(
+    _seed_menu_item(
         db,
         MenuItemCreate(
             name="Basic Smothered Chile & Cheese on Top",
@@ -130,7 +145,7 @@ def load_menu(db: Session):
             description="Egg & potato",
         ),
     )
-    create_menu_item(
+    _seed_menu_item(
         db,
         MenuItemCreate(
             name="New Mexico",
@@ -139,7 +154,7 @@ def load_menu(db: Session):
             description="Egg, potato, green chile & cheese",
         ),
     )
-    create_menu_item(
+    _seed_menu_item(
         db,
         MenuItemCreate(
             name="Albuquerque",
@@ -150,7 +165,7 @@ def load_menu(db: Session):
     )
 
     # Chicken Specialties
-    create_menu_item(
+    _seed_menu_item(
         db,
         MenuItemCreate(
             name="Pollo Adovada",
@@ -160,7 +175,7 @@ def load_menu(db: Session):
         ),
     )
 
-    create_menu_item(
+    _seed_menu_item(
         db,
         MenuItemCreate(
             name="Pollo Picante",
@@ -170,7 +185,7 @@ def load_menu(db: Session):
         ),
     )
 
-    create_menu_item(
+    _seed_menu_item(
         db,
         MenuItemCreate(
             name="Pollo Mexicana",
@@ -180,7 +195,7 @@ def load_menu(db: Session):
         ),
     )
 
-    create_menu_item(
+    _seed_menu_item(
         db,
         MenuItemCreate(
             name="Giuso De Pollo",
@@ -191,7 +206,7 @@ def load_menu(db: Session):
     )
 
     # Desserts
-    create_menu_item(
+    _seed_menu_item(
         db,
         MenuItemCreate(
             name="Ice Cream",
@@ -201,7 +216,7 @@ def load_menu(db: Session):
         ),
     )
 
-    create_menu_item(
+    _seed_menu_item(
         db,
         MenuItemCreate(
             name="Chocoloate Shake",
@@ -348,4 +363,9 @@ def load_initial_data():
 
     load_users(db)
     load_menu(db)
-    load_orders(db)
+
+    # Sample accounts and their order history are development conveniences.
+    # In production the only seeded account is the Chef created above.
+    if settings.ENVIRONMENT is not ENV.PRODUCTION:
+        load_demo_users(db)
+        load_orders(db)

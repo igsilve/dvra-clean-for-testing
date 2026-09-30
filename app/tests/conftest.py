@@ -21,6 +21,10 @@ os.environ.setdefault(
     "ALLOWED_ORIGINS", "http://localhost:8091,http://127.0.0.1:8091"
 )
 os.environ.setdefault("JWT_SECRET_KEY", "test-only-secret-not-used-in-any-deployment")
+# Required with no default, so the harness supplies it like any other
+# deployment would. The value is deliberately not "chef".
+os.environ.setdefault("CHEF_USERNAME", "test-only-kitchen-account")
+os.environ.setdefault("OTP_HMAC_KEY", "test-only-otp-key-not-used-in-any-deployment")
 
 from init_app import init_app
 
@@ -29,6 +33,7 @@ sys.dont_write_bytecode = True
 
 from apis.auth.utils import get_current_user, get_password_hash
 from apis.router import api_router
+from config import settings
 from db.base import Base
 
 # from main import app
@@ -158,7 +163,10 @@ def chef_client(app, test_db: TestingSessionLocal) -> Generator[TestClient, Any,
     """
     user = User(
         id=1,
-        username="chef",
+        # Read from settings rather than restated as "chef". The account name
+        # is configuration now, so a fixture that hard-codes it is asserting
+        # the old default still applies.
+        username=settings.CHEF_USERNAME,
         password=get_password_hash("password"),
         first_name="Chef",
         last_name="",

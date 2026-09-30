@@ -22,6 +22,14 @@ ALGORITHM = "HS256"
 
 DEFAULT_EXPIRY = timedelta(minutes=15)
 
+# The caller may ask for a shorter life than the default but not a longer one.
+# Lifetime is the whole of a stateless token's exposure window: it is honoured
+# until it expires no matter what happens to the account in the meantime, and
+# revocation only takes effect when the holder next presents it. A call site
+# passing a generous timedelta, or one computed from a request, is how a
+# fifteen-minute credential quietly becomes a permanent one.
+MAX_EXPIRY = timedelta(minutes=60)
+
 # Verification is unconditional. python-jose expresses claim-presence checks
 # as require_* booleans and ignores option keys it does not recognise, so a
 # PyJWT-style {"require": ["exp", "sub"]} would be silently discarded and a
@@ -50,10 +58,14 @@ def encode_token(claims: dict, expires_delta: Optional[timedelta] = None) -> str
     in the same second, which `iat` alone does not guarantee.
     """
     now = datetime.now(timezone.utc)
+    requested = expires_delta or DEFAULT_EXPIRY
+    # min() rather than a rejection: a caller asking for too long is a bug to
+    # be capped, not a reason to fail a user's sign-in.
+    lifetime = min(requested, MAX_EXPIRY)
     to_encode = dict(claims)
     to_encode.update(
         {
-            "exp": now + (expires_delta or DEFAULT_EXPIRY),
+            "exp": now + lifetime,
             "iat": now,
             "jti": secrets.token_urlsafe(16),
             "iss": settings.JWT_ISSUER,

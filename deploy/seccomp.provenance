@@ -1,0 +1,32 @@
+deploy/seccomp.json
+===================
+
+Origin:   moby/moby, profiles/seccomp/default.json, tag v24.0.7
+URL:      https://raw.githubusercontent.com/moby/moby/v24.0.7/profiles/seccomp/default.json
+Retrieved: 2026-09-30
+sha256:   see the checksum line below
+
+This file is byte-identical to Docker's built-in default seccomp profile.
+It is committed and referenced explicitly from docker-compose.yml rather
+than left implicit, for two reasons:
+
+  1. An implicit default is whatever the host's daemon happens to ship.
+     Referencing a file makes the applied policy a reviewed artifact that
+     travels with the code and cannot change under the application when a
+     host is upgraded.
+  2. It gives a starting point for tightening. A profile written from
+     scratch is how outages happen; one derived from the default and
+     narrowed with evidence is not.
+
+Because it is identical to the default, adopting it changes no runtime
+behaviour. Any future narrowing must be driven by syscall tracing of the
+real workload (strace or a seccomp profile recorder under load), not by
+reasoning about which calls a Python service "should" need. Several
+syscall groups in this profile are already gated on capabilities the
+containers no longer hold, so they are inert regardless.
+
+Update procedure:
+  1. Fetch the default profile for the Docker version being deployed.
+  2. Diff it against this file and review each change.
+  3. Update this file, the version above and the checksum in one commit.
+checksum: sha256:5e7994296d55cc3623fa4bd8e5682c36220c94e69b70ff2e923d3948d3a9995e

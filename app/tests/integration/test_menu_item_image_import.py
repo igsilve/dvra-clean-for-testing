@@ -1,13 +1,7 @@
-import json
-
 import pytest
 from db.models import User, UserRole
 
 
-@pytest.mark.xfail(
-    strict=True,
-    reason="SSRF egress restrictions are not implemented yet; see T7360/T1365.",
-)
 def test_menu_item_image_import_refuses_internal_targets(
     test_db, employee_client, requests_mock, mocker
 ):
@@ -22,6 +16,10 @@ def test_menu_item_image_import_refuses_internal_targets(
     This test previously asserted the opposite: it pointed the importer at
     "/admin/reset-chef-password" and required the leaked credential to be
     stored base64 on the created menu item.
+
+    It passes because the host allow-list added under T558 refuses any host
+    the service was not configured to trust, loopback included. T7360/T1365
+    still own the general egress question.
     """
 
     chef_user = User(
@@ -51,7 +49,7 @@ def test_menu_item_image_import_refuses_internal_targets(
         "image_url": "http://localhost:8000/admin/reset-chef-password",
     }
 
-    response = employee_client.put("/menu", content=json.dumps(menu_item))
+    response = employee_client.put("/menu", json=menu_item)
 
     assert response.status_code in (400, 422)
     assert "should-never-be-fetched" not in response.text

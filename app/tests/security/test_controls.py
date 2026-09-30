@@ -8,6 +8,7 @@ regression barrier rather than a functional one. Run with `pytest -m security`.
 import base64
 import datetime
 import json
+import pathlib
 import subprocess
 from unittest import mock
 
@@ -102,10 +103,6 @@ def test_admin_endpoints_reject_anonymous(test_db, anon_client):
 
 
 @pytest.mark.security
-@pytest.mark.xfail(
-    strict=True,
-    reason="Endpoint authorization is not implemented yet; see T7355.",
-)
 def test_role_change_is_not_self_service(test_db, customer_client):
     response = customer_client.put(
         "/users/update_role", json={"username": "customer", "role": "CHEF"}
@@ -114,10 +111,6 @@ def test_role_change_is_not_self_service(test_db, customer_client):
 
 
 @pytest.mark.security
-@pytest.mark.xfail(
-    strict=True,
-    reason="Endpoint authorization is not implemented yet; see T7355.",
-)
 def test_delivery_orders_require_authentication(test_db, anon_client):
     assert anon_client.get("/delivery/orders").status_code in (401, 403)
 
@@ -126,11 +119,13 @@ def test_delivery_orders_require_authentication(test_db, anon_client):
 
 
 @pytest.mark.security
-@pytest.mark.xfail(
-    strict=True,
-    reason="Object-level ownership checks are not implemented yet; see T7356.",
-)
 def test_cannot_read_another_users_order(test_db, customer_client):
+    """Ownership is now enforced on the single-order lookup (T106).
+
+    This carried a strict xfail deferring to T7356. The fix landed with
+    T106 and the test XPASSed, so the marker is gone. T7356 still owns the
+    wider sweep of object-level checks across other resources.
+    """
     owner = User(
         id=99,
         username="someone-else",
@@ -489,3 +484,270 @@ def test_issued_tokens_always_carry_an_expiry():
 
     # Would raise if exp were absent, since decoding requires it.
     assert decode_token(create_access_token({"sub": "noexpiry"}))["exp"]
+
+
+# --- T281 / T284: the token carries a full claim set and a bounded life ---
+
+
+@pytest.mark.security
+@pytest.mark.parametrize("claim", ("iat", "exp", "jti", "iss", "aud"))
+def test_every_issued_token_carries_the_full_claim_set(claim):
+    """exp alone identifies nothing.
+
+    Without iss and aud a token minted for another service verifies here
+    whenever the two share a key; without jti two tokens for the same user in
+    the same second are indistinguishable, so neither a log nor a revocation
+    list can name one of them.
+    """
+    from jwt_tokens import DECODE_OPTIONS, decode_token
+    from apis.auth.utils import create_access_token
+
+    claims = decode_token(create_access_token({"sub": "claims"}))
+
+    assert claim in claims
+    # Present is not the same as checked: a token minted before the claim
+    # existed would still be accepted unless its presence is required.
+    assert DECODE_OPTIONS[f"require_{claim}"] is True
+
+
+@pytest.mark.security
+def test_two_tokens_for_the_same_user_are_distinguishable():
+    """iat has one-second resolution, so it cannot do this on its own."""
+    from jwt_tokens import decode_token
+    from apis.auth.utils import create_access_token
+
+    first = decode_token(create_access_token({"sub": "same"}))
+    second = decode_token(create_access_token({"sub": "same"}))
+
+    assert first["jti"] != second["jti"]
+
+
+@pytest.mark.security
+def test_a_caller_cannot_ask_for_a_longer_lifetime_than_the_ceiling():
+    """The lifetime is the whole exposure window of a stateless credential.
+
+    A call site passing a generous timedelta, or one computed from a request,
+    is how a fifteen-minute token quietly becomes a permanent one. The cap is
+    applied at issuance rather than trusted to the caller.
+    """
+    from datetime import datetime, timedelta, timezone
+
+    from jwt_tokens import MAX_EXPIRY, decode_token, encode_token
+
+    claims = decode_token(encode_token({"sub": "greedy"}, timedelta(days=365)))
+    lifetime = datetime.fromtimestamp(claims["exp"], timezone.utc) - datetime.now(
+        timezone.utc
+    )
+
+    assert lifetime <= MAX_EXPIRY
+    assert MAX_EXPIRY <= timedelta(hours=1)
+
+
+@pytest.mark.security
+def test_a_shorter_lifetime_is_still_honoured():
+    """The cap must be a ceiling, not a floor that lengthens short tokens."""
+    from datetime import datetime, timedelta, timezone
+
+    from jwt_tokens import decode_token, encode_token
+
+    claims = decode_token(encode_token({"sub": "brief"}, timedelta(minutes=2)))
+    lifetime = datetime.fromtimestamp(claims["exp"], timezone.utc) - datetime.now(
+        timezone.utc
+    )
+
+    assert lifetime <= timedelta(minutes=2)
+
+
+@pytest.mark.security
+def test_issued_tokens_can_be_revoked_before_they_expire():
+    """Otherwise a stolen token stays valid for its full life regardless of
+    what happens to the account, which is the cost of statelessness."""
+    from db.models import User
+    from jwt_tokens import invalidate_issued_tokens
+
+    user = User(id=999, username="revoked", token_version=3)
+    invalidate_issued_tokens(user)
+
+    assert user.token_version == 4
+
+
+# --- T1468: nothing sensitive is left at rest in the browser ------------
+
+
+@pytest.mark.security
+def test_no_client_side_code_stores_a_credential_in_web_storage():
+    """There is no browser client in this repository, and the token is
+    delivered in a response body rather than a cookie, so today nothing is
+    at rest in a browser at all.
+
+    This fails the moment client-side code appears that puts a credential
+    into localStorage or sessionStorage, which is the specific mistake this
+    control exists to prevent and the one that survives a code review
+    because it looks like ordinary state management.
+    """
+    repo_root = pathlib.Path(__file__).resolve().parents[3]
+    tracked = subprocess.run(
+        ["git", "ls-files", "*.js", "*.jsx", "*.ts", "*.tsx", "*.html", "*.vue"],
+        cwd=repo_root,
+        capture_output=True,
+        text=True,
+    ).stdout.split()
+
+    offenders = []
+    for relative in tracked:
+        source = (repo_root / relative).read_text(encoding="utf-8", errors="ignore")
+        for storage in ("localStorage", "sessionStorage"):
+            if storage not in source:
+                continue
+            for name in ("token", "Token", "password", "secret", "jwt"):
+                if name in source:
+                    offenders.append(f"{relative}: {storage} near '{name}'")
+                    break
+
+    assert offenders == [], f"credentials placed in web storage: {offenders}"
+
+
+@pytest.mark.security
+def test_the_credential_lifetime_is_measured_in_minutes():
+    """A long-lived token is a long-lived liability wherever the client
+    happens to keep it, which the server cannot see and cannot revoke
+    before expiry."""
+    from apis.auth.services.get_token_service import ACCESS_TOKEN_EXPIRE_MINUTES
+
+    assert 0 < ACCESS_TOKEN_EXPIRE_MINUTES <= 60
+
+
+@pytest.mark.security
+def test_credential_responses_are_not_cacheable(test_db, anon_client):
+    """A cached response is the credential at rest in the browser's disk
+    cache, which no client-side discipline can undo."""
+    test_db.add(
+        User(
+            id=211,
+            username="cachecheck",
+            password=get_password_hash("password"),
+            first_name="Cache",
+            last_name="",
+            phone_number="2110",
+            role=UserRole.CUSTOMER,
+        )
+    )
+    test_db.commit()
+
+    response = anon_client.post(
+        "/token", data={"username": "cachecheck", "password": "password"}
+    )
+
+    assert response.status_code == 200
+    assert response.headers["Cache-Control"] == "no-store"
+
+
+# --- T21: data in transit --------------------------------------------
+
+
+@pytest.mark.security
+@pytest.mark.parametrize(
+    "mode", ["disable", "allow", "prefer", "", "REQUIRE", "nonsense"]
+)
+def test_a_database_mode_that_can_fall_back_to_plaintext_is_refused(
+    monkeypatch, mode
+):
+    """`prefer` is the dangerous one: it encrypts when the server offers
+    TLS and connects in the clear when it does not, so a server that
+    silently stopped serving certificates looks healthy."""
+    monkeypatch.setattr(type(settings), "DB_BACKEND", "postgres")
+    monkeypatch.setattr(type(settings), "POSTGRES_SSLMODE", mode)
+
+    with pytest.raises(RuntimeError, match="POSTGRES_SSLMODE"):
+        settings.DATABASE_URL
+
+
+@pytest.mark.security
+def test_the_database_connection_requires_tls_by_default(monkeypatch):
+    monkeypatch.setattr(type(settings), "DB_BACKEND", "postgres")
+
+    assert settings.DATABASE_URL.query["sslmode"] == "require"
+
+
+@pytest.mark.security
+def test_a_supplied_ca_upgrades_the_connection_to_authenticate_the_server(
+    monkeypatch,
+):
+    """`require` encrypts to whoever answered; only verify-full checks that
+    whoever answered is the database."""
+    monkeypatch.setattr(type(settings), "DB_BACKEND", "postgres")
+    monkeypatch.setattr(type(settings), "POSTGRES_SSLROOTCERT", "/etc/pg/ca.crt")
+
+    url = settings.DATABASE_URL
+
+    assert url.query["sslmode"] == "verify-full"
+    assert url.query["sslrootcert"] == "/etc/pg/ca.crt"
+
+
+# --- T2599 / T2608: connection string parameter pollution ------------
+
+
+@pytest.mark.security
+@pytest.mark.parametrize(
+    "password",
+    [
+        "p@ss/word?x=1",
+        # Each of these is a delimiter that used to be read as structure.
+        "pass@evil.example.com",
+        "pass?host=evil.example.com",
+        "pass/otherdb",
+        "pass#fragment",
+        "pass word",
+    ],
+)
+def test_a_password_cannot_rewrite_any_part_of_the_connection(
+    monkeypatch, password
+):
+    """The credential must not be able to decide where the credential goes.
+
+    An interpolated password containing `@` moves the host; one containing
+    `?host=` appends a connection parameter, and libpq takes the later
+    occurrence, so the value being protected chooses the server it is sent
+    to. Asserted on the parsed components rather than on the rendered string,
+    because that is what actually reaches the driver.
+    """
+    monkeypatch.setattr(type(settings), "DB_BACKEND", "postgres")
+    monkeypatch.setattr(type(settings), "POSTGRES_SERVER", "db.internal")
+    monkeypatch.setattr(type(settings), "POSTGRES_DB", "restaurant")
+    monkeypatch.setattr(type(settings), "POSTGRES_PASSWORD", password)
+
+    url = settings.DATABASE_URL
+
+    assert url.host == "db.internal"
+    assert url.database == "restaurant"
+    assert url.port == 5432
+    # The delimiter stayed inside the value instead of becoming structure.
+    assert url.password == password
+    assert set(url.query) == {"sslmode"}
+
+
+@pytest.mark.security
+@pytest.mark.parametrize("component", ["POSTGRES_USER", "POSTGRES_DB"])
+def test_no_other_component_can_inject_connection_parameters(
+    monkeypatch, component
+):
+    """The password is the usual suspect, but every component was interpolated."""
+    monkeypatch.setattr(type(settings), "DB_BACKEND", "postgres")
+    monkeypatch.setattr(type(settings), "POSTGRES_SERVER", "db.internal")
+    monkeypatch.setattr(type(settings), component, "x?host=evil.example.com")
+
+    url = settings.DATABASE_URL
+
+    assert url.host == "db.internal"
+    assert set(url.query) == {"sslmode"}
+
+
+@pytest.mark.security
+def test_the_rendered_url_does_not_expose_the_password(monkeypatch):
+    """Anything that logs the connection URL logs whatever str() returns."""
+    monkeypatch.setattr(type(settings), "DB_BACKEND", "postgres")
+    monkeypatch.setattr(type(settings), "POSTGRES_PASSWORD", "s3cret-value")
+
+    assert "s3cret-value" not in str(settings.DATABASE_URL)
+    # Still reachable for the driver, which is given the object, not the text.
+    assert settings.DATABASE_URL.password == "s3cret-value"

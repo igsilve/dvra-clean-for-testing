@@ -1,0 +1,49 @@
+# What never enters the build context.
+#
+# The Dockerfile copies named paths rather than `.`, so nothing here is
+# strictly required today. It is here because the build context is sent to
+# the daemon in full regardless of what the Dockerfile then copies, and
+# because the next COPY someone adds is the one that picks up a local .env.
+#
+# The files that would carry credentials come first; the rest is size.
+
+# Local configuration and credentials.
+.env
+*.env
+!deploy/*.env.example
+secrets/
+*.pem
+*.key
+*.p12
+
+# The database volume created by start_app.sh. Owner-only on the host, and
+# not something to hand to the daemon or bake into a layer.
+postgres_data/
+
+# History, which includes every version of every file ever committed --
+# including anything committed by mistake and removed later.
+.git/
+.gitignore
+
+# Security-hardening tooling artifacts.
+.sde-security/
+.sde-handoff.json
+.sde-apply-handoff.json
+skills/
+
+# Build and test residue.
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+htmlcov/
+.coverage
+*.egg-info/
+.venv/
+venv/
+
+# Editor and OS noise.
+.DS_Store
+.idea/
+.vscode/

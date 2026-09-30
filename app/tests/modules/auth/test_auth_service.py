@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta
 
 from apis.auth.utils import verify_password
+from apis.auth.utils.text_code_utils import hash_reset_code
 from db.models import User, UserRole
 
 
@@ -88,7 +89,7 @@ def test_patch_profile_returns_200(test_db, customer_client):
 def test_register_user_returns_201(test_db, anon_client):
     data = {
         "username": "new_user123",
-        "password": "new_password",
+        "password": "N3w-Passw0rd!x",
         "first_name": "John",
         "last_name": "Doe",
         "phone_number": "5425",
@@ -123,7 +124,7 @@ def test_register_by_authenticated_user_returns_400(test_db, customer_client, mo
 
     data = {
         "username": "new_user",
-        "password": "new_password",
+        "password": "N3w-Passw0rd!x",
         "first_name": "John",
         "last_name": "Doe",
         "phone_number": "1234567890",
@@ -201,7 +202,9 @@ def test_set_new_password_returns_200(test_db, anon_client):
         last_name="",
         phone_number="12345678",
         role=UserRole.CUSTOMER,
-        reset_password_code="1234",
+        # The reset code is stored as a keyed derivation, not as sent, so
+        # the fixture has to store it the same way the issuer does.
+        reset_password_code=hash_reset_code("1234"),
         reset_password_code_expiry_date=datetime.now() + timedelta(minutes=15),
     )
     test_db.add(user)
@@ -210,11 +213,11 @@ def test_set_new_password_returns_200(test_db, anon_client):
     data = {
         "username": "customer",
         "reset_password_code": "1234",
-        "new_password": "new_password",
+        "new_password": "N3w-Passw0rd!x",
     }
     response = anon_client.post("/reset-password/new-password", json=data)
 
     user = test_db.query(User).filter(User.username == "customer").first()
-    assert verify_password("new_password", user.password)
+    assert verify_password("N3w-Passw0rd!x", user.password)
     assert response.status_code == 200
     assert response.json().get("detail") == "Password updated successfully!"

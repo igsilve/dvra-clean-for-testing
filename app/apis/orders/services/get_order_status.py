@@ -1,4 +1,4 @@
-from apis.auth.utils import get_current_user
+from apis.auth.utils import get_current_user, owned_by
 from apis.orders.utils import fetch_order_status_from_delivery_service
 from db.models import Order, OrderStatus, User
 from db.session import get_db
@@ -16,10 +16,21 @@ class OrderStatusResponse(BaseModel):
 
 
 def _owned_order(order_id: int, current_user: User, db: Session) -> Order:
-    db_order = db.query(Order).filter(Order.id == order_id).first()
+    """Load an order the caller is entitled to see.
+
+    Ownership is a filter on the query rather than a comparison after
+    loading, so the row is never in memory unauthorised. The rule itself
+    lives in the authorization module: staff who read the delivery feed are
+    exempt, and this handler does not need to know that.
+    """
+    db_order = (
+        owned_by(db.query(Order), Order, current_user)
+        .filter(Order.id == order_id)
+        .first()
+    )
     # A 404 rather than a 403 for someone else's order: a distinct response
     # would confirm the order exists.
-    if db_order is None or db_order.user_id != current_user.id:
+    if db_order is None:
         raise HTTPException(status_code=404, detail="Order not found")
 
     return db_order

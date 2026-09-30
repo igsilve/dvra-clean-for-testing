@@ -1,5 +1,6 @@
+from apis.auth.utils import may_use_self_service_password_reset
 from apis.auth.utils.text_code_utils import generate_and_send_code_to_user
-from db.models import User, UserRole
+from db.models import User
 from db.session import get_db
 from fastapi import APIRouter, Depends, HTTPException, Request, status
 from pydantic import BaseModel
@@ -34,7 +35,9 @@ def reset_password(
             status_code=400,
             detail="Invalid username",
         )
-    if user.role != UserRole.CUSTOMER:
+    # The role rule lives in the authorization module, not inline here, so
+    # there is one place to look when the policy changes.
+    if not may_use_self_service_password_reset(user):
         raise HTTPException(
             status_code=400,
             detail="Only customers can reset their password through this feature",

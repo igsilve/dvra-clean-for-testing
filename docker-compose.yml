@@ -12,35 +12,199 @@ services:
       --no-server-header"
     expose:
       - 8091
+    # Least privilege for the container itself. Dropping ALL and adding
+    # nothing back is the honest default: the application binds a high
+    # port, reads its code and talks to Postgres, none of which needs a
+    # capability. no-new-privileges blocks setuid escalation even if a
+    # setuid binary survives in the image.
+    user: "10001:10001"
+    read_only: true
+    # Sized, so a bug that writes without bound fills 64m of RAM rather
+    # than as much of the host's memory as it can reach.
+    tmpfs:
+      - /tmp:size=64m,mode=1777
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+      # Stated rather than inherited. The daemon applies docker-default
+      # when nothing is asked for, but then a host that has AppArmor
+      # disabled runs this unconfined and nothing says otherwise.
+      - apparmor=docker-default
+      # Byte-identical to Docker's built-in default, so behaviour is
+      # unchanged, but the applied policy is now a reviewed file that
+      # travels with the code instead of whatever the host daemon ships.
+      # See deploy/seccomp.provenance.
+      - seccomp=./deploy/seccomp.json
+    # A compromised or looping worker cannot starve the database or the
+    # host. Each of these covers a different exhaustion route: cpus caps
+    # compute, mem_limit with memswap_limit equal to it caps memory
+    # without letting swap absorb the overage, pids_limit stops a fork
+    # bomb that would otherwise stay inside both, and nofile stops
+    # descriptor exhaustion. cpu_shares only matters under contention.
+    cpus: 2.0
+    cpu_shares: 1024
+    mem_limit: 1g
+    memswap_limit: 1g
+    pids_limit: 256
+    ulimits:
+      nofile:
+        soft: 1024
+        hard: 2048
+    # Named parent, so the limits above are enforced by a cgroup this
+    # project owns rather than by whatever slice the daemon picks. It also
+    # gives the host somewhere to apply an aggregate ceiling across the
+    # three services, which per-service limits cannot express.
+    cgroup_parent: restaurant.slice
+    # Bounded: a container that fails on every start should stop and be
+    # noticed rather than restart forever and look healthy in aggregate.
+    restart: on-failure:5
+    networks:
+      - frontend
+      - backend
     depends_on:
       db:
         condition: service_healthy
+    # Per-environment configuration is resolved at deploy time from a file
+    # the pipeline supplies, not from values committed here. See
+    # deploy/local.env.example for the shape.
+    env_file:
+      - ./deploy/${DEPLOY_ENV:?DEPLOY_ENV must name the environment, e.g. local}.env
     environment:
+      # No default in either direction: defaulting to production gave a
+      # process that called itself production and was configured like a
+      # laptop, and defaulting to development would enable debug behaviour in
+      # a real deployment.
+      - ENV=${ENV:?ENV must be development, testing or production}
+      # Not "chef". A well-known privileged account name is half a credential.
+      - CHEF_USERNAME=${CHEF_USERNAME:?CHEF_USERNAME must be set}
       - POSTGRES_USER=${POSTGRES_USER:?POSTGRES_USER must be set}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:?POSTGRES_PASSWORD must be set}
       - POSTGRES_SERVER=db
       - POSTGRES_PORT=5432
       - POSTGRES_DB=${POSTGRES_DB:?POSTGRES_DB must be set}
+      # The application refuses any sslmode that can fall back to
+      # plaintext, so the database must present a certificate. Supply
+      # POSTGRES_SSLROOTCERT to upgrade this to verify-full, which
+      # authenticates the server rather than only encrypting to it. See
+      # T2620 for the server-side configuration.
+      - POSTGRES_SSLMODE=${POSTGRES_SSLMODE:-require}
       - JWT_SECRET_KEY=${JWT_SECRET_KEY:?JWT_SECRET_KEY must be set}
-      - ALLOWED_HOSTS=${ALLOWED_HOSTS:-localhost,127.0.0.1}
-      - ALLOWED_ORIGINS=${ALLOWED_ORIGINS:-http://localhost:8443}
+      # Shared across workers: a per-process key would make a reset code
+      # issued by one worker fail to verify on another.
+      - OTP_HMAC_KEY=${OTP_HMAC_KEY:?OTP_HMAC_KEY must be set}
   proxy:
     image: nginx:1.27-alpine
+    cap_drop:
+      - ALL
+    # nginx binds 8443 (unprivileged) and changes worker user, so it needs
+    # these two and nothing else. Added back individually, which is the
+    # point of dropping ALL first.
+    cap_add:
+      - CHOWN
+      - SETUID
+      - SETGID
+    security_opt:
+      - no-new-privileges:true
+      - apparmor=docker-default
+      - seccomp=./deploy/seccomp.json
+    read_only: true
+    tmpfs:
+      - /var/cache/nginx:size=64m
+      - /var/run:size=1m
+    cpus: 1.0
+    cpu_shares: 512
+    mem_limit: 256m
+    memswap_limit: 256m
+    pids_limit: 128
+    ulimits:
+      nofile:
+        soft: 1024
+        hard: 2048
+    cgroup_parent: restaurant.slice
+    restart: on-failure:5
+    networks:
+      - frontend
     depends_on:
       - web
     ports:
       - "127.0.0.1:8443:8443"
+    # Long form with propagation stated. The short string form leaves
+    # propagation to the default, and a later edit to `shared` would let a
+    # mount made inside the container appear on the host, which is a route
+    # out of the container that reads like a convenience.
     volumes:
-      - ./deploy/nginx.conf:/etc/nginx/nginx.conf:ro
+      - type: bind
+        source: ./deploy/nginx.conf
+        target: /etc/nginx/nginx.conf
+        read_only: true
+        bind:
+          propagation: rprivate
       # Static assets are served by the proxy, so they never reach the app.
-      - ./app/static/:/srv/static/:ro
+      - type: bind
+        source: ./app/static/
+        target: /srv/static/
+        read_only: true
+        bind:
+          propagation: rprivate
       # Certificate and key are supplied by the platform, not built into an
       # image. TLS_DIR must point at a directory holding server.crt/server.key.
-      - ${TLS_DIR:?TLS_DIR must point at the directory holding server.crt and server.key}:/etc/nginx/tls/:ro
+      - type: bind
+        source: ${TLS_DIR:?TLS_DIR must point at the directory holding server.crt and server.key}
+        target: /etc/nginx/tls/
+        read_only: true
+        bind:
+          propagation: rprivate
   db:
     image: postgres:15.4-alpine
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - FOWNER
+      - SETUID
+      - SETGID
+    security_opt:
+      - no-new-privileges:true
+      - apparmor=docker-default
+      - seccomp=./deploy/seccomp.json
+    cpus: 2.0
+    # Higher than the proxy and equal to the application: under
+    # contention a starved database makes every request slow, so it is
+    # not the place to economise.
+    cpu_shares: 1024
+    mem_limit: 1g
+    memswap_limit: 1g
+    pids_limit: 256
+    ulimits:
+      nofile:
+        soft: 1024
+        hard: 2048
+    cgroup_parent: restaurant.slice
+    restart: on-failure:5
+    # Only on the internal network: the database is not reachable from the
+    # proxy side at all, so an application compromise is the only route to
+    # it rather than one of two.
+    networks:
+      - backend
+    # The data directory is a named volume, so the rest of the filesystem
+    # has no reason to be writable. Postgres needs its socket directory
+    # and /tmp, and nothing else; both are sized tmpfs. This is the
+    # documented read-only configuration for the official image, but it
+    # has not been exercised against a running container here, so the
+    # first deploy should confirm the container reaches a healthy state.
+    read_only: true
+    tmpfs:
+      - /var/run/postgresql:size=8m
+      - /tmp:size=64m,mode=1777
     volumes:
-      - pg_volume:/var/lib/postgresql/data/
+      # A named volume, not a bind: propagation does not apply, but the
+      # long form is used here too so that no mount in this file leaves a
+      # property to the default.
+      - type: volume
+        source: pg_volume
+        target: /var/lib/postgresql/data/
     environment:
       - POSTGRES_USER=${POSTGRES_USER:?POSTGRES_USER must be set}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:?POSTGRES_PASSWORD must be set}
@@ -52,5 +216,14 @@ services:
       start_period: 5s
     expose:
       - 5432
+networks:
+  # The proxy and the application share this one. The database is absent.
+  frontend:
+  # internal: true means no route to or from the host network, so the
+  # database cannot reach out and nothing outside the compose project can
+  # reach it, regardless of what ports a later edit might publish.
+  backend:
+    internal: true
+
 volumes:
   pg_volume:

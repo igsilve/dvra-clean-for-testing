@@ -1,6 +1,7 @@
 from datetime import timedelta
 
 from apis.auth.schemas import Token
+from audit_log import audit
 from apis.auth.utils import authenticate_user, create_access_token
 from apis.auth.utils.lockout import (
     register_failure,
@@ -32,17 +33,32 @@ def get_token(
         headers={"WWW-Authenticate": "Bearer"},
     )
 
-    retry_after = seconds_remaining("login", form_data.username)
-    if retry_after:
-        raise HTTPException(
-            status_code=status.HTTP_429_TOO_MANY_REQUESTS,
-            detail="Too many failed attempts. Try again later.",
-            headers={"Retry-After": str(retry_after)},
+    # A locked identity gets exactly the response a wrong password gets: no
+    # 429, no Retry-After, same body. Signalling the lockout would tell an
+    # attacker that their guessing is being counted, when the threshold
+    # trips, and when it is worth resuming. The cost is that a locked-out
+    # legitimate user sees only "incorrect username or password"; they
+    # recover through the password reset flow, which clears the lock.
+    if seconds_remaining("login", form_data.username):
+        # The username is recorded; the submitted password is not, and the
+        # allow-list in audit_log drops it even if a later edit passes it.
+        audit(
+            "authentication",
+            outcome="denied",
+            actor=form_data.username,
+            reason="locked_out",
         )
+        raise credentials_exception
 
     user = authenticate_user(db, form_data.username, form_data.password)
     if not user:
         register_failure("login", form_data.username)
+        audit(
+            "authentication",
+            outcome="denied",
+            actor=form_data.username,
+            reason="invalid_credentials",
+        )
         raise credentials_exception
 
     register_success("login", form_data.username)
@@ -51,4 +67,5 @@ def get_token(
         data={"sub": user.username, "ver": user.token_version or 0},
         expires_delta=access_token_expires,
     )
+    audit("authentication", actor=user.username, actor_role=user.role)
     return Token(access_token=access_token, token_type="bearer")

@@ -8,36 +8,71 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.10"
-fastapi = "^0.103.0"
-uvicorn = {extras = ["standard"], version = "^0.23.2"}
-httpx = "^0.24.1"
+fastapi = ">=0.115.0"
+uvicorn = {extras = ["standard"], version = "^0.30.0"}
+httpx = "^0.27.0"
 sqlalchemy = "^2.0.20"
 psycopg2 = "^2.9.7"
-python-jose = "^3.3.0"
+python-jose = "^3.4.0"
 passlib = "^1.7.4"
-python-multipart = "^0.0.9"
+python-multipart = "^0.0.31"
 # Backend for the preferred argon2id password scheme. bcrypt is retained so
 # hashes created before the switch can still be verified and upgraded.
 argon2-cffi = "^23.1.0"
 bcrypt = "^4.1.2"
-requests = "^2.31.0"
+requests = "^2.32.4"
 alembic = "^1.13.1"
-pytest = "8.3.4"
-pytest-mock = "^3.14.0"
-requests-mock = "^1.11.0"
 colorama = "^0.4.6"
-pylint = "^3.2.5"
-pytest-json-report = "^1.5.0"
-pytest-asyncio = "^0.25.0"
-pillow = "^11.1.0"
+pillow = ">=12.3.0"
 psutil = "^7.0.0"
 slowapi = "^0.1.9"
 
+# Security floors for packages this project does not import directly.
+#
+# Without these entries the versions come from whatever the direct
+# dependencies happen to tolerate, which means a transitive package can sit on
+# a known-vulnerable release indefinitely while every direct constraint looks
+# current. Each one below was pinned up in response to a specific advisory
+# reported by `pip-audit`, so the floor is a record of a fix rather than a
+# preference. They are declared here, not just resolved in the lock file, so a
+# future `poetry update` cannot quietly resolve back down.
+#
+# starlette: request-handling and multipart advisories; also arrives via fastapi
+starlette = ">=1.3.1"
+# h11: HTTP/1.1 request smuggling via lenient chunked-encoding parsing
+h11 = ">=0.16.0"
+# urllib3: redirect and proxy handling advisories; arrives via requests
+urllib3 = ">=2.5.0"
+# idna: denial of service on very long inputs
+idna = ">=3.15"
+# anyio, click, mako, pyasn1, ecdsa, python-dotenv: advisories in packages
+# pulled in by fastapi, uvicorn, alembic and python-jose respectively
+anyio = ">=4.4.0"
+click = ">=8.3.3"
+mako = ">=1.3.12"
+pyasn1 = ">=0.6.4"
+ecdsa = ">=0.19.1"
+python-dotenv = ">=1.2.2"
+
+# Test and lint tooling. Previously declared as runtime dependencies, so
+# `poetry export` put pytest, pylint and their trees into the production
+# image: code that is never executed in production but is present for anything
+# that achieves execution there, and that has to be patched on the same
+# schedule as the application itself.
 [tool.poetry.group.dev.dependencies]
-black = "^23.7.0"
+black = "^26.3.1"
 pre-commit = "^3.3.3"
 isort = "5.12.0"
 autoflake = "^2.3.1"
+pytest = "^9.0.3"
+pytest-mock = "^3.14.0"
+requests-mock = "^1.11.0"
+pylint = "^3.2.5"
+pytest-json-report = "^1.5.0"
+pytest-asyncio = ">=1.0.0"
+# Audits the pinned dependency set against the advisory database. A dev-group
+# dependency because the audit runs in CI and locally, never in the container.
+pip-audit = "^2.7.0"
 
 [tool.isort]
 profile = "black"

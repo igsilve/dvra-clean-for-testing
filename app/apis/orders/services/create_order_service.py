@@ -1,8 +1,8 @@
 from datetime import datetime
 
-from apis.auth.utils import RolesBasedAuthChecker, get_current_user
+from apis.auth.utils import Permission, Requires, get_current_user
 from apis.orders import schemas
-from db.models import DiscountCoupon, MenuItem, Order, OrderItem, User, UserRole
+from db.models import DiscountCoupon, MenuItem, Order, OrderItem, User
 from db.session import get_db
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
@@ -18,18 +18,28 @@ def create_order(
     order: schemas.OrderCreate,
     current_user: Annotated[User, Depends(get_current_user)],
     db: Session = Depends(get_db),
-    auth=Depends(RolesBasedAuthChecker([UserRole.CUSTOMER])),
+    auth=Depends(Requires(Permission.PLACE_ORDER)),
 ):
     coupon = None
     discount_percentage = 0
     if order.coupon_id:
+        # Ownership is part of the query rather than a comparison after
+        # loading, so someone else's coupon is never read at all. Filtered
+        # explicitly by the caller rather than through owned_by: that helper
+        # exempts staff who read the delivery feed, which is right for
+        # viewing orders and wrong for spending a coupon.
         coupon = (
             db.query(DiscountCoupon)
-            .filter(DiscountCoupon.id == order.coupon_id)
+            .filter(
+                DiscountCoupon.id == order.coupon_id,
+                DiscountCoupon.user_id == current_user.id,
+            )
             .first()
         )
 
-        if not coupon or coupon.user_id != current_user.id:
+        # The same 404 whether the coupon is missing or belongs to someone
+        # else, so the response cannot be used to discover valid ids.
+        if not coupon:
             raise HTTPException(
                 status_code=404,
                 detail="Coupon not found",

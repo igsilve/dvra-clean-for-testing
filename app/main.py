@@ -1,4 +1,6 @@
+from html import escape
 from pathlib import Path
+from urllib.parse import quote
 
 from config import ENV, settings
 from db.base import Base
@@ -24,28 +26,41 @@ def setup_static_files_and_docs(app: FastAPI):
     if settings.ENVIRONMENT is ENV.PRODUCTION:
         return
 
+    # These three routes are the only server-rendered HTML this service
+    # produces, and the helpers that build it interpolate their arguments into
+    # the markup without escaping. The values are configuration rather than
+    # request data, so this is not reachable from outside today -- but a title
+    # read from the environment is one deployment away from carrying a `<`,
+    # and escaping at the point of use costs nothing and does not depend on
+    # remembering where the value came from.
+    openapi_url = quote(f"{app.root_path}/openapi.json", safe="/:")
+    favicon_url = quote(
+        f"{app.root_path}/static/img/favicon-32x32.png", safe="/:"
+    )
+    title = escape(settings.TITLE)
+
     @app.get("/", include_in_schema=False)
     def root_docs():
         return get_swagger_ui_html(
-            openapi_url=f"{app.root_path}/openapi.json",
-            title=settings.TITLE,
-            swagger_favicon_url=f"{app.root_path}/static/img/favicon-32x32.png",
+            openapi_url=openapi_url,
+            title=title,
+            swagger_favicon_url=favicon_url,
         )
 
     @app.get("/docs", include_in_schema=False)
     def overridden_swagger():
         return get_swagger_ui_html(
-            openapi_url=f"{app.root_path}/openapi.json",
-            title=settings.TITLE,
-            swagger_favicon_url=f"{app.root_path}/static/img/favicon-32x32.png",
+            openapi_url=openapi_url,
+            title=title,
+            swagger_favicon_url=favicon_url,
         )
 
     @app.get("/redoc", include_in_schema=False)
     def overridden_redoc():
         return get_redoc_html(
-            openapi_url=f"{app.root_path}/openapi.json",
-            title=settings.TITLE,
-            redoc_favicon_url=f"{app.root_path}/static/img/favicon-32x32.png",
+            openapi_url=openapi_url,
+            title=title,
+            redoc_favicon_url=favicon_url,
         )
 
 

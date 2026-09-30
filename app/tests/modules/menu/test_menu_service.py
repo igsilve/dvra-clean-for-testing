@@ -1,5 +1,3 @@
-import json
-
 from db.models import MenuItem
 
 
@@ -28,24 +26,28 @@ def test_get_menu_returns_200_with_data(test_db, anon_client):
 def test_create_menu_item_by_employee_or_chef_returns_201(
     test_db, employee_client, chef_client
 ):
+    # T7411 gave the text fields an explicit contract: a menu item with an
+    # empty category is not a menu item, and the schema now says so. The
+    # payload was empty strings only because nothing required otherwise.
     menu_item_data = {
         "name": "Item 3",
         "price": 20.99,
-        "category": "",
+        "category": "Mains",
         "description": "",
-        "image_url": "",
     }
-    response = employee_client.put("/menu", content=json.dumps(menu_item_data))
+    response = employee_client.put("/menu", json=menu_item_data)
     assert response.status_code == 201
 
+    # T7411 gave the text fields an explicit contract: a menu item with an
+    # empty category is not a menu item, and the schema now says so. The
+    # payload was empty strings only because nothing required otherwise.
     menu_item_data = {
         "name": "Item 3",
         "price": 20.99,
-        "category": "",
+        "category": "Mains",
         "description": "",
-        "image_url": "",
     }
-    response = chef_client.put("/menu", content=json.dumps(menu_item_data))
+    response = chef_client.put("/menu", json=menu_item_data)
     assert response.status_code == 201
 
 

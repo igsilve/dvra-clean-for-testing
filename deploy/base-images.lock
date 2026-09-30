@@ -1,0 +1,20 @@
+# Pinned base image digests.
+#
+# The Dockerfile references these digests directly rather than the tags, so
+# a rebuild produces the same base every time. This file exists so that the
+# tag each digest corresponds to, and the date it was resolved, are written
+# down; a bare digest in a Dockerfile tells a reader nothing about how old
+# it is or what it was supposed to be.
+#
+# Changing a digest here is a reviewed change. Before promoting one:
+#   1. Resolve the new digest for the intended tag.
+#   2. Run the image vulnerability scan against it.
+#   3. Verify the image signature and provenance.
+#   4. Update both this file and the Dockerfile in the same commit.
+#
+# Refresh on a schedule as well as on demand. A pinned digest is immutable,
+# which is the point, but it also means security patches in the base are not
+# picked up until someone repins.
+
+python:3.10-bookworm       sha256:0a06143d04e5207c0561a9803a007af1d3e7941634fd1a7f801079dca3644bf5  resolved=2026-09-30
+python:3.10-slim-bookworm  sha256:2559be987fd64d61badbdafd303ea58a9ccab36d6c3c08bce219e762177d2eca  resolved=2026-09-30

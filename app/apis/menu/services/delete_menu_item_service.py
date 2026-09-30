@@ -1,4 +1,4 @@
-from apis.auth.utils import get_current_user
+from apis.auth.utils import AuthzContext, Permission, Requires, get_current_user
 from apis.menu import utils
 from db.models import User
 from db.session import get_db
@@ -14,5 +14,6 @@ def delete_menu_item(
     item_id: int,
     current_user: Annotated[User, Depends(get_current_user)],
     db: Session = Depends(get_db),
+    auth=Depends(Requires(Permission.MANAGE_MENU)),
 ):
-    utils.delete_menu_item(db, item_id)
+    utils.delete_menu_item(db, item_id, AuthzContext(actor=current_user))

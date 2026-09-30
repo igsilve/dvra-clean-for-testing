@@ -4,3 +4,13 @@
 .sde-security/
 AGENTS.md
 skills/
+
+# Environment configuration. These hold per-environment values and, for the
+# deployment ones, credentials. The example file is the only committed
+# template and contains no secrets.
+.env
+*.env
+!deploy/*.env.example
+
+# The deploy lock stop_app.sh takes while tearing the stack down.
+.deploy.lock.d/
