@@ -1,6 +1,13 @@
+import secrets
+
 from apis.router import api_router
 from config import ENV, settings
-from fastapi import FastAPI
+from error_handlers import (
+    http_exception_handler,
+    validation_exception_handler,
+)
+from fastapi import FastAPI, HTTPException
+from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from rate_limiting import limiter
@@ -27,6 +34,38 @@ class SecurityHeadersMiddleware(BaseHTTPMiddleware):
         response.headers.pop("X-Powered-By", None)
         response.headers.pop("Server", None)
         return response
+
+
+class CsrfMiddleware(BaseHTTPMiddleware):
+    """Require a non-ambient credential on unsafe requests.
+
+    Authentication is Bearer-token only today, so the browser never attaches
+    credentials cross-site and this check has nothing to do. It is installed
+    anyway so that introducing cookie authentication later fails closed: the
+    moment a request carries an auth cookie, an unsafe method without a
+    matching double-submit token is rejected.
+    """
+
+    SAFE_METHODS = frozenset({"GET", "HEAD", "OPTIONS", "TRACE"})
+    AUTH_COOKIES = ("access_token", "session", "session_id")
+
+    async def dispatch(self, request, call_next):
+        if request.method not in self.SAFE_METHODS and any(
+            name in request.cookies for name in self.AUTH_COOKIES
+        ):
+            header = request.headers.get("X-CSRF-Token")
+            cookie = request.cookies.get("csrf_token")
+            # compare_digest, not ==, so a mismatch cannot be found by timing.
+            if (
+                not header
+                or not cookie
+                or not secrets.compare_digest(header, cookie)
+            ):
+                return JSONResponse(
+                    {"detail": "CSRF token missing or invalid"}, status_code=403
+                )
+
+        return await call_next(request)
 
 
 class BodySizeLimitMiddleware(BaseHTTPMiddleware):
@@ -97,9 +136,14 @@ def init_app():
         allow_headers=["Authorization", "Content-Type"],
         max_age=600,
     )
+    app.add_middleware(CsrfMiddleware)
     app.add_middleware(SecurityHeadersMiddleware)
     app.state.limiter = limiter
     app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+
+    # Error bodies are shaped explicitly so they cannot echo submitted input.
+    app.add_exception_handler(HTTPException, http_exception_handler)
+    app.add_exception_handler(RequestValidationError, validation_exception_handler)
 
     app.include_router(api_router)
 

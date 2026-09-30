@@ -162,6 +162,52 @@ def test_debug_endpoint_does_not_leak_environment(test_db, anon_client):
 
 
 @pytest.mark.security
+def test_cookie_authenticated_state_change_requires_csrf_token(test_db, anon_client):
+    # Guards against a future move to cookie auth: once a request carries an
+    # auth cookie, an unsafe method without a matching token is refused.
+    response = anon_client.patch(
+        "/profile", json={"username": "someone"}, cookies={"access_token": "whatever"}
+    )
+    assert response.status_code == 403
+    assert response.json()["detail"] == "CSRF token missing or invalid"
+
+    mismatched = anon_client.patch(
+        "/profile",
+        json={"username": "someone"},
+        cookies={"access_token": "whatever", "csrf_token": "aaa"},
+        headers={"X-CSRF-Token": "bbb"},
+    )
+    assert mismatched.status_code == 403
+
+
+@pytest.mark.security
+def test_bearer_only_requests_are_not_blocked_by_csrf(test_db, customer_client):
+    # No auth cookie, so the CSRF check must stay out of the way entirely.
+    response = customer_client.patch("/profile", json={"first_name": "Ada"})
+    assert response.status_code != 403
+
+
+@pytest.mark.security
+def test_validation_errors_do_not_echo_submitted_input(test_db, anon_client):
+    secret = "Sup3rSecretPassw0rd!"
+
+    # phone_number is required, so this fails validation while carrying a
+    # password. The rejected values must not come back in the response.
+    response = anon_client.post(
+        "/register", json={"username": "someone", "password": secret}
+    )
+
+    assert response.status_code == 422
+    assert secret not in response.text
+    assert "someone" not in response.text
+
+    body = response.json()
+    assert body["detail"] == "Request validation failed"
+    for error in body["errors"]:
+        assert set(error) == {"loc", "type"}
+
+
+@pytest.mark.security
 def test_oversized_page_request_is_rejected(test_db, customer_client):
     # Rejected outright rather than clamped, so a caller cannot probe for the
     # effective ceiling by watching where the response size stops growing.
