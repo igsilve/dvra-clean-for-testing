@@ -10,6 +10,7 @@ from db.result_limits import fetch_bounded
 from db.session import get_db
 from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import BaseModel
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 from typing_extensions import Annotated
 
@@ -83,13 +84,41 @@ def apply_referral_code(
     if referrer is None:
         return ApplyReferralResponse(message="Invalid referral code", discount=0.0)
 
+    existing = (
+        db.query(DiscountCoupon)
+        .filter(
+            DiscountCoupon.user_id == current_user.id,
+            DiscountCoupon.referrer_user_id.isnot(None),
+        )
+        .first()
+    )
+    if existing is not None:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail="A referral has already been applied to this account",
+        )
+
+    if referrer.id == current_user.id:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="You cannot apply your own referral code",
+        )
+
     discount_coupon = DiscountCoupon(
         user_id=current_user.id,
         referrer_user_id=referrer.id,
         discount_percentage=REFERRAL_DISCOUNT_PERCENTAGE,
     )
     db.add(discount_coupon)
-    db.commit()
+    try:
+        db.commit()
+    except IntegrityError:
+        # Two requests raced past the check above; the unique index settled it.
+        db.rollback()
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail="A referral has already been applied to this account",
+        )
 
     return ApplyReferralResponse(
         message=f"Referral code {request.referral_code} applied successfully",

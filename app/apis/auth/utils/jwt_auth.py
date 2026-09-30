@@ -1,6 +1,6 @@
 from apis.auth.schemas import TokenData
 from apis.auth.utils.utils import get_user_by_username
-from config import Settings
+from config import settings
 from db.session import get_db
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
@@ -8,9 +8,11 @@ from jose import JWTError, jwt
 from sqlalchemy.orm import Session
 from typing_extensions import Annotated
 
-SECRET_KEY = Settings.JWT_SECRET_KEY
+SECRET_KEY = settings.JWT_SECRET_KEY
+# A literal, single-entry list. Deriving this from configuration or echoing
+# the token's own header would let a caller choose "none" and authenticate
+# with an unsigned token.
 ALGORITHM = "HS256"
-VERIFY_SIGNATURE = False
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
@@ -32,7 +34,17 @@ def get_current_user(
             token,
             SECRET_KEY,
             algorithms=[ALGORITHM],
-            options={"verify_signature": VERIFY_SIGNATURE},
+            # Verification is unconditional: there is no flag that can turn
+            # it off. python-jose spells the presence checks as require_*
+            # booleans and ignores unrecognised option keys, so a PyJWT-style
+            # {"require": [...]} here would be silently dropped and a token
+            # carrying no exp at all would be accepted as non-expiring.
+            options={
+                "verify_signature": True,
+                "verify_exp": True,
+                "require_exp": True,
+                "require_sub": True,
+            },
         )
         username: str = payload.get("sub")
         if username is None:

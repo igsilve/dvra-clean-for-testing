@@ -31,8 +31,11 @@ class SecurityHeadersMiddleware(BaseHTTPMiddleware):
             "max-age=63072000; includeSubDomains"
         )
         response.headers["Cache-Control"] = "no-store"
-        response.headers.pop("X-Powered-By", None)
-        response.headers.pop("Server", None)
+        # Starlette's MutableHeaders has no pop(); use del, which is a no-op
+        # guard away from raising KeyError when the header is absent.
+        for leaky in ("X-Powered-By", "Server"):
+            if leaky in response.headers:
+                del response.headers[leaky]
         return response
 
 
@@ -117,6 +120,12 @@ def init_app():
         root_path=settings.ROOT_PATH,
         docs_url=None,
         redoc_url=None,
+        # The schema is what makes the interactive docs useful, so it is
+        # withdrawn in production alongside them. Leaving it served would
+        # publish every route, parameter and model shape to anonymous callers.
+        openapi_url=(
+            None if settings.ENVIRONMENT is ENV.PRODUCTION else "/openapi.json"
+        ),
     )
     # Starlette makes the LAST-registered middleware the outermost layer, so
     # these are added innermost-first. SecurityHeadersMiddleware must be

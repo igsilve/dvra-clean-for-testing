@@ -1,16 +1,30 @@
-def test_disk_stats_with_parameters(test_db, chef_client):
+def test_disk_stats_rejects_injected_shell_input(test_db, chef_client):
     """
-    Verifies the "/admin/stats/disk" endpoint. The endpoint accepts a
-    "parameters" query parameter that is forwarded to the "df" command
-    used to report disk usage on the server.
+    Verifies the "/admin/stats/disk" endpoint does not forward caller input
+    to a shell.
 
-    This test passes extra input through "parameters" and checks that the
-    resulting command output is returned in the response body.
+    The endpoint used to accept a free-text "parameters" value that was
+    concatenated into a "df -h ..." string and run with shell=True. It now
+    accepts only a mount point from a fixed set, so an injected command is
+    rejected before the handler runs and never executes.
     """
 
-    # request disk stats while passing extra input through "parameters"
     response = chef_client.get(
-        f"/admin/stats/disk?parameters=%26%26echo%20dvra_probe_ok"
+        "/admin/stats/disk?mount_point=%26%26echo%20dvra_probe_ok"
     )
+
+    assert response.status_code == 422
+    assert "dvra_probe_ok" not in response.text
+
+
+def test_disk_stats_returns_usage_for_an_allowed_mount_point(test_db, chef_client):
+    response = chef_client.get("/admin/stats/disk", params={"mount_point": "/"})
+
     assert response.status_code == 200
-    assert "dvra_probe_ok" in response.json().get("output")
+    assert response.json().get("output")
+
+
+def test_disk_stats_rejects_an_unlisted_mount_point(test_db, chef_client):
+    response = chef_client.get("/admin/stats/disk", params={"mount_point": "/etc"})
+
+    assert response.status_code == 422

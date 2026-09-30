@@ -27,7 +27,8 @@ class Settings:
     JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY", generate_random_secret())
     CHEF_USERNAME = os.getenv("CHEF_USERNAME", "chef")
 
-    JWT_VERIFY_SIGNATURE = os.getenv("JWT_VERIFY_SIGNATURE")
+    # There is deliberately no JWT_VERIFY_SIGNATURE setting. Signature
+    # verification is not configurable, so no environment value can disable it.
 
     POSTGRES_USER: str = os.getenv("POSTGRES_USER", "admin")
     POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD", "password")

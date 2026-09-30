@@ -1,7 +1,7 @@
 from enum import Enum
 from typing import List, Optional
 
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 
 class OrderStatus(str, Enum):
@@ -13,6 +13,10 @@ class OrderStatus(str, Enum):
 
 
 class OrderItem(BaseModel):
+    # Needed because Order.items is validated from ORM instances. A nested
+    # model does not inherit from_attributes from its parent.
+    model_config = ConfigDict(from_attributes=True)
+
     menu_item_id: int
     quantity: int
 

@@ -10,14 +10,38 @@ from passlib.context import CryptContext
 SECRET_KEY = Settings.JWT_SECRET_KEY
 ALGORITHM = "HS256"
 
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+# argon2 is listed first, so it is the scheme used for every new hash;
+# passlib's argon2 handler is argon2id. bcrypt stays in the list for
+# verification only, which is what lets existing hashes keep working.
+# Cost parameters are pinned rather than left to library defaults so that a
+# passlib upgrade cannot silently weaken them: time_cost=3 with 64 MiB of
+# memory and 4 lanes follows the OWASP argon2id guidance, and bcrypt work
+# factor 12 is the floor for the hashes being retired.
+pwd_context = CryptContext(
+    schemes=["argon2", "bcrypt"],
+    deprecated="auto",
+    argon2__time_cost=3,
+    argon2__memory_cost=65536,
+    argon2__parallelism=4,
+    bcrypt__rounds=12,
+)
 
 
-def verify_password(plain_password, hashed_password):
+def verify_password(plain_password: str, hashed_password: str) -> bool:
     return pwd_context.verify(plain_password, hashed_password)
 
 
-def get_password_hash(password):
+def verify_and_upgrade_password(plain_password: str, hashed_password: str):
+    """Verify a password and return a replacement hash when one is due.
+
+    Returns `(matched, new_hash)`. `new_hash` is not None only when the stored
+    hash used a deprecated scheme or weaker parameters, which is the only
+    moment the plaintext is available to rehash with.
+    """
+    return pwd_context.verify_and_update(plain_password, hashed_password)
+
+
+def get_password_hash(password: str) -> str:
     return pwd_context.hash(password)
 
 
@@ -50,8 +74,19 @@ def authenticate_user(db, username: str, password: str):
     user = get_user_by_username(db, username)
     if not user:
         return False
-    if not verify_password(password, user.password):
+
+    matched, new_hash = verify_and_upgrade_password(password, user.password)
+    if not matched:
         return False
+
+    # A successful login is the only point where the plaintext exists, so it
+    # is the only chance to migrate a legacy bcrypt hash to argon2id.
+    if new_hash:
+        user.password = new_hash
+        db.add(user)
+        db.commit()
+        db.refresh(user)
+
     return user
 
 

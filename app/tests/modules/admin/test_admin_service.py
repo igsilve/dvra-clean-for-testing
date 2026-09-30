@@ -37,23 +37,23 @@ def test_stats_disk_returns_output_with_200(test_db, chef_client):
 def test_stats_disk_unauthorised_returns_403(
     test_db, anon_client, employee_client, customer_client
 ):
+    # Authorization is enforced by the shared RolesBasedAuthChecker rather
+    # than an inline role comparison, so the refusal is a generic
+    # "Unauthorized" that does not disclose which role is required.
+    #
+    # Note: this test requests anon_client alongside employee_client and
+    # customer_client, which share one app instance, so the last fixture's
+    # get_current_user override applies to all three clients. This first
+    # request is therefore authenticated as a non-Chef user, not anonymous.
+    # Anonymous access is covered separately in tests/security/test_controls.py.
     response = anon_client.get(f"/admin/stats/disk")
     assert response.status_code == 403
-    assert (
-        response.json().get("detail")
-        == "Only Chef is authorized to get current disk stats!"
-    )
+    assert response.json().get("detail") == "Unauthorized"
 
     response = employee_client.get(f"/admin/stats/disk")
     assert response.status_code == 403
-    assert (
-        response.json().get("detail")
-        == "Only Chef is authorized to get current disk stats!"
-    )
+    assert response.json().get("detail") == "Unauthorized"
 
     response = customer_client.get(f"/admin/stats/disk")
     assert response.status_code == 403
-    assert (
-        response.json().get("detail")
-        == "Only Chef is authorized to get current disk stats!"
-    )
+    assert response.json().get("detail") == "Unauthorized"

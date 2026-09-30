@@ -9,9 +9,11 @@ from sqlalchemy import (
     Enum,
     Float,
     ForeignKey,
+    Index,
     Integer,
     String,
     Text,
+    text,
 )
 from sqlalchemy.orm import relationship
 
@@ -88,6 +90,21 @@ class OrderItem(Base):
 
 class DiscountCoupon(Base):
     __tablename__ = "discount_coupons"
+
+    # A user may hold at most one referral coupon. The rule is enforced here
+    # as well as in the handler, because two concurrent requests can both pass
+    # a read-then-write check and only the database can settle the race. The
+    # index is partial so that promotional coupons, which carry no referrer,
+    # are unaffected.
+    __table_args__ = (
+        Index(
+            "uq_discount_coupons_referral_per_user",
+            "user_id",
+            unique=True,
+            sqlite_where=text("referrer_user_id IS NOT NULL"),
+            postgresql_where=text("referrer_user_id IS NOT NULL"),
+        ),
+    )
 
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey("users.id"), index=True)

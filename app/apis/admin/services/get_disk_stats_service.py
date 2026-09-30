@@ -1,14 +1,19 @@
+from typing import Literal
+
 from apis.admin.schemas import DiskUsage
 from apis.admin.utils import get_disk_usage
-from apis.auth.utils import get_current_user
-from db.models import User, UserRole
-from db.session import get_db
-from fastapi import APIRouter, Depends, HTTPException, Request, status
+from apis.auth.utils import RolesBasedAuthChecker
+from db.models import UserRole
+from fastapi import APIRouter, Depends, Request, status
 from rate_limiting import limiter
-from sqlalchemy.orm import Session
 from typing_extensions import Annotated
 
 router = APIRouter()
+
+# The mount point is chosen from a fixed set rather than accepted as free
+# text, so the endpoint cannot be used to probe arbitrary filesystem paths.
+# An unlisted value is rejected by FastAPI with 422 before the handler runs.
+MountPoint = Literal["/", "/var", "/tmp"]
 
 
 @router.get(
@@ -17,14 +22,8 @@ router = APIRouter()
 @limiter.limit("10/minute")
 def get_disk_usage_stats(
     request: Request,
-    current_user: Annotated[User, Depends(get_current_user)],
-    parameters: str = "",
-    db: Session = Depends(get_db),
+    _: Annotated[bool, Depends(RolesBasedAuthChecker([UserRole.CHEF]))],
+    mount_point: MountPoint = "/",
 ):
-    if current_user.role != UserRole.CHEF.value:
-        raise HTTPException(
-            status_code=403, detail="Only Chef is authorized to get current disk stats!"
-        )
-
-    usage = get_disk_usage(parameters)
+    usage = get_disk_usage(mount_point)
     return DiskUsage(output=usage)

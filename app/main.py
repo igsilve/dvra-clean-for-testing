@@ -18,6 +18,12 @@ def setup_static_files_and_docs(app: FastAPI):
     """Setup static files and custom documentation endpoints with favicon"""
     app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 
+    # The interactive documentation is a development aid. In production the
+    # routes are never registered, so they 404 rather than being hidden
+    # behind a check that a later edit could drop.
+    if settings.ENVIRONMENT is ENV.PRODUCTION:
+        return
+
     @app.get("/", include_in_schema=False)
     def root_docs():
         return get_swagger_ui_html(

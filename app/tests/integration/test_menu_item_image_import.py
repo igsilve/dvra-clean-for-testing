@@ -1,19 +1,27 @@
-import base64
 import json
 
+import pytest
 from db.models import User, UserRole
 
 
-def test_menu_item_image_import_from_url(
-    test_db, employee_client, anon_client, requests_mock, mocker
+@pytest.mark.xfail(
+    strict=True,
+    reason="SSRF egress restrictions are not implemented yet; see T7360/T1365.",
+)
+def test_menu_item_image_import_refuses_internal_targets(
+    test_db, employee_client, requests_mock, mocker
 ):
     """
     Exercises the PUT "/menu" endpoint image import feature.
 
-    The endpoint accepts an "image_url", downloads the target, and stores the
-    response as a base64 encoded value on the menu item. This test provides a
-    URL pointing at the "/admin/reset-chef-password" endpoint and confirms the
-    fetched content is stored on the created item.
+    The endpoint accepts an "image_url" and downloads the target. This test
+    points it at a loopback address so that a successful fetch would mean the
+    server can be used to reach its own internal endpoints, which is the
+    server-side request forgery this must refuse.
+
+    This test previously asserted the opposite: it pointed the importer at
+    "/admin/reset-chef-password" and required the leaked credential to be
+    stored base64 on the created menu item.
     """
 
     chef_user = User(
@@ -27,16 +35,12 @@ def test_menu_item_image_import_from_url(
     test_db.add(chef_user)
     test_db.commit()
 
-    # mock the request client host and the outbound requests library response
     mock_client = mocker.patch("fastapi.Request.client")
     mock_client.host = "127.0.0.1"
 
-    def reset_callback(request, context):
-        return anon_client.get("/admin/reset-chef-password").json()
-
     requests_mock.get(
         "http://localhost:8000/admin/reset-chef-password",
-        json=reset_callback,
+        json={"password": "should-never-be-fetched"},
     )
 
     menu_item = {
@@ -47,10 +51,7 @@ def test_menu_item_image_import_from_url(
         "image_url": "http://localhost:8000/admin/reset-chef-password",
     }
 
-    response = employee_client.put(f"/menu", content=json.dumps(menu_item))
-    assert response.status_code == 201
+    response = employee_client.put("/menu", content=json.dumps(menu_item))
 
-    base64_reset_result = response.json().get("image_base64")
-    reset_result = json.loads(base64.b64decode(base64_reset_result))
-
-    assert reset_result.get("password") is not None
+    assert response.status_code in (400, 422)
+    assert "should-never-be-fetched" not in response.text

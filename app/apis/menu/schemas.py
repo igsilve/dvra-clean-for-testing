@@ -1,6 +1,6 @@
 from typing import Optional
 
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 
 class MenuItemCreate(BaseModel):
@@ -12,6 +12,10 @@ class MenuItemCreate(BaseModel):
 
 
 class MenuItem(BaseModel):
+    # Validated from ORM instances, including when nested in a response
+    # envelope, which does not propagate from_attributes to its members.
+    model_config = ConfigDict(from_attributes=True)
+
     id: int
     name: str
     price: float
