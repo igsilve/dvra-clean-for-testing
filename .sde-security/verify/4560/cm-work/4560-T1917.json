@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T1917",
+  "status": "partial",
+  "confidence": "low",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/Dockerfile",
+      "line": 0,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] CM scope (Lack of container security assessment) extends beyond repository files - image signing and verification, registry vulnerability scanning, daemon and host hardening, container network segregation, per-container resource quotas, activity monitoring and host log capture are infrastructure controls not expressible in the Dockerfile; the in-repo portion (digest-pinned base images, hash-required dependency install, minimal runtime packages, non-root UID 10001, no secrets, read-only-friendly image) is present; partial verdict due to scope mismatch | verdict=partial confidence=low",
+      "category": "scope-mismatch"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] CM scope (Lack of container security assessment) extends beyond repository files - image signing and verification, registry vulnerability scanning, daemon and host hardening, container network segregation, per-container resource quotas, activity monitoring and host log capture are infrastructure controls not expressible in the Dockerfile; the in-repo portion (digest-pinned base images, hash-required dependency install, minimal runtime packages, non-root UID 10001, no secrets, read-only-friendly image) is present | verdict=partial confidence=low",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T1917 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

@@ -1,0 +1,33 @@
+{
+  "full_cm_id": "4560-T2140",
+  "status": "pass",
+  "confidence": "high",
+  "pass_by_absence": true,
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/debug/services/get_debug_info_service.py",
+      "line": 0,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Vulnerability absent: the debug info service and the whole apis/debug package no longer exist, /debug is unregistered rather than merely guarded, and no module imports apis.debug | verdict=pass confidence=high",
+      "category": "vulnerability-absent"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/admin/services/get_internal_status_service.py",
+      "line": 35,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Alternative mitigation accepted: the replacement /internal/status returns a two-field response_model (status, version) behind the READ_DEBUG_INFO permission instead of the previous os.environ, sys.path and working-directory listing, and it is visible in the schema so the route-table guard can see it | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Vulnerability absent: the debug info service and the whole apis/debug package no longer exist, /debug is unregistered rather than merely guarded, and no module imports apis.debug | verdict=pass confidence=high",
+      "count": "1"
+    },
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Alternative mitigation accepted: the replacement /internal/status returns a two-field response_model (status, version) behind the READ_DEBUG_INFO permission instead of the previous os.environ, sys.path and working-directory listing, and it is visible in the schema so the route-table guard can see it | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T2140 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

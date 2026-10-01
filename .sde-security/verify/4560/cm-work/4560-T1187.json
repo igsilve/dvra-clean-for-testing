@@ -1,0 +1,28 @@
+{
+  "full_cm_id": "4560-T1187",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/Dockerfile",
+      "line": 38,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Performed the Dockerfile-inspection alternative the CM permits in place of docker history: every instruction in both build stages was reviewed and the two ENV values are PYTHONDONTWRITEBYTECODE and PYTHONUNBUFFERED (lines 38-39), with no ARG, no credentialed package-index URL, and no COPY or RUN writing a password, token, key or certificate into a layer | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/Dockerfile",
+      "line": 46,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Because nothing secret enters the build, docker history on the resulting image cannot disclose one; runtime credentials arrive from the environment through docker-compose.yml env_file and mandatory ${VAR:?} variables rather than from image layers | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: Performed the Dockerfile-inspection alternative the CM permits in place of `docker history`. Reviewed every instruction in both build stages: the two ENV values are PYTHONDONTWRITEBYTECODE and PYTHONUNBUFFERED (lines 38-39), there are no ARG instructions, no credentialed package-index URLs, and no COPY or RUN that writes a password, token, key or certificate into a layer. Because nothing secret enters the build, `docker history` on the resulting image cannot disclose one. Runtime credentials arrive from the environment through docker-compose.yml env_file and mandatory ${VAR:?} variables. No how-tos were applicable to this CM, so Q2 was skipped | verdict=pass confidence=high",
+      "count": "2"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T1187 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

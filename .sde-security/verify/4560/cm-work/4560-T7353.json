@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T7353",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/auth/utils/jwt_auth.py",
+      "line": 28,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] No unpinned-algorithm or unvalidated-claim decode is present. A single OAuth2PasswordBearer scheme is declared at line 12 and a shared get_current_user dependency at line 53 fronts every protected route; verification is delegated at line 28 to jwt_tokens.decode_token, which calls jwt.decode with algorithms=[ALGORITHM] pinned to the module literal HS256 (never read from the token header) together with audience, issuer and DECODE_OPTIONS requiring exp, sub, iat, jti, iss and aud. Every JWTError path raises HTTP 401 with a WWW-Authenticate: Bearer challenge (lines 22-34). Revocation is implemented despite statelessness: line 38 refuses a token whose jti is absent or present in the RevokedToken denylist, and line 47 refuses any token whose ver claim does not match the account's current token_version, both failing closed. Access-token lifetime defaults to 15 minutes and is capped at 60 by MAX_EXPIRY | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: app/apis/auth/utils/jwt_auth.py contains no unpinned-algorithm or unvalidated-claim decode. It defines a single OAuth2PasswordBearer scheme and a shared get_current_user dependency, and delegates verification to jwt_tokens.decode_token, which calls jwt.decode with algorithms=[ALGORITHM] pinned to a module literal HS256 (never read from the token header) plus audience, issuer and DECODE_OPTIONS requiring exp, sub, iat, jti, iss and aud. Every JWTError path raises HTTP 401 with WWW-Authenticate: Bearer. Revocation is implemented despite statelessness: the jti is checked against the RevokedToken denylist and a per-user token_version claim is compared, both failing closed when the claim is absent. Access-token lifetime defaults to 15 minutes and is capped at 60 by MAX_EXPIRY | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T7353 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

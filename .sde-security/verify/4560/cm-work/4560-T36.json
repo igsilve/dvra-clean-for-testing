@@ -1,0 +1,22 @@
+{
+ "full_cm_id": "4560-T36",
+ "status": "pass",
+ "confidence": "high",
+ "findings": [
+  {
+   "file": "/Users/isilveira/dvra-clean-for-testing/app/main.py",
+   "line": 37,
+   "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Every value reaching the Swagger/ReDoc HTML helpers is encoded for its own context before use: urllib.parse.quote(..., safe='/:') on the openapi and favicon URLs (:37-39, URL/attribute context) and html.escape() on the title (:40, HTML-text context), applied once at the point of use and reused by all three routes (:42-64). Those routes are not registered at all when ENVIRONMENT is PRODUCTION (:26-27). This is contextual output encoding with a standard-library encoder, the same security property as the recommended escaping library; Bleach (how-to I1043) targets rich user HTML and is not the right tool for plain-text values | verdict=pass confidence=high",
+   "category": "alternative-mitigation-accepted"
+  }
+ ],
+ "findings_aggregated_for_sde": [
+  {
+   "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Alternative mitigation accepted in place of how-to I1043 (Bleach). app/main.py is the only server-rendered HTML in the service, and every value interpolated into that markup is encoded for its own context before use: :40 applies html.escape() to settings.TITLE for the HTML-text context, and :37-39 apply urllib.parse.quote(..., safe='/:') to the openapi and favicon URLs for the HTML-attribute/URL context. This is context-appropriate output encoding with a standard library encoder, the same security property the recommended fix provides; Bleach is a sanitiser for rich user HTML and is not needed where the values are plain text. The docs routes are additionally not registered at all in production (:26-27). No unescaped interpolation of untrusted data into HTML, attributes, CSS or JavaScript was found | verdict=pass confidence=high",
+   "count": "1"
+  }
+ ],
+ "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T36 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+ "note_post_status": "POSTED",
+ "reason": ""
+}

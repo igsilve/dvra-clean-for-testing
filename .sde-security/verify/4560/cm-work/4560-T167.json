@@ -1,0 +1,32 @@
+{
+  "full_cm_id": "4560-T167",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/orders/services/get_orders_service.py",
+      "line": 25,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: route declares response_model=OrdersResponse and returns OrdersResponse(items=orders), so the serialized top-level construct is a JSON object, not a bare array; MIME type is application/json by FastAPI default. | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/orders/services/get_orders_service.py",
+      "line": 0,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] not-applicable-how-to-skipped: how-to I394 is a manual browser-tooling procedure with no Python code pattern to match; audit-only, no verdict impact.",
+      "category": "not-applicable-how-to-skipped"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: app/apis/orders/services/get_orders_service.py returns a Pydantic object envelope (OrdersResponse with items[]) via response_model, so the top-level JSON construct is an object '{' and never a bare array '['; FastAPI serves application/json. Same security property as ctx.text's object-as-highest-level-construct requirement. | verdict=pass confidence=high",
+      "count": "1"
+    },
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] not-applicable-how-to-skipped: how-to I394 (manual browser network-tab inspection) is a runtime manual procedure, not a Python code pattern; Q2 skipped (audit-only, no verdict impact).",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T167 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

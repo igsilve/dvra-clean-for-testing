@@ -1,0 +1,54 @@
+{
+  "cm_id": "T3926",
+  "additional_requirements": [
+    {
+      "id": "TA6737",
+      "title": "Test verification of third-party artifacts and open-source libraries",
+      "text": "For every GitHub action (building block of a GitHub workflow), ensure verification before use by performing the following: \n\n1. In the top right corner of GitHub.com, click your profile photo, then click **Your organizations**.\n2. Next to the organization, click **Settings**.\n3. In the left sidebar, click **Actions**, then click **General**.\n4. Under \"Policies\", ensure **Allow OWNER, and select non-OWNER, actions and reusable workflows**, and **Allow actions created by GitHub** are checked.\n\nAlternatively, perform the following for each repository where GitHub actions are used:\n\n1. On GitHub.com, navigate to the main page of the repository.\n2. Under your repository name, click **Settings**.\n3. In the left sidebar, click **Actions**, then click **General**.\n4. Under \"Actions permissions\", ensure **Allow OWNER, and select non-OWNER, actions and reusable workflows** and **Allow actions created by GitHub** are checked.",
+      "ordinal": 10
+    },
+    {
+      "id": "TA6738",
+      "title": "Test requirement of a signed Software Bill of Materials (SBOM) from all third-party suppliers",
+      "text": "For every third-party dependency in use, ensure it has a Software Bill of Materials.",
+      "ordinal": 20
+    },
+    {
+      "id": "TA6739",
+      "title": "Test requirement and verification of signed metadata of the build process",
+      "text": "For each artifact used, ensure it was supplied with verified and signed metadata of its build process. The signature should be the organizational signature and should be verifiable by common Certificate Authority servers.",
+      "ordinal": 30
+    },
+    {
+      "id": "TA6740",
+      "title": "Test monitoring of dependencies between open-source components",
+      "text": "For each open-source component, ensure its dependencies are monitored.",
+      "ordinal": 40
+    },
+    {
+      "id": "TA6741",
+      "title": "Test defining and prioritizing of trusted package managers and repositories",
+      "text": "For each package registry in use, ensure it is trusted.",
+      "ordinal": 50
+    },
+    {
+      "id": "TA6742",
+      "title": "Test supplying of a signed Software Bill of Materials (SBOM) of the code",
+      "text": "For every artifact supplied, ensure it has a validated, signed Software Bill of Materials.",
+      "ordinal": 60
+    },
+    {
+      "id": "TA6743",
+      "title": "Test pinning of dependencies to a specific, verified version",
+      "text": "For every dependency in use, ensure it is pinned to a specific version.",
+      "ordinal": 70
+    },
+    {
+      "id": "TA6790",
+      "title": "Test ensuring all packages used are more than 60 days old",
+      "text": "For every package used, ensure it is more than 60 days old.",
+      "ordinal": 80
+    }
+  ],
+  "count": 8
+}

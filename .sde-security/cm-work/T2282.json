@@ -1,0 +1,25 @@
+{
+  "cm_id": "T2282",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Test to confirm that unauthenticated parts of the application are accessible",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T2282/",
+    "description": "Close the routes that are reachable without authentication and confirm the remaining public surface is intentional.",
+    "language": "python",
+    "file": "app/apis/debug/services/get_debug_info_service.py",
+    "start_line": 11,
+    "end_line": 12,
+    "finding": "The /debug route is registered with no authentication dependency and is reachable anonymously.",
+    "current_code": "@router.get(\"/debug\", status_code=status.HTTP_200_OK)\ndef get_debug_info_service():",
+    "required_fix": "# app/apis/router.py\nPUBLIC_ROUTES = {\"/healthcheck\", \"/token\", \"/register\"}\n\n# The debug router is removed entirely:\n# api_router.include_router(debug_router, ...)   <- delete\n\n# Everything else is mounted behind an authenticated dependency:\napi_router.include_router(\n    orders_router, prefix=\"\", tags=[\"orders\"],\n    dependencies=[Depends(get_current_user)],\n)",
+    "criteria": [
+      "The set of anonymous routes is declared explicitly and reviewed.",
+      "An automated test walks app.routes and fails on any unlisted route without an auth dependency.",
+      "/debug is no longer registered."
+    ]
+  }
+}

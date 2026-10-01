@@ -1,0 +1,25 @@
+{
+  "cm_id": "T4453",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Test protection of script processes (Bash/Shell)",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T4453/",
+    "description": "Run the spawned process non-interactively under a timeout and ensure it is cleaned up.",
+    "language": "bash",
+    "file": "start_game.sh",
+    "start_line": 1,
+    "end_line": 4,
+    "finding": "A second process is launched inside the running container with no supervision, timeout or cleanup.",
+    "current_code": "#!/bin/bash\n\n./start_app.sh -d\ndocker compose exec web python3 game.py",
+    "required_fix": "#!/bin/bash\n# start_game.sh\nset -euo pipefail\n\ntrap 'docker compose kill web >/dev/null 2>&1 || true' INT TERM\n\ntimeout 300 docker compose exec -T web python3 /app/game.py\nstatus=$?\ntrap - INT TERM\nexit \"$status\"",
+    "criteria": [
+      "The spawned process runs with -T (no TTY allocation) and under a timeout.",
+      "Signal handlers terminate the child on interruption.",
+      "The script propagates the child's exit status."
+    ]
+  }
+}

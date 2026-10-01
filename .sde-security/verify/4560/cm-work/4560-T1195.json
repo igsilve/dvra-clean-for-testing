@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T1195",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/Dockerfile",
+      "line": 19,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Dockerfile: statically confirmed no SSH server process can run in the container. The image definition is the source of truth for which processes exist: runtime stage (line 19) installs only libpq5, no openssh package anywhere, and the app user shell is /usr/sbin/nologin (line 53). No how-tos on this CM, so Q2 skipped; Q3 alternative mitigation accepted - a minimal runtime image with no shell-login account provides the same security property (no SSH attack surface or key/policy management burden) that the runtime 'docker exec ps -el' audit is intended to confirm. Marker scan clean | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Dockerfile: statically confirmed no SSH server process can run in the container. The image definition is the source of truth for which processes exist: runtime stage (line 19) installs only libpq5, no openssh package anywhere, and the app user shell is /usr/sbin/nologin (line 53). No how-tos on this CM, so Q2 skipped; Q3 alternative mitigation accepted - a minimal runtime image with no shell-login account provides the same security property (no SSH attack surface or key/policy management burden) that the runtime 'docker exec ps -el' audit is intended to confirm. Marker scan clean | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T1195 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

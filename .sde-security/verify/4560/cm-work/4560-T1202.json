@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T1202",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/docker-compose.yml",
+      "line": 46,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] docker-compose.yml: CPU priority is set explicitly and differentially on every service rather than left to the equal-share default. cpu_shares: web 1024 (line 46), proxy 512 (line 116), db 1024 (line 176) - the proxy is deliberately given half the weight of the application and database, with an in-file rationale at lines 173-175 explaining that a starved database makes every request slow. Paired with hard ceilings cpus: 2.0 / 1.0 / 2.0 (lines 45, 115, 172) and a shared cgroup_parent: restaurant.slice so the weights are arbitrated inside a cgroup this project owns. How-to I946 canonical pattern (--cpu-shares sized relative to 1024) satisfied. Marker scan clean | verdict=pass confidence=high",
+      "category": "mitigation-confirmed"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] docker-compose.yml: CPU priority is set explicitly and differentially on every service rather than left to the equal-share default. cpu_shares: web 1024 (line 46), proxy 512 (line 116), db 1024 (line 176) - the proxy is deliberately given half the weight of the application and database, with an in-file rationale at lines 173-175 explaining that a starved database makes every request slow. Paired with hard ceilings cpus: 2.0 / 1.0 / 2.0 (lines 45, 115, 172) and a shared cgroup_parent: restaurant.slice so the weights are arbitrated inside a cgroup this project owns. How-to I946 canonical pattern (--cpu-shares sized relative to 1024) satisfied. Marker scan clean | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T1202 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

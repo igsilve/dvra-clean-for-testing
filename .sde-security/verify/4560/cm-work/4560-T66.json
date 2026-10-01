@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T66",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/init_app.py",
+      "line": 26,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] SecurityHeadersMiddleware sets X-Frame-Options: DENY and Content-Security-Policy frame-ancestors 'none' on every response and is registered last so it is the outermost layer, covering short-circuit replies from the inner TrustedHost and BodySizeLimit middleware | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Framing is denied outright, matching the CM's 'Deny framing' configuration. SecurityHeadersMiddleware in app/init_app.py:26-30 sets 'X-Frame-Options: DENY' and 'Content-Security-Policy: default-src self; frame-ancestors none' on every response, so both the legacy and the modern control are present rather than one substituting for the other. Registration order is load-bearing and correct: the middleware is added last in init_app(), making it the outermost Starlette layer, so replies short-circuited by the inner TrustedHost (400) and BodySizeLimit (413/400) layers still carry the headers on the way out. No frame-busting JavaScript is relied upon. Alternative mitigation accepted: response-header enforcement applied globally at the outermost middleware layer is the current best practice the CM names | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T66 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

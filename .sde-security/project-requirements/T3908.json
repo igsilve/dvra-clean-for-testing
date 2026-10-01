@@ -1,0 +1,48 @@
+{
+  "cm_id": "T3908",
+  "additional_requirements": [
+    {
+      "id": "TA6610",
+      "title": "Ensure all artifacts on all releases are signed",
+      "text": "For every artifact in every release, verify that all are properly signed.",
+      "ordinal": 10
+    },
+    {
+      "id": "TA6611",
+      "title": "Ensure all external dependencies used in the build process are locked",
+      "text": "For all external dependencies being used in pipelines, verify they are locked.",
+      "ordinal": 20
+    },
+    {
+      "id": "TA6612",
+      "title": "Ensure dependencies are validated before being used",
+      "text": "For every dependency used in every pipeline, validate each one.",
+      "ordinal": 30
+    },
+    {
+      "id": "TA6613",
+      "title": "Ensure the build pipeline creates reproducible artifacts",
+      "text": "Create build pipelines that produce the same artifact given the same input (for example, artifacts that do not rely on timestamps).",
+      "ordinal": 40
+    },
+    {
+      "id": "TA6614",
+      "title": "Ensure pipeline steps produce a Software Bill of Materials (SBOM)",
+      "text": "For each pipeline, configure it to produce a Software Bill of Materials on every run.",
+      "ordinal": 50
+    },
+    {
+      "id": "TA6615",
+      "title": "Ensure pipeline steps sign the Software Bill of Materials (SBOM) produced",
+      "text": "For each pipeline, configure it to sign its produced Software Bill of Materials on every run.",
+      "ordinal": 60
+    },
+    {
+      "id": "TA6668",
+      "title": "Ensure all artifacts on all releases are signed (level 2)",
+      "text": "For every artifact in every release, verify that all are properly signed.",
+      "ordinal": 70
+    }
+  ],
+  "count": 7
+}

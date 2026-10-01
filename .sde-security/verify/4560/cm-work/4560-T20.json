@@ -1,0 +1,34 @@
+{
+ "full_cm_id": "4560-T20",
+ "status": "pass",
+ "confidence": "high",
+ "findings": [
+  {
+   "file": "/Users/isilveira/dvra-clean-for-testing/app/jwt_tokens.py",
+   "line": 54,
+   "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] encode_token (:54-76) issues a fresh identifier per token using secrets.token_urlsafe(16), a CSPRNG, so identifiers are unique and unpredictable; the algorithm is a module literal (:21) and is never read from the token header; decode_token (:89-98) requires exp/sub/iat/jti/iss/aud and verifies signature, issuer and audience, so only a server-generated token is recognised. invalidate_issued_tokens (:79-86) advances token_version, the stateless equivalent of resetting the old session on a credential or privilege change | verdict=pass confidence=high",
+   "category": "alternative-mitigation-accepted"
+  },
+  {
+   "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/auth/utils/utils.py",
+   "line": 59,
+   "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] update_user_password (:59-78) calls invalidate_issued_tokens on every password change, so all previously issued credentials stop being recognised at the moment of the privilege/credential change; create_access_token (:212-215) delegates issuance to the single jwt_tokens module so a second code path cannot mint a token with different properties | verdict=pass confidence=high",
+   "category": "alternative-mitigation-accepted"
+  },
+  {
+   "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/auth/services/logout_service.py",
+   "line": 15,
+   "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] logout (:15-58) records the presented token's jti in RevokedToken with its expiry so the credential stops being honoured server-side rather than remaining valid until expiry, and additionally clears the access_token/csrf_token cookies and emits Clear-Site-Data. Repeat logout is idempotent via IntegrityError rollback | verdict=pass confidence=high",
+   "category": "alternative-mitigation-accepted"
+  }
+ ],
+ "findings_aggregated_for_sde": [
+  {
+   "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Session identity is a stateless JWT minted fresh at each authentication, so there is no pre-existing session to fixate. app/jwt_tokens.py:54-76 generates a unique jti with secrets.token_urlsafe(16) (CSPRNG, not predictable), pins HS256 rather than reading the token header, and caps lifetime at MAX_EXPIRY; :89-98 requires and validates exp/sub/iat/jti/iss/aud so a server-issued token is the only one recognised. :79-86 invalidate_issued_tokens() bumps token_version, and app/apis/auth/utils/utils.py:59-78 calls it on every password change, which is the stateless equivalent of regenerating the identifier after a credential/privilege change. app/apis/auth/services/logout_service.py:15-58 revokes the presented jti server-side and clears cookies plus Clear-Site-Data | verdict=pass confidence=high",
+   "count": "3"
+  }
+ ],
+ "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T20 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+ "note_post_status": "POSTED",
+ "reason": ""
+}

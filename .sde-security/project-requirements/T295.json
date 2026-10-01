@@ -1,0 +1,12 @@
+{
+  "cm_id": "T295",
+  "additional_requirements": [
+    {
+      "id": "TA277",
+      "title": "Serialized objects",
+      "text": "Do not store serialized objects with fields that contain confidential data, in an unencrypted format. Data in serialized objects is easy to extract and read without additional protection such as encryption.",
+      "ordinal": 1
+    }
+  ],
+  "count": 1
+}

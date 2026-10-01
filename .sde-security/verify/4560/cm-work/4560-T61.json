@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T61",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/init.py",
+      "line": 26,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] generate_random_secret() draws 32 characters via secrets.choice and re-draws until the shared password policy accepts the result; the seeded Chef password is never printed or logged and carries must_change_password=True, the username comes from required configuration, and the demo accounts are created only outside PRODUCTION | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] No default or hardcoded credential remains in app/init.py. Every seeded account receives a password from generate_random_secret(), which draws 32 characters via secrets.choice over letters/digits/punctuation and re-draws until validate_password_policy accepts the result, so no credential is derivable from source. The initial Chef password is never printed or logged and the account is created with must_change_password=True, leaving it unusable until replaced through the reset flow; the account name itself comes from settings.CHEF_USERNAME, which is required from the environment rather than defaulted. The five demo staff and customer accounts also get per-run generated passwords with must_change_password=True and are created only when settings.ENVIRONMENT is not ENV.PRODUCTION. Alternative mitigation accepted: per-run CSPRNG generation plus forced rotation removes the default-credential class rather than changing one default to another | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T61 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

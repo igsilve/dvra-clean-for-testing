@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T4440",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/stop_app.sh",
+      "line": 21,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Missing-access-control condition absent: the privileged teardown is gated by require_operator at L21 (ops_guard.sh L14-24), which refuses `docker compose down` unless an authenticated upstream context set SDE_DEPLOY_ROLE=operator - the countermeasure's requirement that scripts performing critical operations check authorization first. `umask 077` at L15 makes the lock directory and pid file owner-only at creation rather than via a later chmod, and resolve_binary refuses a docker binary whose directory carries the group/other write bits. setfacl (I1903) is not used; the restrictive-umask plus role-gate route reaches the same least-privilege property | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] stop_app.sh: missing-access-control condition absent - the teardown is gated by require_operator (L21), which refuses the privileged `compose down` unless an authenticated upstream context set SDE_DEPLOY_ROLE=operator, satisfying the countermeasure's requirement that privileged scripts check authorization before critical operations. `umask 077` (L15) makes the lock directory and pid file owner-only at creation rather than via a later chmod, and resolve_binary refuses any docker binary sitting in a group- or other-writable directory. setfacl (I1903) is not used; the restrictive-umask plus role-gate route reaches the same least-privilege property | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T4440 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

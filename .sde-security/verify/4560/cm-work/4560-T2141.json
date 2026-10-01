@@ -1,0 +1,32 @@
+{
+  "full_cm_id": "4560-T2141",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/auth/utils/authz.py",
+      "line": 40,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Alternative mitigation accepted: function-level authorization is centralized in a single ROLE_PERMISSIONS table with a Requires(Permission) route dependency, so routes declare the permission they need rather than the roles that happen to hold it; administrative permissions (disk stats, debug info, chef password reset, role management) are granted only to CHEF | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/auth/utils/authz.py",
+      "line": 60,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Alternative mitigation accepted: access is denied by default - permissions_for returns an empty set for an unrecognised or unmapped role and has_permission returns False for a missing user or a user with no role, so an enum member added without a table row fails closed instead of raising a 500 | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Alternative mitigation accepted: function-level authorization is centralized in a single ROLE_PERMISSIONS table with a Requires(Permission) route dependency, so routes declare the permission they need rather than the roles that happen to hold it; administrative permissions (disk stats, debug info, chef password reset, role management) are granted only to CHEF | verdict=pass confidence=high",
+      "count": "1"
+    },
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Alternative mitigation accepted: access is denied by default - permissions_for returns an empty set for an unrecognised or unmapped role and has_permission returns False for a missing user or a user with no role, so an enum member added without a table row fails closed instead of raising a 500 | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T2141 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

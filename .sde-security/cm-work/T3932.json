@@ -1,0 +1,24 @@
+{
+  "cm_id": "T3932",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Test separation of deployment configuration files (GitHub)",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T3932/",
+    "description": "Add a check that fails the pipeline when deployment configuration or secrets appear in the repository.",
+    "language": "yaml",
+    "file": "docker-compose.yml",
+    "start_line": 15,
+    "end_line": 20,
+    "finding": "There is a single committed compose file holding environment values, so separation cannot be verified.",
+    "current_code": "    environment:\n      - POSTGRES_USER=admin\n      - POSTGRES_PASSWORD=password\n      - POSTGRES_SERVER=db\n      - POSTGRES_PORT=5432\n      - POSTGRES_DB=restaurant",
+    "required_fix": "# .github/workflows/ci.yml\n      - name: Block committed deployment config and secrets\n        run: |\n          set -euo pipefail\n          if git ls-files | grep -E '(^|/)\\.env$|(^|/)deploy/.*\\.env$'; then\n            echo \"Committed environment file detected\" >&2; exit 1\n          fi\n          grep -nE 'POSTGRES_PASSWORD=' docker-compose.yml && exit 1 || true",
+    "criteria": [
+      "The pipeline fails when an environment file is committed.",
+      "The pipeline fails when a credential literal appears in compose or Dockerfile."
+    ]
+  }
+}

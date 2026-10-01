@@ -1,0 +1,30 @@
+{
+  "cm_id": "T3910",
+  "additional_requirements": [
+    {
+      "id": "TA6623",
+      "title": "Ensure an organization-wide dependency usage policy is enforced",
+      "text": "Enforce policies for dependency usage across the organization.",
+      "ordinal": 10
+    },
+    {
+      "id": "TA6624",
+      "title": "Ensure packages are automatically scanned for known vulnerabilities",
+      "text": "Set automatic scanning of packages for vulnerabilities.",
+      "ordinal": 20
+    },
+    {
+      "id": "TA6625",
+      "title": "Ensure packages are automatically scanned for license implications",
+      "text": "Set automatic package scanning for license implications.",
+      "ordinal": 30
+    },
+    {
+      "id": "TA6626",
+      "title": "Ensure packages are automatically scanned for ownership change",
+      "text": "Set automatic scanning of packages for ownership change.",
+      "ordinal": 40
+    }
+  ],
+  "count": 4
+}

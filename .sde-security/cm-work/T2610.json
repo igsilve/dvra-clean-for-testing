@@ -1,0 +1,19 @@
+{
+  "cm_id": "T2610",
+  "category": "INFRA",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "documentation",
+    "title": "Verify that Transparent Data Encryption is utilized with Enterprise Databases",
+    "priority": 8,
+    "category": "INFRA",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T2610/",
+    "description": "Verify that transparent data encryption is in effect on the database.",
+    "guidance": "Verification means confirming the encryption setting is active on the running instance and that raw data files do not reveal table contents.",
+    "searched": "docker-compose.yml, app/db/session.py",
+    "found": "No encryption at rest is configured, so there is nothing yet to verify.",
+    "missing": "The database encryption configuration that would be the subject of the check.",
+    "conclusion": "The verification depends on a database setting applied outside this repository.",
+    "action": "The database administration team should verify encryption once it is enabled."
+  }
+}

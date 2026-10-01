@@ -1,0 +1,19 @@
+{
+  "cm_id": "T4749",
+  "category": "INFRA",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "documentation",
+    "title": "Monitor containers in real-time",
+    "priority": 10,
+    "category": "INFRA",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T4749/",
+    "description": "Monitor running containers for anomalous behaviour in real time.",
+    "guidance": "Runtime monitoring should observe process execution, network connections and file writes inside containers, alerting on behaviour that departs from the expected profile such as a shell spawning inside an application container.",
+    "searched": "docker-compose.yml, app/init_app.py, Dockerfile",
+    "found": "No runtime security agent, log shipping or alerting is configured for the containers.",
+    "missing": "A runtime monitoring agent, its deployment and an alert destination.",
+    "conclusion": "Runtime container monitoring is a security platform capability deployed alongside the workload, not code in this repository.",
+    "action": "The security operations team should deploy runtime monitoring to the container hosts."
+  }
+}

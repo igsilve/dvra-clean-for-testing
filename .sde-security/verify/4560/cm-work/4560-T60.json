@@ -1,0 +1,28 @@
+{
+  "full_cm_id": "4560-T60",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/auth/utils/utils.py",
+      "line": 19,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] argon2id is pinned at time_cost=3, memory_cost=65536 and parallelism=4 per OWASP guidance with bcrypt rounds=12 for legacy hashes, salts are library-generated per hash, and verify_and_update migrates deprecated hashes on the next successful login | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/jwt_tokens.py",
+      "line": 21,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] ALGORITHM is the module literal 'HS256' used for both encode and decode and is never read from the token header, so 'none' or an algorithm-confusion swap is not expressible; DECODE_OPTIONS requires and verifies signature, exp, sub, iat, jti, iss and aud | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] No broken or mis-parameterised algorithm is in use on either reviewed path, and no encoding routine stands in for encryption. app/apis/auth/utils/utils.py pins argon2id at time_cost=3, memory_cost=65536 (64 MiB) and parallelism=4 per OWASP guidance, with bcrypt rounds=12 as the floor for legacy hashes being retired and verify_and_update migrating them on the next successful login; passlib generates the per-hash salt. app/jwt_tokens.py pins HS256 as a module literal, never reading the algorithm from the token header, so 'none' or a key-confusion swap is not expressible; jti uses secrets.token_urlsafe. Keys are separated by purpose and length-floored elsewhere in config (JWT_SECRET_KEY and OTP_HMAC_KEY are distinct and each at least 32 characters / 256 bits). Alternative mitigation accepted: explicit in-code parameter pinning delivers the approved-algorithm and key-length property the CM requires | verdict=pass confidence=high",
+      "count": "2"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T60 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

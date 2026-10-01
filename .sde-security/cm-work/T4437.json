@@ -1,0 +1,24 @@
+{
+  "cm_id": "T4437",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Prevent input file attacks (Bash/Shell)",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T4437/",
+    "description": "Validate the files the script consumes before handing them to a container.",
+    "language": "bash",
+    "file": "start_game.sh",
+    "start_line": 1,
+    "end_line": 4,
+    "finding": "The script executes a relative-path script and a file inside the container without validating either.",
+    "current_code": "#!/bin/bash\n\n./start_app.sh -d\ndocker compose exec web python3 game.py",
+    "required_fix": "#!/bin/bash\n# start_game.sh\nset -euo pipefail\n\nSCRIPT_DIR=\"$(cd -- \"$(dirname -- \"${BASH_SOURCE[0]}\")\" && pwd -P)\"\nGAME=/app/game.py\n\n[ -x \"$SCRIPT_DIR/start_app.sh\" ] || { echo \"start_app.sh missing or not executable\" >&2; exit 1; }\n\n\"$SCRIPT_DIR/start_app.sh\" -d\ndocker compose exec -T web test -f \"$GAME\" || { echo \"$GAME not found in image\" >&2; exit 1; }\ndocker compose exec -T web python3 \"$GAME\"",
+    "criteria": [
+      "Every file the script executes is checked for existence and type first.",
+      "Paths are absolute and not influenced by the caller's working directory."
+    ]
+  }
+}

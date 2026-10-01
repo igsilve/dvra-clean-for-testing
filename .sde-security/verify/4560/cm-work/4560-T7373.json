@@ -1,0 +1,26 @@
+{
+  "full_cm_id": "4560-T7373",
+  "status": "partial",
+  "confidence": "low",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/admin/services/reset_chef_password_service.py",
+      "line": 0,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] CM scope (trust X-Forwarded-For/Proto only from known proxies behind TLS) extends beyond repository files; partial verdict due to scope mismatch | verdict=partial confidence=low",
+      "category": "scope-mismatch"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] CM scope (trust X-Forwarded-For/Proto only from known proxies behind TLS) extends beyond repository files; partial verdict due to scope mismatch | verdict=partial confidence=low",
+      "count": "1"
+    },
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Context for the reviewer (audit-only): app/apis/admin/services/reset_chef_password_service.py contains no residual pattern - authorization is a server-side role decision via Depends(Requires(Permission.RESET_CHEF_PASSWORD)) and the code documents explicitly that request.client.host / X-Forwarded-For is never used to grant access. The remaining mitigation steps (uvicorn/gunicorn --proxy-headers with --forwarded-allow-ips scoped to the proxy CIDR, TLS termination at the proxy, and stripping inbound X-Forwarded-* at the edge) are runtime and reverse-proxy configuration outside this repository and must be confirmed by the deployment owner",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T7373 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

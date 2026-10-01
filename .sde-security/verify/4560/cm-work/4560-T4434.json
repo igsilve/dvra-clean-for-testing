@@ -1,0 +1,40 @@
+{
+  "full_cm_id": "4560-T4434",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/ops_guard.sh",
+      "line": 40,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] No injection sink: command lookup uses `command -v \"$name\"` with the operand quoted (L40), the directory is derived by parameter expansion rather than a subshell (L55), and run_bounded forwards its operands as \"$@\" (L83-87). No eval, no backtick or string-built command | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/start_app.sh",
+      "line": 65,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] No injection sink: `set -euo pipefail` (L4) and IFS=$'\\n\\t' (L10) remove space-based word splitting, the final exec passes caller arguments through as \"$@\" rather than $1 or $* (L65-69), and every variable in the exec line is double-quoted. No eval | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/start_game.sh",
+      "line": 60,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] No injection sink: SCRIPT_DIR and GAME are quoted at every use (L31-66), the INT/TERM trap body quotes \"$DOCKER\" inside the single-quoted trap string (L51), and the container command is passed as separate argv elements rather than a shell string. No eval | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/stop_app.sh",
+      "line": 61,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] No injection sink: the lock path is quoted at every mkdir/rm/trap use (L36-56), the stale-pid check quotes the command substitution as `kill -0 \"$(cat \"$LOCK/pid\")\"` (L40), and the teardown forwards caller arguments as \"$@\" (L61). No eval | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Shell injection surface absent across ops_guard.sh, start_app.sh, start_game.sh, stop_app.sh: no eval/backtick command construction anywhere, every parameter expansion is double-quoted, caller arguments forwarded as \"$@\" rather than $*, and each script sets `set -euo pipefail` plus IFS=$'\\n\\t' so word-splitting and globbing cannot re-split a value | verdict=pass confidence=high",
+      "count": "4"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T4434 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

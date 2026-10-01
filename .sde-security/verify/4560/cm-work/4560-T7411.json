@@ -1,0 +1,28 @@
+{
+  "full_cm_id": "4560-T7411",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/menu/schemas.py",
+      "line": 19,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] No HTML or DOM rendering sink exists in this schema module, so the web-page-generation weakness has no sink to reach. The text fields instead carry an explicit contract: ConfigDict(extra='forbid', str_strip_whitespace=True) turns an undeclared field into a 422 rather than a mass-assignment opportunity, and name, category and description are bounded with min_length/max_length so a megabyte of markup cannot be stored and handed on. Values are stored verbatim by design, with escaping left to the rendering consumer, which avoids the double-encoding that boundary encoding produces | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/menu/services/create_menu_item_service.py",
+      "line": 12,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] The route declares response_model=schemas.MenuItem and returns JSON; there is no template render, no HTMLResponse, no innerHTML/outerHTML/document.write equivalent and no dynamic evaluation, so stored markup leaves this service as inert data rather than active content | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Neither file contains an HTML or DOM rendering sink (no innerHTML/outerHTML/document.write equivalent, no template rendering, no eval); menu text is bounded and type-validated with extra=\"forbid\", and the route returns JSON through a declared response_model, so stored markup is carried as inert data rather than active content | verdict=pass confidence=high",
+      "count": "2"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T7411 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

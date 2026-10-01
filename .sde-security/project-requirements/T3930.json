@@ -1,0 +1,30 @@
+{
+  "cm_id": "T3930",
+  "additional_requirements": [
+    {
+      "id": "TA6753",
+      "title": "Test validation of all signed artifacts upon uploading to the package registry",
+      "text": "Ensure every artifact in the package registry has been validated with its signature.\n\n1. On GitHub, navigate to a pull request\n2. On the pull request, click <> Commits and view the detailed information regarding the signature.",
+      "ordinal": 10
+    },
+    {
+      "id": "TA6754",
+      "title": "Test validation of signatures for all versions of an existing artifact",
+      "text": "For each artifact, ensure that all of its versions are signed and validated before it is uploaded or used.\n\nEnsure every artifact in the package registry has been validated with its signature.\n\nOn GitHub, navigate to a pull request\nOn the pull request, click <> Commits and view the detailed information regarding the signature.",
+      "ordinal": 20
+    },
+    {
+      "id": "TA6755",
+      "title": "Test auditing of changes in package registry configuration",
+      "text": "Verify that all changes to the packages registry configuration are audited.\n\nSearch the audit log with\n\nrepo category actions",
+      "ordinal": 30
+    },
+    {
+      "id": "TA6756",
+      "title": "Test securing of repository webhooks",
+      "text": "For each webhook in use, ensure it's secured (over HTTPS).",
+      "ordinal": 40
+    }
+  ],
+  "count": 4
+}

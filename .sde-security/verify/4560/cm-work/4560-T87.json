@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T87",
+  "status": "partial",
+  "confidence": "low",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/config.py",
+      "line": 0,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] CM scope (cleartext transmission; verify TLS versions, ciphers and compression on all listeners) extends beyond repository files; partial verdict due to scope mismatch | verdict=partial confidence=low",
+      "category": "scope-mismatch"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] scope-mismatch: CM scope (cleartext transmission; verify TLS protocol versions, cipher suites and compression on every listener) extends beyond repository files; partial verdict due to scope mismatch. The in-repo portion is present and clean -- app/config.py refuses POSTGRES_SSLMODE values weaker than 'require' and upgrades to 'verify-full' when a CA is supplied, and app/db/session.py builds the engine from that URL -- but refusing SSLv1/v2/v3, NULL/EXPORT/DES ciphers, TLS compression (CRIME) and SHA-1/MD5 cipher preference is configured at the TLS terminator and can only be confirmed against a running endpoint | verdict=partial confidence=low",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T87 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

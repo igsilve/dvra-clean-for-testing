@@ -1,0 +1,19 @@
+{
+  "cm_id": "T1235",
+  "category": "INFRA",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "documentation",
+    "title": "Test that only trusted users can control the Docker daemon (Docker)",
+    "priority": 8,
+    "category": "INFRA",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T1235/",
+    "description": "Verify that only trusted users can control the Docker daemon.",
+    "guidance": "Verification means enumerating the members of the docker group and the owners of the daemon socket, and confirming each is an approved operator.",
+    "searched": "docker-compose.yml, start_app.sh, stop_app.sh",
+    "found": "Group membership is not represented in the repository.",
+    "missing": "Host account data needed for the enumeration.",
+    "conclusion": "The verification is a host account review.",
+    "action": "The platform team should enumerate and attest daemon access on each host."
+  }
+}

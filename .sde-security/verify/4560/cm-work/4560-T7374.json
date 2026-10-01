@@ -1,0 +1,32 @@
+{
+  "full_cm_id": "4560-T7374",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/Dockerfile",
+      "line": 46,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Dockerfile: both base images are pinned by sha256 digest rather than a moving tag, the builder stage exports the Poetry lockfile to requirements.txt with hashes, and the runtime stage installs with pip install --require-hashes so a requirement lacking a hash or a swapped artifact fails the build outright. This is the recommended pin-plus-hash install path | verdict=pass confidence=high",
+      "category": "mitigation-confirmed"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/pyproject.toml",
+      "line": 75,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] pyproject.toml: resolution is lockfile-driven (poetry.lock is copied into the build), pip-audit is declared in the dev group so the resolved set is audited in CI and locally, test/lint tooling is isolated in a dev group so it is excluded from the production export, and explicit advisory-driven version floors are declared for transitive packages (starlette, h11, urllib3, idna, anyio, click, mako, pyasn1, ecdsa, python-dotenv) so a later resolve cannot drop back to a known-vulnerable release | verdict=pass confidence=high",
+      "category": "mitigation-confirmed"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Dockerfile: both base images are pinned by sha256 digest rather than a moving tag, the builder stage exports the Poetry lockfile to requirements.txt with hashes, and the runtime stage installs with pip install --require-hashes so a requirement lacking a hash or a swapped artifact fails the build outright. This is the recommended pin-plus-hash install path | verdict=pass confidence=high",
+      "count": "1"
+    },
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] pyproject.toml: resolution is lockfile-driven (poetry.lock is copied into the build), pip-audit is declared in the dev group so the resolved set is audited in CI and locally, test/lint tooling is isolated in a dev group so it is excluded from the production export, and explicit advisory-driven version floors are declared for transitive packages (starlette, h11, urllib3, idna, anyio, click, mako, pyasn1, ecdsa, python-dotenv) so a later resolve cannot drop back to a known-vulnerable release | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T7374 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

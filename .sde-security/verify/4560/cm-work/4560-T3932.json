@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T3932",
+  "status": "partial",
+  "confidence": "low",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/Dockerfile",
+      "line": 0,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] CM scope (testing deployment-manifest separation, access limits, audit trail, IaC scanner coverage) extends beyond repository files; partial verdict due to scope mismatch | verdict=partial confidence=low",
+      "category": "scope-mismatch"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] CM scope (testing deployment-manifest separation, access limits, audit trail, IaC scanner coverage) extends beyond repository files; partial verdict due to scope mismatch | verdict=partial confidence=low",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T3932 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

@@ -1,0 +1,38 @@
+{
+  "full_cm_id": "4560-T2599",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/config.py",
+      "line": 257,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Settings.DATABASE_URL assembles the connection with sqlalchemy URL.create, passing username, password, host, port, database and query parameters as separate components rather than interpolating a string, so a ';', '@' or '?host=' inside a credential stays inside that value and cannot append or relocate a connection parameter | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/config.py",
+      "line": 147,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] No hardcoded or user-influenced connection string exists: every component is required from the environment or secret store with no default, no request-derived value reaches the property, and POSTGRES_SSLMODE is validated against an allow-list that refuses any plaintext-capable mode | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/config.py",
+      "line": 240,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] The URL object is handed to create_engine without being stringified, which keeps the password out of anything that logs the URL | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] app/config.py Settings.DATABASE_URL assembles the connection with sqlalchemy URL.create, passing username, password, host, port, database and query parameters as separate components rather than interpolating a string, so a delimiter such as ';', '@' or '?host=' inside a credential stays inside that value and cannot append or relocate a connection parameter | verdict=pass confidence=high",
+      "count": "1"
+    },
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] No connection string is hardcoded or user-influenced: every component is required from the environment or secret store with no default, POSTGRES_SSLMODE is validated against an allow-list that refuses any plaintext-capable mode, and the URL object is handed to create_engine without being stringified so the password is not exposed to logging | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T2599 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

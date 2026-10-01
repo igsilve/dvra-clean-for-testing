@@ -1,0 +1,10 @@
+{
+  "cm_id": "T2603",
+  "endpoint": "library/tasks/T2603/amendments/",
+  "http_status": 200,
+  "result": "TEMPLATE_NO_MATCH",
+  "retry_count": 0,
+  "queried_at": "2026-09-30T02:54:53.468487Z",
+  "matched_amendments": [],
+  "additional_requirements_count": 0
+}

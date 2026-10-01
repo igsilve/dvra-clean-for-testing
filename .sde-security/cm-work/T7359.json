@@ -1,0 +1,25 @@
+{
+  "cm_id": "T7359",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Prevent SQL injection with ORM queries and parameterized raw SQL (FastAPI)",
+    "priority": 10,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T7359/",
+    "description": "Perform the update through the ORM, or bind every parameter if raw SQL is unavoidable.",
+    "language": "python",
+    "file": "app/apis/orders/services/get_order_status.py",
+    "start_line": 36,
+    "end_line": 42,
+    "finding": "Raw SQL is assembled with f-string interpolation instead of bound parameters or the ORM.",
+    "current_code": "    raw_sql = f\"\"\"\n        UPDATE orders \n        SET status = '{status_value}'\n        WHERE id = {order_id}\n    \"\"\"\n    db.execute(text(raw_sql))\n    db.commit()",
+    "required_fix": "# app/apis/orders/services/get_order_status.py\ndb_order.status = OrderStatus(delivery_data[\"status\"])\ndb.add(db_order)\ndb.commit()\n\n# Parameterized equivalent if raw SQL is required:\n# db.execute(\n#     text(\"UPDATE orders SET status = :status WHERE id = :order_id AND user_id = :user_id\"),\n#     {\"status\": db_order.status.value, \"order_id\": order_id, \"user_id\": current_user.id},\n# )",
+    "criteria": [
+      "No f-string or concatenation appears inside a text() call.",
+      "External values are validated against the enum before they reach the database.",
+      "The update is additionally scoped to the owning user."
+    ]
+  }
+}

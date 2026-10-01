@@ -1,0 +1,54 @@
+{
+  "cm_id": "T3924",
+  "additional_requirements": [
+    {
+      "id": "TA6724",
+      "title": "Test defining of all build steps as code",
+      "text": "Verify that all build steps are defined as code and stored in a version control system.",
+      "ordinal": 10
+    },
+    {
+      "id": "TA6725",
+      "title": "Test clearly defined build stage input and output for steps",
+      "text": "For each build stage, verify that the expected input and output are clearly defined.",
+      "ordinal": 20
+    },
+    {
+      "id": "TA6726",
+      "title": "Test writing of output to a separate, secured storage repository",
+      "text": "For each pipeline that produces output artifacts, ensure that they're written to a secured storage repository.",
+      "ordinal": 30
+    },
+    {
+      "id": "TA6727",
+      "title": "Test tracking and reviewing of changes to pipeline files",
+      "text": "For each pipeline file, ensure changes to it are being tracked and reviewed.",
+      "ordinal": 40
+    },
+    {
+      "id": "TA6728",
+      "title": "Test minimizing access to build process triggering",
+      "text": "For every pipeline in use, verify only the necessary users have permission to trigger it.",
+      "ordinal": 50
+    },
+    {
+      "id": "TA6729",
+      "title": "Test automatic scanning of pipelines for misconfigurations",
+      "text": "For each pipeline, verify that it is automatically scanned for misconfigurations.",
+      "ordinal": 60
+    },
+    {
+      "id": "TA6730",
+      "title": "Test automatic scanning of pipelines for vulnerabilities",
+      "text": "For each pipeline, verify that it is automatically scanned for vulnerabilities.",
+      "ordinal": 70
+    },
+    {
+      "id": "TA6788",
+      "title": "Test presence of scanners to identify and prevent sensitive data in pipeline files",
+      "text": "For every pipeline that is in use, verify that scanners are set to identify and prevent the existence of sensitive data within it.",
+      "ordinal": 80
+    }
+  ],
+  "count": 8
+}

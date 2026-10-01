@@ -1,0 +1,25 @@
+{
+  "cm_id": "T2349",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Configure software to have secure settings by default",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T2349/",
+    "description": "Remove the insecure fallbacks so the application cannot start without deliberately supplied configuration.",
+    "language": "python",
+    "file": "app/config.py",
+    "start_line": 26,
+    "end_line": 36,
+    "finding": "Every security-relevant setting falls back to an insecure development default: a six-digit JWT key, the username \"chef\" and the database password \"password\".",
+    "current_code": "class Settings:\n    JWT_SECRET_KEY = os.getenv(\"JWT_SECRET_KEY\", generate_random_secret())\n    CHEF_USERNAME = os.getenv(\"CHEF_USERNAME\", \"chef\")\n\n    JWT_VERIFY_SIGNATURE = os.getenv(\"JWT_VERIFY_SIGNATURE\")\n\n    POSTGRES_USER: str = os.getenv(\"POSTGRES_USER\", \"admin\")\n    POSTGRES_PASSWORD = os.getenv(\"POSTGRES_PASSWORD\", \"password\")\n    POSTGRES_SERVER: str = os.getenv(\"POSTGRES_SERVER\", \"localhost\")\n    POSTGRES_PORT: str = os.getenv(\"POSTGRES_PORT\", 5432)\n    POSTGRES_DB: str = os.getenv(\"POSTGRES_DB\", \"restaurant\")",
+    "required_fix": "# app/config.py\ndef _required(name: str) -> str:\n    value = os.getenv(name)\n    if not value:\n        raise RuntimeError(f\"{name} must be set\")\n    return value\n\n\nclass Settings:\n    JWT_SECRET_KEY: str = _required(\"JWT_SECRET_KEY\")\n    CHEF_USERNAME: str = _required(\"CHEF_USERNAME\")\n    POSTGRES_USER: str = _required(\"POSTGRES_USER\")\n    POSTGRES_PASSWORD: str = _required(\"POSTGRES_PASSWORD\")",
+    "criteria": [
+      "No security-relevant setting has a hardcoded fallback value.",
+      "Startup fails loudly when a required value is missing.",
+      "`generate_random_secret()` is removed from the configuration module."
+    ]
+  }
+}

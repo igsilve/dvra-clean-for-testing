@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T1197",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/docker-compose.yml",
+      "line": 13,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] docker-compose.yml: no unneeded port mappings. web uses expose: 8091 (line 13-14) and db uses expose: 5432 (line 217-218), both intra-network only with no host publication. The single published mapping is proxy ports: '127.0.0.1:8443:8443' (line 130-131), bound to loopback rather than 0.0.0.0. The backend network is internal: true (line 225-226), so db is unreachable from the host regardless of later port edits. No how-tos on this CM, so Q2 skipped; Q3 alternative mitigation accepted - expose-over-publish plus a loopback-bound single ingress port delivers the same minimal-attack-surface property the runtime docker inspect port audit checks for. Marker scan clean | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] docker-compose.yml: no unneeded port mappings. web uses expose: 8091 (line 13-14) and db uses expose: 5432 (line 217-218), both intra-network only with no host publication. The single published mapping is proxy ports: '127.0.0.1:8443:8443' (line 130-131), bound to loopback rather than 0.0.0.0. The backend network is internal: true (line 225-226), so db is unreachable from the host regardless of later port edits. No how-tos on this CM, so Q2 skipped; Q3 alternative mitigation accepted - expose-over-publish plus a loopback-bound single ingress port delivers the same minimal-attack-surface property the runtime docker inspect port audit checks for. Marker scan clean | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T1197 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

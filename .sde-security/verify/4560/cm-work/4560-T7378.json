@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T7378",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/menu/utils.py",
+      "line": 58,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] No RedirectResponse, no `next`/`redirect`/`redirect_uri` parameter and no manually set Location header exist in this module, so the open-redirect sink described in the problem is not present. The one user-supplied URL is validated before use against an https-only scheme check and an explicit settings.ALLOWED_IMAGE_HOSTS allow-list compared on parsed hostname (not a substring or endsWith test) that fails closed when empty, with resolved addresses additionally refused when non-routable; server-issued redirects are rejected because requests is called with allow_redirects=False and 3xx responses are explicitly refused | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] No RedirectResponse and no manually set Location header in this module, so there is no user-controlled redirect sink; the only user-supplied URL is constrained to an https scheme plus an explicit ALLOWED_IMAGE_HOSTS allow-list that fails closed when empty, and server-issued redirects are refused via allow_redirects=False | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T7378 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

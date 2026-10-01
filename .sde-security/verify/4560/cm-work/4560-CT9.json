@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-CT9",
+  "status": "partial",
+  "confidence": "low",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/config.py",
+      "line": 0,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Countermeasure text ('test') and weakness ('Always Applicable / Applicable When Linked Countermeasures Are Included') describe no concrete vulnerability pattern or security property, so no determinate check could be made against app/config.py; the file's marker scan is clean and no residual vulnerable pattern was observed, but the absence of a verifiable requirement makes the outcome analysis-uncertain rather than pass | verdict=partial confidence=low",
+      "category": "analysis-uncertain"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Countermeasure text ('test') and weakness ('Always Applicable / Applicable When Linked Countermeasures Are Included') describe no concrete vulnerability pattern or security property, so no determinate check could be made against app/config.py; the file's marker scan is clean and no residual vulnerable pattern was observed, but the absence of a verifiable requirement makes the outcome analysis-uncertain rather than pass | verdict=partial confidence=low",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-CT9 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

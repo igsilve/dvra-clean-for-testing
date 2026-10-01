@@ -1,0 +1,19 @@
+{
+  "cm_id": "T2605",
+  "category": "INFRA",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "documentation",
+    "title": "Validate database traffic",
+    "priority": 9,
+    "category": "INFRA",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T2605/",
+    "description": "Validate and monitor database traffic for anomalous statements.",
+    "guidance": "A database activity monitor or proxy should inspect statements for patterns such as injection attempts or bulk extraction, alerting on deviations from the application's normal query profile.",
+    "searched": "app/db/session.py, docker-compose.yml",
+    "found": "The application connects directly to PostgreSQL with no intermediary and no statement monitoring.",
+    "missing": "A database activity monitoring component and its alert routing.",
+    "conclusion": "Traffic validation is delivered by a monitoring appliance or proxy deployed alongside the database.",
+    "action": "The database administration and security operations teams should deploy database activity monitoring."
+  }
+}

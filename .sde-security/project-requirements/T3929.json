@@ -1,0 +1,42 @@
+{
+  "cm_id": "T3929",
+  "additional_requirements": [
+    {
+      "id": "TA6748",
+      "title": "Test limiting of the authority to certify artifacts",
+      "text": "Ensure only certain artifacts can be certified by certain parties.",
+      "ordinal": 10
+    },
+    {
+      "id": "TA6749",
+      "title": "Test minimizing the number of permitted users who may upload new artifacts",
+      "text": "Ensure only trusted and qualified users can upload new artifacts, and that their number is the lowest possible.",
+      "ordinal": 20
+    },
+    {
+      "id": "TA6750",
+      "title": "Test non-local user management of the package registry",
+      "text": "For each package registry, verify that its user access is not managed locally, but instead with the main authentication server of the organization.",
+      "ordinal": 30
+    },
+    {
+      "id": "TA6751",
+      "title": "Test revocation of anonymous access to artifacts",
+      "text": "To Audit the existing settings:\n\n1. On your GitHub Enterprise Server instance, navigate to the main page of the repository.\n1. Under your repository name, click Settings\n3. Under \"Danger Zone\", to the right of to \"Change repository visibility\", click Change visibility.\n\nReview the current selection.",
+      "ordinal": 40
+    },
+    {
+      "id": "TA6752",
+      "title": "Test setting of minimum number of administrators for the package registry",
+      "text": "Verify that your package registry has only the minimum number of administrators.\n\nFor each repository that you administer on GitHub, you can see an overview of every team or person with access to the repository. From the overview, you can also invite new teams or people, change each team or person's role for the repository, or remove access to the repository.",
+      "ordinal": 50
+    },
+    {
+      "id": "TA6794",
+      "title": "Test requirement of Multi-Factor Authentication (MFA) for user access to the package registry",
+      "text": "For each package registry in use, verify that Multi-Factor Authentication is enforced and is the only way to authenticate.",
+      "ordinal": 60
+    }
+  ],
+  "count": 6
+}

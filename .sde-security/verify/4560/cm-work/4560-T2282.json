@@ -1,0 +1,28 @@
+{
+  "full_cm_id": "4560-T2282",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/router.py",
+      "line": 30,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Routers are partitioned into PUBLIC_ROUTERS, AUTHENTICATED_ROUTERS and MIXED_ROUTERS, and REQUIRES_AUTHENTICATION = [Depends(get_current_user)] is applied at router level to orders, admin, users and referrals, so the unauthenticated surface is an explicit reviewed allow-list rather than a side effect of per-route declarations | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/debug/services/get_debug_info_service.py",
+      "line": 0,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] The previously anonymous /debug service file no longer exists in the tree; the endpoint that answered any caller was removed outright rather than merely gated | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Unauthenticated surface is explicitly regulated: app/apis/router.py partitions routers into PUBLIC/AUTHENTICATED/MIXED groups with router-level Depends(get_current_user) on all authenticated groups, and the previously anonymous /debug service file no longer exists | verdict=pass confidence=high",
+      "count": "2"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T2282 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

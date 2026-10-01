@@ -1,0 +1,19 @@
+{
+  "cm_id": "T1167",
+  "category": "INFRA",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "documentation",
+    "title": "Verify that data exchanged between containers on different nodes on the overlay network is encrypted (Docker)",
+    "priority": 8,
+    "category": "INFRA",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T1167/",
+    "description": "Verify that traffic between containers on different nodes is encrypted.",
+    "guidance": "Verification means confirming the overlay network is created with encryption enabled and capturing inter-node traffic to confirm it is not readable in plaintext.",
+    "searched": "docker-compose.yml, start_app.sh",
+    "found": "The deployment is single-host Compose with no overlay network, so there is no cross-node traffic in this configuration.",
+    "missing": "A multi-node cluster and its overlay network configuration.",
+    "conclusion": "The verification applies to a clustered deployment that this repository does not define.",
+    "action": "The container platform team should verify overlay encryption if the service is deployed across nodes."
+  }
+}

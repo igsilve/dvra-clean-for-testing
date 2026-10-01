@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T1196",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/Dockerfile",
+      "line": 0,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Dockerfile: zero EXPOSE directives in either the builder or runtime stage, which is the minimal possible default port surface - nothing is published even if the image is started with -P/--publish-all. Port exposure is instead declared explicitly and narrowly in docker-compose.yml. How-to I943 canonical pattern (Dockerfile exposes only needed ports) satisfied. Marker scan clean | verdict=pass confidence=high",
+      "category": "mitigation-confirmed"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Dockerfile: zero EXPOSE directives in either the builder or runtime stage, which is the minimal possible default port surface - nothing is published even if the image is started with -P/--publish-all. Port exposure is instead declared explicitly and narrowly in docker-compose.yml. How-to I943 canonical pattern (Dockerfile exposes only needed ports) satisfied. Marker scan clean | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T1196 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

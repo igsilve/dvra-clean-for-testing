@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T85",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/users/services/update_user_role_service.py",
+      "line": 24,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: server-side authorization is a FastAPI dependency, Depends(Requires(Permission.MANAGE_ROLES)) at line 24, evaluated before the handler body and immune to request tampering; the role string is validated against models.UserRole at lines 28-34 and outstanding tokens are revoked at line 46, so no part of the decision is delegated to the client as in P494/CWE-602 | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: app/apis/users/services/update_user_role_service.py enforces authorization server-side through Depends(Requires(Permission.MANAGE_ROLES)), which runs before the handler body and cannot be influenced by a tampered request; the submitted role is additionally coerced through the models.UserRole enum (422 on an unknown value) rather than written to the column as given, tokens minted under the old role are revoked via invalidate_issued_tokens, and the privilege change is recorded by audit(). No client-supplied flag or header participates in the decision | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T85 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

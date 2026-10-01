@@ -1,0 +1,28 @@
+{
+  "full_cm_id": "4560-T7414",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/tests/security/test_text_rendering.py",
+      "line": 19,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] The verification this CM asks for is automated here. A PAYLOADS list covers seven injection strings (script tags, img and svg event handlers, a javascript: URL, an attribute break-out and unicode-escaped markup) and is parametrized across store and read paths to assert the values round-trip verbatim rather than being rendered. Response-level assertions confirm application/json content type and X-Content-Type-Options nosniff, which is what keeps the stored markup inert in a browser. Further tests assert the declared schema bounds, that an undeclared field is refused, that validation happens server-side for a payload no form would produce, and that a 422 does not echo the submitted value | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/menu/services/create_menu_item_service.py",
+      "line": 12,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] The route under test returns JSON through response_model=schemas.MenuItem with no HTML or DOM sink, so there is no web-page-generation path for the injected payloads to be neutralized in | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] A dedicated test module exercises the text-rendering contract with seven XSS payloads (script tags, img/svg event handlers, javascript: URLs, attribute break-out and unicode-escaped markup), asserting the values round-trip verbatim, that responses declare application/json with X-Content-Type-Options nosniff, that schema bounds and undeclared fields are refused, and that a 422 does not echo the submitted payload; the create route under test returns JSON through a response_model with no HTML sink | verdict=pass confidence=high",
+      "count": "2"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T7414 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

@@ -1,0 +1,28 @@
+{
+  "full_cm_id": "4560-T1186",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/Dockerfile",
+      "line": 38,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] No secret material enters any image layer: the only ENV instructions set PYTHONDONTWRITEBYTECODE and PYTHONUNBUFFERED (lines 38-39), there is no ARG, no credentialed index URL, no COPY of key or certificate material, and no password, token or API key literal in either build stage | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/Dockerfile",
+      "line": 41,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Build inputs are limited to pyproject.toml, poetry.lock and the exported requirements.txt (lines 11, 41); secrets are instead injected at runtime from the deployment environment via docker-compose.yml env_file and mandatory ${VAR:?} variables (JWT_SECRET_KEY, OTP_HMAC_KEY, POSTGRES_PASSWORD), the recommended pattern for P1082 | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: No secret material is introduced into any image layer. The only ENV instructions set PYTHONDONTWRITEBYTECODE and PYTHONUNBUFFERED (lines 38-39); there is no ARG, no credentialed index URL, no COPY of key or certificate material, and no password, token or API key literal in either build stage. Build inputs are limited to pyproject.toml, poetry.lock and the exported requirements.txt (lines 11, 41). Secrets are supplied at runtime from the deployment environment instead: docker-compose.yml sources a per-environment env_file and requires JWT_SECRET_KEY, OTP_HMAC_KEY and POSTGRES_PASSWORD as mandatory ${VAR:?} variables, which is the recommended runtime-injection pattern for P1082 | verdict=pass confidence=high",
+      "count": "2"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T1186 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

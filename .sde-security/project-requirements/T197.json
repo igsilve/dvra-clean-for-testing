@@ -1,0 +1,12 @@
+{
+  "cm_id": "T197",
+  "additional_requirements": [
+    {
+      "id": "TA939",
+      "title": "Considerations for Web Applications",
+      "text": "## JavaScript\n\nFollow these guidelines for web applications:\n\n- If possible, download and host all application assets, such as JavaScript libraries, CSS stylesheets, and web fonts on your own servers rather than relying on a CDN or external provider. Hosting your assets locally would mitigate the risk of remote manipulation of the content.\n- If fetching scripts from the remote servers is inevitable, use encrypted channels only (HTTPS).\n- Perform integrity checks through nonces and hashes. See these [guidelines](/library/tasks/T331/) for using CSP headers for checking hashes and nonces.\n\n\n## Subresource Integrity (SRI)\n\nIf you need features provided by an external provider, you may also use __Subresource Integrity (SRI)__ to mitigate against external manipulation of your assets.\n\nSRI is a security feature that enables browsers to verify that files they fetch (such as from a CDN) are delivered without unexpected manipulation. It works by allowing you to provide a cryptographic hash that a fetched file must match.\n\nNote that not all browsers support SRI. To check the compatibility of different browsers, refer to this [Mozilla article](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity).",
+      "ordinal": 0
+    }
+  ],
+  "count": 1
+}

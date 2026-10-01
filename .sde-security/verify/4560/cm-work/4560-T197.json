@@ -1,0 +1,42 @@
+{
+  "full_cm_id": "4560-T197",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/menu/utils.py",
+      "line": 105,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] mitigation-confirmed (how-to I546): _verify_content recomputes sha256 and compares with compare_digest (line 115-121), then verifies an RSA-PSS/SHA-256 signature against the configured publishing public key (lines 123-145), rejecting on InvalidSignature. | verdict=pass confidence=high",
+      "category": "mitigation-confirmed"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/menu/utils.py",
+      "line": 204,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: _image_url_to_base64 applies ctx.text's four safeguards in order - size bounded (Content-Length check line 240 and streaming cap line 249), origin authenticated (https + host allow-list + certifi-pinned TLS, redirects refused), integrity verified (line 257), and parsing/persistence only after verification (line 258). | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/menu/utils.py",
+      "line": 0,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] not-applicable-how-to-skipped: how-to I913 (Subresource Integrity) applies to HTML script/link elements; this is server-side Python with no asset markup. Audit-only, no verdict impact.",
+      "category": "not-applicable-how-to-skipped"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] mitigation-confirmed (how-to I546, signing and verifying digital signatures): app/apis/menu/utils.py::_verify_content recomputes sha256 over the fetched bytes and compares with hmac.compare_digest, then verifies an RSA-PSS/SHA-256 signature with the configured publishing public key (settings.CONTENT_SIGNING_PUBLIC_KEY_PEM) before the content is used, raising on InvalidSignature. | verdict=pass confidence=high",
+      "count": "1"
+    },
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: the remote-fetch path in app/apis/menu/utils.py implements all four safeguards from ctx.text in order - size bounded before and during transfer (Content-Length check plus a streaming cap at MAX_IMAGE_BYTES), origin authenticated (https-only, host allow-list, certifi-pinned TLS verification, redirects refused), integrity verified (digest plus signature in _verify_content), and the bytes are only parsed/persisted after verification (_assert_content_is_a_supported_image runs post-verification with a format allow-list and a decompression-bomb ceiling). | verdict=pass confidence=high",
+      "count": "1"
+    },
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] not-applicable-how-to-skipped: how-to I913 (Subresource Integrity integrity= attributes on HTML script/link elements) targets browser-delivered markup; the analysed file is server-side Python with no HTML asset includes. Audit-only, no verdict impact.",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T197 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T4441",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/start_app.sh",
+      "line": 65,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: start_app.sh discards the caller environment with `env -i` (line 65) and passes back only PATH/HOME/DOCKER_HOST/DOCKER_CONTEXT with `${VAR:-default}` secure defaults; PATH is set to a fixed absolute list and marked readonly (lines 15-18), IFS is pinned to newline/tab (line 10), umask 077 is set before the first file creation (line 23), and no eval or unquoted expansion appears anywhere in the file | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: start_app.sh discards the caller environment with `env -i`, pins PATH to a fixed absolute list and marks it readonly, pins IFS to newline/tab, sets umask 077 before any file creation, and supplies secure defaults via ${VAR:-default}; no eval and no unquoted expansions present | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T4441 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

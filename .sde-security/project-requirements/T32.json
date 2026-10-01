@@ -1,0 +1,12 @@
+{
+  "cm_id": "T32",
+  "additional_requirements": [
+    {
+      "id": "TA997",
+      "title": "Use client-side validation to detect malicious behavior",
+      "text": "Since client-side validation mechanisms are easy to bypass, they cannot be relied upon for security. However, it is recommended to ensure that client-side validation procedures and server-side validation procedures enforce identical rules. In doing so, you can expect that server-side validation should not fail.\n\nUnder these conditions, a server-side input validation failure can be used as a signal of data tampering. __Such a failure should be seen as a security-relevant incident__, and should be logged appropriately.\n\nAdditionally, the system can decide to enforce further security restrictions. For example, the account can be locked, or the associated privileges revoked.\n\nFor more details on detecting suspicious behavior and acting upon such events, see the [OWASP AppSensor project](https://www.owasp.org/index.php/OWASP_AppSensor_Project).",
+      "ordinal": 0
+    }
+  ],
+  "count": 1
+}

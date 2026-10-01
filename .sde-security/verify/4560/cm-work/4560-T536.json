@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T536",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/init_app.py",
+      "line": 75,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: BodySizeLimitMiddleware is installed at line 179 with max_bytes=settings.MAX_BODY_BYTES (1 MiB default, overridable from the environment alongside MAX_UPLOAD_BYTES) and registered as an outer layer so oversized requests are refused before anything buffers them. It rejects a declared Content-Length above the ceiling with 413, a malformed Content-Length with 400, and counts chunked transfer-encoding bodies while streaming, aborting with 413 once the running total crosses the limit - the case a header check alone misses. Outbound calls are separately bounded by settings.OUTBOUND_TIMEOUT. No unbounded request-body ingestion path observed; marker scan clean | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: app/init_app.py installs BodySizeLimitMiddleware with max_bytes=settings.MAX_BODY_BYTES (1 MiB default, overridable from the environment alongside MAX_UPLOAD_BYTES), registered as an outer layer so oversized requests are refused before anything buffers them. It rejects a declared Content-Length above the ceiling with 413, a malformed Content-Length with 400, and - the case a header check alone misses - counts chunked transfer-encoding bodies while streaming and aborts with 413 once the running total crosses the limit. Outbound calls are separately bounded by settings.OUTBOUND_TIMEOUT. No unbounded request-body ingestion path observed; marker scan clean | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T536 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

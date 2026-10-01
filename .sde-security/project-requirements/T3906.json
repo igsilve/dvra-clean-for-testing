@@ -1,0 +1,54 @@
+{
+  "cm_id": "T3906",
+  "additional_requirements": [
+    {
+      "id": "TA6595",
+      "title": "Ensure build workers are single-used",
+      "text": "Create a clean build worker for every pipeline that is being run, or use build platform-hosted runners, as they typically offer a clean instance for every run.",
+      "ordinal": 10
+    },
+    {
+      "id": "TA6596",
+      "title": "Ensure build worker environments and commands are passed and not pulled",
+      "text": "For each build worker, pass its environment and commands to it instead of pulling it.",
+      "ordinal": 20
+    },
+    {
+      "id": "TA6597",
+      "title": "Ensure the duties of each build worker are segregated",
+      "text": "For each build worker, limit its responsibility to one duty.",
+      "ordinal": 30
+    },
+    {
+      "id": "TA6598",
+      "title": "Ensure build workers have minimal network connectivity",
+      "text": "Limit the network connectivity of build workers, environment, and any other components to the necessary minimum.",
+      "ordinal": 40
+    },
+    {
+      "id": "TA6599",
+      "title": "Ensure run-time security is enforced for build workers",
+      "text": "Deploy and enforce a run-time security solution on build workers.",
+      "ordinal": 50
+    },
+    {
+      "id": "TA6600",
+      "title": "Ensure build workers are automatically scanned for vulnerabilities",
+      "text": "For each build worker, automatically scan its environmental sources, such as docker image, for vulnerabilities.",
+      "ordinal": 60
+    },
+    {
+      "id": "TA6601",
+      "title": "Ensure build workers' deployment configuration is stored in a version control platform",
+      "text": "Document and store every deployment configuration of build workers in a version control platform.",
+      "ordinal": 70
+    },
+    {
+      "id": "TA6602",
+      "title": "Ensure resource consumption of build workers is monitored",
+      "text": "Set reources consumption monitoring for each build worker.",
+      "ordinal": 80
+    }
+  ],
+  "count": 8
+}

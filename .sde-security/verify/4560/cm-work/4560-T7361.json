@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T7361",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/init_app.py",
+      "line": 180,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: lines 180-187 register CORSMiddleware with allow_origins=settings.ALLOWED_ORIGINS - an explicit, per-environment comma-separated env list whose comprehension in config.py:163-169 discards any '*' entry, so the forbidden wildcard-plus-credentials combination cannot be reached even by operator misconfiguration. allow_credentials=True is paired with an explicit allow_methods=['GET','POST','PUT','PATCH','DELETE'] and allow_headers=['Authorization','Content-Type'], satisfying the CORS spec requirement that all three be enumerated when credentials are allowed; max_age=600. No allow_origin_regex is used, so there is no unanchored-pattern subdomain risk. expose_headers is left unset, which is the restrictive default (nothing beyond the CORS-safelisted response headers is readable cross-origin). Preflight placement is sound: CsrfMiddleware (registered outside CORS) lists OPTIONS in SAFE_METHODS and AccessAuditMiddleware never short-circuits, so no auth or rate-limit layer can intercept an OPTIONS preflight before CORS answers it. | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: app/init_app.py:180-187 registers CORSMiddleware with allow_origins=settings.ALLOWED_ORIGINS - an explicit, per-environment comma-separated env list whose comprehension in config.py:163-169 discards any '*' entry, so the forbidden wildcard-plus-credentials combination cannot be reached even by operator misconfiguration. allow_credentials=True is paired with an explicit allow_methods=['GET','POST','PUT','PATCH','DELETE'] and allow_headers=['Authorization','Content-Type'], satisfying the CORS spec requirement that all three be enumerated when credentials are allowed; max_age=600. No allow_origin_regex is used, so there is no unanchored-pattern subdomain risk. expose_headers is left unset, which is the restrictive default (nothing beyond the CORS-safelisted response headers is readable cross-origin). Preflight placement is sound: CsrfMiddleware (registered outside CORS) lists OPTIONS in SAFE_METHODS and AccessAuditMiddleware never short-circuits, so no auth or rate-limit layer can intercept an OPTIONS preflight before CORS answers it. | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T7361 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

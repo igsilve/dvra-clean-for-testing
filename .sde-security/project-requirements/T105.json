@@ -1,0 +1,12 @@
+{
+  "cm_id": "T105",
+  "additional_requirements": [
+    {
+      "id": "TA816",
+      "title": "Verify that the debug code is removed from web application before release",
+      "text": "For __web applications__, use the following additional guidelines:\n\n- For specific technologies used in the web application, verify if debug capabilities are disabled.\n- Browse the web application and make note of any obvious test or debugging data.\n    - This includes HTTP parameters with `debug=true`, or pages containing test data.\n    \n    This test __fails__ if you find this data.\n\n- Create events that trigger server errors.\n    - Inspect the errors. \n    - See if any debug information is returned in the response, such as in an error message.\n    - See if any SQL statements are passed to the user.\n- Look at HTTP headers that are returned.\n    - Use Chrome Developer Tools, Firefox Firebug, or proxy software applications such as Burp Suite.\n    - Check if any debug information is returned.\n        - For example, when you have a number of web servers behind a load balancer, you may want to add an HTTP header to the response with a server identifier to identify which server has processed a specific request.\n        - An attacker can use these debug headers to gather information about the web servers and the load balancer itself. \n\n    This test __fails__ if you can find any debug data and/or components.\n\n__Note:__ This test can only be performed reliably in production, or in an exact replication of production.",
+      "ordinal": 0
+    }
+  ],
+  "count": 1
+}

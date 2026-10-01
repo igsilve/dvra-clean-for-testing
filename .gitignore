@@ -1,9 +1,4 @@
 # SD Elements security-hardening tooling artifacts
-.sde-handoff.json
-.sde-apply-handoff.json
-.sde-security/
-AGENTS.md
-skills/
 
 # Environment configuration. These hold per-environment values and, for the
 # deployment ones, credentials. The example file is the only committed

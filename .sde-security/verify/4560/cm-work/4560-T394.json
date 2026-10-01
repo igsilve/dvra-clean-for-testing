@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T394",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/auth/utils/text_code_utils.py",
+      "line": 52,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: reset OTPs are generated with secrets.randbelow (CSPRNG, not random), RESET_CODE_DIGITS=8, RESET_CODE_LIFETIME=10 minutes; only an HMAC-SHA256 derivation keyed by settings.OTP_HMAC_KEY is stored (never the cleartext code), comparison uses hmac.compare_digest in constant time, and a per-code attempt budget is reset on issue to bound brute force. No insecure OTP generation/storage pattern remains; marker scan clean | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: app/apis/auth/utils/text_code_utils.py generates reset OTPs with secrets.randbelow (CSPRNG, not random), RESET_CODE_DIGITS=8, RESET_CODE_LIFETIME=10 minutes, stores only an HMAC-SHA256 derivation keyed by settings.OTP_HMAC_KEY (never the cleartext code), compares with hmac.compare_digest in constant time, and resets a per-code attempt budget to bound brute force. No insecure OTP generation/storage pattern remains; marker scan clean | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T394 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

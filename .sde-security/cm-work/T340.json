@@ -1,0 +1,19 @@
+{
+  "cm_id": "T340",
+  "category": "INFRA",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "documentation",
+    "title": "Use an account and identity management system",
+    "priority": 7,
+    "category": "INFRA",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T340/",
+    "description": "Source accounts and identities for this service from a central account and identity management system.",
+    "guidance": "Identity lifecycle should be owned centrally: provisioning, role assignment, recertification and deprovisioning driven by the identity system rather than by application-local records.",
+    "searched": "app/init.py, app/db/models.py, app/apis/auth/",
+    "found": "A local users table is the sole identity store, seeded at startup and extended through self-registration.",
+    "missing": "A central identity platform, a provisioning connector and an authoritative source for role assignment.",
+    "conclusion": "Adopting central identity management is a platform decision requiring systems outside this repository.",
+    "action": "The identity and access management team should own selection and rollout of the account and identity management system."
+  }
+}

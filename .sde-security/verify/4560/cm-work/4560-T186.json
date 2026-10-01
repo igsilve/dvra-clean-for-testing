@@ -1,0 +1,48 @@
+{
+  "full_cm_id": "4560-T186",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/pyproject.toml",
+      "line": 75,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] mitigation-confirmed (how-to I1495): pip-audit ^2.7.0 declared in the dev dependency group audits the pinned set against the advisory database; resolved to 2.10.1 in poetry.lock. | verdict=pass confidence=high",
+      "category": "mitigation-confirmed"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/pyproject.toml",
+      "line": 30,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: explicit security floors for transitive packages (lines 30-55) prevent a future resolve from dropping onto a known-vulnerable release; dev/test tooling moved to the dev group (line 62) so it no longer ships at runtime. | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/poetry.lock",
+      "line": 2524,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] vulnerability-absent-mitigation-unrecognized: every pinned version resolves at or above its declared floor (starlette 1.7.0, h11 0.16.0, urllib3 2.8.0, idna 3.20, pyasn1 0.6.4, ecdsa 0.19.2, python-dotenv 1.2.3, pillow 12.3.0, requests 2.34.2, python-jose 3.5.0, python-multipart 0.0.31, sqlalchemy 2.0.54); no dependency observed pinned at a known-vulnerable release. | verdict=pass confidence=high",
+      "category": "vulnerability-absent-mitigation-unrecognized"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/pyproject.toml",
+      "line": 0,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] not-applicable-how-to-skipped: how-to I428 describes an organisational bulletin-monitoring process with no manifest code pattern to match; audit-only, no verdict impact.",
+      "category": "not-applicable-how-to-skipped"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] mitigation-confirmed (how-to I1495, SCA tooling): pyproject.toml declares pip-audit ^2.7.0 in the dev group (resolved 2.10.1 in poetry.lock) so the pinned dependency set is audited against the advisory database in CI and locally without shipping the tool into the runtime image. | verdict=pass confidence=high",
+      "count": "1"
+    },
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: pyproject.toml carries explicit security floors for transitive packages (starlette>=1.3.1, h11>=0.16.0, urllib3>=2.5.0, idna>=3.15, anyio>=4.4.0, click>=8.3.3, mako>=1.3.12, pyasn1>=0.6.4, ecdsa>=0.19.1, python-dotenv>=1.2.2) so a future resolve cannot drop back onto a known-vulnerable release, and poetry.lock resolves every one at or above its floor (starlette 1.7.0, h11 0.16.0, urllib3 2.8.0, idna 3.20, pillow 12.3.0, requests 2.34.2, python-jose 3.5.0, python-multipart 0.0.31, sqlalchemy 2.0.54). Test/lint tooling was moved out of the runtime group, shrinking the production dependency surface. No pin at a known-vulnerable version was observed. | verdict=pass confidence=high",
+      "count": "1"
+    },
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] not-applicable-how-to-skipped: how-to I428 (subscribe to vendor security bulletins, visit download pages regularly) is an organisational process, not a manifest/lock-file code pattern; audit-only, no verdict impact.",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T186 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

@@ -1,0 +1,25 @@
+{
+  "cm_id": "T2276",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Test to confirm that authorization and authentication controls are in place for access to resources",
+    "priority": 7,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T2276/",
+    "description": "Require authentication and authorization on every route, including ones hidden from the OpenAPI schema.",
+    "language": "python",
+    "file": "app/apis/orders/services/get_orders_for_delivery_service.py",
+    "start_line": 12,
+    "end_line": 21,
+    "finding": "The delivery orders endpoint declares no authentication or authorization dependency and is merely hidden from the schema.",
+    "current_code": "@router.get(\n    \"/delivery/orders\",\n    response_model=List[schemas.Order],\n    include_in_schema=False,\n)\ndef get_orders(\n    skip: int = 0,\n    limit: int = 100,\n    db: Session = Depends(get_db),\n):",
+    "required_fix": "# app/apis/orders/services/get_orders_for_delivery_service.py\n@router.get(\"/delivery/orders\", response_model=OrderListResponse, include_in_schema=False)\ndef get_orders(\n    _: Annotated[bool, Depends(RolesBasedAuthChecker([UserRole.EMPLOYEE, UserRole.CHEF]))],\n    skip: int = Query(0, ge=0),\n    limit: int = Query(50, ge=1, le=100),\n    db: Session = Depends(get_db),\n):\n    ...",
+    "criteria": [
+      "Enumerating the route table shows no handler without an authentication dependency, except the documented public ones.",
+      "`include_in_schema=False` is never the only thing protecting a route.",
+      "An anonymous request to /delivery/orders and /debug returns 401 or 404."
+    ]
+  }
+}

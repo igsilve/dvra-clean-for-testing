@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T4444",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/start_app.sh",
+      "line": 15,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: start_app.sh exports a fixed absolute PATH and marks it readonly before any external command runs (lines 15-18), resolves `docker` and `env` to absolute executable paths through `resolve_binary` (lines 32-33), which refuses a non-absolute or non-executable result and any binary directory carrying the group/other write bit (ops_guard.sh lines 42-68); inherited globals are limited with `env -i` (line 65) and a symlinked or foreign-owned postgres_data is refused (lines 46-54) | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: start_app.sh exports a fixed absolute PATH and marks it readonly before any external command runs, resolves docker and env to absolute executable paths through resolve_binary (which refuses any binary directory writable by group or other), limits inherited globals with env -i, and refuses a symlinked or foreign-owned postgres_data | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T4444 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

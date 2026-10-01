@@ -1,0 +1,42 @@
+{
+  "cm_id": "T3912",
+  "additional_requirements": [
+    {
+      "id": "TA6627",
+      "title": "Ensure the authority to certify artifacts is limited",
+      "text": "Limit which artifact can be certified by which authority.",
+      "ordinal": 10
+    },
+    {
+      "id": "TA6628",
+      "title": "Ensure number of permitted users who may upload new artifacts is minimized",
+      "text": "Allow only trusted and qualified users to upload new artifacts and limit them in number.",
+      "ordinal": 20
+    },
+    {
+      "id": "TA6629",
+      "title": "Ensure user management of the package registry is not local",
+      "text": "For each package registry, use the main authentication server of the organization for user management and do not manage locally.",
+      "ordinal": 30
+    },
+    {
+      "id": "TA6630",
+      "title": "Ensure anonymous access to artifacts is revoked",
+      "text": "Changing a repository's visibility\n\n1. On your GitHub Enterprise Server instance, navigate to the main page of the repository.\n1. Under your repository name, click Settings\n1. Under \"Danger Zone\", to the right of to \"Change repository visibility\", click Change visibility.\n1. Select a visibility.\n\n1. Choose \n - Mark private\n - Make Internal\n\n6. To verify that you're changing the correct repository's visibility, type the name of the repository you want to change the visibility of.",
+      "ordinal": 40
+    },
+    {
+      "id": "TA6631",
+      "title": "Ensure minimum number of administrators are set for the package registry",
+      "text": "Set the minimum number of administrators in your package registry.\n\nTo accomplish this:\n\nFor each repository that you administer on GitHub, you can see an overview of every team or person with access to the repository. From the overview, choose Manage access and provide access to the appropriate people or teams.",
+      "ordinal": 50
+    },
+    {
+      "id": "TA6673",
+      "title": "Ensure user access to the package registry utilizes Multi-Factor Authentication (MFA)",
+      "text": "For each package registry in use, enforce Multi-Factor Authentication as the only way to authenticate.",
+      "ordinal": 60
+    }
+  ],
+  "count": 6
+}

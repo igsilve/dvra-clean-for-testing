@@ -1,0 +1,24 @@
+{
+  "cm_id": "T7372",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Restrict interactive API documentation exposure in production (FastAPI)",
+    "priority": 7,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T7372/",
+    "description": "Serve the interactive API documentation only outside production.",
+    "language": "python",
+    "file": "app/main.py",
+    "start_line": 23,
+    "end_line": 29,
+    "finding": "Swagger UI is re-registered at /docs unconditionally, with no environment guard, after being disabled in the FastAPI constructor.",
+    "current_code": "    @app.get(\"/docs\", include_in_schema=False)\n    def overridden_swagger():\n        return get_swagger_ui_html(\n            openapi_url=f\"{app.root_path}/openapi.json\",\n            title=settings.TITLE,\n            swagger_favicon_url=f\"{app.root_path}/static/img/favicon-32x32.png\",\n        )",
+    "required_fix": "# app/main.py\ndef setup_static_files_and_docs(app: FastAPI):\n    app.mount(\"/static\", StaticFiles(directory=STATIC_DIR), name=\"static\")\n\n    if settings.ENVIRONMENT is ENV.PRODUCTION:\n        return\n\n    @app.get(\"/docs\", include_in_schema=False)\n    def overridden_swagger():\n        ...",
+    "criteria": [
+      "GET /docs, /redoc, / and /openapi.json all return 404 when ENV=production.",
+      "The documentation routes are still available in development and testing."
+    ]
+  }
+}

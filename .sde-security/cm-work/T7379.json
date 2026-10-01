@@ -1,0 +1,25 @@
+{
+  "cm_id": "T7379",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Serve static files only from a dedicated non-sensitive directory (FastAPI)",
+    "priority": 10,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T7379/",
+    "description": "Mount static files from an absolute, dedicated directory that holds nothing but public assets.",
+    "language": "python",
+    "file": "app/main.py",
+    "start_line": 11,
+    "end_line": 13,
+    "finding": "StaticFiles is mounted on a relative \"static\" directory resolved from the process working directory rather than an explicit, dedicated path.",
+    "current_code": "def setup_static_files_and_docs(app: FastAPI):\n    \"\"\"Setup static files and custom documentation endpoints with favicon\"\"\"\n    app.mount(\"/static\", StaticFiles(directory=\"static\"), name=\"static\")",
+    "required_fix": "# app/main.py\nfrom pathlib import Path\n\nSTATIC_DIR = Path(__file__).resolve().parent / \"static\"\n\n\ndef setup_static_files_and_docs(app: FastAPI):\n    app.mount(\"/static\", StaticFiles(directory=STATIC_DIR), name=\"static\")",
+    "criteria": [
+      "The static directory is resolved from the module location, not the process working directory.",
+      "The directory contains only assets intended to be public.",
+      "A request for `/static/../config.py` returns 404."
+    ]
+  }
+}

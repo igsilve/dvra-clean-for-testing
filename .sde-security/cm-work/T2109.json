@@ -1,0 +1,19 @@
+{
+  "cm_id": "T2109",
+  "category": "INFRA",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "documentation",
+    "title": "Enable signed image enforcement (Docker)",
+    "priority": 9,
+    "category": "INFRA",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T2109/",
+    "description": "Require that only signed images may be pulled or run.",
+    "guidance": "Content trust should be enforced at the daemon or admission layer so an unsigned image is refused, with signing keys held in a managed store and rotated.",
+    "searched": "Dockerfile, docker-compose.yml, start_app.sh",
+    "found": "Images are referenced by floating tag with no signature requirement; enforcement is a daemon or platform setting.",
+    "missing": "Daemon content-trust configuration or an admission controller, plus a signing key hierarchy.",
+    "conclusion": "Signed-image enforcement is applied by the container platform, not by a file in this repository.",
+    "action": "The container platform team should enable and enforce content trust."
+  }
+}

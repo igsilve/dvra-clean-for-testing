@@ -1,0 +1,24 @@
+{
+  "cm_id": "T1195",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Test if SSH is running within containers (Docker)",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T1195/",
+    "description": "Remove interactive and administrative tooling from the runtime image so no shell service can be started inside the container.",
+    "language": "dockerfile",
+    "file": "Dockerfile",
+    "start_line": 12,
+    "end_line": 14,
+    "finding": "The runtime image installs interactive tooling (vim, sudo, gcc) that expands the in-container administrative surface.",
+    "current_code": "RUN apt-get update\nRUN apt-get -y install libpq-dev gcc vim sudo",
+    "required_fix": "# Dockerfile\nFROM python:3.10-slim-bookworm AS runtime\n\nRUN apt-get update \\\n && apt-get install -y --no-install-recommends libpq5 \\\n && rm -rf /var/lib/apt/lists/*\n# gcc, vim and sudo are build-stage or development concerns and are not installed here.",
+    "criteria": [
+      "The runtime image contains no sshd, sudo, vim or compiler.",
+      "`docker run --rm <image> sh -c 'command -v sshd sudo vim gcc'` finds nothing."
+    ]
+  }
+}

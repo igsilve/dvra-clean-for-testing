@@ -1,0 +1,24 @@
+{
+  "cm_id": "T1201",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Test that resources used by containers are limited (Docker)",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T1201/",
+    "description": "Bound the memory, process count and file descriptors each container may consume.",
+    "language": "yaml",
+    "file": "docker-compose.yml",
+    "start_line": 2,
+    "end_line": 14,
+    "finding": "No memory, pids or ulimit constraints are declared for the web service.",
+    "current_code": "  web:\n    build: .\n    command: bash -c \"alembic upgrade head && uvicorn main:app --host 0.0.0.0 --port 8091 --workers 1 --reload\"\n    volumes:\n      - ./app/:/app/\n    ports:\n      - 8091:8091\n    depends_on:\n      db:\n        condition: service_healthy\n    privileged: true\n    cap_add:\n      - SYS_ADMIN",
+    "required_fix": "# docker-compose.yml\n  web:\n    mem_limit: 512m\n    memswap_limit: 512m\n    pids_limit: 200\n    ulimits:\n      nofile:\n        soft: 1024\n        hard: 2048",
+    "criteria": [
+      "Memory, pids and file-descriptor limits are declared for every service.",
+      "`docker inspect` shows non-zero Memory and PidsLimit values."
+    ]
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "cm_id": "T3919",
+  "additional_requirements": [
+    {
+      "id": "TA6699",
+      "title": "Test restriction of team creation to specific members",
+      "text": "For every organization, ensure that team creation is limited to specific, trusted users by performing the following:\n\n1. In the top right corner of GitHub.com, click your profile photo, then click **Your organizations**.\n2. Next to the organization, click **Settings**.\n3. In the \"Access\" section of the sidebar, click **Member privileges**.\n4. Under \"Team creation rules\", verify that **Allow members to create teams** is not selected.",
+      "ordinal": 10
+    },
+    {
+      "id": "TA6700",
+      "title": "Test setting of minimum number of administrators for the organization",
+      "text": "Verify the minimum number of administrators in your organization by performing the following:\n\n1. In the top right corner of GitHub, click your profile photo, then click **Your profile**.\n2. On the left side of your profile page, under \"Organizations\", click the icon for your organization.\n3. Under your organization name, click **People**. \n4. In the Role drop-down, choose **Owners**.\n5. If there are minimum number of members in the list, you are compliant.",
+      "ordinal": 20
+    },
+    {
+      "id": "TA6701",
+      "title": "Test enforcement of strict base permissions for repositories",
+      "text": "Verify that strict base permissions are set for the organization repositories by doing the following:\n\n1. In the top right corner of GitHub.com, click your profile photo, then click **Your organizations**.\n2. Next to the organization, click **Settings**.\n3. In the \"Access\" section of the sidebar, click **Member privileges**.\n4. Under \"Base permissions\", verify that it is set to \"Read\" or \"None\". If it does, you are compliant.",
+      "ordinal": 30
+    },
+    {
+      "id": "TA6702",
+      "title": "Test tracking of anomalous code behavior",
+      "text": "For every repository in use, ensure code anomalies relevant to the organization are promptly investigated.",
+      "ordinal": 40
+    },
+    {
+      "id": "TA6771",
+      "title": "Test periodic review and removal of inactive users",
+      "text": "If you have GitHub AE, verify that all user accounts are active by performing the following:\n\n1. From an administrative account on GitHub AE, in the upper-right corner of any page, click the rocket icon.\n2. If you're not already on the \"Site admin\" page, in the upper-left corner, click **Site admin**.\n3. In the left sidebar, click **Dormant users**.\n4. Verify that the list is empty.\n\nIf you have GitHub Enterprise Cloud, perform the following:\n\n1. In the top-right corner of GitHub.com, click your profile photo, then click **Your enterprises**.\n2. In the list of enterprises, click the enterprise you want to view.\n3. In the enterprise account sidebar, click **Compliance**.\n4. To download your Dormant Users (beta) report as a CSV file, under \"Other\", click **Download**.\n5. Verify that there are no users listed.",
+      "ordinal": 50
+    },
+    {
+      "id": "TA6772",
+      "title": "Test requirement of Multi-Factor Authentication (MFA) for contributors of new code",
+      "text": "For each repository in use, verify that Multi-Factor Authentication is enforced for contributors and is the only way to authenticate, by doing the following:\n\n1. In the top right corner of GitHub.com, click your profile photo, then click **Your organizations**.\n2. Next to the organization, click **Settings**.\n3. In the \"Security\" section of the sidebar, click **Authentication security**.\n4. Under \"Authentication\", check if **Require two-factor authentication for everyone in your organization** is checked. If so, you are compliant.",
+      "ordinal": 60
+    },
+    {
+      "id": "TA6773",
+      "title": "Test enforcement of Multi-Factor Authentication (MFA) for organization members",
+      "text": "For every organization that exists in your GitHub platform, verify that Multi-Factor Authentication is enforced and is the only way to authenticate, by doing the following:\n\n1. In the top right corner of GitHub.com, click your profile photo, then click **Your organizations**.\n2. Next to the organization, click **Settings**.\n3. In the \"Security\" section of the sidebar, click **Authentication security**.\n4. Under \"Authentication\", check if **Require two-factor authentication for everyone in your organization** is checked. If so, you are compliant.",
+      "ordinal": 70
+    },
+    {
+      "id": "TA6774",
+      "title": "Test requirement of company-approved email for inviting new members",
+      "text": "For each organization in use, verify for every invitation that the invited email address is company-approved by performing the following:\n\n1. In the top right corner of GitHub.com, click your profile photo, then click **Your organizations**.\n2. Click the name of your organization and under your organization name, click **People**.\n3. On the People tab, click **Invitations**. Verify that each invitation email is company approved by your company.",
+      "ordinal": 80
+    },
+    {
+      "id": "TA6775",
+      "title": "Test setting of two administrators for each repository",
+      "text": "For every repository in use, verify there are two administrators by performing the following:\n\n1. On GitHub, navigate to the main page of the repository.\n2. Under your repository name, click **Settings**.\n3. In the \"Access\" section of the sidebar, click **Collaborators & teams**.\n4. Under **Manage access**, verify that there are only 2 members with Admin permission.",
+      "ordinal": 90
+    },
+    {
+      "id": "TA6776",
+      "title": "Test confirmation of an organization's identity with a \"Verified\" badge",
+      "text": "Only if you have an enterprise account, view the enterprise organization profile page and ensure it has a \"Verified\" badge in it.",
+      "ordinal": 100
+    },
+    {
+      "id": "TA6777",
+      "title": "Test restriction of Source Code Management (SCM) email notifications to verified domains",
+      "text": "Only if you have an enterprise account, ensure Source Code Management email notifications are restricted to approved domains only by performing the following:\n\n1. In the top-right corner of GitHub.com, click your profile photo, then click **Your enterprises**.\n2. In the list of enterprises, click the enterprise you want to view. Then in the enterprise account sidebar, click **Settings**.\n3. Under \"Settings\", click **Verified & approved domains**.\n4. Under \"Notification preferences\", verify that **Restrict email notifications to only approved or verified domains** is selected.",
+      "ordinal": 110
+    },
+    {
+      "id": "TA6778",
+      "title": "Test provision of SSH certificates by the organization",
+      "text": "Only if you have an enterprise account, verify that the enterprise organization has an SSH Certificate Authority server and provides an SSH certificate with which to sign keys by performing the following:\n\n1. In the top right corner of GitHub.com, click your profile photo, then click **Your organizations**.\n2. Next to the organization, click **Settings**.\n3. In the \"Security\" section of the sidebar, click **Authentication security**.\n4. Verify that there's an SSH certificate authority listed there.",
+      "ordinal": 120
+    },
+    {
+      "id": "TA6779",
+      "title": "Test limitation of Git access based on IP addresses",
+      "text": "Only if you have an enterprise account, in every organization of yours, ensure access is allowed only by IP allowlist, and that access is forbidden for all other IPs by performing the following:\n\n1. In the top right corner of GitHub.com, click your profile photo, then click **Your organizations**.\n2. Next to the organization, click **Settings**.\n3. In the \"Security\" section of the sidebar, click **Authentication security**.\n4. Verify that there's an IP address, or a range of addresses in CIDR notation listed. Also verify that **Enable IP allow list** is selected.",
+      "ordinal": 130
+    }
+  ],
+  "count": 13
+}

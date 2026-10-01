@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T7355",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/menu/services/delete_menu_item_service.py",
+      "line": 12,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: DELETE /menu/{item_id} carries auth=Depends(Requires(Permission.MANAGE_MENU)) alongside get_current_user, and utils.delete_menu_item re-checks authz.require(Permission.MANAGE_MENU) at the point data changes. Permissions resolve server-side from the token-derived role via the centralized ROLE_PERMISSIONS table (apis/auth/utils/authz.py); denials raise 403 with an opaque detail, and no role/scope is read from the request body. A permission-based dependency is used instead of OAuth2 SecurityScopes but enforces the same property: authentication plus a specific, server-authoritative permission per operation. Router-level Depends(get_current_user) groups in apis/router.py make protection the default for new routes. No residual bare-Depends-only authorization pattern found. | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: app/apis/menu/services/delete_menu_item_service.py:12-19 - DELETE /menu/{item_id} carries auth=Depends(Requires(Permission.MANAGE_MENU)) alongside get_current_user, and utils.delete_menu_item re-checks authz.require(Permission.MANAGE_MENU) at the point data changes. Permissions resolve server-side from the token-derived role via the centralized ROLE_PERMISSIONS table (apis/auth/utils/authz.py); denials raise 403 with an opaque detail, and no role/scope is read from the request body. A permission-based dependency is used instead of OAuth2 SecurityScopes but enforces the same property: authentication plus a specific, server-authoritative permission per operation. Router-level Depends(get_current_user) groups in apis/router.py make protection the default for new routes. No residual bare-Depends-only authorization pattern found. | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T7355 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

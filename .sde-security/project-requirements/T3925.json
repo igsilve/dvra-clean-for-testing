@@ -1,0 +1,48 @@
+{
+  "cm_id": "T3925",
+  "additional_requirements": [
+    {
+      "id": "TA6731",
+      "title": "Test signing of all artifacts on all releases",
+      "text": "Ensure every artifact in every release is signed.",
+      "ordinal": 10
+    },
+    {
+      "id": "TA6732",
+      "title": "Test locking of all external dependencies used in the build process",
+      "text": "Ensure every external dependency being used in pipelines is locked.",
+      "ordinal": 20
+    },
+    {
+      "id": "TA6733",
+      "title": "Test validation of dependencies before use",
+      "text": "For every dependency used in every pipeline, ensure it has been validated.",
+      "ordinal": 30
+    },
+    {
+      "id": "TA6734",
+      "title": "Test creation of reproducible artifacts by the build pipeline",
+      "text": "Ensure that build pipelines create reproducible artifacts.",
+      "ordinal": 40
+    },
+    {
+      "id": "TA6735",
+      "title": "Test production of a Software Bill of Materials (SBOM) by pipeline steps",
+      "text": "For each pipeline, ensure it produces a Software Bill of Materials on every run.",
+      "ordinal": 50
+    },
+    {
+      "id": "TA6736",
+      "title": "Test signing of the Software Bill of Materials (SBOM) produced by pipeline steps",
+      "text": "For each pipeline, ensure it signs the Software Bill of Materials it produces on every run.",
+      "ordinal": 60
+    },
+    {
+      "id": "TA6789",
+      "title": "Test signing of all artifacts on all releases (level 2)",
+      "text": "Ensure every artifact in every release is signed.",
+      "ordinal": 70
+    }
+  ],
+  "count": 7
+}

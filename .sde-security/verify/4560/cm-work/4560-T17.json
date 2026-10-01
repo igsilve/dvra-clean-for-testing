@@ -1,0 +1,28 @@
+{
+ "full_cm_id": "4560-T17",
+ "status": "pass",
+ "confidence": "high",
+ "findings": [
+  {
+   "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/auth/utils/authz.py",
+   "line": 94,
+   "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Requires.__call__ (:94-112) and AuthzContext.require/require_ownership (:133-157) take the actor from Depends(get_current_user), i.e. the server-verified token, and evaluate it against the server-side permission table; owned_by (:175-188) applies the ownership constraint as a SQL filter so the check cannot be skipped by the client. Server-side enforcement of the security decision, same property as the recommended fix | verdict=pass confidence=high",
+   "category": "alternative-mitigation-accepted"
+  },
+  {
+   "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/auth/utils/roles_based_auth_checker.py",
+   "line": 15,
+   "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] The role compared at :15 is user.role from the authenticated User injected by the server dependency, never a value read from the request body, query string or a client-side flag; failure raises 403 server-side | verdict=pass confidence=high",
+   "category": "alternative-mitigation-accepted"
+  }
+ ],
+ "findings_aggregated_for_sde": [
+  {
+   "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Authorization is enforced server-side only. app/apis/auth/utils/authz.py:94-112 and :133-157 resolve the actor from the server-verified JWT via Depends(get_current_user) and compare against the server-side ROLE_PERMISSIONS table; the module documents that the actor is never a role or id supplied by the client, and owned_by() filters at the query level. app/apis/auth/utils/roles_based_auth_checker.py:14-28 likewise derives the role from the authenticated user. No client-supplied role, permission or flag is trusted for an access decision | verdict=pass confidence=high",
+   "count": "2"
+  }
+ ],
+ "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T17 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+ "note_post_status": "POSTED",
+ "reason": ""
+}

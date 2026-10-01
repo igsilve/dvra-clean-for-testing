@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T446",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/referrals/utils.py",
+      "line": 23,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: _generate_code draws only from the Python standard library's secrets module (secrets.choice over a 36-character alphabet, CODE_LENGTH=13, about 67 bits), with no hand-rolled key generation, digest or cipher anywhere in the file. The non-standard source the CM warns about - random's Mersenne Twister, whose state is recoverable from a few hundred outputs - is explicitly not used. Collisions are resolved by the database unique constraint with a bounded retry rather than by a custom scheme; marker scan clean | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: app/apis/referrals/utils.py draws referral codes only from the Python standard library's secrets module (secrets.choice over a 36-character alphabet, CODE_LENGTH=13, about 67 bits), with no hand-rolled key generation, digest or cipher anywhere in the file. The non-standard source the CM warns about - random's Mersenne Twister, whose state is recoverable from a few hundred outputs - is explicitly not used. Collisions are resolved by the database unique constraint with a bounded retry rather than by a custom scheme; marker scan clean | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T446 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

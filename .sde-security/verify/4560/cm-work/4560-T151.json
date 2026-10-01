@@ -1,0 +1,28 @@
+{
+  "full_cm_id": "4560-T151",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/admin/services/reset_chef_password_service.py",
+      "line": 89,
+      "description": "The rotated 32-character chef password is composed with secrets.choice over a 76-character alphabet (os.urandom-backed CSPRNG) and re-drawn until validate_password_policy accepts it; no random module or time-seeded generator appears in the file.",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/auth/utils/text_code_utils.py",
+      "line": 52,
+      "description": "Each of the eight reset-code digits is drawn with secrets.randbelow(10), and the code is persisted only as an HMAC-SHA256 derivation keyed on settings.OTP_HMAC_KEY so the small digit space cannot be precomputed from a stolen table; comparison uses hmac.compare_digest.",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Every security-relevant random value in both files is drawn from the os.urandom-backed secrets module, and no time-seeded or statistical PRNG (random, Mersenne Twister, SHA1PRNG) appears in either. app/apis/admin/services/reset_chef_password_service.py:89-98 composes the 32-character rotated chef password with secrets.choice over a 76-character alphabet and re-draws until validate_password_policy accepts it, so the generated credential meets the same baseline as a user-chosen one. app/apis/auth/utils/text_code_utils.py:52 draws each of the eight reset-code digits with secrets.randbelow(10), and the code is persisted only as an HMAC-SHA256 derivation keyed on settings.OTP_HMAC_KEY (lines 23-38) so the small digit space cannot be precomputed from a stolen table, with hmac.compare_digest used for the constant-time comparison | verdict=pass confidence=high",
+      "count": "2"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T151 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

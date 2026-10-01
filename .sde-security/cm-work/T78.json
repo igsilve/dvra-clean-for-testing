@@ -1,0 +1,25 @@
+{
+  "cm_id": "T78",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Test strength of password reset mechanism",
+    "priority": 9,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T78/",
+    "description": "Harden the reset flow: limit verification attempts, rate-limit the endpoint and compare the code in constant time.",
+    "language": "python",
+    "file": "app/apis/auth/services/reset_password_new_password_service.py",
+    "start_line": 36,
+    "end_line": 46,
+    "finding": "The reset code is compared with no attempt limit and no rate limiting, so the four-digit code is brute-forceable within its fifteen-minute window.",
+    "current_code": "    if datetime.now() > user.reset_password_code_expiry_date:\n        raise HTTPException(\n            status_code=400,\n            detail=\"Reset password code expired!\",\n        )\n\n    if user.reset_password_code != data.reset_password_code:\n        raise HTTPException(\n            status_code=400,\n            detail=\"Invalid reset password code\",\n        )",
+    "required_fix": "# app/apis/auth/services/reset_password_new_password_service.py\n@limiter.limit(\"5/hour\")\ndef set_new_password(request: Request, data: NewPasswordData, db: Session = Depends(get_db)):\n    ...\n    user.reset_password_attempts = (user.reset_password_attempts or 0) + 1\n    if user.reset_password_attempts > MAX_ATTEMPTS:\n        user.reset_password_code = None\n        db.add(user); db.commit()\n        raise HTTPException(status_code=400, detail=\"Invalid or expired reset request\")\n\n    if not secrets.compare_digest(user.reset_password_code, data.reset_password_code):\n        db.add(user); db.commit()\n        raise HTTPException(status_code=400, detail=\"Invalid or expired reset request\")",
+    "criteria": [
+      "The code is invalidated after a bounded number of failed attempts.",
+      "The endpoint is rate-limited per account and per source.",
+      "Comparison is constant time and error messages do not distinguish failure causes."
+    ]
+  }
+}

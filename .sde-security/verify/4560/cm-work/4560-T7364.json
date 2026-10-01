@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T7364",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/menu/utils.py",
+      "line": 240,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: the file never reads untrusted bytes without a ceiling. The remote-content path checks any declared Content-Length against MAX_IMAGE_BYTES (2 MiB) and 413s before streaming (lines 240-247), then consumes the body with iter_content(64*1024) while accumulating a running total and aborting at the same ceiling (lines 249-253), so an unbounded or lying length cannot be buffered into memory - the bounded-read-then-reject shape the CM prescribes. A (3,5) connect/read timeout bounds slow responses. Decompressed size is capped independently via MAX_IMAGE_PIXELS (32 Mpx) with Pillow DecompressionBombError handled as 413 (lines 168-195), closing the small-payload/huge-allocation case that a byte ceiling alone misses. Dependency-side DoS fixes are in place: poetry.lock resolves starlette 1.7.0 (past 0.40.0 for CVE-2024-47874 unbounded multipart field buffering) and python-multipart 0.0.31 (past 0.0.7 for the header-parsing ReDoS). App-wide body capping also exists outside this file via BodySizeLimitMiddleware (init_app.py:75-112) using settings.MAX_BODY_BYTES. Reverse-proxy client_max_body_size and ASGI-server concurrency limits remain deployment-layer concerns outside the analysed file. | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: app/apis/menu/utils.py never reads untrusted bytes without a ceiling. The remote-content path checks any declared Content-Length against MAX_IMAGE_BYTES (2 MiB) and 413s before streaming (lines 240-247), then consumes the body with iter_content(64*1024) while accumulating a running total and aborting at the same ceiling (lines 249-253), so an unbounded or lying length cannot be buffered into memory - the bounded-read-then-reject shape the CM prescribes. A (3,5) connect/read timeout bounds slow responses. Decompressed size is capped independently via MAX_IMAGE_PIXELS (32 Mpx) with Pillow DecompressionBombError handled as 413 (lines 168-195), closing the small-payload/huge-allocation case that a byte ceiling alone misses. Dependency-side DoS fixes are in place: poetry.lock resolves starlette 1.7.0 (past 0.40.0 for CVE-2024-47874 unbounded multipart field buffering) and python-multipart 0.0.31 (past 0.0.7 for the header-parsing ReDoS). App-wide body capping also exists outside this file via BodySizeLimitMiddleware (init_app.py:75-112) using settings.MAX_BODY_BYTES. Reverse-proxy client_max_body_size and ASGI-server concurrency limits remain deployment-layer concerns outside the analysed file. | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T7364 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

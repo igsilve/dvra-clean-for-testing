@@ -1,0 +1,25 @@
+{
+  "cm_id": "T230",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Test that server-to-server system accounts meet minimum password requirements",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T230/",
+    "description": "Remove the hardcoded seed passwords and require machine and staff accounts to meet the password policy.",
+    "language": "python",
+    "file": "app/init.py",
+    "start_line": 30,
+    "end_line": 38,
+    "finding": "A seeded employee account uses the password \"kaylee123\", which meets no strength requirement.",
+    "current_code": "    create_user_if_not_exists(\n        db,\n        username=\"Mike\",\n        password=\"kaylee123\",\n        first_name=\"Mike\",\n        last_name=\"\",\n        phone_number=\"(505) 146-0190\",\n        role=UserRole.EMPLOYEE,\n    )",
+    "required_fix": "# app/init.py\ndef load_users(db: Session):\n    for username, role, phone in SEED_ACCOUNTS:\n        create_user_if_not_exists(\n            db,\n            username=username,\n            password=generate_random_secret(),   # 32 chars from secrets.choice\n            phone_number=phone,\n            role=role,\n            must_change_password=True,\n        )\n# generate_random_secret() already uses secrets.choice over letters+digits+punctuation.",
+    "criteria": [
+      "No literal password string remains in app/init.py.",
+      "Seeded accounts are created with a high-entropy generated value.",
+      "Seeded accounts are flagged to force a password change at first use."
+    ]
+  }
+}

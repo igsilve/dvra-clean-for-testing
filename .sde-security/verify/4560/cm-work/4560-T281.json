@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T281",
+  "status": "partial",
+  "confidence": "low",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/auth/utils/utils.py",
+      "line": 221,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Access-token handling in this file is clean (JWT issuance centralised in jwt_tokens.encode_token, token values never logged, token_version excluded from UPDATABLE_PROFILE_FIELDS, invalidate_issued_tokens on every password change), but two parts of this CM cannot be settled from this file alone: send_code_to_phone_number prints a password-reset code in cleartext to stdout at line 221, and the transport requirement (tokens in headers/body rather than query parameters) plus the access-logging requirement are implemented in route and middleware modules outside this CM's modified-file set | verdict=partial confidence=low",
+      "category": "analysis-uncertain"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] app/apis/auth/utils/utils.py: access-token handling in this file is clean - JWT issuance is centralised in jwt_tokens.encode_token so the signing algorithm cannot drift, token values are never written to a log, token_version is excluded from UPDATABLE_PROFILE_FIELDS so a client cannot write it, and invalidate_issued_tokens revokes outstanding tokens on every password change. Two parts of this CM cannot be settled from this file alone: send_code_to_phone_number (line 221) prints a password-reset code in cleartext to stdout, and the transport requirement (tokens in headers/body rather than query parameters) plus the access-logging requirement are implemented in route and middleware modules outside this CM's modified-file set. Partial coverage, not a cited vulnerability. | verdict=partial confidence=low",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T281 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

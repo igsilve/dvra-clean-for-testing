@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T7354",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/auth/utils/utils.py",
+      "line": 17,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] No plaintext or fast-hashed credential storage and no naive equality comparison is present. The passlib CryptContext at lines 17-23 lists argon2 (argon2id) first so every new hash uses it, with cost parameters pinned to the OWASP guidance (time_cost=3, memory_cost=65536 KiB, parallelism=4) rather than left to library defaults, and bcrypt retained at rounds=12 for verification only with deprecated='auto' driving migration. get_password_hash at line 45 and create_user at line 142 persist only the derived hash, which carries a per-password salt. Verification goes through pwd_context.verify and verify_and_update (lines 32 and 42), both constant-time inside passlib, and authenticate_user returns the same bare False for an unknown user, a locked account and a wrong password (lines 94, 101, 110) so the caller emits one generic 401. verify_and_upgrade_password re-hashes legacy bcrypt entries at login, the only moment the plaintext exists. No sha256, md5 or sha1 digest call and no '==' comparison against a stored credential appears in the file | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: app/apis/auth/utils/utils.py stores no plaintext or fast-hashed password and performs no naive equality comparison. A passlib CryptContext lists argon2 (argon2id) first so every new hash uses it, with cost parameters pinned to the OWASP guidance (time_cost=3, memory_cost=65536 KiB, parallelism=4) rather than left to library defaults; bcrypt is retained at rounds=12 for verification only and deprecated='auto' drives migration. get_password_hash and create_user persist only the derived hash, which carries a per-password salt. Verification goes through pwd_context.verify / verify_and_update, both constant-time inside passlib, and authenticate_user returns the same bare False for an unknown user, a locked account and a wrong password so the caller emits one generic 401. verify_and_upgrade_password opportunistically re-hashes legacy bcrypt entries at login, the only point the plaintext exists. No sha256/md5/sha1 digest call and no '==' on a credential appears in the file | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T7354 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

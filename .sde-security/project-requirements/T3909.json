@@ -1,0 +1,54 @@
+{
+  "cm_id": "T3909",
+  "additional_requirements": [
+    {
+      "id": "TA6616",
+      "title": "Ensure third-party artifacts and open-source libraries are verified",
+      "text": "Verify every GitHub action (building block of a GitHub workflow) in use by performing the following: \n\n1. In the top right corner of GitHub.com, click your profile photo, then click **Your organizations**.\n2. Next to the organization, click **Settings**.\n3. In the left sidebar, click **Actions**, then click **General**.\n4. Under \"Policies\", check **Allow OWNER, and select non-OWNER, actions and reusable workflows**, and then **Allow actions created by GitHub**.\n5. Click **Save**.\n\nAlternatively, perform the following for each repository where GitHub actions are used:\n\n1. On GitHub.com, navigate to the main page of the repository.\n2. Under your repository name, click **Settings**.\n3. In the left sidebar, click **Actions**, then click **General**.\n4. Under \"Actions permissions\", check **Allow OWNER, and select non-OWNER, actions and reusable workflows**, and then **Allow actions created by GitHub**.\n5. Click **Save**.",
+      "ordinal": 10
+    },
+    {
+      "id": "TA6617",
+      "title": "Ensure Software Bill of Materials (SBOM) is required from all third-party suppliers",
+      "text": "For every third-party dependency in use, require a Software Bill of Materials from its supplier.",
+      "ordinal": 20
+    },
+    {
+      "id": "TA6618",
+      "title": "Ensure signed metadata of the build process is required and verified",
+      "text": "For each artifact in use, require and verify signed metadata of the build process.",
+      "ordinal": 30
+    },
+    {
+      "id": "TA6619",
+      "title": "Ensure dependencies are monitored between open-source components",
+      "text": "For each open-source component, monitor its dependencies.",
+      "ordinal": 40
+    },
+    {
+      "id": "TA6620",
+      "title": "Ensure trusted package managers and repositories are defined and prioritized",
+      "text": "For each package to be downloaded, configure it to be downloaded from a trusted source.",
+      "ordinal": 50
+    },
+    {
+      "id": "TA6621",
+      "title": "Ensure a signed Software Bill of Materials (SBOM) of the code is supplied",
+      "text": "For every artifact supplied, require and verify a signed Software Bill of Materials from its supplier.",
+      "ordinal": 60
+    },
+    {
+      "id": "TA6622",
+      "title": "Ensure dependencies are pinned to a specific, verified version",
+      "text": "For every dependency in use, pin to a specific version.",
+      "ordinal": 70
+    },
+    {
+      "id": "TA6669",
+      "title": "Ensure all packages used are more than 60 days old",
+      "text": "If a package used is less than 60 days old, stop using it and find another solution.",
+      "ordinal": 80
+    }
+  ],
+  "count": 8
+}

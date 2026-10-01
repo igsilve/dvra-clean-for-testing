@@ -1,0 +1,28 @@
+{
+  "full_cm_id": "4560-T1175",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/Dockerfile",
+      "line": 60,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] The Config.User field that ctx.text's docker inspect check reads is populated from the image's USER instruction, and the Dockerfile sets USER 10001:10001 as its final user directive. The inspect output would report a non-empty, non-root user rather than the blank value the CM treats as a failure | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/Dockerfile",
+      "line": 51,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] The referenced identity is a real account created in the same stage (groupadd --gid 10001 app, useradd --uid 10001 --gid 10001 --shell /usr/sbin/nologin app), so the UID resolves rather than being an orphan numeric. No instruction after USER returns the image to root | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] The Config.User value this CM's docker inspect check reads is populated from the image definition, and the Dockerfile sets USER 10001:10001 as its final user instruction against an account created in the same stage (groupadd/useradd at uid/gid 10001, nologin shell). The inspect output would therefore report a non-empty, non-root user rather than blank. Static review cannot rule out a runtime --user override by the orchestrator, but nothing in the image leaves the container running as root | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T1175 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

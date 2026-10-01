@@ -1,0 +1,32 @@
+{
+  "full_cm_id": "4560-T128",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/users/services/update_user_role_service.py",
+      "line": 24,
+      "description": "The caller-supplied username is not the authorization key: access is decided server-side by Depends(Requires(Permission.MANAGE_ROLES)) before the request body is used, replacing the prior state where any authenticated account could call the route. The submitted role is coerced through the models.UserRole enum (422 otherwise) instead of being written through, tokens for the affected account are revoked via invalidate_issued_tokens, the privilege change is audited, and the response reports the affected user rather than the caller.",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/users/services/update_user_role_service.py",
+      "line": 0,
+      "description": "How-to I163 (\"Manually with browser\") is a runtime error-message disclosure test procedure, not a code-level mitigation pattern matchable against Python source; skipped.",
+      "category": "not-applicable-how-to-skipped"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] app/apis/users/services/update_user_role_service.py:24-65: the caller-supplied username is no longer the authorization key. Access is decided server-side by Depends(Requires(Permission.MANAGE_ROLES)) before the body is used, replacing the prior state in which any authenticated account could call the route and only the literal string \"Chef\" was refused. The submitted role is coerced through the models.UserRole enum with a 422 on anything unrecognised rather than written to the column as given, outstanding tokens for the affected account are revoked via invalidate_issued_tokens so a token minted under the old role cannot be replayed, the change is audited, and the response reports the affected user rather than the caller | verdict=pass confidence=high",
+      "count": "1"
+    },
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] how-to I163 (\"Manually with browser\") is a runtime error-message disclosure test procedure driven through a browser, not a code-level mitigation pattern that can be matched against Python source; skipped (audit-only, no verdict impact)",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T128 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

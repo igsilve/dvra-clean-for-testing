@@ -1,0 +1,28 @@
+{
+ "full_cm_id": "4560-T15",
+ "status": "pass",
+ "confidence": "high",
+ "findings": [
+  {
+   "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/auth/utils/authz.py",
+   "line": 40,
+   "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Single ROLE_PERMISSIONS table (:40-57) plus permissions_for()/has_permission() (:60-86) is the one place an authorization decision is made; Requires (:89-112), AuthzContext (:115-157) and owned_by (:175-188) are the shared entry points for routes and services. Deny-by-default on unknown role or absent user. Same security property as the recommended single-module centralization | verdict=pass confidence=high",
+   "category": "alternative-mitigation-accepted"
+  },
+  {
+   "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/auth/utils/roles_based_auth_checker.py",
+   "line": 14,
+   "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] RolesBasedAuthChecker.__call__ (:14-28) is a reusable FastAPI dependency: the role comparison, the audit record and the opaque 403 live in one class rather than being re-implemented at each call site. No hard-coded per-view authorization logic | verdict=pass confidence=high",
+   "category": "alternative-mitigation-accepted"
+  }
+ ],
+ "findings_aggregated_for_sde": [
+  {
+   "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Authorization is centralized: app/apis/auth/utils/authz.py:26-187 defines a single Permission enum, one ROLE_PERMISSIONS table, has_permission() that fails closed on unknown user/role, and the Requires/AuthzContext/owned_by decision points reused by routes and services; app/apis/auth/utils/roles_based_auth_checker.py:14-28 is a reusable server-side dependency rather than inline per-route logic. No duplicated or hard-coded presentation-layer authorization found | verdict=pass confidence=high",
+   "count": "2"
+  }
+ ],
+ "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T15 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+ "note_post_status": "POSTED",
+ "reason": ""
+}

@@ -1,0 +1,32 @@
+{
+  "full_cm_id": "4560-T119",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/init_app.py",
+      "line": 22,
+      "description": "SecurityHeadersMiddleware sets both X-Frame-Options: DENY and Content-Security-Policy: frame-ancestors 'none' on every response, satisfying the Type One header control. Registered last (line 192) so it is Starlette's outermost layer, meaning responses short-circuited by TrustedHost, BodySizeLimit and CSRF are stamped too; no JavaScript frame-busting is relied on, so the frame-busting bypasses the how-tos describe are not applicable.",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/init_app.py",
+      "line": 0,
+      "description": "How-tos I421, I422 and I423 are browser-side JavaScript frame-busting circumvention test templates, not code-level mitigation patterns matchable against Python source; skipped.",
+      "category": "not-applicable-how-to-skipped"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] app/init_app.py:22-40 SecurityHeadersMiddleware sets X-Frame-Options: DENY and Content-Security-Policy: frame-ancestors 'none' on every response, which is the Type One header control the countermeasure text requires, and it covers both headers rather than relying on either alone. It is deliberately registered last (line 192) so Starlette makes it the outermost layer, meaning replies short-circuited by the inner layers (TrustedHost 400, BodySizeLimit 413/400, CSRF 403) are stamped as well; no JavaScript frame-busting is relied upon | verdict=pass confidence=high",
+      "count": "1"
+    },
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] how-tos I421, I422 and I423 are browser-side JavaScript frame-busting circumvention test templates (onBeforeUnload, double framing, anti-XSS bypass), not code-level mitigation patterns that can be matched against Python source; skipped (audit-only, no verdict impact)",
+      "count": "3"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T119 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

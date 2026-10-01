@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T378",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/orders/services/get_order_service.py",
+      "line": 22,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: the ownership predicate is applied inside the query via owned_by(db.query(Order), Order, current_user) before filtering on the user-supplied order_id, so another customer's row is never loaded; identity comes from the authenticated session (Depends(get_current_user)) not from the request key, Requires(Permission.READ_OWN_ORDERS) enforces function-level authorization, and a 404 rather than a 403 prevents id enumeration. No residual CWE-639 pattern; marker scan clean | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: app/apis/orders/services/get_order_service.py applies the ownership predicate inside the query via owned_by(db.query(Order), Order, current_user) before filtering on the user-supplied order_id, so another customer's row is never loaded; identity comes from the authenticated session (Depends(get_current_user)) not from the request key, Requires(Permission.READ_OWN_ORDERS) enforces function-level authorization, and a 404 (not 403) prevents id enumeration. No residual CWE-639 pattern; marker scan clean | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T378 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

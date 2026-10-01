@@ -1,0 +1,25 @@
+{
+  "cm_id": "T116",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Test for regular expression denial of service",
+    "priority": 7,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T116/",
+    "description": "Bound the regular expressions that run against request-controlled input so a crafted Origin header cannot drive catastrophic backtracking.",
+    "language": "python",
+    "file": "app/init_app.py",
+    "start_line": 20,
+    "end_line": 26,
+    "finding": "The CORS origin allow-list is a regular expression evaluated against the attacker-controlled Origin header; the unanchored `.*.` prefix makes matching input-dependent and the pattern is applied to every request.",
+    "current_code": "    app.add_middleware(\n        CORSMiddleware,\n        allow_origin_regex=\".*.(restaurant.com|deliveryservice.com)\",\n        allow_credentials=True,\n        allow_methods=[\"*\"],\n        allow_headers=[\"*\"],\n    )",
+    "required_fix": "# app/init_app.py\nALLOWED_ORIGINS = [\n    \"https://app.restaurant.com\",\n    \"https://partner.deliveryservice.com\",\n]\n\napp.add_middleware(\n    CORSMiddleware,\n    allow_origins=ALLOWED_ORIGINS,   # exact string comparison, no regex engine\n    allow_credentials=True,\n    allow_methods=[\"GET\", \"POST\", \"PUT\", \"PATCH\", \"DELETE\"],\n    allow_headers=[\"Authorization\", \"Content-Type\"],\n)",
+    "criteria": [
+      "No regular expression is evaluated against the Origin header or any other request-controlled string in the middleware stack.",
+      "Any regex that must remain is anchored with ^ and $ and contains no nested quantifier over an alternation.",
+      "A request carrying a 10 KB Origin header returns in the same time as a normal request."
+    ]
+  }
+}

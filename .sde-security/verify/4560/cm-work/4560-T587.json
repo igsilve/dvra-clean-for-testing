@@ -1,0 +1,28 @@
+{
+  "full_cm_id": "4560-T587",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/referrals/utils.py",
+      "line": 30,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] _generate_code draws every character from secrets.choice, the stdlib CSPRNG backed by os.urandom, over a 36-character alphabet at CODE_LENGTH 13 (~67 bits). This is the Python equivalent of the SecureRandom default ctx.text recommends; no algorithm name or seed is passed, so no weak PRNG can be selected | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/referrals/utils.py",
+      "line": 1,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Enumerated every random-generation site in the file: the only one is _generate_code. The `random` module (Mersenne Twister) is not imported, and no SHA1PRNG or caller-supplied seed appears anywhere. The insufficiently-random-values pattern from ctx.problem is absent | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] app/apis/referrals/utils.py generates referral codes with secrets.choice (CSPRNG, os.urandom-backed) over a 36-character alphabet at length 13 (~67 bits). No use of the random module, no Mersenne Twister, no SHA1PRNG, and no caller-supplied seed anywhere in the file | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T587 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

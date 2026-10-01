@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T4451",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/stop_app.sh",
+      "line": 15,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] umask 077 is set at line 15 before any file is created, require_operator at line 21 refuses to run without an established operator identity, and the absolute PATH exported at line 7 is marked readonly at line 10 while ops_guard.sh resolve_binary rejects any resolution directory carrying group/other write bits; together these deliver the restrictive-permission and privilege-check property ctx.text requires, and no missing-permission or unchecked-privilege pattern remains | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: stop_app.sh sets umask 077 before any file is created, gates execution behind require_operator (SDE_DEPLOY_ROLE role check) and pins an absolute readonly PATH with resolve_binary rejecting world/group-writable directories; no missing-permission or unchecked-privilege pattern remains | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T4451 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

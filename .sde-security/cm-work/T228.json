@@ -1,0 +1,24 @@
+{
+  "cm_id": "T228",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Test that application restricts HTTP message size",
+    "priority": 9,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T228/",
+    "description": "Reject oversized request bodies before they are buffered into memory.",
+    "language": "python",
+    "file": "app/init_app.py",
+    "start_line": 11,
+    "end_line": 19,
+    "finding": "The FastAPI application is constructed with no request-body size limit middleware, so an arbitrarily large body is buffered before any handler runs.",
+    "current_code": "    app = FastAPI(\n        title=settings.TITLE,\n        description=settings.DESCRIPTION,\n        version=settings.VERSION,\n        servers=settings.SERVERS,\n        root_path=settings.ROOT_PATH,\n        docs_url=None,\n        redoc_url=None,\n    )",
+    "required_fix": "# app/init_app.py\nMAX_BODY_BYTES = 1 * 1024 * 1024\n\n\nclass BodySizeLimitMiddleware(BaseHTTPMiddleware):\n    async def dispatch(self, request, call_next):\n        declared = request.headers.get(\"content-length\")\n        if declared is not None and int(declared) > MAX_BODY_BYTES:\n            return JSONResponse({\"detail\": \"Request body too large\"}, status_code=413)\n        return await call_next(request)\n\n\napp.add_middleware(BodySizeLimitMiddleware)",
+    "criteria": [
+      "A request whose Content-Length exceeds the configured ceiling is rejected with 413.",
+      "A chunked request that streams past the ceiling is terminated rather than buffered."
+    ]
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T1468",
+  "status": "partial",
+  "confidence": "low",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/auth/services/get_token_service.py",
+      "line": 0,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] CM scope (storage of sensitive data in client side local storage) extends beyond repository files; partial verdict due to scope mismatch. This repository is a FastAPI backend with no browser-side client code (app/static holds images only), so the prescribed Web Crypto key derivation and encryption of locally stored data cannot be implemented or statically confirmed here; how-tos I1117 and I1118 are JavaScript and not language-applicable to the analysed Python file | verdict=partial confidence=low",
+      "category": "scope-mismatch"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] CM scope (storage of sensitive data in client side local storage) extends beyond repository files; partial verdict due to scope mismatch. This repository is a FastAPI backend with no browser-side client code (app/static holds images only), so the prescribed Web Crypto key derivation and encryption of locally stored data cannot be implemented or statically confirmed here; the how-tos I1117 and I1118 are JavaScript and not language-applicable to the analysed Python file | verdict=partial confidence=low",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T1468 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

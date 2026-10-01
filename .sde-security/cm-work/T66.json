@@ -1,0 +1,24 @@
+{
+  "cm_id": "T66",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Prevent web pages from being loaded inside iFrame",
+    "priority": 7,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T66/",
+    "description": "Deny framing of the application through response headers set for every route.",
+    "language": "python",
+    "file": "app/init_app.py",
+    "start_line": 20,
+    "end_line": 29,
+    "finding": "No framing protection header is emitted by the middleware stack.",
+    "current_code": "    app.add_middleware(\n        CORSMiddleware,\n        allow_origin_regex=\".*.(restaurant.com|deliveryservice.com)\",\n        allow_credentials=True,\n        allow_methods=[\"*\"],\n        allow_headers=[\"*\"],\n    )\n    app.state.limiter = limiter\n    app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)",
+    "required_fix": "# app/init_app.py\nresponse.headers[\"X-Frame-Options\"] = \"DENY\"\nresponse.headers[\"Content-Security-Policy\"] = \"frame-ancestors 'none'; default-src 'self'\"",
+    "criteria": [
+      "Framing directives are present on every response including error responses.",
+      "No route opts out of the header middleware."
+    ]
+  }
+}

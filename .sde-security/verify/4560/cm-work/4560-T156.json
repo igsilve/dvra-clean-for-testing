@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T156",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/menu/utils.py",
+      "line": 213,
+      "description": "The outbound TLS client validates its peer: requests.get uses verify=certifi.where(), pinning a curated CA bundle rather than the ambient system store, so OpenSSL follows the chain to a trusted root and checks hostname and expiry. The scheme must be https and the host must be allow-listed (lines 40-61), and allow_redirects=False with an explicit redirect refusal prevents the connection moving to an unnamed peer. No verify=False, unverified SSLContext, check_hostname=False or certificate-error suppression is present. CRL/OCSP revocation checking is not implemented in code; that gap is recorded as advisory and not as a residual vulnerability.",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] app/apis/menu/utils.py: the only outbound TLS client in the file validates its peer rather than bypassing it. requests.get is called with verify=certifi.where() (lines 213-222), pinning a curated CA bundle instead of the ambient system store, which has OpenSSL follow the chain to a trusted root and check hostname and expiry; _assert_image_host_is_authenticated (lines 40-61) refuses any non-https scheme and any host outside settings.ALLOWED_IMAGE_HOSTS; and allow_redirects=False with an explicit redirect refusal (lines 228-236) prevents the connection being moved to a peer that was never named. No verify=False, no custom unverified SSLContext, no check_hostname=False and no suppression of certificate errors appears anywhere in the file. Revocation status (CRL/OCSP) is not checked in code — the absence of that additional control is recorded here for the owning team and is not treated as a residual vulnerability | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T156 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

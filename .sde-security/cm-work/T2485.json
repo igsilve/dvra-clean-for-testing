@@ -1,0 +1,25 @@
+{
+  "cm_id": "T2485",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Verify that remote code and updates are correctly encrypted and signed (server side)",
+    "priority": 9,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T2485/",
+    "description": "Verify package integrity at install time by requiring hashes for every dependency.",
+    "language": "toml",
+    "file": "pyproject.toml",
+    "start_line": 9,
+    "end_line": 31,
+    "finding": "Dependencies are declared with caret ranges and no hashes, so the integrity of fetched packages is never verified.",
+    "current_code": "[tool.poetry.dependencies]\npython = \"^3.10\"\nfastapi = \"^0.103.0\"\nuvicorn = {extras = [\"standard\"], version = \"^0.23.2\"}\nhttpx = \"^0.24.1\"\nsqlalchemy = \"^2.0.20\"\npsycopg2 = \"^2.9.7\"\npython-jose = \"^3.3.0\"\npasslib = \"^1.7.4\"\npython-multipart = \"^0.0.9\"\nbcrypt = \"^4.1.2\"\nrequests = \"^2.31.0\"\nalembic = \"^1.13.1\"\npytest = \"8.3.4\"\npytest-mock = \"^3.14.0\"\nrequests-mock = \"^1.11.0\"\ncolorama = \"^0.4.6\"\npylint = \"^3.2.5\"\npytest-json-report = \"^1.5.0\"\npytest-asyncio = \"^0.25.0\"\npillow = \"^11.1.0\"\npsutil = \"^7.0.0\"\nslowapi = \"^0.1.9\"",
+    "required_fix": "# generated and committed alongside pyproject.toml\npoetry export --format requirements.txt --output requirements.txt   # with hashes\n\n# Dockerfile\nRUN pip install --no-cache-dir --require-hashes -r requirements.txt",
+    "criteria": [
+      "The exported requirements file contains a hash for every package.",
+      "`--require-hashes` is passed to pip so a mismatch aborts the build.",
+      "The lock file is committed and changes are reviewed."
+    ]
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T70",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/auth/utils/lockout.py",
+      "line": 50,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] register_failure locks an identity for LOCKOUT_SECONDS=900 once MAX_FAILED_ATTEMPTS=5 is reached within a 900s rolling window, keyed on 'scope:identity' so attempts cannot be spread across source addresses, with _prune expiring locks automatically, register_success clearing state and a threading.Lock guarding all mutation | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Failed-attempt throttling with lockout is implemented in app/apis/auth/utils/lockout.py: MAX_FAILED_ATTEMPTS=5 over a WINDOW_SECONDS=900 rolling window triggers a LOCKOUT_SECONDS=900 lock, state is keyed per submitted identity ('scope:identity') rather than per source address so guessing cannot be spread across hosts, register_success clears state on a legitimate login, _prune expires stale timestamps and locks on every check so a lock releases on its own, and all mutations are guarded by a threading.Lock. The module documents that state is in-process and therefore per-worker, and directs multi-worker deployments to back it with shared storage (Redis) -- a deployment-topology constraint rather than a residual vulnerable pattern, and one already routed to the owning team via this CM's notes. Alternative mitigation accepted: per-identity counting with a time-boxed lock is the lockout feature the CM names | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T70 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

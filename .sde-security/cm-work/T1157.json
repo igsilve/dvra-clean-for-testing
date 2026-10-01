@@ -1,0 +1,19 @@
+{
+  "cm_id": "T1157",
+  "category": "INFRA",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "documentation",
+    "title": "Verify that the aufs storage driver is not used (Docker)",
+    "priority": 8,
+    "category": "INFRA",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T1157/",
+    "description": "Verify that the aufs storage driver is not in use on hosts running these containers.",
+    "guidance": "Verification means inspecting the Docker daemon's active storage driver and confirming it is overlay2 or another supported driver rather than aufs.",
+    "searched": "Dockerfile, docker-compose.yml, start_app.sh",
+    "found": "The storage driver is a daemon-level setting; nothing in the repository selects or references it.",
+    "missing": "Access to the host's Docker daemon configuration and `docker info` output.",
+    "conclusion": "Storage driver selection is host daemon configuration that no repository change can influence.",
+    "action": "The platform team should confirm the storage driver on each container host."
+  }
+}

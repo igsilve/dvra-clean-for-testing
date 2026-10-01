@@ -1,0 +1,34 @@
+{
+  "full_cm_id": "4560-T1215",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/docker-compose.yml",
+      "line": 29,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] web service security_opt no-new-privileges:true is the declarative source that docker inspect .HostConfig.SecurityOpt would report | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/docker-compose.yml",
+      "line": 108,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] proxy service security_opt no-new-privileges:true is the declarative source that docker inspect .HostConfig.SecurityOpt would report | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/docker-compose.yml",
+      "line": 169,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] db service security_opt no-new-privileges:true is the declarative source that docker inspect .HostConfig.SecurityOpt would report | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] The declarative source the verification command inspects is present and correct: every compose service sets security_opt no-new-privileges:true (docker-compose.yml:29, :108, :169), so docker inspect .HostConfig.SecurityOpt would report it for each container | verdict=pass confidence=high",
+      "count": "3"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T1215 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

@@ -1,0 +1,54 @@
+{
+  "cm_id": "T3923",
+  "additional_requirements": [
+    {
+      "id": "TA6716",
+      "title": "Test single-use policy for build workers",
+      "text": "Ensure that every pipeline that is being run has its own clean, new runner.",
+      "ordinal": 10
+    },
+    {
+      "id": "TA6717",
+      "title": "Test passing of build worker environments and commands, not pulling",
+      "text": "For each build worker, ensure its environment and commands are passed and not pulled.",
+      "ordinal": 20
+    },
+    {
+      "id": "TA6718",
+      "title": "Test segregation of duties for each build worker",
+      "text": "For each build worker, ensure it has the least responsibility possible, preferably only one duty.",
+      "ordinal": 30
+    },
+    {
+      "id": "TA6719",
+      "title": "Test minimal network connectivity for build workers",
+      "text": "Verify that build workers, environment, and any other components have only the required minimum of network connectivity.",
+      "ordinal": 40
+    },
+    {
+      "id": "TA6720",
+      "title": "Test enforcement of run-time security for build workers",
+      "text": "Verify that a run-time security solution is enforced on every active build worker.",
+      "ordinal": 50
+    },
+    {
+      "id": "TA6721",
+      "title": "Test automatic scanning of build workers for vulnerabilities",
+      "text": "For each build worker, ensure the environmental sources it uses are scanned for vulnerabilities.",
+      "ordinal": 60
+    },
+    {
+      "id": "TA6722",
+      "title": "Test storage of build workers' deployment configuration in a version control platform",
+      "text": "Verify that the deployment configuration of build workers is stored in a version control platform.",
+      "ordinal": 70
+    },
+    {
+      "id": "TA6723",
+      "title": "Test monitoring of resource consumption by build workers",
+      "text": "Verify that there is monitoring of resources consumption for each build worker.",
+      "ordinal": 80
+    }
+  ],
+  "count": 8
+}

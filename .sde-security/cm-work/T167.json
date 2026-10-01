@@ -1,0 +1,25 @@
+{
+  "cm_id": "T167",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Test that the application is not vulnerable to JSON Hijacking",
+    "priority": 7,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T167/",
+    "description": "Wrap collection responses in a JSON object so the reply is never a bare top-level array that a foreign page can read.",
+    "language": "python",
+    "file": "app/apis/orders/services/get_orders_service.py",
+    "start_line": 14,
+    "end_line": 29,
+    "finding": "The endpoint returns a top-level JSON array of order records to a GET request, which is the classic shape exploited by JSON hijacking when the response is reachable with ambient credentials.",
+    "current_code": "@router.get(\"/orders\", response_model=List[schemas.Order])\ndef get_orders(\n    current_user: Annotated[User, Depends(get_current_user)],\n    skip: int = 0,\n    limit: int = 100,\n    db: Session = Depends(get_db),\n    auth=Depends(RolesBasedAuthChecker([UserRole.CUSTOMER])),\n):\n    orders = (\n        db.query(Order)\n        .filter(Order.user_id == current_user.id)\n        .offset(skip)\n        .limit(limit)\n        .all()\n    )\n    return orders",
+    "required_fix": "# app/apis/orders/services/get_orders_service.py\nclass OrderListResponse(BaseModel):\n    items: List[schemas.Order]\n\n\n@router.get(\"/orders\", response_model=OrderListResponse)\ndef get_orders(...):\n    orders = (\n        db.query(Order)\n        .filter(Order.user_id == current_user.id)\n        .offset(skip)\n        .limit(min(limit, 100))\n        .all()\n    )\n    return OrderListResponse(items=orders)",
+    "criteria": [
+      "No endpoint returns a top-level JSON array.",
+      "Collection endpoints respond with an object whose payload sits under a named key.",
+      "Responses are served with `Content-Type: application/json` and are not executable as script."
+    ]
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "cm_id": "T2141",
+  "endpoint": "library/tasks/T2141/amendments/",
+  "http_status": 200,
+  "result": "LIBRARY_SOURCED",
+  "retry_count": 0,
+  "queried_at": "2026-09-30T02:44:41.111237Z",
+  "matched_amendments": [
+    {
+      "amendment_id": "TA8555",
+      "technology": "Python",
+      "source_amendment_char_count": 4407
+    }
+  ],
+  "additional_requirements_count": 0
+}

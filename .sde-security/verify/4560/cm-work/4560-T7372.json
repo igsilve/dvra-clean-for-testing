@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T7372",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/main.py",
+      "line": 27,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] app/main.py: setup_static_files_and_docs returns before registering the /, /docs and /redoc handlers when settings.ENVIRONMENT is ENV.PRODUCTION, so the documentation routes do not exist in production rather than being conditionally hidden; the companion app factory constructs FastAPI with docs_url=None, redoc_url=None and openapi_url=None under production, withdrawing the schema alongside the UIs. Environment-driven conditional-OpenAPI is exactly the recommended fix, and StaticFiles is bound to a module-relative public assets directory | verdict=pass confidence=high",
+      "category": "mitigation-confirmed"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] app/main.py: setup_static_files_and_docs returns before registering the /, /docs and /redoc handlers when settings.ENVIRONMENT is ENV.PRODUCTION, so the documentation routes do not exist in production rather than being conditionally hidden; the companion app factory constructs FastAPI with docs_url=None, redoc_url=None and openapi_url=None under production, withdrawing the schema alongside the UIs. Environment-driven conditional-OpenAPI is exactly the recommended fix, and StaticFiles is bound to a module-relative public assets directory | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T7372 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

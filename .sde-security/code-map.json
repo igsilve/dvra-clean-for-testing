@@ -1,0 +1,1372 @@
+{
+  "T116": {
+    "cm_id": "T116",
+    "domain": "api-security",
+    "file": "app/init_app.py",
+    "start_line": 20,
+    "end_line": 26,
+    "language": "python",
+    "finding": "The CORS origin allow-list is a regular expression evaluated against the attacker-controlled Origin header; the unanchored `.*.` prefix makes matching input-dependent and the pattern is applied to every request.",
+    "snippet": "    app.add_middleware(\n        CORSMiddleware,\n        allow_origin_regex=\".*.(restaurant.com|deliveryservice.com)\",\n        allow_credentials=True,\n        allow_methods=[\"*\"],\n        allow_headers=[\"*\"],\n    )"
+  },
+  "T119": {
+    "cm_id": "T119",
+    "domain": "api-security",
+    "file": "app/init_app.py",
+    "start_line": 20,
+    "end_line": 29,
+    "language": "python",
+    "finding": "No middleware sets X-Frame-Options or a Content-Security-Policy frame-ancestors directive, so any page can frame the application's responses.",
+    "snippet": "    app.add_middleware(\n        CORSMiddleware,\n        allow_origin_regex=\".*.(restaurant.com|deliveryservice.com)\",\n        allow_credentials=True,\n        allow_methods=[\"*\"],\n        allow_headers=[\"*\"],\n    )\n    app.state.limiter = limiter\n    app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)"
+  },
+  "T1363": {
+    "cm_id": "T1363",
+    "domain": "api-security",
+    "file": "app/rate_limiting.py",
+    "start_line": 1,
+    "end_line": 4,
+    "language": "python",
+    "finding": "A slowapi Limiter is constructed with no default limits, and no route in the application applies @limiter.limit, so no API throttling is actually enforced.",
+    "snippet": "from slowapi import Limiter\nfrom slowapi.util import get_remote_address\n\nlimiter = Limiter(key_func=get_remote_address)"
+  },
+  "T167": {
+    "cm_id": "T167",
+    "domain": "api-security",
+    "file": "app/apis/orders/services/get_orders_service.py",
+    "start_line": 14,
+    "end_line": 29,
+    "language": "python",
+    "finding": "The endpoint returns a top-level JSON array of order records to a GET request, which is the classic shape exploited by JSON hijacking when the response is reachable with ambient credentials.",
+    "snippet": "@router.get(\"/orders\", response_model=List[schemas.Order])\ndef get_orders(\n    current_user: Annotated[User, Depends(get_current_user)],\n    skip: int = 0,\n    limit: int = 100,\n    db: Session = Depends(get_db),\n    auth=Depends(RolesBasedAuthChecker([UserRole.CUSTOMER])),\n):\n    orders = (\n        db.query(Order)\n        .filter(Order.user_id == current_user.id)\n        .offset(skip)\n        .limit(limit)\n        .all()\n    )\n    return orders"
+  },
+  "T2140": {
+    "cm_id": "T2140",
+    "domain": "api-security",
+    "file": "app/apis/debug/services/get_debug_info_service.py",
+    "start_line": 22,
+    "end_line": 27,
+    "language": "python",
+    "finding": "The debug response embeds the full process environment plus the working directory, sys.path and a directory listing, exposing internal configuration and secrets through an API.",
+    "snippet": "    env_vars = dict(os.environ)\n    local_paths = {\n        \"current_working_directory\": os.getcwd(),\n        \"sys_path\": sys.path,\n        \"cwd_listing\": os.listdir(os.getcwd()),\n    }"
+  },
+  "T228": {
+    "cm_id": "T228",
+    "domain": "api-security",
+    "file": "app/init_app.py",
+    "start_line": 11,
+    "end_line": 19,
+    "language": "python",
+    "finding": "The FastAPI application is constructed with no request-body size limit middleware, so an arbitrarily large body is buffered before any handler runs.",
+    "snippet": "    app = FastAPI(\n        title=settings.TITLE,\n        description=settings.DESCRIPTION,\n        version=settings.VERSION,\n        servers=settings.SERVERS,\n        root_path=settings.ROOT_PATH,\n        docs_url=None,\n        redoc_url=None,\n    )"
+  },
+  "T2596": {
+    "cm_id": "T2596",
+    "domain": "api-security",
+    "file": "docker-compose.yml",
+    "start_line": 2,
+    "end_line": 8,
+    "language": "yaml",
+    "finding": "Uvicorn is published directly on port 8091 with no hardened reverse proxy in front, so conflicting Content-Length/Transfer-Encoding handling between hops is never normalized.",
+    "snippet": "  web:\n    build: .\n    command: bash -c \"alembic upgrade head && uvicorn main:app --host 0.0.0.0 --port 8091 --workers 1 --reload\"\n    volumes:\n      - ./app/:/app/\n    ports:\n      - 8091:8091"
+  },
+  "T2600": {
+    "cm_id": "T2600",
+    "domain": "api-security",
+    "file": "app/apis/orders/services/get_orders_for_delivery_service.py",
+    "start_line": 17,
+    "end_line": 32,
+    "language": "python",
+    "finding": "`limit` is an unconstrained integer query parameter passed straight into .limit(), so a caller can request an unbounded result set.",
+    "snippet": "def get_orders(\n    skip: int = 0,\n    limit: int = 100,\n    db: Session = Depends(get_db),\n):\n    \"\"\"\n    This is a dedicated endpoint for delivery services to integrate with\n    the Restaurant. Delivery services can use this endpoint to get a list of\n    latest orders with their details.\n    \"\"\"\n    orders = (\n        db.query(Order)\n        .order_by(Order.date_ordered.desc())\n        .offset(skip)\n        .limit(limit)\n        .all()"
+  },
+  "T318": {
+    "cm_id": "T318",
+    "domain": "api-security",
+    "file": "app/init_app.py",
+    "start_line": 20,
+    "end_line": 26,
+    "language": "python",
+    "finding": "CORS is configured with a permissive unanchored origin regex together with allow_credentials=True and wildcard methods and headers.",
+    "snippet": "    app.add_middleware(\n        CORSMiddleware,\n        allow_origin_regex=\".*.(restaurant.com|deliveryservice.com)\",\n        allow_credentials=True,\n        allow_methods=[\"*\"],\n        allow_headers=[\"*\"],\n    )"
+  },
+  "T35": {
+    "cm_id": "T35",
+    "domain": "api-security",
+    "file": "docker-compose.yml",
+    "start_line": 2,
+    "end_line": 8,
+    "language": "yaml",
+    "finding": "The server is started with --reload and a single worker and no request/keep-alive timeouts or concurrency limits configured.",
+    "snippet": "  web:\n    build: .\n    command: bash -c \"alembic upgrade head && uvicorn main:app --host 0.0.0.0 --port 8091 --workers 1 --reload\"\n    volumes:\n      - ./app/:/app/\n    ports:\n      - 8091:8091"
+  },
+  "T536": {
+    "cm_id": "T536",
+    "domain": "api-security",
+    "file": "app/init_app.py",
+    "start_line": 11,
+    "end_line": 19,
+    "language": "python",
+    "finding": "No maximum request size is enforced at the application or middleware layer.",
+    "snippet": "    app = FastAPI(\n        title=settings.TITLE,\n        description=settings.DESCRIPTION,\n        version=settings.VERSION,\n        servers=settings.SERVERS,\n        root_path=settings.ROOT_PATH,\n        docs_url=None,\n        redoc_url=None,\n    )"
+  },
+  "T537": {
+    "cm_id": "T537",
+    "domain": "api-security",
+    "file": "app/init_app.py",
+    "start_line": 11,
+    "end_line": 19,
+    "language": "python",
+    "finding": "There is no body-size ceiling to test against: the application accepts requests of any length.",
+    "snippet": "    app = FastAPI(\n        title=settings.TITLE,\n        description=settings.DESCRIPTION,\n        version=settings.VERSION,\n        servers=settings.SERVERS,\n        root_path=settings.ROOT_PATH,\n        docs_url=None,\n        redoc_url=None,\n    )"
+  },
+  "T66": {
+    "cm_id": "T66",
+    "domain": "api-security",
+    "file": "app/init_app.py",
+    "start_line": 20,
+    "end_line": 29,
+    "language": "python",
+    "finding": "No framing protection header is emitted by the middleware stack.",
+    "snippet": "    app.add_middleware(\n        CORSMiddleware,\n        allow_origin_regex=\".*.(restaurant.com|deliveryservice.com)\",\n        allow_credentials=True,\n        allow_methods=[\"*\"],\n        allow_headers=[\"*\"],\n    )\n    app.state.limiter = limiter\n    app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)"
+  },
+  "T7357": {
+    "cm_id": "T7357",
+    "domain": "api-security",
+    "file": "app/apis/auth/services/patch_profile_service.py",
+    "start_line": 22,
+    "end_line": 25,
+    "language": "python",
+    "finding": "The profile update model is declared with extra=Extra.allow, so unknown client-supplied fields survive validation and are later assigned onto the ORM object.",
+    "snippet": "class UserUpdate(BaseModel, extra=Extra.allow):\n    first_name: Union[str, None] = None\n    last_name: Union[str, None] = None\n    phone_number: Union[str, None] = None"
+  },
+  "T7358": {
+    "cm_id": "T7358",
+    "domain": "api-security",
+    "file": "app/apis/debug/services/get_debug_info_service.py",
+    "start_line": 11,
+    "end_line": 12,
+    "language": "python",
+    "finding": "The route declares no response_model, so whatever the handler builds \u2014 including the environment dump \u2014 is serialized to the client unfiltered.",
+    "snippet": "@router.get(\"/debug\", status_code=status.HTTP_200_OK)\ndef get_debug_info_service():"
+  },
+  "T7361": {
+    "cm_id": "T7361",
+    "domain": "api-security",
+    "file": "app/init_app.py",
+    "start_line": 20,
+    "end_line": 26,
+    "language": "python",
+    "finding": "allow_credentials=True is combined with a wildcard-ish origin regex and wildcard methods and headers.",
+    "snippet": "    app.add_middleware(\n        CORSMiddleware,\n        allow_origin_regex=\".*.(restaurant.com|deliveryservice.com)\",\n        allow_credentials=True,\n        allow_methods=[\"*\"],\n        allow_headers=[\"*\"],\n    )"
+  },
+  "T7362": {
+    "cm_id": "T7362",
+    "domain": "api-security",
+    "file": "app/init_app.py",
+    "start_line": 11,
+    "end_line": 19,
+    "language": "python",
+    "finding": "Neither TrustedHostMiddleware nor HTTPSRedirectMiddleware is installed, so Host headers are unvalidated and plaintext HTTP is served.",
+    "snippet": "    app = FastAPI(\n        title=settings.TITLE,\n        description=settings.DESCRIPTION,\n        version=settings.VERSION,\n        servers=settings.SERVERS,\n        root_path=settings.ROOT_PATH,\n        docs_url=None,\n        redoc_url=None,\n    )"
+  },
+  "T7363": {
+    "cm_id": "T7363",
+    "domain": "api-security",
+    "file": "app/init_app.py",
+    "start_line": 20,
+    "end_line": 29,
+    "language": "python",
+    "finding": "The middleware stack adds CORS and a rate-limit handler but no security response headers.",
+    "snippet": "    app.add_middleware(\n        CORSMiddleware,\n        allow_origin_regex=\".*.(restaurant.com|deliveryservice.com)\",\n        allow_credentials=True,\n        allow_methods=[\"*\"],\n        allow_headers=[\"*\"],\n    )\n    app.state.limiter = limiter\n    app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)"
+  },
+  "T7364": {
+    "cm_id": "T7364",
+    "domain": "api-security",
+    "file": "app/apis/menu/utils.py",
+    "start_line": 9,
+    "end_line": 13,
+    "language": "python",
+    "finding": "The remote image is downloaded and base64-encoded entirely in memory with no Content-Length check and no size cap.",
+    "snippet": "def _image_url_to_base64(image_url: str):\n    response = requests.get(image_url, stream=True)\n    encoded_image = base64.b64encode(response.content).decode()\n\n    return encoded_image"
+  },
+  "T7365": {
+    "cm_id": "T7365",
+    "domain": "api-security",
+    "file": "app/apis/auth/services/get_token_service.py",
+    "start_line": 16,
+    "end_line": 21,
+    "language": "python",
+    "finding": "The token endpoint carries no rate-limit decorator, so password guessing is unthrottled.",
+    "snippet": "@router.post(\"/token\")\nasync def get_token(\n    form_data: Annotated[OAuth2PasswordRequestForm, Depends()],\n    db: Session = Depends(get_db),\n) -> Token:\n    user = authenticate_user(db, form_data.username, form_data.password)"
+  },
+  "T7368": {
+    "cm_id": "T7368",
+    "domain": "api-security",
+    "file": "app/apis/auth/services/get_token_service.py",
+    "start_line": 26,
+    "end_line": 32,
+    "language": "python",
+    "finding": "The access token is returned in the response body with no cookie attributes and no CSRF token issued alongside it.",
+    "snippet": "            headers={\"WWW-Authenticate\": \"Bearer\"},\n        )\n    access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)\n    access_token = create_access_token(\n        data={\"sub\": user.username}, expires_delta=access_token_expires\n    )\n    return Token(access_token=access_token, token_type=\"bearer\")"
+  },
+  "T7370": {
+    "cm_id": "T7370",
+    "domain": "api-security",
+    "file": "app/apis/admin/utils.py",
+    "start_line": 11,
+    "end_line": 13,
+    "language": "python",
+    "finding": "A bare except swallows the real error and re-raises a generic Exception, which FastAPI surfaces as an unhandled 500 with a traceback when debug output is enabled.",
+    "snippet": "        usage = result.stdout.strip().decode()\n    except:\n        raise Exception(\"An unexpected error was observed\")"
+  },
+  "T7372": {
+    "cm_id": "T7372",
+    "domain": "api-security",
+    "file": "app/main.py",
+    "start_line": 23,
+    "end_line": 29,
+    "language": "python",
+    "finding": "Swagger UI is re-registered at /docs unconditionally, with no environment guard, after being disabled in the FastAPI constructor.",
+    "snippet": "    @app.get(\"/docs\", include_in_schema=False)\n    def overridden_swagger():\n        return get_swagger_ui_html(\n            openapi_url=f\"{app.root_path}/openapi.json\",\n            title=settings.TITLE,\n            swagger_favicon_url=f\"{app.root_path}/static/img/favicon-32x32.png\",\n        )"
+  },
+  "T7373": {
+    "cm_id": "T7373",
+    "domain": "api-security",
+    "file": "app/apis/admin/services/reset_chef_password_service.py",
+    "start_line": 22,
+    "end_line": 28,
+    "language": "python",
+    "finding": "Authorization is decided from request.client.host alone, with no proxy allow-list and no validation of forwarded headers.",
+    "snippet": "    client_host = request.client.host\n\n    if client_host != \"127.0.0.1\":\n        raise HTTPException(\n            status_code=403,\n            detail=\"Chef password can be reseted only from the local machine!\",\n        )"
+  },
+  "T7375": {
+    "cm_id": "T7375",
+    "domain": "api-security",
+    "file": "app/apis/auth/services/register_user_service.py",
+    "start_line": 19,
+    "end_line": 40,
+    "language": "python",
+    "finding": "The handler is declared `async def` but calls create_user, which performs a blocking bcrypt hash and synchronous database work directly on the event loop.",
+    "snippet": "async def register_user(\n    user: UserCreate,\n    request: Request,\n    db: Session = Depends(get_db),\n):\n    auth = request.headers.get(\"Authorization\")\n\n    if auth:\n        raise HTTPException(\n            status_code=400,\n            detail=\"You're already logged in. You can not register an account.\",\n        )\n\n    try:\n        db_user = create_user(\n            db,\n            user.username,\n            user.password,\n            user.first_name,\n            user.last_name,\n            user.phone_number,\n        )"
+  },
+  "T7376": {
+    "cm_id": "T7376",
+    "domain": "api-security",
+    "file": "pyproject.toml",
+    "start_line": 42,
+    "end_line": 48,
+    "language": "toml",
+    "finding": "The pytest configuration defines no security regression suite or marker; the existing tests cover functional behavior only.",
+    "snippet": "[tool.pytest.ini_options]\nnorecursedirs = [\n  \".*\",\n  \"build\",\n  \"dist\",\n  \"postgres_data\",\n]"
+  },
+  "T7379": {
+    "cm_id": "T7379",
+    "domain": "api-security",
+    "file": "app/main.py",
+    "start_line": 11,
+    "end_line": 13,
+    "language": "python",
+    "finding": "StaticFiles is mounted on a relative \"static\" directory resolved from the process working directory rather than an explicit, dedicated path.",
+    "snippet": "def setup_static_files_and_docs(app: FastAPI):\n    \"\"\"Setup static files and custom documentation endpoints with favicon\"\"\"\n    app.mount(\"/static\", StaticFiles(directory=\"static\"), name=\"static\")"
+  },
+  "T7382": {
+    "cm_id": "T7382",
+    "domain": "api-security",
+    "file": "app/apis/referrals/service.py",
+    "start_line": 47,
+    "end_line": 74,
+    "language": "python",
+    "finding": "Applying a referral code creates a new discount coupon every time it is called, with no idempotency key or one-per-user guard, so the request can be replayed for unlimited coupons.",
+    "snippet": "@router.post(\"/apply-referral\", response_model=ApplyReferralResponse)\nasync def apply_referral_code(\n    request: ApplyReferralRequest,\n    current_user: Annotated[User, Depends(get_current_user)],\n    db: Session = Depends(get_db),\n):\n    \"\"\"Referrals can be applied by users to receive discounts.\"\"\"\n    referrer = (\n        db.query(UserModel)\n        .filter(UserModel.referral_code == request.referral_code)\n        .first()\n    )\n\n    if referrer is None:\n        return ApplyReferralResponse(message=\"Invalid referral code\", discount=0.0)\n\n    discount_coupon = DiscountCoupon(\n        user_id=current_user.id,\n        referrer_user_id=referrer.id,\n        discount_percentage=REFERRAL_DISCOUNT_PERCENTAGE,\n    )\n    db.add(discount_coupon)\n    db.commit()\n\n    return ApplyReferralResponse(\n        message=f\"Referral code {request.referral_code} applied successfully\",\n        discount=REFERRAL_DISCOUNT_PERCENTAGE,\n    )"
+  },
+  "T96": {
+    "cm_id": "T96",
+    "domain": "api-security",
+    "file": "app/apis/auth/services/patch_profile_service.py",
+    "start_line": 28,
+    "end_line": 33,
+    "language": "python",
+    "finding": "A state-changing PATCH is accepted with no CSRF token and no origin check.",
+    "snippet": "@router.patch(\"/profile\", response_model=UserRead, status_code=status.HTTP_200_OK)\ndef patch_profile(\n    user: UserUpdate,\n    current_user: Annotated[User, Depends(get_current_user)],\n    db: Session = Depends(get_db),\n):"
+  },
+  "T114": {
+    "cm_id": "T114",
+    "domain": "authentication",
+    "file": "app/apis/auth/services/get_token_service.py",
+    "start_line": 16,
+    "end_line": 27,
+    "language": "python",
+    "finding": "Failed authentications are returned immediately with no counter, lockout or backoff for machine accounts.",
+    "snippet": "@router.post(\"/token\")\nasync def get_token(\n    form_data: Annotated[OAuth2PasswordRequestForm, Depends()],\n    db: Session = Depends(get_db),\n) -> Token:\n    user = authenticate_user(db, form_data.username, form_data.password)\n    if not user:\n        raise HTTPException(\n            status_code=status.HTTP_401_UNAUTHORIZED,\n            detail=\"Incorrect username or password\",\n            headers={\"WWW-Authenticate\": \"Bearer\"},\n        )"
+  },
+  "T1539": {
+    "cm_id": "T1539",
+    "domain": "authentication",
+    "file": "app/apis/auth/service.py",
+    "start_line": 12,
+    "end_line": 19,
+    "language": "python",
+    "finding": "The auth router registers no logout route, so there is nothing that invalidates the token or instructs the client to clear stored credentials.",
+    "snippet": "router = APIRouter()\nrouter.include_router(get_profile_router)\nrouter.include_router(get_token_router)\nrouter.include_router(register_user_router)\nrouter.include_router(update_profile_router)\nrouter.include_router(patch_profile_router)\nrouter.include_router(reset_password_router)\nrouter.include_router(reset_password_new_password_router)"
+  },
+  "T1540": {
+    "cm_id": "T1540",
+    "domain": "authentication",
+    "file": "app/apis/auth/service.py",
+    "start_line": 12,
+    "end_line": 19,
+    "language": "python",
+    "finding": "With no logout endpoint there is no server-side signal to verify that client-side data is cleared.",
+    "snippet": "router = APIRouter()\nrouter.include_router(get_profile_router)\nrouter.include_router(get_token_router)\nrouter.include_router(register_user_router)\nrouter.include_router(update_profile_router)\nrouter.include_router(patch_profile_router)\nrouter.include_router(reset_password_router)\nrouter.include_router(reset_password_new_password_router)"
+  },
+  "T2276": {
+    "cm_id": "T2276",
+    "domain": "authentication",
+    "file": "app/apis/orders/services/get_orders_for_delivery_service.py",
+    "start_line": 12,
+    "end_line": 21,
+    "language": "python",
+    "finding": "The delivery orders endpoint declares no authentication or authorization dependency and is merely hidden from the schema.",
+    "snippet": "@router.get(\n    \"/delivery/orders\",\n    response_model=List[schemas.Order],\n    include_in_schema=False,\n)\ndef get_orders(\n    skip: int = 0,\n    limit: int = 100,\n    db: Session = Depends(get_db),\n):"
+  },
+  "T230": {
+    "cm_id": "T230",
+    "domain": "authentication",
+    "file": "app/init.py",
+    "start_line": 30,
+    "end_line": 38,
+    "language": "python",
+    "finding": "A seeded employee account uses the password \"kaylee123\", which meets no strength requirement.",
+    "snippet": "    create_user_if_not_exists(\n        db,\n        username=\"Mike\",\n        password=\"kaylee123\",\n        first_name=\"Mike\",\n        last_name=\"\",\n        phone_number=\"(505) 146-0190\",\n        role=UserRole.EMPLOYEE,\n    )"
+  },
+  "T323": {
+    "cm_id": "T323",
+    "domain": "authentication",
+    "file": "app/init.py",
+    "start_line": 30,
+    "end_line": 73,
+    "language": "python",
+    "finding": "Five accounts are seeded with hardcoded, weak passwords that are never forced to change.",
+    "snippet": "    create_user_if_not_exists(\n        db,\n        username=\"Mike\",\n        password=\"kaylee123\",\n        first_name=\"Mike\",\n        last_name=\"\",\n        phone_number=\"(505) 146-0190\",\n        role=UserRole.EMPLOYEE,\n    )\n    create_user_if_not_exists(\n        db,\n        username=\"Saul\",\n        password=\"Th4tsMyP4ssw0rd!\",\n        first_name=\"Saul\",\n        last_name=\"\",\n        phone_number=\"(505) 842-5662\",\n        role=UserRole.EMPLOYEE,\n    )\n    create_user_if_not_exists(\n        db,\n        username=\"hhm\",\n        password=\"12345678\",\n        first_name=\"Howard\",\n        last_name=\"Hamlin\",\n        phone_number=\"(505) 56434-7345\",\n        role=UserRole.CUSTOMER,\n    )\n    create_user_if_not_exists(\n        db,\n        username=\"johndoe\",\n        password=\"password123\",\n        first_name=\"John\",\n        last_name=\"Doe\",\n        phone_number=\"(505) 56434-7346\",\n        role=UserRole.CUSTOMER,\n    )\n    create_user_if_not_exists(\n        db,\n        username=\"alicesmith\",\n        password=\"password456\",\n        first_name=\"Alice\",\n        last_name=\"Smith\",\n        phone_number=\"(505) 53436-7347\",\n        role=UserRole.CUSTOMER,"
+  },
+  "T395": {
+    "cm_id": "T395",
+    "domain": "authentication",
+    "file": "app/apis/auth/utils/text_code_utils.py",
+    "start_line": 10,
+    "end_line": 17,
+    "language": "python",
+    "finding": "The one-time reset code is only four decimal digits and its delivery is not tied to any attempt counter.",
+    "snippet": "def generate_and_send_code_to_user(user: User, db: Session):\n    user.reset_password_code = \"\".join([str(secrets.randbelow(10)) for _ in range(4)])\n    user.reset_password_code_expiry_date = datetime.now() + timedelta(minutes=15)\n    db.add(user)\n    db.commit()\n\n    success = send_code_to_phone_number(user.phone_number, user.reset_password_code)\n    return success"
+  },
+  "T406": {
+    "cm_id": "T406",
+    "domain": "authentication",
+    "file": "app/apis/auth/utils/utils.py",
+    "start_line": 10,
+    "end_line": 11,
+    "language": "python",
+    "finding": "The symmetric HS256 signing key is taken from Settings.JWT_SECRET_KEY, which falls back to a six-digit random value.",
+    "snippet": "SECRET_KEY = Settings.JWT_SECRET_KEY\nALGORITHM = \"HS256\""
+  },
+  "T407": {
+    "cm_id": "T407",
+    "domain": "authentication",
+    "file": "app/apis/auth/utils/jwt_auth.py",
+    "start_line": 11,
+    "end_line": 13,
+    "language": "python",
+    "finding": "The verifier loads the same weak symmetric key and then disables signature verification outright.",
+    "snippet": "SECRET_KEY = Settings.JWT_SECRET_KEY\nALGORITHM = \"HS256\"\nVERIFY_SIGNATURE = False"
+  },
+  "T4439": {
+    "cm_id": "T4439",
+    "domain": "authentication",
+    "file": "start_app.sh",
+    "start_line": 1,
+    "end_line": 4,
+    "language": "bash",
+    "finding": "The startup script invokes docker compose with no authentication or identity check on the caller.",
+    "snippet": "#!/bin/bash\n\nmkdir -p postgres_data\ndocker compose up $1"
+  },
+  "T4450": {
+    "cm_id": "T4450",
+    "domain": "authentication",
+    "file": "start_app.sh",
+    "start_line": 1,
+    "end_line": 4,
+    "language": "bash",
+    "finding": "There is no authentication step in the operational scripts to exercise.",
+    "snippet": "#!/bin/bash\n\nmkdir -p postgres_data\ndocker compose up $1"
+  },
+  "T558": {
+    "cm_id": "T558",
+    "domain": "authentication",
+    "file": "app/apis/menu/utils.py",
+    "start_line": 9,
+    "end_line": 11,
+    "language": "python",
+    "finding": "The outbound HTTP call to an arbitrary image host presents no client credentials and performs no mutual authentication.",
+    "snippet": "def _image_url_to_base64(image_url: str):\n    response = requests.get(image_url, stream=True)\n    encoded_image = base64.b64encode(response.content).decode()"
+  },
+  "T589": {
+    "cm_id": "T589",
+    "domain": "authentication",
+    "file": "app/apis/orders/utils.py",
+    "start_line": 4,
+    "end_line": 15,
+    "language": "python",
+    "finding": "The delivery-service integration point returns data without authenticating the remote component.",
+    "snippet": "def fetch_order_status_from_delivery_service(order_id: int):\n    \"\"\"\n    Simulates fetching order status from an external delivery service.\n    In a real scenario, this would make an actual API call.\n    \"\"\"\n\n    # In reality: response = requests.get(f\"https://delivery.service/api/orders/{order_id}\")\n    return {\n        \"order_id\": order_id,\n        \"status\": \"ON_THE_WAY\",\n        \"delivery_notes\": \"Your order is on the way!\",\n    }"
+  },
+  "T61": {
+    "cm_id": "T61",
+    "domain": "authentication",
+    "file": "app/init.py",
+    "start_line": 30,
+    "end_line": 73,
+    "language": "python",
+    "finding": "Default accounts for Mike, Saul, hhm, johndoe and alicesmith are created with fixed passwords and left enabled.",
+    "snippet": "    create_user_if_not_exists(\n        db,\n        username=\"Mike\",\n        password=\"kaylee123\",\n        first_name=\"Mike\",\n        last_name=\"\",\n        phone_number=\"(505) 146-0190\",\n        role=UserRole.EMPLOYEE,\n    )\n    create_user_if_not_exists(\n        db,\n        username=\"Saul\",\n        password=\"Th4tsMyP4ssw0rd!\",\n        first_name=\"Saul\",\n        last_name=\"\",\n        phone_number=\"(505) 842-5662\",\n        role=UserRole.EMPLOYEE,\n    )\n    create_user_if_not_exists(\n        db,\n        username=\"hhm\",\n        password=\"12345678\",\n        first_name=\"Howard\",\n        last_name=\"Hamlin\",\n        phone_number=\"(505) 56434-7345\",\n        role=UserRole.CUSTOMER,\n    )\n    create_user_if_not_exists(\n        db,\n        username=\"johndoe\",\n        password=\"password123\",\n        first_name=\"John\",\n        last_name=\"Doe\",\n        phone_number=\"(505) 56434-7346\",\n        role=UserRole.CUSTOMER,\n    )\n    create_user_if_not_exists(\n        db,\n        username=\"alicesmith\",\n        password=\"password456\",\n        first_name=\"Alice\",\n        last_name=\"Smith\",\n        phone_number=\"(505) 53436-7347\",\n        role=UserRole.CUSTOMER,"
+  },
+  "T7353": {
+    "cm_id": "T7353",
+    "domain": "authentication",
+    "file": "app/apis/auth/utils/jwt_auth.py",
+    "start_line": 28,
+    "end_line": 33,
+    "language": "python",
+    "finding": "jwt.decode is called with options={\"verify_signature\": False}, so any unsigned or forged token is accepted.",
+    "snippet": "        payload = jwt.decode(\n            token,\n            SECRET_KEY,\n            algorithms=[ALGORITHM],\n            options={\"verify_signature\": VERIFY_SIGNATURE},\n        )"
+  },
+  "T7354": {
+    "cm_id": "T7354",
+    "domain": "authentication",
+    "file": "app/apis/auth/utils/utils.py",
+    "start_line": 13,
+    "end_line": 21,
+    "language": "python",
+    "finding": "The password context pins bcrypt with deprecated=\"auto\" and no explicit cost factor, and Argon2 is not offered.",
+    "snippet": "pwd_context = CryptContext(schemes=[\"bcrypt\"], deprecated=\"auto\")\n\n\ndef verify_password(plain_password, hashed_password):\n    return pwd_context.verify(plain_password, hashed_password)\n\n\ndef get_password_hash(password):\n    return pwd_context.hash(password)"
+  },
+  "T7367": {
+    "cm_id": "T7367",
+    "domain": "authentication",
+    "file": "app/apis/router.py",
+    "start_line": 12,
+    "end_line": 22,
+    "language": "python",
+    "finding": "No WebSocket route is registered and no handshake origin/authentication policy exists for future ones.",
+    "snippet": "api_router = APIRouter()\napi_router.include_router(healthcheck_router, prefix=\"\", tags=[\"healthcheck\"])\napi_router.include_router(\n    debug_router, prefix=\"\", tags=[\"debug\"], include_in_schema=False\n)\napi_router.include_router(menu_router, prefix=\"\", tags=[\"menu\"])\napi_router.include_router(orders_router, prefix=\"\", tags=[\"orders\"])\napi_router.include_router(auth_router, prefix=\"\", tags=[\"auth\"])\napi_router.include_router(admin_router, prefix=\"\", tags=[\"admin\"])\napi_router.include_router(users_router, prefix=\"\", tags=[\"users\"])\napi_router.include_router(referrals_router, prefix=\"\", tags=[\"referrals\"])"
+  },
+  "T78": {
+    "cm_id": "T78",
+    "domain": "authentication",
+    "file": "app/apis/auth/services/reset_password_new_password_service.py",
+    "start_line": 36,
+    "end_line": 46,
+    "language": "python",
+    "finding": "The reset code is compared with no attempt limit and no rate limiting, so the four-digit code is brute-forceable within its fifteen-minute window.",
+    "snippet": "    if datetime.now() > user.reset_password_code_expiry_date:\n        raise HTTPException(\n            status_code=400,\n            detail=\"Reset password code expired!\",\n        )\n\n    if user.reset_password_code != data.reset_password_code:\n        raise HTTPException(\n            status_code=400,\n            detail=\"Invalid reset password code\",\n        )"
+  },
+  "T86": {
+    "cm_id": "T86",
+    "domain": "authentication",
+    "file": "app/apis/auth/services/get_token_service.py",
+    "start_line": 28,
+    "end_line": 32,
+    "language": "python",
+    "finding": "A new access token is minted with no session identifier, no jti and no invalidation of tokens issued before authentication.",
+    "snippet": "    access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)\n    access_token = create_access_token(\n        data={\"sub\": user.username}, expires_delta=access_token_expires\n    )\n    return Token(access_token=access_token, token_type=\"bearer\")"
+  },
+  "T106": {
+    "cm_id": "T106",
+    "domain": "authorization",
+    "file": "app/apis/orders/services/get_order_service.py",
+    "start_line": 11,
+    "end_line": 20,
+    "language": "python",
+    "finding": "The order is fetched by path id and returned without comparing Order.user_id to the caller.",
+    "snippet": "@router.get(\"/orders/{order_id}\", response_model=schemas.Order)\ndef get_order(\n    order_id: int,\n    db: Session = Depends(get_db),\n    auth=Depends(RolesBasedAuthChecker([UserRole.CUSTOMER])),\n):\n    db_order = db.query(Order).filter(Order.id == order_id).first()\n    if db_order is None:\n        raise HTTPException(status_code=404, detail=\"Order not found\")\n    return db_order"
+  },
+  "T128": {
+    "cm_id": "T128",
+    "domain": "authorization",
+    "file": "app/apis/users/services/update_user_role_service.py",
+    "start_line": 13,
+    "end_line": 25,
+    "language": "python",
+    "finding": "The target account is selected by a client-supplied username and updated with no check that the caller may modify it.",
+    "snippet": "async def update_user_role(\n    user: UserRoleUpdate,\n    current_user: Annotated[models.User, Depends(get_current_user)],\n    db: Session = Depends(get_db),\n):\n    if user.role == models.UserRole.CHEF.value:\n        raise HTTPException(\n            status_code=status.HTTP_401_UNAUTHORIZED,\n            detail=\"Only Chef is authorized to add Chef role!\",\n        )\n\n    db_user = update_user(db, user.username, user)\n    return current_user"
+  },
+  "T15": {
+    "cm_id": "T15",
+    "domain": "authorization",
+    "file": "app/apis/auth/utils/roles_based_auth_checker.py",
+    "start_line": 6,
+    "end_line": 17,
+    "language": "python",
+    "finding": "RolesBasedAuthChecker is the only shared authorization primitive and it covers roles alone; ownership and resource rules are re-implemented ad hoc in individual handlers.",
+    "snippet": "class RolesBasedAuthChecker:\n    def __init__(\n        self,\n        required_roles,\n    ):\n        self.required_roles = required_roles\n\n    def __call__(self, user: User = Depends(get_current_user)):\n        if user.role not in self.required_roles:\n            raise HTTPException(status_code=403, detail=\"Unauthorized\")\n\n        return True"
+  },
+  "T226": {
+    "cm_id": "T226",
+    "domain": "authorization",
+    "file": "app/apis/admin/services/get_disk_stats_service.py",
+    "start_line": 21,
+    "end_line": 24,
+    "language": "python",
+    "finding": "The role check is written inline in the handler instead of going through the shared authorization dependency.",
+    "snippet": "    if current_user.role != UserRole.CHEF.value:\n        raise HTTPException(\n            status_code=403, detail=\"Only Chef is authorized to get current disk stats!\"\n        )"
+  },
+  "T2282": {
+    "cm_id": "T2282",
+    "domain": "authorization",
+    "file": "app/apis/debug/services/get_debug_info_service.py",
+    "start_line": 11,
+    "end_line": 12,
+    "language": "python",
+    "finding": "The /debug route is registered with no authentication dependency and is reachable anonymously.",
+    "snippet": "@router.get(\"/debug\", status_code=status.HTTP_200_OK)\ndef get_debug_info_service():"
+  },
+  "T373": {
+    "cm_id": "T373",
+    "domain": "authorization",
+    "file": "app/apis/router.py",
+    "start_line": 12,
+    "end_line": 22,
+    "language": "python",
+    "finding": "Routers are mounted without an explicit policy separating the authenticated surface from the anonymous one; /debug and /delivery/orders end up public by omission.",
+    "snippet": "api_router = APIRouter()\napi_router.include_router(healthcheck_router, prefix=\"\", tags=[\"healthcheck\"])\napi_router.include_router(\n    debug_router, prefix=\"\", tags=[\"debug\"], include_in_schema=False\n)\napi_router.include_router(menu_router, prefix=\"\", tags=[\"menu\"])\napi_router.include_router(orders_router, prefix=\"\", tags=[\"orders\"])\napi_router.include_router(auth_router, prefix=\"\", tags=[\"auth\"])\napi_router.include_router(admin_router, prefix=\"\", tags=[\"admin\"])\napi_router.include_router(users_router, prefix=\"\", tags=[\"users\"])\napi_router.include_router(referrals_router, prefix=\"\", tags=[\"referrals\"])"
+  },
+  "T378": {
+    "cm_id": "T378",
+    "domain": "authorization",
+    "file": "app/apis/orders/services/get_order_service.py",
+    "start_line": 11,
+    "end_line": 20,
+    "language": "python",
+    "finding": "A role check is present but no per-object authorization is performed on the requested order.",
+    "snippet": "@router.get(\"/orders/{order_id}\", response_model=schemas.Order)\ndef get_order(\n    order_id: int,\n    db: Session = Depends(get_db),\n    auth=Depends(RolesBasedAuthChecker([UserRole.CUSTOMER])),\n):\n    db_order = db.query(Order).filter(Order.id == order_id).first()\n    if db_order is None:\n        raise HTTPException(status_code=404, detail=\"Order not found\")\n    return db_order"
+  },
+  "T4440": {
+    "cm_id": "T4440",
+    "domain": "authorization",
+    "file": "stop_app.sh",
+    "start_line": 1,
+    "end_line": 3,
+    "language": "bash",
+    "finding": "The teardown script performs a privileged compose action with no access control on who may run it.",
+    "snippet": "#!/bin/bash\n\ndocker compose down"
+  },
+  "T4451": {
+    "cm_id": "T4451",
+    "domain": "authorization",
+    "file": "stop_app.sh",
+    "start_line": 1,
+    "end_line": 3,
+    "language": "bash",
+    "finding": "There is no access-control logic in the script to exercise.",
+    "snippet": "#!/bin/bash\n\ndocker compose down"
+  },
+  "T7355": {
+    "cm_id": "T7355",
+    "domain": "authorization",
+    "file": "app/apis/menu/services/delete_menu_item_service.py",
+    "start_line": 12,
+    "end_line": 18,
+    "language": "python",
+    "finding": "Unlike create and update, the delete route depends only on get_current_user and applies no RolesBasedAuthChecker, so any authenticated customer can delete menu items.",
+    "snippet": "@router.delete(\"/menu/{item_id}\", status_code=status.HTTP_204_NO_CONTENT)\ndef delete_menu_item(\n    item_id: int,\n    current_user: Annotated[User, Depends(get_current_user)],\n    db: Session = Depends(get_db),\n):\n    utils.delete_menu_item(db, item_id)"
+  },
+  "T7356": {
+    "cm_id": "T7356",
+    "domain": "authorization",
+    "file": "app/apis/orders/services/get_order_service.py",
+    "start_line": 11,
+    "end_line": 20,
+    "language": "python",
+    "finding": "No ownership predicate is applied to the queried Order before it is serialized back.",
+    "snippet": "@router.get(\"/orders/{order_id}\", response_model=schemas.Order)\ndef get_order(\n    order_id: int,\n    db: Session = Depends(get_db),\n    auth=Depends(RolesBasedAuthChecker([UserRole.CUSTOMER])),\n):\n    db_order = db.query(Order).filter(Order.id == order_id).first()\n    if db_order is None:\n        raise HTTPException(status_code=404, detail=\"Order not found\")\n    return db_order"
+  },
+  "T85": {
+    "cm_id": "T85",
+    "domain": "authorization",
+    "file": "app/apis/users/services/update_user_role_service.py",
+    "start_line": 13,
+    "end_line": 25,
+    "language": "python",
+    "finding": "The only server-side check rejects the Chef role; every other role change is applied to any username without verifying the caller's privileges.",
+    "snippet": "async def update_user_role(\n    user: UserRoleUpdate,\n    current_user: Annotated[models.User, Depends(get_current_user)],\n    db: Session = Depends(get_db),\n):\n    if user.role == models.UserRole.CHEF.value:\n        raise HTTPException(\n            status_code=status.HTTP_401_UNAUTHORIZED,\n            detail=\"Only Chef is authorized to add Chef role!\",\n        )\n\n    db_user = update_user(db, user.username, user)\n    return current_user"
+  },
+  "T3915": {
+    "cm_id": "T3915",
+    "domain": "ci-cd-security",
+    "file": "docker-compose.yml",
+    "start_line": 15,
+    "end_line": 20,
+    "language": "yaml",
+    "finding": "Deployment configuration and credentials are inlined in the committed compose file rather than separated per environment.",
+    "snippet": "    environment:\n      - POSTGRES_USER=admin\n      - POSTGRES_PASSWORD=password\n      - POSTGRES_SERVER=db\n      - POSTGRES_PORT=5432\n      - POSTGRES_DB=restaurant"
+  },
+  "T3932": {
+    "cm_id": "T3932",
+    "domain": "ci-cd-security",
+    "file": "docker-compose.yml",
+    "start_line": 15,
+    "end_line": 20,
+    "language": "yaml",
+    "finding": "There is a single committed compose file holding environment values, so separation cannot be verified.",
+    "snippet": "    environment:\n      - POSTGRES_USER=admin\n      - POSTGRES_PASSWORD=password\n      - POSTGRES_SERVER=db\n      - POSTGRES_PORT=5432\n      - POSTGRES_DB=restaurant"
+  },
+  "T1175": {
+    "cm_id": "T1175",
+    "domain": "container-security",
+    "file": "Dockerfile",
+    "start_line": 20,
+    "end_line": 25,
+    "language": "dockerfile",
+    "finding": "A non-root user is created only after a sudoers rule granting passwordless sudo is installed, so the container user can regain root.",
+    "snippet": "RUN echo 'ALL ALL=(ALL) NOPASSWD: /usr/bin/find' | sudo tee /etc/sudoers.d/find_nopasswd > /dev/null\n\nRUN useradd -m app\nRUN chown app .\nUSER app"
+  },
+  "T1193": {
+    "cm_id": "T1193",
+    "domain": "container-security",
+    "file": "docker-compose.yml",
+    "start_line": 5,
+    "end_line": 6,
+    "language": "yaml",
+    "finding": "The host source tree is bind-mounted read-write into the container at /app.",
+    "snippet": "    volumes:\n      - ./app/:/app/"
+  },
+  "T1195": {
+    "cm_id": "T1195",
+    "domain": "container-security",
+    "file": "Dockerfile",
+    "start_line": 12,
+    "end_line": 14,
+    "language": "dockerfile",
+    "finding": "The runtime image installs interactive tooling (vim, sudo, gcc) that expands the in-container administrative surface.",
+    "snippet": "RUN apt-get update\nRUN apt-get -y install libpq-dev gcc vim sudo"
+  },
+  "T1197": {
+    "cm_id": "T1197",
+    "domain": "container-security",
+    "file": "docker-compose.yml",
+    "start_line": 7,
+    "end_line": 8,
+    "language": "yaml",
+    "finding": "Port 8091 is published to all host interfaces with no bind address restriction.",
+    "snippet": "    ports:\n      - 8091:8091"
+  },
+  "T1199": {
+    "cm_id": "T1199",
+    "domain": "container-security",
+    "file": "docker-compose.yml",
+    "start_line": 2,
+    "end_line": 8,
+    "language": "yaml",
+    "finding": "The service definition relies on default networking with no explicit network mode declared or pinned.",
+    "snippet": "  web:\n    build: .\n    command: bash -c \"alembic upgrade head && uvicorn main:app --host 0.0.0.0 --port 8091 --workers 1 --reload\"\n    volumes:\n      - ./app/:/app/\n    ports:\n      - 8091:8091"
+  },
+  "T1201": {
+    "cm_id": "T1201",
+    "domain": "container-security",
+    "file": "docker-compose.yml",
+    "start_line": 2,
+    "end_line": 14,
+    "language": "yaml",
+    "finding": "No memory, pids or ulimit constraints are declared for the web service.",
+    "snippet": "  web:\n    build: .\n    command: bash -c \"alembic upgrade head && uvicorn main:app --host 0.0.0.0 --port 8091 --workers 1 --reload\"\n    volumes:\n      - ./app/:/app/\n    ports:\n      - 8091:8091\n    depends_on:\n      db:\n        condition: service_healthy\n    privileged: true\n    cap_add:\n      - SYS_ADMIN"
+  },
+  "T1203": {
+    "cm_id": "T1203",
+    "domain": "container-security",
+    "file": "docker-compose.yml",
+    "start_line": 2,
+    "end_line": 14,
+    "language": "yaml",
+    "finding": "Neither cpu_shares nor cpus is set, so the container competes for host CPU without bound.",
+    "snippet": "  web:\n    build: .\n    command: bash -c \"alembic upgrade head && uvicorn main:app --host 0.0.0.0 --port 8091 --workers 1 --reload\"\n    volumes:\n      - ./app/:/app/\n    ports:\n      - 8091:8091\n    depends_on:\n      db:\n        condition: service_healthy\n    privileged: true\n    cap_add:\n      - SYS_ADMIN"
+  },
+  "T1205": {
+    "cm_id": "T1205",
+    "domain": "container-security",
+    "file": "docker-compose.yml",
+    "start_line": 2,
+    "end_line": 14,
+    "language": "yaml",
+    "finding": "read_only is not set, so the container root filesystem is writable.",
+    "snippet": "  web:\n    build: .\n    command: bash -c \"alembic upgrade head && uvicorn main:app --host 0.0.0.0 --port 8091 --workers 1 --reload\"\n    volumes:\n      - ./app/:/app/\n    ports:\n      - 8091:8091\n    depends_on:\n      db:\n        condition: service_healthy\n    privileged: true\n    cap_add:\n      - SYS_ADMIN"
+  },
+  "T1207": {
+    "cm_id": "T1207",
+    "domain": "container-security",
+    "file": "docker-compose.yml",
+    "start_line": 2,
+    "end_line": 14,
+    "language": "yaml",
+    "finding": "No restart policy is declared for the web service.",
+    "snippet": "  web:\n    build: .\n    command: bash -c \"alembic upgrade head && uvicorn main:app --host 0.0.0.0 --port 8091 --workers 1 --reload\"\n    volumes:\n      - ./app/:/app/\n    ports:\n      - 8091:8091\n    depends_on:\n      db:\n        condition: service_healthy\n    privileged: true\n    cap_add:\n      - SYS_ADMIN"
+  },
+  "T1209": {
+    "cm_id": "T1209",
+    "domain": "container-security",
+    "file": "docker-compose.yml",
+    "start_line": 5,
+    "end_line": 6,
+    "language": "yaml",
+    "finding": "The bind mount is declared in short-string form, so propagation mode is neither stated nor constrained.",
+    "snippet": "    volumes:\n      - ./app/:/app/"
+  },
+  "T1211": {
+    "cm_id": "T1211",
+    "domain": "container-security",
+    "file": "docker-compose.yml",
+    "start_line": 12,
+    "end_line": 14,
+    "language": "yaml",
+    "finding": "privileged: true disables the default seccomp profile for the container.",
+    "snippet": "    privileged: true\n    cap_add:\n      - SYS_ADMIN"
+  },
+  "T1213": {
+    "cm_id": "T1213",
+    "domain": "container-security",
+    "file": "docker-compose.yml",
+    "start_line": 12,
+    "end_line": 14,
+    "language": "yaml",
+    "finding": "Running privileged with SYS_ADMIN gives the container control over cgroup configuration.",
+    "snippet": "    privileged: true\n    cap_add:\n      - SYS_ADMIN"
+  },
+  "T1215": {
+    "cm_id": "T1215",
+    "domain": "container-security",
+    "file": "docker-compose.yml",
+    "start_line": 12,
+    "end_line": 14,
+    "language": "yaml",
+    "finding": "no-new-privileges is not set in security_opt, and privileged mode would override it.",
+    "snippet": "    privileged: true\n    cap_add:\n      - SYS_ADMIN"
+  },
+  "T1917": {
+    "cm_id": "T1917",
+    "domain": "container-security",
+    "file": "Dockerfile",
+    "start_line": 10,
+    "end_line": 20,
+    "language": "dockerfile",
+    "finding": "The runtime stage installs a compiler and sudo and grants a passwordless sudoers rule, none of which is covered by any image assessment step.",
+    "snippet": "FROM python:3.10-slim-bookworm as runtime\n\nRUN apt-get update\nRUN apt-get -y install libpq-dev gcc vim sudo\n\nCOPY --from=builder /app/requirements.txt .\nRUN pip install --no-cache-dir -r requirements.txt\nCOPY app ./app\nWORKDIR /app\n\nRUN echo 'ALL ALL=(ALL) NOPASSWD: /usr/bin/find' | sudo tee /etc/sudoers.d/find_nopasswd > /dev/null"
+  },
+  "T4746": {
+    "cm_id": "T4746",
+    "domain": "container-security",
+    "file": "Dockerfile",
+    "start_line": 1,
+    "end_line": 10,
+    "language": "dockerfile",
+    "finding": "Both stages reference floating tags (python:3.10-bookworm, python:3.10-slim-bookworm) with no digest pinning or provenance verification.",
+    "snippet": "FROM python:3.10-bookworm as builder\n\nRUN pip install poetry==1.4.2\nWORKDIR /app\n\nCOPY pyproject.toml poetry.lock ./\nRUN poetry export -f requirements.txt --output requirements.txt --without-hashes\n\n\nFROM python:3.10-slim-bookworm as runtime"
+  },
+  "T4747": {
+    "cm_id": "T4747",
+    "domain": "container-security",
+    "file": "docker-compose.yml",
+    "start_line": 12,
+    "end_line": 14,
+    "language": "yaml",
+    "finding": "The web container runs privileged and additionally requests the SYS_ADMIN capability.",
+    "snippet": "    privileged: true\n    cap_add:\n      - SYS_ADMIN"
+  },
+  "T4750": {
+    "cm_id": "T4750",
+    "domain": "container-security",
+    "file": "docker-compose.yml",
+    "start_line": 1,
+    "end_line": 20,
+    "language": "yaml",
+    "finding": "No user-defined network is declared, so web and db share the default bridge with no segmentation.",
+    "snippet": "services:\n  web:\n    build: .\n    command: bash -c \"alembic upgrade head && uvicorn main:app --host 0.0.0.0 --port 8091 --workers 1 --reload\"\n    volumes:\n      - ./app/:/app/\n    ports:\n      - 8091:8091\n    depends_on:\n      db:\n        condition: service_healthy\n    privileged: true\n    cap_add:\n      - SYS_ADMIN\n    environment:\n      - POSTGRES_USER=admin\n      - POSTGRES_PASSWORD=password\n      - POSTGRES_SERVER=db\n      - POSTGRES_PORT=5432\n      - POSTGRES_DB=restaurant"
+  },
+  "T4751": {
+    "cm_id": "T4751",
+    "domain": "container-security",
+    "file": "Dockerfile",
+    "start_line": 12,
+    "end_line": 14,
+    "language": "dockerfile",
+    "finding": "apt-get installs gcc, vim and sudo into the runtime image and never cleans the apt lists.",
+    "snippet": "RUN apt-get update\nRUN apt-get -y install libpq-dev gcc vim sudo"
+  },
+  "T1468": {
+    "cm_id": "T1468",
+    "domain": "cryptography",
+    "file": "app/apis/auth/services/get_token_service.py",
+    "start_line": 29,
+    "end_line": 32,
+    "language": "python",
+    "finding": "The bearer token is handed to the client with no guidance or mechanism for protecting it at rest on the client side.",
+    "snippet": "    access_token = create_access_token(\n        data={\"sub\": user.username}, expires_delta=access_token_expires\n    )\n    return Token(access_token=access_token, token_type=\"bearer\")"
+  },
+  "T156": {
+    "cm_id": "T156",
+    "domain": "cryptography",
+    "file": "app/apis/menu/utils.py",
+    "start_line": 9,
+    "end_line": 11,
+    "language": "python",
+    "finding": "requests.get is called on a caller-supplied URL with no explicit certificate verification or CA bundle configuration.",
+    "snippet": "def _image_url_to_base64(image_url: str):\n    response = requests.get(image_url, stream=True)\n    encoded_image = base64.b64encode(response.content).decode()"
+  },
+  "T175": {
+    "cm_id": "T175",
+    "domain": "cryptography",
+    "file": "app/apis/menu/utils.py",
+    "start_line": 9,
+    "end_line": 11,
+    "language": "python",
+    "finding": "The outbound client's certificate validation behavior is left entirely to defaults and is never asserted.",
+    "snippet": "def _image_url_to_base64(image_url: str):\n    response = requests.get(image_url, stream=True)\n    encoded_image = base64.b64encode(response.content).decode()"
+  },
+  "T197": {
+    "cm_id": "T197",
+    "domain": "cryptography",
+    "file": "app/apis/menu/utils.py",
+    "start_line": 9,
+    "end_line": 13,
+    "language": "python",
+    "finding": "Remote content is fetched and stored with no signature or integrity check on its origin.",
+    "snippet": "def _image_url_to_base64(image_url: str):\n    response = requests.get(image_url, stream=True)\n    encoded_image = base64.b64encode(response.content).decode()\n\n    return encoded_image"
+  },
+  "T2485": {
+    "cm_id": "T2485",
+    "domain": "cryptography",
+    "file": "pyproject.toml",
+    "start_line": 9,
+    "end_line": 31,
+    "language": "toml",
+    "finding": "Dependencies are declared with caret ranges and no hashes, so the integrity of fetched packages is never verified.",
+    "snippet": "[tool.poetry.dependencies]\npython = \"^3.10\"\nfastapi = \"^0.103.0\"\nuvicorn = {extras = [\"standard\"], version = \"^0.23.2\"}\nhttpx = \"^0.24.1\"\nsqlalchemy = \"^2.0.20\"\npsycopg2 = \"^2.9.7\"\npython-jose = \"^3.3.0\"\npasslib = \"^1.7.4\"\npython-multipart = \"^0.0.9\"\nbcrypt = \"^4.1.2\"\nrequests = \"^2.31.0\"\nalembic = \"^1.13.1\"\npytest = \"8.3.4\"\npytest-mock = \"^3.14.0\"\nrequests-mock = \"^1.11.0\"\ncolorama = \"^0.4.6\"\npylint = \"^3.2.5\"\npytest-json-report = \"^1.5.0\"\npytest-asyncio = \"^0.25.0\"\npillow = \"^11.1.0\"\npsutil = \"^7.0.0\"\nslowapi = \"^0.1.9\""
+  },
+  "T2486": {
+    "cm_id": "T2486",
+    "domain": "cryptography",
+    "file": "pyproject.toml",
+    "start_line": 9,
+    "end_line": 31,
+    "language": "toml",
+    "finding": "There is no signing or integrity metadata for the code the service pulls in at build time.",
+    "snippet": "[tool.poetry.dependencies]\npython = \"^3.10\"\nfastapi = \"^0.103.0\"\nuvicorn = {extras = [\"standard\"], version = \"^0.23.2\"}\nhttpx = \"^0.24.1\"\nsqlalchemy = \"^2.0.20\"\npsycopg2 = \"^2.9.7\"\npython-jose = \"^3.3.0\"\npasslib = \"^1.7.4\"\npython-multipart = \"^0.0.9\"\nbcrypt = \"^4.1.2\"\nrequests = \"^2.31.0\"\nalembic = \"^1.13.1\"\npytest = \"8.3.4\"\npytest-mock = \"^3.14.0\"\nrequests-mock = \"^1.11.0\"\ncolorama = \"^0.4.6\"\npylint = \"^3.2.5\"\npytest-json-report = \"^1.5.0\"\npytest-asyncio = \"^0.25.0\"\npillow = \"^11.1.0\"\npsutil = \"^7.0.0\"\nslowapi = \"^0.1.9\""
+  },
+  "T296": {
+    "cm_id": "T296",
+    "domain": "cryptography",
+    "file": "app/db/models.py",
+    "start_line": 33,
+    "end_line": 45,
+    "language": "python",
+    "finding": "reset_password_code and phone_number are stored as plain columns with no encryption and no column-level access control.",
+    "snippet": "class User(Base):\n    __tablename__ = \"users\"\n\n    id = Column(Integer, primary_key=True, index=True)\n    username = Column(String, unique=True, index=True)\n    password = Column(String)\n    role = Column(Enum(UserRole), default=UserRole.CUSTOMER)\n    first_name = Column(String)\n    last_name = Column(String)\n    phone_number = Column(String, unique=True, index=True)\n    reset_password_code = Column(String, nullable=True)\n    reset_password_code_expiry_date = Column(DateTime, nullable=True)\n    referral_code = Column(String, unique=True, index=True, nullable=True)"
+  },
+  "T439": {
+    "cm_id": "T439",
+    "domain": "cryptography",
+    "file": "app/apis/menu/utils.py",
+    "start_line": 9,
+    "end_line": 13,
+    "language": "python",
+    "finding": "Content retrieved from a remote origin is accepted without any integrity verification before it is persisted and later served.",
+    "snippet": "def _image_url_to_base64(image_url: str):\n    response = requests.get(image_url, stream=True)\n    encoded_image = base64.b64encode(response.content).decode()\n\n    return encoded_image"
+  },
+  "T4443": {
+    "cm_id": "T4443",
+    "domain": "cryptography",
+    "file": "start_app.sh",
+    "start_line": 1,
+    "end_line": 4,
+    "language": "bash",
+    "finding": "The operational scripts handle no key material and provide no cryptographic controls around the secrets passed into the containers.",
+    "snippet": "#!/bin/bash\n\nmkdir -p postgres_data\ndocker compose up $1"
+  },
+  "T4454": {
+    "cm_id": "T4454",
+    "domain": "cryptography",
+    "file": "start_app.sh",
+    "start_line": 1,
+    "end_line": 4,
+    "language": "bash",
+    "finding": "There are no cryptographic functions in the shell tooling to exercise.",
+    "snippet": "#!/bin/bash\n\nmkdir -p postgres_data\ndocker compose up $1"
+  },
+  "T445": {
+    "cm_id": "T445",
+    "domain": "cryptography",
+    "file": "app/apis/auth/utils/utils.py",
+    "start_line": 10,
+    "end_line": 11,
+    "language": "python",
+    "finding": "HS256 is used with a key that defaults to six decimal digits, far below any approved key-length requirement.",
+    "snippet": "SECRET_KEY = Settings.JWT_SECRET_KEY\nALGORITHM = \"HS256\""
+  },
+  "T446": {
+    "cm_id": "T446",
+    "domain": "cryptography",
+    "file": "app/apis/referrals/utils.py",
+    "start_line": 1,
+    "end_line": 11,
+    "language": "python",
+    "finding": "Referral codes are generated with the standard `random` module rather than a cryptographic library.",
+    "snippet": "import random\nimport string\n\nfrom db.models import User\nfrom sqlalchemy.orm import Session\n\n\ndef _generate_code() -> str:\n    \"\"\"Generate an 8-character uppercase alphanumeric code.\"\"\"\n    characters = string.ascii_uppercase + string.digits\n    return \"\".join(random.choice(characters) for _ in range(8))"
+  },
+  "T587": {
+    "cm_id": "T587",
+    "domain": "cryptography",
+    "file": "app/apis/referrals/utils.py",
+    "start_line": 8,
+    "end_line": 11,
+    "language": "python",
+    "finding": "random.choice draws from a predictable Mersenne Twister stream, so referral codes are guessable.",
+    "snippet": "def _generate_code() -> str:\n    \"\"\"Generate an 8-character uppercase alphanumeric code.\"\"\"\n    characters = string.ascii_uppercase + string.digits\n    return \"\".join(random.choice(characters) for _ in range(8))"
+  },
+  "T87": {
+    "cm_id": "T87",
+    "domain": "cryptography",
+    "file": "app/db/session.py",
+    "start_line": 21,
+    "end_line": 22,
+    "language": "python",
+    "finding": "The PostgreSQL engine is created from a URL with no sslmode, so the database connection can run in plaintext.",
+    "snippet": "    else:\n        engine = create_engine(sqlalchemy_database_url)"
+  },
+  "T241": {
+    "cm_id": "T241",
+    "domain": "dependency-management",
+    "file": "pyproject.toml",
+    "start_line": 9,
+    "end_line": 31,
+    "language": "toml",
+    "finding": "Every dependency is declared with a caret range and no lower-bound security floor or audit step.",
+    "snippet": "[tool.poetry.dependencies]\npython = \"^3.10\"\nfastapi = \"^0.103.0\"\nuvicorn = {extras = [\"standard\"], version = \"^0.23.2\"}\nhttpx = \"^0.24.1\"\nsqlalchemy = \"^2.0.20\"\npsycopg2 = \"^2.9.7\"\npython-jose = \"^3.3.0\"\npasslib = \"^1.7.4\"\npython-multipart = \"^0.0.9\"\nbcrypt = \"^4.1.2\"\nrequests = \"^2.31.0\"\nalembic = \"^1.13.1\"\npytest = \"8.3.4\"\npytest-mock = \"^3.14.0\"\nrequests-mock = \"^1.11.0\"\ncolorama = \"^0.4.6\"\npylint = \"^3.2.5\"\npytest-json-report = \"^1.5.0\"\npytest-asyncio = \"^0.25.0\"\npillow = \"^11.1.0\"\npsutil = \"^7.0.0\"\nslowapi = \"^0.1.9\""
+  },
+  "T7374": {
+    "cm_id": "T7374",
+    "domain": "dependency-management",
+    "file": "pyproject.toml",
+    "start_line": 9,
+    "end_line": 31,
+    "language": "toml",
+    "finding": "Dependencies are unpinned caret ranges with no hash verification and no scheduled audit.",
+    "snippet": "[tool.poetry.dependencies]\npython = \"^3.10\"\nfastapi = \"^0.103.0\"\nuvicorn = {extras = [\"standard\"], version = \"^0.23.2\"}\nhttpx = \"^0.24.1\"\nsqlalchemy = \"^2.0.20\"\npsycopg2 = \"^2.9.7\"\npython-jose = \"^3.3.0\"\npasslib = \"^1.7.4\"\npython-multipart = \"^0.0.9\"\nbcrypt = \"^4.1.2\"\nrequests = \"^2.31.0\"\nalembic = \"^1.13.1\"\npytest = \"8.3.4\"\npytest-mock = \"^3.14.0\"\nrequests-mock = \"^1.11.0\"\ncolorama = \"^0.4.6\"\npylint = \"^3.2.5\"\npytest-json-report = \"^1.5.0\"\npytest-asyncio = \"^0.25.0\"\npillow = \"^11.1.0\"\npsutil = \"^7.0.0\"\nslowapi = \"^0.1.9\""
+  },
+  "CT9": {
+    "cm_id": "CT9",
+    "domain": "infrastructure-hardening",
+    "file": "app/config.py",
+    "start_line": 13,
+    "end_line": 19,
+    "language": "python",
+    "finding": "The environment selector defaults to PRODUCTION while every other default in this module is a development convenience, so the deployed configuration is not deliberately chosen.",
+    "snippet": "class ENV(Enum):\n    DEVELOPMENT = \"development\"\n    PRODUCTION = \"production\"\n    TESTING = \"testing\"\n\n\nENVIRONMENT = ENV(os.getenv(\"ENV\", ENV.PRODUCTION.value))"
+  },
+  "T105": {
+    "cm_id": "T105",
+    "domain": "infrastructure-hardening",
+    "file": "app/apis/debug/services/get_debug_info_service.py",
+    "start_line": 11,
+    "end_line": 12,
+    "language": "python",
+    "finding": "A debug information endpoint ships in the application and is only hidden from the OpenAPI schema.",
+    "snippet": "@router.get(\"/debug\", status_code=status.HTTP_200_OK)\ndef get_debug_info_service():"
+  },
+  "T2349": {
+    "cm_id": "T2349",
+    "domain": "infrastructure-hardening",
+    "file": "app/config.py",
+    "start_line": 26,
+    "end_line": 36,
+    "language": "python",
+    "finding": "Every security-relevant setting falls back to an insecure development default: a six-digit JWT key, the username \"chef\" and the database password \"password\".",
+    "snippet": "class Settings:\n    JWT_SECRET_KEY = os.getenv(\"JWT_SECRET_KEY\", generate_random_secret())\n    CHEF_USERNAME = os.getenv(\"CHEF_USERNAME\", \"chef\")\n\n    JWT_VERIFY_SIGNATURE = os.getenv(\"JWT_VERIFY_SIGNATURE\")\n\n    POSTGRES_USER: str = os.getenv(\"POSTGRES_USER\", \"admin\")\n    POSTGRES_PASSWORD = os.getenv(\"POSTGRES_PASSWORD\", \"password\")\n    POSTGRES_SERVER: str = os.getenv(\"POSTGRES_SERVER\", \"localhost\")\n    POSTGRES_PORT: str = os.getenv(\"POSTGRES_PORT\", 5432)\n    POSTGRES_DB: str = os.getenv(\"POSTGRES_DB\", \"restaurant\")"
+  },
+  "T2357": {
+    "cm_id": "T2357",
+    "domain": "infrastructure-hardening",
+    "file": "app/config.py",
+    "start_line": 26,
+    "end_line": 36,
+    "language": "python",
+    "finding": "The insecure fallbacks apply silently whenever the environment variables are absent, so there is no secure-by-default baseline to verify.",
+    "snippet": "class Settings:\n    JWT_SECRET_KEY = os.getenv(\"JWT_SECRET_KEY\", generate_random_secret())\n    CHEF_USERNAME = os.getenv(\"CHEF_USERNAME\", \"chef\")\n\n    JWT_VERIFY_SIGNATURE = os.getenv(\"JWT_VERIFY_SIGNATURE\")\n\n    POSTGRES_USER: str = os.getenv(\"POSTGRES_USER\", \"admin\")\n    POSTGRES_PASSWORD = os.getenv(\"POSTGRES_PASSWORD\", \"password\")\n    POSTGRES_SERVER: str = os.getenv(\"POSTGRES_SERVER\", \"localhost\")\n    POSTGRES_PORT: str = os.getenv(\"POSTGRES_PORT\", 5432)\n    POSTGRES_DB: str = os.getenv(\"POSTGRES_DB\", \"restaurant\")"
+  },
+  "T281": {
+    "cm_id": "T281",
+    "domain": "infrastructure-hardening",
+    "file": "app/apis/auth/utils/utils.py",
+    "start_line": 117,
+    "end_line": 125,
+    "language": "python",
+    "finding": "Access tokens are minted with only an exp claim \u2014 no issuer, audience, jti or revocation support \u2014 and the caller chooses the lifetime.",
+    "snippet": "def create_access_token(data: dict, expires_delta: Union[timedelta, None] = None):\n    to_encode = data.copy()\n    if expires_delta:\n        expire = datetime.now(timezone.utc) + expires_delta\n    else:\n        expire = datetime.now(timezone.utc) + timedelta(minutes=15)\n    to_encode.update({\"exp\": expire})\n    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)\n    return encoded_jwt"
+  },
+  "T284": {
+    "cm_id": "T284",
+    "domain": "infrastructure-hardening",
+    "file": "app/config.py",
+    "start_line": 22,
+    "end_line": 27,
+    "language": "python",
+    "finding": "The fallback signing secret is six decimal digits drawn from the non-cryptographic `random` module.",
+    "snippet": "def generate_random_secret():\n    return \"\".join(random.choices(\"1234567890\", k=6))\n\n\nclass Settings:\n    JWT_SECRET_KEY = os.getenv(\"JWT_SECRET_KEY\", generate_random_secret())"
+  },
+  "T4441": {
+    "cm_id": "T4441",
+    "domain": "infrastructure-hardening",
+    "file": "start_app.sh",
+    "start_line": 1,
+    "end_line": 4,
+    "language": "bash",
+    "finding": "The script runs with the caller's inherited environment and PATH and passes it straight into the container runtime.",
+    "snippet": "#!/bin/bash\n\nmkdir -p postgres_data\ndocker compose up $1"
+  },
+  "T4442": {
+    "cm_id": "T4442",
+    "domain": "infrastructure-hardening",
+    "file": "stop_app.sh",
+    "start_line": 1,
+    "end_line": 3,
+    "language": "bash",
+    "finding": "The teardown script starts a privileged process with no process isolation, locking or signal handling.",
+    "snippet": "#!/bin/bash\n\ndocker compose down"
+  },
+  "T4452": {
+    "cm_id": "T4452",
+    "domain": "infrastructure-hardening",
+    "file": "start_game.sh",
+    "start_line": 1,
+    "end_line": 4,
+    "language": "bash",
+    "finding": "The script invokes a sibling script by relative path, resolving it from the caller's working directory and environment.",
+    "snippet": "#!/bin/bash\n\n./start_app.sh -d\ndocker compose exec web python3 game.py"
+  },
+  "T4453": {
+    "cm_id": "T4453",
+    "domain": "infrastructure-hardening",
+    "file": "start_game.sh",
+    "start_line": 1,
+    "end_line": 4,
+    "language": "bash",
+    "finding": "A second process is launched inside the running container with no supervision, timeout or cleanup.",
+    "snippet": "#!/bin/bash\n\n./start_app.sh -d\ndocker compose exec web python3 game.py"
+  },
+  "T101": {
+    "cm_id": "T101",
+    "domain": "input-validation",
+    "file": "app/apis/orders/services/get_order_status.py",
+    "start_line": 36,
+    "end_line": 42,
+    "language": "python",
+    "finding": "The UPDATE statement is built by f-string interpolation of status_value and order_id and executed through text(), so it is directly injectable.",
+    "snippet": "    raw_sql = f\"\"\"\n        UPDATE orders \n        SET status = '{status_value}'\n        WHERE id = {order_id}\n    \"\"\"\n    db.execute(text(raw_sql))\n    db.commit()"
+  },
+  "T1145": {
+    "cm_id": "T1145",
+    "domain": "input-validation",
+    "file": "app/main.py",
+    "start_line": 15,
+    "end_line": 21,
+    "language": "python",
+    "finding": "Documentation HTML is generated by interpolating app.root_path into URLs handed to the Swagger UI template helper.",
+    "snippet": "    @app.get(\"/\", include_in_schema=False)\n    def root_docs():\n        return get_swagger_ui_html(\n            openapi_url=f\"{app.root_path}/openapi.json\",\n            title=settings.TITLE,\n            swagger_favicon_url=f\"{app.root_path}/static/img/favicon-32x32.png\",\n        )"
+  },
+  "T122": {
+    "cm_id": "T122",
+    "domain": "input-validation",
+    "file": "app/apis/menu/utils.py",
+    "start_line": 9,
+    "end_line": 13,
+    "language": "python",
+    "finding": "A caller-supplied URL is fetched and its bytes are embedded in the application's own responses.",
+    "snippet": "def _image_url_to_base64(image_url: str):\n    response = requests.get(image_url, stream=True)\n    encoded_image = base64.b64encode(response.content).decode()\n\n    return encoded_image"
+  },
+  "T1392": {
+    "cm_id": "T1392",
+    "domain": "input-validation",
+    "file": "app/apis/menu/utils.py",
+    "start_line": 9,
+    "end_line": 13,
+    "language": "python",
+    "finding": "requests.get is issued against an unvalidated caller-supplied URL, reaching internal addresses and non-HTTP schemes.",
+    "snippet": "def _image_url_to_base64(image_url: str):\n    response = requests.get(image_url, stream=True)\n    encoded_image = base64.b64encode(response.content).decode()\n\n    return encoded_image"
+  },
+  "T2599": {
+    "cm_id": "T2599",
+    "domain": "input-validation",
+    "file": "app/config.py",
+    "start_line": 49,
+    "end_line": 53,
+    "language": "python",
+    "finding": "The database URL is assembled by string interpolation of five environment values with no escaping, so a value containing a delimiter can inject connection parameters.",
+    "snippet": "    @property\n    def DATABASE_URL(self) -> str:\n        if self.DB_BACKEND == \"memory\":\n            return \"sqlite://\"\n        return f\"postgresql://{self.POSTGRES_USER}:{self.POSTGRES_PASSWORD}@{self.POSTGRES_SERVER}:{self.POSTGRES_PORT}/{self.POSTGRES_DB}\""
+  },
+  "T2608": {
+    "cm_id": "T2608",
+    "domain": "input-validation",
+    "file": "app/config.py",
+    "start_line": 49,
+    "end_line": 53,
+    "language": "python",
+    "finding": "There is no encoding or validation of the interpolated credentials and host components to verify against.",
+    "snippet": "    @property\n    def DATABASE_URL(self) -> str:\n        if self.DB_BACKEND == \"memory\":\n            return \"sqlite://\"\n        return f\"postgresql://{self.POSTGRES_USER}:{self.POSTGRES_PASSWORD}@{self.POSTGRES_SERVER}:{self.POSTGRES_PORT}/{self.POSTGRES_DB}\""
+  },
+  "T279": {
+    "cm_id": "T279",
+    "domain": "input-validation",
+    "file": "app/apis/menu/utils.py",
+    "start_line": 9,
+    "end_line": 13,
+    "language": "python",
+    "finding": "Arbitrary remote bytes are pulled in at request time and stored for later use with no source restriction.",
+    "snippet": "def _image_url_to_base64(image_url: str):\n    response = requests.get(image_url, stream=True)\n    encoded_image = base64.b64encode(response.content).decode()\n\n    return encoded_image"
+  },
+  "T305": {
+    "cm_id": "T305",
+    "domain": "input-validation",
+    "file": "app/main.py",
+    "start_line": 11,
+    "end_line": 13,
+    "language": "python",
+    "finding": "The static mount resolves \"static\" relative to the process working directory rather than an absolute, trusted location.",
+    "snippet": "def setup_static_files_and_docs(app: FastAPI):\n    \"\"\"Setup static files and custom documentation endpoints with favicon\"\"\"\n    app.mount(\"/static\", StaticFiles(directory=\"static\"), name=\"static\")"
+  },
+  "T4433": {
+    "cm_id": "T4433",
+    "domain": "input-validation",
+    "file": "start_app.sh",
+    "start_line": 1,
+    "end_line": 4,
+    "language": "bash",
+    "finding": "Commands are invoked by bare name, so resolution depends on the inherited PATH.",
+    "snippet": "#!/bin/bash\n\nmkdir -p postgres_data\ndocker compose up $1"
+  },
+  "T4436": {
+    "cm_id": "T4436",
+    "domain": "input-validation",
+    "file": "start_app.sh",
+    "start_line": 1,
+    "end_line": 4,
+    "language": "bash",
+    "finding": "mkdir -p creates postgres_data relative to the caller's working directory with default permissions.",
+    "snippet": "#!/bin/bash\n\nmkdir -p postgres_data\ndocker compose up $1"
+  },
+  "T4437": {
+    "cm_id": "T4437",
+    "domain": "input-validation",
+    "file": "start_game.sh",
+    "start_line": 1,
+    "end_line": 4,
+    "language": "bash",
+    "finding": "The script executes a relative-path script and a file inside the container without validating either.",
+    "snippet": "#!/bin/bash\n\n./start_app.sh -d\ndocker compose exec web python3 game.py"
+  },
+  "T4444": {
+    "cm_id": "T4444",
+    "domain": "input-validation",
+    "file": "start_app.sh",
+    "start_line": 1,
+    "end_line": 4,
+    "language": "bash",
+    "finding": "There is no PATH hardening in the script to exercise.",
+    "snippet": "#!/bin/bash\n\nmkdir -p postgres_data\ndocker compose up $1"
+  },
+  "T4447": {
+    "cm_id": "T4447",
+    "domain": "input-validation",
+    "file": "start_app.sh",
+    "start_line": 1,
+    "end_line": 4,
+    "language": "bash",
+    "finding": "Directory creation applies no explicit mode and no ownership check.",
+    "snippet": "#!/bin/bash\n\nmkdir -p postgres_data\ndocker compose up $1"
+  },
+  "T4448": {
+    "cm_id": "T4448",
+    "domain": "input-validation",
+    "file": "start_game.sh",
+    "start_line": 1,
+    "end_line": 4,
+    "language": "bash",
+    "finding": "Input files consumed by the script are not validated before execution.",
+    "snippet": "#!/bin/bash\n\n./start_app.sh -d\ndocker compose exec web python3 game.py"
+  },
+  "T4449": {
+    "cm_id": "T4449",
+    "domain": "input-validation",
+    "file": "start_game.sh",
+    "start_line": 1,
+    "end_line": 4,
+    "language": "bash",
+    "finding": "The script copies no uploaded content but also applies no validation to the files it hands to the container.",
+    "snippet": "#!/bin/bash\n\n./start_app.sh -d\ndocker compose exec web python3 game.py"
+  },
+  "T659": {
+    "cm_id": "T659",
+    "domain": "input-validation",
+    "file": "app/apis/admin/utils.py",
+    "start_line": 4,
+    "end_line": 10,
+    "language": "python",
+    "finding": "The `parameters` string is concatenated onto \"df -h \" and executed with shell=True, giving direct command injection.",
+    "snippet": "def get_disk_usage(parameters: str):\n    command = \"df -h \" + parameters\n\n    try:\n        result = subprocess.run(\n            command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True\n        )"
+  },
+  "T7359": {
+    "cm_id": "T7359",
+    "domain": "input-validation",
+    "file": "app/apis/orders/services/get_order_status.py",
+    "start_line": 36,
+    "end_line": 42,
+    "language": "python",
+    "finding": "Raw SQL is assembled with f-string interpolation instead of bound parameters or the ORM.",
+    "snippet": "    raw_sql = f\"\"\"\n        UPDATE orders \n        SET status = '{status_value}'\n        WHERE id = {order_id}\n    \"\"\"\n    db.execute(text(raw_sql))\n    db.commit()"
+  },
+  "T7360": {
+    "cm_id": "T7360",
+    "domain": "input-validation",
+    "file": "app/apis/menu/utils.py",
+    "start_line": 9,
+    "end_line": 13,
+    "language": "python",
+    "finding": "The outbound request target comes straight from the request body with no scheme, host or address validation.",
+    "snippet": "def _image_url_to_base64(image_url: str):\n    response = requests.get(image_url, stream=True)\n    encoded_image = base64.b64encode(response.content).decode()\n\n    return encoded_image"
+  },
+  "T7366": {
+    "cm_id": "T7366",
+    "domain": "input-validation",
+    "file": "app/apis/menu/utils.py",
+    "start_line": 16,
+    "end_line": 31,
+    "language": "python",
+    "finding": "Remote image bytes are base64-encoded and stored with no content-type check, no magic-byte validation and no size limit.",
+    "snippet": "def create_menu_item(\n    db,\n    menu_item: schemas.MenuItemCreate,\n):\n    menu_item_dict = menu_item.dict()\n    image_url = menu_item_dict.pop(\"image_url\", None)\n    db_item = MenuItem(**menu_item_dict)\n\n    if image_url:\n        db_item.image_base64 = _image_url_to_base64(image_url)\n\n    db.add(db_item)\n    db.commit()\n    db.refresh(db_item)\n\n    return db_item"
+  },
+  "T7377": {
+    "cm_id": "T7377",
+    "domain": "input-validation",
+    "file": "app/main.py",
+    "start_line": 15,
+    "end_line": 21,
+    "language": "python",
+    "finding": "Server-rendered documentation HTML interpolates configuration values without escaping.",
+    "snippet": "    @app.get(\"/\", include_in_schema=False)\n    def root_docs():\n        return get_swagger_ui_html(\n            openapi_url=f\"{app.root_path}/openapi.json\",\n            title=settings.TITLE,\n            swagger_favicon_url=f\"{app.root_path}/static/img/favicon-32x32.png\",\n        )"
+  },
+  "T7378": {
+    "cm_id": "T7378",
+    "domain": "input-validation",
+    "file": "app/apis/menu/utils.py",
+    "start_line": 9,
+    "end_line": 11,
+    "language": "python",
+    "finding": "requests.get follows redirects by default from a caller-supplied URL, so the final target is attacker-chosen.",
+    "snippet": "def _image_url_to_base64(image_url: str):\n    response = requests.get(image_url, stream=True)\n    encoded_image = base64.b64encode(response.content).decode()"
+  },
+  "T7380": {
+    "cm_id": "T7380",
+    "domain": "input-validation",
+    "file": "app/apis/admin/utils.py",
+    "start_line": 4,
+    "end_line": 10,
+    "language": "python",
+    "finding": "A shell is spawned with a command string built from request input.",
+    "snippet": "def get_disk_usage(parameters: str):\n    command = \"df -h \" + parameters\n\n    try:\n        result = subprocess.run(\n            command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True\n        )"
+  },
+  "T7381": {
+    "cm_id": "T7381",
+    "domain": "input-validation",
+    "file": "app/apis/menu/utils.py",
+    "start_line": 9,
+    "end_line": 13,
+    "language": "python",
+    "finding": "Untrusted remote binary content is ingested and re-encoded with no parser restrictions.",
+    "snippet": "def _image_url_to_base64(image_url: str):\n    response = requests.get(image_url, stream=True)\n    encoded_image = base64.b64encode(response.content).decode()\n\n    return encoded_image"
+  },
+  "T7411": {
+    "cm_id": "T7411",
+    "domain": "input-validation",
+    "file": "app/apis/menu/services/create_menu_item_service.py",
+    "start_line": 15,
+    "end_line": 22,
+    "language": "python",
+    "finding": "Menu item name and description are accepted as free text and persisted with no output-encoding contract.",
+    "snippet": "def create_menu_item(\n    menu_item: schemas.MenuItemCreate,\n    current_user: Annotated[User, Depends(get_current_user)],\n    db: Session = Depends(get_db),\n    auth=Depends(RolesBasedAuthChecker([UserRole.EMPLOYEE, UserRole.CHEF])),\n):\n    db_item = utils.create_menu_item(db, menu_item)\n    return db_item"
+  },
+  "T7412": {
+    "cm_id": "T7412",
+    "domain": "input-validation",
+    "file": "app/apis/admin/utils.py",
+    "start_line": 4,
+    "end_line": 10,
+    "language": "python",
+    "finding": "The subprocess call runs in the application's own process context with no sandbox or privilege separation.",
+    "snippet": "def get_disk_usage(parameters: str):\n    command = \"df -h \" + parameters\n\n    try:\n        result = subprocess.run(\n            command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True\n        )"
+  },
+  "T7414": {
+    "cm_id": "T7414",
+    "domain": "input-validation",
+    "file": "app/apis/menu/services/create_menu_item_service.py",
+    "start_line": 15,
+    "end_line": 22,
+    "language": "python",
+    "finding": "Stored text fields are returned verbatim through the API with no encoding guarantee for HTML consumers.",
+    "snippet": "def create_menu_item(\n    menu_item: schemas.MenuItemCreate,\n    current_user: Annotated[User, Depends(get_current_user)],\n    db: Session = Depends(get_db),\n    auth=Depends(RolesBasedAuthChecker([UserRole.EMPLOYEE, UserRole.CHEF])),\n):\n    db_item = utils.create_menu_item(db, menu_item)\n    return db_item"
+  },
+  "T7415": {
+    "cm_id": "T7415",
+    "domain": "input-validation",
+    "file": "docker-compose.yml",
+    "start_line": 12,
+    "end_line": 14,
+    "language": "yaml",
+    "finding": "The container that executes shell commands on request runs privileged with SYS_ADMIN, so nothing is isolated.",
+    "snippet": "    privileged: true\n    cap_add:\n      - SYS_ADMIN"
+  },
+  "T89": {
+    "cm_id": "T89",
+    "domain": "input-validation",
+    "file": "app/apis/menu/utils.py",
+    "start_line": 34,
+    "end_line": 55,
+    "language": "python",
+    "finding": "Update writes caller-supplied text fields straight onto the model and back out through the API with no sanitization.",
+    "snippet": "def update_menu_item(\n    db,\n    item_id: int,\n    menu_item: schemas.MenuItemCreate,\n):\n    db_item = db.query(MenuItem).filter(MenuItem.id == item_id).first()\n    if db_item is None:\n        raise HTTPException(status_code=404, detail=\"Menu item not found\")\n\n    menu_item_dict = menu_item.dict()\n    image_url = menu_item_dict.pop(\"image_url\", None)\n\n    for key, value in menu_item_dict.items():\n        setattr(db_item, key, value)\n\n    if image_url:\n        db_item.image_base64 = _image_url_to_base64(image_url)\n\n    db.add(db_item)\n    db.commit()\n    db.refresh(db_item)\n    return db_item"
+  },
+  "T98": {
+    "cm_id": "T98",
+    "domain": "input-validation",
+    "file": "app/apis/admin/services/get_disk_stats_service.py",
+    "start_line": 16,
+    "end_line": 27,
+    "language": "python",
+    "finding": "The `parameters` query string is accepted with no validation and handed to a shell command builder.",
+    "snippet": "def get_disk_usage_stats(\n    current_user: Annotated[User, Depends(get_current_user)],\n    parameters: str = \"\",\n    db: Session = Depends(get_db),\n):\n    if current_user.role != UserRole.CHEF.value:\n        raise HTTPException(\n            status_code=403, detail=\"Only Chef is authorized to get current disk stats!\"\n        )\n\n    usage = get_disk_usage(parameters)\n    return DiskUsage(output=usage)"
+  },
+  "T7371": {
+    "cm_id": "T7371",
+    "domain": "logging-monitoring",
+    "file": "app/init_app.py",
+    "start_line": 10,
+    "end_line": 32,
+    "language": "python",
+    "finding": "The application factory configures no logging at all, so no structured audit record is produced for authentication, authorization or administrative actions.",
+    "snippet": "def init_app():\n    app = FastAPI(\n        title=settings.TITLE,\n        description=settings.DESCRIPTION,\n        version=settings.VERSION,\n        servers=settings.SERVERS,\n        root_path=settings.ROOT_PATH,\n        docs_url=None,\n        redoc_url=None,\n    )\n    app.add_middleware(\n        CORSMiddleware,\n        allow_origin_regex=\".*.(restaurant.com|deliveryservice.com)\",\n        allow_credentials=True,\n        allow_methods=[\"*\"],\n        allow_headers=[\"*\"],\n    )\n    app.state.limiter = limiter\n    app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)\n\n    app.include_router(api_router)\n\n    return app"
+  },
+  "T7369": {
+    "cm_id": "T7369",
+    "domain": "secrets-management",
+    "file": "app/config.py",
+    "start_line": 22,
+    "end_line": 27,
+    "language": "python",
+    "finding": "JWT_SECRET_KEY falls back to an in-process generated six-digit value instead of requiring an externally supplied secret.",
+    "snippet": "def generate_random_secret():\n    return \"\".join(random.choices(\"1234567890\", k=6))\n\n\nclass Settings:\n    JWT_SECRET_KEY = os.getenv(\"JWT_SECRET_KEY\", generate_random_secret())"
+  }
+}

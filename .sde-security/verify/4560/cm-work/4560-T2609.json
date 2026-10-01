@@ -1,0 +1,38 @@
+{
+  "full_cm_id": "4560-T2609",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/db/result_limits.py",
+      "line": 14,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Verified that the result-set ceiling is server-controlled and centralized: MAX_ROWS=500 is explicitly never derived from request input, and every bounded read goes through fetch_bounded so the maximum row count, overflow response and error message live in one place | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/db/result_limits.py",
+      "line": 25,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Verified that the limit is enforced in SQL via query.limit(max_rows + 1), so an oversized result is never materialized; the extra sentinel row proves the set exceeds the ceiling without a second COUNT query | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/db/result_limits.py",
+      "line": 30,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Verified that an over-limit query raises rather than truncating: HTTPException 413 REQUEST_ENTITY_TOO_LARGE is raised with a generic 'Result set too large; narrow the query' detail that does not disclose how many rows exist | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] app/db/result_limits.py centralizes result-set size control in fetch_bounded(): the ceiling MAX_ROWS=500 is server-controlled and explicitly never derived from request input, and the limit is applied in SQL via query.limit(max_rows + 1) so an oversized result is never materialized in memory | verdict=pass confidence=high",
+      "count": "1"
+    },
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] The over-limit path raises rather than truncating: the extra sentinel row proves the set exceeds the ceiling without a second COUNT query, and the request is failed with HTTP 413 and a generic 'Result set too large; narrow the query' message that does not disclose how many rows exist | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T2609 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

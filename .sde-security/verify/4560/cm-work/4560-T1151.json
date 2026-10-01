@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T1151",
+  "status": "partial",
+  "confidence": "low",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/Dockerfile",
+      "line": 0,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] CM scope (verify container network configuration via live daemon and container inspection) extends beyond repository files; partial verdict due to scope mismatch. The prescribed checks are ps -ef | grep dockerd for --icc/--iptables/--userland-proxy, docker network inspect for enable_icc, and docker inspect for host-IP port bindings — all runtime state absent from the Dockerfile supplied as the modified file | verdict=partial confidence=low",
+      "category": "scope-mismatch"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] CM scope (verify container network configuration) extends beyond repository files; partial verdict due to scope mismatch. The prescribed checks are all runtime inspections of a live daemon and running containers: ps -ef | grep dockerd for --icc, --iptables and --userland-proxy, docker network inspect for enable_icc, and docker inspect to confirm published ports are bound to a specific host IP rather than 0.0.0.0. None of that state is represented in the Dockerfile supplied as the modified file, so static review cannot establish the result. Requires runtime verification by the platform owner | verdict=partial confidence=low",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T1151 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

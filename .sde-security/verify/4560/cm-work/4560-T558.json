@@ -1,0 +1,34 @@
+{
+  "full_cm_id": "4560-T558",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/menu/utils.py",
+      "line": 213,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Outbound image fetch authenticates the remote component before exchanging data: TLS pinned to certifi's bundle (verify=certifi.where()), redirects refused (allow_redirects=False), and a bearer CDN credential presented outbound. Shares the security property of ctx.text's 'verified TLS endpoints / service credentials' recommendation | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/menu/utils.py",
+      "line": 40,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] _assert_image_host_is_authenticated enforces HTTPS-only scheme and an explicit hostname allow-list that fails closed when unconfigured, and _assert_resolved_address_is_routable rejects names resolving to private/loopback/link-local/reserved addresses. No implicit trust of network location | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/menu/utils.py",
+      "line": 105,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] _verify_content checks a SHA-256 digest with constant-time compare and, when a publishing key is configured, an RSA-PSS signature over the fetched bytes, so the peer's answer is authenticated rather than assumed | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] app/apis/menu/utils.py authenticates the remote image host before any bytes are exchanged: HTTPS-only scheme check, explicit hostname allow-list that fails closed when empty, DNS routability check rejecting private/loopback/link-local answers, certifi-pinned trust store, bearer CDN credential presented outbound, redirects refused, and SHA-256 digest plus optional RSA-PSS signature verification of the fetched content. No implicit network trust observed | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T558 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

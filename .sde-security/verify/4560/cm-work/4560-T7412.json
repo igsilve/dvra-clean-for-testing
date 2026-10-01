@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T7412",
+  "status": "partial",
+  "confidence": "low",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/admin/utils.py",
+      "line": 0,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] CM scope (isolate dangerous functionality and risky third-party components via sandboxing or encapsulation) extends beyond repository files; partial verdict due to scope mismatch. The code-level portion is present in the analysed module: OS command execution is encapsulated in a child process with a scrubbed environment, fixed PATH, cwd=/, detached stdin and a timeout. Containerization, network-level segmentation, least-privilege access between isolated zones and the recurring review of risky third-party components are deployment, runtime-configuration and process controls that cannot be confirmed from this file | verdict=partial confidence=low",
+      "category": "scope-mismatch"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] CM scope (isolate dangerous functionality and risky third-party components via sandboxing or encapsulation) extends beyond repository files; partial verdict due to scope mismatch. The code-level portion is present in the analysed module: OS command execution is encapsulated in a child process with a scrubbed environment, fixed PATH, cwd=/, detached stdin and a timeout. Containerization, network-level segmentation, least-privilege between zones and the recurring third-party review cadence are deployment and process controls that cannot be confirmed from this file | verdict=partial confidence=low",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T7412 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": "CM mitigation scope extends beyond repository files into containerization, network segmentation and third-party review process"
+}

@@ -1,0 +1,22 @@
+{
+ "full_cm_id": "4560-T35",
+ "status": "pass",
+ "confidence": "high",
+ "findings": [
+  {
+   "file": "/Users/isilveira/dvra-clean-for-testing/docker-compose.yml",
+   "line": 4,
+   "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] The uvicorn command (:4-12) sets the server-level ceilings the countermeasure asks for: --timeout-keep-alive 5 bounds the keep-alive hold-open that Slowloris depends on, --limit-concurrency 256 caps simultaneous connections, --limit-max-requests 10000 recycles workers, and --forwarded-allow-ips 10.0.0.0/8 restricts forwarded-header trust to known proxies. Container-level limits at :39-58 (cpus, mem_limit with memswap_limit equal, pids_limit, nofile ulimits, cgroup_parent) and restart on-failure:5 bound the same exhaustion routes a second time; the proxy and db services carry equivalent caps. Same resource-bounding property as the recommended server tuning | verdict=pass confidence=high",
+   "category": "alternative-mitigation-accepted"
+  }
+ ],
+ "findings_aggregated_for_sde": [
+  {
+   "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] HTTP server limits are explicitly tuned in docker-compose.yml:4-12: uvicorn runs with --timeout-keep-alive 5 (Slowloris-style hold-open), --limit-concurrency 256 (simultaneous connection ceiling), --limit-max-requests 10000 (worker recycling), --workers 4, --forwarded-allow-ips scoped to 10.0.0.0/8 so forwarded headers are trusted only from known proxies, and --no-server-header. Resource exhaustion is bounded a second time at the container level (:39-58): cpus 2.0, mem_limit/memswap_limit 1g, pids_limit 256, nofile 1024/2048, cgroup_parent, and restart on-failure:5. No unbounded timeout, connection or resource setting remains in this file | verdict=pass confidence=high",
+   "count": "1"
+  }
+ ],
+ "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T35 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+ "note_post_status": "POSTED",
+ "reason": ""
+}

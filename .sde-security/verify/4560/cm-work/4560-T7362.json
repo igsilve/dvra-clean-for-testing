@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T7362",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/init_app.py",
+      "line": 175,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: lines 175-177 add TrustedHostMiddleware(allowed_hosts=settings.ALLOWED_HOSTS), an explicit env-driven list defaulting to localhost,127.0.0.1 with no wildcard (config.py:155-159), so an unexpected Host yields 400; and HTTPSRedirectMiddleware is added when settings.ENVIRONMENT is ENV.PRODUCTION, so http/ws is redirected to https/wss. SecurityHeadersMiddleware emits Strict-Transport-Security: max-age=63072000; includeSubDomains (lines 31-33), above the CM's recommended floor. The Starlette Host-header parsing flaw is closed by dependency pins - pyproject.toml requires starlette >= 1.3.1 and poetry.lock resolves 1.7.0, past the 1.0.1 fix for CVE-2026-48710. No custom middleware makes a path-based security decision from the reconstructed request.url: AccessAuditMiddleware reads request.url.path only to write an audit field and branches solely on request.method and response.status_code, so there is no Host-header-influenced authorization or filtering path to bypass. TLS termination at the edge remains an operator responsibility outside this file. | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: app/init_app.py:175-177 adds TrustedHostMiddleware(allowed_hosts=settings.ALLOWED_HOSTS), an explicit env-driven list defaulting to localhost,127.0.0.1 with no wildcard (config.py:155-159), so an unexpected Host yields 400; and HTTPSRedirectMiddleware is added when settings.ENVIRONMENT is ENV.PRODUCTION, so http/ws is redirected to https/wss. SecurityHeadersMiddleware emits Strict-Transport-Security: max-age=63072000; includeSubDomains (lines 31-33), above the CM's recommended floor. The Starlette Host-header parsing flaw is closed by dependency pins - pyproject.toml requires starlette >= 1.3.1 and poetry.lock resolves 1.7.0, past the 1.0.1 fix for CVE-2026-48710. No custom middleware makes a path-based security decision from the reconstructed request.url: AccessAuditMiddleware reads request.url.path only to write an audit field and branches solely on request.method and response.status_code, so there is no Host-header-influenced authorization or filtering path to bypass. TLS termination at the edge remains an operator responsibility outside this file. | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T7362 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T338",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/auth/utils/authz.py",
+      "line": 40,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] The inconsistent-or-absent access control this CM addresses is not present; the module is a single centralised RBAC decision point. ROLE_PERMISSIONS states the whole model in one table with no inheritance and no wildcard, permissions_for() returns an empty set for any unrecognised role and has_permission() returns False for a null user or a user with no role, so every unanticipated case fails closed rather than raising a 500 that is mistaken for a refusal. Routes declare a Permission via the Requires dependency, which resolves the identity from the token through get_current_user, audits each denial with actor/role/action and returns a uniform opaque 403. Object-level authorization is covered by AuthzContext.require_ownership(), which decides against the resource loaded from the database rather than a client-supplied id, and by owned_by(), which narrows queries at the SQL level so a handler never holds another user's row. system_authz() is the only privileged escape hatch and is reachable solely from bootstrap seeding, never from request-influenced input | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] app/apis/auth/utils/authz.py: the inconsistent-or-absent access control this CM addresses is not present; the module is a single centralised RBAC decision point. ROLE_PERMISSIONS states the whole model in one table with no inheritance and no wildcard, permissions_for() returns an empty set for any unrecognised role and has_permission() returns False for a null user or a user with no role, so every unanticipated case fails closed rather than raising a 500 that is mistaken for a refusal. Routes declare a Permission via the Requires dependency, which resolves the identity from the token through get_current_user, audits each denial with actor/role/action and returns a uniform opaque 403. Object-level authorization is covered by AuthzContext.require_ownership(), which decides against the resource loaded from the database rather than a client-supplied id, and by owned_by(), which narrows queries at the SQL level so a handler never holds another user's row. system_authz() is the only privileged escape hatch and is reachable solely from bootstrap seeding, never from request-influenced input. | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T338 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

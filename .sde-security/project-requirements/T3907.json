@@ -1,0 +1,54 @@
+{
+  "cm_id": "T3907",
+  "additional_requirements": [
+    {
+      "id": "TA6603",
+      "title": "Ensure all build steps are defined as code",
+      "text": "Convert pipeline instructions into code-based syntax and upload them to the organization's version control platform.",
+      "ordinal": 10
+    },
+    {
+      "id": "TA6604",
+      "title": "Ensure steps have clearly defined build stage input and output",
+      "text": "For each build stage, clearly define what is expected for input and output.",
+      "ordinal": 20
+    },
+    {
+      "id": "TA6605",
+      "title": "Ensure output is written to a separate, secured storage repository",
+      "text": "For each pipeline that produces output artifacts, write them to a secured storage repository.",
+      "ordinal": 30
+    },
+    {
+      "id": "TA6606",
+      "title": "Ensure changes to pipeline files are tracked and reviewed",
+      "text": "For each pipeline file, track changes to it and review them.",
+      "ordinal": 40
+    },
+    {
+      "id": "TA6607",
+      "title": "Ensure access to build process triggering is minimized",
+      "text": "For every pipeline in use, grant only the necessary users permission to trigger it.",
+      "ordinal": 50
+    },
+    {
+      "id": "TA6608",
+      "title": "Ensure pipelines are automatically scanned for misconfigurations",
+      "text": "For each pipeline, set automated misconfiguration scanning.",
+      "ordinal": 60
+    },
+    {
+      "id": "TA6609",
+      "title": "Ensure pipelines are automatically scanned for vulnerabilities",
+      "text": "For each pipeline, set automated vulnerability scanning.",
+      "ordinal": 70
+    },
+    {
+      "id": "TA6667",
+      "title": "Ensure scanners are in place to identify and prevent sensitive data in pipeline files",
+      "text": "For every pipeline that is in use, set scanners that will identify and prevent sensitive data within it.",
+      "ordinal": 80
+    }
+  ],
+  "count": 8
+}

@@ -1,0 +1,1174 @@
+{
+  "CT9": {
+    "category": "CODE_FIX",
+    "domain": "infrastructure-hardening"
+  },
+  "T42": {
+    "category": "CODE_FIX",
+    "domain": "input-validation"
+  },
+  "T2665": {
+    "category": "INFRA",
+    "domain": "cryptography"
+  },
+  "T350": {
+    "category": "INFRA",
+    "domain": "logging-monitoring"
+  },
+  "T576": {
+    "category": "INFRA",
+    "domain": "input-validation"
+  },
+  "T228": {
+    "category": "CODE_FIX",
+    "domain": "api-security"
+  },
+  "T2666": {
+    "category": "INFRA",
+    "domain": "cryptography"
+  },
+  "T3930": {
+    "category": "INFRA",
+    "domain": "dependency-management"
+  },
+  "T7358": {
+    "category": "CODE_FIX",
+    "domain": "api-security"
+  },
+  "T2141": {
+    "category": "CODE_FIX",
+    "domain": "authorization"
+  },
+  "T1151": {
+    "category": "CODE_FIX",
+    "domain": "container-security"
+  },
+  "T2357": {
+    "category": "CODE_FIX",
+    "domain": "infrastructure-hardening"
+  },
+  "T2614": {
+    "category": "INFRA",
+    "domain": "database-security"
+  },
+  "T4454": {
+    "category": "CODE_FIX",
+    "domain": "cryptography"
+  },
+  "T2256": {
+    "category": "INFRA",
+    "domain": "container-security"
+  },
+  "T7354": {
+    "category": "CODE_FIX",
+    "domain": "authentication"
+  },
+  "T3903": {
+    "category": "INFRA",
+    "domain": "ci-cd-security"
+  },
+  "T1211": {
+    "category": "CODE_FIX",
+    "domain": "container-security"
+  },
+  "T4600": {
+    "category": "PROCESS",
+    "domain": null
+  },
+  "T1189": {
+    "category": "CODE_FIX",
+    "domain": "container-security"
+  },
+  "T50": {
+    "category": "CODE_FIX",
+    "domain": "authorization"
+  },
+  "T35": {
+    "category": "CODE_FIX",
+    "domain": "api-security"
+  },
+  "T7369": {
+    "category": "CODE_FIX",
+    "domain": "secrets-management"
+  },
+  "T59": {
+    "category": "CODE_FIX",
+    "domain": "cryptography"
+  },
+  "T2609": {
+    "category": "CODE_FIX",
+    "domain": "api-security"
+  },
+  "T7362": {
+    "category": "CODE_FIX",
+    "domain": "api-security"
+  },
+  "T340": {
+    "category": "INFRA",
+    "domain": "authentication"
+  },
+  "T1234": {
+    "category": "INFRA",
+    "domain": "container-security"
+  },
+  "T2663": {
+    "category": "INFRA",
+    "domain": "database-security"
+  },
+  "T4448": {
+    "category": "CODE_FIX",
+    "domain": "input-validation"
+  },
+  "T4442": {
+    "category": "CODE_FIX",
+    "domain": "infrastructure-hardening"
+  },
+  "T2110": {
+    "category": "INFRA",
+    "domain": "container-security"
+  },
+  "T305": {
+    "category": "CODE_FIX",
+    "domain": "input-validation"
+  },
+  "T1201": {
+    "category": "CODE_FIX",
+    "domain": "container-security"
+  },
+  "T2142": {
+    "category": "CODE_FIX",
+    "domain": "authorization"
+  },
+  "T3919": {
+    "category": "PROCESS",
+    "domain": null
+  },
+  "T2276": {
+    "category": "CODE_FIX",
+    "domain": "authentication"
+  },
+  "T60": {
+    "category": "CODE_FIX",
+    "domain": "cryptography"
+  },
+  "T589": {
+    "category": "CODE_FIX",
+    "domain": "authentication"
+  },
+  "T558": {
+    "category": "CODE_FIX",
+    "domain": "authentication"
+  },
+  "T66": {
+    "category": "CODE_FIX",
+    "domain": "api-security"
+  },
+  "T537": {
+    "category": "CODE_FIX",
+    "domain": "api-security"
+  },
+  "T3909": {
+    "category": "PROCESS",
+    "domain": null
+  },
+  "T7367": {
+    "category": "CODE_FIX",
+    "domain": "authentication"
+  },
+  "T3902": {
+    "category": "PROCESS",
+    "domain": null
+  },
+  "T1166": {
+    "category": "INFRA",
+    "domain": "cryptography"
+  },
+  "T7371": {
+    "category": "CODE_FIX",
+    "domain": "logging-monitoring"
+  },
+  "T151": {
+    "category": "CODE_FIX",
+    "domain": "cryptography"
+  },
+  "T3929": {
+    "category": "PROCESS",
+    "domain": null
+  },
+  "T378": {
+    "category": "CODE_FIX",
+    "domain": "authorization"
+  },
+  "T1206": {
+    "category": "CODE_FIX",
+    "domain": "container-security"
+  },
+  "T2602": {
+    "category": "INFRA",
+    "domain": "database-security"
+  },
+  "T7373": {
+    "category": "CODE_FIX",
+    "domain": "api-security"
+  },
+  "T86": {
+    "category": "CODE_FIX",
+    "domain": "authentication"
+  },
+  "T3932": {
+    "category": "CODE_FIX",
+    "domain": "ci-cd-security"
+  },
+  "T2277": {
+    "category": "INFRA",
+    "domain": "authentication"
+  },
+  "T1917": {
+    "category": "CODE_FIX",
+    "domain": "container-security"
+  },
+  "T2116": {
+    "category": "INFRA",
+    "domain": "container-security"
+  },
+  "T101": {
+    "category": "CODE_FIX",
+    "domain": "input-validation"
+  },
+  "T4438": {
+    "category": "CODE_FIX",
+    "domain": "input-validation"
+  },
+  "T1918": {
+    "category": "INFRA",
+    "domain": "authentication"
+  },
+  "T2599": {
+    "category": "CODE_FIX",
+    "domain": "input-validation"
+  },
+  "T2606": {
+    "category": "INFRA",
+    "domain": "authorization"
+  },
+  "T122": {
+    "category": "CODE_FIX",
+    "domain": "input-validation"
+  },
+  "T175": {
+    "category": "CODE_FIX",
+    "domain": "cryptography"
+  },
+  "T659": {
+    "category": "CODE_FIX",
+    "domain": "input-validation"
+  },
+  "T3917": {
+    "category": "PROCESS",
+    "domain": null
+  },
+  "T3910": {
+    "category": "PROCESS",
+    "domain": null
+  },
+  "T4441": {
+    "category": "CODE_FIX",
+    "domain": "infrastructure-hardening"
+  },
+  "T3912": {
+    "category": "PROCESS",
+    "domain": null
+  },
+  "T3913": {
+    "category": "INFRA",
+    "domain": "dependency-management"
+  },
+  "T7359": {
+    "category": "CODE_FIX",
+    "domain": "input-validation"
+  },
+  "T4751": {
+    "category": "CODE_FIX",
+    "domain": "container-security"
+  },
+  "T7376": {
+    "category": "CODE_FIX",
+    "domain": "api-security"
+  },
+  "T1236": {
+    "category": "INFRA",
+    "domain": "container-security"
+  },
+  "T36": {
+    "category": "CODE_FIX",
+    "domain": "input-validation"
+  },
+  "T1214": {
+    "category": "CODE_FIX",
+    "domain": "container-security"
+  },
+  "T2600": {
+    "category": "CODE_FIX",
+    "domain": "api-security"
+  },
+  "T3933": {
+    "category": "INFRA",
+    "domain": "ci-cd-security"
+  },
+  "T98": {
+    "category": "CODE_FIX",
+    "domain": "input-validation"
+  },
+  "T296": {
+    "category": "CODE_FIX",
+    "domain": "cryptography"
+  },
+  "T4435": {
+    "category": "CODE_FIX",
+    "domain": "input-validation"
+  },
+  "T70": {
+    "category": "CODE_FIX",
+    "domain": "authentication"
+  },
+  "T7378": {
+    "category": "CODE_FIX",
+    "domain": "input-validation"
+  },
+  "T7356": {
+    "category": "CODE_FIX",
+    "domain": "authorization"
+  },
+  "T1199": {
+    "category": "CODE_FIX",
+    "domain": "container-security"
+  },
+  "T3923": {
+    "category": "INFRA",
+    "domain": "ci-cd-security"
+  },
+  "T230": {
+    "category": "CODE_FIX",
+    "domain": "authentication"
+  },
+  "T105": {
+    "category": "CODE_FIX",
+    "domain": "infrastructure-hardening"
+  },
+  "T106": {
+    "category": "CODE_FIX",
+    "domain": "authorization"
+  },
+  "T78": {
+    "category": "CODE_FIX",
+    "domain": "authentication"
+  },
+  "T7366": {
+    "category": "CODE_FIX",
+    "domain": "input-validation"
+  },
+  "T1363": {
+    "category": "CODE_FIX",
+    "domain": "api-security"
+  },
+  "T2486": {
+    "category": "CODE_FIX",
+    "domain": "cryptography"
+  },
+  "T1159": {
+    "category": "INFRA",
+    "domain": "container-security"
+  },
+  "T1198": {
+    "category": "CODE_FIX",
+    "domain": "container-security"
+  },
+  "T226": {
+    "category": "CODE_FIX",
+    "domain": "authorization"
+  },
+  "T2662": {
+    "category": "INFRA",
+    "domain": "database-security"
+  },
+  "T2621": {
+    "category": "INFRA",
+    "domain": "cryptography"
+  },
+  "T89": {
+    "category": "CODE_FIX",
+    "domain": "input-validation"
+  },
+  "T4436": {
+    "category": "CODE_FIX",
+    "domain": "input-validation"
+  },
+  "T1176": {
+    "category": "CODE_FIX",
+    "domain": "container-security"
+  },
+  "T1210": {
+    "category": "CODE_FIX",
+    "domain": "container-security"
+  },
+  "T7372": {
+    "category": "CODE_FIX",
+    "domain": "api-security"
+  },
+  "T7360": {
+    "category": "CODE_FIX",
+    "domain": "input-validation"
+  },
+  "T1213": {
+    "category": "CODE_FIX",
+    "domain": "container-security"
+  },
+  "T1144": {
+    "category": "CODE_FIX",
+    "domain": "input-validation"
+  },
+  "T184": {
+    "category": "CODE_FIX",
+    "domain": "authorization"
+  },
+  "T2258": {
+    "category": "INFRA",
+    "domain": "infrastructure-hardening"
+  },
+  "T3926": {
+    "category": "PROCESS",
+    "domain": null
+  },
+  "T7353": {
+    "category": "CODE_FIX",
+    "domain": "authentication"
+  },
+  "T1889": {
+    "category": "INFRA",
+    "domain": "authentication"
+  },
+  "T2652": {
+    "category": "INFRA",
+    "domain": "database-security"
+  },
+  "T2140": {
+    "category": "CODE_FIX",
+    "domain": "api-security"
+  },
+  "T2620": {
+    "category": "INFRA",
+    "domain": "cryptography"
+  },
+  "T7411": {
+    "category": "CODE_FIX",
+    "domain": "input-validation"
+  },
+  "T439": {
+    "category": "CODE_FIX",
+    "domain": "cryptography"
+  },
+  "T318": {
+    "category": "CODE_FIX",
+    "domain": "api-security"
+  },
+  "T2661": {
+    "category": "INFRA",
+    "domain": "database-security"
+  },
+  "T1145": {
+    "category": "CODE_FIX",
+    "domain": "input-validation"
+  },
+  "T32": {
+    "category": "CODE_FIX",
+    "domain": "input-validation"
+  },
+  "T29": {
+    "category": "CODE_FIX",
+    "domain": "api-security"
+  },
+  "T1541": {
+    "category": "CODE_FIX",
+    "domain": "api-security"
+  },
+  "T279": {
+    "category": "CODE_FIX",
+    "domain": "input-validation"
+  },
+  "T4434": {
+    "category": "CODE_FIX",
+    "domain": "input-validation"
+  },
+  "T3920": {
+    "category": "INFRA",
+    "domain": "ci-cd-security"
+  },
+  "T3905": {
+    "category": "INFRA",
+    "domain": "ci-cd-security"
+  },
+  "T374": {
+    "category": "INFRA",
+    "domain": "api-security"
+  },
+  "T7370": {
+    "category": "CODE_FIX",
+    "domain": "api-security"
+  },
+  "T1193": {
+    "category": "CODE_FIX",
+    "domain": "container-security"
+  },
+  "T2607": {
+    "category": "INFRA",
+    "domain": "authorization"
+  },
+  "T3916": {
+    "category": "INFRA",
+    "domain": "ci-cd-security"
+  },
+  "T1173": {
+    "category": "INFRA",
+    "domain": "container-security"
+  },
+  "T406": {
+    "category": "CODE_FIX",
+    "domain": "authentication"
+  },
+  "T4452": {
+    "category": "CODE_FIX",
+    "domain": "infrastructure-hardening"
+  },
+  "T4444": {
+    "category": "CODE_FIX",
+    "domain": "input-validation"
+  },
+  "T69": {
+    "category": "CODE_FIX",
+    "domain": "authentication"
+  },
+  "T3924": {
+    "category": "INFRA",
+    "domain": "ci-cd-security"
+  },
+  "T3922": {
+    "category": "INFRA",
+    "domain": "ci-cd-security"
+  },
+  "T1197": {
+    "category": "CODE_FIX",
+    "domain": "container-security"
+  },
+  "T1191": {
+    "category": "CODE_FIX",
+    "domain": "container-security"
+  },
+  "T2139": {
+    "category": "CODE_FIX",
+    "domain": "api-security"
+  },
+  "T7377": {
+    "category": "CODE_FIX",
+    "domain": "input-validation"
+  },
+  "T4747": {
+    "category": "CODE_FIX",
+    "domain": "container-security"
+  },
+  "T573": {
+    "category": "INFRA",
+    "domain": "input-validation"
+  },
+  "T2257": {
+    "category": "INFRA",
+    "domain": "container-security"
+  },
+  "T4446": {
+    "category": "CODE_FIX",
+    "domain": "input-validation"
+  },
+  "T2597": {
+    "category": "INFRA",
+    "domain": "authorization"
+  },
+  "T1150": {
+    "category": "CODE_FIX",
+    "domain": "container-security"
+  },
+  "T167": {
+    "category": "CODE_FIX",
+    "domain": "api-security"
+  },
+  "T96": {
+    "category": "CODE_FIX",
+    "domain": "api-security"
+  },
+  "T2605": {
+    "category": "INFRA",
+    "domain": "database-security"
+  },
+  "T1203": {
+    "category": "CODE_FIX",
+    "domain": "container-security"
+  },
+  "T2615": {
+    "category": "INFRA",
+    "domain": "database-security"
+  },
+  "T1190": {
+    "category": "CODE_FIX",
+    "domain": "container-security"
+  },
+  "T119": {
+    "category": "CODE_FIX",
+    "domain": "api-security"
+  },
+  "T76": {
+    "category": "CODE_FIX",
+    "domain": "secrets-management"
+  },
+  "T1922": {
+    "category": "CODE_FIX",
+    "domain": "authentication"
+  },
+  "T3907": {
+    "category": "INFRA",
+    "domain": "ci-cd-security"
+  },
+  "T3906": {
+    "category": "INFRA",
+    "domain": "ci-cd-security"
+  },
+  "T20": {
+    "category": "CODE_FIX",
+    "domain": "authentication"
+  },
+  "T1209": {
+    "category": "CODE_FIX",
+    "domain": "container-security"
+  },
+  "T1237": {
+    "category": "INFRA",
+    "domain": "container-security"
+  },
+  "T349": {
+    "category": "INFRA",
+    "domain": "logging-monitoring"
+  },
+  "T21": {
+    "category": "CODE_FIX",
+    "domain": "cryptography"
+  },
+  "T281": {
+    "category": "CODE_FIX",
+    "domain": "infrastructure-hardening"
+  },
+  "T3918": {
+    "category": "PROCESS",
+    "domain": null
+  },
+  "T2115": {
+    "category": "INFRA",
+    "domain": "container-security"
+  },
+  "T3931": {
+    "category": "PROCESS",
+    "domain": null
+  },
+  "T2282": {
+    "category": "CODE_FIX",
+    "domain": "authorization"
+  },
+  "T1362": {
+    "category": "CODE_FIX",
+    "domain": "api-security"
+  },
+  "T2601": {
+    "category": "INFRA",
+    "domain": "cryptography"
+  },
+  "T2598": {
+    "category": "INFRA",
+    "domain": "authorization"
+  },
+  "T4433": {
+    "category": "CODE_FIX",
+    "domain": "input-validation"
+  },
+  "T587": {
+    "category": "CODE_FIX",
+    "domain": "cryptography"
+  },
+  "T7363": {
+    "category": "CODE_FIX",
+    "domain": "api-security"
+  },
+  "T3925": {
+    "category": "INFRA",
+    "domain": "ci-cd-security"
+  },
+  "T214": {
+    "category": "INFRA",
+    "domain": "secrets-management"
+  },
+  "T7381": {
+    "category": "CODE_FIX",
+    "domain": "input-validation"
+  },
+  "T1194": {
+    "category": "CODE_FIX",
+    "domain": "container-security"
+  },
+  "T4443": {
+    "category": "CODE_FIX",
+    "domain": "cryptography"
+  },
+  "T394": {
+    "category": "CODE_FIX",
+    "domain": "authentication"
+  },
+  "T1192": {
+    "category": "CODE_FIX",
+    "domain": "container-security"
+  },
+  "T18": {
+    "category": "CODE_FIX",
+    "domain": "authorization"
+  },
+  "T1157": {
+    "category": "INFRA",
+    "domain": "container-security"
+  },
+  "T2356": {
+    "category": "PROCESS",
+    "domain": null
+  },
+  "T7368": {
+    "category": "CODE_FIX",
+    "domain": "api-security"
+  },
+  "T338": {
+    "category": "CODE_FIX",
+    "domain": "authentication"
+  },
+  "T2596": {
+    "category": "CODE_FIX",
+    "domain": "api-security"
+  },
+  "T197": {
+    "category": "CODE_FIX",
+    "domain": "cryptography"
+  },
+  "T7415": {
+    "category": "CODE_FIX",
+    "domain": "input-validation"
+  },
+  "T85": {
+    "category": "CODE_FIX",
+    "domain": "authorization"
+  },
+  "T7379": {
+    "category": "CODE_FIX",
+    "domain": "api-security"
+  },
+  "T257": {
+    "category": "CODE_FIX",
+    "domain": "api-security"
+  },
+  "T1539": {
+    "category": "CODE_FIX",
+    "domain": "authentication"
+  },
+  "T1542": {
+    "category": "CODE_FIX",
+    "domain": "api-security"
+  },
+  "T1174": {
+    "category": "CODE_FIX",
+    "domain": "container-security"
+  },
+  "T1887": {
+    "category": "CODE_FIX",
+    "domain": "authentication"
+  },
+  "T2608": {
+    "category": "CODE_FIX",
+    "domain": "input-validation"
+  },
+  "T4749": {
+    "category": "INFRA",
+    "domain": "container-security"
+  },
+  "T166": {
+    "category": "CODE_FIX",
+    "domain": "api-security"
+  },
+  "T7412": {
+    "category": "CODE_FIX",
+    "domain": "input-validation"
+  },
+  "T1540": {
+    "category": "CODE_FIX",
+    "domain": "authentication"
+  },
+  "T7380": {
+    "category": "CODE_FIX",
+    "domain": "input-validation"
+  },
+  "T186": {
+    "category": "CODE_FIX",
+    "domain": "dependency-management"
+  },
+  "T1155": {
+    "category": "INFRA",
+    "domain": "container-security"
+  },
+  "T7375": {
+    "category": "CODE_FIX",
+    "domain": "api-security"
+  },
+  "T7355": {
+    "category": "CODE_FIX",
+    "domain": "authorization"
+  },
+  "T1200": {
+    "category": "CODE_FIX",
+    "domain": "container-security"
+  },
+  "T4746": {
+    "category": "CODE_FIX",
+    "domain": "container-security"
+  },
+  "T15": {
+    "category": "CODE_FIX",
+    "domain": "authorization"
+  },
+  "T1204": {
+    "category": "CODE_FIX",
+    "domain": "container-security"
+  },
+  "T4449": {
+    "category": "CODE_FIX",
+    "domain": "input-validation"
+  },
+  "T445": {
+    "category": "CODE_FIX",
+    "domain": "cryptography"
+  },
+  "T1215": {
+    "category": "CODE_FIX",
+    "domain": "container-security"
+  },
+  "T1196": {
+    "category": "CODE_FIX",
+    "domain": "container-security"
+  },
+  "T1919": {
+    "category": "CODE_FIX",
+    "domain": "authentication"
+  },
+  "T1365": {
+    "category": "CODE_FIX",
+    "domain": "input-validation"
+  },
+  "T7382": {
+    "category": "CODE_FIX",
+    "domain": "api-security"
+  },
+  "T4440": {
+    "category": "CODE_FIX",
+    "domain": "authorization"
+  },
+  "T1167": {
+    "category": "INFRA",
+    "domain": "cryptography"
+  },
+  "T1186": {
+    "category": "CODE_FIX",
+    "domain": "secrets-management"
+  },
+  "T61": {
+    "category": "CODE_FIX",
+    "domain": "authentication"
+  },
+  "T87": {
+    "category": "CODE_FIX",
+    "domain": "cryptography"
+  },
+  "T2105": {
+    "category": "INFRA",
+    "domain": "authorization"
+  },
+  "T407": {
+    "category": "CODE_FIX",
+    "domain": "authentication"
+  },
+  "T3927": {
+    "category": "PROCESS",
+    "domain": null
+  },
+  "T4450": {
+    "category": "CODE_FIX",
+    "domain": "authentication"
+  },
+  "T4453": {
+    "category": "CODE_FIX",
+    "domain": "infrastructure-hardening"
+  },
+  "T1235": {
+    "category": "INFRA",
+    "domain": "container-security"
+  },
+  "T7361": {
+    "category": "CODE_FIX",
+    "domain": "api-security"
+  },
+  "T4437": {
+    "category": "CODE_FIX",
+    "domain": "input-validation"
+  },
+  "T395": {
+    "category": "CODE_FIX",
+    "domain": "authentication"
+  },
+  "T373": {
+    "category": "CODE_FIX",
+    "domain": "authorization"
+  },
+  "T284": {
+    "category": "CODE_FIX",
+    "domain": "infrastructure-hardening"
+  },
+  "T1156": {
+    "category": "INFRA",
+    "domain": "container-security"
+  },
+  "T4601": {
+    "category": "INFRA",
+    "domain": "infrastructure-hardening"
+  },
+  "T2485": {
+    "category": "CODE_FIX",
+    "domain": "cryptography"
+  },
+  "T3914": {
+    "category": "PROCESS",
+    "domain": null
+  },
+  "T536": {
+    "category": "CODE_FIX",
+    "domain": "api-security"
+  },
+  "T7357": {
+    "category": "CODE_FIX",
+    "domain": "api-security"
+  },
+  "T1212": {
+    "category": "CODE_FIX",
+    "domain": "container-security"
+  },
+  "T75": {
+    "category": "CODE_FIX",
+    "domain": "api-security"
+  },
+  "T4750": {
+    "category": "CODE_FIX",
+    "domain": "container-security"
+  },
+  "T2616": {
+    "category": "INFRA",
+    "domain": "database-security"
+  },
+  "T1177": {
+    "category": "CODE_FIX",
+    "domain": "container-security"
+  },
+  "T323": {
+    "category": "CODE_FIX",
+    "domain": "authentication"
+  },
+  "T2106": {
+    "category": "INFRA",
+    "domain": "authorization"
+  },
+  "T2603": {
+    "category": "INFRA",
+    "domain": "cryptography"
+  },
+  "T3915": {
+    "category": "CODE_FIX",
+    "domain": "ci-cd-security"
+  },
+  "T1158": {
+    "category": "INFRA",
+    "domain": "container-security"
+  },
+  "T7374": {
+    "category": "CODE_FIX",
+    "domain": "dependency-management"
+  },
+  "T295": {
+    "category": "CODE_FIX",
+    "domain": "cryptography"
+  },
+  "T1172": {
+    "category": "INFRA",
+    "domain": "container-security"
+  },
+  "T1154": {
+    "category": "INFRA",
+    "domain": "container-security"
+  },
+  "T4445": {
+    "category": "CODE_FIX",
+    "domain": "input-validation"
+  },
+  "T4451": {
+    "category": "CODE_FIX",
+    "domain": "authorization"
+  },
+  "T4748": {
+    "category": "INFRA",
+    "domain": "authorization"
+  },
+  "T7365": {
+    "category": "CODE_FIX",
+    "domain": "api-security"
+  },
+  "T1187": {
+    "category": "CODE_FIX",
+    "domain": "secrets-management"
+  },
+  "T156": {
+    "category": "CODE_FIX",
+    "domain": "cryptography"
+  },
+  "T1175": {
+    "category": "CODE_FIX",
+    "domain": "container-security"
+  },
+  "T1205": {
+    "category": "CODE_FIX",
+    "domain": "container-security"
+  },
+  "T2612": {
+    "category": "INFRA",
+    "domain": "cryptography"
+  },
+  "T43": {
+    "category": "CODE_FIX",
+    "domain": "input-validation"
+  },
+  "T114": {
+    "category": "CODE_FIX",
+    "domain": "authentication"
+  },
+  "T4447": {
+    "category": "CODE_FIX",
+    "domain": "input-validation"
+  },
+  "T17": {
+    "category": "CODE_FIX",
+    "domain": "authorization"
+  },
+  "T7364": {
+    "category": "CODE_FIX",
+    "domain": "api-security"
+  },
+  "T2611": {
+    "category": "INFRA",
+    "domain": "database-security"
+  },
+  "T49": {
+    "category": "CODE_FIX",
+    "domain": "infrastructure-hardening"
+  },
+  "T3901": {
+    "category": "PROCESS",
+    "domain": null
+  },
+  "T4439": {
+    "category": "CODE_FIX",
+    "domain": "authentication"
+  },
+  "T1468": {
+    "category": "CODE_FIX",
+    "domain": "cryptography"
+  },
+  "T1188": {
+    "category": "CODE_FIX",
+    "domain": "container-security"
+  },
+  "T1392": {
+    "category": "CODE_FIX",
+    "domain": "input-validation"
+  },
+  "T241": {
+    "category": "CODE_FIX",
+    "domain": "dependency-management"
+  },
+  "T2349": {
+    "category": "CODE_FIX",
+    "domain": "infrastructure-hardening"
+  },
+  "T446": {
+    "category": "CODE_FIX",
+    "domain": "cryptography"
+  },
+  "T2109": {
+    "category": "INFRA",
+    "domain": "container-security"
+  },
+  "T38": {
+    "category": "CODE_FIX",
+    "domain": "input-validation"
+  },
+  "T7414": {
+    "category": "CODE_FIX",
+    "domain": "input-validation"
+  },
+  "T3900": {
+    "category": "PROCESS",
+    "domain": null
+  },
+  "T1208": {
+    "category": "CODE_FIX",
+    "domain": "container-security"
+  },
+  "T1202": {
+    "category": "CODE_FIX",
+    "domain": "container-security"
+  },
+  "T1195": {
+    "category": "CODE_FIX",
+    "domain": "container-security"
+  },
+  "T3908": {
+    "category": "INFRA",
+    "domain": "ci-cd-security"
+  },
+  "T2610": {
+    "category": "INFRA",
+    "domain": "cryptography"
+  },
+  "T128": {
+    "category": "CODE_FIX",
+    "domain": "authorization"
+  },
+  "T2348": {
+    "category": "PROCESS",
+    "domain": null
+  },
+  "T116": {
+    "category": "CODE_FIX",
+    "domain": "api-security"
+  },
+  "T1207": {
+    "category": "CODE_FIX",
+    "domain": "container-security"
+  },
+  "T2619": {
+    "category": "INFRA",
+    "domain": "database-security"
+  }
+}

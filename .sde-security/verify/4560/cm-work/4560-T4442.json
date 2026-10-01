@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T4442",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/stop_app.sh",
+      "line": 36,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: stop_app.sh serialises teardown with an atomic `mkdir` lock (line 36), writes its own PID into the lock (line 52) and reaps a stale lock via a `kill -0` liveness check (line 40), releases the lock on every exit path with `trap 'rm -rf \"$LOCK\"' EXIT` (line 56), bounds the teardown with `run_bounded 120` (line 61), and gates execution on `require_operator` (line 21) | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: stop_app.sh serialises teardown with an atomic mkdir lock, records its PID in the lock and reaps stale locks via kill -0 liveness check, removes the lock on every exit path with trap EXIT, bounds the compose down run with run_bounded 120, and gates execution on require_operator | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T4442 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

@@ -1,0 +1,28 @@
+{
+  "full_cm_id": "4560-T1190",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/Dockerfile",
+      "line": 60,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] The image drops to a fixed non-system identity before the entrypoint runs: a dedicated uid/gid 10001 account with /usr/sbin/nologin is created (lines 51-52) and USER 10001:10001 is set (line 60), with application code owned by root so the runtime user only reads it; a non-root process carries no ambient capabilities and nothing in the build grants any | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/docker-compose.yml",
+      "line": 26,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Capability flags are runtime settings and the compose file applies how-to I940's recommended shape: cap_drop ALL on all three services, with web adding none, the proxy adding only CHOWN/SETUID/SETGID (lines 103-106) and the database only CHOWN/DAC_OVERRIDE/FOWNER/SETUID/SETGID (lines 162-167), plus no-new-privileges:true; no service sets privileged | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: In the Dockerfile the image drops to a fixed non-system identity before the entrypoint runs: a dedicated uid/gid 10001 account with /usr/sbin/nologin is created (lines 51-52) and USER 10001:10001 is set (line 60), with application code owned by root so the runtime user only reads it. A non-root process carries no ambient capabilities, and nothing in the build grants any. The capability flags themselves are runtime settings, and the project's compose file applies how-to I940's recommended shape: cap_drop ALL on all three services, with the web service adding none, the proxy adding only CHOWN, SETUID and SETGID (lines 103-106) and the database only CHOWN, DAC_OVERRIDE, FOWNER, SETUID and SETGID (lines 162-167), plus no-new-privileges:true; no service sets privileged | verdict=pass confidence=high",
+      "count": "2"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T1190 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

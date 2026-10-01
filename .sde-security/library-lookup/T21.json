@@ -1,0 +1,16 @@
+{
+  "cm_id": "T21",
+  "endpoint": "library/tasks/T21/amendments/",
+  "http_status": 200,
+  "result": "LIBRARY_SOURCED",
+  "retry_count": 0,
+  "queried_at": "2026-09-30T02:51:37.064682Z",
+  "matched_amendments": [
+    {
+      "amendment_id": "TA8620",
+      "technology": "Python",
+      "source_amendment_char_count": 4390
+    }
+  ],
+  "additional_requirements_count": 4
+}

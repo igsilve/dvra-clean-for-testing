@@ -1,0 +1,28 @@
+{
+  "full_cm_id": "4560-T4449",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/start_app.sh",
+      "line": 0,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] vulnerability-absent-mitigation-unrecognized: start_app.sh has no file-upload surface -- it receives no uploaded file and performs no extension check, size check, content inspection, unique-name generation or upload-directory write; the only file-system write is the database volume created with mkdir -m 0700 under umask 077 (lines 23, 40), so the vulnerable pattern described by the countermeasure is not present | verdict=pass confidence=high",
+      "category": "vulnerability-absent-mitigation-unrecognized"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/start_game.sh",
+      "line": 0,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] vulnerability-absent-mitigation-unrecognized: start_game.sh has no file-upload surface -- it accepts no uploaded content and writes no file; it only validates and executes fixed, pre-existing paths (the sibling start_app.sh and the hardcoded /app/game.py), so the vulnerable pattern described by the countermeasure is not present | verdict=pass confidence=high",
+      "category": "vulnerability-absent-mitigation-unrecognized"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] vulnerability-absent-mitigation-unrecognized: start_app.sh and start_game.sh contain no file-upload surface at all -- no uploaded file is received, named, extension-checked, size-checked or written to a storage directory -- so the vulnerable pattern described by the CM is not present; the only file-system writes are the 0700 database volume under umask 077 | verdict=pass confidence=high",
+      "count": "2"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T4449 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

@@ -1,0 +1,25 @@
+{
+  "cm_id": "T122",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Test for remote file include",
+    "priority": 10,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T122/",
+    "description": "Restrict which remote locations the service may load content from.",
+    "language": "python",
+    "file": "app/apis/menu/utils.py",
+    "start_line": 9,
+    "end_line": 13,
+    "finding": "A caller-supplied URL is fetched and its bytes are embedded in the application's own responses.",
+    "current_code": "def _image_url_to_base64(image_url: str):\n    response = requests.get(image_url, stream=True)\n    encoded_image = base64.b64encode(response.content).decode()\n\n    return encoded_image",
+    "required_fix": "# app/apis/menu/utils.py\nALLOWED_IMAGE_HOSTS = {\"cdn.restaurant.com\"}\n\n\ndef _validate_image_url(image_url: str) -> str:\n    parsed = urlparse(image_url)\n    if parsed.scheme != \"https\" or parsed.hostname not in ALLOWED_IMAGE_HOSTS:\n        raise HTTPException(status_code=400, detail=\"Image host not allowed\")\n    return image_url",
+    "criteria": [
+      "Remote content is loaded only from hosts on an allow-list.",
+      "Non-HTTPS schemes such as file:, gopher: and ftp: are rejected.",
+      "A URL pointing at an internal address is rejected."
+    ]
+  }
+}

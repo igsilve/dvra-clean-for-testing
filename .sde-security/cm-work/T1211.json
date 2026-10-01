@@ -1,0 +1,25 @@
+{
+  "cm_id": "T1211",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Verify that seccomp profile is enabled (Docker)",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T1211/",
+    "description": "Drop privileged mode so the default seccomp profile applies, and pin the profile explicitly.",
+    "language": "yaml",
+    "file": "docker-compose.yml",
+    "start_line": 12,
+    "end_line": 14,
+    "finding": "privileged: true disables the default seccomp profile for the container.",
+    "current_code": "    privileged: true\n    cap_add:\n      - SYS_ADMIN",
+    "required_fix": "# docker-compose.yml\n  web:\n    privileged: false\n    security_opt:\n      - seccomp=./deploy/seccomp-restaurant.json\n      - no-new-privileges:true",
+    "criteria": [
+      "`privileged: true` appears nowhere.",
+      "A seccomp profile is referenced explicitly rather than relying on the default.",
+      "`docker inspect` shows SeccompProfile applied."
+    ]
+  }
+}

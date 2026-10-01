@@ -1,0 +1,25 @@
+{
+  "cm_id": "T284",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Generate secure access tokens (API tokens)",
+    "priority": 7,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T284/",
+    "description": "Generate token-signing material from a cryptographic source, or require it from configuration, never from `random`.",
+    "language": "python",
+    "file": "app/config.py",
+    "start_line": 22,
+    "end_line": 27,
+    "finding": "The fallback signing secret is six decimal digits drawn from the non-cryptographic `random` module.",
+    "current_code": "def generate_random_secret():\n    return \"\".join(random.choices(\"1234567890\", k=6))\n\n\nclass Settings:\n    JWT_SECRET_KEY = os.getenv(\"JWT_SECRET_KEY\", generate_random_secret())",
+    "required_fix": "# app/config.py\n# generate_random_secret() is deleted; the key must be supplied:\nJWT_SECRET_KEY: str = _required(\"JWT_SECRET_KEY\")\n\n# If a value must ever be generated operationally, it is done out of band:\n#   python -c \"import secrets; print(secrets.token_urlsafe(48))\"",
+    "criteria": [
+      "`random` is not used for any token or key.",
+      "Generated tokens carry at least 256 bits of entropy.",
+      "The application never invents a signing key at runtime."
+    ]
+  }
+}

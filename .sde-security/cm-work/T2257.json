@@ -1,0 +1,19 @@
+{
+  "cm_id": "T2257",
+  "category": "INFRA",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "documentation",
+    "title": "Regularly update and patch containerization systems",
+    "priority": 10,
+    "category": "INFRA",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T2257/",
+    "description": "Keep the container runtime and orchestration components patched.",
+    "guidance": "The Docker engine, containerd, runc and the host kernel should be covered by a defined patch cadence with an emergency path for critical container-escape advisories.",
+    "searched": "Dockerfile, docker-compose.yml, start_app.sh",
+    "found": "The repository pins application dependencies but has no influence over the container runtime version on the host.",
+    "missing": "Host patch management policy and tooling.",
+    "conclusion": "Runtime patching is host lifecycle management owned by the platform team.",
+    "action": "The platform team should include the container runtime in the host patch cadence."
+  }
+}

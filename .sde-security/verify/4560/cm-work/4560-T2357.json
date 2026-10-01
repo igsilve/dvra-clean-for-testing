@@ -1,0 +1,38 @@
+{
+  "full_cm_id": "4560-T2357",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/tests/security/test_secure_defaults.py",
+      "line": 51,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] The verification is executed rather than asserted: parametrized tests reload the configuration with each required setting removed and assert startup fails, that the error does not disclose the secret value, that ENV has no default and that an unrecognised ENV is refused | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/tests/security/test_secure_defaults.py",
+      "line": 167,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Regression guards prevent the approved configuration from drifting back: FORMER_DEFAULTS asserts 'chef'/'admin'/'password' cannot be reintroduced, an AST sweep proves no os.getenv for a secret-shaped name carries a non-empty default, and a further sweep rejects hardcoded credentials anywhere under app/ | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/config.py",
+      "line": 120,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] The approved configuration is in place and stored as code under change control, with each setting's purpose, default value, security relevance and relationship to other settings documented inline | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] app/tests/security/test_secure_defaults.py executes the verification: parametrized tests assert startup fails for each required setting, that errors do not disclose secret values, that ENV has no default and rejects typos, that former defaults ('chef'/'admin'/'password') cannot be reintroduced, and an AST sweep proves no os.getenv secret carries a default | verdict=pass confidence=high",
+      "count": "1"
+    },
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] app/config.py holds the approved configuration under change control as code, with each setting's purpose, default and security relevance documented inline | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T2357 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

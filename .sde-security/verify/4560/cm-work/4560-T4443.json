@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T4443",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/start_app.sh",
+      "line": 58,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: start_app.sh performs no cryptographic operation and embeds no key or password material (no openssl/md5/base64 key handling anywhere in the file); secret material is externalized to the deploy-time env file supplied by the platform rather than taken from the invoking shell (lines 56-60), the caller environment is discarded with `env -i` (line 65), and umask 077 (line 23) plus `mkdir -m 0700` (line 40) keep anything the script creates owner-only | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: start_app.sh performs no cryptographic operations and embeds no key material; secrets are externalized to the deploy-time env file supplied by the platform rather than the invoking shell, the caller environment is discarded with env -i, and umask 077 plus mkdir -m 0700 keep any created secret-bearing files owner-only | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T4443 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

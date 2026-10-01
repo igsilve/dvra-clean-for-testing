@@ -1,0 +1,19 @@
+{
+  "cm_id": "T576",
+  "category": "INFRA",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "documentation",
+    "title": "Verify that UDDI/ebXML spoofing is prevented",
+    "priority": 8,
+    "category": "INFRA",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T576/",
+    "description": "Verify that service registry spoofing is prevented.",
+    "guidance": "Verification means attempting to publish or alter a registry entry without authorization and confirming the attempt is refused, then confirming consumers reject an unverified endpoint.",
+    "searched": "app/apis/, app/config.py, docker-compose.yml",
+    "found": "No service registry is present in the deployment.",
+    "missing": "The registry that would be the subject of the test.",
+    "conclusion": "The verification has no subject in this architecture.",
+    "action": "The architecture owners should record the countermeasure as not applicable unless service discovery is adopted."
+  }
+}

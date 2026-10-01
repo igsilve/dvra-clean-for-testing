@@ -1,0 +1,24 @@
+{
+  "cm_id": "T305",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Verify that your application dynamically loads code only from secure locations",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T305/",
+    "description": "Resolve loadable locations from a fixed absolute base rather than the process working directory.",
+    "language": "python",
+    "file": "app/main.py",
+    "start_line": 11,
+    "end_line": 13,
+    "finding": "The static mount resolves \"static\" relative to the process working directory rather than an absolute, trusted location.",
+    "current_code": "def setup_static_files_and_docs(app: FastAPI):\n    \"\"\"Setup static files and custom documentation endpoints with favicon\"\"\"\n    app.mount(\"/static\", StaticFiles(directory=\"static\"), name=\"static\")",
+    "required_fix": "# app/main.py\nfrom pathlib import Path\n\nAPP_DIR = Path(__file__).resolve().parent\nSTATIC_DIR = APP_DIR / \"static\"\n\n\ndef setup_static_files_and_docs(app: FastAPI):\n    app.mount(\"/static\", StaticFiles(directory=STATIC_DIR), name=\"static\")",
+    "criteria": [
+      "Every filesystem location the application loads from is an absolute path derived from the module location.",
+      "Starting the process from a different working directory does not change which files are served."
+    ]
+  }
+}

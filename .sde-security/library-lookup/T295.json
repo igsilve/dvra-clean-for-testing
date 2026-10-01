@@ -1,0 +1,16 @@
+{
+  "cm_id": "T295",
+  "endpoint": "library/tasks/T295/amendments/",
+  "http_status": 200,
+  "result": "LIBRARY_SOURCED",
+  "retry_count": 0,
+  "queried_at": "2026-09-30T02:55:10.835419Z",
+  "matched_amendments": [
+    {
+      "amendment_id": "TA9517",
+      "technology": "Python",
+      "source_amendment_char_count": 3437
+    }
+  ],
+  "additional_requirements_count": 1
+}

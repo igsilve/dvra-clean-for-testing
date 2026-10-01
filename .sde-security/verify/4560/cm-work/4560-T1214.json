@@ -1,0 +1,34 @@
+{
+  "full_cm_id": "4560-T1214",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/docker-compose.yml",
+      "line": 29,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] web service declares security_opt no-new-privileges:true, the canonical mitigation from how-to I952 | verdict=pass confidence=high",
+      "category": "mitigation-confirmed"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/docker-compose.yml",
+      "line": 108,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] proxy service declares security_opt no-new-privileges:true, the canonical mitigation from how-to I952 | verdict=pass confidence=high",
+      "category": "mitigation-confirmed"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/docker-compose.yml",
+      "line": 169,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] db service declares security_opt no-new-privileges:true, the canonical mitigation from how-to I952 | verdict=pass confidence=high",
+      "category": "mitigation-confirmed"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] security_opt: no-new-privileges:true is declared on all three compose services (web docker-compose.yml:29, proxy :108, db :169), matching how-to I952's canonical --security-opt=no-new-privileges mitigation; no service omits it | verdict=pass confidence=high",
+      "count": "3"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T1214 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

@@ -1,0 +1,28 @@
+{
+  "full_cm_id": "4560-T1192",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/docker-compose.yml",
+      "line": 136,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Every bind mount uses the long form with read_only: true and propagation explicitly set to rprivate - ./deploy/nginx.conf (lines 136-142), ./app/static/ (lines 144-149) and the platform-supplied ${TLS_DIR} certificate directory (lines 152-157) - so no host path is writable from a container and no in-container mount can propagate back to the host; none of the sensitive host directories the CM enumerates is mounted and docker.sock is absent (how-to I941) | verdict=pass confidence=high",
+      "category": "mitigation-confirmed"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/docker-compose.yml",
+      "line": 0,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] No service shares a host namespace or device: there is no pid: host, ipc: host, uts: host, userns_mode, devices: or privileged key anywhere in the file; the database stores data in the named volume pg_volume (lines 205-207) and writable scratch space is provided as sized tmpfs (how-to I941) | verdict=pass confidence=high",
+      "category": "mitigation-confirmed"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] mitigation-confirmed (how-to I941): Every bind mount in docker-compose.yml uses the long form with read_only: true and propagation explicitly set to rprivate -- ./deploy/nginx.conf (lines 136-142), ./app/static/ (lines 144-149) and the platform-supplied ${TLS_DIR} certificate directory (lines 152-157) -- so no host path is writable from a container and a mount made inside a container cannot propagate back to the host. None of the sensitive host directories the CM enumerates (/, /boot, /dev, /etc, /lib, /proc, /sys, /usr) is mounted, and docker.sock is not mounted into any service; the database stores data in the named volume pg_volume (lines 205-207). No service shares a host namespace or device: there is no pid: host, ipc: host, uts: host, userns_mode, devices: or privileged key anywhere in the file, and writable scratch space is provided as sized tmpfs instead | verdict=pass confidence=high",
+      "count": "2"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T1192 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

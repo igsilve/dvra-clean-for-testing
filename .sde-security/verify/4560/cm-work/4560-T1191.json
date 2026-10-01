@@ -1,0 +1,28 @@
+{
+  "full_cm_id": "4560-T1191",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/Dockerfile",
+      "line": 60,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] The Dockerfile introduces no capability grant and runs the process as the non-root, nologin uid/gid 10001 (lines 51-52, 60), so the image itself cannot be the source of excess privilege | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/docker-compose.yml",
+      "line": 26,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] The CapAdd/CapDrop/Privileged values this test inspects are fixed statically by the compose file: cap_drop ALL on all three services, cap_add empty for web, only CHOWN/SETUID/SETGID for the proxy (lines 103-106) and only CHOWN/DAC_OVERRIDE/FOWNER/SETUID/SETGID for the database (lines 162-167), each justified in-file; no privileged key appears anywhere, so Privileged would report false for every instance | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: The Dockerfile introduces no capability grant and runs the process as the non-root, nologin uid/gid 10001 (lines 51-52, 60), so the image itself cannot be the source of excess privilege. The CapAdd/CapDrop/Privileged values this test inspects are fixed statically by the project's compose file: cap_drop ALL on all three services, cap_add empty for web, only CHOWN/SETUID/SETGID for the proxy (lines 103-106) and only CHOWN/DAC_OVERRIDE/FOWNER/SETUID/SETGID for the database (lines 162-167) -- each justified in-file by the process's actual needs -- and no privileged key appears anywhere, so Privileged would report false for every instance. No how-tos were applicable to this CM, so Q2 was skipped | verdict=pass confidence=high",
+      "count": "2"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T1191 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

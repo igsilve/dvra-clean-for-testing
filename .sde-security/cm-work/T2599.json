@@ -1,0 +1,25 @@
+{
+  "cm_id": "T2599",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Protect against connection string parameter pollution",
+    "priority": 9,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T2599/",
+    "description": "Build the connection string from properly escaped components, or pass them as separate parameters.",
+    "language": "python",
+    "file": "app/config.py",
+    "start_line": 49,
+    "end_line": 53,
+    "finding": "The database URL is assembled by string interpolation of five environment values with no escaping, so a value containing a delimiter can inject connection parameters.",
+    "current_code": "    @property\n    def DATABASE_URL(self) -> str:\n        if self.DB_BACKEND == \"memory\":\n            return \"sqlite://\"\n        return f\"postgresql://{self.POSTGRES_USER}:{self.POSTGRES_PASSWORD}@{self.POSTGRES_SERVER}:{self.POSTGRES_PORT}/{self.POSTGRES_DB}\"",
+    "required_fix": "# app/config.py\nfrom sqlalchemy.engine import URL\n\n    @property\n    def DATABASE_URL(self) -> URL | str:\n        if self.DB_BACKEND == \"memory\":\n            return \"sqlite://\"\n        return URL.create(\n            \"postgresql\",\n            username=self.POSTGRES_USER,\n            password=self.POSTGRES_PASSWORD,\n            host=self.POSTGRES_SERVER,\n            port=int(self.POSTGRES_PORT),\n            database=self.POSTGRES_DB,\n            query={\"sslmode\": \"verify-full\"},\n        )",
+    "criteria": [
+      "The connection URL is constructed through a library that escapes each component.",
+      "A password containing `@`, `/` or `?` does not change the parsed host or database.",
+      "Connection options are supplied as structured query parameters."
+    ]
+  }
+}

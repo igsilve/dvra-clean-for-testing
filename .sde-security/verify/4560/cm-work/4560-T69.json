@@ -1,0 +1,28 @@
+{
+  "full_cm_id": "4560-T69",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/config.py",
+      "line": 74,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] _required_secret enforces a 32-character (256-bit) floor on JWT_SECRET_KEY and OTP_HMAC_KEY and _required removes the former 'chef', 'admin' and 'password' defaults, so an incomplete environment raises at import instead of booting with a weak system credential | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/password_policy.py",
+      "line": 96,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] validate_system_account_password delegates to the shared validate_password_policy (MIN_LENGTH=12, four required character classes, denylist of previously shipped defaults), so a server-to-server account is held to at least the end-user baseline | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] System-to-system credentials are held to the end-user baseline, not a weaker one. app/password_policy.py defines a single policy (MIN_LENGTH=12, lower/upper/digit/symbol required, plus a FORBIDDEN_PASSWORDS denylist that includes the values this project previously shipped as defaults) and validate_system_account_password delegates straight to validate_password_policy, so a service account cannot be graded against a looser rule; the docstring permits adding requirements but never removing them. app/config.py refuses to start rather than falling back: _required_secret enforces MIN_SECRET_LENGTH=32 (256 bits) on JWT_SECRET_KEY and OTP_HMAC_KEY, and _required removes the former 'chef' / 'admin' / 'password' defaults for CHEF_USERNAME and the POSTGRES_* credentials. Alternative mitigation accepted: a single shared policy module plus fail-closed configuration enforces the parity the CM requires | verdict=pass confidence=high",
+      "count": "2"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T69 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

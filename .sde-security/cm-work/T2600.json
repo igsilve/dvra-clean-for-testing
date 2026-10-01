@@ -1,0 +1,24 @@
+{
+  "cm_id": "T2600",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Control the result set size returned by a query",
+    "priority": 7,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T2600/",
+    "description": "Cap the number of rows any listing endpoint will return regardless of the requested limit.",
+    "language": "python",
+    "file": "app/apis/orders/services/get_orders_for_delivery_service.py",
+    "start_line": 17,
+    "end_line": 32,
+    "finding": "`limit` is an unconstrained integer query parameter passed straight into .limit(), so a caller can request an unbounded result set.",
+    "current_code": "def get_orders(\n    skip: int = 0,\n    limit: int = 100,\n    db: Session = Depends(get_db),\n):\n    \"\"\"\n    This is a dedicated endpoint for delivery services to integrate with\n    the Restaurant. Delivery services can use this endpoint to get a list of\n    latest orders with their details.\n    \"\"\"\n    orders = (\n        db.query(Order)\n        .order_by(Order.date_ordered.desc())\n        .offset(skip)\n        .limit(limit)\n        .all()",
+    "required_fix": "# app/apis/orders/services/get_orders_for_delivery_service.py\nfrom fastapi import Query\n\nMAX_PAGE_SIZE = 100\n\n\ndef get_orders(\n    skip: int = Query(0, ge=0),\n    limit: int = Query(50, ge=1, le=MAX_PAGE_SIZE),\n    ...\n):\n    orders = db.query(Order).order_by(Order.date_ordered.desc()).offset(skip).limit(limit).all()",
+    "criteria": [
+      "Every paginated endpoint declares `le=` on its limit parameter.",
+      "A request for limit=100000 is rejected with 422 rather than served."
+    ]
+  }
+}

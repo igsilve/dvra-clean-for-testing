@@ -1,0 +1,25 @@
+{
+  "cm_id": "T279",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Avoid dynamically loading any code without proper security considerations",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T279/",
+    "description": "Constrain what the service loads at runtime to a reviewed, trusted set.",
+    "language": "python",
+    "file": "app/apis/menu/utils.py",
+    "start_line": 9,
+    "end_line": 13,
+    "finding": "Arbitrary remote bytes are pulled in at request time and stored for later use with no source restriction.",
+    "current_code": "def _image_url_to_base64(image_url: str):\n    response = requests.get(image_url, stream=True)\n    encoded_image = base64.b64encode(response.content).decode()\n\n    return encoded_image",
+    "required_fix": "# app/apis/menu/utils.py\n# Content is fetched only from the approved CDN, over HTTPS, with its digest\n# verified against a signed manifest before it is stored:\ncontent = _fetch_verified(_safe_image_url(image_url))",
+    "criteria": [
+      "Runtime loading of remote content is restricted to an allow-list.",
+      "Loaded content is integrity-checked before use.",
+      "No module is imported or code evaluated from a path derived from request data."
+    ]
+  }
+}

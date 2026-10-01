@@ -1,0 +1,19 @@
+{
+  "cm_id": "T350",
+  "category": "INFRA",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "documentation",
+    "title": "Verify that audit information is sufficiently protected",
+    "priority": 7,
+    "category": "INFRA",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T350/",
+    "description": "Verify that audit information is sufficiently protected.",
+    "guidance": "Verification means confirming that only authorized roles can read the audit store, that records cannot be modified or deleted before their retention period, and that an attempt to do so is itself recorded.",
+    "searched": "app/init_app.py, docker-compose.yml",
+    "found": "No audit records and no log store exist to inspect.",
+    "missing": "The log storage platform that would be the subject of the verification.",
+    "conclusion": "The verification depends on log infrastructure that is not yet in place.",
+    "action": "The security operations team should verify the protections once central log storage is provisioned."
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "cm_id": "T446",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Verify that only standard libraries are used for cryptography",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T446/",
+    "description": "Generate all security-relevant values with the `secrets` module rather than `random`.",
+    "language": "python",
+    "file": "app/apis/referrals/utils.py",
+    "start_line": 1,
+    "end_line": 11,
+    "finding": "Referral codes are generated with the standard `random` module rather than a cryptographic library.",
+    "current_code": "import random\nimport string\n\nfrom db.models import User\nfrom sqlalchemy.orm import Session\n\n\ndef _generate_code() -> str:\n    \"\"\"Generate an 8-character uppercase alphanumeric code.\"\"\"\n    characters = string.ascii_uppercase + string.digits\n    return \"\".join(random.choice(characters) for _ in range(8))",
+    "required_fix": "# app/apis/referrals/utils.py\nimport secrets\nimport string\n\nALPHABET = string.ascii_uppercase + string.digits\n\n\ndef _generate_code(length: int = 12) -> str:\n    return \"\".join(secrets.choice(ALPHABET) for _ in range(length))",
+    "criteria": [
+      "`import random` does not appear in any module that produces a token, code or identifier.",
+      "All such values come from `secrets`."
+    ]
+  }
+}

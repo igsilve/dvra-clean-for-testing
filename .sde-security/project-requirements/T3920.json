@@ -1,0 +1,30 @@
+{
+  "cm_id": "T3920",
+  "additional_requirements": [
+    {
+      "id": "TA6703",
+      "title": "Test requirement of administrator approval for every installed application",
+      "text": "Verify that applications are installed only after receiving administrator approval:\n\na. For GitHub Apps, you are compliant by default. That is because by default only organization owners and administrators can install them.\n\nb. For OAuth Apps, perform the following:\n\n1. In the top right corner of GitHub.com, click your profile photo, then click **Your organizations**.\n2. Next to the organization, click **Settings**.\n3. In the \"Third-party Access\" section of the sidebar, click **OAuth application policy**.\n4. Under \"Third-party application access policy\" verify that the policy status is **Access restricted**.",
+      "ordinal": 10
+    },
+    {
+      "id": "TA6704",
+      "title": "Test periodic review and removal of stale applications",
+      "text": "Verify that all the applications in the organization are actively used, and remove those that are no longer in use.",
+      "ordinal": 20
+    },
+    {
+      "id": "TA6705",
+      "title": "Test limiting of access granted to each installed application to the least privilege needed",
+      "text": "Verify that each installed application has the least privilege needed:\n\na. For GitHub Apps, perform the following:\n\n1. In the top right corner of GitHub.com, click your profile photo, then click **Your organizations**.\n2. Next to the organization, click **Settings**.\n3. In the \"Integrations\" section of the sidebar, click **GitHub Apps**.\n4. Next to every GitHub App, click **Configure**.\n5. Review the GitHub App's permissions and repository access. Verify that the App permissions are the least possible and that it can access only necessary repositories.",
+      "ordinal": 30
+    },
+    {
+      "id": "TA6706",
+      "title": "Test usage of only secured webhooks",
+      "text": "Perform the following to secure all webhooks used(over HTTPS):\n\n1. Navigate to your organization or repository and select **Settings**.\n2. Select **Webhooks** on the side menu.\n3. Ensure all webhooks starts with 'https'.",
+      "ordinal": 40
+    }
+  ],
+  "count": 4
+}

@@ -1,0 +1,25 @@
+{
+  "cm_id": "T7362",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Enforce trusted hosts and HTTPS-only transport with Starlette middleware (FastAPI)",
+    "priority": 10,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T7362/",
+    "description": "Install TrustedHostMiddleware and HTTPS enforcement so Host headers are validated and plaintext requests are redirected.",
+    "language": "python",
+    "file": "app/init_app.py",
+    "start_line": 11,
+    "end_line": 19,
+    "finding": "Neither TrustedHostMiddleware nor HTTPSRedirectMiddleware is installed, so Host headers are unvalidated and plaintext HTTP is served.",
+    "current_code": "    app = FastAPI(\n        title=settings.TITLE,\n        description=settings.DESCRIPTION,\n        version=settings.VERSION,\n        servers=settings.SERVERS,\n        root_path=settings.ROOT_PATH,\n        docs_url=None,\n        redoc_url=None,\n    )",
+    "required_fix": "# app/init_app.py\nfrom starlette.middleware.httpsredirect import HTTPSRedirectMiddleware\nfrom starlette.middleware.trustedhost import TrustedHostMiddleware\n\napp.add_middleware(TrustedHostMiddleware, allowed_hosts=settings.ALLOWED_HOSTS)\nif settings.ENVIRONMENT is ENV.PRODUCTION:\n    app.add_middleware(HTTPSRedirectMiddleware)",
+    "criteria": [
+      "A request with `Host: attacker.example` returns 400.",
+      "A plaintext HTTP request in production is redirected to HTTPS.",
+      "Allowed hosts come from configuration, not a wildcard."
+    ]
+  }
+}

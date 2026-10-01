@@ -1,0 +1,32 @@
+{
+  "full_cm_id": "4560-T323",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/init.py",
+      "line": 31,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] No default account or source-knowable default password remains. The privileged account's name comes from settings.CHEF_USERNAME, which config.py requires from the environment with no 'chef' fallback, and its password is produced per run by generate_random_secret() - 32 characters drawn with secrets.choice over letters/digits/punctuation and re-drawn until the shared password policy passes. The value is never printed or logged, and must_change_password=True makes the account unusable until the holder replaces it. The five sample accounts are likewise generated per run and are skipped entirely when ENVIRONMENT is ENV.PRODUCTION | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/tests/security/test_default_accounts.py",
+      "line": 26,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] The manual procedure is encoded as executable regression tests - each historic seeded credential is asserted to return 401 from /token, the seeding module is asserted to contain no quoted password literal and to call generate_random_secret(), generated secrets are asserted distinct and 32 characters across 50 draws, only CHEF_USERNAME is asserted created under ENV.PRODUCTION, and no demo role may be CHEF. The HISTORIC_DEFAULT_CREDENTIALS literals in this file are test fixtures proving those values are refused, not live credentials; the repository-wide scan in the same module looks for password-assignment context and exempts only this directory | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] app/init.py: no default account or source-knowable default password remains. The privileged account's name comes from settings.CHEF_USERNAME, which config.py requires from the environment with no 'chef' fallback, and its password is produced per run by generate_random_secret() - 32 characters drawn with secrets.choice over letters/digits/punctuation and re-drawn until the shared password policy passes. The value is never printed or logged, and must_change_password=True makes the account unusable until the holder replaces it. The five sample accounts are likewise generated per run and are skipped entirely when ENVIRONMENT is ENV.PRODUCTION. | verdict=pass confidence=high",
+      "count": "1"
+    },
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] app/tests/security/test_default_accounts.py: the manual procedure is encoded as executable regression tests - each historic seeded credential is asserted to return 401 from /token, the seeding module is asserted to contain no quoted password literal and to call generate_random_secret(), generated secrets are asserted distinct and 32 characters across 50 draws, only CHEF_USERNAME is asserted created under ENV.PRODUCTION, and no demo role may be CHEF. The HISTORIC_DEFAULT_CREDENTIALS literals in this file are test fixtures proving those values are refused, not live credentials; the repository-wide scan in the same module looks for password-assignment context and exempts only this directory. | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T323 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

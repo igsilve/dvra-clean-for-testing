@@ -1,0 +1,24 @@
+{
+  "cm_id": "T7361",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Configure CORS with explicit origins and never wildcard with credentials (FastAPI)",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T7361/",
+    "description": "Configure CORS with a concrete origin list and never combine credentialed requests with wildcard values.",
+    "language": "python",
+    "file": "app/init_app.py",
+    "start_line": 20,
+    "end_line": 26,
+    "finding": "allow_credentials=True is combined with a wildcard-ish origin regex and wildcard methods and headers.",
+    "current_code": "    app.add_middleware(\n        CORSMiddleware,\n        allow_origin_regex=\".*.(restaurant.com|deliveryservice.com)\",\n        allow_credentials=True,\n        allow_methods=[\"*\"],\n        allow_headers=[\"*\"],\n    )",
+    "required_fix": "# app/init_app.py\napp.add_middleware(\n    CORSMiddleware,\n    allow_origins=[\"https://app.restaurant.com\"],\n    allow_credentials=True,\n    allow_methods=[\"GET\", \"POST\", \"PUT\", \"PATCH\", \"DELETE\"],\n    allow_headers=[\"Authorization\", \"Content-Type\"],\n)",
+    "criteria": [
+      "`allow_credentials=True` never appears alongside `allow_origins=[\"*\"]` or an origin regex.",
+      "Origins are supplied by configuration and differ between environments."
+    ]
+  }
+}

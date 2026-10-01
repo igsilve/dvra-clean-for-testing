@@ -1,0 +1,40 @@
+{
+  "full_cm_id": "4560-T4445",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/ops_guard.sh",
+      "line": 40,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: ops_guard.sh uses no eval and builds no command string dynamically; `command -v \"$name\"` and every other expansion is double-quoted (lines 40-70), the arithmetic check on the stat mode operates on numeric stat output rather than caller input (line 66), and run_bounded forwards \"$@\" verbatim (lines 83-87) | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/start_app.sh",
+      "line": 64,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: start_app.sh uses no eval; operator arguments are forwarded as `\"$@\"` to `docker compose up` rather than being re-split or re-expanded (lines 64-69), IFS is pinned to newline/tab (line 10) so the caller cannot induce word splitting, PATH is fixed and readonly (lines 15-18) restricting which commands can resolve at all, and every expansion in the file is quoted | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/start_game.sh",
+      "line": 60,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: start_game.sh uses no eval; the only commands executed are a fixed set (the sibling start_app.sh, `docker compose exec` with the hardcoded /app/game.py target) invoked with quoted expansions (lines 46-66), IFS is pinned (line 3) and PATH is fixed and readonly (lines 6-9) | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/stop_app.sh",
+      "line": 61,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: stop_app.sh uses no eval; arguments reach `docker compose down` as `\"$@\"` (line 61), the PID read from the lock is quoted before `kill -0` (line 40), IFS is pinned (line 3) and PATH is fixed and readonly (lines 7-10) | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: across ops_guard.sh, start_app.sh, start_game.sh and stop_app.sh there is no eval and no dynamic command construction; every parameter expansion and command substitution is double-quoted, IFS is pinned to newline/tab so unquoted splitting cannot be induced by the caller, arguments are forwarded as \"$@\" rather than $1, and executable names resolve only under a fixed readonly PATH | verdict=pass confidence=high",
+      "count": "4"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T4445 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

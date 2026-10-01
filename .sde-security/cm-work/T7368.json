@@ -1,0 +1,25 @@
+{
+  "cm_id": "T7368",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Protect cookie-authenticated routes with SameSite cookies and CSRF tokens (FastAPI)",
+    "priority": 7,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T7368/",
+    "description": "If the token is placed in a cookie, set SameSite, Secure and HttpOnly and pair it with a CSRF token; otherwise keep it out of cookies entirely.",
+    "language": "python",
+    "file": "app/apis/auth/services/get_token_service.py",
+    "start_line": 26,
+    "end_line": 32,
+    "finding": "The access token is returned in the response body with no cookie attributes and no CSRF token issued alongside it.",
+    "current_code": "            headers={\"WWW-Authenticate\": \"Bearer\"},\n        )\n    access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)\n    access_token = create_access_token(\n        data={\"sub\": user.username}, expires_delta=access_token_expires\n    )\n    return Token(access_token=access_token, token_type=\"bearer\")",
+    "required_fix": "# app/apis/auth/services/get_token_service.py\nresponse.set_cookie(\n    \"access_token\",\n    access_token,\n    httponly=True,\n    secure=True,\n    samesite=\"strict\",\n    max_age=int(access_token_expires.total_seconds()),\n    path=\"/\",\n)\nresponse.set_cookie(\"csrf_token\", secrets.token_urlsafe(32), secure=True, samesite=\"strict\")\n# every state-changing route then compares the X-CSRF-Token header to the cookie",
+    "criteria": [
+      "No authentication cookie is set without HttpOnly, Secure and SameSite.",
+      "Every state-changing route rejects a request whose CSRF header does not match the cookie.",
+      "A cross-site form POST against a state-changing route fails."
+    ]
+  }
+}

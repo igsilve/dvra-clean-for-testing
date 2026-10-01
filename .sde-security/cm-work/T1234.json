@@ -1,0 +1,19 @@
+{
+  "cm_id": "T1234",
+  "category": "INFRA",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "documentation",
+    "title": "Only allow trusted users to control the Docker daemon (Docker)",
+    "priority": 8,
+    "category": "INFRA",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T1234/",
+    "description": "Limit control of the Docker daemon to trusted users.",
+    "guidance": "Membership of the docker group, or equivalent socket access, is equivalent to root on the host and should be restricted to a small, reviewed set of operators with access granted through a directory group rather than a local edit.",
+    "searched": "docker-compose.yml, start_app.sh, stop_app.sh, Dockerfile",
+    "found": "The scripts assume the invoking user already has daemon access; the repository does not control who has it.",
+    "missing": "Host user and group membership, which is managed outside the repository.",
+    "conclusion": "Daemon access control is host account management, not application configuration.",
+    "action": "The platform team should review and restrict docker group membership on each host."
+  }
+}

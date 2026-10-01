@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T166",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/init_app.py",
+      "line": 43,
+      "description": "The precondition for JSON hijacking — a credentialed cross-origin read — is absent: authentication is Bearer-token only, so no ambient cookie credential rides a cross-site script include. CsrfMiddleware is installed as a fail-closed guard that rejects unsafe methods with 403 the moment a recognised auth cookie appears without a matching double-submit X-CSRF-Token, compared with secrets.compare_digest. CORS is limited to settings.ALLOWED_ORIGINS with explicit methods/headers rather than a wildcard, and X-Content-Type-Options: nosniff plus Cache-Control: no-store are set on every response.",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] app/init_app.py removes the precondition JSON hijacking depends on: a credentialed cross-origin read. Authentication is Bearer-token only, so no ambient cookie credential is attached to a cross-site <script> include of a JSON route. CsrfMiddleware (lines 43-72) is installed anyway as a fail-closed guard — the moment any request carries one of the recognised auth cookies, an unsafe method without a matching double-submit X-CSRF-Token is rejected with 403, compared using secrets.compare_digest so a mismatch cannot be found by timing. CORS is restricted to settings.ALLOWED_ORIGINS with an explicit method and header list rather than a wildcard (lines 180-187), and SecurityHeadersMiddleware sets X-Content-Type-Options: nosniff and Cache-Control: no-store so a JSON body is neither re-sniffed as another type nor retained in a shared cache. FastAPI serialises responses as application/json via response_model throughout | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T166 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

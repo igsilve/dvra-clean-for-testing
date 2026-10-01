@@ -1,0 +1,126 @@
+{
+  "cm_id": "T3917",
+  "additional_requirements": [
+    {
+      "id": "TA6676",
+      "title": "Test code tracking in a version control platform",
+      "text": "Ensure that all code activity is managed through Github repository for every micro-service or application developed by an organization.",
+      "ordinal": 10
+    },
+    {
+      "id": "TA6677",
+      "title": "Test traceability of code changes to their associated tasks",
+      "text": "Ensure every code change can be traced back to its origin task in a task management system.",
+      "ordinal": 20
+    },
+    {
+      "id": "TA6678",
+      "title": "Test approval process for code changes by two strongly authenticated users",
+      "text": "For every code repository in use, perform the next steps to verify that two approvals from the specific code repository team are required to push new code to the code base:\n\n1. On GitHub, navigate to the main page of the repository.\n2. Under your repository name, click **Settings**.\n3. In the \"Code and automation\" section of the sidebar, click **Branches**.\n4. Next to \"Branch protection rules\", verify that there is at least one rule for your main branch. If there is, click **Edit** to its right. If there isn't, you are not compliant.\n5. Ensure that **Require a pull request before merging** and **Require approvals** are checked, and verify that **Required number of approvals before merging** is set to 2.",
+      "ordinal": 30
+    },
+    {
+      "id": "TA6679",
+      "title": "Test dismissal of previous approvals when updates are introduced to a code change proposal",
+      "text": "For each code repository in use, perform the next steps to verify that each updated code suggestion declines the previously received approvals:\n\n1. On GitHub, navigate to the main page of the repository.\n2. Under your repository name, click **Settings**.\n3. In the \"Code and automation\" section of the sidebar, click **Branches**.\n4. Next to \"Branch protection rules\", verify that there is at least one rule for your main branch. If there is, click **Edit** to its right. If there isn't, you are not compliant.\n5. Ensure that **Require a pull request before merging** is checked, and verify that **Dismiss stale pull request approvals when new commits are pushed** is checked.",
+      "ordinal": 40
+    },
+    {
+      "id": "TA6680",
+      "title": "Test restrictions on who can dismiss code change reviews",
+      "text": "For each code repository in use, perform the next steps to verify that only trusted users are allowed to dismiss code change reviews: \n\n1. On GitHub, navigate to the main page of the repository.\n2. Under your repository name, click **Settings**.\n3. In the \"Code and automation\" section of the sidebar, click **Branches**.\n4. Next to \"Branch protection rules\", verify that there is at least one rule for your main branch. If there is, click **Edit** to its right. If there isn't, you are not compliant.\n4. Verify that **Require a pull request before merging** and **Restrict who can dismiss pull request reviews** is checked.\n5. Verify that no users and teams are specified except for organization and repository admins. If it is obligatory, verify that the users or teams specified were carefully selected to be trusted with the ability to dismiss code change reviews.",
+      "ordinal": 50
+    },
+    {
+      "id": "TA6681",
+      "title": "Test code owner settings for extra sensitive code or configuration",
+      "text": "In every code repository, verify that a file named CODEOWNERS exists in the root, docs/, or .github/ directory of the repository.\nIn the CODEOWNERS file, verify that the users specified are users you trust.",
+      "ordinal": 60
+    },
+    {
+      "id": "TA6682",
+      "title": "Test requirement of code owner's review when a change affects owned code",
+      "text": "For every code repository in use, perform the following steps to verify that code owners are required to review all code change proposals relevant to areas they own before code merge:\n\n1. On GitHub, navigate to the main page of the repository.\n2. Under your repository name, click **Settings**.\n3. In the \"Code and automation\" section of the sidebar, click **Branches**.\n4. Next to \"Branch protection rules\", verify that there is at least one rule for your main branch. If there is, click **Edit** to its right. If there isn't, you are not compliant.\n4. Ensure that **Require a pull request before merging** and **Require review from Code Owners** are checked.",
+      "ordinal": 70
+    },
+    {
+      "id": "TA6683",
+      "title": "Test periodic review and removal of inactive branches",
+      "text": "For each code repository in use, verify that all existing Git branches are active or have yet to be checked for inactivity by performing the next steps:\n\n1. On GitHub.com, navigate to the main page of the repository.\n2. Above the list of files, click **Branches**.\n3. Use the navigation at the top of the page to view the Stale branches. The Stale view shows all branches that no one has committed to in the last three months, ordered by the branches with the oldest commits first.\n4. If the list is empty, you are compliant. If the list is not empty, but there is a valid reason the branches listed are not deleted, you are compliant.",
+      "ordinal": 80
+    },
+    {
+      "id": "TA6684",
+      "title": "Test passing of all checks before merging new code",
+      "text": "For each code repository in use, verify that status checks are required to pass before allowing any code change proposal merge by performing the following:\n\n1. On GitHub.com, navigate to the main page of the repository.\n2. Under your repository name, click **Settings**.\n3. In the \"Code and automation\" section of the sidebar, click **Branches**.\n4. Next to \"Branch protection rules\", verify that there is at least one rule for your main branch. If there is, click **Edit** to its right. If there isn't, you are not compliant.\n5. Ensure that **Require status checks to pass before merging** is checked.",
+      "ordinal": 90
+    },
+    {
+      "id": "TA6685",
+      "title": "Test updating of open Git branches before merging into the code base",
+      "text": "For each code repository in use, verify that open branches must be updated before merging is permitted by performing the following:\n\n1. On GitHub.com, navigate to the main page of the repository.\n2. Under your repository name, click **Settings**.\n3. In the \"Code and automation\" section of the sidebar, click **Branches**.\n4. Next to \"Branch protection rules\", verify that there is at least one rule for your main branch. If there is, click **Edit** to its right. If there isn't, you are not compliant.\n5. Ensure that **Require status checks to pass before merging** and **Require branches to be up to date before merging** are checked.",
+      "ordinal": 100
+    },
+    {
+      "id": "TA6686",
+      "title": "Test branch protection rules enforcement for administrators",
+      "text": "For every code repository in use, validate branch protection rules also apply to administrator accounts by performing the next steps:\n\n1. On GitHub, navigate to the main page of the repository.\n2. Under your repository name, click **Settings**.\n3. In the \"Code and automation\" section of the sidebar, click **Branches**.\n4. Next to \"Branch protection rules\", verify that there is at least one rule for your main branch. If there is, click **Edit** to its right. If there isn't, you are not compliant.\n5. Ensure that **Do not allow bypassing the above settings** is checked.",
+      "ordinal": 110
+    },
+    {
+      "id": "TA6687",
+      "title": "Test denial of force push code to branches",
+      "text": "For every code repository in use, validate that no one can force push code by performing the following:\n\n1. On GitHub, navigate to the main page of the repository.\n2. Under your repository name, click **Settings**.\n3. In the \"Code and automation\" section of the sidebar, click **Branches**.\n4. Next to \"Branch protection rules\", verify that there is at least one rule for your main branch. If there is, click **Edit** to its right. If there isn't, you are not compliant.\n5. Ensure that **Allow force pushes** is not checked.",
+      "ordinal": 120
+    },
+    {
+      "id": "TA6688",
+      "title": "Test denial of branch deletions",
+      "text": "For each repository that is being used, verify that protected branches cannot be deleted by performing the following:\n\n1. On GitHub, navigate to the main page of the repository.\n2. Under your repository name, click **Settings**.\n3. In the \"Code and automation\" section of the sidebar, click **Branches**.\n4. Next to \"Branch protection rules\", verify that there is at least one rule for your main branch. If there is, click **Edit** to its right. If there isn't, you are not compliant.\n5. Ensure that **Allow deletions** is not checked.",
+      "ordinal": 130
+    },
+    {
+      "id": "TA6689",
+      "title": "Test automatic scanning for risks when merging code",
+      "text": "For each repository in use, ensure that every pull request must be scanned for risks by performing the following:\n\n1. On GitHub.com, navigate to the main page of the repository.\n2. Under your repository name, click **Actions**.\n3. Ensure that at least one workflow is configured to run like that: \n```\non:\n push:\n branches: [ \"main\" ]\n pull_request:\n branches: [ \"main\" ]\n```\nand that it has a step that runs code scanning on the code.",
+      "ordinal": 140
+    },
+    {
+      "id": "TA6690",
+      "title": "Test auditing of changes to branch protection rules",
+      "text": "Ensure changes in branch protection rules are audited by performing the following regularly:\n\n1. In the top right corner of GitHub.com, click your profile photo, then click **Your organizations**.\n2. Next to the organization, click **Settings**.\n3. In the \"Archives\" section of the sidebar, click **Logs**, then click **Audit log**.\n4. Use the action qualifier in your query and look for **protected_branch** category. Ensure every action is reasonable and secure and is investigated if not.",
+      "ordinal": 150
+    },
+    {
+      "id": "TA6691",
+      "title": "Test enforcement of branch protection on the default branch",
+      "text": "Perform the following to ensure branch protection is enforced on the main branch:\n\n1. On GitHub.com, navigate to the main page of the repository.\n2. Under your repository name, click **Settings**.\n3. In the \"Code and automation\" section of the sidebar, click **Branches**.\n4. Under **Branch protection rules**, verify that there is a rule applied to the \"main\" or default branch.",
+      "ordinal": 160
+    },
+    {
+      "id": "TA6767",
+      "title": "Test resolution of all open comments before allowing code change merging",
+      "text": "For every code repository in use, verify that each merged code change does not contain open, unattended comments by performing the following:\n\n1. On GitHub.com, navigate to the main page of the repository.\n2. Under your repository name, click **Settings**.\n3. In the \"Code and automation\" section of the sidebar, click **Branches**.\n4. Next to \"Branch protection rules\", verify that there is at least one rule for your main branch. If there is, click **Edit** to its right. If there isn't, you are not compliant.\n5. Ensure that **Require conversation resolution before merging** is checked.",
+      "ordinal": 170
+    },
+    {
+      "id": "TA6768",
+      "title": "Test verification of signed commits for new changes before merging",
+      "text": "Ensure only signed commits can be merged for every branch, especially the main branch, via branch protection rules by performing the following:\n\n1. On GitHub.com, navigate to the main page of the repository.\n2. Under your repository name, click **Settings**.\n3. In the \"Code and automation\" section of the sidebar, click **Branches**.\n4. Next to \"Branch protection rules\", verify that there is at least one rule for your main branch. If there is, click **Edit** to its right. If there isn't, you are not compliant.\n5. Ensure that **Require signed commits** is checked.",
+      "ordinal": 180
+    },
+    {
+      "id": "TA6769",
+      "title": "Test enforcement of linear history",
+      "text": "For every code repository in use, perform the following steps to verify that linear history is required and/or that only squash merge and rebase merge are allowed:\n\n1. On GitHub, navigate to the main page of the repository.\n2. Under your repository name, click **Settings**.\n3. In the \"Code and automation\" section of the sidebar, click **Branches**.\n4. Next to \"Branch protection rules\", verify that there is at least one rule for your main branch. If there is, click **Edit** to its right. If there isn't, you are not compliant.\n5. Ensure that **Require linear history** is checked.",
+      "ordinal": 190
+    },
+    {
+      "id": "TA6770",
+      "title": "Test restriction of pushing or merging new code to specific individuals or teams",
+      "text": "For every code repository in use, ensure only trusted and responsible users can push or merge new code by performing the following:\n\n1. On GitHub, navigate to the main page of the repository.\n2. Under your repository name, click **Settings**.\n3. In the \"Code and automation\" section of the sidebar, click **Branches**.\n4. Next to \"Branch protection rules\", verify that there is at least one rule for your main branch. If there is, click **Edit** to its right. If there isn't, you are not compliant.\n5. Ensure that **Restrict who can push to matching branches** is checked and that only trusted and responsible users and teams are selected.",
+      "ordinal": 200
+    }
+  ],
+  "count": 20
+}

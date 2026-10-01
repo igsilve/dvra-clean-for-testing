@@ -1,0 +1,19 @@
+{
+  "cm_id": "T4748",
+  "category": "INFRA",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "documentation",
+    "title": "Implement Role-Based Access Control (RBAC) for container orchestration",
+    "priority": 10,
+    "category": "INFRA",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T4748/",
+    "description": "Implement role-based access control for the container orchestration platform.",
+    "guidance": "Orchestration permissions should be granted through roles bound to groups, with separate roles for deploy, read and administrative operations, and no standing cluster-administrator access.",
+    "searched": "docker-compose.yml, start_app.sh, stop_app.sh",
+    "found": "Deployment is driven by shell scripts invoking Docker Compose on the host; anyone with Docker socket access has full control.",
+    "missing": "An orchestration platform with an authorization model, and a directory to bind roles to.",
+    "conclusion": "There is no orchestration authorization layer in this deployment to configure.",
+    "action": "The container platform team should implement orchestration RBAC when the service is deployed to a managed platform."
+  }
+}

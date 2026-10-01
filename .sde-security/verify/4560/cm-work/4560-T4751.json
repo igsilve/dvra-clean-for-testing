@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T4751",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/Dockerfile",
+      "line": 30,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] A two-stage build keeps poetry and the full bookworm toolchain in the builder so they never ship. The runtime stage starts from python:3.10-slim-bookworm at line 19 and installs exactly one package, libpq5, with --no-install-recommends, then apt-get clean and rm -rf /var/lib/apt/lists/* in the same RUN layer (lines 30-33) so no apt metadata persists in an earlier layer. The previously present gcc, vim and sudo (which carried a passwordless find rule) are gone, the runtime account is a fixed non-system UID 10001 whose shell is /usr/sbin/nologin (lines 51-52), USER drops to 10001:10001 at line 60 while application code stays root-owned and read-only to it, and PYTHONDONTWRITEBYTECODE at line 38 suppresses writes. No compiler, editor, shell-escalation binary or -dev package remains in the runtime image | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: the Dockerfile uses a two-stage build so poetry and the full bookworm toolchain stay in the builder and never reach the shipped image. The runtime stage starts from python:3.10-slim-bookworm and installs exactly one package, libpq5, with --no-install-recommends, then apt-get clean and rm -rf /var/lib/apt/lists/* in the same RUN layer so no apt metadata persists. The previously present gcc, vim and sudo (including a passwordless find rule) are gone, the runtime account is a fixed non-system UID 10001 with /usr/sbin/nologin as its shell, application code stays root-owned and read-only to that user, and PYTHONDONTWRITEBYTECODE suppresses writes. No unnecessary compiler, editor, shell-escalation binary or dev package remains | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T4751 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

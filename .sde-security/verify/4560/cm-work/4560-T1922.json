@@ -1,0 +1,28 @@
+{
+  "full_cm_id": "4560-T1922",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/oauth_policy.py",
+      "line": 31,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Alternative mitigation accepted: the OAuth 2.0/OIDC integration decision is encoded and enforced in code - ALLOWED_FLOWS excludes implicit and resource-owner-password, select_oauth_flow derives the flow from client traits rather than a config string or request parameter, public clients are refused a client_secret, and refresh tokens are withheld from browser-based clients | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/oauth_policy.py",
+      "line": 112,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Alternative mitigation accepted: validate_id_token_claims requires iss, sub, aud, exp and iat, checks the issuer and audience against expected values and binds a nonce to the session before any claim is believed, with an explicit contract that signature verification happens upstream | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Alternative mitigation accepted: the OAuth 2.0/OIDC integration decision is encoded and enforced in a policy module - flows restricted to an allow-list that excludes implicit and resource-owner-password, public clients refused a client_secret, refresh tokens withheld from browser clients, and ID token claims (iss, sub, aud, exp, iat plus a session-bound nonce) validated before any claim is believed | verdict=pass confidence=high",
+      "count": "2"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T1922 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

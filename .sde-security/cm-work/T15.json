@@ -1,0 +1,25 @@
+{
+  "cm_id": "T15",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Centralize authorization",
+    "priority": 9,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T15/",
+    "description": "Route every authorization decision through one shared policy layer instead of re-implementing checks in individual handlers.",
+    "language": "python",
+    "file": "app/apis/auth/utils/roles_based_auth_checker.py",
+    "start_line": 6,
+    "end_line": 17,
+    "finding": "RolesBasedAuthChecker is the only shared authorization primitive and it covers roles alone; ownership and resource rules are re-implemented ad hoc in individual handlers.",
+    "current_code": "class RolesBasedAuthChecker:\n    def __init__(\n        self,\n        required_roles,\n    ):\n        self.required_roles = required_roles\n\n    def __call__(self, user: User = Depends(get_current_user)):\n        if user.role not in self.required_roles:\n            raise HTTPException(status_code=403, detail=\"Unauthorized\")\n\n        return True",
+    "required_fix": "# app/apis/auth/utils/authz.py\nclass Permission(str, enum.Enum):\n    READ_DISK_STATS = \"read:disk_stats\"\n    MANAGE_MENU = \"manage:menu\"\n    MANAGE_ROLES = \"manage:roles\"\n\n\nROLE_PERMISSIONS = {\n    UserRole.CHEF: {Permission.READ_DISK_STATS, Permission.MANAGE_MENU, Permission.MANAGE_ROLES},\n    UserRole.EMPLOYEE: {Permission.MANAGE_MENU},\n    UserRole.CUSTOMER: set(),\n}\n\n\nclass Requires:\n    def __init__(self, permission: Permission):\n        self.permission = permission\n\n    def __call__(self, user: User = Depends(get_current_user)) -> User:\n        if self.permission not in ROLE_PERMISSIONS.get(user.role, set()):\n            raise HTTPException(status_code=403, detail=\"Unauthorized\")\n        return user",
+    "criteria": [
+      "All routes declare their requirement through the shared dependency.",
+      "No handler body contains an inline role comparison.",
+      "Adding a role or permission requires a change in exactly one module."
+    ]
+  }
+}

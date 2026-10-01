@@ -1,0 +1,25 @@
+{
+  "cm_id": "T4442",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Manage and protect script processes (Bash/Shell)",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T4442/",
+    "description": "Supervise the process the script starts: serialize invocations, set a timeout and clean up on exit.",
+    "language": "bash",
+    "file": "stop_app.sh",
+    "start_line": 1,
+    "end_line": 3,
+    "finding": "The teardown script starts a privileged process with no process isolation, locking or signal handling.",
+    "current_code": "#!/bin/bash\n\ndocker compose down",
+    "required_fix": "#!/bin/bash\n# stop_app.sh\nset -euo pipefail\n\nLOCK=/var/lock/restaurant-deploy.lock\nexec 9>\"$LOCK\"\nflock -n 9 || { echo \"another deploy action is in progress\" >&2; exit 1; }\n\ntrap 'rm -f \"$LOCK\"' EXIT\n\ntimeout 120 docker compose down",
+    "criteria": [
+      "Concurrent invocations are prevented by a lock.",
+      "The privileged command runs under a timeout.",
+      "A trap cleans up on any exit path."
+    ]
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "cm_id": "T7371",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Emit structured audit logs without leaking sensitive data (FastAPI)",
+    "priority": 10,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T7371/",
+    "description": "Configure structured logging and emit an audit record for security-relevant events without including credentials.",
+    "language": "python",
+    "file": "app/init_app.py",
+    "start_line": 10,
+    "end_line": 32,
+    "finding": "The application factory configures no logging at all, so no structured audit record is produced for authentication, authorization or administrative actions.",
+    "current_code": "def init_app():\n    app = FastAPI(\n        title=settings.TITLE,\n        description=settings.DESCRIPTION,\n        version=settings.VERSION,\n        servers=settings.SERVERS,\n        root_path=settings.ROOT_PATH,\n        docs_url=None,\n        redoc_url=None,\n    )\n    app.add_middleware(\n        CORSMiddleware,\n        allow_origin_regex=\".*.(restaurant.com|deliveryservice.com)\",\n        allow_credentials=True,\n        allow_methods=[\"*\"],\n        allow_headers=[\"*\"],\n    )\n    app.state.limiter = limiter\n    app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)\n\n    app.include_router(api_router)\n\n    return app",
+    "required_fix": "# app/init_app.py\nimport logging\nfrom pythonjsonlogger import jsonlogger\n\ndef configure_logging():\n    handler = logging.StreamHandler()\n    handler.setFormatter(jsonlogger.JsonFormatter(\n        \"%(asctime)s %(levelname)s %(name)s %(message)s %(request_id)s\"\n    ))\n    logging.basicConfig(level=logging.INFO, handlers=[handler])\n\n\n# app/apis/auth/services/get_token_service.py\naudit = logging.getLogger(\"audit\")\naudit.info(\"authentication\", extra={\n    \"event\": \"login_succeeded\",\n    \"username\": user.username,\n    \"source_ip\": request.client.host,\n    \"request_id\": request.state.request_id,\n})\n# never log the password, the token, or the reset code",
+    "criteria": [
+      "Logging is configured once at startup with a structured formatter.",
+      "Authentication, authorization failures, role changes and administrative actions each emit an audit record.",
+      "No log line contains a password, token, reset code or full environment dump.",
+      "Each record carries a correlation identifier."
+    ]
+  }
+}

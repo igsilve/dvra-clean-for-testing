@@ -1,0 +1,12 @@
+{
+  "cm_id": "T20",
+  "additional_requirements": [
+    {
+      "id": "TA59",
+      "title": "MDS2 Notes",
+      "text": "The following MDS2-2013 question(s) relate to this task:\n\n__3-1.__ Can the device prevent access to unauthorized users through user login requirements or other mechanisms?",
+      "ordinal": 1
+    }
+  ],
+  "count": 1
+}

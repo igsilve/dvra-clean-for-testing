@@ -1,0 +1,30 @@
+{
+  "cm_id": "T3903",
+  "additional_requirements": [
+    {
+      "id": "TA6582",
+      "title": "Ensure administrator approval is required for every installed application",
+      "text": "Require an administrator approval for every installed application:\n\na. For GitHub Apps, you are compliant by default. That is because by default only organization owners and administrators can install them.\n\nb. For OAuth Apps, perform the following:\n1. In the top right corner of GitHub.com, click your profile photo, then click **Your organizations**.\n2. Next to the organization, click **Settings**.\n3. In the \"Third-party Access\" section of the sidebar, click **OAuth application policy**.\n4. Under \"Third-party application access policy\", click **Setup application access restrictions**.\n5. After you review the information about third-party access restrictions, click **Restrict third-party application access**.",
+      "ordinal": 10
+    },
+    {
+      "id": "TA6583",
+      "title": "Ensure stale applications are reviewed and inactive ones are removed",
+      "text": "Review all stale applications and periodically remove them.",
+      "ordinal": 20
+    },
+    {
+      "id": "TA6584",
+      "title": "Ensure the access granted to each installed application is limited to the least privilege needed",
+      "text": "Grant permissions to applications by the \"least privilege\" principle, meaning the lowest possible permission necessary:\n\na. For GitHub Apps, perform the following:\n\n1. In the top right corner of GitHub.com, click your profile photo, then click **Your organizations**.\n2. Next to the organization, click **Settings**.\n3. In the \"Integrations\" section of the sidebar, click **GitHub Apps**.\n4. Next to every GitHub App, click **Configure**.\n5. Review the GitHub App's permissions and repository access. Edit the permissions granted to the least possible. For example, restrict the number of repositories the App can access.\n6. Click **Save**.",
+      "ordinal": 30
+    },
+    {
+      "id": "TA6585",
+      "title": "Ensure only secured webhooks are used",
+      "text": "Perform the following to secure all webhooks used(over HTTPS):\n\n1. Navigate to your organization or repository and select **Settings**.\n2. Select **Webhooks** on the side menu.\n3. Find the webhooks that starts with 'http' and not 'https'.\n4. Ensure the endpoint (URL) of the webhook listens to secured port (443) and uses certificate.\n5. Click **Edit**.\n6. Change the payload URL to https and ensure **Enable SSL verification** is checked.\n7. Click **Update webhook**.",
+      "ordinal": 40
+    }
+  ],
+  "count": 4
+}

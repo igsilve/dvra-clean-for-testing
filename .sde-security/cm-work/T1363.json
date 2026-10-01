@@ -1,0 +1,25 @@
+{
+  "cm_id": "T1363",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Verify if message throttling is properly performed in Web APIs",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T1363/",
+    "description": "Apply the configured slowapi limiter to the routes it was introduced for so request throttling is actually enforced.",
+    "language": "python",
+    "file": "app/rate_limiting.py",
+    "start_line": 1,
+    "end_line": 4,
+    "finding": "A slowapi Limiter is constructed with no default limits, and no route in the application applies @limiter.limit, so no API throttling is actually enforced.",
+    "current_code": "from slowapi import Limiter\nfrom slowapi.util import get_remote_address\n\nlimiter = Limiter(key_func=get_remote_address)",
+    "required_fix": "# app/rate_limiting.py\nfrom slowapi import Limiter\nfrom slowapi.util import get_remote_address\n\nlimiter = Limiter(key_func=get_remote_address, default_limits=[\"120/minute\"])\n\n# app/apis/auth/services/get_token_service.py\n@router.post(\"/token\")\n@limiter.limit(\"5/minute\")\nasync def get_token(request: Request, ...):\n    ...",
+    "criteria": [
+      "The Limiter is constructed with a default limit.",
+      "Authentication, password-reset and admin routes carry an explicit, tighter @limiter.limit decorator.",
+      "Exceeding a limit returns HTTP 429 with a Retry-After header."
+    ]
+  }
+}

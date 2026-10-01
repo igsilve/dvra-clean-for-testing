@@ -1,0 +1,84 @@
+{
+  "cm_id": "T3902",
+  "additional_requirements": [
+    {
+      "id": "TA6578",
+      "title": "Ensure team creation is limited to specific members",
+      "text": "For every organization, limit team creation to specific, trusted users by performing the following:\n\n1. In the top right corner of GitHub.com, click your profile photo, then click **Your organizations**.\n2. Next to the organization, click **Settings**.\n3. In the \"Access\" section of the sidebar, click **Member privileges**.\n4. Under \"Team creation rules\", deselect **Allow members to create teams**.\n5. Click **Save**.",
+      "ordinal": 10
+    },
+    {
+      "id": "TA6579",
+      "title": "Ensure minimum number of administrators are set for the organization",
+      "text": "Set the minimum number of administrators in your organization by performing the following:\n\n1. In the top right corner of GitHub, click your profile photo, then click **Your profile**.\n2. On the left side of your profile page, under \"Organizations\", click the icon for your organization.\n3. Under your organization name, click **People**. \n4. In the Role drop-down, choose **Owners**.\n5. Select the person or people you'd like to remove from owner role.\n6. Above the list of members, use the drop-down menu and click Change role.\n7. Select **Member**, then click **Change role**.",
+      "ordinal": 20
+    },
+    {
+      "id": "TA6580",
+      "title": "Ensure strict base permissions are set for repositories",
+      "text": "Set strict base permissions for the organization repositories with the next steps:\n\n1. In the top right corner of GitHub.com, click your profile photo, then click **Your organizations**.\n2. Next to the organization, click **Settings**.\n3. In the \"Access\" section of the sidebar, click **Member privileges**.\n4. Under \"Base permissions\", use the drop-down to select new base permissions - \"Read\" or \"None\".\n5. Review the changes. To confirm, click **Change default permission to PERMISSION**.",
+      "ordinal": 30
+    },
+    {
+      "id": "TA6581",
+      "title": "Ensure anomalous code behavior is tracked",
+      "text": "For every repository in use, track and investigate anomalous code behavior and activity.",
+      "ordinal": 40
+    },
+    {
+      "id": "TA6650",
+      "title": "Ensure inactive users are reviewed and removed periodically",
+      "text": "If you have GitHub AE, perform the following to review inactive user accounts and remove them:\n\n1. From an administrative account on GitHub AE, in the upper-right corner of any page, click the rocket icon.\n2. If you're not already on the \"Site admin\" page, in the upper-left corner, click **Site admin**.\n3. In the left sidebar, click **Dormant users**.\n4. Find the users listed there under **Your organizations** > your organization > **People** and select them.\n5. Click **Remove from organization** and **Remove members**.\n\nIf you have GitHub Enterprise Cloud, perform the following:\n\n1. In the top-right corner of GitHub.com, click your profile photo, then click **Your enterprises**.\n2. In the list of enterprises, click the enterprise you want to view.\n3. In the enterprise account sidebar, click **Compliance**.\n4. To download your Dormant Users (beta) report as a CSV file, under \"Other\", click **Download**.\n5. Find the users listed in the file under **Your organizations** > your organization > **People** and select them.\n6. Click **Remove from organization** and **Remove members**.",
+      "ordinal": 50
+    },
+    {
+      "id": "TA6651",
+      "title": "Ensure Multi-Factor Authentication (MFA) is required for contributors of new code",
+      "text": "For each repository in use, enforce Multi-Factor Authentication is the only way to authenticate for contributors, by doing the following:\n\n1. In the top right corner of GitHub.com, click your profile photo, then click **Your organizations**.\n2. Next to the organization, click **Settings**.\n3. In the \"Security\" section of the sidebar, click **Authentication security**.\n4. Under \"Authentication\", select **Require two-factor authentication for everyone in your organization**, then click **Save**.",
+      "ordinal": 60
+    },
+    {
+      "id": "TA6652",
+      "title": "Ensure the organization is requiring members to use Multi-Factor Authentication (MFA)",
+      "text": "For every organization that exists in your GitHub platform, enforce Multi-Factor Authentication and define it as the only way to authenticate, by doing the following:\n\n1. In the top right corner of GitHub.com, click your profile photo, then click **Your organizations**.\n2. Next to the organization, click **Settings**.\n3. In the \"Security\" section of the sidebar, click **Authentication security**.\n4. Under \"Authentication\", select **Require two-factor authentication for everyone in your organization**, then click **Save**.\n5. If prompted, read the information about members and outside collaborators who will be removed from the organization. Type your organization's name to confirm the change, then click **Remove members & require two-factor authentication**.",
+      "ordinal": 70
+    },
+    {
+      "id": "TA6653",
+      "title": "Ensure new members are required to be invited using company-approved email",
+      "text": "For each organization, allow only users with company-approved email to be invited. If a user was invited without company-approved email, perform the following:\n\n1. In the top right corner of GitHub.com, click your profile photo, then click **Your organizations**.\n2. Click the name of your organization and under your organization name, click **People**.\n3. On the People tab, click **Invitations**. Next to the username or email address of the person whose invitation you'd like to cancel, click **Edit invitation**.\n4. To cancel the user's invitation to join your organization, click **Cancel invitation**.",
+      "ordinal": 80
+    },
+    {
+      "id": "TA6654",
+      "title": "Ensure two administrators are set for each repository",
+      "text": "For every repository in use, set two administrators by performing the following:\n\n1. On GitHub, navigate to the main page of the repository.\n2. Under your repository name, click **Settings**.\n3. In the \"Access\" section of the sidebar, click **Collaborators & teams**.\n4. Under **Manage access**, find the team or person whose you'd like to revoke admin permissions, then select the Role drop-down and click a new role.",
+      "ordinal": 90
+    },
+    {
+      "id": "TA6655",
+      "title": "Ensure an organization's identity is confirmed with a \"Verified\" badge",
+      "text": "Only if you have an enterprise account, verify the organization's domains and secure a \"Verified\" badge next to its name by performing the following:\n\n1. In the top-right corner of GitHub.com, click your profile photo, then click **Your enterprises**.\n2. In the list of enterprises, click the enterprise you want to view. Then in the enterprise account sidebar, click **Settings**.\n3. Under \"Settings\", click **Verified & approved domains**.\n4. Click **Add a domain**.\n5. In the domain field, type the domain you'd like to verify, then click **Add domain**.\n6. Follow the instructions under **Add a DNS TXT record** to create a DNS TXT record with your domain hosting service. Wait for your DNS configuration to change, which may take up to 72 hours. You can confirm your DNS configuration has changed by running the `dig` command on the command line, replacing ENTERPRISE-ACCOUNT with the name of your enterprise account, and example.com with the domain you'd like to verify. You should see your new TXT record listed in the command output.\n```\ndig _github-challenge-ENTERPRISE-ACCOUNT.DOMAIN-NAME +nostats +nocomments +nocmd TXT\n```\n7. After confirming your TXT record is added to your DNS, follow steps one through three above to navigate to your enterprise account's approved and verified domains.\n8. To the right of the domain that's pending verification, click the 3-dots, then click **Continue verifying**. Click **Verify**.\n9. Optionally, after the \"Verified\" badge is visible on your organizations' profiles, delete the TXT entry from the DNS record at your domain hosting service.",
+      "ordinal": 100
+    },
+    {
+      "id": "TA6656",
+      "title": "Ensure Source Code Management (SCM) email notifications are restricted to verified domains",
+      "text": "Only if you have an enterprise account, restrict Source Code Management email notifications to approved domains only by performing the following:\n\n1. In the top-right corner of GitHub.com, click your profile photo, then click **Your enterprises**.\n2. In the list of enterprises, click the enterprise you want to view. Then in the enterprise account sidebar, click **Settings**.\n3. Under \"Settings\", click **Verified & approved domains**.\n4. Under \"Notification preferences\", select **Restrict email notifications to only approved or verified domains**.\n5. Click **Save**.",
+      "ordinal": 110
+    },
+    {
+      "id": "TA6657",
+      "title": "Ensure an organization provides SSH certificates",
+      "text": "Only if you have an enterprise account, deploy an SSH Certificate Authority server and configure it to provide an SSH certificate with which to sign keys by performing the following:\n\n1. In the top right corner of GitHub.com, click your profile photo, then click **Your organizations**.\n2. Next to the organization, click **Settings**.\n3. In the \"Security\" section of the sidebar, click **Authentication security**.\n4. To the right of \"SSH Certificate Authorities\", click **New CA**.\n5. Under \"Key,\" paste your public SSH key.\n6. Click **Add CA**.\n7. Click **Save**.",
+      "ordinal": 120
+    },
+    {
+      "id": "TA6658",
+      "title": "Ensure Git access is limited based on IP addresses",
+      "text": "Only if you have an enterprise account, create an IP allowlist and forbid all other IPs from accessing the source code by performing the following:\n\n1. In the top right corner of GitHub.com, click your profile photo, then click **Your organizations**.\n2. Next to the organization, click **Settings**.\n3. In the \"Security\" section of the sidebar, click **Authentication security**.\n4. At the bottom of the \"IP allow list\" section, enter an IP address, or a range of addresses in CIDR notation. Optionally, enter a description of the allowed IP address or range.\n5. Click **Add**.\n6. After that, under \"IP allow list\", select **Enable IP allow list**.\n7. Click **Save**.",
+      "ordinal": 130
+    }
+  ],
+  "count": 13
+}

@@ -1,0 +1,33 @@
+{
+  "full_cm_id": "4560-T105",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/debug/services/get_debug_info_service.py",
+      "line": 0,
+      "description": "File does not exist: the /debug package was deleted rather than guarded, and no module imports apis.debug. The vulnerable debug surface described in the weakness has no code path left.",
+      "category": "vulnerability-absent"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/router.py",
+      "line": 30,
+      "description": "Routers partitioned into PUBLIC/AUTHENTICATED/MIXED groups with REQUIRES_AUTHENTICATION = [Depends(get_current_user)] applied at router level to orders/admin/users/referrals; the surviving introspection route /internal/status is permission-gated behind a two-field response_model, and interactive docs plus the OpenAPI schema are withdrawn in production.",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] app/apis/debug/services/get_debug_info_service.py no longer exists: the /debug package was removed outright rather than merely guarded, and no module in the tree imports apis.debug | verdict=pass confidence=high",
+      "count": "1"
+    },
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] app/apis/router.py: routers are partitioned into PUBLIC/AUTHENTICATED/MIXED groups with router-level Depends(get_current_user) on the authenticated group; the surviving operator introspection route /internal/status is gated on Permission.READ_DEBUG_INFO behind a two-field response_model, and docs_url/redoc_url are None with openapi_url withdrawn in production | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T105 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": "",
+  "pass_by_absence": true
+}

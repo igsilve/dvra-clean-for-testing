@@ -1,0 +1,32 @@
+{
+  "full_cm_id": "4560-T1542",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/auth/services/update_profile_service.py",
+      "line": 23,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Alternative mitigation accepted: the profile state change is served by @router.put(\"/profile\") and the account edited is taken from the token, not the body | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/router.py",
+      "line": 51,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Vulnerability absent (mitigation style unrecognized): no state-changing GET/HEAD route is declared in the mounted router groups | verdict=pass confidence=high",
+      "category": "vulnerability-absent-mitigation-unrecognized"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Alternative mitigation accepted: the profile state change is served by @router.put(\"/profile\") and the account edited is taken from the token, not the body | verdict=pass confidence=high",
+      "count": "1"
+    },
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Vulnerability absent (mitigation style unrecognized): no state-changing GET/HEAD route is declared in the mounted router groups | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T1542 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

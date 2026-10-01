@@ -1,0 +1,32 @@
+{
+  "full_cm_id": "4560-T78",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/auth/services/reset_password_new_password_service.py",
+      "line": 34,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: throttling via @limiter.limit('5/minute') at line 34 and seconds_remaining/register_failure lockout at lines 47-58, a persisted MAX_CODE_ATTEMPTS=5 budget that destroys the code at lines 64-77, an expiry check at lines 79-83, derived-code comparison via reset_code_matches at line 88, and a single generic 400 at lines 42-45 that prevents user enumeration | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/auth/services/reset_password_new_password_service.py",
+      "line": 0,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] not-applicable-how-to-skipped: how-to I155 'Manually with browser' is an interactive browser/email procedure with no Python-analysable counterpart (audit-only, no verdict impact) | verdict=pass confidence=high",
+      "category": "not-applicable-how-to-skipped"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: app/apis/auth/services/reset_password_new_password_service.py answers every failure path with one generic 400 ('Invalid username or reset password code'), so the endpoint does not enumerate users; anti-automation is present as @limiter.limit('5/minute') plus a persisted per-code attempt budget (MAX_CODE_ATTEMPTS=5) that destroys the code when spent, and an in-process lockout via seconds_remaining/register_failure. The code is compared through reset_code_matches against a derived value rather than a stored plaintext, is expiry-checked, and is cleared after use, so no plaintext password is transmitted and no NULL-token reset is possible | verdict=pass confidence=high",
+      "count": "1"
+    },
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] not-applicable-how-to-skipped: how-to I155 ('Manually with browser') prescribes interactive browser and email inspection and has no statically analysable Python counterpart; skipped for audit transparency with no verdict impact | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T78 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

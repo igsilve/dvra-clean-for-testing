@@ -1,0 +1,25 @@
+{
+  "cm_id": "T4436",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Protect directory writing and reading (Bash/Shell)",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T4436/",
+    "description": "Create directories with an explicit restrictive mode and verify ownership before writing.",
+    "language": "bash",
+    "file": "start_app.sh",
+    "start_line": 1,
+    "end_line": 4,
+    "finding": "mkdir -p creates postgres_data relative to the caller's working directory with default permissions.",
+    "current_code": "#!/bin/bash\n\nmkdir -p postgres_data\ndocker compose up $1",
+    "required_fix": "#!/bin/bash\n# start_app.sh\nset -euo pipefail\numask 077\n\nDATA_DIR=\"$(pwd -P)/postgres_data\"\nmkdir -m 0700 -p \"$DATA_DIR\"\n\nif [ \"$(stat -f '%u' \"$DATA_DIR\")\" != \"$(id -u)\" ]; then\n    echo \"postgres_data is not owned by the current user\" >&2\n    exit 1\nfi",
+    "criteria": [
+      "Directories are created with an explicit mode, not the inherited umask default.",
+      "Ownership is verified before the directory is used.",
+      "The path is resolved absolutely."
+    ]
+  }
+}

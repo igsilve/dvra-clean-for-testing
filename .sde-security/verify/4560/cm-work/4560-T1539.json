@@ -1,0 +1,38 @@
+{
+  "full_cm_id": "4560-T1539",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/auth/services/logout_service.py",
+      "line": 58,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] The logout response sets Clear-Site-Data to \"cache\", \"cookies\", \"storage\", exactly the directive set the countermeasure prescribes | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/auth/services/logout_service.py",
+      "line": 50,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] access_token and csrf_token cookies are expired on the same response, and the token jti is recorded on a server-side revocation list so logout also ends the session server side | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/auth/service.py",
+      "line": 23,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Router aggregator that includes the logout router, making the clearing response reachable at POST /logout; it holds no client-storage code path of its own, so no mitigation construct is expected in it | verdict=pass confidence=high",
+      "category": "vulnerability-absent-mitigation-unrecognized"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] The logout route sets Clear-Site-Data to '\"cache\", \"cookies\", \"storage\"' on the response (app/apis/auth/services/logout_service.py:58), which is exactly the directive set the countermeasure prescribes, and additionally expires the access_token and csrf_token cookies (:50-51) and records the token jti on a server-side revocation list (:34-45) | verdict=pass confidence=high",
+      "count": "2"
+    },
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] app/apis/auth/service.py is a router aggregator that includes the logout router (:23), making the clearing response reachable at POST /logout; it holds no client-storage code path of its own, so no mitigation construct is expected in it and none is required | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T1539 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

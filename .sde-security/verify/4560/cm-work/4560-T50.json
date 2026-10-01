@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T50",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/menu/utils.py",
+      "line": 58,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] The only external locator is image_url, constrained to https plus a hostname allow-list that fails closed when empty, with non-routable resolved addresses and redirects refused and content digest/signature/format validated; no filesystem path is derived from input, and every menu mutation re-checks Permission.MANAGE_MENU at the data-change point | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] No user-controlled key reaches a file reference in app/apis/menu/utils.py. The only externally supplied locator is image_url, which is not a filesystem path: it must be https, its hostname must appear in settings.ALLOWED_IMAGE_HOSTS (an empty list fails closed), every resolved address is rejected if private/loopback/link-local/reserved/multicast, redirects are refused, and the retrieved bytes are digest- and signature-checked then parsed as an allow-listed image format before being stored as base64 in the database. No path is derived from input, so no traversal such as '../config.xml' is expressible. Menu item_id is a direct integer reference, but it addresses publicly readable content whose every mutation re-checks authz.require(Permission.MANAGE_MENU) at the point the data changes. Alternative mitigation accepted: host allow-listing plus permission enforcement supplies the access-control property the indirect-reference map exists to provide | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T50 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

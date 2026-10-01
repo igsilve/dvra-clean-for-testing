@@ -1,0 +1,32 @@
+{
+  "full_cm_id": "4560-T89",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/menu/utils.py",
+      "line": 148,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: no HTML/JS/CSS is generated in this file and no request value is reflected into markup, so the CWE-79 output sink is absent; _assert_content_is_a_supported_image at lines 148-201 determines content type by parsing with Pillow against an ALLOWED_IMAGE_FORMATS allow-list plus image.verify(), preventing an HTML or script payload from being stored as image_base64 and served back | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/menu/utils.py",
+      "line": 0,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] not-applicable-how-to-skipped: how-to I169 'using XSS-Me' is a Firefox-extension procedure against rendered forms with no Python-analysable counterpart (audit-only, no verdict impact) | verdict=pass confidence=high",
+      "category": "not-applicable-how-to-skipped"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: app/apis/menu/utils.py generates no HTML, JavaScript or CSS and reflects no request value into markup, so there is no web-page-generation sink for CWE-79. The stored-XSS vector it does own is closed by _assert_content_is_a_supported_image, which decides what remote bytes are by parsing them with Pillow and holding the result to an ALLOWED_IMAGE_FORMATS allow-list (JPEG/PNG/GIF/WEBP) plus image.verify(), so an HTML document or script cannot be persisted into image_base64 and later served back; _verify_content additionally pins the bytes to an expected SHA-256 and an optional publisher signature | verdict=pass confidence=high",
+      "count": "1"
+    },
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] not-applicable-how-to-skipped: how-to I169 ('using XSS-Me') drives a retired Firefox extension against rendered forms and has no statically analysable Python counterpart; skipped for audit transparency with no verdict impact | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T89 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

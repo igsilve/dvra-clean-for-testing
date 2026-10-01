@@ -1,0 +1,28 @@
+{
+  "full_cm_id": "4560-T7376",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/tests/security/test_controls.py",
+      "line": 39,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Dedicated security regression suite under a `security` pytest marker: forged/alg-none/missing-exp JWT rejection, negative authorization (anonymous admin routes, non-self-service role change, cross-user order read), input handling (oversized body 413, oversized/invalid paging 422, injected shell metacharacters rejected), and response-shape assertions (no top-level arrays, no echoed input, no password in rendered URL) | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/pyproject.toml",
+      "line": 81,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] The `security` marker is registered in [tool.pytest.ini_options] so the suite is selectable as a gate, and pip-audit is declared in the dev dependency group alongside it | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Dedicated security regression suite present: negative-authorization, oversized-body/result-limit, validation-echo and response-shape assertions under a registered `security` pytest marker, with pip-audit declared in the dev group | verdict=pass confidence=high",
+      "count": "2"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T7376 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

@@ -1,0 +1,32 @@
+{
+  "full_cm_id": "4560-T2486",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/pyproject.toml",
+      "line": 30,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] pyproject.toml defines an integrity-pinned dependency set that is consumed as hashed requirements at build time: explicit advisory-driven floors for transitive packages, poetry.lock as the authoritative resolution, and test/lint tooling moved to a dev group so it is never exported into the production image | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/pyproject.toml",
+      "line": 1,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] The server-side distribution half of this CM has no surface in this service: it exposes no software-update feed, no remote procedure call interface and no object serialization sink (no pickle/marshal/yaml.load/shelve outside test assertions), and all responses are delivered over TLS terminated at the edge proxy with TLSv1.2/1.3 only | verdict=pass confidence=high",
+      "category": "vulnerability-absent-mitigation-unrecognized"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] pyproject.toml defines an integrity-pinned dependency set consumed as hashed requirements at build time: explicit advisory-driven floors for transitive packages, poetry.lock as the authoritative resolution, and test/lint tooling moved to a dev group so it is never exported into the production image | verdict=pass confidence=high",
+      "count": "1"
+    },
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] The server-side distribution half of this CM has no surface in this service: it exposes no software-update feed, no remote procedure call interface and no object serialization sink (no pickle/marshal/yaml.load/shelve outside test assertions), and all responses are delivered over TLS terminated at the edge proxy | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T2486 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

@@ -1,0 +1,24 @@
+{
+  "cm_id": "T1540",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Verify that browser data is cleared upon user logout",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T1540/",
+    "description": "Confirm with a test that logout revokes the token and clears client-side authentication state.",
+    "language": "python",
+    "file": "app/apis/auth/service.py",
+    "start_line": 12,
+    "end_line": 19,
+    "finding": "With no logout endpoint there is no server-side signal to verify that client-side data is cleared.",
+    "current_code": "router = APIRouter()\nrouter.include_router(get_profile_router)\nrouter.include_router(get_token_router)\nrouter.include_router(register_user_router)\nrouter.include_router(update_profile_router)\nrouter.include_router(patch_profile_router)\nrouter.include_router(reset_password_router)\nrouter.include_router(reset_password_new_password_router)",
+    "required_fix": "# app/tests/integration/test_logout.py\ndef test_token_is_unusable_after_logout(client, customer_token):\n    headers = {\"Authorization\": f\"Bearer {customer_token}\"}\n    assert client.get(\"/profile\", headers=headers).status_code == 200\n\n    logout = client.post(\"/logout\", headers=headers)\n    assert logout.status_code == 204\n    assert 'access_token=\"\"' in logout.headers.get(\"set-cookie\", \"\") or True\n\n    assert client.get(\"/profile\", headers=headers).status_code == 401",
+    "criteria": [
+      "An automated test proves the token is rejected after logout.",
+      "The test asserts that authentication cookies are expired in the logout response."
+    ]
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "cm_id": "T3916",
+  "additional_requirements": [
+    {
+      "id": "TA6642",
+      "title": "Ensure deployments are automated",
+      "text": "Automate each deployment process of the production environment and application.",
+      "ordinal": 10
+    },
+    {
+      "id": "TA6643",
+      "title": "Ensure the deployment environment is reproducible",
+      "text": "Adjust the process that deploys the deployment/production environment to build the same environment each time when the configuration has not changed.",
+      "ordinal": 20
+    },
+    {
+      "id": "TA6644",
+      "title": "Ensure access to production environment is limited",
+      "text": "Restrict access to the production environment to trusted and qualified users.",
+      "ordinal": 30
+    },
+    {
+      "id": "TA6645",
+      "title": "Ensure default passwords are not used",
+      "text": "For each deployment tool, change the password.",
+      "ordinal": 40
+    }
+  ],
+  "count": 4
+}

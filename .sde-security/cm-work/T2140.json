@@ -1,0 +1,24 @@
+{
+  "cm_id": "T2140",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Test that APIs do not expose sensitive information",
+    "priority": 7,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T2140/",
+    "description": "Stop returning process environment, filesystem and path information through the API.",
+    "language": "python",
+    "file": "app/apis/debug/services/get_debug_info_service.py",
+    "start_line": 22,
+    "end_line": 27,
+    "finding": "The debug response embeds the full process environment plus the working directory, sys.path and a directory listing, exposing internal configuration and secrets through an API.",
+    "current_code": "    env_vars = dict(os.environ)\n    local_paths = {\n        \"current_working_directory\": os.getcwd(),\n        \"sys_path\": sys.path,\n        \"cwd_listing\": os.listdir(os.getcwd()),\n    }",
+    "required_fix": "# app/apis/debug/services/get_debug_info_service.py\n# Remove the endpoint entirely. If an operational probe is required,\n# expose only non-identifying liveness data and require an authenticated\n# operator role:\n\n@router.get(\"/internal/status\", status_code=status.HTTP_200_OK)\ndef get_status(\n    _: Annotated[bool, Depends(RolesBasedAuthChecker([UserRole.CHEF]))],\n):\n    return {\"status\": \"ok\"}",
+    "criteria": [
+      "No route returns `os.environ`, `sys.path`, `os.getcwd()` or a directory listing.",
+      "An unauthenticated request to any diagnostic path returns 401 or 404."
+    ]
+  }
+}

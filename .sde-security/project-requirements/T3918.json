@@ -1,0 +1,48 @@
+{
+  "cm_id": "T3918",
+  "additional_requirements": [
+    {
+      "id": "TA6692",
+      "title": "Test presence of SECURITY.md file in all public repositories",
+      "text": "Verify that each public repository has a SECURITY.md file by performing the following:\n\n1. On GitHub.com, navigate to the main page of the repository.\n2. Under the repository name, click **Security**.\n3. Verify that **Security policy** is enabled.",
+      "ordinal": 10
+    },
+    {
+      "id": "TA6693",
+      "title": "Test restriction of repository creation to specific members",
+      "text": "Verify that only trusted users and teams can create repositories by performing the following:\n\n1. In the top right corner of GitHub.com, click your profile photo, then click **Your organizations**.\n2. Next to the organization, click **Settings**.\n3. In the \"Access\" section of the sidebar, click **Member privileges**.\n4. Under \"Repository creation\", ensure that **Public** and **Private** are not checked. This means only owners are able to create repositories.",
+      "ordinal": 20
+    },
+    {
+      "id": "TA6694",
+      "title": "Test restriction of repository deletion to specific users",
+      "text": "Verify that only a limited number of trusted users can delete repositories by performing either of the following steps:\n\nIf Your organizations > Settings > Access > Member privileges > Allow members to delete or transfer repositories for this organization is selected, verify that every admin member is trusted by you:\n1. In every repository, on GitHub.com, navigate to the main page of the repository.\n2. Under your repository name, click **Settings** and then in the \"Access\" section of the sidebar, click **Collaborators & teams**.\n3. Under \"Manage access\" use the dropdown **Role** menu to filter and search for admin members. Verify that there are only two of them and that they are trusted and qualified. \n\nIf it is not selected, verify that every organization owner is trusted by you:\n1. In the top right corner of GitHub.com, click your profile photo, then click **Your organizations**.\n2. Click the name of your organization and under your organization name, click **People**.\n3. You will see a list of the people in your organization. Click Role and select Owners. Verify that there are only a few of them and that they are trusted and qualified. \n\nIn any case, only members with administrator or organization owner privileges can delete repositories, regardless of your setting.",
+      "ordinal": 30
+    },
+    {
+      "id": "TA6695",
+      "title": "Test restriction of issue deletion to specific users",
+      "text": "Verify that only a limited number of trusted users can delete issues by performing either of the following steps:\n\nIf Your organizations > Settings > Access > Member privileges > Allow members to delete issues for this organization is selected, verify that every admin member is trusted by you:\n1. In every repository, on GitHub.com, navigate to the main page of the repository.\n2. Under your repository name, click **Settings** and then in the \"Access\" section of the sidebar, click **Collaborators & teams**.\n3. Under \"Manage access\" use the dropdown **Role** menu to filter and search for admin members. Verify that there are only two of them and that they are trusted and qualified.\n\nIf it is not selected, verify that every organization owner is trusted by you:\n1. In the top right corner of GitHub.com, click your profile photo, then click Your organizations.\n2. Click the name of your organization and under your organization name, click **People**.\n3. You will see a list of the people in your organization. Click **Role** and select **Owners**. Verify that there are only a few of them and that they are trusted and qualified.\n\nIn any case, only members with administrator or organization owner privileges can delete issues, regardless of your setting.",
+      "ordinal": 40
+    },
+    {
+      "id": "TA6696",
+      "title": "Test tracking and accounting of all copies (forks) of code",
+      "text": "Verify that the following steps are done regularly to track and examine forks:\n\n1. On GitHub.com, navigate to the main page of the repository.\n2. Under your repository name, click **Insights**.\n3. In the left sidebar, click **Forks**.\n4. Examine the forks listed there.",
+      "ordinal": 50
+    },
+    {
+      "id": "TA6697",
+      "title": "Test tracking of changes in visibility status for all code projects",
+      "text": "Ensure that every change in project visibility is tracked and investigated, by performing the following regularly:\n\n1. In the top right corner of GitHub.com, click your profile photo, then click **Your organizations**.\n2. Next to the organization, click **Settings**.\n3. In the \"Archives\" section of the sidebar, click **Logs**, then click **Audit log**.\n4. Use the **repo** qualifier in your query and look for **access** category. Ensure every change is reasonable and secure and is investigated if it is not.",
+      "ordinal": 60
+    },
+    {
+      "id": "TA6698",
+      "title": "Test periodic review and archiving of inactive repositories",
+      "text": "Perform the following to ensure that all the repositories in the organization are active, and those that are not reviewed or archived:\n\n1. In the top right corner of GitHub.com, click your profile photo, then click **Your organizations**.\n2. Click on your organization name and then on **repositories**.\n3. Ensure every repository listed has been active in the last 3 to 6 months. If it's not, then ensure it is archived or reviewed regularly.",
+      "ordinal": 70
+    }
+  ],
+  "count": 7
+}

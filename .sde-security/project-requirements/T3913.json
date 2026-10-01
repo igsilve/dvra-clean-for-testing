@@ -1,0 +1,30 @@
+{
+  "cm_id": "T3913",
+  "additional_requirements": [
+    {
+      "id": "TA6632",
+      "title": "Ensure all signed artifacts are validated upon uploading the package registry",
+      "text": "Validate every artifact with its signature before uploading it to the package registry. It is recommended to do so automatically.",
+      "ordinal": 10
+    },
+    {
+      "id": "TA6633",
+      "title": "Ensure all versions of an existing artifact have their signatures validated",
+      "text": "For each artifact, sign and validate each version before uploading or using the artifact.",
+      "ordinal": 20
+    },
+    {
+      "id": "TA6634",
+      "title": "Ensure changes in package registry configuration are audited",
+      "text": "Audit the changes to the package registry configuration.",
+      "ordinal": 30
+    },
+    {
+      "id": "TA6635",
+      "title": "Ensure webhooks of the repository are secured",
+      "text": "For each webhook in use, change it to secured (over HTTPS).",
+      "ordinal": 40
+    }
+  ],
+  "count": 4
+}

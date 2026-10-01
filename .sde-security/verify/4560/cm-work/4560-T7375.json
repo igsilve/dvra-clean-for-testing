@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T7375",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/auth/services/register_user_service.py",
+      "line": 21,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] app/apis/auth/services/register_user_service.py: register_user is declared as a plain def, not async def, so FastAPI runs it in its threadpool and the synchronous work it performs (SQLAlchemy session writes and the password hash inside create_user) never executes on the event loop. No blocking call - no sync driver, requests, time.sleep, or crypto routine - is invoked from an async def handler in this file. Using a def endpoint for a synchronous dependency is the recommended offload mechanism, equivalent to run_in_threadpool | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] app/apis/auth/services/register_user_service.py: register_user is declared as a plain def, not async def, so FastAPI runs it in its threadpool and the synchronous work it performs (SQLAlchemy session writes and the password hash inside create_user) never executes on the event loop. No blocking call - no sync driver, requests, time.sleep, or crypto routine - is invoked from an async def handler in this file. Using a def endpoint for a synchronous dependency is the recommended offload mechanism, equivalent to run_in_threadpool | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T7375 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

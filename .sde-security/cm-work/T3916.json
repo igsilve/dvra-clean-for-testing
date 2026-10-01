@@ -1,0 +1,19 @@
+{
+  "cm_id": "T3916",
+  "category": "INFRA",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "documentation",
+    "title": "Ensure automated and secure deployment (GitHub)",
+    "priority": 8,
+    "category": "INFRA",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T3916/",
+    "description": "Automate deployment so releases are reproducible and no person deploys by hand.",
+    "guidance": "Deployment should run from a reviewed pipeline against an immutable artifact, with environment approvals, automatic rollback and a recorded audit trail, rather than from a developer workstation.",
+    "searched": "start_app.sh, stop_app.sh, start_game.sh, docker-compose.yml",
+    "found": "Deployment is a shell script that runs `docker compose up` on whatever host the operator is sitting at.",
+    "missing": "A deployment pipeline, target environment definitions and release approval gates.",
+    "conclusion": "Automating deployment requires CI/CD infrastructure and environment definitions that sit outside this repository.",
+    "action": "The CI/CD owners should build the deployment pipeline and retire manual script-based deployment."
+  }
+}

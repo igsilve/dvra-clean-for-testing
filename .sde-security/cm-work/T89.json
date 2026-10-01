@@ -1,0 +1,25 @@
+{
+  "cm_id": "T89",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Test that site is not vulnerable to XSS",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T89/",
+    "description": "Validate stored text on input and guarantee it is never emitted into an HTML context.",
+    "language": "python",
+    "file": "app/apis/menu/utils.py",
+    "start_line": 34,
+    "end_line": 55,
+    "finding": "Update writes caller-supplied text fields straight onto the model and back out through the API with no sanitization.",
+    "current_code": "def update_menu_item(\n    db,\n    item_id: int,\n    menu_item: schemas.MenuItemCreate,\n):\n    db_item = db.query(MenuItem).filter(MenuItem.id == item_id).first()\n    if db_item is None:\n        raise HTTPException(status_code=404, detail=\"Menu item not found\")\n\n    menu_item_dict = menu_item.dict()\n    image_url = menu_item_dict.pop(\"image_url\", None)\n\n    for key, value in menu_item_dict.items():\n        setattr(db_item, key, value)\n\n    if image_url:\n        db_item.image_base64 = _image_url_to_base64(image_url)\n\n    db.add(db_item)\n    db.commit()\n    db.refresh(db_item)\n    return db_item",
+    "required_fix": "# app/apis/menu/utils.py\ndef update_menu_item(db, item_id: int, menu_item: schemas.MenuItemCreate):\n    db_item = db.query(MenuItem).filter(MenuItem.id == item_id).first()\n    if db_item is None:\n        raise HTTPException(status_code=404, detail=\"Menu item not found\")\n\n    # MenuItemCreate forbids extra keys and bounds every text field.\n    for key, value in menu_item.model_dump(exclude_unset=True, exclude={\"image_url\"}).items():\n        setattr(db_item, key, value)\n\n    if menu_item.image_url:\n        db_item.image_base64 = _image_url_to_base64(_safe_image_url(menu_item.image_url))\n\n    db.add(db_item); db.commit(); db.refresh(db_item)\n    return db_item",
+    "criteria": [
+      "Input models bound and constrain every text field and forbid extra keys.",
+      "Responses are JSON with `X-Content-Type-Options: nosniff`.",
+      "A stored `<script>` payload is returned escaped or as inert JSON data, never executed."
+    ]
+  }
+}

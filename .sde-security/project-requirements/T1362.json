@@ -1,0 +1,18 @@
+{
+  "cm_id": "T1362",
+  "additional_requirements": [
+    {
+      "id": "TA2882",
+      "title": "Web API - throttling types",
+      "text": "You can apply different types of throttling as follows:\n\n- __Rate-limit throttling__: A simple throttle limits the number of requests passing through during a time interval. A throttle can be based on the number of requests, size of a payload, or content.\n\n- __IP-level throttling__: Make your API accessible only to white-listed IP addresses, or limit the number of requests sent by a specific client IP.\n\n- __Scope-limit throttling__: Restrict access to specific parts of the API, such as certain methods, functions, or procedures that are based on the users' roles. You can take advantage of the same API across your organization by Implementing scope limiting.\n\n- __Concurrent connections limit__: Limit the number of connections from a user/account to avoid a Denial of Service error when your application cannot respond to more than a certain number of connections.\n\n- __Resource-level throttling__: Use resource-level throttling or hard throttling to limit the number of returned records from your API.\nFor instance, if a certain query returns a large number of records, throttle the request so that your SQL engine limits the number of rows returned by using conditions attributes such as TOP, SKIP, SQL_ATTR_MAX_ROWS, and so on.\n\n- __Tiers of throttling__: Apply throttling at multiple levels in your organization:\n    - API-level throttling\n    - Application-level throttling\n    - User-level throttling\n    - Account-level throttling\n\n## References\n[How to Rate-Limit an API Query](https://www.progress.com/blogs/how-to-rate-limit-an-api-query-throttling-made-easy)",
+      "ordinal": 1
+    },
+    {
+      "id": "TA6543",
+      "title": "Secure API Resource Consumption Guidelines",
+      "text": "- Use a solution that makes it easy to limit memory, CPU, number of restarts, file descriptors, and processes, such as Containers / Serverless code (e.g. Lambdas).\n\n- Define and enforce a maximum size of data on all incoming parameters and payloads, such as maximum length for strings, maximum number of elements in arrays, and maximum upload file size (regardless of whether it is stored locally or in cloud storage). Reject requests that require excessive work. Look for work that scales nonlinearly, which means it suddenly requires exponentially more time to complete when you pass a certain threshold. Thorough testing can help you detect issues that you might not catch in a code review.\n\n\n- Implement a limit on how often a client can interact with the API within a defined timeframe (rate limiting).\n\n- Rate limiting should be fine-tuned based on the business needs. Some API Endpoints might require stricter policies.\n\n- Limit/throttle how many times or how often a single API client/user can execute a single operation (for example, validate an OTP, or request password recovery without visiting the one-time URL).\n\n- Add proper server-side validation for query strings and request body parameters, specifically the one that controls the number of records to be returned in the response.\n\n- Configure spending limits for all service providers/API integrations. When setting spending limits is not possible, billing alerts should be configured instead.\n- Deploy techniques that can slow down automated access to sensitive business operations (for example, making and receiving payment, authentication, core business use case and so on) such as device fingerprinting, human detection, non-human pattern analysis, blocking known threat sources and so on.",
+      "ordinal": 2
+    }
+  ],
+  "count": 2
+}

@@ -1,0 +1,24 @@
+{
+  "cm_id": "T4451",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Test access controls (Bash/Shell)",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T4451/",
+    "description": "Prove with a test that the teardown script refuses an unauthorized caller.",
+    "language": "bash",
+    "file": "stop_app.sh",
+    "start_line": 1,
+    "end_line": 3,
+    "finding": "There is no access-control logic in the script to exercise.",
+    "current_code": "#!/bin/bash\n\ndocker compose down",
+    "required_fix": "# app/tests/security/test_ops_scripts.sh\nunset SDE_DEPLOY_ROLE\nif ./stop_app.sh >/dev/null 2>&1; then\n    echo \"FAIL: stop_app.sh ran without authorization\" >&2\n    exit 1\nfi",
+    "criteria": [
+      "A test asserts a non-zero exit when the role variable is absent.",
+      "The test is wired into CI."
+    ]
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T106",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/orders/services/get_order_service.py",
+      "line": 22,
+      "description": "Ownership is part of the query itself (owned_by(db.query(Order), Order, current_user) applied before .filter(Order.id == order_id)), so a substituted order id never loads another customer's row; the handler returns 404 rather than 403 so existence cannot be inferred, and the route requires Permission.READ_OWN_ORDERS.",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] app/apis/orders/services/get_order_service.py:22-29: ownership is applied inside the query via owned_by(db.query(Order), Order, current_user) before .filter(Order.id == order_id), so another customer's row is never loaded by substituting an id; a non-owned id yields 404 rather than 403 so ids cannot be enumerated by response differential, and the route additionally requires Permission.READ_OWN_ORDERS | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T106 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

@@ -1,0 +1,32 @@
+{
+  "full_cm_id": "4560-T175",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/menu/utils.py",
+      "line": 221,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: requests.get(..., verify=certifi.where()) pins the trust store so certificate chain and hostname are validated by the TLS stack; scheme forced to https at line 51 and redirects refused at line 228, so the verified channel cannot be downgraded or redirected. | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/menu/utils.py",
+      "line": 0,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] not-applicable-how-to-skipped: how-to I279 is a Burp Suite proxy-interception runtime procedure with no Python code pattern to match; audit-only, no verdict impact.",
+      "category": "not-applicable-how-to-skipped"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: app/apis/menu/utils.py performs its outbound TLS fetch with requests.get(..., verify=certifi.where()), pinning the CA bundle so chain-of-trust and hostname validation are enforced by the TLS stack; no verify=False / ssl._create_unverified_context / cert_reqs=CERT_NONE anywhere. Scheme is forced to https and redirects are refused, so the channel cannot be downgraded. Same security property as ctx.text's chain-of-trust requirement. | verdict=pass confidence=high",
+      "count": "1"
+    },
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] not-applicable-how-to-skipped: how-to I279 (Burp Suite intercepting-proxy setup) is a manual black-box runtime procedure, not a Python code pattern; Q2 skipped (audit-only, no verdict impact).",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T175 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

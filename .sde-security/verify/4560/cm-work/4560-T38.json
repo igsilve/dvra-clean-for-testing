@@ -1,0 +1,38 @@
+{
+ "full_cm_id": "4560-T38",
+ "status": "pass",
+ "confidence": "high",
+ "findings": [
+  {
+   "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/auth/utils/utils.py",
+   "line": 49,
+   "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] I1891/I1895 canonical pattern present: all lookups use SQLAlchemy ORM bound expressions - db.query(User).filter(User.username == username) (:49-51), User.id == user_id (:54-56), User.phone_number == phone_number (:82-84) - so values travel as parameters rather than SQL text. update_user (:184-209) assigns only the UPDATABLE_PROFILE_FIELDS frozenset instead of vars(user), which is also an allow-list over what may reach the persistence layer. No raw SQL, text() or execute() with interpolated input in this file | verdict=pass confidence=high",
+   "category": "mitigation-confirmed"
+  },
+  {
+   "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/menu/utils.py",
+   "line": 302,
+   "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] I1891/I1895 canonical pattern present: db.query(MenuItem).filter(MenuItem.id == item_id) (:302, :337) and db.query(OrderItem).filter(OrderItem.menu_item_id == item_id) (:328-330) are ORM bound expressions; writes go through MenuItem(**menu_item_dict) and setattr from a validated Pydantic model (:276-312) rather than generated SQL. No string concatenation reaches a SQL sink | verdict=pass confidence=high",
+   "category": "mitigation-confirmed"
+  },
+  {
+   "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/orders/utils.py",
+   "line": 0,
+   "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] No SQL sink exists in this file. It is a delivery-service HTTP client (requests.get with certifi-pinned verification, allow_redirects=False, bearer credential, :51-89) whose response is validated into a strict DeliveryStatus model with extra='forbid' and checked for order_id agreement. The vulnerability surface described by the countermeasure is absent here rather than mitigated by a recognised SQL-binding construct | verdict=pass confidence=high",
+   "category": "vulnerability-absent-mitigation-unrecognized"
+  }
+ ],
+ "findings_aggregated_for_sde": [
+  {
+   "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] How-tos I1891 and I1895 (use parameterized commands when an application interacts with the database) confirmed. Every database access goes through the SQLAlchemy ORM with bound filter expressions and no string-concatenated SQL: app/apis/auth/utils/utils.py:49-57 and :82-84 use db.query(User).filter(User.username == username / User.id == user_id / User.phone_number == phone_number); :184-209 update_user writes only the frozenset UPDATABLE_PROFILE_FIELDS via setattr instead of vars(user). app/apis/menu/utils.py:302, :328-330 and :337 use db.query(MenuItem).filter(MenuItem.id == item_id) and db.query(OrderItem).filter(OrderItem.menu_item_id == item_id). No raw SQL, no text()/execute() with interpolated input, and no f-string or concatenation reaching a SQL sink | verdict=pass confidence=high",
+   "count": "4"
+  },
+  {
+   "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] app/apis/orders/utils.py contains no SQL sink at all: it is a delivery-service HTTP integration (requests.get with a pinned certifi trust store, redirects refused, bearer credential) whose reply is parsed into a strict Pydantic model with extra='forbid'. The SQL-injection surface described by the countermeasure is absent from this file rather than mitigated in a recognised form | verdict=pass confidence=high",
+   "count": "1"
+  }
+ ],
+ "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T38 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+ "note_post_status": "POSTED",
+ "reason": ""
+}

@@ -1,0 +1,30 @@
+{
+  "cm_id": "T21",
+  "additional_requirements": [
+    {
+      "id": "TA770",
+      "title": "Enforce TLS/SSL on all pages",
+      "text": "Enforcing TLS/SSL (We use the word \"TLS\" to also refer to the secure versions of SSL after this) across your entire site limits the ability of phishers to pull off impersonation attacks on your application and provides a higher level of security to your users. However, whole-site TLS has some cons that should be considered:\n\n- TLS requires more processing power and bandwidth and increases server overhead.\n- Content Distribution Networks (CDN) may face challenges distributing your protected pages.\n- Ad networks used by your application may not support TLS.\n\nSo, in minimum, use TLS for the parts of your site that need security such as login pages, authenticated pages, sensitive submission forms and other content that needs to be encrypted. And if the above-mentioned problems are not critical to you, force TLS on all pages to enable a higher level of security for your application.\n\n__Note__: Even if part of the application does not particularly perform any sensitive actions or collect sensitive data, allowing non-TLS access to those parts causes non-secure cookies (the ones that don't have \"secure\" flag set to true on them, [see T22](/library/tasks/T22/)) to be sent over unencrypted channels. Those cookies can be stolen by any eavesdropper on the network. Other small problems in the application could also be exploited much more easily when the whole application is not TLS-enforced.\n",
+      "ordinal": 1
+    },
+    {
+      "id": "TA965",
+      "title": "Choice of cipher",
+      "text": "## Choice of cipher\n\nUse the following guidelines for selecting an appropriate cipher for encryption:\n\n- Strictly avoid using NULL ciphers as they do not provide encryption for confidentiality (they only provide integrity checks).\n- Strictly avoid using EXPORT ciphers (EXPORT ciphers use shorter keys and are weak and breakable by design). The server component must explicitly disable EXPORT ciphers to protect the clients against __Factoring RSA Export Keys__ (FREAK) attacks.\n- Strictly avoid DES ciphers (not to be confused with 3DES). They have a short key and can be broken easily by brute force using inexpensive off-the-shelf hardware.\n- Where available, use Ephemeral key exchange ciphers over standard ones. That is, use __ECDHE__ over ECDH and __DHE__ over DH.\n- Regarding DH-based key changes, choose ECDH\\* over DH\\* due to better performance. ECDH\\* provides the same amount of protection as DH\\* but the former requires fewer resources.\n- Never use ciphers that use MD5 for MAC.\n    - MD5 has two known weaknesses: collision and pre-image.\n- Never use SHA1. Use SHA384 or SHA256 instead.\n    - SHA1 has been fully and practically broken.\n    \nRefer to [this page](https://ciphersuite.info/cs/?sort=asc&software=gnutls&singlepage=true&security=secure&tls=tls12) for a list of recommended ciphers.",
+      "ordinal": 1
+    },
+    {
+      "id": "TA6253",
+      "title": "Secure files transfer",
+      "text": "Do not transmit files in cleartext in a communication channel as it jeopardizes the integrity and confidentiality of data as unauthorized actors may sniff it. Use secure file transfer tools that:\n\n1. Employ secure File Transfer protocols (e.g., Secure File Transfer Protocol (SFTP), FTP over SSL (FTPS), and Applicability Statement 2 (AS2)) that encrypt the data in motion and at rest. \n2. Use robust authentication methods.\n3. Protect against unauthorized data modifications. \n4. Have reporting and logging capabilities.",
+      "ordinal": 1
+    },
+    {
+      "id": "TA6254",
+      "title": "Connect to a remote system securely",
+      "text": "- Connect securely to a remote system using the SSH (Secure Shell) protocol that encrypts the traffic between a client and a server, preventing interception and identity spoofing.\n- Do not use Telnet to connect to a system remotely. Telnet sessions between a client and a server are not encrypted, exposing the connection to various threats, including eavesdropping and identity spoofing.",
+      "ordinal": 2
+    }
+  ],
+  "count": 4
+}

@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T43",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/admin/utils.py",
+      "line": 22,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] subprocess.run is called with an argv list and no shell, so special elements in mount_point cannot modify the command; reinforced by a 5s timeout, env={'PATH':'/usr/bin:/bin','LC_ALL':'C'}, cwd='/', stdin=DEVNULL and a generic 500 that exposes no command string | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] app/apis/admin/utils.py:22 invokes subprocess.run with an argument list (['df','-h',mount_point]) and no shell, so shell metacharacters in the mount point carry no meaning and no command string is ever assembled from input. Hardening around it: a 5s timeout, a scrubbed env pinning PATH=/usr/bin:/bin so binary resolution is not inherited, cwd='/', stdin=DEVNULL, and an exception handler that logs detail server-side while returning a generic 500 with no command string or traceback. Alternative mitigation accepted: argv-list execution without a shell achieves the same special-element neutralisation as the CM's character allow-list | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T43 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

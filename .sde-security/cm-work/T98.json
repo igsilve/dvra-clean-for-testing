@@ -1,0 +1,25 @@
+{
+  "cm_id": "T98",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Test for input validation on a server",
+    "priority": 7,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T98/",
+    "description": "Validate the request parameter on the server against a closed set before it reaches any downstream call.",
+    "language": "python",
+    "file": "app/apis/admin/services/get_disk_stats_service.py",
+    "start_line": 16,
+    "end_line": 27,
+    "finding": "The `parameters` query string is accepted with no validation and handed to a shell command builder.",
+    "current_code": "def get_disk_usage_stats(\n    current_user: Annotated[User, Depends(get_current_user)],\n    parameters: str = \"\",\n    db: Session = Depends(get_db),\n):\n    if current_user.role != UserRole.CHEF.value:\n        raise HTTPException(\n            status_code=403, detail=\"Only Chef is authorized to get current disk stats!\"\n        )\n\n    usage = get_disk_usage(parameters)\n    return DiskUsage(output=usage)",
+    "required_fix": "# app/apis/admin/services/get_disk_stats_service.py\n@router.get(\"/admin/stats/disk\", response_model=DiskUsage, status_code=status.HTTP_200_OK)\ndef get_disk_usage_stats(\n    _: Annotated[User, Depends(Requires(Permission.READ_DISK_STATS))],\n    mount_point: MountPoint = MountPoint.ROOT,     # enum: FastAPI rejects anything else with 422\n):\n    return DiskUsage(output=get_disk_usage(mount_point))",
+    "criteria": [
+      "The parameter is typed as an enum or carries an explicit pattern and length constraint.",
+      "Validation happens server side and does not rely on the client.",
+      "An out-of-set value returns 422 before the handler body runs."
+    ]
+  }
+}

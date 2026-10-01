@@ -1,0 +1,40 @@
+{
+  "full_cm_id": "4560-T4435",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/ops_guard.sh",
+      "line": 55,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] No user-controlled file path: the only path handled is the resolution of a fixed binary name under the already-narrowed readonly PATH, its directory taken by parameter expansion (L55) and rejected when group/other-writable (L65-68). The how-to's base-directory prefix check (I1896) is not used because there is no traversable input | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/start_app.sh",
+      "line": 39,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] No user-controlled file path: DATA_DIR is anchored to the script's own directory via `cd $(dirname $0)` then `$(pwd -P)/postgres_data` (L26, L39), so no ../ sequence from any caller can reach it. Symlink substitution is refused (L46-49) and the directory must be owned by the invoking uid (L51-54) - the same containment property as the how-to's prefix check (I1896) | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/start_game.sh",
+      "line": 18,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] No user-controlled file path: SCRIPT_DIR is resolved with `cd -- \"$(dirname -- \"${BASH_SOURCE[0]}\")\" && pwd -P` (L18) rather than from the caller's working directory, and GAME is the literal /app/game.py (L29). The sibling script is refused if it is a symlink or not a regular executable file (L31-39) | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/stop_app.sh",
+      "line": 34,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] No user-controlled file path: LOCK is `$(pwd)/.deploy.lock.d` after the script has chdir'd to its own directory (L17, L34), and the pid file is a fixed child of it. Nothing in the path is attacker-supplied, so there is no traversal to constrain | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Path-traversal surface absent across ops_guard.sh, start_app.sh, start_game.sh, stop_app.sh: no file path is derived from user input. All paths are fixed literals or anchored to the script's own resolved location (start_game.sh SCRIPT_DIR via `cd -- $(dirname -- ${BASH_SOURCE[0]}) && pwd -P`; start_app.sh DATA_DIR via `pwd -P`; stop_app.sh LOCK via `pwd`), which gives the same containment property as the how-to's base-directory prefix check (I1896). Reinforced by explicit symlink-substitution refusals on postgres_data and start_app.sh and an owner-uid check on the data directory | verdict=pass confidence=high",
+      "count": "4"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T4435 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

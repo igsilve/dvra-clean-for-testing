@@ -1,0 +1,25 @@
+{
+  "cm_id": "T4747",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Limit container privileges",
+    "priority": 10,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T4747/",
+    "description": "Remove privileged mode and the SYS_ADMIN capability and run with all capabilities dropped.",
+    "language": "yaml",
+    "file": "docker-compose.yml",
+    "start_line": 12,
+    "end_line": 14,
+    "finding": "The web container runs privileged and additionally requests the SYS_ADMIN capability.",
+    "current_code": "    privileged: true\n    cap_add:\n      - SYS_ADMIN",
+    "required_fix": "# docker-compose.yml\n  web:\n    privileged: false\n    cap_drop:\n      - ALL\n    security_opt:\n      - no-new-privileges:true\n    user: \"10001:10001\"",
+    "criteria": [
+      "No service declares `privileged: true` or `cap_add`.",
+      "All capabilities are dropped and only those proven necessary are added back individually.",
+      "The application runs correctly with the reduced capability set."
+    ]
+  }
+}

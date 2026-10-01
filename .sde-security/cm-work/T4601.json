@@ -1,0 +1,19 @@
+{
+  "cm_id": "T4601",
+  "category": "INFRA",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "documentation",
+    "title": "Prioritize static network configuration",
+    "priority": 8,
+    "category": "INFRA",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T4601/",
+    "description": "Prefer static, declared network configuration over dynamically discovered addressing.",
+    "guidance": "Addresses, subnets and routes for the service tier should be declared and version-controlled, so connectivity does not depend on runtime discovery that an attacker could influence.",
+    "searched": "docker-compose.yml, app/config.py",
+    "found": "Container addressing is left entirely to Docker's default bridge with no declared subnet, and the application resolves the database by the service name `db`.",
+    "missing": "A declared network topology at the platform level, including subnets and address assignment.",
+    "conclusion": "Network addressing policy is defined by the platform that hosts the containers rather than by this repository.",
+    "action": "The platform team should declare the network topology and addressing for the service tier."
+  }
+}

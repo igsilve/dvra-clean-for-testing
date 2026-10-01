@@ -1,0 +1,38 @@
+{
+  "full_cm_id": "4560-T2608",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/config.py",
+      "line": 147,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Verified that the connection string is not hardcoded into the application: every component is required from the environment with no default, and no literal credential survives in source | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/config.py",
+      "line": 226,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Verified that the connection string is not constructed from user input and is never visible in a URL: Settings.DATABASE_URL is assembled server-side at engine creation and no request-derived value reaches it | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/config.py",
+      "line": 257,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Verified that escaping is structural rather than filter-based: URL.create escapes each component for its own position, which is stronger than stripping semicolons; the URL object is passed to create_engine unstringified so the connection string is not logged, and sslmode is validated against an allow-list before use | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Verified against app/config.py: the connection string is not hardcoded (every component is required from the environment with no default and no literal credential survives in source), is not constructed from user input (no request value reaches Settings.DATABASE_URL), and never appears in a URL since it is assembled server-side at engine creation | verdict=pass confidence=high",
+      "count": "1"
+    },
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Escaping is structural rather than filter-based: URL.create escapes each component for its own position, which is stronger than stripping semicolons, and the resulting URL object is passed to create_engine unstringified so the connection string is not logged; sslmode is validated against an allow-list before use | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T2608 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

@@ -1,0 +1,10 @@
+{
+  "cm_id": "T4447",
+  "endpoint": "library/tasks/T4447/amendments/",
+  "http_status": 200,
+  "result": "TEMPLATE_NO_MATCH",
+  "retry_count": 0,
+  "queried_at": "2026-09-30T02:56:02.244842Z",
+  "matched_amendments": [],
+  "additional_requirements_count": 0
+}

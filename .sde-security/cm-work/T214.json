@@ -1,0 +1,19 @@
+{
+  "cm_id": "T214",
+  "category": "INFRA",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "documentation",
+    "title": "Protect confidential files on operating system or server",
+    "priority": 9,
+    "category": "INFRA",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T214/",
+    "description": "Protect confidential files on the operating system and server hosting this service.",
+    "guidance": "Files holding credentials, keys or sensitive data should be owned by the service account, unreadable by other users, stored on encrypted media, and excluded from images and backups that travel more widely.",
+    "searched": "Dockerfile, docker-compose.yml, app/config.py, start_app.sh",
+    "found": "Configuration is loaded from a `.env` file resolved relative to the working directory and the compose file carries credentials inline, but the repository sets no ownership or mode on any of it.",
+    "missing": "Host filesystem permissions, a secret mount arrangement and encrypted storage for the host.",
+    "conclusion": "File protection is applied on the host and through the secret delivery mechanism, not through application source. The related code change \u2014 removing in-code secret defaults \u2014 is tracked separately.",
+    "action": "The platform team should deliver secrets through restricted-permission secret mounts on encrypted storage."
+  }
+}

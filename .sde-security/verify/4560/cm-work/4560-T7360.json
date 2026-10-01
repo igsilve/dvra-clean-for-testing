@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T7360",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/menu/utils.py",
+      "line": 40,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: the file gates every user-supplied image URL before a byte is exchanged. _assert_image_host_is_authenticated (lines 40-61) restricts the scheme to https and requires parsed.hostname to appear in settings.ALLOWED_IMAGE_HOSTS, an env-driven allow-list that fails closed when empty and strips '*' in config.py:175-179. _assert_resolved_address_is_routable (lines 64-102) then resolves the name and rejects the request if ANY getaddrinfo answer is private, loopback, link-local, reserved, multicast or unspecified, which blocks 169.254.169.254, 127.0.0.1/::1 and RFC1918 targets. The fetch itself (lines 213-236) sets allow_redirects=False, explicitly 400s on is_redirect/is_permanent_redirect before raise_for_status so a permitted host cannot 302 inward, pins verification to certifi.where(), and applies a (3,5) connect/read timeout. The residual DNS-rebinding window between resolution and connection is documented in the docstring and bounded by the preceding name allow-list; the CM's vulnerable pattern - a user URL passed unvalidated to requests/httpx - is not present anywhere in the file. | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: app/apis/menu/utils.py gates every user-supplied image URL before a byte is exchanged. _assert_image_host_is_authenticated (lines 40-61) restricts the scheme to https and requires parsed.hostname to appear in settings.ALLOWED_IMAGE_HOSTS, an env-driven allow-list that fails closed when empty and strips '*' in config.py:175-179. _assert_resolved_address_is_routable (lines 64-102) then resolves the name and rejects the request if ANY getaddrinfo answer is private, loopback, link-local, reserved, multicast or unspecified, which blocks 169.254.169.254, 127.0.0.1/::1 and RFC1918 targets. The fetch itself (lines 213-236) sets allow_redirects=False, explicitly 400s on is_redirect/is_permanent_redirect before raise_for_status so a permitted host cannot 302 inward, pins verification to certifi.where(), and applies a (3,5) connect/read timeout. The residual DNS-rebinding window between resolution and connection is documented in the docstring and bounded by the preceding name allow-list; the CM's vulnerable pattern - a user URL passed unvalidated to requests/httpx - is not present anywhere in the file. | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T7360 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

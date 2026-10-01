@@ -1,0 +1,48 @@
+{
+  "cm_id": "T3901",
+  "additional_requirements": [
+    {
+      "id": "TA6571",
+      "title": "Ensure all public repositories contain a SECURITY.md file",
+      "text": "Enforce that each public repository has a SECURITY.md file by performing the following:\n\n1. On GitHub.com, navigate to the main page of the repository.\n2. Under the repository name, click **Security**.\n3. In the left sidebar, click **Security policy**.\n4. Click **Start setup**.\n5. In the new SECURITY.md file, add information about supported versions of your project and how to report a vulnerability.\n6. At the bottom of the page, type a commit message.\n7. Below the commit message fields, choose to create a new branch for your commit and then create a pull request.\n8. Click **Propose file change**.",
+      "ordinal": 10
+    },
+    {
+      "id": "TA6572",
+      "title": "Ensure repository creation is limited to specific members",
+      "text": "Restrict repository creation to trusted users and teams only by performing the following:\n\n1. In the top right corner of GitHub.com, click your profile photo, then click **Your organizations**.\n2. Next to the organization, click **Settings**.\n3. In the \"Access\" section of the sidebar, click **Member privileges**.\n4. Under \"Repository creation\", unselect both options - **Public** and **Private**.\n5. Click **Save**.",
+      "ordinal": 20
+    },
+    {
+      "id": "TA6573",
+      "title": "Ensure repository deletion is limited to specific users",
+      "text": "Enforce repository deletion by a few trusted and responsible users only by performing either of the following steps:\n\nIf Your organizations > Settings > Access > Member privileges > Allow members to delete or transfer repositories for this organization is selected, allow only trusted members to have admin privileges:\n1. In every repository, on GitHub.com, navigate to the main page of the repository.\n2. Under your repository name, click **Settings** and then in the \"Access\" section of the sidebar, click **Collaborators & teams**.\n3. Under \"Manage access\" use the dropdown **Role** menu to filter and search for admin members. Change their role by clicking the **Role** dropdown next to the username until there are only two trusted and qualified users with admin privileges. \n\nIf it is not selected, allow only trusted users to become an organization owner:\n1. In the top right corner of GitHub.com, click your profile photo, then click **Your organizations**.\n2. Click the name of your organization and under your organization name, click **People**.\n3. You will see a list of the people in your organization. Click Role and select Owners. Check every member you want to change permissions to. Above the list of members, use the drop-down menu and click Change role and choose Member > change role. Do that until there are only a few trusted and qualified users with organization owner privileges. \n\nIn any case, only members with administrator or organization owner privileges can delete repositories, regardless of your setting.",
+      "ordinal": 30
+    },
+    {
+      "id": "TA6574",
+      "title": "Ensure issue deletion is limited to specific users",
+      "text": "Restrict issue deletion to a few trusted and responsible users only by performing either of the following steps:\n\nIf Your organizations > Settings > Access > Member privileges > Allow members to delete issues for this organization is selected, allow only trusted members to have admin privileges:\n1. In every repository, on GitHub.com, navigate to the main page of the repository.\n2. Under your repository name, click **Settings** and then in the \"Access\" section of the sidebar, click **Collaborators & teams**.\n3. Under \"Manage access\" use the dropdown **Role** menu to filter and search for admin members. Change their role by clicking the **Role** dropdown next to the username until there are only two trusted and qualified users with admin privileges.\n\nIf it is not selected, allow only trusted users to become an organization owner:\n1. In the top right corner of GitHub.com, click your profile photo, then click Your organizations.\n2. Click the name of your organization and under your organization name, click **People**.\n3. You will see a list of the people in your organization. Click **Role** and select **Owners**. Check every member you want to change permissions to. Above the list of members, use the drop-down menu and click **Change role** and choose Member > change role. Do that until there are only a few trusted and qualified users with organization owner privileges.\n\nIn any case, only members with administrator or organization owner privileges can delete issues, regardless of your setting.",
+      "ordinal": 40
+    },
+    {
+      "id": "TA6575",
+      "title": "Ensure all copies (forks) of code are tracked and accounted for",
+      "text": "Track forks and examine them by performing the following on a regular basis:\n\n1. On GitHub.com, navigate to the main page of the repository.\n2. Under your repository name, click **Insights**.\n3. In the left sidebar, click **Forks**.\n4. Examine the forks listed there.",
+      "ordinal": 50
+    },
+    {
+      "id": "TA6576",
+      "title": "Ensure all code projects are tracked for changes in visibility status",
+      "text": "Track every change in project visibility and investigate if suspicious behavior occurs, by performing the following regularly:\n\n1. In the top right corner of GitHub.com, click your profile photo, then click **Your organizations**.\n2. Next to the organization, click **Settings**.\n3. In the \"Archives\" section of the sidebar, click **Logs**, then click **Audit log**.\n4. Use the **repo** qualifier in your query and look for **access** category. Ensure every change is reasonable and secure and investigate if it is not.",
+      "ordinal": 60
+    },
+    {
+      "id": "TA6577",
+      "title": "Ensure inactive repositories are reviewed and archived periodically",
+      "text": "Perform the following to review all inactive repositories and archive them periodically:\n\n1. In the top right corner of GitHub.com, click your profile photo, then click **Your organizations**.\n2. Click on your organization name and then on **repositories**.\n3. Ensure every repository listed has been active in the last 3 to 6 months. Every repository that isn't active you should either review or archive by performing the next steps:\n 1. On GitHub.com, navigate to the main page of the repository.\n 2. Under your repository name, click **Settings**.\n 3. Under \"Danger Zone\", click **Archive this repository**.\n 4. Read the warnings.\n 5. Type the name of the repository you want to archive.\n 6. Click **I understand the consequences, archive this repository**.",
+      "ordinal": 70
+    }
+  ],
+  "count": 7
+}

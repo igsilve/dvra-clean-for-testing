@@ -1,0 +1,12 @@
+{
+  "cm_id": "T1392",
+  "additional_requirements": [
+    {
+      "id": "TA1980",
+      "title": "Blind Server Side Request Forgery (SSRF)",
+      "text": "SSRF attacks do not often trigger a response directly back to the web application but still may be vulnerable to SSRF. Blind SSRF occurs when an application can be forced to trigger a back-end HTTP request, but as a tester or attacker you have no knowledge of the response. To test for blind SSRF, it is a best practice to utilize an out-of-band technique that requires  an external server capable of receiving HTTP requests be set up. This server should be under your control.\n\n1. Configure a public-facing web server with an IP address and domain name. If using Burp, the tool Burp Collaborator may be used to set this up quickly.\n\n2. Identify an injection point in the web application to test for blind SSRF (similar to testing for regular SSRF). Enter your IP address or domain name as the server.\n\n3. View the logs in your server and search for requests coming from the target application. If you see log entries that are aligned with the vulnerable application, it is susceptible to blind SSRF and further scans can begin to enumerate the internal network or load a malicious file from your server.",
+      "ordinal": 0
+    }
+  ],
+  "count": 1
+}

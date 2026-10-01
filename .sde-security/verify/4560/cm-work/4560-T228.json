@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T228",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/init_app.py",
+      "line": 75,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: BodySizeLimitMiddleware rejects a declared Content-Length over settings.MAX_BODY_BYTES with 413 (line 86), rejects a malformed Content-Length with 400 (line 90), and counts chunked bodies while streaming so a request that declares no length is cut off at the same ceiling (lines 95-104); registered into the ASGI stack at line 179 so oversized messages never reach a handler. | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: app/init_app.py installs BodySizeLimitMiddleware(max_bytes=settings.MAX_BODY_BYTES) ahead of the application layer, so an oversized request is refused with 413 rather than buffered. Both framings are covered: a declared Content-Length over the ceiling is rejected before the body is read, a non-numeric Content-Length yields 400, and a chunked transfer-encoding body is counted while streaming and cut off at the same ceiling, which closes the bypass of declaring no length at all. The limit is enforced inside the ASGI stack, so the oversized message never reaches a route handler. Same security property as ctx.text's request-body-size restriction. | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T228 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

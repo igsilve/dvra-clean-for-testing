@@ -1,0 +1,10 @@
+{
+  "cm_id": "T7360",
+  "endpoint": "library/tasks/T7360/amendments/",
+  "http_status": 200,
+  "result": "TEMPLATE_NO_MATCH",
+  "retry_count": 0,
+  "queried_at": "2026-09-30T02:49:17.154432Z",
+  "matched_amendments": [],
+  "additional_requirements_count": 0
+}

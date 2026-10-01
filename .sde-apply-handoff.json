@@ -1,0 +1,2689 @@
+{
+  "source_skill": "apply-security-fixes",
+  "handoff_version": "2",
+  "generated_at": "2026-09-30T23:09:52Z",
+  "upstream_handoff": ".sde-handoff.json",
+  "repository_path": "/Users/isilveira/dvra-clean-for-testing",
+  "project_id": 4560,
+  "security_branch": "security-hardening/mcp-194.2-20260929",
+  "scope": "all",
+  "totals": {
+    "applied": 202,
+    "documented": 73,
+    "skipped": 0,
+    "scoped_total": 275
+  },
+  "countermeasures": [
+    {
+      "id": "T15",
+      "full_id": "4560-T15",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/auth/utils/authz.py",
+        "app/apis/auth/utils/roles_based_auth_checker.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T17",
+      "full_id": "4560-T17",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/auth/utils/authz.py",
+        "app/apis/auth/utils/roles_based_auth_checker.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T18",
+      "full_id": "4560-T18",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/auth/utils/authz.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T20",
+      "full_id": "4560-T20",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/auth/services/logout_service.py",
+        "app/apis/auth/utils/utils.py",
+        "app/jwt_tokens.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T21",
+      "full_id": "4560-T21",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/config.py",
+        "app/init_app.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T29",
+      "full_id": "4560-T29",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/init_app.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T32",
+      "full_id": "4560-T32",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/menu/schemas.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T35",
+      "full_id": "4560-T35",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "docker-compose.yml"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T36",
+      "full_id": "4560-T36",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/main.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T38",
+      "full_id": "4560-T38",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/auth/utils/utils.py",
+        "app/apis/menu/utils.py",
+        "app/apis/orders/utils.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T42",
+      "full_id": "4560-T42",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/admin/utils.py",
+        "app/apis/users/services/update_user_role_service.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T43",
+      "full_id": "4560-T43",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/admin/utils.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T49",
+      "full_id": "4560-T49",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/router.py",
+        "app/init_app.py",
+        "app/main.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T50",
+      "full_id": "4560-T50",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/menu/utils.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T59",
+      "full_id": "4560-T59",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/auth/utils/utils.py",
+        "app/jwt_tokens.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T60",
+      "full_id": "4560-T60",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/auth/utils/utils.py",
+        "app/jwt_tokens.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T61",
+      "full_id": "4560-T61",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/init.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T66",
+      "full_id": "4560-T66",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/init_app.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T69",
+      "full_id": "4560-T69",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/config.py",
+        "app/password_policy.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T70",
+      "full_id": "4560-T70",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/auth/utils/lockout.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T75",
+      "full_id": "4560-T75",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/auth/schemas.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T76",
+      "full_id": "4560-T76",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/config.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T78",
+      "full_id": "4560-T78",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/auth/services/reset_password_new_password_service.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T85",
+      "full_id": "4560-T85",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/users/services/update_user_role_service.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T86",
+      "full_id": "4560-T86",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/auth/services/get_token_service.py",
+        "app/apis/auth/utils/utils.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T87",
+      "full_id": "4560-T87",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/config.py",
+        "app/db/session.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T89",
+      "full_id": "4560-T89",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/menu/utils.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T96",
+      "full_id": "4560-T96",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/auth/services/patch_profile_service.py",
+        "app/init_app.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T98",
+      "full_id": "4560-T98",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/admin/services/get_disk_stats_service.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T101",
+      "full_id": "4560-T101",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/orders/services/get_order_status.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T105",
+      "full_id": "4560-T105",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/debug/services/get_debug_info_service.py",
+        "app/apis/router.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T106",
+      "full_id": "4560-T106",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/orders/services/get_order_service.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T114",
+      "full_id": "4560-T114",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/auth/services/get_token_service.py",
+        "app/apis/auth/utils/utils.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T116",
+      "full_id": "4560-T116",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/init_app.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T119",
+      "full_id": "4560-T119",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/init_app.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T122",
+      "full_id": "4560-T122",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/menu/utils.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T128",
+      "full_id": "4560-T128",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/users/services/update_user_role_service.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T151",
+      "full_id": "4560-T151",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/admin/services/reset_chef_password_service.py",
+        "app/apis/auth/utils/text_code_utils.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T156",
+      "full_id": "4560-T156",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/menu/utils.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T166",
+      "full_id": "4560-T166",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/init_app.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T167",
+      "full_id": "4560-T167",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/orders/services/get_orders_service.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T175",
+      "full_id": "4560-T175",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/menu/utils.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T184",
+      "full_id": "4560-T184",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/auth/utils/authz.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T186",
+      "full_id": "4560-T186",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "poetry.lock",
+        "pyproject.toml"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T197",
+      "full_id": "4560-T197",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/menu/utils.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T214",
+      "full_id": "4560-T214",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T226",
+      "full_id": "4560-T226",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/admin/services/get_disk_stats_service.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T228",
+      "full_id": "4560-T228",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/init_app.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T230",
+      "full_id": "4560-T230",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/init.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T241",
+      "full_id": "4560-T241",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "pyproject.toml"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T257",
+      "full_id": "4560-T257",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/config.py",
+        "app/init_app.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T279",
+      "full_id": "4560-T279",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/menu/utils.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T281",
+      "full_id": "4560-T281",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/auth/utils/utils.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T284",
+      "full_id": "4560-T284",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/config.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T295",
+      "full_id": "4560-T295",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/auth/utils/text_code_utils.py",
+        "app/db/models.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T296",
+      "full_id": "4560-T296",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/db/models.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T305",
+      "full_id": "4560-T305",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/main.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T318",
+      "full_id": "4560-T318",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/init_app.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T323",
+      "full_id": "4560-T323",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/init.py",
+        "app/tests/security/test_default_accounts.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T338",
+      "full_id": "4560-T338",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/auth/utils/authz.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T340",
+      "full_id": "4560-T340",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T349",
+      "full_id": "4560-T349",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T350",
+      "full_id": "4560-T350",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T373",
+      "full_id": "4560-T373",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/router.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T374",
+      "full_id": "4560-T374",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T378",
+      "full_id": "4560-T378",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/orders/services/get_order_service.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T394",
+      "full_id": "4560-T394",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/auth/utils/text_code_utils.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T395",
+      "full_id": "4560-T395",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/auth/utils/text_code_utils.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T406",
+      "full_id": "4560-T406",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/auth/utils/utils.py",
+        "app/config.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T407",
+      "full_id": "4560-T407",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/auth/utils/jwt_auth.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T439",
+      "full_id": "4560-T439",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/menu/utils.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T445",
+      "full_id": "4560-T445",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/auth/utils/utils.py",
+        "app/config.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T446",
+      "full_id": "4560-T446",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/referrals/utils.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T536",
+      "full_id": "4560-T536",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/init_app.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T537",
+      "full_id": "4560-T537",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/init_app.py",
+        "app/tests/integration/test_body_size_limit.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T558",
+      "full_id": "4560-T558",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/menu/utils.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T573",
+      "full_id": "4560-T573",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T576",
+      "full_id": "4560-T576",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T587",
+      "full_id": "4560-T587",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/referrals/utils.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T589",
+      "full_id": "4560-T589",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/orders/utils.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T659",
+      "full_id": "4560-T659",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/admin/utils.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1144",
+      "full_id": "4560-T1144",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/main.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1145",
+      "full_id": "4560-T1145",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/main.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1150",
+      "full_id": "4560-T1150",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "Dockerfile"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1151",
+      "full_id": "4560-T1151",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "Dockerfile"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1154",
+      "full_id": "4560-T1154",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1155",
+      "full_id": "4560-T1155",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1156",
+      "full_id": "4560-T1156",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1157",
+      "full_id": "4560-T1157",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1158",
+      "full_id": "4560-T1158",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1159",
+      "full_id": "4560-T1159",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1166",
+      "full_id": "4560-T1166",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1167",
+      "full_id": "4560-T1167",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1172",
+      "full_id": "4560-T1172",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1173",
+      "full_id": "4560-T1173",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1174",
+      "full_id": "4560-T1174",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "Dockerfile"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1175",
+      "full_id": "4560-T1175",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "Dockerfile"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1176",
+      "full_id": "4560-T1176",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "Dockerfile"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1177",
+      "full_id": "4560-T1177",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "Dockerfile"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1186",
+      "full_id": "4560-T1186",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "Dockerfile"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1187",
+      "full_id": "4560-T1187",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "Dockerfile"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1188",
+      "full_id": "4560-T1188",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "Dockerfile"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1189",
+      "full_id": "4560-T1189",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "Dockerfile"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1190",
+      "full_id": "4560-T1190",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "Dockerfile"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1191",
+      "full_id": "4560-T1191",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "Dockerfile"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1192",
+      "full_id": "4560-T1192",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "docker-compose.yml"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1193",
+      "full_id": "4560-T1193",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "docker-compose.yml"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1194",
+      "full_id": "4560-T1194",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "Dockerfile"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1195",
+      "full_id": "4560-T1195",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "Dockerfile"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1196",
+      "full_id": "4560-T1196",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "Dockerfile"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1197",
+      "full_id": "4560-T1197",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "docker-compose.yml"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1198",
+      "full_id": "4560-T1198",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "docker-compose.yml"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1199",
+      "full_id": "4560-T1199",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "docker-compose.yml"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1200",
+      "full_id": "4560-T1200",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "docker-compose.yml"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1201",
+      "full_id": "4560-T1201",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "docker-compose.yml"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1202",
+      "full_id": "4560-T1202",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "docker-compose.yml"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1203",
+      "full_id": "4560-T1203",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "docker-compose.yml"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1204",
+      "full_id": "4560-T1204",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "docker-compose.yml"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1205",
+      "full_id": "4560-T1205",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "docker-compose.yml"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1206",
+      "full_id": "4560-T1206",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "docker-compose.yml"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1207",
+      "full_id": "4560-T1207",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "docker-compose.yml"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1208",
+      "full_id": "4560-T1208",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "docker-compose.yml"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1209",
+      "full_id": "4560-T1209",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "deploy/nginx.conf",
+        "docker-compose.yml"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1210",
+      "full_id": "4560-T1210",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "docker-compose.yml"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1211",
+      "full_id": "4560-T1211",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "docker-compose.yml"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1212",
+      "full_id": "4560-T1212",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "docker-compose.yml"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1213",
+      "full_id": "4560-T1213",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "docker-compose.yml"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1214",
+      "full_id": "4560-T1214",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "docker-compose.yml"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1215",
+      "full_id": "4560-T1215",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "docker-compose.yml"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1234",
+      "full_id": "4560-T1234",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1235",
+      "full_id": "4560-T1235",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1236",
+      "full_id": "4560-T1236",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1237",
+      "full_id": "4560-T1237",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1362",
+      "full_id": "4560-T1362",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/init_app.py",
+        "app/rate_limiting.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1363",
+      "full_id": "4560-T1363",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/auth/services/get_token_service.py",
+        "app/rate_limiting.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1365",
+      "full_id": "4560-T1365",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/menu/utils.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1392",
+      "full_id": "4560-T1392",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/menu/utils.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1468",
+      "full_id": "4560-T1468",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/auth/services/get_token_service.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1539",
+      "full_id": "4560-T1539",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/auth/service.py",
+        "app/apis/auth/services/logout_service.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1540",
+      "full_id": "4560-T1540",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/auth/service.py",
+        "app/tests/integration/test_logout.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1541",
+      "full_id": "4560-T1541",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/init_app.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1542",
+      "full_id": "4560-T1542",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/auth/services/update_profile_service.py",
+        "app/apis/router.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1887",
+      "full_id": "4560-T1887",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/oauth_policy.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1889",
+      "full_id": "4560-T1889",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1917",
+      "full_id": "4560-T1917",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "Dockerfile"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1918",
+      "full_id": "4560-T1918",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1919",
+      "full_id": "4560-T1919",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/auth/utils/jwt_auth.py",
+        "app/jwt_tokens.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T1922",
+      "full_id": "4560-T1922",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/oauth_policy.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2105",
+      "full_id": "4560-T2105",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2106",
+      "full_id": "4560-T2106",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2109",
+      "full_id": "4560-T2109",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2110",
+      "full_id": "4560-T2110",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2115",
+      "full_id": "4560-T2115",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2116",
+      "full_id": "4560-T2116",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2139",
+      "full_id": "4560-T2139",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/auth/schemas.py",
+        "app/error_handlers.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2140",
+      "full_id": "4560-T2140",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/debug/services/get_debug_info_service.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2141",
+      "full_id": "4560-T2141",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/auth/utils/authz.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2142",
+      "full_id": "4560-T2142",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/auth/utils/authz.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2256",
+      "full_id": "4560-T2256",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2257",
+      "full_id": "4560-T2257",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2258",
+      "full_id": "4560-T2258",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2276",
+      "full_id": "4560-T2276",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/orders/services/get_orders_for_delivery_service.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2277",
+      "full_id": "4560-T2277",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2282",
+      "full_id": "4560-T2282",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/debug/services/get_debug_info_service.py",
+        "app/apis/router.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2349",
+      "full_id": "4560-T2349",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/config.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2357",
+      "full_id": "4560-T2357",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/config.py",
+        "app/tests/security/test_secure_defaults.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2485",
+      "full_id": "4560-T2485",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "Dockerfile",
+        "pyproject.toml"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2486",
+      "full_id": "4560-T2486",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "pyproject.toml"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2596",
+      "full_id": "4560-T2596",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "deploy/nginx.conf",
+        "docker-compose.yml"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2597",
+      "full_id": "4560-T2597",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2598",
+      "full_id": "4560-T2598",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2599",
+      "full_id": "4560-T2599",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/config.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2600",
+      "full_id": "4560-T2600",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/orders/services/get_orders_for_delivery_service.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2601",
+      "full_id": "4560-T2601",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2602",
+      "full_id": "4560-T2602",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2603",
+      "full_id": "4560-T2603",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2605",
+      "full_id": "4560-T2605",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2606",
+      "full_id": "4560-T2606",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2607",
+      "full_id": "4560-T2607",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2608",
+      "full_id": "4560-T2608",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/config.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2609",
+      "full_id": "4560-T2609",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/db/result_limits.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2610",
+      "full_id": "4560-T2610",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2611",
+      "full_id": "4560-T2611",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2612",
+      "full_id": "4560-T2612",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2614",
+      "full_id": "4560-T2614",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2615",
+      "full_id": "4560-T2615",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2616",
+      "full_id": "4560-T2616",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2619",
+      "full_id": "4560-T2619",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2620",
+      "full_id": "4560-T2620",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2621",
+      "full_id": "4560-T2621",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2652",
+      "full_id": "4560-T2652",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2661",
+      "full_id": "4560-T2661",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2662",
+      "full_id": "4560-T2662",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2663",
+      "full_id": "4560-T2663",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2665",
+      "full_id": "4560-T2665",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T2666",
+      "full_id": "4560-T2666",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T3903",
+      "full_id": "4560-T3903",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T3905",
+      "full_id": "4560-T3905",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T3906",
+      "full_id": "4560-T3906",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T3907",
+      "full_id": "4560-T3907",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T3908",
+      "full_id": "4560-T3908",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T3913",
+      "full_id": "4560-T3913",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T3915",
+      "full_id": "4560-T3915",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "docker-compose.yml"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T3916",
+      "full_id": "4560-T3916",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T3920",
+      "full_id": "4560-T3920",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T3922",
+      "full_id": "4560-T3922",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T3923",
+      "full_id": "4560-T3923",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T3924",
+      "full_id": "4560-T3924",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T3925",
+      "full_id": "4560-T3925",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T3930",
+      "full_id": "4560-T3930",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T3932",
+      "full_id": "4560-T3932",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "Dockerfile",
+        "docker-compose.yml"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T3933",
+      "full_id": "4560-T3933",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T4433",
+      "full_id": "4560-T4433",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "start_app.sh"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T4434",
+      "full_id": "4560-T4434",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "ops_guard.sh",
+        "start_app.sh",
+        "start_game.sh",
+        "stop_app.sh"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T4435",
+      "full_id": "4560-T4435",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "ops_guard.sh",
+        "start_app.sh",
+        "start_game.sh",
+        "stop_app.sh"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T4436",
+      "full_id": "4560-T4436",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "start_app.sh"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T4437",
+      "full_id": "4560-T4437",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "start_app.sh",
+        "start_game.sh"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T4438",
+      "full_id": "4560-T4438",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "ops_guard.sh",
+        "start_app.sh",
+        "start_game.sh",
+        "stop_app.sh"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T4439",
+      "full_id": "4560-T4439",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "start_app.sh"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T4440",
+      "full_id": "4560-T4440",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "stop_app.sh"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T4441",
+      "full_id": "4560-T4441",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "start_app.sh"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T4442",
+      "full_id": "4560-T4442",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "stop_app.sh"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T4443",
+      "full_id": "4560-T4443",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "start_app.sh"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T4444",
+      "full_id": "4560-T4444",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "start_app.sh"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T4445",
+      "full_id": "4560-T4445",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "ops_guard.sh",
+        "start_app.sh",
+        "start_game.sh",
+        "stop_app.sh"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T4446",
+      "full_id": "4560-T4446",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "ops_guard.sh",
+        "start_app.sh",
+        "start_game.sh",
+        "stop_app.sh"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T4447",
+      "full_id": "4560-T4447",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "start_app.sh"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T4448",
+      "full_id": "4560-T4448",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "start_app.sh",
+        "start_game.sh"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T4449",
+      "full_id": "4560-T4449",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "start_app.sh",
+        "start_game.sh"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T4450",
+      "full_id": "4560-T4450",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "start_app.sh"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T4451",
+      "full_id": "4560-T4451",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "stop_app.sh"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T4452",
+      "full_id": "4560-T4452",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "start_app.sh",
+        "start_game.sh"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T4453",
+      "full_id": "4560-T4453",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "start_app.sh",
+        "start_game.sh"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T4454",
+      "full_id": "4560-T4454",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "start_app.sh"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T4601",
+      "full_id": "4560-T4601",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T4746",
+      "full_id": "4560-T4746",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "Dockerfile",
+        "deploy/base-images.lock",
+        "poetry.lock",
+        "pyproject.toml"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T4747",
+      "full_id": "4560-T4747",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "docker-compose.yml"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T4748",
+      "full_id": "4560-T4748",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T4749",
+      "full_id": "4560-T4749",
+      "status": "Documented",
+      "category": "INFRA",
+      "files_modified": [],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T4750",
+      "full_id": "4560-T4750",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "docker-compose.yml"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T4751",
+      "full_id": "4560-T4751",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "Dockerfile"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T7353",
+      "full_id": "4560-T7353",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/auth/utils/jwt_auth.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T7354",
+      "full_id": "4560-T7354",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/auth/utils/utils.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T7355",
+      "full_id": "4560-T7355",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/menu/services/delete_menu_item_service.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T7356",
+      "full_id": "4560-T7356",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/orders/services/get_order_service.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T7358",
+      "full_id": "4560-T7358",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/debug/services/get_debug_info_service.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T7359",
+      "full_id": "4560-T7359",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/orders/services/get_order_status.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T7360",
+      "full_id": "4560-T7360",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/menu/utils.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T7361",
+      "full_id": "4560-T7361",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/init_app.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T7362",
+      "full_id": "4560-T7362",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/init_app.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T7363",
+      "full_id": "4560-T7363",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/init_app.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T7364",
+      "full_id": "4560-T7364",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/menu/utils.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T7365",
+      "full_id": "4560-T7365",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/auth/services/get_token_service.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T7366",
+      "full_id": "4560-T7366",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/menu/utils.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T7367",
+      "full_id": "4560-T7367",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/router.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T7368",
+      "full_id": "4560-T7368",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/auth/services/get_token_service.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T7369",
+      "full_id": "4560-T7369",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/config.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T7370",
+      "full_id": "4560-T7370",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/admin/utils.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T7371",
+      "full_id": "4560-T7371",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/auth/services/get_token_service.py",
+        "app/init_app.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T7372",
+      "full_id": "4560-T7372",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/main.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T7373",
+      "full_id": "4560-T7373",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/admin/services/reset_chef_password_service.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T7374",
+      "full_id": "4560-T7374",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "Dockerfile",
+        "pyproject.toml"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T7375",
+      "full_id": "4560-T7375",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/auth/services/register_user_service.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T7376",
+      "full_id": "4560-T7376",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/tests/security/test_controls.py",
+        "pyproject.toml"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T7377",
+      "full_id": "4560-T7377",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/main.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T7378",
+      "full_id": "4560-T7378",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/menu/utils.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T7379",
+      "full_id": "4560-T7379",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/main.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T7380",
+      "full_id": "4560-T7380",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/admin/utils.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T7381",
+      "full_id": "4560-T7381",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/menu/utils.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T7382",
+      "full_id": "4560-T7382",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/referrals/service.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T7411",
+      "full_id": "4560-T7411",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/menu/schemas.py",
+        "app/apis/menu/services/create_menu_item_service.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T7412",
+      "full_id": "4560-T7412",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/admin/utils.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T7414",
+      "full_id": "4560-T7414",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/apis/menu/services/create_menu_item_service.py",
+        "app/tests/security/test_text_rendering.py"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "T7415",
+      "full_id": "4560-T7415",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "docker-compose.yml"
+      ],
+      "sde_note_result": "ADDED"
+    },
+    {
+      "id": "CT9",
+      "full_id": "4560-CT9",
+      "status": "Applied",
+      "category": "CODE_FIX",
+      "files_modified": [
+        "app/config.py"
+      ],
+      "sde_note_result": "ADDED"
+    }
+  ]
+}

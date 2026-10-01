@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T4750",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/docker-compose.yml",
+      "line": 226,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Two segregated networks are declared instead of a single shared one: backend is marked internal:true at line 226, so it has no route to or from the host network, and db attaches only to backend (lines 189-190). The proxy attaches only to frontend (lines 126-127) and is the sole service publishing a port, bound to 127.0.0.1:8443 at line 131 rather than to all interfaces; web is the only service bridging frontend and backend (lines 62-64), so the application is the single path from the proxy tier to the database. Every other inter-service port uses expose rather than ports. No shared default network, no network_mode:host and no unrestricted port publication remains | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: docker-compose.yml defines two segregated bridge networks rather than a single shared one. The db service is attached only to backend, which is declared internal:true so it has no route to or from the host network; the proxy is attached only to frontend and is the sole service publishing a port, bound to 127.0.0.1:8443 rather than 0.0.0.0; web bridges the two and is the only path from the proxy tier to the database. All inter-service ports use expose rather than ports, so nothing else is reachable outside the compose project. No shared default network, no network_mode:host and no unrestricted port publication remains | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T4750 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

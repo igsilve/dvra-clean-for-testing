@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T296",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/db/models.py",
+      "line": 53,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] The server-side condition this test checks - sensitive data stored without encryption - is not met by the schema. Credentials are persisted only as one-way derivations (User.password an argon2id hash, User.reset_password_code a keyed HMAC-SHA256 under OTP_HMAC_KEY), so inspecting the database yields nothing an attacker can replay. No serialized-object or pickled-blob column exists, which is what the TA276 amendment directs a tester to look for. The client-device half of the procedure does not apply: this is a server-side FastAPI service with no mobile client in the repository | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] app/db/models.py: the server-side condition this test checks - sensitive data stored without encryption - is not met by the schema. Credentials are persisted only as one-way derivations (User.password an argon2id hash, User.reset_password_code a keyed HMAC-SHA256 under OTP_HMAC_KEY), so inspecting the database yields nothing an attacker can replay. No serialized-object or pickled-blob column exists, which is what the TA276 amendment directs a tester to look for. The client-device half of the procedure does not apply: this is a server-side FastAPI service with no mobile client in the repository. | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T296 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

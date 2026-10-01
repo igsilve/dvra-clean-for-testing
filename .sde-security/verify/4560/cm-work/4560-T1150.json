@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T1150",
+  "status": "partial",
+  "confidence": "low",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/Dockerfile",
+      "line": 0,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] CM scope (improper container network configuration: inter-container traffic, iptables, userland proxy, host interface binding) extends beyond repository files; partial verdict due to scope mismatch. Every prescribed control is a Docker daemon or orchestration setting (--icc=false, --iptables left unset, --userland-proxy=false, publishing ports to a specific host IP) and none can be expressed in the Dockerfile supplied as the modified file, so static review cannot confirm or refute them | verdict=partial confidence=low",
+      "category": "scope-mismatch"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] CM scope (improper container network configuration) extends beyond repository files; partial verdict due to scope mismatch. Every control this CM asks for lives on the Docker daemon or the orchestration layer rather than in the image definition: --icc=false to restrict inter-container traffic, leaving --iptables unset, --userland-proxy=false, and binding published ports to a specific host interface. None of these can be expressed in the Dockerfile that was supplied as the modified file, so static review of the repository cannot confirm or refute them. Requires host/daemon configuration review by the platform owner | verdict=partial confidence=low",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T1150 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

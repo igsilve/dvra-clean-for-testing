@@ -1,0 +1,26 @@
+{
+  "cm_id": "T659",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Test that user-supplied inputs are validated before being passed to OS commands",
+    "priority": 10,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T659/",
+    "description": "Remove the shell from the execution path and constrain the argument to a validated value.",
+    "language": "python",
+    "file": "app/apis/admin/utils.py",
+    "start_line": 4,
+    "end_line": 10,
+    "finding": "The `parameters` string is concatenated onto \"df -h \" and executed with shell=True, giving direct command injection.",
+    "current_code": "def get_disk_usage(parameters: str):\n    command = \"df -h \" + parameters\n\n    try:\n        result = subprocess.run(\n            command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True\n        )",
+    "required_fix": "# app/apis/admin/utils.py\nimport subprocess\nfrom enum import Enum\n\n\nclass MountPoint(str, Enum):\n    ROOT = \"/\"\n    DATA = \"/var/lib/postgresql/data\"\n\n\ndef get_disk_usage(mount_point: MountPoint) -> str:\n    result = subprocess.run(\n        [\"df\", \"-h\", mount_point.value],\n        capture_output=True, check=True, timeout=5,      # shell=False is the default\n    )\n    return result.stdout.decode().strip()",
+    "criteria": [
+      "`shell=True` appears nowhere in the codebase.",
+      "The command is passed as an argument list.",
+      "The only variable part is drawn from a closed enum, never from a free-form string.",
+      "A request with `parameters=/; id` returns 422 and executes nothing."
+    ]
+  }
+}

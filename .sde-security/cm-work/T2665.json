@@ -1,0 +1,19 @@
+{
+  "cm_id": "T2665",
+  "category": "INFRA",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "documentation",
+    "title": "Protect sensitive data at rest with encryption",
+    "priority": 8,
+    "category": "INFRA",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T2665/",
+    "description": "Encrypt sensitive data at rest across the systems that hold it.",
+    "guidance": "Data classified as sensitive should be encrypted wherever it resides \u2014 database files, backups, log archives and object storage \u2014 with keys managed centrally and rotated.",
+    "searched": "docker-compose.yml, app/db/models.py, app/config.py",
+    "found": "The database volume, any log output and any backup copy are all unencrypted.",
+    "missing": "Storage encryption across each of those layers plus a key management service.",
+    "conclusion": "Encryption at rest spans storage platforms and key management, which are infrastructure concerns.",
+    "action": "The platform team should apply encryption at rest to every store holding this service's data."
+  }
+}

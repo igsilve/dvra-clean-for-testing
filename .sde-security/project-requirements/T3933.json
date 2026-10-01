@@ -1,0 +1,30 @@
+{
+  "cm_id": "T3933",
+  "additional_requirements": [
+    {
+      "id": "TA6763",
+      "title": "Test automation of deployments",
+      "text": "For each deployment process, ensure it is automated.",
+      "ordinal": 10
+    },
+    {
+      "id": "TA6764",
+      "title": "Test reproducibility of the deployment environment",
+      "text": "Verify that the deployment/production environment is reproducible.",
+      "ordinal": 20
+    },
+    {
+      "id": "TA6765",
+      "title": "Test limitation of access to the production environment",
+      "text": "Verify that the production environment is accessible only to trusted and qualified users.",
+      "ordinal": 30
+    },
+    {
+      "id": "TA6766",
+      "title": "Test non-usage of default passwords",
+      "text": "For each deployment tool, ensure the password is not the default one.",
+      "ordinal": 40
+    }
+  ],
+  "count": 4
+}

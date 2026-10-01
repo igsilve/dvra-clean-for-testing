@@ -1,0 +1,28 @@
+{
+  "full_cm_id": "4560-T96",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/init_app.py",
+      "line": 43,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: CsrfMiddleware at lines 43-72 refuses any unsafe method carrying a recognised auth cookie unless X-CSRF-Token matches the csrf_token cookie under secrets.compare_digest, and the CORS layer at lines 180-187 uses an explicit non-wildcard origin allow-list alongside allow_credentials=True, so no cross-site page can drive a state change | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/auth/services/patch_profile_service.py",
+      "line": 30,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: the state-changing route at lines 30-45 uses PATCH (not GET), authenticates with a Bearer token via Depends(get_current_user) which is a non-ambient credential browsers do not attach cross-site, derives the target account from current_user rather than a request field, and forbids extra body keys via ConfigDict(extra='forbid') | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted (2 files): app/init_app.py installs CsrfMiddleware, which rejects any unsafe method carrying one of the recognised auth cookies unless an X-CSRF-Token header matches the csrf_token cookie under secrets.compare_digest, and pairs it with a non-wildcard CORS origin allow-list (settings.ALLOWED_ORIGINS strips '*') despite allow_credentials=True, plus SameSite-irrelevant Bearer-only auth. app/apis/auth/services/patch_profile_service.py is the state-changing route: it authenticates through Depends(get_current_user) (a Bearer token, which browsers never attach cross-site, so the request is not forgeable ambiently), uses PATCH rather than GET, resolves the target account from current_user instead of a request field, and pins the body with ConfigDict(extra='forbid') | verdict=pass confidence=high",
+      "count": "2"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T96 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

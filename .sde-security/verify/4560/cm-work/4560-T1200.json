@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T1200",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/docker-compose.yml",
+      "line": 47,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] docker-compose.yml: every service carries explicit memory and PID limits. web mem_limit: 1g / memswap_limit: 1g / pids_limit: 256 (lines 47-49); proxy mem_limit: 256m / memswap_limit: 256m / pids_limit: 128 (lines 117-119); db mem_limit: 1g / memswap_limit: 1g / pids_limit: 256 (lines 177-179). memswap_limit equal to mem_limit prevents swap from absorbing an overage. Defence in depth: cpus caps, ulimits nofile 1024/2048, cgroup_parent: restaurant.slice, and tmpfs mounts sized (e.g. /tmp:size=64m line 25). How-to I945 canonical pattern (--memory plus --pids-limit) satisfied on all three services. Marker scan clean | verdict=pass confidence=high",
+      "category": "mitigation-confirmed"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] docker-compose.yml: every service carries explicit memory and PID limits. web mem_limit: 1g / memswap_limit: 1g / pids_limit: 256 (lines 47-49); proxy mem_limit: 256m / memswap_limit: 256m / pids_limit: 128 (lines 117-119); db mem_limit: 1g / memswap_limit: 1g / pids_limit: 256 (lines 177-179). memswap_limit equal to mem_limit prevents swap from absorbing an overage. Defence in depth: cpus caps, ulimits nofile 1024/2048, cgroup_parent: restaurant.slice, and tmpfs mounts sized (e.g. /tmp:size=64m line 25). How-to I945 canonical pattern (--memory plus --pids-limit) satisfied on all three services. Marker scan clean | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T1200 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

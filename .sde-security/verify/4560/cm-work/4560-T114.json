@@ -1,0 +1,28 @@
+{
+  "full_cm_id": "4560-T114",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/auth/services/get_token_service.py",
+      "line": 24,
+      "description": "Address-keyed throttling via @limiter.limit(\"5/minute\") combined with a per-identity lockout check (seconds_remaining) before authentication; a locked identity receives the same generic 401 as a wrong password, with no 429 or Retry-After that would tell an attacker the threshold had tripped.",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/auth/utils/utils.py",
+      "line": 87,
+      "description": "MAX_FAILED_LOGINS=5 with a 15-minute LOCKOUT_WINDOW; authenticate_user checks user.locked_until before verifying the password so a blocked attempt neither spends argon2 CPU nor becomes distinguishable by response time, and failed_logins/locked_until are cleared on success.",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Both lockout and throttling are present on the credential path. app/apis/auth/services/get_token_service.py:24,43-51 applies @limiter.limit(\"5/minute\") and refuses an identity already locked (seconds_remaining) with exactly the generic 401 a wrong password returns, with no 429 or Retry-After to signal the threshold. app/apis/auth/utils/utils.py:87-110 enforces MAX_FAILED_LOGINS=5 with a 15-minute LOCKOUT_WINDOW, checks locked_until before any argon2 verification so blocked attempts are not distinguishable by timing, and resets the counters on success | verdict=pass confidence=high",
+      "count": "2"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T114 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

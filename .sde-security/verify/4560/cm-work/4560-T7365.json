@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T7365",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/auth/services/get_token_service.py",
+      "line": 23,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: lines 23-29 throttle the token endpoint with @limiter.limit('5/minute') placed directly beneath @router.post('/token'), in the required decorator order, and the handler takes request: Request so slowapi can hook in. The limiter is wired app-wide in init_app.py:193-194 (app.state.limiter plus the RateLimitExceeded handler, so over-limit calls return 429) and rate_limiting.py:32 sets default_limits=['120/minute'] so no route is unthrottled by omission. The client key (rate_limiting.py:9-27) prefers the subject of a signature-verified JWT and only falls back to slowapi get_remote_address, which reads request.client.host rather than a spoofable forwarded header - addressing the fabricated-identity evasion in the weakness description. Brute force is additionally bounded by the lockout module: seconds_remaining/register_failure/register_success gate the login, and a locked identity receives byte-identical 401 output with no 429 or Retry-After, so the throttle itself is not an oracle. One residual item from the recommendation is outside this file: the Limiter is constructed without a storage_uri, so counters are per-process and will not hold across workers or replicas until a shared Redis/Memcached store is configured. Recorded as informational; the endpoint-level throttle the CM requires is present. | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: app/apis/auth/services/get_token_service.py:23-29 throttles the token endpoint with @limiter.limit('5/minute') placed directly beneath @router.post('/token'), in the required decorator order, and the handler takes request: Request so slowapi can hook in. The limiter is wired app-wide in init_app.py:193-194 (app.state.limiter plus the RateLimitExceeded handler, so over-limit calls return 429) and rate_limiting.py:32 sets default_limits=['120/minute'] so no route is unthrottled by omission. The client key (rate_limiting.py:9-27) prefers the subject of a signature-verified JWT and only falls back to slowapi get_remote_address, which reads request.client.host rather than a spoofable forwarded header - addressing the fabricated-identity evasion in the weakness description. Brute force is additionally bounded by the lockout module: seconds_remaining/register_failure/register_success gate the login, and a locked identity receives byte-identical 401 output with no 429 or Retry-After, so the throttle itself is not an oracle. One residual item from the recommendation is outside this file: the Limiter is constructed without a storage_uri, so counters are per-process and will not hold across workers or replicas until a shared Redis/Memcached store is configured. Recorded as informational; the endpoint-level throttle the CM requires is present. | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T7365 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

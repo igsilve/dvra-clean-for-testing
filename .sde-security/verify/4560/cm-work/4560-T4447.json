@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T4447",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/start_app.sh",
+      "line": 23,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: start_app.sh sets `umask 077` before the first file is created (line 23) -- stricter than the 027 named in the countermeasure, and applied at creation time rather than via a later chmod -- creates the database volume with `mkdir -m 0700` (line 40), refuses a symlinked or foreign-owned postgres_data (lines 46-54), and executes only binaries resolved from directories with no group/other write bit (ops_guard.sh lines 58-68) | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: start_app.sh sets umask 077 (stricter than the recommended 027) before the first file is created rather than chmod-ing afterwards, creates the database volume with mkdir -m 0700, refuses a symlinked or foreign-owned postgres_data, and resolves binaries only from directories with no group/other write bit | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T4447 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

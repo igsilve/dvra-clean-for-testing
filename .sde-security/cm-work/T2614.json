@@ -1,0 +1,19 @@
+{
+  "cm_id": "T2614",
+  "category": "INFRA",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "documentation",
+    "title": "Verify database traffic is validated",
+    "priority": 9,
+    "category": "INFRA",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T2614/",
+    "description": "Verify that database traffic validation is operating.",
+    "guidance": "Verification means issuing a representative anomalous statement and confirming the monitor detects and alerts on it.",
+    "searched": "app/db/session.py, docker-compose.yml",
+    "found": "No monitoring component is deployed.",
+    "missing": "The monitoring component that would generate the detection.",
+    "conclusion": "The verification cannot be performed without the monitoring layer.",
+    "action": "The security operations team should verify detection once monitoring is deployed."
+  }
+}

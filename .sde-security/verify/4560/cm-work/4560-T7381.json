@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T7381",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/menu/utils.py",
+      "line": 106,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] No pickle, joblib, yaml.load or custom binary object loader appears in this module, so no code-capable deserializer is reachable from untrusted bytes. The one trust boundary is remote image content, and it is handled data-only: _verify_content requires a caller-supplied sha256 digest compared with hmac.compare_digest and, when a publishing key is configured, an RSA-PSS signature over the bytes, both before the content becomes a persisted value; _assert_content_is_a_supported_image then restricts the container format to a JPEG/PNG/GIF/WEBP allow-list, calls Image.verify() so a truncated or malformed file fails closed, and bounds both transferred bytes and decompressed pixels | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] No pickle, joblib or yaml.load appears in this module, so no code-capable loader touches untrusted data; the only untrusted binary path is remote image bytes, gated by a required sha256 digest plus an optional RSA-PSS signature before use, a JPEG/PNG/GIF/WEBP format allow-list, Image.verify() and explicit byte and pixel ceilings | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T7381 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

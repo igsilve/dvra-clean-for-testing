@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T184",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/auth/utils/authz.py",
+      "line": 88,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: Requires(permission) is a route dependency that resolves the caller from the token and denies with 403 unless the permission is granted by ROLE_PERMISSIONS (lines 40-57); AuthzContext.require/require_ownership (lines 133-157) re-check at the service layer so non-HTTP callers inherit the same rule. permissions_for() returns an empty set for unrecognised roles and has_permission(None) returns False, so the model fails closed. | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: app/apis/auth/utils/authz.py centralizes REST authorization in a server-side permission model (Permission enum + ROLE_PERMISSIONS table) exposed as a FastAPI route dependency (Requires) plus an AuthzContext.require()/require_ownership() used at the service layer, so each verb-specific route declares the permission it needs and admin/management permissions (READ_DISK_STATS, RESET_CHEF_PASSWORD, MANAGE_ROLES) are restricted to CHEF. Unknown role -> empty permission set and has_permission(None) -> False, so the model fails closed; denials return an opaque 403 and are audit-logged. Same security property as ctx.text's per-method authorization requirement. | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T184 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

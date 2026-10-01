@@ -1,0 +1,19 @@
+{
+  "cm_id": "T3908",
+  "category": "INFRA",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "documentation",
+    "title": "Enforce artifact signing (GitHub)",
+    "priority": 8,
+    "category": "INFRA",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T3908/",
+    "description": "Sign the artifacts this project produces and require signatures downstream.",
+    "guidance": "Every released artifact should be signed during the build, with signatures recorded in a transparency log, and consumers should verify the signature and provenance before deploying.",
+    "searched": "Repository root, .github/ (absent), Dockerfile, pyproject.toml",
+    "found": "There is no release or publishing process in the repository; images are built and run locally.",
+    "missing": "A release pipeline, a signing identity and key custody arrangements.",
+    "conclusion": "Artifact signing requires a release pipeline and key management that do not exist for this project.",
+    "action": "The CI/CD owners should introduce signing as part of establishing a release process."
+  }
+}

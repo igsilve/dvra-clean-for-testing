@@ -1,0 +1,24 @@
+{
+  "cm_id": "T537",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Test that the size of incoming messages in services is restricted",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T537/",
+    "description": "Provide an enforced message-size ceiling that a test can exercise and confirm.",
+    "language": "python",
+    "file": "app/init_app.py",
+    "start_line": 11,
+    "end_line": 19,
+    "finding": "There is no body-size ceiling to test against: the application accepts requests of any length.",
+    "current_code": "    app = FastAPI(\n        title=settings.TITLE,\n        description=settings.DESCRIPTION,\n        version=settings.VERSION,\n        servers=settings.SERVERS,\n        root_path=settings.ROOT_PATH,\n        docs_url=None,\n        redoc_url=None,\n    )",
+    "required_fix": "# app/tests/integration/test_body_size_limit.py\ndef test_oversized_body_is_rejected(client):\n    payload = {\"description\": \"A\" * (2 * 1024 * 1024)}\n    response = client.put(\"/menu\", json=payload)\n    assert response.status_code == 413",
+    "criteria": [
+      "An automated test submits a body above the ceiling and asserts a 413 response.",
+      "The test fails if the middleware is removed."
+    ]
+  }
+}

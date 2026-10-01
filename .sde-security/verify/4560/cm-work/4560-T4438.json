@@ -1,0 +1,40 @@
+{
+  "full_cm_id": "4560-T4438",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/ops_guard.sh",
+      "line": 0,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] No file-upload sink: this file defines only require_operator, resolve_binary and run_bounded; it never receives, stores or inspects an uploaded file, so neither the extension allowlist (I1897) nor the content check (I1898) has anything to apply to | verdict=pass confidence=high",
+      "category": "vulnerability-absent-mitigation-unrecognized"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/start_app.sh",
+      "line": 0,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] No file-upload sink: the script creates one fixed-path volume directory and execs `docker compose up`; it accepts no uploaded content. The only directory it creates is 0700 under umask 077, which already satisfies the countermeasure's secure-storage-permissions point | verdict=pass confidence=high",
+      "category": "vulnerability-absent-mitigation-unrecognized"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/start_game.sh",
+      "line": 0,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] No file-upload sink: the script executes a fixed in-image path (/app/game.py) after existence and type checks; no file is uploaded, written or named from external input | verdict=pass confidence=high",
+      "category": "vulnerability-absent-mitigation-unrecognized"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/stop_app.sh",
+      "line": 0,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] No file-upload sink: the script writes only its own lock directory and pid file and runs `docker compose down`; it accepts no uploaded content | verdict=pass confidence=high",
+      "category": "vulnerability-absent-mitigation-unrecognized"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] File-upload vulnerability absent across ops_guard.sh, start_app.sh, start_game.sh, stop_app.sh: none of these scripts accepts, receives, stores or processes an uploaded file - they are deployment wrappers that invoke `docker compose` and create a single fixed-path volume directory. There is no upload sink for the extension allowlist (I1897) or content inspection (I1898) to apply to, so the canonical patterns are correctly not present. Marker scan clean | verdict=pass confidence=high",
+      "count": "4"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T4438 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

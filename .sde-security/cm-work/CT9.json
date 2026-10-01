@@ -1,0 +1,24 @@
+{
+  "cm_id": "CT9",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Ismenia",
+    "priority": 10,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-CT9/",
+    "description": "Make the deployment environment an explicit, validated choice rather than a silent default.",
+    "language": "python",
+    "file": "app/config.py",
+    "start_line": 13,
+    "end_line": 19,
+    "finding": "The environment selector defaults to PRODUCTION while every other default in this module is a development convenience, so the deployed configuration is not deliberately chosen.",
+    "current_code": "class ENV(Enum):\n    DEVELOPMENT = \"development\"\n    PRODUCTION = \"production\"\n    TESTING = \"testing\"\n\n\nENVIRONMENT = ENV(os.getenv(\"ENV\", ENV.PRODUCTION.value))",
+    "required_fix": "# app/config.py\n_raw_env = os.getenv(\"ENV\")\nif _raw_env is None:\n    raise RuntimeError(\"ENV must be set explicitly to development, testing or production\")\n\nENVIRONMENT = ENV(_raw_env)",
+    "criteria": [
+      "The process refuses to start when ENV is unset.",
+      "Each environment supplies its own configuration values rather than falling back to a default."
+    ]
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T7363",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/init_app.py",
+      "line": 22,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: lines 22-40 define a single SecurityHeadersMiddleware that sets, on every response, X-Content-Type-Options: nosniff, X-Frame-Options: DENY, Content-Security-Policy: default-src 'self'; frame-ancestors 'none', Referrer-Policy: no-referrer (stricter than the recommended strict-origin-when-cross-origin), Strict-Transport-Security: max-age=63072000; includeSubDomains, and Cache-Control: no-store; it also deletes X-Powered-By and Server. Coverage is uniform rather than per-endpoint, and line 192 registers it LAST so it is Starlette's outermost layer - short-circuit replies from inner middleware (TrustedHost 400, BodySizeLimit 413/400, CSRF 403) still pass back out through it and carry the headers. Interactive docs and the OpenAPI schema are withdrawn in production (docs_url=None, redoc_url=None, conditional openapi_url), shrinking the HTML surface. Two optional sub-items from the recommendation are not set: Permissions-Policy and the legacy Pragma: no-cache. Neither leaves the described weakness open here - this service returns JSON only, frame-ancestors 'none' already blocks the embedded-frame path by which feature-policy abuse would arrive, and Cache-Control: no-store is the authoritative directive that Pragma merely duplicates for pre-HTTP/1.1 intermediaries. Recorded as informational; no verdict impact. | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: app/init_app.py:22-40 defines a single SecurityHeadersMiddleware that sets, on every response, X-Content-Type-Options: nosniff, X-Frame-Options: DENY, Content-Security-Policy: default-src 'self'; frame-ancestors 'none', Referrer-Policy: no-referrer (stricter than the recommended strict-origin-when-cross-origin), Strict-Transport-Security: max-age=63072000; includeSubDomains, and Cache-Control: no-store; it also deletes X-Powered-By and Server. Coverage is uniform rather than per-endpoint, and line 192 registers it LAST so it is Starlette's outermost layer - short-circuit replies from inner middleware (TrustedHost 400, BodySizeLimit 413/400, CSRF 403) still pass back out through it and carry the headers. Interactive docs and the OpenAPI schema are withdrawn in production (docs_url=None, redoc_url=None, conditional openapi_url), shrinking the HTML surface. Two optional sub-items from the recommendation are not set: Permissions-Policy and the legacy Pragma: no-cache. Neither leaves the described weakness open here - this service returns JSON only, frame-ancestors 'none' already blocks the embedded-frame path by which feature-policy abuse would arrive, and Cache-Control: no-store is the authoritative directive that Pragma merely duplicates for pre-HTTP/1.1 intermediaries. Recorded as informational; no verdict impact. | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T7363 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

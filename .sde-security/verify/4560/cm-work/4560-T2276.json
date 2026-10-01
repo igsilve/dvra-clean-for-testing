@@ -1,0 +1,32 @@
+{
+  "full_cm_id": "4560-T2276",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/orders/services/get_orders_for_delivery_service.py",
+      "line": 30,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Alternative mitigation accepted: the delivery-orders feed, which returns every customer's address and phone number, now identifies and authenticates the caller via Depends(get_current_user) and performs a per-request RBAC permission check via Depends(Requires(READ_DELIVERY_FEED)) before the query runs - previously the route answered anonymous callers | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/orders/services/get_orders_for_delivery_service.py",
+      "line": 32,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Alternative mitigation accepted: include_in_schema=False is no longer relied on as an access control, the result set is bounded by a declared MAX_PAGE_SIZE so an out-of-range page is rejected with 422 rather than clamped, and rows are returned in an object envelope | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Alternative mitigation accepted: the delivery-orders feed, which returns every customer's address and phone number, now identifies and authenticates the caller via Depends(get_current_user) and performs a per-request RBAC permission check via Depends(Requires(READ_DELIVERY_FEED)) before the query runs - previously the route answered anonymous callers | verdict=pass confidence=high",
+      "count": "1"
+    },
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Alternative mitigation accepted: include_in_schema=False is no longer relied on as an access control, the result set is bounded by a declared MAX_PAGE_SIZE so an out-of-range page is rejected with 422 rather than clamped, and rows are returned in an object envelope | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T2276 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

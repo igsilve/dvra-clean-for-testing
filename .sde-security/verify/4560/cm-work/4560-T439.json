@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T439",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/menu/utils.py",
+      "line": 105,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: all three items the CM asks a tester to confirm on remotely fetched content hold. Size has an upper limit twice over (declared Content-Length rejected above MAX_IMAGE_BYTES at line 243, then the stream accumulated chunk by chunk against the same ceiling at line 251, plus MAX_IMAGE_PIXELS bounding the decompressed size). Origin is authenticated by an HTTPS-only host allow-list that fails closed when empty (line 58), certifi-pinned TLS verification, disabled redirects, and resolved-address checks rejecting private/loopback/link-local answers. Integrity is verified before persistence: _verify_content compares a SHA-256 digest with compare_digest and verifies an RSA-PSS signature when a publisher key is configured; _assert_content_is_a_supported_image then decides the type by parsing rather than by being told. No unchecked remote-content ingestion path observed; marker scan clean | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: app/apis/menu/utils.py checks all three items the CM asks a tester to confirm on remotely fetched content. Size has an upper limit twice over (declared Content-Length rejected above MAX_IMAGE_BYTES, then the stream accumulated chunk by chunk against the same ceiling, plus MAX_IMAGE_PIXELS bounding the decompressed size). Origin is authenticated by an explicit HTTPS-only host allow-list that fails closed when empty, certifi-pinned TLS verification, disabled redirects, and resolved-address checks that reject private/loopback/link-local answers. Integrity is verified before the bytes are persisted: _verify_content compares a SHA-256 digest with compare_digest and, when a publisher key is configured, verifies an RSA-PSS signature; _assert_content_is_a_supported_image then decides the type by parsing rather than by being told. No unchecked remote-content ingestion path observed; marker scan clean | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T439 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

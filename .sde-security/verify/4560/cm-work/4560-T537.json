@@ -1,0 +1,28 @@
+{
+  "full_cm_id": "4560-T537",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/tests/integration/test_body_size_limit.py",
+      "line": 6,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: the size restriction is exercised by an automated regression suite rather than left to a manual load-testing pass. Four cases are driven against a live client - an oversized declared body returns 413 with the expected detail, an oversized chunked body with no Content-Length returns 413 while streaming, a malformed Content-Length returns 400, and a normally sized body is explicitly asserted not to be rejected, so the ceiling cannot regress into blocking legitimate traffic | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/init_app.py",
+      "line": 179,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: supplies the control under test, BodySizeLimitMiddleware bound to settings.MAX_BODY_BYTES and registered as an outer layer, so the tested 413/400 responses are produced before any body is buffered. No evidence that large requests break the service; marker scan clean | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted (2 files): the size restriction is exercised by an automated regression suite rather than left to a manual load-testing pass. app/tests/integration/test_body_size_limit.py drives four cases against a live client - an oversized declared body returns 413 with the expected detail, an oversized chunked body with no Content-Length returns 413 while streaming, a malformed Content-Length returns 400, and a normally sized body is explicitly asserted not to be rejected, so the ceiling cannot regress into blocking legitimate traffic. app/init_app.py supplies the control under test, BodySizeLimitMiddleware bound to settings.MAX_BODY_BYTES. No evidence that large requests break the service; marker scan clean | verdict=pass confidence=high",
+      "count": "2"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T537 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

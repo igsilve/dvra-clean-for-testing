@@ -1,0 +1,25 @@
+{
+  "cm_id": "T407",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Verify that symmetric-key authentication is secure",
+    "priority": 7,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T407/",
+    "description": "Verify the token signature on every request and pin the accepted algorithm.",
+    "language": "python",
+    "file": "app/apis/auth/utils/jwt_auth.py",
+    "start_line": 11,
+    "end_line": 13,
+    "finding": "The verifier loads the same weak symmetric key and then disables signature verification outright.",
+    "current_code": "SECRET_KEY = Settings.JWT_SECRET_KEY\nALGORITHM = \"HS256\"\nVERIFY_SIGNATURE = False",
+    "required_fix": "# app/apis/auth/utils/jwt_auth.py\npayload = jwt.decode(\n    token,\n    SECRET_KEY,\n    algorithms=[\"HS256\"],\n    options={\"verify_signature\": True, \"verify_exp\": True, \"require\": [\"exp\", \"sub\"]},\n)",
+    "criteria": [
+      "No code path disables signature verification.",
+      "The algorithm list is a fixed literal and does not include `none`.",
+      "A token signed with a different key is rejected with 401."
+    ]
+  }
+}

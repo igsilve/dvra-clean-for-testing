@@ -1,0 +1,34 @@
+{
+  "full_cm_id": "4560-T589",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/orders/utils.py",
+      "line": 55,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] The delivery-service call authenticates the peer explicitly: verify=certifi.where() pins the trust store, allow_redirects=False refuses redirection to an unauthenticated host, and an Authorization: Bearer credential identifies this service to the peer. Matches ctx.text's requirement that components be authenticated before network communication | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/orders/utils.py",
+      "line": 33,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] _delivery_endpoint fails closed: the integration raises 503 unless both DELIVERY_API_BASE and DELIVERY_API_TOKEN are configured and the base URL scheme is https, so there is no anonymous or plaintext fallback path | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/orders/utils.py",
+      "line": 76,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] The peer's reply is not implicitly trusted either: DeliveryStatus validates it with model_config extra='forbid', and status.order_id is cross-checked against the requested order before the payload is returned | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] app/apis/orders/utils.py authenticates the delivery service explicitly in both directions: HTTPS-only base URL check, integration disabled unless both base URL and API token are configured, certifi-pinned trust store, redirects refused, bearer token presented, and the reply constrained by a strict Pydantic model (extra=forbid) with an order_id cross-check. No reliance on network location as trust | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T589 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

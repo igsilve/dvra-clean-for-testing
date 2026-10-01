@@ -1,0 +1,19 @@
+{
+  "cm_id": "T2611",
+  "category": "INFRA",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "documentation",
+    "title": "Verify that typical database and server activities, along with related metadata, are logged",
+    "priority": 8,
+    "category": "INFRA",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T2611/",
+    "description": "Verify that database and server activity is being logged with the required metadata.",
+    "guidance": "Verification means confirming the logging settings are active, generating a representative event and observing it arrive in central storage with the expected fields.",
+    "searched": "docker-compose.yml, app/db/session.py",
+    "found": "No logging configuration or destination exists to verify.",
+    "missing": "The database logging configuration and central log storage.",
+    "conclusion": "The verification depends on server configuration outside this repository.",
+    "action": "The database administration team should verify logging once it is configured."
+  }
+}

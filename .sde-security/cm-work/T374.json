@@ -1,0 +1,19 @@
+{
+  "cm_id": "T374",
+  "category": "INFRA",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "documentation",
+    "title": "Offload HTTP request handling to dedicated modules",
+    "priority": 7,
+    "category": "INFRA",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T374/",
+    "description": "Move HTTP request handling concerns such as TLS termination, compression, header normalization and static delivery onto a dedicated front-end module.",
+    "guidance": "Dedicated, hardened modules should handle the protocol-level work rather than the application process: a reverse proxy terminating TLS, normalizing request framing, enforcing body-size ceilings and serving static assets, with the application server bound to an internal interface behind it.",
+    "searched": "docker-compose.yml, app/main.py, app/init_app.py",
+    "found": "Uvicorn is published directly on port 8091 with --reload and a single worker; the application mounts its own static directory and no proxy service is defined.",
+    "missing": "A reverse proxy service in the deployment topology, its configuration file, and the infrastructure decision about where TLS terminates.",
+    "conclusion": "Introducing the front-end tier is a deployment-topology change involving new infrastructure components and certificate management, not an edit to this application's source.",
+    "action": "Platform engineering should add a hardened reverse proxy in front of the application, terminate TLS there, and move static asset delivery to it."
+  }
+}

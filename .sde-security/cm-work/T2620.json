@@ -1,0 +1,19 @@
+{
+  "cm_id": "T2620",
+  "category": "INFRA",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "documentation",
+    "title": "Protect data in transit with TLS (PostgreSQL)",
+    "priority": 9,
+    "category": "INFRA",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T2620/",
+    "description": "Require TLS for client connections to PostgreSQL.",
+    "guidance": "The server should be configured with a certificate and require SSL for all client connections, with clients verifying the server certificate against a known CA.",
+    "searched": "docker-compose.yml, app/db/session.py, app/config.py",
+    "found": "PostgreSQL runs with stock settings and the application connects with a URL carrying no sslmode; the server-side requirement is set in postgresql.conf and pg_hba.conf.",
+    "missing": "Server configuration files and certificate material, neither of which is in the repository.",
+    "conclusion": "Requiring TLS is a database server configuration change; the matching client-side change is tracked separately under the data-in-transit countermeasure.",
+    "action": "The database administration team should issue a server certificate and require SSL in pg_hba.conf."
+  }
+}

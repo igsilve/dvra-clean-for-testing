@@ -1,0 +1,25 @@
+{
+  "cm_id": "T7411",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Implement controls for content intended to be displayed as text",
+    "priority": 7,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T7411/",
+    "description": "Constrain stored text fields and mark them as text so consumers render them safely.",
+    "language": "python",
+    "file": "app/apis/menu/services/create_menu_item_service.py",
+    "start_line": 15,
+    "end_line": 22,
+    "finding": "Menu item name and description are accepted as free text and persisted with no output-encoding contract.",
+    "current_code": "def create_menu_item(\n    menu_item: schemas.MenuItemCreate,\n    current_user: Annotated[User, Depends(get_current_user)],\n    db: Session = Depends(get_db),\n    auth=Depends(RolesBasedAuthChecker([UserRole.EMPLOYEE, UserRole.CHEF])),\n):\n    db_item = utils.create_menu_item(db, menu_item)\n    return db_item",
+    "required_fix": "# app/apis/menu/schemas.py\nfrom pydantic import BaseModel, ConfigDict, Field\n\n\nclass MenuItemCreate(BaseModel):\n    model_config = ConfigDict(extra=\"forbid\", str_strip_whitespace=True)\n\n    name: str = Field(min_length=1, max_length=120)\n    description: str | None = Field(default=None, max_length=1000)\n    price: float = Field(gt=0)\n    category: str = Field(min_length=1, max_length=60)\n    image_url: str | None = None",
+    "criteria": [
+      "Text fields declare length limits and reject unknown keys.",
+      "Responses are served as application/json with nosniff, so text is never interpreted as markup.",
+      "No stored text is concatenated into HTML anywhere in the service."
+    ]
+  }
+}

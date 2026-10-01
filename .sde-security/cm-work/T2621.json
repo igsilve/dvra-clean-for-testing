@@ -1,0 +1,19 @@
+{
+  "cm_id": "T2621",
+  "category": "INFRA",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "documentation",
+    "title": "Use file volume encryption and consider in-database encryption with pgcrypto (PostgreSQL)",
+    "priority": 8,
+    "category": "INFRA",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T2621/",
+    "description": "Encrypt the database file volume and consider in-database encryption for the most sensitive columns.",
+    "guidance": "The volume holding database files should be encrypted at the storage layer, with pgcrypto used selectively for columns that must stay unreadable even to someone with file access.",
+    "searched": "docker-compose.yml, app/db/models.py, app/migrations/versions/",
+    "found": "The `pg_volume` Docker volume is unencrypted and no pgcrypto extension is enabled in the migrations.",
+    "missing": "Storage-layer encryption for the volume and a key management arrangement.",
+    "conclusion": "Volume encryption is a storage platform capability configured outside this repository.",
+    "action": "The platform and database administration teams should encrypt the database volume and select columns for pgcrypto."
+  }
+}

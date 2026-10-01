@@ -1,0 +1,24 @@
+{
+  "cm_id": "T4449",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Test prevention of file upload vulnerabilities (Bash/Shell)",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T4449/",
+    "description": "Validate any file the script copies into the container for type and size before it is used.",
+    "language": "bash",
+    "file": "start_game.sh",
+    "start_line": 1,
+    "end_line": 4,
+    "finding": "The script copies no uploaded content but also applies no validation to the files it hands to the container.",
+    "current_code": "#!/bin/bash\n\n./start_app.sh -d\ndocker compose exec web python3 game.py",
+    "required_fix": "#!/bin/bash\n# start_game.sh\nset -euo pipefail\n\nvalidate_input() {\n    local path=\"$1\" max_bytes=\"${2:-1048576}\"\n    [ -f \"$path\" ] || { echo \"$path is not a regular file\" >&2; return 1; }\n    [ -L \"$path\" ] && { echo \"$path is a symlink\" >&2; return 1; }\n    local size; size=\"$(stat -f '%z' \"$path\")\"\n    [ \"$size\" -le \"$max_bytes\" ] || { echo \"$path exceeds $max_bytes bytes\" >&2; return 1; }\n}",
+    "criteria": [
+      "Files are checked for regular-file type, symlink status and size before use.",
+      "Validation failure aborts the script."
+    ]
+  }
+}

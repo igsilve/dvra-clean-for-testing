@@ -1,0 +1,25 @@
+{
+  "cm_id": "T7355",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Enforce endpoint authorization with dependencies and OAuth2 scopes (FastAPI)",
+    "priority": 10,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T7355/",
+    "description": "Attach the same role dependency to the delete route that create and update already use.",
+    "language": "python",
+    "file": "app/apis/menu/services/delete_menu_item_service.py",
+    "start_line": 12,
+    "end_line": 18,
+    "finding": "Unlike create and update, the delete route depends only on get_current_user and applies no RolesBasedAuthChecker, so any authenticated customer can delete menu items.",
+    "current_code": "@router.delete(\"/menu/{item_id}\", status_code=status.HTTP_204_NO_CONTENT)\ndef delete_menu_item(\n    item_id: int,\n    current_user: Annotated[User, Depends(get_current_user)],\n    db: Session = Depends(get_db),\n):\n    utils.delete_menu_item(db, item_id)",
+    "required_fix": "# app/apis/menu/services/delete_menu_item_service.py\n@router.delete(\"/menu/{item_id}\", status_code=status.HTTP_204_NO_CONTENT)\ndef delete_menu_item(\n    item_id: int,\n    current_user: Annotated[User, Depends(get_current_user)],\n    db: Session = Depends(get_db),\n    auth=Depends(RolesBasedAuthChecker([UserRole.EMPLOYEE, UserRole.CHEF])),\n):\n    utils.delete_menu_item(db, item_id)",
+    "criteria": [
+      "Every mutating menu route requires the employee or chef role.",
+      "A customer's DELETE /menu/{id} returns 403.",
+      "A test covers the customer case."
+    ]
+  }
+}

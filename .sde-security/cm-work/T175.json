@@ -1,0 +1,24 @@
+{
+  "cm_id": "T175",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Test that the client validates digital certificates",
+    "priority": 7,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T175/",
+    "description": "Prove with a test that the client rejects an invalid or untrusted certificate.",
+    "language": "python",
+    "file": "app/apis/menu/utils.py",
+    "start_line": 9,
+    "end_line": 11,
+    "finding": "The outbound client's certificate validation behavior is left entirely to defaults and is never asserted.",
+    "current_code": "def _image_url_to_base64(image_url: str):\n    response = requests.get(image_url, stream=True)\n    encoded_image = base64.b64encode(response.content).decode()",
+    "required_fix": "# app/tests/security/test_tls_validation.py\n@pytest.mark.security\ndef test_untrusted_certificate_is_rejected():\n    with pytest.raises(requests.exceptions.SSLError):\n        session.get(\"https://untrusted-root.badssl.com/\", timeout=5)\n\n\n@pytest.mark.security\ndef test_expired_certificate_is_rejected():\n    with pytest.raises(requests.exceptions.SSLError):\n        session.get(\"https://expired.badssl.com/\", timeout=5)",
+    "criteria": [
+      "Automated tests cover untrusted, expired and hostname-mismatched certificates.",
+      "The tests fail if verification is disabled anywhere."
+    ]
+  }
+}

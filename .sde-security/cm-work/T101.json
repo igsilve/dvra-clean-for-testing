@@ -1,0 +1,25 @@
+{
+  "cm_id": "T101",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Test that application is not vulnerable to SQL injection",
+    "priority": 10,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T101/",
+    "description": "Replace the interpolated UPDATE with a parameterized statement so no value can alter the query structure.",
+    "language": "python",
+    "file": "app/apis/orders/services/get_order_status.py",
+    "start_line": 36,
+    "end_line": 42,
+    "finding": "The UPDATE statement is built by f-string interpolation of status_value and order_id and executed through text(), so it is directly injectable.",
+    "current_code": "    raw_sql = f\"\"\"\n        UPDATE orders \n        SET status = '{status_value}'\n        WHERE id = {order_id}\n    \"\"\"\n    db.execute(text(raw_sql))\n    db.commit()",
+    "required_fix": "# app/apis/orders/services/get_order_status.py\ndb_order.status = OrderStatus(delivery_data[\"status\"])\ndb.add(db_order)\ndb.commit()\n\n# If raw SQL is genuinely required, bind every value:\n# db.execute(\n#     text(\"UPDATE orders SET status = :status WHERE id = :order_id\"),\n#     {\"status\": OrderStatus(status_value).value, \"order_id\": order_id},\n# )",
+    "criteria": [
+      "No SQL string in the codebase is built with f-strings, concatenation or % formatting.",
+      "The status value is validated against the OrderStatus enum before use.",
+      "A delivery response containing `'; DROP TABLE orders; --` leaves the schema intact."
+    ]
+  }
+}

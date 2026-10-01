@@ -1,0 +1,25 @@
+{
+  "cm_id": "T1539",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Clear browser data on user logout",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T1539/",
+    "description": "Provide a logout endpoint that invalidates the issued token server side and instructs the client to clear it.",
+    "language": "python",
+    "file": "app/apis/auth/service.py",
+    "start_line": 12,
+    "end_line": 19,
+    "finding": "The auth router registers no logout route, so there is nothing that invalidates the token or instructs the client to clear stored credentials.",
+    "current_code": "router = APIRouter()\nrouter.include_router(get_profile_router)\nrouter.include_router(get_token_router)\nrouter.include_router(register_user_router)\nrouter.include_router(update_profile_router)\nrouter.include_router(patch_profile_router)\nrouter.include_router(reset_password_router)\nrouter.include_router(reset_password_new_password_router)",
+    "required_fix": "# app/apis/auth/services/logout_service.py\n@router.post(\"/logout\", status_code=status.HTTP_204_NO_CONTENT)\ndef logout(\n    current_user: Annotated[User, Depends(get_current_user)],\n    token: Annotated[str, Depends(oauth2_scheme)],\n    response: Response,\n    db: Session = Depends(get_db),\n):\n    db.add(RevokedToken(jti=decode_jti(token), revoked_at=datetime.now(timezone.utc)))\n    db.commit()\n    response.delete_cookie(\"access_token\", path=\"/\")\n    response.delete_cookie(\"csrf_token\", path=\"/\")",
+    "criteria": [
+      "A /logout route exists and is registered on the auth router.",
+      "A token presented after logout is rejected with 401.",
+      "Authentication cookies are cleared in the logout response."
+    ]
+  }
+}

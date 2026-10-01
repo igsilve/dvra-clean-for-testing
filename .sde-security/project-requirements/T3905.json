@@ -1,0 +1,72 @@
+{
+  "cm_id": "T3905",
+  "additional_requirements": [
+    {
+      "id": "TA6586",
+      "title": "Ensure all aspects of the pipeline infrastructure and configuration are immutable",
+      "text": "Use an immutable pipeline orchestrator and ensure that its configuration and all other aspects of the built environment are immutable, as well.",
+      "ordinal": 10
+    },
+    {
+      "id": "TA6587",
+      "title": "Ensure the build environment is logged",
+      "text": "Keep logs of the build environment. For example, use the .buildinfo file for Debian build workers. Also, store the logs in a centralized organizational log store.",
+      "ordinal": 20
+    },
+    {
+      "id": "TA6588",
+      "title": "Ensure the creation of the build environment is automated",
+      "text": "Automate the deployment of the build environment.",
+      "ordinal": 30
+    },
+    {
+      "id": "TA6589",
+      "title": "Ensure access to build environments is limited",
+      "text": "Restrict access to the build environment to trusted and qualified users.",
+      "ordinal": 40
+    },
+    {
+      "id": "TA6590",
+      "title": "Ensure users must authenticate to access the build environment",
+      "text": "Require authentication to access the build environment and disable anonymous access.",
+      "ordinal": 50
+    },
+    {
+      "id": "TA6591",
+      "title": "Ensure the build infrastructure is automatically scanned for vulnerabilities",
+      "text": "Set an automated vulnerability scanning for your build infrastructure.",
+      "ordinal": 60
+    },
+    {
+      "id": "TA6592",
+      "title": "Ensure default passwords are not used",
+      "text": "For each build tool, change the default password.",
+      "ordinal": 70
+    },
+    {
+      "id": "TA6593",
+      "title": "Ensure webhooks of the build environment are secured",
+      "text": "For each webhook in use, change it to secured (over HTTPS).",
+      "ordinal": 80
+    },
+    {
+      "id": "TA6594",
+      "title": "Ensure minimum number of administrators are set for the build environment",
+      "text": "Set the minimum number of administrators in the build environment.",
+      "ordinal": 90
+    },
+    {
+      "id": "TA6665",
+      "title": "Ensure each pipeline has a single responsibility",
+      "text": "Divide each multi-responsibility pipeline into multiple pipelines, each having a single responsibility with the least privilege. Additionally, create all new pipelines with a sole purpose going forward.",
+      "ordinal": 100
+    },
+    {
+      "id": "TA6666",
+      "title": "Ensure build secrets are limited to the minimal necessary scope",
+      "text": "For each build tool, review the secrets defined and their permissions scope and change over permissive scopes to more restrictive ones based on the required access.",
+      "ordinal": 110
+    }
+  ],
+  "count": 11
+}

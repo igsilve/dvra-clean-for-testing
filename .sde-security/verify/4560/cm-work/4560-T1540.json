@@ -1,0 +1,44 @@
+{
+  "full_cm_id": "4560-T1540",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/tests/integration/test_logout.py",
+      "line": 63,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] test_logout_instructs_the_browser_to_clear_its_data asserts the logout response carries Clear-Site-Data with cookies, storage and cache, which is the storage-inspection step of the manual procedure | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/tests/integration/test_logout.py",
+      "line": 49,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] test_logout_expires_authentication_cookies asserts both auth cookies return with a past expiry rather than an empty value, covering the cookie storage area | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/tests/integration/test_logout.py",
+      "line": 36,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] test_token_is_unusable_after_logout asserts the bearer credential is rejected after logout, covering the server-side half that browser inspection cannot see | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/auth/service.py",
+      "line": 23,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Router aggregator that registers the logout router so the asserted behaviour is reachable; it contains no storage-clearing logic of its own and none is expected there | verdict=pass confidence=high",
+      "category": "vulnerability-absent-mitigation-unrecognized"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] The manual browser procedure is encoded as automated regression tests: test_logout_instructs_the_browser_to_clear_its_data asserts Clear-Site-Data carries cookies, storage and cache (app/tests/integration/test_logout.py:63-71); test_logout_expires_authentication_cookies asserts both auth cookies come back with a past expiry rather than an empty value (:49-59); test_token_is_unusable_after_logout asserts the bearer credential is rejected after logout (:36-45), covering the server-side half the browser inspection cannot see | verdict=pass confidence=high",
+      "count": "3"
+    },
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] app/apis/auth/service.py is a router aggregator that registers the logout router (:23) so the asserted behaviour is reachable; it contains no storage-clearing logic of its own and none is expected there | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T1540 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

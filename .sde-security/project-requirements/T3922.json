@@ -1,0 +1,72 @@
+{
+  "cm_id": "T3922",
+  "additional_requirements": [
+    {
+      "id": "TA6707",
+      "title": "Test immutability of all aspects of the pipeline infrastructure and configuration",
+      "text": "Verify that the pipeline orchestrator, its configuration, and all other aspects of the build environment are immutable.",
+      "ordinal": 10
+    },
+    {
+      "id": "TA6708",
+      "title": "Test logging of the build environment",
+      "text": "Verify that the build environment is logged and stored in a centralized organizational log store.",
+      "ordinal": 20
+    },
+    {
+      "id": "TA6709",
+      "title": "Test automation of the build environment creation",
+      "text": "Verify that the deployment of the build environment is automated and can be easily redeployed.",
+      "ordinal": 30
+    },
+    {
+      "id": "TA6710",
+      "title": "Test limitation of access to build environments",
+      "text": "Verify each build environment is accessible only to known and authorized users.",
+      "ordinal": 40
+    },
+    {
+      "id": "TA6711",
+      "title": "Test requirement of user authentication to access the build environment",
+      "text": "Ensure authentication is required to access the build environment.",
+      "ordinal": 50
+    },
+    {
+      "id": "TA6712",
+      "title": "Test automatic scanning of build infrastructure for vulnerabilities",
+      "text": "Verify that your build infrastructure is automatically scanned for vulnerabilities.",
+      "ordinal": 60
+    },
+    {
+      "id": "TA6713",
+      "title": "Test non-usage of default passwords",
+      "text": "For each build tool, ensure the password used is not the default one.",
+      "ordinal": 70
+    },
+    {
+      "id": "TA6714",
+      "title": "Test securing of webhooks in the build environment",
+      "text": "For each webhook in use, ensure it is secured (HTTPS).",
+      "ordinal": 80
+    },
+    {
+      "id": "TA6715",
+      "title": "Test setting of minimum number of administrators for the build environment",
+      "text": "Verify that the build environment has only the minimum number of administrators.",
+      "ordinal": 90
+    },
+    {
+      "id": "TA6786",
+      "title": "Test ensuring each pipeline has a single responsibility",
+      "text": "For each pipeline, ensure it has only one responsibility in the build process.",
+      "ordinal": 100
+    },
+    {
+      "id": "TA6787",
+      "title": "Test limiting of build secrets to the minimal necessary scope",
+      "text": "For each build tool in use, review the secrets defined and the permission scopes they are assigned.",
+      "ordinal": 110
+    }
+  ],
+  "count": 11
+}

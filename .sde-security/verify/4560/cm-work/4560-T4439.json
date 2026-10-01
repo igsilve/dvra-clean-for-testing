@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T4439",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/start_app.sh",
+      "line": 29,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Authentication weakness absent: the script contains no plaintext password, no credential comparison and no home-grown login loop, so the hashing, salting, complexity and lockout how-tos (I1899-I1902) have no sink. Authorization is instead delegated to require_operator at L29 (ops_guard.sh L14-24), which refuses to run unless an authenticated upstream context has established SDE_DEPLOY_ROLE=operator, and the `env -i` exec at L65 discards the caller's environment so secrets reach the containers from the platform-supplied env file rather than the invoking shell | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] start_app.sh: authentication weakness absent - the script holds no plaintext password, no credential comparison and no home-grown login loop, so the hashing/salting/complexity/lockout how-tos (I1899-I1902) have no sink to apply to. Instead of authenticating inline it calls require_operator (ops_guard.sh L14-24), which refuses to run unless an authenticated upstream context has established SDE_DEPLOY_ROLE=operator, and it runs `env -i` so all secrets come from the platform-supplied env file rather than the invoking shell. That is the same property the countermeasure protects: no credential material in the script and no unauthenticated execution | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T4439 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

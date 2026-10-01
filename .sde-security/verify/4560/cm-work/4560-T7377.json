@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T7377",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/main.py",
+      "line": 40,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] The only server-rendered HTML is the Swagger/ReDoc helper output; the title is escaped with html.escape and both URLs are passed through urllib.parse.quote before interpolation, there is no Jinja2Templates usage, no autoescape disable, no `| safe` filter or markupsafe.Markup wrapper, and no request data reaches an HTMLResponse body. The docs routes are not registered at all when ENVIRONMENT is PRODUCTION | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Server-rendered HTML is limited to the Swagger/ReDoc helpers; the title is passed through html.escape and URLs through urllib.parse.quote; no Jinja2 autoescape disable, no `| safe` or Markup wrapper, no raw user input in an HTMLResponse body, and docs routes are not registered in production | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T7377 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

@@ -1,0 +1,7437 @@
+[
+{
+"section": "Application General",
+"subsection": "Components",
+"qid": "Q101",
+"qtext": "Components In Development",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A4",
+"text": "Web application",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A6",
+"text": "Web service",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1264",
+"text": "Microservice backend",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1289",
+"text": "Frontend",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A5",
+"text": "Generic server",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A713",
+"text": "Mobile app",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A194",
+"text": "Generic client",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1077",
+"text": "Hardware",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A8",
+"text": "Stand-alone",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A2322",
+"text": "Firmware",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Application General",
+"subsection": "Components",
+"qid": "Q253",
+"qtext": "Components In Use",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A1078",
+"text": "Uses a database",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1084",
+"text": "Third-party component governance and acquisition",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A2416",
+"text": "Uses SaaS component",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Application General",
+"subsection": "Components",
+"qid": "Q537",
+"qtext": "SaaS Supported Security Features",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 1,
+"answers": [
+{
+"id": "A2417",
+"text": "Identity and Authentication",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2418",
+"text": "User, Role and Privilege Management",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2419",
+"text": "Non-Human Identities and Integrations",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2420",
+"text": "Session and Access Controls",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2421",
+"text": "Logging, Monitoring and Audit",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2422",
+"text": "Security Configuration and Administration",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2423",
+"text": "Data Protection and Content Management",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2424",
+"text": "Security Governance and Operational Transparency",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Application General",
+"subsection": "Components",
+"qid": "CQ4",
+"qtext": "Question2",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "CA79",
+"text": "c",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "CA78",
+"text": "d",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Application General",
+"subsection": "Architecture/Environment",
+"qid": "Q500",
+"qtext": "Architectural Features",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A1142",
+"text": "Contains components that communicate through a network",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A2303",
+"text": "Fault Tolerance",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Application General",
+"subsection": "Architecture/Environment",
+"qid": "Q322",
+"qtext": "Architecture",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A2013",
+"text": "Blockchain",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1137",
+"text": "IoT ecosystem",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1262",
+"text": "Microservices ecosystem",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Application General",
+"subsection": "Architecture/Environment",
+"qid": "Q459",
+"qtext": "Blockchain Architecture",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 1,
+"answers": [
+{
+"id": "A2014",
+"text": "Smart Contract",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Application General",
+"subsection": "Architecture/Environment",
+"qid": "Q261",
+"qtext": "IoT Architecture",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 1,
+"answers": [
+{
+"id": "A1138",
+"text": "Has a local area network between IoT devices in scope",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1103",
+"text": "This is the core component of a multi-component IoT system",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Application General",
+"subsection": "Context and Characteristics",
+"qid": "Q460",
+"qtext": "Accessibility Requirements",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A2016",
+"text": "Does this project need to meet accessibility requirements?",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Application General",
+"subsection": "Context and Characteristics",
+"qid": "Q252",
+"qtext": "Application's Context and Characteristics",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A759",
+"text": "This is a financial application",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A744",
+"text": "The application handles health data",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1093",
+"text": "Handles payment through another service provider",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1075",
+"text": "This is an ICS or IACS",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1150",
+"text": "This is a game application",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1145",
+"text": "This is a mainframe application",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1283",
+"text": "This is an automotive application",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1291",
+"text": "Consumes cloud services",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1292",
+"text": "Provides cloud services",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Application General",
+"subsection": "Context and Characteristics",
+"qid": "Q501",
+"qtext": "Process Engineering Tasks Breakdown",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 1,
+"answers": [
+{
+"id": "A2297",
+"text": "Application Development",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2304",
+"text": "Environment Setup",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2298",
+"text": "IT Infrastructure",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2305",
+"text": "Network Infrastructure",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2306",
+"text": "Third-party Vendor",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Application General",
+"subsection": "Context and Characteristics",
+"qid": "Q124",
+"qtext": "Payment Service Provider",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A1163",
+"text": "PayPal",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Application General",
+"subsection": "Context and Characteristics",
+"qid": "Q295",
+"qtext": "Game Applications",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A1153",
+"text": "Has a rating",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Application General",
+"subsection": "Context and Characteristics",
+"qid": "Q239",
+"qtext": "Application Runs at a Higher Access Level Than Its Users",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A785",
+"text": "Yes",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Application General",
+"subsection": "Context and Characteristics",
+"qid": "Q165",
+"qtext": "Health Care Systems",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A1081",
+"text": "Has critical operations or emergency functions",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Application General",
+"subsection": "Context and Characteristics",
+"qid": "Q285",
+"qtext": "ICS",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A1076",
+"text": "Has critical operations",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1089",
+"text": "The system consists of zones, and channels or conduits",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Platform and Language",
+"subsection": "Platform/Operating System",
+"qid": "Q294",
+"qtext": "Application Target Platform",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A2301",
+"text": "Windows",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A714",
+"text": "iOS",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A715",
+"text": "Android",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Platform and Language",
+"subsection": "Platform/Operating System",
+"qid": "Q498",
+"qtext": "OS Hardening",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A1151",
+"text": "Windows",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1152",
+"text": "Linux/Unix",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Platform and Language",
+"subsection": "Platform/Operating System",
+"qid": "Q301",
+"qtext": "Mandatory Access Control (MAC)",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 1,
+"answers": [
+{
+"id": "A1180",
+"text": "SELinux",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1181",
+"text": "AppArmor",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Platform and Language",
+"subsection": "Language and Framework",
+"qid": "Q109",
+"qtext": "Programming Language",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A781",
+"text": "Apex for Force.com",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A2353",
+"text": "ABAP (SAP)",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A2",
+"text": "C#",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1284",
+"text": "VB",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A193",
+"text": "C/C++",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1164",
+"text": "Go",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1",
+"text": "Java",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A3",
+"text": "JavaScript",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1352",
+"text": "TypeScript",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1272",
+"text": "Kotlin",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A716",
+"text": "Objective-C",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A782",
+"text": "PHP",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A707",
+"text": "Python",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A719",
+"text": "Ruby",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1365",
+"text": "Rust",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1129",
+"text": "Swift for iOS",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1621",
+"text": "Bash/Shell",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A2108",
+"text": "Low-code/No-code",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Platform and Language",
+"subsection": "Language and Framework",
+"qid": "Q110",
+"qtext": "Technology/Framework",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 1,
+"answers": [
+{
+"id": "A48",
+"text": ".NET",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1223",
+"text": "Angular",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1099",
+"text": "AngularJS",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2431",
+"text": "FastAPI",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A697",
+"text": "Django",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1281",
+"text": "Flutter",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A47",
+"text": "Java EE",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1105",
+"text": "MEAN Stack",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2109",
+"text": "Micronaut",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1063",
+"text": "Node.js",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A191",
+"text": "Rails",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1136",
+"text": "React",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1158",
+"text": "Sinatra",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1325",
+"text": "GraphQL",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A2319",
+"text": "Vue.js",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Platform and Language",
+"subsection": "Language and Framework",
+"qid": "Q519",
+"qtext": "SAP Security Baseline Template",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 1,
+"answers": [
+{
+"id": "A2365",
+"text": "Host Operating System for SAP Servers",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A2360",
+"text": "SAP ABAP Application Server",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A2361",
+"text": "SAP Java Application Server",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A2362",
+"text": "SAP High-performance ANalytic Application (HANA)",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A2363",
+"text": "SAP Graphical User Interface (GUI)",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A2364",
+"text": "SAP Business Technology Platform (BTP)",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A2366",
+"text": "SAP Web Dispatcher",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Platform and Language",
+"subsection": "Web Technologies",
+"qid": "Q108",
+"qtext": "Web Server Used",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A74",
+"text": "Apache",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A75",
+"text": "Microsoft IIS",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1149",
+"text": "NGINX",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Platform and Language",
+"subsection": "Web Technologies",
+"qid": "Q516",
+"qtext": "Low-Code Website Development Tools",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A2352",
+"text": "Power Pages",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Platform and Language",
+"subsection": "Web Technologies",
+"qid": "Q191",
+"qtext": "Web Client Technologies Used",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A721",
+"text": "jQuery",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A792",
+"text": "HTML5",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1192",
+"text": "CORS",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Platform and Language",
+"subsection": "Web Technologies",
+"qid": "Q245",
+"qtext": "Advanced HTML5 Features Used",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 1,
+"answers": [
+{
+"id": "A793",
+"text": "WebSocket",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1191",
+"text": "HTML5 Web Storage",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Platform and Language",
+"subsection": "Mobile Technologies",
+"qid": "Q264",
+"qtext": "Mobile App Features",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A1106",
+"text": "Enables in-app purchases",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Platform and Language",
+"subsection": "Mobile Technologies",
+"qid": "Q256",
+"qtext": "Mobile Components",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A1088",
+"text": "Uses a WebView component",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Platform and Language",
+"subsection": "Mobile Technologies",
+"qid": "Q287",
+"qtext": "Android App Features",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A1139",
+"text": "Shares data or files with other local applications",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Platform and Language",
+"subsection": "Database Technologies",
+"qid": "Q440",
+"qtext": "Data Platforms",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A1927",
+"text": "Snowflake",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A2425",
+"text": "Databricks",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Platform and Language",
+"subsection": "Database Technologies",
+"qid": "Q103",
+"qtext": "Database",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A11",
+"text": "Stand-alone database that supports SQL",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A732",
+"text": "NoSQL Database",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Platform and Language",
+"subsection": "Database Technologies",
+"qid": "Q305",
+"qtext": "Database Management System (DBMS)",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A1126",
+"text": "MongoDB",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1195",
+"text": "MySQL",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1252",
+"text": "PostgreSQL",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1368",
+"text": "InfluxDB",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1369",
+"text": "Neo4j",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1370",
+"text": "MariaDB",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2355",
+"text": "IBM Db2",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1371",
+"text": "CockroachDB",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1372",
+"text": "Apache Cassandra",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1373",
+"text": "MarkLogic",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A765",
+"text": "SQLite local data storage",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1221",
+"text": "Oracle",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1222",
+"text": "Microsoft SQL Server",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Platform and Language",
+"subsection": "Database Technologies",
+"qid": "Q317",
+"qtext": "Oracle Database Auditing",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 1,
+"answers": [
+{
+"id": "A1224",
+"text": "Unified Auditing",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1225",
+"text": "Traditional Auditing",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Platform and Language",
+"subsection": "Network Technologies",
+"qid": "Q372",
+"qtext": "Network Components",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A1566",
+"text": "Directory Server",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1567",
+"text": "DNS Server",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1568",
+"text": "Firewall",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1569",
+"text": "FTP Server",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1570",
+"text": "IDS/IPS",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1571",
+"text": "Load Balancer",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1572",
+"text": "Message Broker",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1575",
+"text": "Proxy Server",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1576",
+"text": "Router",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1577",
+"text": "Service Bus",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1578",
+"text": "Virtual Private Network (VPN) Server",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1585",
+"text": "Content Delivery Network (CDN)",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Platform and Language",
+"subsection": "Network Technologies",
+"qid": "Q507",
+"qtext": "Message Brokers",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 1,
+"answers": [
+{
+"id": "A2316",
+"text": "Apache Kafka",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Platform and Language",
+"subsection": "Java Technologies",
+"qid": "Q146",
+"qtext": "Java EE Technologies Used",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A96",
+"text": "JSF",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A97",
+"text": "JAXB",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A98",
+"text": "JPA",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Platform and Language",
+"subsection": "Java Technologies",
+"qid": "Q154",
+"qtext": "JSF Implementations Used",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 1,
+"answers": [
+{
+"id": "A117",
+"text": "Apache MyFaces",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A163",
+"text": "Facelets",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Platform and Language",
+"subsection": "Java Technologies",
+"qid": "Q147",
+"qtext": "Third-Party Libraries Used",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A164",
+"text": "Struts",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A165",
+"text": "Spring",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A726",
+"text": "Apache Wicket",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A100",
+"text": "RichFaces",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A101",
+"text": "Hibernate",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Platform and Language",
+"subsection": "Java Technologies",
+"qid": "Q150",
+"qtext": "Java EE Container Used",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A106",
+"text": "WebSphere",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A107",
+"text": "WebLogic",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A108",
+"text": "Tomcat",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Platform and Language",
+"subsection": "Java Technologies",
+"qid": "Q152",
+"qtext": "Library Used for Cryptography",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A114",
+"text": "Bouncy Castle",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Platform and Language",
+"subsection": "Java Technologies",
+"qid": "Q111",
+"qtext": "Uses only Prepared Statements for Database Interaction",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A76",
+"text": "Yes",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Platform and Language",
+"subsection": "Low Code/No Code Technologies",
+"qid": "Q524",
+"qtext": "Microsoft Power Platform",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A2392",
+"text": "Power Platform Administration",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A2368",
+"text": "Power Platform Application Development",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A2430",
+"text": "Microsoft Copilot Studio",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Platform and Language",
+"subsection": "Low Code/No Code Technologies",
+"qid": "Q527",
+"qtext": "Microsoft Power Platform Application Development",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 1,
+"answers": [
+{
+"id": "A2393",
+"text": "Power Apps",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Platform and Language",
+"subsection": ".NET Technologies",
+"qid": "Q227",
+"qtext": ".NET Application Framework Used",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A1185",
+"text": "ASP.NET Core Web Application Framework",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A767",
+"text": "ASP.NET Web Application Framework",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1090",
+"text": "WCF Framework",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A766",
+"text": ".NET WinForms",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Platform and Language",
+"subsection": ".NET Technologies",
+"qid": "Q232",
+"qtext": "ASP.NET Component Used",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 1,
+"answers": [
+{
+"id": "A755",
+"text": "ASP.NET MVC Framework",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A176",
+"text": "Uses ASP.NET ViewState",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A112",
+"text": "Uses ASP.NET Membership provider for authentication",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Platform and Language",
+"subsection": ".NET Technologies",
+"qid": "Q170",
+"qtext": ".NET Database Persistence Tools Used",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A155",
+"text": "Linq",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A156",
+"text": "SqlClient",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A157",
+"text": "OleDb",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A158",
+"text": "ODBC",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1211",
+"text": "Entity",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Platform and Language",
+"subsection": ".NET Technologies",
+"qid": "Q209",
+"qtext": ".NET Libraries/Components Used",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A159",
+"text": "Uses Microsoft Enterprise Libraries",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Platform and Language",
+"subsection": "C/C++ Technologies",
+"qid": "Q242",
+"qtext": "What C/C++ Environment is Targeted?",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A789",
+"text": "POSIX",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A788",
+"text": "ANSI C / ISO C++",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A790",
+"text": "Windows (Microsoft C/C++)",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Platform and Language",
+"subsection": "Data Formats",
+"qid": "Q499",
+"qtext": "Handles Data Files",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A2302",
+"text": "The application reads/writes data from/to files",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Platform and Language",
+"subsection": "Data Formats",
+"qid": "Q115",
+"qtext": "Generates or reads data/files in the following formats:",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A13",
+"text": "XML",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A733",
+"text": "JSON",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1193",
+"text": "CSV or Excel",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1285",
+"text": "YAML",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1286",
+"text": "SVG",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A2356",
+"text": "Protocol Buffers (Protobuf)",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Platform and Language",
+"subsection": "Data Formats",
+"qid": "Q175",
+"qtext": "Uses XSLTs",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 1,
+"answers": [
+{
+"id": "A178",
+"text": "Yes",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Platform and Language",
+"subsection": "Data Formats",
+"qid": "Q149",
+"qtext": "Uses XML Digital Signatures",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 1,
+"answers": [
+{
+"id": "A104",
+"text": "Yes",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Features and Functions",
+"subsection": "Interfaces and APIs",
+"qid": "Q270",
+"qtext": "Interfaces and APIs Provided",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A754",
+"text": "Provides web services or external APIs",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1155",
+"text": "Provides UDDI web service registry",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1593",
+"text": "Uses API gateway for providing web APIs",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Features and Functions",
+"subsection": "Hardware and IoT",
+"qid": "Q278",
+"qtext": "Hardware Features",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A1134",
+"text": "Physical protection of hardware is in-scope",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1121",
+"text": "Uses RFID or NFC transmissions",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1300",
+"text": "Hardware design and manufacturing is in scope",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1306",
+"text": "Hardware configuration is in scope",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Features and Functions",
+"subsection": "Hardware and IoT",
+"qid": "Q283",
+"qtext": "Physical Protection",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 1,
+"answers": [
+{
+"id": "A1133",
+"text": "Protecting DMA interfaces is in-scope",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1132",
+"text": "Protecting hardware debugging interfaces is in-scope",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2403",
+"text": "Peripherals, integrated buses, and external interconnects are in scope",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Features and Functions",
+"subsection": "Hardware and IoT",
+"qid": "Q536",
+"qtext": "Hardware design and manufacturing",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 1,
+"answers": [
+{
+"id": "A2401",
+"text": "Has microprocessor",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2402",
+"text": "Contains memory and storage components",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Features and Functions",
+"subsection": "Hardware and IoT",
+"qid": "Q279",
+"qtext": "RFID/NFC Features",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 1,
+"answers": [
+{
+"id": "A1123",
+"text": "Modifying physical or hardware features is in-scope",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1124",
+"text": "System design or RF parameter adjustment is in-scope",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Features and Functions",
+"subsection": "Hardware and IoT",
+"qid": "Q268",
+"qtext": "Internet of Things (IoT) Features",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A1114",
+"text": "Device registration and discovery",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Features and Functions",
+"subsection": "Hardware and IoT",
+"qid": "Q534",
+"qtext": "System Software & Firmware",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A2404",
+"text": "Has bootloader",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2405",
+"text": "Has software debugging functions",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2406",
+"text": "Has operating system",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2407",
+"text": "Has isolation and virtualization",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2408",
+"text": "Has root of trust",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2409",
+"text": "Has firmware update functionality",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2410",
+"text": "Has on-device system logging",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1302",
+"text": "Implements cryptographic algorithms",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1304",
+"text": "Has Access Control settings",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2411",
+"text": "Has network features",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2433",
+"text": "Trusted Execution Environments (TEEs) for processors are in scope.",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Features and Functions",
+"subsection": "Hardware and IoT",
+"qid": "Q535",
+"qtext": "Device Application Software",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A2412",
+"text": "Device Application Software is in scope",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Features and Functions",
+"subsection": "Authentication",
+"qid": "Q508",
+"qtext": "Secrets Management Software",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A2323",
+"text": "HashiCorp Vault",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A2396",
+"text": "CyberArk Secret Management",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Features and Functions",
+"subsection": "Authentication",
+"qid": "Q120",
+"qtext": "Authentication Features",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A758",
+"text": "Has direct or third party authentication for end users, devices or nodes",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Features and Functions",
+"subsection": "Authentication",
+"qid": "Q121",
+"qtext": "Authentication Method",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 1,
+"answers": [
+{
+"id": "A19",
+"text": "Uses passwords",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1092",
+"text": "Generates one-time password",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1062",
+"text": "Generates API tokens",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1097",
+"text": "Uses symmetric key authentication",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1073",
+"text": "Uses public key authentication",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1162",
+"text": "Uses Phone Authentication",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A167",
+"text": "Uses database authentication",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A55",
+"text": "Uses LDAP repository",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A54",
+"text": "Uses SSO or federated authentication",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Features and Functions",
+"subsection": "Authentication",
+"qid": "Q509",
+"qtext": "Identity-as-a-Service (IDaaS) Providers Used",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 1,
+"answers": [
+{
+"id": "A2325",
+"text": "Okta Deployment",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A2326",
+"text": "Integration with Okta",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Features and Functions",
+"subsection": "Authentication",
+"qid": "Q129",
+"qtext": "Requires Server-to-Server Authentication",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A17",
+"text": "Yes",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Features and Functions",
+"subsection": "Password Management",
+"qid": "Q213",
+"qtext": "Password Management Features",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A43",
+"text": "Has change existing password function",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A182",
+"text": "Has forgot password function",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A184",
+"text": "Auto-generates passwords for new users",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Features and Functions",
+"subsection": "Authorization",
+"qid": "Q127",
+"qtext": "Authorizes Subjects",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A23",
+"text": "Yes",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Features and Functions",
+"subsection": "Session Management",
+"qid": "Q126",
+"qtext": "Has Session Management",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A37",
+"text": "Yes",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Features and Functions",
+"subsection": "Session Management",
+"qid": "Q218",
+"qtext": "Session Management Configuration",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 1,
+"answers": [
+{
+"id": "A66",
+"text": "Accesses session cookie in client side JavaScript",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Features and Functions",
+"subsection": "External Dependencies",
+"qid": "Q263",
+"qtext": "Software Updates",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A1104",
+"text": "Has software/firmware update functionality",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1144",
+"text": "This is an update server",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Features and Functions",
+"subsection": "External Dependencies",
+"qid": "Q373",
+"qtext": "Customer Relationship Management (CRM)",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 1,
+"answers": [
+{
+"id": "A1594",
+"text": "Uses Salesforce CRM",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Features and Functions",
+"subsection": "External Dependencies",
+"qid": "Q259",
+"qtext": "External Code/Data",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A1102",
+"text": "Uses dynamic code/library loading",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1157",
+"text": "Uses remote procedure calls (RPC) or object serialization/deserialization",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Features and Functions",
+"subsection": "External Dependencies",
+"qid": "Q288",
+"qtext": "Service Chaining",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A1140",
+"text": "Forwards user requests to remote services",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1141",
+"text": "Receives user requests through remote services",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Features and Functions",
+"subsection": "External Dependencies",
+"qid": "Q281",
+"qtext": "Webhooks",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A1128",
+"text": "Sends webhook notifications",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1135",
+"text": "Receives webhook notifications",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Features and Functions",
+"subsection": "AI and Machine Learning",
+"qid": "Q357",
+"qtext": "Artificial Intelligence/Machine Learning",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A1362",
+"text": "Uses Large Language Models (LLMs)",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A2414",
+"text": "Fine-tune or train Large Language Models (LLMs)",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1367",
+"text": "Builds and deploys machine learning (ML) models",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1363",
+"text": "AI governance tasks are in scope (based on NIST AI RMF)",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1504",
+"text": "LLM-based Code Generation",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1505",
+"text": "EU AI Act",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A2223",
+"text": "Agentic AI",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2359",
+"text": "Internal/External AI Marketplace",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2441",
+"text": "OWASP Agentic Skills Top 10",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A2442",
+"text": "Include AI controls from NIST.SP.800-218A",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Features and Functions",
+"subsection": "AI and Machine Learning",
+"qid": "Q457",
+"qtext": "AI Content Organization",
+"format": "SC",
+"mandatory": false,
+"hidden": false,
+"depth": 1,
+"answers": [
+{
+"id": "A1629",
+"text": "Role-based AI content",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2007",
+"text": "Role-agnostic AI content",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Features and Functions",
+"subsection": "AI and Machine Learning",
+"qid": "Q541",
+"qtext": "LLM-based Code Generation",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 1,
+"answers": [
+{
+"id": "A2445",
+"text": "GitHub Copilot",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Features and Functions",
+"subsection": "AI and Machine Learning",
+"qid": "Q368",
+"qtext": "Classification of AI Systems (EU AI Act)",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 1,
+"answers": [
+{
+"id": "A1506",
+"text": "High Risk",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1507",
+"text": "Limited/low risk",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1508",
+"text": "General purpose AI models",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1509",
+"text": "General Purpose AI Models with Systemic Risk",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Features and Functions",
+"subsection": "AI and Machine Learning",
+"qid": "Q376",
+"qtext": "AI/ML Usecases",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 1,
+"answers": [
+{
+"id": "A1622",
+"text": "Fine-tuning",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1623",
+"text": "Prompt engineering",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1624",
+"text": "Retrieval augmented generation",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1625",
+"text": "Vector databases",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Features and Functions",
+"subsection": "AI and Machine Learning",
+"qid": "Q455",
+"qtext": "US State-Specific AI Regulation",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 1,
+"answers": [
+{
+"id": "A2004",
+"text": "Utah AIPA",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A2005",
+"text": "Colorado CPAI",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Features and Functions",
+"subsection": "AI and Machine Learning",
+"qid": "Q458",
+"qtext": "AI/ML Frameworks",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A2012",
+"text": "TensorFlow/Keras",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Features and Functions",
+"subsection": "AI and Machine Learning",
+"qid": "Q513",
+"qtext": "Model Context Protocol (MCP)",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A2344",
+"text": "MCP Client",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A2345",
+"text": "MCP Server",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Features and Functions",
+"subsection": "AI and Machine Learning",
+"qid": "Q514",
+"qtext": "MCP Client Transport",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 1,
+"answers": [
+{
+"id": "A2346",
+"text": "STDIO",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2347",
+"text": "Streamable HTTP",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Features and Functions",
+"subsection": "AI and Machine Learning",
+"qid": "Q515",
+"qtext": "MCP Server Transport",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 1,
+"answers": [
+{
+"id": "A2348",
+"text": "STDIO",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2349",
+"text": "Streamable HTTP",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Features and Functions",
+"subsection": "More Features",
+"qid": "Q215",
+"qtext": "Input Validation",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A2307",
+"text": "Receives text input from users",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A174",
+"text": "Uses regular expressions on end-user input",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Features and Functions",
+"subsection": "More Features",
+"qid": "Q303",
+"qtext": "OS Interactions",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A9",
+"text": "OS shell commands",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1194",
+"text": "System calls",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Features and Functions",
+"subsection": "More Features",
+"qid": "Q131",
+"qtext": "Encryption",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A21",
+"text": "Passwords stored in configuration files",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A27",
+"text": "Uses encryption functions (not including SSL)",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A102",
+"text": "Uses WS-Security standards",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Features and Functions",
+"subsection": "More Features",
+"qid": "Q214",
+"qtext": "Miscellaneous",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A33",
+"text": "Uses multi-threaded programming",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A35",
+"text": "Generates temporary files",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A39",
+"text": "Has file upload or file transfer functions",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A90",
+"text": "Performs diagnostic/debug logging",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1143",
+"text": "Generates random numbers",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1186",
+"text": "Installs other applications on the user's device or gets updated in the background",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1260",
+"text": "Requires certificate or public key pinning",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1288",
+"text": "Sends electronic messages and/or emails",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A2367",
+"text": "Utilizes cron jobs",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1122",
+"text": "Requires non-repudiation",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Protocols",
+"subsection": "Application Layer",
+"qid": "Q186",
+"qtext": "Application Layer Protocols Used",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A195",
+"text": "Uses an HTTP-based protocol",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1112",
+"text": "Uses an XMPP-based protocol",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1127",
+"text": "Uses Hypercat protocol ",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A2357",
+"text": "Uses HTTP/2 protocol",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1125",
+"text": "Uses MQTT protocol",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2327",
+"text": "Server Message Block (SMB)",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1573",
+"text": "File Transfer Protocol (FTP)",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1583",
+"text": "Modbus",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1584",
+"text": "Advanced Message Queuing Protocol (AMQP)",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A2317",
+"text": "gRPC",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Protocols",
+"subsection": "Application Layer",
+"qid": "Q216",
+"qtext": "HTTP-Based Protocols Used",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 1,
+"answers": [
+{
+"id": "A730",
+"text": "SOAP web services",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A731",
+"text": "RESTful web services",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Protocols",
+"subsection": "Application Layer",
+"qid": "Q269",
+"qtext": "XMPP-Based Protocols Used",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 1,
+"answers": [
+{
+"id": "A1115",
+"text": "Uses XMPP-XEP-347 (IoT - Discovery)",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Protocols",
+"subsection": "Application Layer",
+"qid": "Q231",
+"qtext": "Authentication and Identity Exchange Protocols",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A762",
+"text": "SAML",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A763",
+"text": "OAuth",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A764",
+"text": "OpenID",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Protocols",
+"subsection": "Network Layer",
+"qid": "Q371",
+"qtext": "Virtual Private Network (VPN)",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A1574",
+"text": "Virtual Private Network (VPN)",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Protocols",
+"subsection": "Network Layer",
+"qid": "Q282",
+"qtext": "Low-Power Protocols Used",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A1130",
+"text": "ZigBee",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1131",
+"text": "Thread protocol",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Protocols",
+"subsection": "Network Layer",
+"qid": "Q349",
+"qtext": "Broadband cellular networks",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A1579",
+"text": "3G",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1580",
+"text": "4G/LTE",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1581",
+"text": "5G",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Protocols",
+"subsection": "Network Layer",
+"qid": "Q332",
+"qtext": "Microcontroller Protocols Used",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A1282",
+"text": "CAN",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Protocols",
+"subsection": "Network Layer",
+"qid": "Q339",
+"qtext": "Wireless Protocols Used",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A1314",
+"text": "Bluetooth",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1316",
+"text": "WiFi",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1582",
+"text": "LoRa",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Protocols",
+"subsection": "Network Layer",
+"qid": "Q338",
+"qtext": "Bluetooth Persona",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 1,
+"answers": [
+{
+"id": "A1312",
+"text": "Developer",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1313",
+"text": "Manufacturer",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Protocols",
+"subsection": "Network Layer",
+"qid": "Q340",
+"qtext": "WiFi Persona",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 1,
+"answers": [
+{
+"id": "A1317",
+"text": "Client",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1318",
+"text": "Provider",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Protocols",
+"subsection": "Transport Layer",
+"qid": "Q518",
+"qtext": "Transport Layer Protocols Used",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A2358",
+"text": "QUIC",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Compliance Requirements",
+"subsection": "Geography",
+"qid": "Q159",
+"qtext": "Organization is Subject to Laws of:",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A128",
+"text": "Canada",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A127",
+"text": "USA",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A129",
+"text": "European Union",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1326",
+"text": "United Kingdom",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1334",
+"text": "France",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1253",
+"text": "Asia Pacific",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1257",
+"text": "Latin America",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Compliance Requirements",
+"subsection": "Financial Systems",
+"qid": "Q229",
+"qtext": "Financial Regulations",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A1094",
+"text": "In-scope for the EBA's security of Internet payments",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A149",
+"text": "In-scope for GLBA compliance",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1246",
+"text": "In-scope for NYDFS Cybersecurity Regulation",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1254",
+"text": "In-scope for MAS-TRMG Guidelines",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2351",
+"text": "In-scope for Central Bank of Brazil (BACEN)'s Regulations",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Compliance Requirements",
+"subsection": "Financial Systems",
+"qid": "Q449",
+"qtext": "In-Scope for EU Digital Operational Resilience Act (DORA)",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 1,
+"answers": [
+{
+"id": "A1972",
+"text": "Yes",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Compliance Requirements",
+"subsection": "Financial Systems",
+"qid": "Q161",
+"qtext": "Payment Components",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A132",
+"text": "In-scope for PCI-DSS 3.2",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1357",
+"text": "In-scope for PCI-DSS 4.0",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1327",
+"text": "In-scope for PCI-SSS",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A784",
+"text": "In-scope for PA-DSS",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Compliance Requirements",
+"subsection": "Financial Systems",
+"qid": "Q342",
+"qtext": "Is this a terminal software?",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 1,
+"answers": [
+{
+"id": "A1328",
+"text": "Yes",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Compliance Requirements",
+"subsection": "Health Care Systems",
+"qid": "Q223",
+"qtext": "Health Regulations",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A145",
+"text": "In-scope for HIPAA compliance",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Compliance Requirements",
+"subsection": "Health Care Systems",
+"qid": "Q520",
+"qtext": "In-scope for MDS2",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A1083",
+"text": "Yes",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Compliance Requirements",
+"subsection": "Health Care Systems",
+"qid": "Q528",
+"qtext": "In-Scope for FDA Cybersecurity Guideline",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A2397",
+"text": "Yes",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Compliance Requirements",
+"subsection": "Health Care Systems",
+"qid": "Q533",
+"qtext": "In-Scope for France Health Data Hosting (HDS) Certification",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A2400",
+"text": "Yes",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Compliance Requirements",
+"subsection": "Health Care Systems",
+"qid": "Q530",
+"qtext": "In-Scope for Germany BSI TR-03161 (Healthcare)",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A2399",
+"text": "Yes",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Compliance Requirements",
+"subsection": "Organizational Cybersecurity",
+"qid": "Q525",
+"qtext": "Organizational Cybersecurity Governance",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A2369",
+"text": "Organizational Cybersecurity Governance (Aligned to Australian ISM)",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A2432",
+"text": "Cyber Essentials (Aligned to UK Cyber Essentials)",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Compliance Requirements",
+"subsection": "Organizational Cybersecurity",
+"qid": "Q526",
+"qtext": "Organizational Cybersecurity Guidelines in Scope",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 1,
+"answers": [
+{
+"id": "A2370",
+"text": "Guidelines for communications infrastructure",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2371",
+"text": "Guidelines for communications systems",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2372",
+"text": "Guidelines for cryptography",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2373",
+"text": "Guidelines for cyber security documentation",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2374",
+"text": "Guidelines for cyber security incidents",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2375",
+"text": "Guidelines for cyber security roles",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2376",
+"text": "Guidelines for data transfers",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2377",
+"text": "Guidelines for database systems",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2378",
+"text": "Guidelines for email",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2379",
+"text": "Guidelines for enterprise mobility",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2380",
+"text": "Guidelines for evaluated products",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2381",
+"text": "Guidelines for gateways",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2382",
+"text": "Guidelines for information technology equipment",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2383",
+"text": "Guidelines for media",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2384",
+"text": "Guidelines for networking",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2385",
+"text": "Guidelines for personnel security",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2386",
+"text": "Guidelines for physical security",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2387",
+"text": "Guidelines for procurement and outsourcing",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2388",
+"text": "Guidelines for software development",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2389",
+"text": "Guidelines for system hardening",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2390",
+"text": "Guidelines for system management",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2391",
+"text": "Guidelines for system monitoring",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Compliance Requirements",
+"subsection": "Industrial Control Systems",
+"qid": "Q273",
+"qtext": "In-Scope for NIST 800-82 Compliance",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A1116",
+"text": "Yes",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Compliance Requirements",
+"subsection": "Industrial Control Systems",
+"qid": "Q274",
+"qtext": "NIST 800-82 Impact Level",
+"format": "SC",
+"mandatory": false,
+"hidden": false,
+"depth": 1,
+"answers": [
+{
+"id": "A1117",
+"text": "Low",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1118",
+"text": "Moderate",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1119",
+"text": "High",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Compliance Requirements",
+"subsection": "Industrial Control Systems",
+"qid": "Q275",
+"qtext": "NIST 800-82 Optional Controls",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 1,
+"answers": [
+{
+"id": "A1120",
+"text": "Include optional controls from NIST 800-82",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Compliance Requirements",
+"subsection": "Industrial Control Systems",
+"qid": "Q544",
+"qtext": "In-Scope for ANSI/ISA 62443 or CSA/SSA-311",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A2465",
+"text": "ANSI/ISA 62443-4-2 or CSA/ICSA 311",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A2466",
+"text": "ANSI/ISA 62443-3-3 or SSA 311",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A2467",
+"text": "ANSI/ISA 62443-4-1 or SDLA 312",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Compliance Requirements",
+"subsection": "Industrial Control Systems",
+"qid": "Q545",
+"qtext": "Component Type",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 1,
+"answers": [
+{
+"id": "A2457",
+"text": "IIoT device",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2458",
+"text": "IIoT gateway",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2459",
+"text": "Software Application",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2460",
+"text": "Embedded Device",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2461",
+"text": "Host Device",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2462",
+"text": "Network Device",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Compliance Requirements",
+"subsection": "Industrial Control Systems",
+"qid": "Q250",
+"qtext": "In-Scope for ANSI/ISA 62443 or CSA/SSA-311 (Old Content)",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A1319",
+"text": "ANSI/ISA 62443-4-2 or CSA/ICSA 311 (Old content)",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1320",
+"text": "ANSI/ISA 62443-3-3 or SSA 311 (Old content)",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1374",
+"text": "ANSI/ISA 62443-4-1 or SDLA 312 (Old content)",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Compliance Requirements",
+"subsection": "Industrial Control Systems",
+"qid": "Q251",
+"qtext": "Security Level (SL)",
+"format": "SC",
+"mandatory": false,
+"hidden": false,
+"depth": 1,
+"answers": [
+{
+"id": "A1069",
+"text": "Security Level 1 (SL1)",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1070",
+"text": "Security Level 2 (SL2)",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1071",
+"text": "Security Level 3 (SL3)",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1072",
+"text": "Security Level 4 (SL4)",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2463",
+"text": "Core (ICSA Only)",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2464",
+"text": "Advanced (ICSA Only)",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Compliance Requirements",
+"subsection": "Industrial Control Systems",
+"qid": "Q341",
+"qtext": "Component Type (Old content)",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 1,
+"answers": [
+{
+"id": "A1321",
+"text": "Software Application (Old content)",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1322",
+"text": "Embedded Device (Old content)",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1323",
+"text": "Host Device (Old content)",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1324",
+"text": "Network Device (Old content)",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Compliance Requirements",
+"subsection": "Cloud",
+"qid": "Q319",
+"qtext": "In-Scope for FedRAMP Compliance",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A1247",
+"text": "Yes",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Compliance Requirements",
+"subsection": "Cloud",
+"qid": "Q320",
+"qtext": "FedRAMP Control Baseline",
+"format": "SC",
+"mandatory": false,
+"hidden": false,
+"depth": 1,
+"answers": [
+{
+"id": "A1248",
+"text": "Low",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1249",
+"text": "Moderate",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1250",
+"text": "High",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Compliance Requirements",
+"subsection": "Cloud",
+"qid": "Q326",
+"qtext": "In-Scope for Cloud Controls Matrix (CCM)",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A1268",
+"text": "Yes",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Compliance Requirements",
+"subsection": "Privacy",
+"qid": "Q236",
+"qtext": "In-Scope with Children's Privacy Compliance",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A779",
+"text": "Yes",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Compliance Requirements",
+"subsection": "Privacy",
+"qid": "Q238",
+"qtext": "In-Scope for COPPA Compliance",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 1,
+"answers": [
+{
+"id": "A780",
+"text": "Yes",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Compliance Requirements",
+"subsection": "Automotive",
+"qid": "Q353",
+"qtext": "In-scope for Automotive Cybersecurity Regulations",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A1358",
+"text": "ISO/SAE 21434",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1359",
+"text": "WP.29 R155",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Compliance Requirements",
+"subsection": "US Federal and NIST",
+"qid": "Q265",
+"qtext": "In-Scope for NIST 800-53 Compliance",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A1107",
+"text": "Yes",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Compliance Requirements",
+"subsection": "US Federal and NIST",
+"qid": "Q267",
+"qtext": "NIST 800-53 Impact Level",
+"format": "SC",
+"mandatory": false,
+"hidden": false,
+"depth": 1,
+"answers": [
+{
+"id": "A1109",
+"text": "Low",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1110",
+"text": "Moderate",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1111",
+"text": "High",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Compliance Requirements",
+"subsection": "US Federal and NIST",
+"qid": "Q266",
+"qtext": "NIST 800-53 Optional Controls",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 1,
+"answers": [
+{
+"id": "A1108",
+"text": "Include optional controls from NIST 800-53",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Compliance Requirements",
+"subsection": "US Federal and NIST",
+"qid": "Q321",
+"qtext": "NIST 800-53 Privacy Controls",
+"format": "SC",
+"mandatory": false,
+"hidden": false,
+"depth": 1,
+"answers": [
+{
+"id": "A1259",
+"text": "Include privacy controls from NIST 800-53 (Appendix J)",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Compliance Requirements",
+"subsection": "US Federal and NIST",
+"qid": "Q348",
+"qtext": "In-Scope for EO 14028 compliance",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A1340",
+"text": "NIST EO Critical Software",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1341",
+"text": "NIST EO Software-Verification",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Compliance Requirements",
+"subsection": "US Federal and NIST",
+"qid": "Q333",
+"qtext": "In-Scope for NIST Cybersecurity Framework (CSF)",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A1290",
+"text": "CSF 2.0",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A2426",
+"text": "CSF Transit Profile",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A2427",
+"text": "Elevated (for transit profile)",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2428",
+"text": "Supporting (for transit profile)",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Compliance Requirements",
+"subsection": "US Federal and NIST",
+"qid": "Q347",
+"qtext": "In-Scope for NIST SSDF compliance",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A1339",
+"text": "Yes",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Compliance Requirements",
+"subsection": "US Federal and NIST",
+"qid": "Q328",
+"qtext": "In-Scope for CMMC",
+"format": "SC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A1275",
+"text": "CMMC V1",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1356",
+"text": "CMMC V2",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Compliance Requirements",
+"subsection": "US Federal and NIST",
+"qid": "Q329",
+"qtext": "CMMC V1 Maturity Level",
+"format": "SC",
+"mandatory": false,
+"hidden": false,
+"depth": 1,
+"answers": [
+{
+"id": "A1276",
+"text": "Level 1",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1277",
+"text": "Level 2",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1278",
+"text": "Level 3",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1279",
+"text": "Level 4",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1280",
+"text": "Level 5",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Compliance Requirements",
+"subsection": "US Federal and NIST",
+"qid": "Q351",
+"qtext": "CMMC V2 Maturity Level",
+"format": "SC",
+"mandatory": false,
+"hidden": false,
+"depth": 1,
+"answers": [
+{
+"id": "A1354",
+"text": "Level 1",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1355",
+"text": "Level 2",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Compliance Requirements",
+"subsection": "US Federal and NIST",
+"qid": "Q255",
+"qtext": "In-Scope for DIACAP",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A1086",
+"text": "Yes",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Compliance Requirements",
+"subsection": "US Federal and NIST",
+"qid": "Q302",
+"qtext": "In-Scope for ASD-STIG",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A1189",
+"text": "Yes",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Compliance Requirements",
+"subsection": "US Federal and NIST",
+"qid": "Q337",
+"qtext": "In-Scope for CNSSI Controls",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A1309",
+"text": "Baseline",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1310",
+"text": "Overlays",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Compliance Requirements",
+"subsection": "US Federal and NIST",
+"qid": "Q539",
+"qtext": "In-Scope for DISA API SRG",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A2443",
+"text": "Yes",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Compliance Requirements",
+"subsection": "European Union (EU)",
+"qid": "Q473",
+"qtext": "In-Scope for EU Data Act",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A2028",
+"text": "Yes",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Compliance Requirements",
+"subsection": "European Union (EU)",
+"qid": "Q378",
+"qtext": "In-Scope for EU Cyber Resilience Act",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A1609",
+"text": "Yes",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2434",
+"text": "Default (Low Risk)",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2435",
+"text": "Class I (Medium Risk)",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2436",
+"text": "Class II (High Risk)",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2437",
+"text": "Critical (Very High Risk)",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1610",
+"text": "Open-source software steward",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Compliance Requirements",
+"subsection": "European Union (EU)",
+"qid": "Q485",
+"qtext": "In scope for EU RED",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A2127",
+"text": "Yes",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Compliance Requirements",
+"subsection": "European Union (EU)",
+"qid": "Q456",
+"qtext": "In scope for EU NIS2",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A2006",
+"text": "Yes",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Compliance Requirements",
+"subsection": "European Union (EU)",
+"qid": "Q345",
+"qtext": "In-Scope for Regulation (EU) 910/2014 (eIDAS Regulation)",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A1335",
+"text": "Yes",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Compliance Requirements",
+"subsection": "European Union (EU)",
+"qid": "Q489",
+"qtext": "Select the EN 18031 standard that you are required to comply with",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A2258",
+"text": "In scope for EN 18031-1",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A2334",
+"text": "In scope for EN 18031-2",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A2335",
+"text": "In scope for EN 18031-3",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Compliance Requirements",
+"subsection": "European Union (EU)",
+"qid": "Q490",
+"qtext": "Specific details about your device (Related to 18031)",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 1,
+"answers": [
+{
+"id": "A2259",
+"text": "Legal restrictions prevent implementing access control or authentication mechanisms.",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2260",
+"text": "Device design and/or deployment environment includes physical or logical measures that make unauthorized access to sensitive/confidential information in transit impossible.",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2261",
+"text": "Device design and/or deployment environment includes physical or logical measures that make unauthorized access to sensitive/confidential information at rest impossible.",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2262",
+"text": "Absence of authentication is required for the device\u2019s intended functionality.",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2263",
+"text": "The device cannot support software updates due to functional safety.",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2264",
+"text": "The device\u2019s software is immutable.",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2267",
+"text": "Conflicting security goals prevent implementing functionality to change authenticator information.",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2268",
+"text": "Other devices in the device\u2019s network provide sufficient protection against DoS attacks and loss of essential network operation functions.",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2269",
+"text": "Alternative measures to software updates adequately protect the affected security and network or privacy or financial assets throughout the device\u2019s lifecycle.",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2270",
+"text": "The device is intended to be publicly accessed.",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2271",
+"text": "The device\u2019s software affects network or security or privacy or financial assets.",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2272",
+"text": "The device requires deviation from secure\u2011communication best practices for integrity/authenticity for interoperability reasons.",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2273",
+"text": "The device manages access to network/security/privacy/financial objects via user interfaces in environments where physical or logical measures provide confidence in the correctness of the entity\u2019s claim.",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2274",
+"text": "Managed access is used only for reading personal information, privacy functions, or privacy function configuration where access without authentication is needed to enable intended equipment functionality.",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2275",
+"text": "Managed access is used only for reading personal information, privacy functions, or privacy function configuration where legal implications do not allow authentication mechanisms.",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2276",
+"text": "Temporary exposure of network assets or security or privacy or financial assets is required to establish or manage a connection.",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2277",
+"text": "Deviation from confidentiality best practices is unavoidable for interoperability reasons.",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2278",
+"text": "Duplicate transfer of information to the device\u2019s network interface does not constitute a replay attack.",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2279",
+"text": "Deviation from best practices against replay attacks is unavoidable for interoperability reasons.",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2280",
+"text": "The device uses pre\u2011installed confidential cryptographic keys to establish initial trust relationships under conditions controlled by an authorized entity.",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2281",
+"text": "The device uses pre\u2011installed confidential cryptographic keys as shared parameters required for the equipment\u2019s intended functionality.",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2282",
+"text": "The device currently has publicly known, exploitable hardware or software vulnerabilities that affect security or network assets and have not been risk\u2011addressed.",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2283",
+"text": "The device exposes a network interface or services in its factory\u2011default state that affect security or network assets.",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2284",
+"text": "The device has an external interface capable of receiving input.",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2285",
+"text": "The device uses or generates confidential cryptographic keys.",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2265",
+"text": "The device\u2019s network interfaces are used solely on a local network that does not interoperate with other networks.",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2266",
+"text": "The device exchanges data between different networks to permanently connect other devices directly to the Internet.",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2336",
+"text": "The device is a toy or childcare equipment.",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2337",
+"text": "There are user\u2011notification methods that do not involve the device.",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2338",
+"text": "The device has non\u2011network external interfaces with sensing capabilities that can affect the user\u2019s privacy.",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2339",
+"text": "The device\u2019s intended functionality includes processing personal information of special categories.",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2340",
+"text": "The device is Internet\u2011connected radio equipment.",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2341",
+"text": "Legal restrictions prohibit logging of events affecting the device.",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2342",
+"text": "The related log data is stored outside the device.",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2343",
+"text": "The device processes financial information.",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Compliance Requirements",
+"subsection": "Compliance Scope: Other",
+"qid": "Q324",
+"qtext": "In-Scope for AICPA Trust Services Criteria (SOC2)",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A1266",
+"text": "Yes",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Compliance Requirements",
+"subsection": "Compliance Scope: Other",
+"qid": "Q325",
+"qtext": "In-Scope for ISO 27001 Compliance",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A1267",
+"text": "Yes",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Compliance Requirements",
+"subsection": "Compliance Scope: Other",
+"qid": "Q374",
+"qtext": "In scope for UK PSTI",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A1595",
+"text": "Yes",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Compliance Requirements",
+"subsection": "Compliance Scope: Other",
+"qid": "Q334",
+"qtext": "MASVS Level",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A1295",
+"text": "Level 1",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1296",
+"text": "Level 2",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1297",
+"text": "R",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Compliance Requirements",
+"subsection": "Compliance Scope: Other",
+"qid": "Q360",
+"qtext": "In scope for EN 303 645",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A1364",
+"text": "Yes",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Compliance Requirements",
+"subsection": "Compliance Scope: Other",
+"qid": "Q538",
+"qtext": "In-Scope for ASVS",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A2438",
+"text": "Level 1",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A2439",
+"text": "Level 2",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A2440",
+"text": "Level 3",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Compliance Requirements",
+"subsection": "Compliance Scope: Other",
+"qid": "Q336",
+"qtext": "In-Scope for China Cybersecurity Law",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A1308",
+"text": "Yes",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Compliance Requirements",
+"subsection": "Compliance Scope: Other",
+"qid": "Q529",
+"qtext": "In-Scope for Cyber Trust Mark",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A2398",
+"text": "Yes",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Compliance Requirements",
+"subsection": "Compliance Scope: Other",
+"qid": "Q225",
+"qtext": "Types of Emails Sent by the Application",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A752",
+"text": "Advertisement or other solicitation emails",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Development/Test Tools",
+"subsection": "Development Tools",
+"qid": "Q364",
+"qtext": "Version Control Platforms",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A1390",
+"text": "GitHub",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Development/Test Tools",
+"subsection": "Development Tools",
+"qid": "Q235",
+"qtext": "Uses Static or Dynamic Security Code Analysis",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A777",
+"text": "Yes",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Development/Test Tools",
+"subsection": "Development Tools",
+"qid": "Q105",
+"qtext": "Open Source Security Library Use Permitted",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A56",
+"text": "Yes",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Development/Test Tools",
+"subsection": "Development Tools",
+"qid": "Q106",
+"qtext": "OWASP Development Tools Used",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 1,
+"answers": [
+{
+"id": "A58",
+"text": "ESAPI",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1184",
+"text": "AppSensor",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Development/Test Tools",
+"subsection": "Development Tools",
+"qid": "Q144",
+"qtext": "Other Open Source Security Libraries Used",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 1,
+"answers": [
+{
+"id": "A92",
+"text": "Jasypt",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Development/Test Tools",
+"subsection": "Test Tools",
+"qid": "Q212",
+"qtext": "Test Tools Permitted",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A188",
+"text": "Burp Suite",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Deployment",
+"subsection": "General",
+"qid": "Q375",
+"qtext": "CI/CD Tools",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A1596",
+"text": "CircleCI",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A2257",
+"text": "JFrog",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Deployment",
+"subsection": "General",
+"qid": "Q346",
+"qtext": "IaC Tools",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A1338",
+"text": "Terraform",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1342",
+"text": "Ansible",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Deployment",
+"subsection": "General",
+"qid": "Q296",
+"qtext": "Assurance Level",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A1161",
+"text": "Include more in-depth controls",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Deployment",
+"subsection": "Cloud Computing",
+"qid": "Q343",
+"qtext": "Generic Cloud Content",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A1332",
+"text": "Include generic, story-driven cloud countermeasures",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Deployment",
+"subsection": "Cloud Computing",
+"qid": "Q290",
+"qtext": "Cloud Providers",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A1333",
+"text": "Story-Driven Amazon Web Services (AWS) Content",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1159",
+"text": "Non-Story-Driven Amazon Web Services (AWS) Content",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1336",
+"text": "Story-Driven Google Cloud Content",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2121",
+"text": "Oracle",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1212",
+"text": "Non-Story-Driven Google Cloud Content",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1190",
+"text": "Microsoft Azure",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A2308",
+"text": "IBM Cloud",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A2328",
+"text": "Alibaba Cloud",
+"selected": false,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Deployment",
+"subsection": "Amazon Web Services (AWS)",
+"qid": "Q366",
+"qtext": "AWS Cloud Configuration",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A1392",
+"text": "AWS Cloud Configuration",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Deployment",
+"subsection": "Amazon Web Services (AWS)",
+"qid": "Q298",
+"qtext": "AWS Services",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A1167",
+"text": "AWS AMI",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1345",
+"text": "AWS API Gateway",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1510",
+"text": "AWS App Mesh",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1598",
+"text": "AWS Athena",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1251",
+"text": "AWS Aurora",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1172",
+"text": "AWS Auto Scaling",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1599",
+"text": "AWS Backup",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1511",
+"text": "AWS Bedrock",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2429",
+"text": "AWS Bedrock AgentCore",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1375",
+"text": "AWS Certificate Manager",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1376",
+"text": "AWS CloudFormation",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1175",
+"text": "AWS CloudFront",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2111",
+"text": "AWS CloudShell",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2299",
+"text": "AWS CloudTrail",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1174",
+"text": "AWS CloudWatch",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1608",
+"text": "AWS CodeArtifact",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1588",
+"text": "AWS CodePipeline",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1346",
+"text": "AWS Cognito",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1176",
+"text": "AWS Config",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1600",
+"text": "AWS DataSync",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1601",
+"text": "AWS Direct Connect",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1271",
+"text": "AWS DynamoDB",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1166",
+"text": "AWS EBS",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1171",
+"text": "AWS EC2",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1377",
+"text": "AWS ECR",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1270",
+"text": "AWS ECS",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1378",
+"text": "AWS EFS",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1331",
+"text": "AWS EKS",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1379",
+"text": "AWS ElastiCache",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1168",
+"text": "AWS ELB",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1602",
+"text": "AWS EventBridge",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1603",
+"text": "AWS Fargate",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1627",
+"text": "AWS FSx for Lustre",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Deployment",
+"subsection": "Amazon Web Services (AWS)",
+"qid": "Q379",
+"qtext": "More AWS Services",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 1,
+"answers": [
+{
+"id": "A1628",
+"text": "AWS FSx for Windows File Server",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1513",
+"text": "AWS Glue",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1604",
+"text": "AWS GuardDuty",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1170",
+"text": "AWS IAM",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1605",
+"text": "AWS Inspector",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1348",
+"text": "AWS Kinesis Data Firehose",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1347",
+"text": "AWS Kinesis Data Streams",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1178",
+"text": "AWS KMS",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1514",
+"text": "AWS Lake Formation",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1226",
+"text": "AWS Lambda",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1381",
+"text": "AWS MQ",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1380",
+"text": "AWS MSK",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1606",
+"text": "AWS Neptune",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1382",
+"text": "AWS OpenSearch",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1165",
+"text": "AWS RDS",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1383",
+"text": "AWS RedShift",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1607",
+"text": "AWS Rekognition",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1179",
+"text": "AWS Route53",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1169",
+"text": "AWS S3",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1512",
+"text": "AWS S3 Glacier",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1366",
+"text": "AWS SageMaker AI",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1384",
+"text": "AWS Secrets Manager",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2354",
+"text": "AWS Security Hub",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1385",
+"text": "AWS SES",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1173",
+"text": "AWS SNS",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1227",
+"text": "AWS SQS",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1386",
+"text": "AWS Step Functions",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1387",
+"text": "AWS Systems Manager",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1388",
+"text": "AWS Transfer Family",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1177",
+"text": "AWS VPC",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1349",
+"text": "AWS WAF",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1597",
+"text": "AWS X-Ray",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Deployment",
+"subsection": "Microsoft Azure",
+"qid": "Q365",
+"qtext": "Azure Cloud Configuration",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A1391",
+"text": "Azure Cloud Configuration",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2132",
+"text": "Azure Subscriptions",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Deployment",
+"subsection": "Microsoft Azure",
+"qid": "Q306",
+"qtext": "Azure Services",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A1197",
+"text": "Azure Active Directory (Entra ID)",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1427",
+"text": "Azure Active Directory External Identities",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1394",
+"text": "Azure AI Bot Service",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1351",
+"text": "Azure AKS",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1398",
+"text": "Azure Analysis Services",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1428",
+"text": "Azure API Management",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1423",
+"text": "Azure App Configuration",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1404",
+"text": "Azure App Service",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1452",
+"text": "Azure Application Gateway",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1425",
+"text": "Azure Arc",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1470",
+"text": "Azure Attestation",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1436",
+"text": "Azure Automation",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1476",
+"text": "Azure Backup",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1453",
+"text": "Azure Bastion",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1405",
+"text": "Azure Batch",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1536",
+"text": "Azure Blob Storage",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1416",
+"text": "Azure Cache for Redis",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1437",
+"text": "Azure Cloud Shell",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1482",
+"text": "Azure Communication Services",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1454",
+"text": "Azure Communications Gateway",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1412",
+"text": "Azure Container Apps",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1413",
+"text": "Azure Container Instances",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1414",
+"text": "Azure Container Registry",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1455",
+"text": "Azure Content Delivery Network",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1417",
+"text": "Azure Cosmos DB",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1438",
+"text": "Azure Cost Management",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2112",
+"text": "Azure CycleCloud",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1477",
+"text": "Azure Data Box",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1399",
+"text": "Azure Data Explorer",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1418",
+"text": "Azure Data Factory",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1400",
+"text": "Azure Data Lake Analytics",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1537",
+"text": "Azure Data Lake Storage",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1478",
+"text": "Azure Data Share",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1419",
+"text": "Azure Database for MariaDB",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1420",
+"text": "Azure Database for MySQL",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1446",
+"text": "Azure Database Migration Service",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1395",
+"text": "Azure Databricks",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1456",
+"text": "Azure DDoS Protection",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1471",
+"text": "Azure Dedicated HSM",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1472",
+"text": "Azure Defender for Cloud",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1424",
+"text": "Azure DevTest Labs",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1449",
+"text": "Azure Digital Twins",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1457",
+"text": "Azure DNS",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1429",
+"text": "Azure Event Grid",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1401",
+"text": "Azure Event Hubs",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1458",
+"text": "Azure Firewall",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1459",
+"text": "Azure Firewall Manager",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1460",
+"text": "Azure Front Door",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1210",
+"text": "Azure Functions",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1479",
+"text": "Azure HPC Cache",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1473",
+"text": "Azure Information Protection",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1433",
+"text": "Azure IoT Central",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1434",
+"text": "Azure IoT Hub",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1204",
+"text": "Azure Key Vault",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Deployment",
+"subsection": "Microsoft Azure",
+"qid": "Q370",
+"qtext": "More Azure Services",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 1,
+"answers": [
+{
+"id": "A1474",
+"text": "Azure Key Vault Managed HSM",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1439",
+"text": "Azure Lighthouse",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1406",
+"text": "Azure Linux Virtual Machines",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1461",
+"text": "Azure Load Balancer",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1430",
+"text": "Azure Logic Apps",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1396",
+"text": "Azure Machine Learning",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1440",
+"text": "Azure Managed Applications",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1421",
+"text": "Azure Managed Instance for Apache Cassandra",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1480",
+"text": "Azure Managed Lustre",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1445",
+"text": "Azure Media Services",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1447",
+"text": "Azure Migrate",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1203",
+"text": "Azure Monitor",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1462",
+"text": "Azure NAT Gateway",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1481",
+"text": "Azure NetApp Files",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1463",
+"text": "Azure Network Watcher",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1435",
+"text": "Azure Notification Hubs",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1397",
+"text": "Azure OpenAI Service",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2324",
+"text": "Azure Pipelines",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1441",
+"text": "Azure Policy",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1469",
+"text": "Azure PostgreSQL Database",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1464",
+"text": "Azure Private Link",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1442",
+"text": "Azure Purview",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1415",
+"text": "Azure Red Hat OpenShift",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1450",
+"text": "Azure Remote Rendering",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2394",
+"text": "Azure Repos",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1206",
+"text": "Azure Resource Manager",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1443",
+"text": "Azure Resource Manager templates",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1444",
+"text": "Azure Resource Mover",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1199",
+"text": "Azure Security Center",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1475",
+"text": "Azure Sentinel",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1431",
+"text": "Azure Service Bus",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1483",
+"text": "Azure SignalR Service",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1448",
+"text": "Azure Site Recovery",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1451",
+"text": "Azure Spatial Anchors",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1407",
+"text": "Azure Spring Apps",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1422",
+"text": "Azure SQL",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1201",
+"text": "Azure SQL Database",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1589",
+"text": "Azure SQL Managed Instance",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1426",
+"text": "Azure Stack Edge",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1590",
+"text": "Azure Static Web Apps",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1200",
+"text": "Azure Storage",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1402",
+"text": "Azure Stream Analytics",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1403",
+"text": "Azure Synapse Analytics",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1465",
+"text": "Azure Traffic Manager",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1408",
+"text": "Azure Virtual Desktop",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1409",
+"text": "Azure Virtual Machine Scale Sets",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1198",
+"text": "Azure Virtual Machines",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1202",
+"text": "Azure Virtual Network",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1466",
+"text": "Azure Virtual WAN",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1410",
+"text": "Azure VMware Solution",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1467",
+"text": "Azure VPN Gateway",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1468",
+"text": "Azure Web Application Firewall",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1432",
+"text": "Azure Web PubSub",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1411",
+"text": "Azure Windows Virtual Machines",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Deployment",
+"subsection": "Microsoft Azure",
+"qid": "Q502",
+"qtext": "Azure Windows Profiles",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 1,
+"answers": [
+{
+"id": "A2315",
+"text": "Domain Controller",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2314",
+"text": "Member Server",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Deployment",
+"subsection": "Google Cloud Platform (GCP)",
+"qid": "Q367",
+"qtext": "GCP Cloud Configuration",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A1393",
+"text": "GCP Cloud Configuration",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Deployment",
+"subsection": "Google Cloud Platform (GCP)",
+"qid": "Q309",
+"qtext": "Google Cloud Services",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A1337",
+"text": "Google BigQuery",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1241",
+"text": "Google Cloud Audit Logs",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1242",
+"text": "Google Cloud DNS",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1236",
+"text": "Google Cloud IAM",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1238",
+"text": "Google Cloud Key Management Service",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1243",
+"text": "Google Cloud SQL",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1240",
+"text": "Google Cloud Storage",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1237",
+"text": "Google Compute Engine",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1213",
+"text": "Google Kubernetes Engine",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1244",
+"text": "Google Stackdriver",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1592",
+"text": "Google Vertex AI Platform",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A1239",
+"text": "Google Virtual Private Cloud (VPC)",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Deployment",
+"subsection": "IBM Cloud",
+"qid": "Q488",
+"qtext": "IBM Cloud Services",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A2255",
+"text": "IBM Cloud Activity Tracker",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2254",
+"text": "IBM Cloud Block Storage",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2249",
+"text": "IBM Cloud Container Registry",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2250",
+"text": "IBM Cloud Database",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2252",
+"text": "IBM Cloud Internet Services",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2256",
+"text": "IBM Cloud Kubernetes Service",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2247",
+"text": "IBM Cloud Object Storage",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2246",
+"text": "IBM Cloud VPC",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2251",
+"text": "IBM Cloudant",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2248",
+"text": "IBM Key Management Services",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2253",
+"text": "IBM Key Protect",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Deployment",
+"subsection": "Containerization",
+"qid": "Q308",
+"qtext": "Containerization Technologies",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A2015",
+"text": "Containerd",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1208",
+"text": "Docker",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1209",
+"text": "Unmanaged Kubernetes",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1329",
+"text": "Managed Kubernetes",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1245",
+"text": "OpenShift",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1591",
+"text": "Podman",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1926",
+"text": "Singularity (Apptainer)",
+"selected": false,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1235",
+"text": "Swarm",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Deployment",
+"subsection": "Containerization",
+"qid": "Q506",
+"qtext": "Kubernetes Profiles",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 1,
+"answers": [
+{
+"id": "A2310",
+"text": "Master Node",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2311",
+"text": "Worker Node",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Deployment",
+"subsection": "Oracle Cloud",
+"qid": "Q483",
+"qtext": "Oracle Cloud Configuration",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A2122",
+"text": "Oracle Cloud Configuration",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Deployment",
+"subsection": "Oracle Cloud",
+"qid": "Q484",
+"qtext": "Oracle Cloud Services",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A2125",
+"text": "Block Volume",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2123",
+"text": "Compute Instance",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2126",
+"text": "File Storage",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2124",
+"text": "Object Storage",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Deployment",
+"subsection": "Alibaba Cloud",
+"qid": "Q511",
+"qtext": "Alibaba Cloud Configuration",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A2329",
+"text": "Alibaba Cloud Configuration",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Deployment",
+"subsection": "Alibaba Cloud",
+"qid": "Q512",
+"qtext": "Alibaba Cloud Services",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A2330",
+"text": "Virtual Machine",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2331",
+"text": "Object Storage Service (OSS)",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2332",
+"text": "Relational Database Service (RDS)",
+"selected": false,
+"valid": false,
+"hidden": false
+},
+{
+"id": "A2333",
+"text": "Alibaba Cloud Kubernetes (ACK)",
+"selected": false,
+"valid": false,
+"hidden": false
+}
+]
+},
+{
+"section": "Changes Since Last Release",
+"subsection": "General Changes",
+"qid": "Q220",
+"qtext": "Changes Since Last Release",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A1307",
+"text": "Changes to hardware design",
+"selected": true,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A1626",
+"text": "Changes to AI",
+"selected": true,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A739",
+"text": "Changes to servers/frameworks and/or configuration",
+"selected": true,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A734",
+"text": "Changes to authentication",
+"selected": true,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A735",
+"text": "Changes to session management",
+"selected": true,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A736",
+"text": "New transactions / use cases",
+"selected": true,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A738",
+"text": "Changes to inbound/outbound interfaces",
+"selected": true,
+"valid": true,
+"hidden": false
+}
+]
+},
+{
+"section": "Changes Since Last Release",
+"subsection": "User Input/Output Changes",
+"qid": "Q222",
+"qtext": "Changes to User Input/Output Since Last Release",
+"format": "MC",
+"mandatory": false,
+"hidden": false,
+"depth": 0,
+"answers": [
+{
+"id": "A737",
+"text": "Changes to user output",
+"selected": true,
+"valid": true,
+"hidden": false
+},
+{
+"id": "A742",
+"text": "New/modified user input OR changes to how user input is used",
+"selected": true,
+"valid": true,
+"hidden": false
+}
+]
+}
+]

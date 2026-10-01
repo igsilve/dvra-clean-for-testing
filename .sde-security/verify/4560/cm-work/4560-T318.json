@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T318",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/init_app.py",
+      "line": 180,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] The CORS policy that decides every outcome this test probes is statically verifiable and correct. CORSMiddleware is configured with allow_origins=settings.ALLOWED_ORIGINS - an explicit comma-separated allow-list from which config.py strips any '*' entry - so the wildcard-with-credentials combination the test targets cannot be produced even by operator error, despite allow_credentials=True. Starlette matches those origins by exact string, not regex or prefix, so the www-example.com / notexample.com / example.com.evil.com bypass classes do not apply. Methods and headers are enumerated rather than wildcarded. Anti-CSRF coverage for cross-origin requests is provided by CsrfMiddleware, which fails closed with a constant-time double-submit check on any unsafe method carrying an auth cookie. Authentication is enforced independently of Origin by the router-level dependencies in apis/router.py | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] app/init_app.py: the CORS policy that decides every outcome this test probes is statically verifiable and correct. CORSMiddleware is configured with allow_origins=settings.ALLOWED_ORIGINS - an explicit comma-separated allow-list from which config.py strips any '*' entry - so the wildcard-with-credentials combination the test targets cannot be produced even by operator error, despite allow_credentials=True. Starlette matches those origins by exact string, not regex or prefix, so the www-example.com / notexample.com / example.com.evil.com bypass classes do not apply. Methods and headers are enumerated rather than wildcarded. Anti-CSRF coverage for cross-origin requests is provided by CsrfMiddleware, which fails closed with a constant-time double-submit check on any unsafe method carrying an auth cookie. Authentication is enforced independently of Origin by the router-level dependencies in apis/router.py. | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T318 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

@@ -1,0 +1,16 @@
+{
+  "cm_id": "T76",
+  "endpoint": "library/tasks/T76/amendments/",
+  "http_status": 200,
+  "result": "LIBRARY_SOURCED",
+  "retry_count": 0,
+  "queried_at": "2026-09-30T02:51:14.480358Z",
+  "matched_amendments": [
+    {
+      "amendment_id": "TA8509",
+      "technology": "Python",
+      "source_amendment_char_count": 3112
+    }
+  ],
+  "additional_requirements_count": 0
+}

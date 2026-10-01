@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T1198",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/docker-compose.yml",
+      "line": 62,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] docker-compose.yml: no network_mode: host (the compose equivalent of --net=host) on any of the three services, and no network_mode key at all. Every service is attached to explicit user-defined bridge networks instead: web to frontend+backend (line 62-64), proxy to frontend (line 126-127), db to backend only (line 189-190). backend is declared internal: true (line 225-226). How-to I944 canonical pattern (do not pass --net=host) satisfied. Marker scan clean | verdict=pass confidence=high",
+      "category": "mitigation-confirmed"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] docker-compose.yml: no network_mode: host (the compose equivalent of --net=host) on any of the three services, and no network_mode key at all. Every service is attached to explicit user-defined bridge networks instead: web to frontend+backend (line 62-64), proxy to frontend (line 126-127), db to backend only (line 189-190). backend is declared internal: true (line 225-226). How-to I944 canonical pattern (do not pass --net=host) satisfied. Marker scan clean | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T1198 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

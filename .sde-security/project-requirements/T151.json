@@ -1,0 +1,12 @@
+{
+  "cm_id": "T151",
+  "additional_requirements": [
+    {
+      "id": "TA6393",
+      "title": "ASVS Requirements - GUID v4 algorithm",
+      "text": "Use a GUID v4 algorithm and a cryptographically-secure pseudo-random number generator (CSPRNG) to generate random globally unique identifiers (GUIDs), also known as universally unique identifiers (UUIDs). \n\nSince the GUID v4 is not cryptographically secure, it is recommended to use a CSPRNG to achieve both uniqueness and cryptographically secure pseudo-randomness. CSPRNGs are designed to meet the strict requirements for security and randomness, including unpredictability, resistance to tampering, and non-repeatability.\n\n##References\n[Recommendation for Random Number Generation Using Deterministic Random Bit Generators](https://csrc.nist.gov/publications/detail/sp/800-90a/rev-1/final)",
+      "ordinal": 0
+    }
+  ],
+  "count": 1
+}

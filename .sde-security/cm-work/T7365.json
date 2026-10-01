@@ -1,0 +1,25 @@
+{
+  "cm_id": "T7365",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Rate-limit authentication and expensive endpoints (FastAPI)",
+    "priority": 10,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T7365/",
+    "description": "Rate-limit the authentication and password-reset endpoints, which are the cheapest targets for credential guessing.",
+    "language": "python",
+    "file": "app/apis/auth/services/get_token_service.py",
+    "start_line": 16,
+    "end_line": 21,
+    "finding": "The token endpoint carries no rate-limit decorator, so password guessing is unthrottled.",
+    "current_code": "@router.post(\"/token\")\nasync def get_token(\n    form_data: Annotated[OAuth2PasswordRequestForm, Depends()],\n    db: Session = Depends(get_db),\n) -> Token:\n    user = authenticate_user(db, form_data.username, form_data.password)",
+    "required_fix": "# app/apis/auth/services/get_token_service.py\nfrom rate_limiting import limiter\n\n\n@router.post(\"/token\")\n@limiter.limit(\"5/minute\")\nasync def get_token(request: Request, form_data: ..., db: Session = Depends(get_db)) -> Token:\n    ...",
+    "criteria": [
+      "/token, /register, /reset-password and /reset-password/new-password each carry an explicit limit.",
+      "The sixth login attempt within a minute from one source returns 429.",
+      "Limits are keyed on both source address and submitted username."
+    ]
+  }
+}

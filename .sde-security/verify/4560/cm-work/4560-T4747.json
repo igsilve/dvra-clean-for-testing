@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T4747",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/docker-compose.yml",
+      "line": 20,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] The application container runs as the fixed non-root UID/GID 10001:10001 at line 20 with cap_drop ALL at line 26 and nothing added back. All three services set no-new-privileges:true, apparmor=docker-default and a reviewed seccomp=./deploy/seccomp.json profile, and run with read_only root filesystems backed by sized tmpfs mounts. proxy and db drop ALL capabilities and re-add only the minimum their images require (CHOWN/SETUID/SETGID at lines 103-106, plus DAC_OVERRIDE/FOWNER for postgres at lines 162-167). No privileged:true, no user:root, no host namespace sharing (network_mode/pid/ipc host) and no dangerous capability such as SYS_ADMIN, NET_ADMIN or SYS_PTRACE appears anywhere in the file | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: docker-compose.yml grants no excessive privilege. The web service runs as user 10001:10001 with cap_drop ALL and nothing added back; all three services set no-new-privileges:true, apparmor=docker-default and a reviewed seccomp=./deploy/seccomp.json profile, and run read_only with sized tmpfs mounts. proxy and db drop ALL and re-add only the minimum each image needs (CHOWN/SETUID/SETGID, plus DAC_OVERRIDE/FOWNER for postgres). No privileged:true, no user:root, no host namespace sharing and no dangerous capability (SYS_ADMIN, NET_ADMIN, SYS_PTRACE) appears anywhere in the file | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T4747 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

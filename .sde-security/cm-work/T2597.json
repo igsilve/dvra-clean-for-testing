@@ -1,0 +1,19 @@
+{
+  "cm_id": "T2597",
+  "category": "INFRA",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "documentation",
+    "title": "Implement RBAC instead of individual accounts",
+    "priority": 10,
+    "category": "INFRA",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T2597/",
+    "description": "Grant access through roles rather than through individually managed accounts.",
+    "guidance": "Permissions should attach to a small set of roles that reflect job functions, with users receiving access solely by role membership, so entitlements can be reviewed and revoked as a set.",
+    "searched": "app/db/models.py, app/apis/auth/utils/roles_based_auth_checker.py, docker-compose.yml",
+    "found": "The application itself already models three roles; the gap is at the infrastructure layer, where database and host access use shared individual accounts such as the `admin` PostgreSQL user.",
+    "missing": "Role definitions in the database and host platforms, and a directory to attach them to.",
+    "conclusion": "Infrastructure-level role-based access control is configured in the database server and host platform, not in this repository's source.",
+    "action": "The platform and database administration teams should define infrastructure roles and retire shared individual accounts."
+  }
+}

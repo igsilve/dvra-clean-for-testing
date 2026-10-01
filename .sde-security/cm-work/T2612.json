@@ -1,0 +1,19 @@
+{
+  "cm_id": "T2612",
+  "category": "INFRA",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "documentation",
+    "title": "Verify backup archive bits are protected",
+    "priority": 7,
+    "category": "INFRA",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T2612/",
+    "description": "Verify that backup archives are protected.",
+    "guidance": "Verification means confirming backups are encrypted, that access to the backup store is restricted and logged, and that a restore has been exercised recently.",
+    "searched": "docker-compose.yml, start_app.sh, stop_app.sh",
+    "found": "No backup process exists to inspect.",
+    "missing": "A backup process and its storage location.",
+    "conclusion": "The verification has no subject until backups are defined.",
+    "action": "The database administration team should verify backup protection once backups exist."
+  }
+}

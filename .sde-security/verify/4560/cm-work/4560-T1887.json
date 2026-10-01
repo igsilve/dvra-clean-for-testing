@@ -1,0 +1,28 @@
+{
+  "full_cm_id": "4560-T1887",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/oauth_policy.py",
+      "line": 83,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Mitigation confirmed (how-to I1294, Authorization Code flow with PKCE): validate_grant_payload requires a code_verifier on the token exchange and pins code_challenge_method to S256 | verdict=pass confidence=high",
+      "category": "mitigation-confirmed"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/oauth_policy.py",
+      "line": 97,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Mitigation confirmed (how-to I1303, Client Credentials flow): client_credentials is refused to non-confidential clients and public clients are rejected if they send a client_secret; flow is derived from client traits rather than caller input and implicit/resource-owner-password are absent from ALLOWED_FLOWS | verdict=pass confidence=high",
+      "category": "mitigation-confirmed"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Mitigation confirmed against how-tos I1294 and I1303: the authorization-code exchange requires a code_verifier and pins code_challenge_method to S256, and client_credentials is refused to non-confidential clients; flow is derived from client traits rather than caller input, and implicit/resource-owner-password are absent from ALLOWED_FLOWS | verdict=pass confidence=high",
+      "count": "2"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T1887 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

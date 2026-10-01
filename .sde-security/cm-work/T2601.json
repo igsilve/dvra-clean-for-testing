@@ -1,0 +1,19 @@
+{
+  "cm_id": "T2601",
+  "category": "INFRA",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "documentation",
+    "title": "Use Transparent Data Encryption with Enterprise Databases",
+    "priority": 8,
+    "category": "INFRA",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T2601/",
+    "description": "Enable transparent data encryption on the database.",
+    "guidance": "The database should encrypt its data files at rest using keys held in a managed key store, with rotation and separation between the key custodian and the database administrator.",
+    "searched": "docker-compose.yml, app/db/session.py, app/config.py",
+    "found": "PostgreSQL runs from the stock image with a plain volume; no encryption-at-rest configuration is present.",
+    "missing": "Database server configuration, a key management service and the storage layer the volume lives on.",
+    "conclusion": "Transparent data encryption is configured on the database server and storage platform, not in application source.",
+    "action": "The database administration team should enable encryption at rest with managed keys."
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T98",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/admin/services/get_disk_stats_service.py",
+      "line": 15,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: server-side validation is enforced by the type MountPoint = Literal['/', '/var', '/tmp'] at line 15 and applied to the mount_point parameter at line 25, so Pydantic rejects any tampered value with 422 before the handler runs and no untrusted string reaches get_disk_usage; the route is additionally gated by Depends(Requires(Permission.READ_DISK_STATS)) and a rate limit | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: app/apis/admin/services/get_disk_stats_service.py validates on the server by type rather than by convention -- mount_point is typed MountPoint = Literal['/', '/var', '/tmp'], so FastAPI/Pydantic rejects any other value with 422 before the handler body runs and an HTTP-proxy-tampered parameter cannot reach get_disk_usage. This closes the external-control-of-configuration-setting case in CWE-15: the endpoint cannot be steered to probe arbitrary filesystem paths. Access is further gated by Depends(Requires(Permission.READ_DISK_STATS)) and @limiter.limit('10/minute') | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T98 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

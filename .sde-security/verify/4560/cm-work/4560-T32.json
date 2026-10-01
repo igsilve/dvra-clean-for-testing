@@ -1,0 +1,22 @@
+{
+ "full_cm_id": "4560-T32",
+ "status": "pass",
+ "confidence": "high",
+ "findings": [
+  {
+   "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/menu/schemas.py",
+   "line": 19,
+   "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] MenuItemCreate enforces a strict server-side contract: extra='forbid' (:19) turns an undeclared field into a 422 instead of something a later mass assignment could pick up; typed Field bounds on name, price, category, image_url, image_sha256, image_signature and description (:20-31); and a model_validator (:33-43) that requires a digest alongside any image_url and rejects an image_sha256 that is not 64 lowercase hex characters. Values are stored verbatim with escaping left to the rendering consumer, which is the correct boundary. Server-side validation independent of the client, the same property as the recommended fix | verdict=pass confidence=high",
+   "category": "alternative-mitigation-accepted"
+  }
+ ],
+ "findings_aggregated_for_sde": [
+  {
+   "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Server-side input validation is enforced by the framework schema layer: app/apis/menu/schemas.py:19-43 sets ConfigDict(extra='forbid', str_strip_whitespace=True) so an undeclared field is a 422 rather than a mass-assignment candidate, bounds every text field with Field(min_length/max_length), constrains price with gt=0/le=100000, and adds a model_validator enforcing re.fullmatch(r'[0-9a-f]{64}') on image_sha256 and requiring a digest whenever an image_url is supplied. MenuItem response model at :46-56 is likewise typed. Validation runs on the server irrespective of any client-side check; no unvalidated request field reaches the persistence layer from these models | verdict=pass confidence=high",
+   "count": "1"
+  }
+ ],
+ "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T32 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+ "note_post_status": "POSTED",
+ "reason": ""
+}

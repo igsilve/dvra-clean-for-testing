@@ -1,0 +1,12 @@
+{
+  "cm_id": "T3931",
+  "additional_requirements": [
+    {
+      "id": "TA6757",
+      "title": "Test ensuring artifacts contain information about their origin",
+      "text": "For each artifact, ensure it has information about its origin.",
+      "ordinal": 10
+    }
+  ],
+  "count": 1
+}

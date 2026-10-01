@@ -1,0 +1,19 @@
+{
+  "cm_id": "T1918",
+  "category": "INFRA",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "documentation",
+    "title": "Integrate with SSO",
+    "priority": 9,
+    "category": "INFRA",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T1918/",
+    "description": "Federate authentication to the organization's single sign-on provider instead of holding local credentials.",
+    "guidance": "Authentication should be delegated to the corporate identity provider over OIDC, with the application consuming validated identity assertions, mapping provider groups to its roles, and retaining no local password store.",
+    "searched": "app/apis/auth/, app/init.py, app/db/models.py",
+    "found": "The service maintains its own users table with locally hashed passwords and issues its own tokens; no identity provider integration exists.",
+    "missing": "A tenant in the identity provider, client registration, group-to-role mapping and a migration plan for existing local accounts.",
+    "conclusion": "SSO adoption is an organizational identity decision requiring provider onboarding and a credential migration, well beyond a change in this repository.",
+    "action": "The identity and access management team should decide on SSO adoption and provide the client registration this service would consume."
+  }
+}

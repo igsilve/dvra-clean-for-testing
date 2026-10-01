@@ -1,0 +1,28 @@
+{
+  "full_cm_id": "4560-T2139",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/auth/schemas.py",
+      "line": 24,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Alternative mitigation accepted: responses are shaped by explicit minimal Pydantic schemas rather than whole-object serialization - UserRead and Token carry no credential, hash or internal fields - and UserCreate sets extra=\"forbid\" so a body naming role or is_admin is rejected outright instead of silently dropped | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/error_handlers.py",
+      "line": 40,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Alternative mitigation accepted: the error paths have their own fixed response schemas and the validation handler projects each error onto loc+type only, dropping msg, input and ctx, so a rejected password is never echoed back to the caller | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Alternative mitigation accepted: API data is shaped by explicit minimal Pydantic schemas rather than whole-object serialization - UserRead/Token carry no credential, hash or internal fields, registration input sets extra=\"forbid\" so a body naming role or is_admin is rejected outright, and the error handlers project failures onto a fixed loc+type shape that drops msg/input/ctx so a submitted password is never echoed back | verdict=pass confidence=high",
+      "count": "2"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T2139 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

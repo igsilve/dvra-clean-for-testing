@@ -1,0 +1,28 @@
+{
+  "full_cm_id": "4560-T1177",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/Dockerfile",
+      "line": 6,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Image provenance is statically verifiable without a running host: both stages reference official Docker Hub python images pinned by sha256 digest (lines 6 and 19), which fixes exactly which image docker images / docker history would report and proves retrieval over an integrity-checked channel | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/Dockerfile",
+      "line": 46,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Package patch level is enforced at build rather than audited after the fact: apt-get update with --no-install-recommends and apt list cleanup in one layer (lines 30-33), and pip install --no-cache-dir --require-hashes -r requirements.txt (line 46) | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: Image provenance and patch level are statically verifiable from the Dockerfile without a running host. Both stages reference official Docker Hub python images pinned by sha256 digest (lines 6 and 19), which fixes exactly which image `docker images` / `docker history` would report and proves retrieval over an integrity-checked channel; deploy/base-images.lock records the resolution date so updates are a reviewed change. Patch currency is enforced at build by apt-get update with --no-install-recommends and apt list cleanup in one layer (lines 30-33) and by pip install --require-hashes (line 46). No how-tos were applicable to this CM, so Q2 was skipped | verdict=pass confidence=high",
+      "count": "2"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T1177 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

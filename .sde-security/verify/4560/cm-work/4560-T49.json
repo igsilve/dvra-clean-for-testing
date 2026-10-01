@@ -1,0 +1,34 @@
+{
+  "full_cm_id": "4560-T49",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/router.py",
+      "line": 33,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Routers are mounted from three explicit groups (PUBLIC/AUTHENTICATED/MIXED) with no debug router among them; only healthcheck is anonymous and the default for an unlisted router is authenticated | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/init_app.py",
+      "line": 161,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] docs_url and redoc_url are None unconditionally and openapi_url is None in PRODUCTION, so the schema and interactive docs are not published; SecurityHeadersMiddleware also deletes the X-Powered-By and Server headers per amendment TA936 | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/main.py",
+      "line": 27,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] setup_static_files_and_docs returns before declaring the '/', '/docs' and '/redoc' routes when ENVIRONMENT is PRODUCTION, so they are never registered and 404 rather than relying on a runtime check; static files are served from a module-relative public assets directory | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] No active debug capability or leftover debug route survives on the reviewed paths. init_app.py sets docs_url=None and redoc_url=None unconditionally and withdraws openapi_url in PRODUCTION; main.py returns before registering the '/', '/docs' and '/redoc' helpers in PRODUCTION so they 404 rather than being hidden behind a check; router.py mounts routers from three explicit groups (PUBLIC/AUTHENTICATED/MIXED) with no debug router present, defaulting unlisted routers to authenticated. Amendment TA936 is also satisfied: SecurityHeadersMiddleware deletes X-Powered-By and Server from every response. Alternative mitigation accepted: compile-time route omission plus production gating removes the debug surface rather than merely concealing it | verdict=pass confidence=high",
+      "count": "3"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T49 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

@@ -1,0 +1,28 @@
+{
+  "full_cm_id": "4560-T1188",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/Dockerfile",
+      "line": 0,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] No instruction in either build stage disables or weakens AppArmor, and LSM confinement is not configurable from a Dockerfile, so the P1083 pattern cannot be present in the analysed file | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/docker-compose.yml",
+      "line": 33,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] The equivalent control lives in the project's compose file: security_opt apparmor=docker-default is stated explicitly for all three services (web line 33, proxy line 109, db line 170) rather than inherited from the daemon, so the deployment stays confined even on a host where AppArmor was not applied by default - the same security property as how-to I939 | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: No instruction in either Dockerfile build stage disables or weakens AppArmor, and LSM confinement is not configurable from a Dockerfile, so the P1083 pattern cannot be present in the analysed file. The equivalent control is located in the project's compose file, which states security_opt apparmor=docker-default explicitly for all three services (web line 33, proxy line 109, db line 170) rather than relying on the daemon default, with an in-file note that an explicit profile keeps the deployment confined even on a host where AppArmor was not applied by default. This delivers the same security property as how-to I939 (container runs under an enforcing AppArmor profile) | verdict=pass confidence=high",
+      "count": "2"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T1188 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

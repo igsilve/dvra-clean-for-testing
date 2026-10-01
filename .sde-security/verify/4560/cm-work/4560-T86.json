@@ -1,0 +1,32 @@
+{
+  "full_cm_id": "4560-T86",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/auth/services/get_token_service.py",
+      "line": 66,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: a fresh token is minted at lines 66-69 only after authenticate_user() succeeds at line 53, and no session identifier is read from the request, so there is no existing session to fixate or carry across the authentication boundary; the 'ver' claim binds the token to user.token_version | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/auth/utils/utils.py",
+      "line": 212,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: create_access_token at line 212 funnels issuance into jwt_tokens.encode_token, which adds a CSPRNG jti (secrets.token_urlsafe(16)) and signs with HS256; update_user_password at line 66 calls invalidate_issued_tokens, the stateless equivalent of deleting the old session, so identifiers are unique and rotated rather than predictable | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: app/apis/auth/services/get_token_service.py accepts no session identifier from the client and mints a brand-new signed token only after authenticate_user() succeeds, so there is no pre-authentication identifier that could be carried into the authenticated state (the session-fixation precondition in P678). The token carries a 'ver' claim bound to user.token_version, which is the stateless equivalent of resetting the old session | verdict=pass confidence=high",
+      "count": "2"
+    },
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: app/apis/auth/utils/utils.py routes issuance through create_access_token -> jwt_tokens.encode_token, which stamps a per-token jti from secrets.token_urlsafe(16) (a CSPRNG) alongside exp/iat/iss/aud and signs with HS256, so identifiers are unique and unpredictable rather than guessable; update_user_password and the role path call invalidate_issued_tokens, advancing token_version so every previously issued token stops verifying | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T86 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

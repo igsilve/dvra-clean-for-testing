@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T407",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/auth/utils/jwt_auth.py",
+      "line": 28,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: the symmetric-key proof is verified rather than the key being exchanged - decode_token pins HS256 and verifies the signature unconditionally with required exp/sub/iat/jti/iss/aud claims, a revoked jti (RevokedToken lookup at line 38) kills a logged-out token early, and a payload whose ver claim does not match user.token_version is refused at line 47, so the check fails closed for tokens minted before a credential or privilege change. No weak symmetric-key verification pattern observed; marker scan clean | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: app/apis/auth/utils/jwt_auth.py verifies the symmetric-key proof rather than the key itself - decode_token pins HS256 and verifies the signature unconditionally with required exp/sub/iat/jti/iss/aud claims, the shared secret is never exchanged or echoed, a revoked jti (RevokedToken) kills a logged-out token early, and a payload whose ver claim does not match user.token_version is refused, so the check fails closed for tokens minted before a credential or privilege change. No weak symmetric-key verification pattern observed; marker scan clean | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T407 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

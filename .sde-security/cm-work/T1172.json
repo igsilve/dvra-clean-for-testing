@@ -1,0 +1,19 @@
+{
+  "cm_id": "T1172",
+  "category": "INFRA",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "documentation",
+    "title": "Secure daemon configuration files (Docker)",
+    "priority": 8,
+    "category": "INFRA",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T1172/",
+    "description": "Secure the Docker daemon configuration files on the container hosts.",
+    "guidance": "The daemon configuration, socket and certificate files should be owned by root, not writable by any other user, and audited for change, so nobody can alter daemon behaviour without detection.",
+    "searched": "Dockerfile, docker-compose.yml, start_app.sh, stop_app.sh",
+    "found": "No daemon configuration file is present in the repository.",
+    "missing": "Filesystem access to the container hosts where those files live.",
+    "conclusion": "Daemon file permissions are host hardening, not a change in application source.",
+    "action": "The platform team should apply ownership and permission hardening to the daemon files."
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "full_cm_id": "4560-T1392",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/menu/utils.py",
+      "line": 51,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] The http://127.0.0.1:80 and http://localhost/server-status payloads this test prescribes fail the https-only scheme check before a request is issued; Gopher, DICT and SFTP schemes fail the same check | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/menu/utils.py",
+      "line": 58,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] A VPS or attacker-chosen host supplied as the URL is refused by the hostname allow-list, which is empty by default and so fails closed | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/menu/utils.py",
+      "line": 64,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] http://169.254.169.254/latest/meta-data/ is additionally refused by the resolved-address check that rejects link-local, private and loopback answers | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/menu/utils.py",
+      "line": 228,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] The blind out-of-band case is closed by allow_redirects=False and an explicit redirect refusal, so no back-end request reaches an attacker-controlled collaborator | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Static review of the sole URL-driven outbound path shows the attack payloads this test prescribes are refused before a request is made: http://127.0.0.1:80 and http://localhost/server-status fail the https-only scheme check (app/apis/menu/utils.py:51) and the hostname allow-list (:58); http://169.254.169.254/latest/meta-data/ additionally fails the resolved-address check that rejects link-local and private answers (:64-102); file://, gopher://, dict:// and sftp:// are rejected by the same scheme check; the blind out-of-band case is closed by allow_redirects=False plus an explicit redirect refusal (:217, :228) | verdict=pass confidence=high",
+      "count": "4"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T1392 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

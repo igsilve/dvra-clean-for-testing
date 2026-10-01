@@ -1,0 +1,34 @@
+{
+  "full_cm_id": "4560-T659",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/admin/utils.py",
+      "line": 22,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] get_disk_usage invokes subprocess.run([\"df\", \"-h\", mount_point]) as an argv list with no shell=True and no string concatenation, so no command string is ever formed and shell metacharacters in mount_point carry no meaning. This delivers the same security property as ctx.text's neutralization requirement by construction | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/admin/utils.py",
+      "line": 27,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] The child process is further confined: env is replaced with a fixed PATH=/usr/bin:/bin and LC_ALL=C rather than inherited, cwd=\"/\", stdin=subprocess.DEVNULL, and a 5-second timeout. Failures are logged server-side and surfaced to the client as a generic 500 with no command string or traceback | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/admin/services/get_disk_stats_service.py",
+      "line": 16,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Corroborating caller check: the only route reaching this sink types mount_point as Literal[\"/\", \"/var\", \"/tmp\"], so FastAPI rejects any other value with 422 before the handler runs. This satisfies ctx.text's acceptance-criteria requirement with an allow-list rather than a filter | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] app/apis/admin/utils.py is the only OS-command sink in scope and builds no command string: subprocess.run([\"df\", \"-h\", mount_point]) passes an argv list with no shell, so shell metacharacters in the value carry no meaning. The child is further confined with a scrubbed env (fixed PATH), cwd=/, stdin=DEVNULL and a 5s timeout, and errors are logged server-side with a generic client message. The caller constrains mount_point to a fixed Literal set, so an out-of-range value is rejected with 422 before the handler runs | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T659 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

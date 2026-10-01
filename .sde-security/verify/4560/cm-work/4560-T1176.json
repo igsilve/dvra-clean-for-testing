@@ -1,0 +1,28 @@
+{
+  "full_cm_id": "4560-T1176",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/Dockerfile",
+      "line": 6,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Both stages use official Docker Hub python images pinned by immutable sha256 digest rather than a mutable tag (builder python:3.10-bookworm line 6, runtime python:3.10-slim-bookworm line 19), with digest resolutions recorded in deploy/base-images.lock so a base change is a reviewed change | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/Dockerfile",
+      "line": 30,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Security-patch currency is enforced in-build: apt-get update installs only libpq5 with --no-install-recommends and cleans apt lists in the same layer (lines 30-33), and pip install --no-cache-dir --require-hashes (line 46) rejects any unhashed dependency | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: Dockerfile pins both official python base images by immutable sha256 digest rather than a mutable tag (builder python:3.10-bookworm line 6, runtime python:3.10-slim-bookworm line 19), with digest resolutions recorded in deploy/base-images.lock; package currency is enforced in-build via apt-get update installing only libpq5 with --no-install-recommends and cleaning apt lists in a single layer (lines 30-33), and pip install --no-cache-dir --require-hashes (line 46) rejects any unhashed dependency. No untrusted registry, mutable tag or unpatched base reference remains (P1077) | verdict=pass confidence=high",
+      "count": "2"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T1176 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

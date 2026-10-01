@@ -1,0 +1,19 @@
+{
+  "cm_id": "T3906",
+  "category": "INFRA",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "documentation",
+    "title": "Implement secure build worker management (GitHub)",
+    "priority": 8,
+    "category": "INFRA",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T3906/",
+    "description": "Manage build workers securely.",
+    "guidance": "Build workers should be ephemeral, isolated per job, run with least privilege, have no standing access to production credentials, and be rebuilt from a known-good image rather than reused across jobs.",
+    "searched": "Repository root, .github/ (absent), Dockerfile, docker-compose.yml",
+    "found": "No build automation is configured; images are built locally through Docker Compose.",
+    "missing": "A build worker fleet and its provisioning configuration.",
+    "conclusion": "Build worker management is an infrastructure concern owned by the CI/CD platform, with nothing in this repository to change.",
+    "action": "The CI/CD platform team should define and own the build worker baseline."
+  }
+}

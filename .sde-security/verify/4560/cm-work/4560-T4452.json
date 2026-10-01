@@ -1,0 +1,28 @@
+{
+  "full_cm_id": "4560-T4452",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/start_app.sh",
+      "line": 65,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] The exec at line 65 runs the container runtime under env -i, discarding the caller's entire environment and reintroducing only PATH, HOME, DOCKER_HOST and DOCKER_CONTEXT with safe defaults; IFS is pinned to newline/tab at line 10, PATH is absolute and readonly at lines 15-18, umask 077 at line 23 and set -euo pipefail at line 4. No eval, no unsanitized assignment into an environment variable and no Shellshock-style exported-function handling is present | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/start_game.sh",
+      "line": 9,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] PATH is exported absolute and marked readonly at lines 6-9 before any external command runs, IFS is pinned at line 3, umask 077 at line 11, and the sourced dependency is resolved from BASH_SOURCE rather than the caller's working directory at line 18 with an explicit symlink refusal at lines 31-34. No eval and no untrusted environment-variable consumption appears in the file | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: start_app.sh and start_game.sh both pin IFS=$'\\n\\t', export an absolute readonly PATH, set umask 077 and use set -euo pipefail; start_app.sh additionally execs via env -i so the caller's environment is discarded and only PATH/HOME/DOCKER_HOST/DOCKER_CONTEXT are reintroduced with safe defaults. No eval, no unsanitized environment-variable assignment and no Shellshock-style function import pattern present in either file | verdict=pass confidence=high",
+      "count": "2"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T4452 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

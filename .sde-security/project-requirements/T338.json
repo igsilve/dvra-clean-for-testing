@@ -1,0 +1,18 @@
+{
+  "cm_id": "T338",
+  "additional_requirements": [
+    {
+      "id": "TA1005",
+      "title": "Prevent untrusted parties from accessing admin interfaces in applications",
+      "text": "Use the following guidelines for preventing untrusted parties from accessing administrative interfaces:\n\n-Restrict non-admin users from accessing information or features they do not need.\n\n-Use secure interface elements for making certain features or information visible or invisible and editable or uneditable for non-admin users based on their needs. \n\n-Restrict admin areas from being accessible from a single IP. Consider keeping the admin interface on a private subnet and off the public internet.\n\n-Use second level authentication and consider using client SSL certificates for accessing admin areas. \n\n-Only allow access from trusted domains and IPs. This can be done by adding a check to a basic HTTP pipeline or by blocking untrusted IPs in access configuration files.\n\n-Reissue the session ticket when moving between admin and normal users.",
+      "ordinal": 1
+    },
+    {
+      "id": "TA36",
+      "title": "Authorization, MDS2-2013",
+      "text": "The answers to these questions are directly affected by the characteristics of the chosen authorization/authentication system:\n\n- 3-1 Can the device prevent access to unauthorized users through user login requirements or other mechanism?\n\n     - Other mechanisms may include use of smart cards, password-generating-tokens, device-specific certificates (e.g. PKI authentication of users/devices), etc. Note that in order to effectively prevent unauthorized access to resources you should complete the authentication/authorization related security tasks that are linked to this section in the compliance regulation report.\n \n- 3-2\tCan users be assigned different privilege levels within an application based on 'roles' (e.g., guests, regular users, power users, administrators, etc.)?\n\n     - This is affected by the authorization model that is adopted. If you are using an RBAC model, the answer is yes.",
+      "ordinal": 10
+    }
+  ],
+  "count": 2
+}

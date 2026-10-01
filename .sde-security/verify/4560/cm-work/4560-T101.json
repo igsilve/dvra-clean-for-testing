@@ -1,0 +1,32 @@
+{
+  "full_cm_id": "4560-T101",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/orders/services/get_order_status.py",
+      "line": 26,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: the only query construction in the file is the ORM expression at lines 26-30 with bound criteria and no raw SQL, text() or string interpolation; order_id is int-typed at lines 41 and 66 so injection characters are rejected with 422 before execution, and the external status is mapped through OrderStatus[...] with a KeyError guard at lines 79-83 | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/orders/services/get_order_status.py",
+      "line": 0,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] not-applicable-how-to-skipped: how-to I170 'with SQL Inject-Me' is a Firefox-extension procedure against rendered forms with no Python-analysable counterpart (audit-only, no verdict impact) | verdict=pass confidence=high",
+      "category": "not-applicable-how-to-skipped"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: app/apis/orders/services/get_order_status.py builds every query through the SQLAlchemy ORM with bound criteria (owned_by(db.query(Order), Order, current_user).filter(Order.id == order_id)) -- no raw SQL, no text(), no f-string or %-interpolation of a request value into a statement, so no user input crosses into the control plane. order_id is an int-typed path parameter, so a value such as 1' is rejected with 422 before any query runs, and the externally supplied refresh status is resolved through OrderStatus[...] with a KeyError guard rather than written through as a string | verdict=pass confidence=high",
+      "count": "1"
+    },
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] not-applicable-how-to-skipped: how-to I170 ('with SQL Inject-Me') drives a retired Firefox extension against rendered forms and has no statically analysable Python counterpart; skipped for audit transparency with no verdict impact | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T101 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T1194",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/Dockerfile",
+      "line": 30,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Dockerfile: no SSH server present. Runtime stage installs only libpq5 with --no-install-recommends (line 30-33); no openssh-server/openssh-client/sshd package, no sshd process or entrypoint in either build stage. App user is created with --shell /usr/sbin/nologin (line 53). How-to I942 canonical pattern (SSH not installed in container; use docker exec/nsenter instead) satisfied. Marker scan clean | verdict=pass confidence=high",
+      "category": "mitigation-confirmed"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Dockerfile: no SSH server present. Runtime stage installs only libpq5 with --no-install-recommends (line 30-33); no openssh-server/openssh-client/sshd package, no sshd process or entrypoint in either build stage. App user is created with --shell /usr/sbin/nologin (line 53). How-to I942 canonical pattern (SSH not installed in container; use docker exec/nsenter instead) satisfied. Marker scan clean | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T1194 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

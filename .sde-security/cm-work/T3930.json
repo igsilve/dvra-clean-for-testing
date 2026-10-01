@@ -1,0 +1,19 @@
+{
+  "cm_id": "T3930",
+  "category": "INFRA",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "documentation",
+    "title": "Test package registry security (GitHub)",
+    "priority": 8,
+    "category": "INFRA",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T3930/",
+    "description": "Verify the package registry security controls.",
+    "guidance": "Verification means confirming anonymous publish is refused, that package versions are immutable, and that upstream proxying is limited to approved sources.",
+    "searched": "pyproject.toml, poetry.lock, .github/ (absent)",
+    "found": "No private registry is associated with this project.",
+    "missing": "The registry that would be the subject of the verification.",
+    "conclusion": "The verification has no subject in the current setup.",
+    "action": "The platform team should verify registry controls once a private registry exists."
+  }
+}

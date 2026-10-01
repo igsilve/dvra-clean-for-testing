@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T305",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/main.py",
+      "line": 16,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] The static review this CM prescribes finds no dynamic code loading to regulate. Every import is a static top-level import; there is no importlib/__import__, eval/exec/compile, or pickle/marshal load, and nothing resolves a module path from configuration, request data or the network. The one filesystem path, STATIC_DIR, is derived from Path(__file__).resolve().parent rather than the process working directory, so the mounted directory cannot be relocated by how the process was launched, and it serves public assets only. The interactive docs routes are not registered at all under ENV.PRODUCTION, and the values interpolated into the rendered HTML are escaped and URL-quoted | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] app/main.py: the static review this CM prescribes finds no dynamic code loading to regulate. Every import is a static top-level import; there is no importlib/__import__, eval/exec/compile, or pickle/marshal load, and nothing resolves a module path from configuration, request data or the network. The one filesystem path, STATIC_DIR, is derived from Path(__file__).resolve().parent rather than the process working directory, so the mounted directory cannot be relocated by how the process was launched, and it serves public assets only. The interactive docs routes are not registered at all under ENV.PRODUCTION, and the values interpolated into the rendered HTML are escaped and URL-quoted. | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T305 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

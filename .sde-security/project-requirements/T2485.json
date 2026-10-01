@@ -1,0 +1,12 @@
+{
+  "cm_id": "T2485",
+  "additional_requirements": [
+    {
+      "id": "TA938",
+      "title": "Test that SRI is used",
+      "text": "Verify that all application assets, such as JavaScript libraries, CSS stylesheets, and web fonts, are hosted on your own servers if possible. If some assets are required to be hosted on external providers or CDN networks, verify that they are configured to use Subresource Integrity feature of the browser to check the fetched codes integrity.",
+      "ordinal": 0
+    }
+  ],
+  "count": 1
+}

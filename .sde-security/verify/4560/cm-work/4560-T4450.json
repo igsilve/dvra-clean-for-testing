@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T4450",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/start_app.sh",
+      "line": 29,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: start_app.sh stores no plaintext credential and handles no password input; it gates execution on `require_operator \"start_app.sh\"` (line 29), which fails closed unless an operator identity authenticated upstream is already present (ops_guard.sh lines 14-24), secrets are read from the platform-supplied deploy-time env file rather than embedded in the script (lines 56-60), and `env -i` discards the caller's environment so no credential can be injected through it (line 65) | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: start_app.sh stores no credentials in plain text and handles no password input; it gates execution on require_operator, which fails closed unless an operator identity already authenticated upstream (SDE_DEPLOY_ROLE) is present, and secrets are read from the platform-supplied deploy-time env file while env -i discards the caller's environment | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T4450 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

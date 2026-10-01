@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T7380",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/admin/utils.py",
+      "line": 22,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] subprocess.run is called with the argument list ['df', '-h', mount_point] and no shell=True, so the mount point is a single argv entry and shell metacharacters in it carry no meaning. There is no string concatenation or f-string building a command line, no os.system, and no eval, exec or compile anywhere in the module. The child is further constrained with a scrubbed env of PATH=/usr/bin:/bin and LC_ALL=C, cwd='/', stdin=subprocess.DEVNULL and a 5-second timeout, and failures are logged server-side while the client receives a generic message with no command string, path or traceback | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] subprocess.run is invoked with an argv list and no shell=True, so metacharacters in the mount point carry no meaning; the child gets a scrubbed environment with a fixed PATH, cwd=/, stdin=DEVNULL and a 5s timeout; no os.system, eval, exec or compile appears, and failures are logged server-side with a generic client message | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T7380 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

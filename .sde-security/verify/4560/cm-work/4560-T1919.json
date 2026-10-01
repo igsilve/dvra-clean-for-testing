@@ -1,0 +1,28 @@
+{
+  "full_cm_id": "4560-T1919",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/jwt_tokens.py",
+      "line": 21,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Alternative mitigation accepted: HS256 is a module literal and is never read from the token header, decode passes an explicit algorithms allow-list, and DECODE_OPTIONS sets verify_signature/verify_exp plus require_exp/sub/iat/jti/iss/aud with issuer and audience values validated - the HMAC authenticity-and-integrity path described in the countermeasure | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/auth/utils/jwt_auth.py",
+      "line": 28,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Alternative mitigation accepted: all verification is routed through the single decode_token entry point, JWTError yields 401, and revocation fails closed via a jti deny list and a token_version claim that refuses tokens predating the check | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Alternative mitigation accepted: JWT issuing and verifying are centralized in one module with HS256 as a literal (never read from the token header), an explicit algorithms allow-list on decode, verify_signature/verify_exp plus require_exp/sub/iat/jti/iss/aud, and issuer/audience values validated - the HMAC authenticity-and-integrity path described in the countermeasure; revocation fails closed via a jti deny list and a token_version claim | verdict=pass confidence=high",
+      "count": "2"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T1919 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

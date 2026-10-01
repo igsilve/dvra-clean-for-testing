@@ -1,0 +1,25 @@
+{
+  "cm_id": "T61",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Disable default accounts or change all default passwords",
+    "priority": 9,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T61/",
+    "description": "Stop seeding fixed passwords; generate them and require a change at first login.",
+    "language": "python",
+    "file": "app/init.py",
+    "start_line": 30,
+    "end_line": 73,
+    "finding": "Default accounts for Mike, Saul, hhm, johndoe and alicesmith are created with fixed passwords and left enabled.",
+    "current_code": "    create_user_if_not_exists(\n        db,\n        username=\"Mike\",\n        password=\"kaylee123\",\n        first_name=\"Mike\",\n        last_name=\"\",\n        phone_number=\"(505) 146-0190\",\n        role=UserRole.EMPLOYEE,\n    )\n    create_user_if_not_exists(\n        db,\n        username=\"Saul\",\n        password=\"Th4tsMyP4ssw0rd!\",\n        first_name=\"Saul\",\n        last_name=\"\",\n        phone_number=\"(505) 842-5662\",\n        role=UserRole.EMPLOYEE,\n    )\n    create_user_if_not_exists(\n        db,\n        username=\"hhm\",\n        password=\"12345678\",\n        first_name=\"Howard\",\n        last_name=\"Hamlin\",\n        phone_number=\"(505) 56434-7345\",\n        role=UserRole.CUSTOMER,\n    )\n    create_user_if_not_exists(\n        db,\n        username=\"johndoe\",\n        password=\"password123\",\n        first_name=\"John\",\n        last_name=\"Doe\",\n        phone_number=\"(505) 56434-7346\",\n        role=UserRole.CUSTOMER,\n    )\n    create_user_if_not_exists(\n        db,\n        username=\"alicesmith\",\n        password=\"password456\",\n        first_name=\"Alice\",\n        last_name=\"Smith\",\n        phone_number=\"(505) 53436-7347\",\n        role=UserRole.CUSTOMER,",
+    "required_fix": "# app/init.py\ncreate_user_if_not_exists(\n    db,\n    username=\"Mike\",\n    password=generate_random_secret(),\n    first_name=\"Mike\",\n    last_name=\"\",\n    phone_number=\"(505) 146-0190\",\n    role=UserRole.EMPLOYEE,\n)\n# ...and identically for every other seeded account; print nothing to stdout.",
+    "criteria": [
+      "No hardcoded password literal remains in the seeding code.",
+      "Generated credentials are delivered out of band, not logged.",
+      "Accounts that are not required for operation are not created at all."
+    ]
+  }
+}

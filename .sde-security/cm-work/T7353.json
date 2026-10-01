@@ -1,0 +1,25 @@
+{
+  "cm_id": "T7353",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Authenticate requests with signed JWTs and explicitly pinned algorithms (FastAPI)",
+    "priority": 9,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T7353/",
+    "description": "Verify the JWT signature and pin the algorithm so a forged or unsigned token cannot authenticate.",
+    "language": "python",
+    "file": "app/apis/auth/utils/jwt_auth.py",
+    "start_line": 28,
+    "end_line": 33,
+    "finding": "jwt.decode is called with options={\"verify_signature\": False}, so any unsigned or forged token is accepted.",
+    "current_code": "        payload = jwt.decode(\n            token,\n            SECRET_KEY,\n            algorithms=[ALGORITHM],\n            options={\"verify_signature\": VERIFY_SIGNATURE},\n        )",
+    "required_fix": "# app/apis/auth/utils/jwt_auth.py\nSECRET_KEY = settings.JWT_SECRET_KEY\nALGORITHM = \"HS256\"\n\npayload = jwt.decode(\n    token,\n    SECRET_KEY,\n    algorithms=[ALGORITHM],\n    options={\"verify_signature\": True, \"verify_exp\": True, \"require\": [\"exp\", \"sub\"]},\n)",
+    "criteria": [
+      "The `VERIFY_SIGNATURE` flag is removed and verification is unconditional.",
+      "`algorithms` is a literal list that excludes `none`.",
+      "A token with a tampered payload returns 401."
+    ]
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "cm_id": "T284",
+  "endpoint": "library/tasks/T284/amendments/",
+  "http_status": 200,
+  "result": "TEMPLATE_NO_MATCH",
+  "retry_count": 0,
+  "queried_at": "2026-09-30T02:54:23.894994Z",
+  "matched_amendments": [],
+  "additional_requirements_count": 0
+}

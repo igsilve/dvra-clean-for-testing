@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T7382",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/referrals/service.py",
+      "line": 87,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Replaying the critical state-changing routes in this module does not re-execute the underlying action. /apply-referral checks for an existing DiscountCoupon with a referrer for the caller and answers 409 rather than issuing a second discount, and the committed-race case is closed by catching IntegrityError from the unique index after db.commit() and rolling back to the same 409, so a concurrent duplicate is refused rather than granted. POST /referral-code is idempotent by construction because get_referral_code returns the already-issued code, and code issuance is deliberately kept off the GET route so a prefetch or image URL cannot provoke a write. No Idempotency-Key header or server-issued nonce is present, which is the canonical pattern from ctx.text, but server-side duplicate detection delivers the same exactly-once property for these operations | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] The critical state-changing routes in this module are replay-safe without re-executing: POST /referral-code returns the already-issued code rather than minting a second one, and /apply-referral detects an existing coupon up front and catches the committed-race IntegrityError from the unique index, answering 409 instead of granting a duplicate discount; code issuance is also kept off the GET route | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T7382 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

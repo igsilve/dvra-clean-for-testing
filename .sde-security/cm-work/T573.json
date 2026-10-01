@@ -1,0 +1,19 @@
+{
+  "cm_id": "T573",
+  "category": "INFRA",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "documentation",
+    "title": "Prevent UDDI/ebXML spoofing",
+    "priority": 8,
+    "category": "INFRA",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T573/",
+    "description": "Prevent spoofing of service registry entries used for service discovery.",
+    "guidance": "Where a service registry is used, its entries should be authenticated and integrity-protected, and consumers should validate the identity of a discovered endpoint before contacting it.",
+    "searched": "app/apis/, app/config.py, pyproject.toml, docker-compose.yml",
+    "found": "The service exposes a REST API and discovers nothing through a registry; there is no UDDI, ebXML or equivalent directory in the stack.",
+    "missing": "A service registry, which this architecture does not use.",
+    "conclusion": "The countermeasure targets a service discovery mechanism that is not part of this application.",
+    "action": "The architecture owners should confirm the registry remains out of scope, and revisit if service discovery is introduced."
+  }
+}

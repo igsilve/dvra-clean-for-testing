@@ -1,0 +1,19 @@
+{
+  "cm_id": "T2258",
+  "category": "INFRA",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "documentation",
+    "title": "Minimize host OS attack surface",
+    "priority": 7,
+    "category": "INFRA",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T2258/",
+    "description": "Minimize the attack surface of the hosts running this service.",
+    "guidance": "Container hosts should run a minimal operating system with unused services disabled, unnecessary packages removed, local firewalling enabled and remote access limited to a bastion path.",
+    "searched": "Dockerfile, docker-compose.yml, start_app.sh",
+    "found": "The repository defines the container image but nothing about the host operating system it runs on.",
+    "missing": "Host build configuration and a hardening baseline.",
+    "conclusion": "Host hardening is applied to the machine image, outside this repository. The equivalent work inside the container image is tracked separately under the image attack-surface countermeasure.",
+    "action": "The platform team should apply the host hardening baseline to the container hosts."
+  }
+}

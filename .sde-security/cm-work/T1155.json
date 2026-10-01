@@ -1,0 +1,19 @@
+{
+  "cm_id": "T1155",
+  "category": "INFRA",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "documentation",
+    "title": "Verify that Docker registries are secure (Docker)",
+    "priority": 8,
+    "category": "INFRA",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T1155/",
+    "description": "Verify that the container registries this project uses are reachable only over TLS with validated trust.",
+    "guidance": "Verification means confirming no insecure-registry setting is present on any daemon that builds or runs these images, that registry endpoints are HTTPS, and that the registry CA is installed on the host.",
+    "searched": "Dockerfile, docker-compose.yml, start_app.sh",
+    "found": "Images come from Docker Hub by implicit reference; the daemon configuration that governs registry trust is not part of the repository.",
+    "missing": "Access to the Docker daemon configuration on the build and runtime hosts.",
+    "conclusion": "Registry trust is configured on the Docker daemon and host, outside any file in this repository.",
+    "action": "The platform team should verify daemon registry settings on the build and runtime hosts."
+  }
+}

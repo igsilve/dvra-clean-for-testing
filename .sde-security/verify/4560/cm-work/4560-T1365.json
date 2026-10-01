@@ -1,0 +1,46 @@
+{
+  "full_cm_id": "4560-T1365",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/menu/utils.py",
+      "line": 51,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Outbound image fetch restricted to the https scheme, so file://, ftp://, gopher:// and dict:// payloads are refused before any request is made | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/menu/utils.py",
+      "line": 58,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Strict hostname allow-list (settings.ALLOWED_IMAGE_HOSTS) checked with urllib.parse.urlparse; an empty list disables the feature rather than permitting everything, so a missing configuration fails closed | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/menu/utils.py",
+      "line": 64,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Every address the allowed hostname resolves to is rejected when private, loopback, link-local, reserved, multicast or unspecified, blocking 169.254.169.254 cloud metadata and localhost pivots that a URL-string check cannot see | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/menu/utils.py",
+      "line": 217,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] allow_redirects=False plus an explicit redirect refusal prevents an allowed host from bouncing the request to an internal target; timeouts and certifi-pinned verification bound the call | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/menu/utils.py",
+      "line": 105,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Server responses are validated before use: SHA-256 digest comparison, optional publisher signature check, and Pillow format/dimension parsing, with byte and pixel ceilings, so returned data must match the expected format | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] The only outbound fetch driven by user input (_image_url_to_base64) is gated by the layered SSRF defenses the countermeasure prescribes: scheme restricted to https so file://, gopher:// and dict:// are rejected (app/apis/menu/utils.py:51); strict hostname allow-list that fails closed when unset (:58); every resolved address checked and refused when private, loopback, link-local, reserved, multicast or unspecified, which blocks 169.254.169.254 and 127.0.0.1 (:64-102); redirects disabled and explicitly refused so an allowed host cannot bounce the request elsewhere (:217, :228); response validated by digest, optional signature and Pillow format parsing before use, with urllib.parse.urlparse as the URL parser and bounded timeouts and size limits (:105-260) | verdict=pass confidence=high",
+      "count": "5"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T1365 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

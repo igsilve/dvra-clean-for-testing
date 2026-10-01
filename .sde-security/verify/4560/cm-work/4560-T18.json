@@ -1,0 +1,22 @@
+{
+ "full_cm_id": "4560-T18",
+ "status": "pass",
+ "confidence": "high",
+ "findings": [
+  {
+   "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/auth/utils/authz.py",
+   "line": 115,
+   "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] AuthzContext (:115-157) is a frozen dataclass carrying the server-derived actor and the database-loaded resource together, so the service layer retains the permission data needed to decide; require() re-checks the permission where the data changes and require_ownership() refuses when no resource was loaded rather than assuming. system_authz() (:160-172) makes the no-user bootstrap path explicit instead of an omittable argument, and owned_by() (:175-188) pushes the ownership question into the query. This is the context-propagation property the recommended fix describes | verdict=pass confidence=high",
+   "category": "alternative-mitigation-accepted"
+  }
+ ],
+ "findings_aggregated_for_sde": [
+  {
+   "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Full security context is propagated into the model/service layer. app/apis/auth/utils/authz.py:115-157 defines the immutable AuthzContext carrying both the server-derived actor and the loaded resource, with require(permission) and require_ownership() re-checking at the point data changes; :160-172 forces bootstrap callers to request an explicit system context instead of an optional/absent one; :175-188 narrows queries by owner so a handler cannot load another user's row. No layer makes a decision without the permission data it needs | verdict=pass confidence=high",
+   "count": "1"
+  }
+ ],
+ "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T18 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+ "note_post_status": "POSTED",
+ "reason": ""
+}

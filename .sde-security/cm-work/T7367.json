@@ -1,0 +1,25 @@
+{
+  "cm_id": "T7367",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Validate the Origin and authenticate every WebSocket handshake (FastAPI)",
+    "priority": 9,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T7367/",
+    "description": "If WebSocket routes are introduced, validate the handshake Origin and authenticate the connection before accepting it.",
+    "language": "python",
+    "file": "app/apis/router.py",
+    "start_line": 12,
+    "end_line": 22,
+    "finding": "No WebSocket route is registered and no handshake origin/authentication policy exists for future ones.",
+    "current_code": "api_router = APIRouter()\napi_router.include_router(healthcheck_router, prefix=\"\", tags=[\"healthcheck\"])\napi_router.include_router(\n    debug_router, prefix=\"\", tags=[\"debug\"], include_in_schema=False\n)\napi_router.include_router(menu_router, prefix=\"\", tags=[\"menu\"])\napi_router.include_router(orders_router, prefix=\"\", tags=[\"orders\"])\napi_router.include_router(auth_router, prefix=\"\", tags=[\"auth\"])\napi_router.include_router(admin_router, prefix=\"\", tags=[\"admin\"])\napi_router.include_router(users_router, prefix=\"\", tags=[\"users\"])\napi_router.include_router(referrals_router, prefix=\"\", tags=[\"referrals\"])",
+    "required_fix": "# app/apis/<feature>/ws.py\n@router.websocket(\"/ws/orders\")\nasync def order_updates(websocket: WebSocket, db: Session = Depends(get_db)):\n    if websocket.headers.get(\"origin\") not in settings.ALLOWED_ORIGINS:\n        await websocket.close(code=1008)\n        return\n\n    user = await authenticate_websocket(websocket, db)   # validates the bearer token\n    if user is None:\n        await websocket.close(code=1008)\n        return\n\n    await websocket.accept()",
+    "criteria": [
+      "Every WebSocket route checks Origin against the allow-list before accept().",
+      "The connection is authenticated before any message is processed.",
+      "A handshake from a foreign origin is closed with 1008."
+    ]
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "full_cm_id": "4560-T4446",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/ops_guard.sh",
+      "line": 55,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: ops_guard.sh derives the only path it handles from `command -v` under the already-narrowed PATH, requires the result to be absolute (line 42), and takes its directory with parameter expansion rather than accepting any caller-supplied path (line 55); no `../` sequence or user-controlled path component can enter | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/start_app.sh",
+      "line": 39,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: start_app.sh builds DATA_DIR from its own canonicalized directory via `cd \"$(dirname \"$0\")\"` plus `$(pwd -P)` (lines 25, 39) rather than from caller input, then refuses a symlinked postgres_data (lines 46-49) and one not owned by the current user (lines 51-54), and enforces permissions with umask 077 and `mkdir -m 0700` (lines 23, 40) | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/start_game.sh",
+      "line": 18,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: start_game.sh resolves SCRIPT_DIR from `${BASH_SOURCE[0]}` through `cd -- ... && pwd -P` (line 18) instead of the caller's working directory, targets the hardcoded path /app/game.py (line 29), and refuses to execute start_app.sh if it is a symlink or not a regular executable file (lines 31-39) | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/stop_app.sh",
+      "line": 34,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: stop_app.sh takes no path input; the lock path is derived from the script's own directory after `cd \"$(dirname \"$0\")\"` (lines 17, 34) and umask 077 (line 15) keeps what it creates owner-only | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: no file path in these four scripts derives from user input; paths are canonicalized from the script's own location (dirname \"${BASH_SOURCE[0]}\" with cd/pwd -P) or hardcoded (/app/game.py), start_game.sh and start_app.sh refuse a symlink in place of start_app.sh or postgres_data and verify ownership, and umask 077 with mkdir -m 0700 enforces restrictive permissions | verdict=pass confidence=high",
+      "count": "4"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T4446 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

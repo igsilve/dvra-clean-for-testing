@@ -1,0 +1,22 @@
+{
+ "full_cm_id": "4560-T29",
+ "status": "pass",
+ "confidence": "high",
+ "findings": [
+  {
+   "file": "/Users/isilveira/dvra-clean-for-testing/app/init_app.py",
+   "line": 43,
+   "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] CsrfMiddleware (:43-72, registered :188) implements the double-submit cookie pattern: unsafe methods carrying an ambient auth cookie must present an X-CSRF-Token header matching the csrf_token cookie, compared with secrets.compare_digest, else 403. Safe methods are the only exemption. Credentialed CORS is restricted to an explicit origin allow-list (:180-187, with '*' stripped in config), and the token-based auth scheme means no ambient credential is sent cross-site today. Same request-authenticity property as the recommended anti-CSRF token library | verdict=pass confidence=high",
+   "category": "alternative-mitigation-accepted"
+  }
+ ],
+ "findings_aggregated_for_sde": [
+  {
+   "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Anti-CSRF protection is present as framework middleware: app/init_app.py:43-72 implements CsrfMiddleware, a double-submit token check that exempts only the safe methods GET/HEAD/OPTIONS/TRACE, requires a matching X-CSRF-Token header and csrf_token cookie on every unsafe method whenever an ambient auth cookie is present, and compares with secrets.compare_digest so a mismatch cannot be discovered by timing; it is registered at :188. Authentication is Bearer-token only today, so no ambient credential is attached cross-site, and the middleware makes a future cookie-auth flow fail closed. CORS at :180-187 uses an explicit origin allow-list with credentials rather than a wildcard | verdict=pass confidence=high",
+   "count": "1"
+  }
+ ],
+ "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T29 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+ "note_post_status": "POSTED",
+ "reason": ""
+}

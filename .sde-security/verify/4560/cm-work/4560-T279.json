@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T279",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/menu/utils.py",
+      "line": 105,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] No dynamic code-loading sink present (no eval/exec/compile, no importlib/__import__, no pickle/marshal deserialization); remote bytes are never imported or executed. Remote content is fetched HTTPS-only from an allow-listed host with redirects disabled, certifi-pinned trust, resolved-address egress checks and a size ceiling; _verify_content enforces a sha256 digest via compare_digest plus an RSA-PSS signature against CONTENT_SIGNING_PUBLIC_KEY_PEM, and _assert_content_is_a_supported_image parses the bytes before storage -- the same origin-and-integrity property ctx.text requires before any external module is loaded | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] app/apis/menu/utils.py: no dynamic code-loading sink present (no eval/exec/compile, no importlib/__import__, no pickle/marshal deserialization) - remote bytes are never imported or executed. Remote content is fetched HTTPS-only from an allow-listed host (_assert_image_host_is_authenticated), with redirects disabled, certifi-pinned trust, resolved-address egress checks, and a size ceiling; _verify_content then enforces a sha256 digest via compare_digest plus an RSA-PSS signature against CONTENT_SIGNING_PUBLIC_KEY_PEM, and _assert_content_is_a_supported_image parses the bytes before storage. This is the same origin-and-integrity property ctx.text requires before any external module is loaded. | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T279 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

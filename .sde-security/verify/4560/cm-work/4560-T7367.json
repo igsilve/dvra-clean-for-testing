@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T7367",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/router.py",
+      "line": 30,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] app/apis/router.py: no websocket.accept() call and no WebSocket route is mounted, so the cross-site WebSocket hijacking pattern is not present. Routers are mounted in explicit PUBLIC/AUTHENTICATED/MIXED groups with router-level Depends(get_current_user), and the repository carries a handshake policy module (app/apis/websocket_auth.py) that checks Origin against an exact allow-list and validates a bearer token before accept(), closing with 1008 on mismatch - the same security property as the recommended origin-allow-list plus explicit handshake authentication | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] app/apis/router.py: no websocket.accept() call and no WebSocket route is mounted, so the cross-site WebSocket hijacking pattern is not present. Routers are mounted in explicit PUBLIC/AUTHENTICATED/MIXED groups with router-level Depends(get_current_user), and the repository carries a handshake policy module (app/apis/websocket_auth.py) that checks Origin against an exact allow-list and validates a bearer token before accept(), closing with 1008 on mismatch - the same security property as the recommended origin-allow-list plus explicit handshake authentication | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T7367 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T241",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/pyproject.toml",
+      "line": 30,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: the manifest enumerates every third-party library with an explicit constraint and records a named security floor plus motivating advisory for each transitive package (lines 30-55), satisfying ctx.text step 1; pip-audit in the dev group (line 75) automates steps 2-3 against the advisory database, and dev/test tooling was moved out of the runtime group (line 62) so it no longer ships. | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: pyproject.toml makes the third-party inventory and its patch level auditable from the manifest itself - every runtime dependency carries an explicit constraint, and transitive packages that would otherwise float are given named security floors with the advisory that motivated each one recorded inline (starlette>=1.3.1, h11>=0.16.0 for the chunked-encoding request-smuggling fix, urllib3>=2.5.0, idna>=3.15, anyio>=4.4.0, click>=8.3.3, mako>=1.3.12, pyasn1>=0.6.4, ecdsa>=0.19.1, python-dotenv>=1.2.2). Step 1 of ctx.text (enumerate libraries and versions) is satisfied by the manifest plus poetry.lock, and steps 2-3 (research outstanding advisories and settings) are automated by pip-audit, declared in the dev group so the audit runs in CI without entering the runtime image. Test and lint tooling was moved out of the runtime dependency group, so the shipped surface no longer carries pytest/pylint and their trees. No dependency was observed pinned below its stated floor. | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T241 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

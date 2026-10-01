@@ -1,0 +1,24 @@
+{
+  "cm_id": "T439",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Verify that the origin and integrity of remote code and updates are checked (client side)",
+    "priority": 9,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T439/",
+    "description": "Check the integrity of content retrieved from a remote origin before it is accepted.",
+    "language": "python",
+    "file": "app/apis/menu/utils.py",
+    "start_line": 9,
+    "end_line": 13,
+    "finding": "Content retrieved from a remote origin is accepted without any integrity verification before it is persisted and later served.",
+    "current_code": "def _image_url_to_base64(image_url: str):\n    response = requests.get(image_url, stream=True)\n    encoded_image = base64.b64encode(response.content).decode()\n\n    return encoded_image",
+    "required_fix": "# app/apis/menu/utils.py\nEXPECTED_DIGESTS = load_content_manifest()      # signed manifest, refreshed out of band\n\n\ndef _fetch_verified(url: str) -> bytes:\n    content = _fetch_image(url)\n    digest = hashlib.sha256(content).hexdigest()\n    if digest != EXPECTED_DIGESTS.get(url):\n        raise HTTPException(status_code=400, detail=\"Content integrity check failed\")\n    return content",
+    "criteria": [
+      "Retrieved content is compared against a digest from a trusted, signed manifest.",
+      "A mismatch aborts the operation and is logged."
+    ]
+  }
+}

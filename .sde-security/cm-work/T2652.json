@@ -1,0 +1,19 @@
+{
+  "cm_id": "T2652",
+  "category": "INFRA",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "documentation",
+    "title": "Consider adding plugins for stronger authentication protocols and stricter password complexity rules (MariaDB)",
+    "priority": 9,
+    "category": "INFRA",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T2652/",
+    "description": "Strengthen database authentication with plugins for stronger protocols and password complexity.",
+    "guidance": "The database should enforce password complexity, expiry and reuse restrictions through its authentication plugins, or delegate authentication to a central directory.",
+    "searched": "docker-compose.yml, app/config.py",
+    "found": "The database uses a static password supplied through the compose environment; no complexity or expiry policy is applied.",
+    "missing": "Server-side authentication plugin configuration.",
+    "conclusion": "Authentication plugins are installed and configured on the database server.",
+    "action": "The database administration team should enable password policy enforcement on the server."
+  }
+}

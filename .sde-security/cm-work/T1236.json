@@ -1,0 +1,19 @@
+{
+  "cm_id": "T1236",
+  "category": "INFRA",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "documentation",
+    "title": "Audit the Docker daemon and its files (Docker)",
+    "priority": 8,
+    "category": "INFRA",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T1236/",
+    "description": "Audit the Docker daemon and its supporting files.",
+    "guidance": "Host audit rules should record access to and modification of the daemon binary, socket, configuration and container storage directories, with the resulting records shipped to central log storage.",
+    "searched": "Dockerfile, docker-compose.yml, start_app.sh",
+    "found": "No audit configuration exists in the repository.",
+    "missing": "Host audit daemon rules and a log destination.",
+    "conclusion": "Auditing the container runtime is host instrumentation applied outside this repository.",
+    "action": "The platform team should add audit rules for the daemon and its files."
+  }
+}

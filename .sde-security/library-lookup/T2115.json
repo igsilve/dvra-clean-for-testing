@@ -1,0 +1,10 @@
+{
+  "cm_id": "T2115",
+  "endpoint": "library/tasks/T2115/amendments/",
+  "http_status": 200,
+  "result": "TEMPLATE_NO_MATCH",
+  "retry_count": 0,
+  "queried_at": "2026-09-30T02:51:37.065464Z",
+  "matched_amendments": [],
+  "additional_requirements_count": 0
+}

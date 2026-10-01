@@ -1,0 +1,16 @@
+{
+  "cm_id": "T29",
+  "endpoint": "library/tasks/T29/amendments/",
+  "http_status": 200,
+  "result": "LIBRARY_SOURCED",
+  "retry_count": 0,
+  "queried_at": "2026-09-30T02:49:47.280910Z",
+  "matched_amendments": [
+    {
+      "amendment_id": "TA9301",
+      "technology": "Python",
+      "source_amendment_char_count": 4283
+    }
+  ],
+  "additional_requirements_count": 0
+}

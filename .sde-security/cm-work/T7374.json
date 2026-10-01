@@ -1,0 +1,25 @@
+{
+  "cm_id": "T7374",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Pin, hash, and continuously audit Python dependencies (FastAPI)",
+    "priority": 10,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T7374/",
+    "description": "Pin, hash and continuously audit the Python dependency set.",
+    "language": "toml",
+    "file": "pyproject.toml",
+    "start_line": 9,
+    "end_line": 31,
+    "finding": "Dependencies are unpinned caret ranges with no hash verification and no scheduled audit.",
+    "current_code": "[tool.poetry.dependencies]\npython = \"^3.10\"\nfastapi = \"^0.103.0\"\nuvicorn = {extras = [\"standard\"], version = \"^0.23.2\"}\nhttpx = \"^0.24.1\"\nsqlalchemy = \"^2.0.20\"\npsycopg2 = \"^2.9.7\"\npython-jose = \"^3.3.0\"\npasslib = \"^1.7.4\"\npython-multipart = \"^0.0.9\"\nbcrypt = \"^4.1.2\"\nrequests = \"^2.31.0\"\nalembic = \"^1.13.1\"\npytest = \"8.3.4\"\npytest-mock = \"^3.14.0\"\nrequests-mock = \"^1.11.0\"\ncolorama = \"^0.4.6\"\npylint = \"^3.2.5\"\npytest-json-report = \"^1.5.0\"\npytest-asyncio = \"^0.25.0\"\npillow = \"^11.1.0\"\npsutil = \"^7.0.0\"\nslowapi = \"^0.1.9\"",
+    "required_fix": "# Dockerfile\nCOPY requirements.txt .\nRUN pip install --no-cache-dir --require-hashes -r requirements.txt\n\n# .github/workflows/ci.yml\n      - run: poetry lock --check\n      - run: poetry export -f requirements.txt --output requirements.txt   # with hashes\n      - run: pip-audit -r requirements.txt --strict",
+    "criteria": [
+      "The lock file is committed and CI fails if it is stale.",
+      "Installation requires hashes.",
+      "A scheduled job re-runs the audit against the pinned set."
+    ]
+  }
+}

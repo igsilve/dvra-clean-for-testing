@@ -1,0 +1,25 @@
+{
+  "cm_id": "T7356",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Enforce object-level ownership checks on every resource access (FastAPI)",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T7356/",
+    "description": "Check object ownership on every resource access, not only the caller's role.",
+    "language": "python",
+    "file": "app/apis/orders/services/get_order_service.py",
+    "start_line": 11,
+    "end_line": 20,
+    "finding": "No ownership predicate is applied to the queried Order before it is serialized back.",
+    "current_code": "@router.get(\"/orders/{order_id}\", response_model=schemas.Order)\ndef get_order(\n    order_id: int,\n    db: Session = Depends(get_db),\n    auth=Depends(RolesBasedAuthChecker([UserRole.CUSTOMER])),\n):\n    db_order = db.query(Order).filter(Order.id == order_id).first()\n    if db_order is None:\n        raise HTTPException(status_code=404, detail=\"Order not found\")\n    return db_order",
+    "required_fix": "# app/apis/orders/services/get_order_service.py\ndb_order = (\n    db.query(Order)\n    .filter(Order.id == order_id, Order.user_id == current_user.id)\n    .first()\n)\nif db_order is None:\n    raise HTTPException(status_code=404, detail=\"Order not found\")",
+    "criteria": [
+      "Ownership is expressed as a query filter so the object is never loaded without it.",
+      "The same pattern is applied to orders, coupons and profile access.",
+      "Cross-account access returns 404."
+    ]
+  }
+}

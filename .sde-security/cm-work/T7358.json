@@ -1,0 +1,25 @@
+{
+  "cm_id": "T7358",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Constrain responses with response_model to prevent sensitive-data exposure (FastAPI)",
+    "priority": 9,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T7358/",
+    "description": "Declare an explicit response_model on every route so only the intended fields are serialized to the client.",
+    "language": "python",
+    "file": "app/apis/debug/services/get_debug_info_service.py",
+    "start_line": 11,
+    "end_line": 12,
+    "finding": "The route declares no response_model, so whatever the handler builds \u2014 including the environment dump \u2014 is serialized to the client unfiltered.",
+    "current_code": "@router.get(\"/debug\", status_code=status.HTTP_200_OK)\ndef get_debug_info_service():",
+    "required_fix": "# app/apis/debug/services/get_debug_info_service.py\nclass StatusResponse(BaseModel):\n    status: str\n    version: str\n\n\n@router.get(\"/internal/status\", response_model=StatusResponse)\ndef get_status(...):\n    return StatusResponse(status=\"ok\", version=settings.VERSION)",
+    "criteria": [
+      "Every route declares a response_model.",
+      "No response model exposes password hashes, reset codes or environment values.",
+      "Adding a sensitive column to a model does not change any API response."
+    ]
+  }
+}

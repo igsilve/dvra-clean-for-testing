@@ -1,0 +1,28 @@
+{
+  "full_cm_id": "4560-T59",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/auth/utils/utils.py",
+      "line": 17,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] All password hashing and verification is delegated to passlib's CryptContext (argon2id for new hashes, bcrypt for verification only); no primitive is implemented locally and cost parameters are pinned rather than left to library defaults | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/jwt_tokens.py",
+      "line": 91,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Token signing and verification run entirely through python-jose jwt.encode/jwt.decode with secrets.token_urlsafe for jti; there is no hand-rolled MAC, padding or comparison routine in this module | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] No homemade or re-implemented cryptographic primitive appears on either reviewed path. app/apis/auth/utils/utils.py delegates all password hashing and verification to passlib's CryptContext (argon2id first for new hashes, bcrypt retained for verification only) with cost parameters pinned in code so a library upgrade cannot silently weaken them. app/jwt_tokens.py performs all signing and verification through python-jose jwt.encode/jwt.decode and draws jti from secrets.token_urlsafe; the algorithm is a module literal and is never read from the token header. Alternative mitigation accepted: exclusive use of maintained, widely deployed third-party cryptographic libraries with explicitly pinned parameters satisfies the CM's requirement to use only tested implementations | verdict=pass confidence=high",
+      "count": "2"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T59 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

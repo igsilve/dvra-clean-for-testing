@@ -1,0 +1,32 @@
+{
+  "full_cm_id": "4560-T116",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/init_app.py",
+      "line": 75,
+      "description": "No regex engine is imported and no pattern is compiled in this file, so no catastrophic-backtracking sink exists. The large-payload amplification the weakness depends on is bounded by BodySizeLimitMiddleware, which rejects an oversized declared Content-Length with 413 and meters chunked bodies chunk-by-chunk against settings.MAX_BODY_BYTES before buffering, plus the slowapi limiter.",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/init_app.py",
+      "line": 0,
+      "description": "How-to I137 (\"Manually with browser\") is a runtime denial-of-service test procedure, not a code-level mitigation pattern matchable against Python source; skipped.",
+      "category": "not-applicable-how-to-skipped"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] app/init_app.py imports no regular-expression engine and compiles no pattern, so the catastrophic-backtracking sink described in the weakness is not reachable in this file. The large-payload amplification vector the weakness calls out is bounded by BodySizeLimitMiddleware (lines 75-112), which rejects an oversized declared Content-Length with 413 and also meters chunked transfer-encoding bodies chunk-by-chunk against settings.MAX_BODY_BYTES before they are buffered, and by the slowapi limiter registered at line 193 | verdict=pass confidence=high",
+      "count": "1"
+    },
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] how-to I137 (\"Manually with browser\") is a runtime denial-of-service test procedure driven through a browser, not a code-level mitigation pattern that can be matched against Python source; skipped (audit-only, no verdict impact)",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T116 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

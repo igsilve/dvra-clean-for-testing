@@ -1,0 +1,38 @@
+{
+  "full_cm_id": "4560-T257",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/config.py",
+      "line": 163,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] mitigation-confirmed (how-to I433): ALLOWED_ORIGINS is an environment-driven explicit allow-list that filters out any '*' entry, so a credentialed wildcard origin cannot be configured; the default is two explicit localhost origins rather than a wildcard. | verdict=pass confidence=high",
+      "category": "mitigation-confirmed"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/init_app.py",
+      "line": 180,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] mitigation-confirmed (how-to I433): CORSMiddleware uses allow_origins=settings.ALLOWED_ORIGINS (exact match, no allow_origin_regex and no partial matching), an explicit method list, an explicit header list and max_age=600 for Access-Control-Max-Age; the Origin header is never reflected back. | verdict=pass confidence=high",
+      "category": "mitigation-confirmed"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/init_app.py",
+      "line": 43,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] mitigation-confirmed (how-to I434): CsrfMiddleware enforces a double-submit token compared with secrets.compare_digest on unsafe methods carrying an ambient auth cookie and returns 403 on mismatch, while safe methods including the unauthenticated OPTIONS preflight are exempt; access control itself is enforced by the central Requires(Permission...) dependency rather than by the Origin header. | verdict=pass confidence=high",
+      "category": "mitigation-confirmed"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] mitigation-confirmed (how-to I433, CORS and access control): app/init_app.py configures CORSMiddleware with allow_origins=settings.ALLOWED_ORIGINS (Starlette compares the Origin header for exact equality against this list - no contains/startsWith/endsWith partial matching and no allow_origin_regex), allow_credentials=True for the credentialed case, an explicit method list and an explicit header list rather than wildcards, and max_age=600 which is the Access-Control-Max-Age limit the how-to calls for. app/config.py builds ALLOWED_ORIGINS from the environment and filters out any '*' entry, so a credentialed wildcard cannot be configured even by an operator; the default is two explicit localhost origins. | verdict=pass confidence=high",
+      "count": "1"
+    },
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] mitigation-confirmed (how-to I434, CORS and anti-CSRF protection): the Origin header is not used for access control anywhere - authorization is enforced per route by the central Requires(Permission...) dependency, which the CORS layer cannot influence. app/init_app.py additionally installs CsrfMiddleware, which on any unsafe method carrying an ambient auth cookie requires an X-CSRF-Token header matching the csrf_token cookie, compared with secrets.compare_digest, and returns 403 otherwise; safe methods (GET/HEAD/OPTIONS/TRACE) are exempt so the unauthenticated preflight is not broken. | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T257 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

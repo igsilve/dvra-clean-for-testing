@@ -1,0 +1,25 @@
+{
+  "cm_id": "T1917",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Perform container security assessment",
+    "priority": 10,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T1917/",
+    "description": "Add an image assessment step that fails the build on the findings this Dockerfile currently introduces.",
+    "language": "dockerfile",
+    "file": "Dockerfile",
+    "start_line": 10,
+    "end_line": 20,
+    "finding": "The runtime stage installs a compiler and sudo and grants a passwordless sudoers rule, none of which is covered by any image assessment step.",
+    "current_code": "FROM python:3.10-slim-bookworm as runtime\n\nRUN apt-get update\nRUN apt-get -y install libpq-dev gcc vim sudo\n\nCOPY --from=builder /app/requirements.txt .\nRUN pip install --no-cache-dir -r requirements.txt\nCOPY app ./app\nWORKDIR /app\n\nRUN echo 'ALL ALL=(ALL) NOPASSWD: /usr/bin/find' | sudo tee /etc/sudoers.d/find_nopasswd > /dev/null",
+    "required_fix": "# .github/workflows/ci.yml\n      - name: Scan image\n        run: |\n          set -euo pipefail\n          docker build -t restaurant-api:${{ github.sha }} .\n          trivy image --exit-code 1 --severity HIGH,CRITICAL restaurant-api:${{ github.sha }}\n          hadolint Dockerfile\n          docker run --rm restaurant-api:${{ github.sha }} sh -c '! command -v sudo'",
+    "criteria": [
+      "Every build runs an image vulnerability scan that fails on high and critical findings.",
+      "A Dockerfile linter runs in the same job.",
+      "The assessment output is retained as a build artifact."
+    ]
+  }
+}

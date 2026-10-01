@@ -1,0 +1,28 @@
+{
+  "full_cm_id": "4560-T2349",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/config.py",
+      "line": 55,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] No security-relevant setting carries an insecure default: _required_secret, _required and _db_required raise at import for JWT_SECRET_KEY, OTP_HMAC_KEY, CHEF_USERNAME, ENV and the Postgres credentials, so an incomplete environment is an obvious outage instead of a quietly weak deployment | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/config.py",
+      "line": 155,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Defaults that do exist are the restrictive ones: ALLOWED_HOSTS/ALLOWED_ORIGINS/ALLOWED_IMAGE_HOSTS strip '*' so credentialed CORS can never be wildcarded, POSTGRES_SSLMODE defaults to 'require' and refuses any plaintext-capable mode, and MAX_BODY_BYTES/MAX_UPLOAD_BYTES set request-size ceilings | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] app/config.py is configuration-as-code with no insecure defaults: _required_secret/_required/_db_required fail closed at import for JWT_SECRET_KEY, OTP_HMAC_KEY, CHEF_USERNAME, ENV and Postgres credentials; CORS/host/image allow-lists strip '*'; POSTGRES_SSLMODE defaults to 'require' and rejects plaintext-capable modes; body/upload size ceilings set; each setting's purpose and security relevance is documented inline | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T2349 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

@@ -1,0 +1,28 @@
+{
+  "full_cm_id": "4560-T1193",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/docker-compose.yml",
+      "line": 136,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Mounts inspection resolved statically: the three bind mounts (./deploy/nginx.conf lines 136-142, ./app/static/ lines 144-149, ${TLS_DIR} lines 152-157) are all read_only: true with propagation rprivate, the database uses the named volume pg_volume (lines 205-207), and no sensitive host directory and no docker.sock is mounted, so a grep of Mounts for docker.sock returns nothing and no mapping is read-write | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/docker-compose.yml",
+      "line": 0,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Namespace and device inspection resolved statically: PidMode, IpcMode, UTSMode and UsernsMode would all report empty because no service sets pid:, ipc:, uts: or userns_mode: host; Devices would report [] because no devices: key exists, and no service is privileged | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: Each value this test inspects at runtime is fixed statically by docker-compose.yml, so the compliant outcome can be established from the file. Mounts: the three bind mounts (./deploy/nginx.conf lines 136-142, ./app/static/ lines 144-149, ${TLS_DIR} lines 152-157) are all read_only: true with propagation rprivate, the database uses the named volume pg_volume (lines 205-207), and no sensitive host directory and no docker.sock is mounted, so a grep of Mounts for docker.sock returns nothing and no mapping is read-write. PidMode, IpcMode, UTSMode and UsernsMode would all report empty because no service sets pid:, ipc:, uts: or userns_mode: host. Devices would report [] because no devices: key exists, and no service is privileged. No how-tos were applicable to this CM, so Q2 was skipped | verdict=pass confidence=high",
+      "count": "2"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T1193 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

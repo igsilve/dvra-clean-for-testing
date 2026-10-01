@@ -1,0 +1,25 @@
+{
+  "cm_id": "T587",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Verify that cryptographically secure algorithms are used for random number generation",
+    "priority": 7,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T587/",
+    "description": "Draw referral codes from a cryptographically secure source and give them enough entropy to resist guessing.",
+    "language": "python",
+    "file": "app/apis/referrals/utils.py",
+    "start_line": 8,
+    "end_line": 11,
+    "finding": "random.choice draws from a predictable Mersenne Twister stream, so referral codes are guessable.",
+    "current_code": "def _generate_code() -> str:\n    \"\"\"Generate an 8-character uppercase alphanumeric code.\"\"\"\n    characters = string.ascii_uppercase + string.digits\n    return \"\".join(random.choice(characters) for _ in range(8))",
+    "required_fix": "# app/apis/referrals/utils.py\nimport secrets\nimport string\n\nALPHABET = string.ascii_uppercase + string.digits\nCODE_LENGTH = 12        # ~62 bits of entropy\n\n\ndef _generate_code() -> str:\n    return \"\".join(secrets.choice(ALPHABET) for _ in range(CODE_LENGTH))",
+    "criteria": [
+      "The generator uses `secrets`, not `random`.",
+      "Code length provides at least 64 bits of entropy.",
+      "Collisions are handled by the database unique constraint with a retry."
+    ]
+  }
+}

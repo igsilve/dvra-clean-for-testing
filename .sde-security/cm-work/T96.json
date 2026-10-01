@@ -1,0 +1,25 @@
+{
+  "cm_id": "T96",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Test if your site is vulnerable to CSRF",
+    "priority": 7,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T96/",
+    "description": "Require a CSRF token, or an equivalent non-ambient credential, on every state-changing request.",
+    "language": "python",
+    "file": "app/apis/auth/services/patch_profile_service.py",
+    "start_line": 28,
+    "end_line": 33,
+    "finding": "A state-changing PATCH is accepted with no CSRF token and no origin check.",
+    "current_code": "@router.patch(\"/profile\", response_model=UserRead, status_code=status.HTTP_200_OK)\ndef patch_profile(\n    user: UserUpdate,\n    current_user: Annotated[User, Depends(get_current_user)],\n    db: Session = Depends(get_db),\n):",
+    "required_fix": "# app/init_app.py\nclass CsrfMiddleware(BaseHTTPMiddleware):\n    SAFE = {\"GET\", \"HEAD\", \"OPTIONS\"}\n\n    async def dispatch(self, request, call_next):\n        if request.method not in self.SAFE and \"access_token\" in request.cookies:\n            header = request.headers.get(\"X-CSRF-Token\")\n            cookie = request.cookies.get(\"csrf_token\")\n            if not header or not cookie or not secrets.compare_digest(header, cookie):\n                return JSONResponse({\"detail\": \"CSRF token missing or invalid\"}, status_code=403)\n        return await call_next(request)",
+    "criteria": [
+      "Every non-idempotent route rejects a request without a valid CSRF token when cookie authentication is in play.",
+      "The comparison uses a constant-time function.",
+      "A cross-origin form POST to /profile fails."
+    ]
+  }
+}

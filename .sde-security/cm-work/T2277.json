@@ -1,0 +1,19 @@
+{
+  "cm_id": "T2277",
+  "category": "INFRA",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "documentation",
+    "title": "Test to confirm the use of an account and identity management system",
+    "priority": 7,
+    "category": "INFRA",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T2277/",
+    "description": "Confirm that accounts and identities for this service are managed through the organization's identity management system.",
+    "guidance": "Verification means showing that account creation, modification and deprovisioning for this service flow through the central identity system, with joiner-mover-leaver events reflected automatically and periodic access reviews recorded.",
+    "searched": "app/init.py, app/apis/auth/services/register_user_service.py, app/apis/users/",
+    "found": "Accounts are created locally by the seeding routine and the public /register endpoint; there is no connection to a central identity system to verify.",
+    "missing": "The identity management system integration itself, plus access-review evidence and deprovisioning records.",
+    "conclusion": "The verification has no target until identity management is adopted; it is an audit activity against a platform this deployment does not yet use.",
+    "action": "The identity and access management team should perform this verification once accounts for the service are sourced from the central identity system."
+  }
+}

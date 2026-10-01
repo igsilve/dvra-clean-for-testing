@@ -1,0 +1,48 @@
+{
+  "cm_id": "T3915",
+  "additional_requirements": [
+    {
+      "id": "TA6637",
+      "title": "Ensure changes in deployment configuration are audited",
+      "text": "For each deployment configuration, track and audit changes made to it.",
+      "ordinal": 10
+    },
+    {
+      "id": "TA6638",
+      "title": "Ensure scanners are in place to identify and prevent sensitive data in deployment configuration",
+      "text": "For each deployment configuration file, set scanners to identify and prevent sensitive data within it.",
+      "ordinal": 20
+    },
+    {
+      "id": "TA6639",
+      "title": "Limit access to deployment configurations",
+      "text": "Restrict access to the deployment configuration to trusted and qualified users.",
+      "ordinal": 30
+    },
+    {
+      "id": "TA6640",
+      "title": "Ensure deployment configuration manifests are verified",
+      "text": "Verify each deployment configuration manifest in use.",
+      "ordinal": 40
+    },
+    {
+      "id": "TA6641",
+      "title": "Ensure deployment configuration manifests are pinned to a specific, verified version",
+      "text": "For every deployment configuration manifest in use, pin to a specific version or commit Secure Hash Algorithm (SHA).",
+      "ordinal": 50
+    },
+    {
+      "id": "TA6674",
+      "title": "Ensure deployment configuration files are separated from source code",
+      "text": "Store each deployment configuration file in a dedicated repository separately from source code.",
+      "ordinal": 60
+    },
+    {
+      "id": "TA6675",
+      "title": "Scan Infrastructure as Code (IaC)",
+      "text": "For every Infrastructure as Code (IaC) instructions file, set scanners to identify and prevent misconfigurations and insecure instructions.",
+      "ordinal": 70
+    }
+  ],
+  "count": 7
+}

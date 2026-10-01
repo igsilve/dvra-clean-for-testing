@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T7415",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/docker-compose.yml",
+      "line": 26,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] docker-compose.yml isolates each component in its own container with cap_drop ALL, no-new-privileges, pinned apparmor/seccomp profiles, read_only root filesystems, no privileged mode, no shared host PID/network/IPC namespaces, rprivate bind propagation, and an internal-only backend network that keeps the database out of the proxy trust zone - the same isolation and least-privilege properties the countermeasure requires | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] docker-compose.yml isolates each component in its own container with cap_drop ALL, no-new-privileges, pinned apparmor/seccomp profiles, read_only root filesystems, no privileged mode, no shared host PID/network/IPC namespaces, rprivate bind propagation, and an internal-only backend network that keeps the database out of the proxy trust zone - the same isolation and least-privilege properties the countermeasure requires | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T7415 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

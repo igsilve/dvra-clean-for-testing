@@ -1,0 +1,25 @@
+{
+  "cm_id": "T589",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Verify that all the components are authenticated explicitly",
+    "priority": 9,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T589/",
+    "description": "Authenticate the delivery-service integration in both directions rather than trusting whatever the call returns.",
+    "language": "python",
+    "file": "app/apis/orders/utils.py",
+    "start_line": 4,
+    "end_line": 15,
+    "finding": "The delivery-service integration point returns data without authenticating the remote component.",
+    "current_code": "def fetch_order_status_from_delivery_service(order_id: int):\n    \"\"\"\n    Simulates fetching order status from an external delivery service.\n    In a real scenario, this would make an actual API call.\n    \"\"\"\n\n    # In reality: response = requests.get(f\"https://delivery.service/api/orders/{order_id}\")\n    return {\n        \"order_id\": order_id,\n        \"status\": \"ON_THE_WAY\",\n        \"delivery_notes\": \"Your order is on the way!\",\n    }",
+    "required_fix": "# app/apis/orders/utils.py\ndef fetch_order_status_from_delivery_service(order_id: int) -> dict:\n    response = requests.get(\n        f\"{settings.DELIVERY_API_BASE}/orders/{order_id}\",\n        timeout=5,\n        verify=True,\n        headers={\"Authorization\": f\"Bearer {settings.DELIVERY_API_TOKEN}\"},\n    )\n    response.raise_for_status()\n    payload = DeliveryStatus.model_validate(response.json())   # strict schema\n    return payload.model_dump()",
+    "criteria": [
+      "The integration presents a credential and validates the peer certificate.",
+      "The response is parsed through a strict schema before use.",
+      "An unauthenticated or malformed response aborts the operation."
+    ]
+  }
+}

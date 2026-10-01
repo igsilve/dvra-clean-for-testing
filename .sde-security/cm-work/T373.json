@@ -1,0 +1,25 @@
+{
+  "cm_id": "T373",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Design and regulate access to unauthenticated parts of the application",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T373/",
+    "description": "Declare the unauthenticated surface deliberately and mount every other router behind an authentication dependency.",
+    "language": "python",
+    "file": "app/apis/router.py",
+    "start_line": 12,
+    "end_line": 22,
+    "finding": "Routers are mounted without an explicit policy separating the authenticated surface from the anonymous one; /debug and /delivery/orders end up public by omission.",
+    "current_code": "api_router = APIRouter()\napi_router.include_router(healthcheck_router, prefix=\"\", tags=[\"healthcheck\"])\napi_router.include_router(\n    debug_router, prefix=\"\", tags=[\"debug\"], include_in_schema=False\n)\napi_router.include_router(menu_router, prefix=\"\", tags=[\"menu\"])\napi_router.include_router(orders_router, prefix=\"\", tags=[\"orders\"])\napi_router.include_router(auth_router, prefix=\"\", tags=[\"auth\"])\napi_router.include_router(admin_router, prefix=\"\", tags=[\"admin\"])\napi_router.include_router(users_router, prefix=\"\", tags=[\"users\"])\napi_router.include_router(referrals_router, prefix=\"\", tags=[\"referrals\"])",
+    "required_fix": "# app/apis/router.py\napi_router = APIRouter()\n\n# Public routes:\napi_router.include_router(healthcheck_router, prefix=\"\", tags=[\"healthcheck\"])\napi_router.include_router(auth_router, prefix=\"\", tags=[\"auth\"])\n\n# Authenticated:\nauthed = [Depends(get_current_user)]\napi_router.include_router(menu_router, prefix=\"\", tags=[\"menu\"], dependencies=authed)\napi_router.include_router(orders_router, prefix=\"\", tags=[\"orders\"], dependencies=authed)\napi_router.include_router(admin_router, prefix=\"\", tags=[\"admin\"], dependencies=authed)\napi_router.include_router(users_router, prefix=\"\", tags=[\"users\"], dependencies=authed)\napi_router.include_router(referrals_router, prefix=\"\", tags=[\"referrals\"], dependencies=authed)",
+    "criteria": [
+      "Routers are mounted in two explicit groups: anonymous and authenticated.",
+      "Adding a router without choosing a group fails review, and the default is authenticated.",
+      "The anonymous group exposes no data belonging to a user."
+    ]
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "cm_id": "T2116",
+  "category": "INFRA",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "documentation",
+    "title": "Verify that image vulnerability scanning is enabled (Docker)",
+    "priority": 7,
+    "category": "INFRA",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T2116/",
+    "description": "Verify that image vulnerability scanning is enabled and gating.",
+    "guidance": "Verification means confirming scan results exist for the current image, that they are recent, and that pushing an image with a high-severity finding is blocked.",
+    "searched": "Dockerfile, docker-compose.yml, .github/ (absent)",
+    "found": "No scan results are produced for this project.",
+    "missing": "The scanning platform and its reports.",
+    "conclusion": "The verification depends on a scanning service not yet in place.",
+    "action": "The container platform team should verify scanning coverage once it is enabled."
+  }
+}

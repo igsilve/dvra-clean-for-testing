@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T7368",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/auth/services/get_token_service.py",
+      "line": 71,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] app/apis/auth/services/get_token_service.py: the token endpoint returns the access token in the response body as token_type=bearer and never calls response.set_cookie, so no session or refresh credential is placed in a cookie and the browser cannot attach one to cross-site requests. This is the recommended header-only-token approach that removes the CSRF-exposed surface; rate limiting (5/minute) and uniform 401 responses are also present | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] app/apis/auth/services/get_token_service.py: the token endpoint returns the access token in the response body as token_type=bearer and never calls response.set_cookie, so no session or refresh credential is placed in a cookie and the browser cannot attach one to cross-site requests. This is the recommended header-only-token approach that removes the CSRF-exposed surface; rate limiting (5/minute) and uniform 401 responses are also present | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T7368 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

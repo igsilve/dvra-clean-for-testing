@@ -1,0 +1,25 @@
+{
+  "cm_id": "T2486",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Encrypt and sign all remote code/updates (server side)",
+    "priority": 9,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T2486/",
+    "description": "Sign the artifacts this service produces and verify signatures on what it consumes.",
+    "language": "toml",
+    "file": "pyproject.toml",
+    "start_line": 9,
+    "end_line": 31,
+    "finding": "There is no signing or integrity metadata for the code the service pulls in at build time.",
+    "current_code": "[tool.poetry.dependencies]\npython = \"^3.10\"\nfastapi = \"^0.103.0\"\nuvicorn = {extras = [\"standard\"], version = \"^0.23.2\"}\nhttpx = \"^0.24.1\"\nsqlalchemy = \"^2.0.20\"\npsycopg2 = \"^2.9.7\"\npython-jose = \"^3.3.0\"\npasslib = \"^1.7.4\"\npython-multipart = \"^0.0.9\"\nbcrypt = \"^4.1.2\"\nrequests = \"^2.31.0\"\nalembic = \"^1.13.1\"\npytest = \"8.3.4\"\npytest-mock = \"^3.14.0\"\nrequests-mock = \"^1.11.0\"\ncolorama = \"^0.4.6\"\npylint = \"^3.2.5\"\npytest-json-report = \"^1.5.0\"\npytest-asyncio = \"^0.25.0\"\npillow = \"^11.1.0\"\npsutil = \"^7.0.0\"\nslowapi = \"^0.1.9\"",
+    "required_fix": "# .github/workflows/release.yml\n      - name: Sign image\n        run: |\n          cosign sign --yes \"ghcr.io/${{ github.repository }}@${DIGEST}\"\n\n# deploy step\n      - name: Verify before deploy\n        run: |\n          cosign verify --certificate-identity-regexp '.*' \\\n            --certificate-oidc-issuer https://token.actions.githubusercontent.com \\\n            \"ghcr.io/${{ github.repository }}@${DIGEST}\"",
+    "criteria": [
+      "Every released artifact carries a verifiable signature.",
+      "Deployment fails when the signature cannot be verified.",
+      "Signing keys are managed outside the repository."
+    ]
+  }
+}

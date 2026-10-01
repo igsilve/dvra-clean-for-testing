@@ -1,0 +1,19 @@
+{
+  "cm_id": "T1159",
+  "category": "INFRA",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "documentation",
+    "title": "Verify that TLS authentication is configured for the Docker daemon (Docker)",
+    "priority": 8,
+    "category": "INFRA",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T1159/",
+    "description": "Verify that TLS client authentication is configured for the Docker daemon.",
+    "guidance": "Verification means confirming the daemon listens only on a TLS socket with client certificate verification enabled, and that an unauthenticated connection to the daemon is refused.",
+    "searched": "docker-compose.yml, start_app.sh, stop_app.sh",
+    "found": "The scripts talk to the daemon over the local socket; daemon TLS settings are not represented in the repository.",
+    "missing": "Access to the daemon's configuration and its certificate material.",
+    "conclusion": "Daemon TLS is host configuration outside this repository's control.",
+    "action": "The platform team should verify daemon TLS configuration on each container host."
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "cm_id": "T7375",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Keep blocking work off the async event loop (FastAPI)",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T7375/",
+    "description": "Keep blocking password hashing and database work off the event loop by declaring the handler synchronous or offloading the blocking call.",
+    "language": "python",
+    "file": "app/apis/auth/services/register_user_service.py",
+    "start_line": 19,
+    "end_line": 40,
+    "finding": "The handler is declared `async def` but calls create_user, which performs a blocking bcrypt hash and synchronous database work directly on the event loop.",
+    "current_code": "async def register_user(\n    user: UserCreate,\n    request: Request,\n    db: Session = Depends(get_db),\n):\n    auth = request.headers.get(\"Authorization\")\n\n    if auth:\n        raise HTTPException(\n            status_code=400,\n            detail=\"You're already logged in. You can not register an account.\",\n        )\n\n    try:\n        db_user = create_user(\n            db,\n            user.username,\n            user.password,\n            user.first_name,\n            user.last_name,\n            user.phone_number,\n        )",
+    "required_fix": "# app/apis/auth/services/register_user_service.py\n# Declaring the handler `def` lets FastAPI run it in the threadpool:\n@router.post(\"/register\", response_model=UserRead, status_code=status.HTTP_201_CREATED)\ndef register_user(user: UserCreate, request: Request, db: Session = Depends(get_db)):\n    ...\n\n# If the route must stay async, offload the blocking part:\n#   db_user = await run_in_threadpool(create_user, db, user.username, ...)",
+    "criteria": [
+      "No `async def` handler calls passlib hashing or a synchronous SQLAlchemy query directly.",
+      "Concurrent registrations do not block unrelated requests."
+    ]
+  }
+}

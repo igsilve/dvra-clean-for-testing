@@ -1,0 +1,25 @@
+{
+  "cm_id": "T241",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Verify that third party libraries use secure settings and the latest patches",
+    "priority": 10,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T241/",
+    "description": "Pin dependencies to reviewed versions and run a vulnerability audit on every build.",
+    "language": "toml",
+    "file": "pyproject.toml",
+    "start_line": 9,
+    "end_line": 31,
+    "finding": "Every dependency is declared with a caret range and no lower-bound security floor or audit step.",
+    "current_code": "[tool.poetry.dependencies]\npython = \"^3.10\"\nfastapi = \"^0.103.0\"\nuvicorn = {extras = [\"standard\"], version = \"^0.23.2\"}\nhttpx = \"^0.24.1\"\nsqlalchemy = \"^2.0.20\"\npsycopg2 = \"^2.9.7\"\npython-jose = \"^3.3.0\"\npasslib = \"^1.7.4\"\npython-multipart = \"^0.0.9\"\nbcrypt = \"^4.1.2\"\nrequests = \"^2.31.0\"\nalembic = \"^1.13.1\"\npytest = \"8.3.4\"\npytest-mock = \"^3.14.0\"\nrequests-mock = \"^1.11.0\"\ncolorama = \"^0.4.6\"\npylint = \"^3.2.5\"\npytest-json-report = \"^1.5.0\"\npytest-asyncio = \"^0.25.0\"\npillow = \"^11.1.0\"\npsutil = \"^7.0.0\"\nslowapi = \"^0.1.9\"",
+    "required_fix": "# pyproject.toml \u2014 exact pins reviewed on a schedule\nfastapi = \"0.115.6\"\nuvicorn = {extras = [\"standard\"], version = \"0.34.0\"}\nsqlalchemy = \"2.0.36\"\npython-jose = \"3.3.0\"\npasslib = \"1.7.4\"\nrequests = \"2.32.3\"\n\n# .github/workflows/ci.yml\n      - run: pip-audit --strict --require-hashes -r requirements.txt",
+    "criteria": [
+      "Dependencies are pinned to exact versions in the lock file.",
+      "An audit step fails the build on a known vulnerable version.",
+      "Upgrades are reviewed rather than floating."
+    ]
+  }
+}

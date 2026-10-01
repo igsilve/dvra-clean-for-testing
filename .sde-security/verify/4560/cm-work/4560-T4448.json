@@ -1,0 +1,28 @@
+{
+  "full_cm_id": "4560-T4448",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/start_app.sh",
+      "line": 40,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: start_app.sh creates no temporary file and reads no untrusted input file; the only path it creates is the database volume, made with `mkdir -m 0700` under umask 077 (lines 23, 40) and then checked for symlink substitution and foreign ownership before use (lines 46-54) | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/start_game.sh",
+      "line": 31,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: start_game.sh validates every file it consumes before use -- symlink refusal plus `-f`/`-x` checks on the sibling start_app.sh (lines 31-39) and `test -f` on the hardcoded /app/game.py inside the running container (line 60) -- and creates no temporary files; umask 077 is set at line 11 | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: neither start_app.sh nor start_game.sh creates predictable temporary files or reads untrusted input files; every file consumed is validated before use (symlink refusal plus -f/-x checks on start_app.sh, test -f on /app/game.py inside the container, symlink and ownership checks on postgres_data) and umask 077 with mkdir -m 0700 keeps created files owner-only | verdict=pass confidence=high",
+      "count": "2"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T4448 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

@@ -1,0 +1,28 @@
+{
+  "full_cm_id": "4560-T4437",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/start_app.sh",
+      "line": 46,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Input-file attack surface absent: the script reads no attacker-supplied file. The one filesystem object it touches is validated before use - a symlinked postgres_data is refused (L46-49) and one not owned by the invoking uid is refused (L51-54) - and it is created 0700 under umask 077 (L24, L40), which is the restrictive-permission property the countermeasure asks for | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/start_game.sh",
+      "line": 31,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Input-file attack surface absent: every file this script executes is checked for substitution and type before it runs - start_app.sh is refused if it is a symlink (L31-34) or not a regular executable file (L36-39), and /app/game.py is confirmed present inside the running container before python3 is invoked on it (L60-63). Execution is bounded by run_bounded timeouts (L60, L66) | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Input-file attack surface absent in start_app.sh and start_game.sh: neither script consumes an attacker-supplied input file. Every file touched is validated before use - start_app.sh refuses a symlinked postgres_data and one not owned by the invoking uid, and creates it 0700 under umask 077; start_game.sh refuses a symlinked start_app.sh, requires it to be a regular executable file, and confirms /app/game.py exists inside the container before executing it. These type/ownership/symlink preconditions give the same integrity property the countermeasure asks for | verdict=pass confidence=high",
+      "count": "2"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T4437 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

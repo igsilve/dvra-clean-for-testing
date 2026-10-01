@@ -1,0 +1,26 @@
+{
+  "cm_id": "T7369",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Externalize the JWT signing key and other secrets from code (FastAPI)",
+    "priority": 10,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T7369/",
+    "description": "Require the signing key and every other secret to come from the environment or a secret store, with no in-code fallback.",
+    "language": "python",
+    "file": "app/config.py",
+    "start_line": 22,
+    "end_line": 27,
+    "finding": "JWT_SECRET_KEY falls back to an in-process generated six-digit value instead of requiring an externally supplied secret.",
+    "current_code": "def generate_random_secret():\n    return \"\".join(random.choices(\"1234567890\", k=6))\n\n\nclass Settings:\n    JWT_SECRET_KEY = os.getenv(\"JWT_SECRET_KEY\", generate_random_secret())",
+    "required_fix": "# app/config.py\ndef _required_secret(name: str, min_length: int = 32) -> str:\n    value = os.getenv(name)\n    if not value:\n        raise RuntimeError(f\"{name} must be provided by the secret store\")\n    if len(value) < min_length:\n        raise RuntimeError(f\"{name} must be at least {min_length} characters\")\n    return value\n\n\nclass Settings:\n    JWT_SECRET_KEY: str = _required_secret(\"JWT_SECRET_KEY\")\n    POSTGRES_PASSWORD: str = _required_secret(\"POSTGRES_PASSWORD\", min_length=16)\n\n# generate_random_secret() is deleted.",
+    "criteria": [
+      "`generate_random_secret()` and every secret default are removed from the configuration module.",
+      "Startup fails when a secret is missing or too short.",
+      "Secrets are delivered by a secret mount, not committed configuration.",
+      "Rotating a secret requires no code change."
+    ]
+  }
+}

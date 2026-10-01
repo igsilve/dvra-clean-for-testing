@@ -1,0 +1,2486 @@
+[
+  {
+    "cm_id": "CT9",
+    "title": "Ismenia",
+    "domain": "infrastructure-hardening",
+    "skill_file": "skills/infrastructure-hardening/CT9-ismenia/SKILL.md",
+    "priority": 10,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T101",
+    "title": "Test that application is not vulnerable to SQL injection",
+    "domain": "input-validation",
+    "skill_file": "skills/input-validation/T101-test-that-application-is-not-vulnerable-to-sql-i/SKILL.md",
+    "priority": 10,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T105",
+    "title": "Verify that your application does not have unnecessary debug capability or leftover test/debug code",
+    "domain": "infrastructure-hardening",
+    "skill_file": "skills/infrastructure-hardening/T105-verify-that-your-application-does-not-have-unnec/SKILL.md",
+    "priority": 7,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T106",
+    "title": "Test that site is not vulnerable to direct object access attacks",
+    "domain": "authorization",
+    "skill_file": "skills/authorization/T106-test-that-site-is-not-vulnerable-to-direct-objec/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T114",
+    "title": "Test system-to-system authentication lockout or throttling",
+    "domain": "authentication",
+    "skill_file": "skills/authentication/T114-test-system-to-system-authentication-lockout-or/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T1144",
+    "title": "Prevent Server-Side Template Injection (SSTI)",
+    "domain": "input-validation",
+    "skill_file": "skills/input-validation/T1144-python/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "LIBRARY:TA9360"
+  },
+  {
+    "cm_id": "T1145",
+    "title": "Verify if web page template is vulnerable to SSTI",
+    "domain": "input-validation",
+    "skill_file": "skills/input-validation/T1145-verify-if-web-page-template-is-vulnerable-to-sst/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T1150",
+    "title": "Configure container networks properly (Docker)",
+    "domain": "container-security",
+    "skill_file": "skills/container-security/T1150-docker/SKILL.md",
+    "priority": 7,
+    "category": "CODE_FIX",
+    "source": "LIBRARY:TA8476"
+  },
+  {
+    "cm_id": "T1151",
+    "title": "Verify that container networks are configured properly (Docker)",
+    "domain": "container-security",
+    "skill_file": "skills/container-security/T1151-docker/SKILL.md",
+    "priority": 7,
+    "category": "CODE_FIX",
+    "source": "LIBRARY:TA8469"
+  },
+  {
+    "cm_id": "T1154",
+    "title": "Secure Docker registries (Docker)",
+    "domain": "container-security",
+    "skill_file": "skills/container-security/T1154-docker/SKILL.md",
+    "priority": 8,
+    "category": "INFRA",
+    "source": "LIBRARY:TA8474"
+  },
+  {
+    "cm_id": "T1155",
+    "title": "Verify that Docker registries are secure (Docker)",
+    "domain": "container-security",
+    "skill_file": "skills/container-security/T1155-verify-that-docker-registries-are-secure-docker/SKILL.md",
+    "priority": 8,
+    "category": "INFRA",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T1156",
+    "title": "Do not use the aufs storage driver (Docker)",
+    "domain": "container-security",
+    "skill_file": "skills/container-security/T1156-docker/SKILL.md",
+    "priority": 8,
+    "category": "INFRA",
+    "source": "LIBRARY:TA8473"
+  },
+  {
+    "cm_id": "T1157",
+    "title": "Verify that the aufs storage driver is not used (Docker)",
+    "domain": "container-security",
+    "skill_file": "skills/container-security/T1157-verify-that-the-aufs-storage-driver-is-not-used/SKILL.md",
+    "priority": 8,
+    "category": "INFRA",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T1158",
+    "title": "Configure TLS authentication for the Docker daemon (Docker)",
+    "domain": "container-security",
+    "skill_file": "skills/container-security/T1158-docker/SKILL.md",
+    "priority": 8,
+    "category": "INFRA",
+    "source": "LIBRARY:TA8472"
+  },
+  {
+    "cm_id": "T1159",
+    "title": "Verify that TLS authentication is configured for the Docker daemon (Docker)",
+    "domain": "container-security",
+    "skill_file": "skills/container-security/T1159-verify-that-tls-authentication-is-configured-for/SKILL.md",
+    "priority": 8,
+    "category": "INFRA",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T116",
+    "title": "Test for regular expression denial of service",
+    "domain": "api-security",
+    "skill_file": "skills/api-security/T116-test-for-regular-expression-denial-of-service/SKILL.md",
+    "priority": 7,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T1166",
+    "title": "Encrypt data exchanged between containers on different nodes on the overlay network (Docker)",
+    "domain": "cryptography",
+    "skill_file": "skills/cryptography/T1166-docker/SKILL.md",
+    "priority": 8,
+    "category": "INFRA",
+    "source": "LIBRARY:TA8467"
+  },
+  {
+    "cm_id": "T1167",
+    "title": "Verify that data exchanged between containers on different nodes on the overlay network is encrypted (Docker)",
+    "domain": "cryptography",
+    "skill_file": "skills/cryptography/T1167-verify-that-data-exchanged-between-containers-on/SKILL.md",
+    "priority": 8,
+    "category": "INFRA",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T1172",
+    "title": "Secure daemon configuration files (Docker)",
+    "domain": "container-security",
+    "skill_file": "skills/container-security/T1172-secure-daemon-configuration-files-docker/SKILL.md",
+    "priority": 8,
+    "category": "INFRA",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T1173",
+    "title": "Verify that daemon configuration files are secured (Docker)",
+    "domain": "container-security",
+    "skill_file": "skills/container-security/T1173-verify-that-daemon-configuration-files-are-secur/SKILL.md",
+    "priority": 8,
+    "category": "INFRA",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T1174",
+    "title": "Create non-root users for containers (Docker)",
+    "domain": "container-security",
+    "skill_file": "skills/container-security/T1174-docker/SKILL.md",
+    "priority": 9,
+    "category": "CODE_FIX",
+    "source": "LIBRARY:TA8448"
+  },
+  {
+    "cm_id": "T1175",
+    "title": "Verify that containers are not run as root (Docker)",
+    "domain": "container-security",
+    "skill_file": "skills/container-security/T1175-verify-that-containers-are-not-run-as-root-docke/SKILL.md",
+    "priority": 9,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T1176",
+    "title": "Use trusted base images and include the latest security patches (Docker)",
+    "domain": "container-security",
+    "skill_file": "skills/container-security/T1176-docker/SKILL.md",
+    "priority": 7,
+    "category": "CODE_FIX",
+    "source": "LIBRARY:TA8447"
+  },
+  {
+    "cm_id": "T1177",
+    "title": "Verify that secure and updated images are used (Docker)",
+    "domain": "container-security",
+    "skill_file": "skills/container-security/T1177-docker/SKILL.md",
+    "priority": 7,
+    "category": "CODE_FIX",
+    "source": "LIBRARY:TA8477"
+  },
+  {
+    "cm_id": "T1186",
+    "title": "Do not store secrets in Dockerfiles (Docker)",
+    "domain": "secrets-management",
+    "skill_file": "skills/secrets-management/T1186-docker/SKILL.md",
+    "priority": 10,
+    "category": "CODE_FIX",
+    "source": "LIBRARY:TA8441"
+  },
+  {
+    "cm_id": "T1187",
+    "title": "Test if secrets are stored in Dockerfiles (Docker)",
+    "domain": "secrets-management",
+    "skill_file": "skills/secrets-management/T1187-docker/SKILL.md",
+    "priority": 10,
+    "category": "CODE_FIX",
+    "source": "LIBRARY:TA8466"
+  },
+  {
+    "cm_id": "T1188",
+    "title": "Configure Linux Security Modules (Docker)",
+    "domain": "container-security",
+    "skill_file": "skills/container-security/T1188-docker/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "LIBRARY:TA8458"
+  },
+  {
+    "cm_id": "T1189",
+    "title": "Test if Linux Security Modules are securely configured (Docker)",
+    "domain": "container-security",
+    "skill_file": "skills/container-security/T1189-docker/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "LIBRARY:TA8462"
+  },
+  {
+    "cm_id": "T119",
+    "title": "Test for clickjacking",
+    "domain": "api-security",
+    "skill_file": "skills/api-security/T119-test-for-clickjacking/SKILL.md",
+    "priority": 7,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T1190",
+    "title": "Restrict Linux Kernel Capabilities within containers (Docker)",
+    "domain": "container-security",
+    "skill_file": "skills/container-security/T1190-docker/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "LIBRARY:TA8457"
+  },
+  {
+    "cm_id": "T1191",
+    "title": "Test if Linux Kernel Capabilities are restricted within containers (Docker)",
+    "domain": "container-security",
+    "skill_file": "skills/container-security/T1191-docker/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "LIBRARY:TA8461"
+  },
+  {
+    "cm_id": "T1192",
+    "title": "Do not expose unnecessary host resources (Docker)",
+    "domain": "container-security",
+    "skill_file": "skills/container-security/T1192-docker/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "LIBRARY:TA8439"
+  },
+  {
+    "cm_id": "T1193",
+    "title": "Test if unnecessary host resources are exposed (Docker)",
+    "domain": "container-security",
+    "skill_file": "skills/container-security/T1193-test-if-unnecessary-host-resources-are-exposed-d/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T1194",
+    "title": "Do not run SSH within containers (Docker)",
+    "domain": "container-security",
+    "skill_file": "skills/container-security/T1194-docker/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "LIBRARY:TA8460"
+  },
+  {
+    "cm_id": "T1195",
+    "title": "Test if SSH is running within containers (Docker)",
+    "domain": "container-security",
+    "skill_file": "skills/container-security/T1195-test-if-ssh-is-running-within-containers-docker/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T1196",
+    "title": "Open only needed ports on the containers (Docker)",
+    "domain": "container-security",
+    "skill_file": "skills/container-security/T1196-docker/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "LIBRARY:TA8442"
+  },
+  {
+    "cm_id": "T1197",
+    "title": "Test if only needed ports are open on the containers (Docker)",
+    "domain": "container-security",
+    "skill_file": "skills/container-security/T1197-test-if-only-needed-ports-are-open-on-the-contai/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T1198",
+    "title": "Do not share the host's network namespace (Docker)",
+    "domain": "container-security",
+    "skill_file": "skills/container-security/T1198-docker/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "LIBRARY:TA8456"
+  },
+  {
+    "cm_id": "T1199",
+    "title": "Test that the host's network namespace is not shared (Docker)",
+    "domain": "container-security",
+    "skill_file": "skills/container-security/T1199-test-that-the-host-s-network-namespace-is-not-sh/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T1200",
+    "title": "Limit resources used by containers (Docker)",
+    "domain": "container-security",
+    "skill_file": "skills/container-security/T1200-docker/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "LIBRARY:TA8455"
+  },
+  {
+    "cm_id": "T1201",
+    "title": "Test that resources used by containers are limited (Docker)",
+    "domain": "container-security",
+    "skill_file": "skills/container-security/T1201-test-that-resources-used-by-containers-are-limit/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T1202",
+    "title": "Set container CPU priority appropriately (Docker)",
+    "domain": "container-security",
+    "skill_file": "skills/container-security/T1202-docker/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "LIBRARY:TA8454"
+  },
+  {
+    "cm_id": "T1203",
+    "title": "Test if container CPU priority is appropriately set (Docker)",
+    "domain": "container-security",
+    "skill_file": "skills/container-security/T1203-test-if-container-cpu-priority-is-appropriately/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T1204",
+    "title": "Mount container's root file system as read-only (Docker)",
+    "domain": "container-security",
+    "skill_file": "skills/container-security/T1204-docker/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "LIBRARY:TA8453"
+  },
+  {
+    "cm_id": "T1205",
+    "title": "Test if the container's root file system is mounted as read-only (Docker)",
+    "domain": "container-security",
+    "skill_file": "skills/container-security/T1205-test-if-the-container-s-root-file-system-is-moun/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T1206",
+    "title": "Set the 'on-failure' container restart policy to 5 (Docker)",
+    "domain": "container-security",
+    "skill_file": "skills/container-security/T1206-docker/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "LIBRARY:TA8452"
+  },
+  {
+    "cm_id": "T1207",
+    "title": "Test that the 'on-failure' container restart policy is set to 5 (Docker)",
+    "domain": "container-security",
+    "skill_file": "skills/container-security/T1207-test-that-the-on-failure-container-restart-polic/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T1208",
+    "title": "Do not set mount propagation mode to 'shared' (Docker)",
+    "domain": "container-security",
+    "skill_file": "skills/container-security/T1208-docker/SKILL.md",
+    "priority": 7,
+    "category": "CODE_FIX",
+    "source": "LIBRARY:TA8451"
+  },
+  {
+    "cm_id": "T1209",
+    "title": "Verify that mount propagation mode is not set to 'shared' (Docker)",
+    "domain": "container-security",
+    "skill_file": "skills/container-security/T1209-verify-that-mount-propagation-mode-is-not-set-to/SKILL.md",
+    "priority": 7,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T1210",
+    "title": "Configure seccomp profile (Docker)",
+    "domain": "container-security",
+    "skill_file": "skills/container-security/T1210-docker/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "LIBRARY:TA8450"
+  },
+  {
+    "cm_id": "T1211",
+    "title": "Verify that seccomp profile is enabled (Docker)",
+    "domain": "container-security",
+    "skill_file": "skills/container-security/T1211-verify-that-seccomp-profile-is-enabled-docker/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T1212",
+    "title": "Confirm cgroup usage (Docker)",
+    "domain": "container-security",
+    "skill_file": "skills/container-security/T1212-docker/SKILL.md",
+    "priority": 7,
+    "category": "CODE_FIX",
+    "source": "LIBRARY:TA8440"
+  },
+  {
+    "cm_id": "T1213",
+    "title": "Verify that cgroup usage is confirmed (Docker)",
+    "domain": "container-security",
+    "skill_file": "skills/container-security/T1213-verify-that-cgroup-usage-is-confirmed-docker/SKILL.md",
+    "priority": 7,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T1214",
+    "title": "Restrict containers from acquiring additional privileges (Docker)",
+    "domain": "container-security",
+    "skill_file": "skills/container-security/T1214-docker/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "LIBRARY:TA8449"
+  },
+  {
+    "cm_id": "T1215",
+    "title": "Verify that containers are restricted from acquiring additional privileges (Docker)",
+    "domain": "container-security",
+    "skill_file": "skills/container-security/T1215-verify-that-containers-are-restricted-from-acqui/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T122",
+    "title": "Test for remote file include",
+    "domain": "input-validation",
+    "skill_file": "skills/input-validation/T122-test-for-remote-file-include/SKILL.md",
+    "priority": 10,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T1234",
+    "title": "Only allow trusted users to control the Docker daemon (Docker)",
+    "domain": "container-security",
+    "skill_file": "skills/container-security/T1234-only-allow-trusted-users-to-control-the-docker-d/SKILL.md",
+    "priority": 8,
+    "category": "INFRA",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T1235",
+    "title": "Test that only trusted users can control the Docker daemon (Docker)",
+    "domain": "container-security",
+    "skill_file": "skills/container-security/T1235-test-that-only-trusted-users-can-control-the-doc/SKILL.md",
+    "priority": 8,
+    "category": "INFRA",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T1236",
+    "title": "Audit the Docker daemon and its files (Docker)",
+    "domain": "container-security",
+    "skill_file": "skills/container-security/T1236-audit-the-docker-daemon-and-its-files-docker/SKILL.md",
+    "priority": 8,
+    "category": "INFRA",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T1237",
+    "title": "Test that the Docker daemon and its files are audited (Docker)",
+    "domain": "container-security",
+    "skill_file": "skills/container-security/T1237-test-that-the-docker-daemon-and-its-files-are-au/SKILL.md",
+    "priority": 8,
+    "category": "INFRA",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T128",
+    "title": "Test for access control bypass through user-controlled keys",
+    "domain": "authorization",
+    "skill_file": "skills/authorization/T128-test-for-access-control-bypass-through-user-cont/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T1362",
+    "title": "Perform message throttling in Web APIs",
+    "domain": "api-security",
+    "skill_file": "skills/api-security/T1362-python/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "LIBRARY:TA9329"
+  },
+  {
+    "cm_id": "T1363",
+    "title": "Verify if message throttling is properly performed in Web APIs",
+    "domain": "api-security",
+    "skill_file": "skills/api-security/T1363-verify-if-message-throttling-is-properly-perform/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T1365",
+    "title": "Mitigate Server Side Request Forgery",
+    "domain": "input-validation",
+    "skill_file": "skills/input-validation/T1365-python/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "LIBRARY:TA8521"
+  },
+  {
+    "cm_id": "T1392",
+    "title": "Test for Server Side Request Forgery",
+    "domain": "input-validation",
+    "skill_file": "skills/input-validation/T1392-test-for-server-side-request-forgery/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T1468",
+    "title": "Encrypt sensitive data at rest in the browser",
+    "domain": "cryptography",
+    "skill_file": "skills/cryptography/T1468-encrypt-sensitive-data-at-rest-in-the-browser/SKILL.md",
+    "priority": 9,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T15",
+    "title": "Centralize authorization",
+    "domain": "authorization",
+    "skill_file": "skills/authorization/T15-centralize-authorization/SKILL.md",
+    "priority": 9,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T151",
+    "title": "Use cryptographically secure random numbers",
+    "domain": "cryptography",
+    "skill_file": "skills/cryptography/T151-python/SKILL.md",
+    "priority": 7,
+    "category": "CODE_FIX",
+    "source": "LIBRARY:TA9352"
+  },
+  {
+    "cm_id": "T1539",
+    "title": "Clear browser data on user logout",
+    "domain": "authentication",
+    "skill_file": "skills/authentication/T1539-clear-browser-data-on-user-logout/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T1540",
+    "title": "Verify that browser data is cleared upon user logout",
+    "domain": "authentication",
+    "skill_file": "skills/authentication/T1540-verify-that-browser-data-is-cleared-upon-user-lo/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T1541",
+    "title": "Decide on the best CSRF defense for your application",
+    "domain": "api-security",
+    "skill_file": "skills/api-security/T1541-python/SKILL.md",
+    "priority": 7,
+    "category": "CODE_FIX",
+    "source": "LIBRARY:TA9324"
+  },
+  {
+    "cm_id": "T1542",
+    "title": "Use the correct HTTP methods for making state-changing operations",
+    "domain": "api-security",
+    "skill_file": "skills/api-security/T1542-python/SKILL.md",
+    "priority": 7,
+    "category": "CODE_FIX",
+    "source": "LIBRARY:TA9315"
+  },
+  {
+    "cm_id": "T156",
+    "title": "Validate certificate and its chain of trust properly",
+    "domain": "cryptography",
+    "skill_file": "skills/cryptography/T156-validate-certificate-and-its-chain-of-trust-prop/SKILL.md",
+    "priority": 7,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T166",
+    "title": "Protect against JSON hijacking",
+    "domain": "api-security",
+    "skill_file": "skills/api-security/T166-python/SKILL.md",
+    "priority": 7,
+    "category": "CODE_FIX",
+    "source": "LIBRARY:TA9317"
+  },
+  {
+    "cm_id": "T167",
+    "title": "Test that the application is not vulnerable to JSON Hijacking",
+    "domain": "api-security",
+    "skill_file": "skills/api-security/T167-test-that-the-application-is-not-vulnerable-to-j/SKILL.md",
+    "priority": 7,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T17",
+    "title": "Do not only rely on client-side authorization",
+    "domain": "authorization",
+    "skill_file": "skills/authorization/T17-python/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "LIBRARY:TA9296"
+  },
+  {
+    "cm_id": "T175",
+    "title": "Test that the client validates digital certificates",
+    "domain": "cryptography",
+    "skill_file": "skills/cryptography/T175-test-that-the-client-validates-digital-certifica/SKILL.md",
+    "priority": 7,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T18",
+    "title": "Make authorization decisions using full context",
+    "domain": "authorization",
+    "skill_file": "skills/authorization/T18-python/SKILL.md",
+    "priority": 9,
+    "category": "CODE_FIX",
+    "source": "LIBRARY:TA9505"
+  },
+  {
+    "cm_id": "T184",
+    "title": "Perform authorization checks on RESTful web services",
+    "domain": "authorization",
+    "skill_file": "skills/authorization/T184-python/SKILL.md",
+    "priority": 9,
+    "category": "CODE_FIX",
+    "source": "LIBRARY:TA9310"
+  },
+  {
+    "cm_id": "T186",
+    "title": "Use recommended settings and the latest patches for third party libraries and software",
+    "domain": "dependency-management",
+    "skill_file": "skills/dependency-management/T186-python/SKILL.md",
+    "priority": 10,
+    "category": "CODE_FIX",
+    "source": "LIBRARY:TA9369"
+  },
+  {
+    "cm_id": "T1887",
+    "title": "Decide on the right OAuth 2.0 flow for your application",
+    "domain": "authentication",
+    "skill_file": "skills/authentication/T1887-python/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "LIBRARY:TA9507"
+  },
+  {
+    "cm_id": "T1889",
+    "title": "Secure the configuration of the authorization server",
+    "domain": "authentication",
+    "skill_file": "skills/authentication/T1889-secure-the-configuration-of-the-authorization-se/SKILL.md",
+    "priority": 7,
+    "category": "INFRA",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T1917",
+    "title": "Perform container security assessment",
+    "domain": "container-security",
+    "skill_file": "skills/container-security/T1917-perform-container-security-assessment/SKILL.md",
+    "priority": 10,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T1918",
+    "title": "Integrate with SSO",
+    "domain": "authentication",
+    "skill_file": "skills/authentication/T1918-integrate-with-sso/SKILL.md",
+    "priority": 9,
+    "category": "INFRA",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T1919",
+    "title": "Use JSON Web Token (JWT) securely",
+    "domain": "authentication",
+    "skill_file": "skills/authentication/T1919-python/SKILL.md",
+    "priority": 9,
+    "category": "CODE_FIX",
+    "source": "LIBRARY:TA9313"
+  },
+  {
+    "cm_id": "T1922",
+    "title": "Use secure OAuth 2.0 and OpenID Connect integration (where applicable)",
+    "domain": "authentication",
+    "skill_file": "skills/authentication/T1922-python/SKILL.md",
+    "priority": 7,
+    "category": "CODE_FIX",
+    "source": "LIBRARY:TA9523"
+  },
+  {
+    "cm_id": "T197",
+    "title": "Validate the signature of all remote code/updates to verify their origin and integrity",
+    "domain": "cryptography",
+    "skill_file": "skills/cryptography/T197-validate-the-signature-of-all-remote-code-update/SKILL.md",
+    "priority": 9,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T20",
+    "title": "Generate unique session IDs and reset old IDs after authentication",
+    "domain": "authentication",
+    "skill_file": "skills/authentication/T20-python/SKILL.md",
+    "priority": 9,
+    "category": "CODE_FIX",
+    "source": "LIBRARY:TA9297"
+  },
+  {
+    "cm_id": "T21",
+    "title": "Ensure all data in transit is encrypted using a secure TLS channel",
+    "domain": "cryptography",
+    "skill_file": "skills/cryptography/T21-python/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "LIBRARY:TA8620"
+  },
+  {
+    "cm_id": "T2105",
+    "title": "Enforce the use of client certificate bundles for unprivileged users to access UCP (Docker)",
+    "domain": "authorization",
+    "skill_file": "skills/authorization/T2105-enforce-the-use-of-client-certificate-bundles-fo/SKILL.md",
+    "priority": 7,
+    "category": "INFRA",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T2106",
+    "title": "Verify that the use of client certificate bundles for unprivileged users is enforced (Docker)",
+    "domain": "authorization",
+    "skill_file": "skills/authorization/T2106-verify-that-the-use-of-client-certificate-bundle/SKILL.md",
+    "priority": 7,
+    "category": "INFRA",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T2109",
+    "title": "Enable signed image enforcement (Docker)",
+    "domain": "container-security",
+    "skill_file": "skills/container-security/T2109-enable-signed-image-enforcement-docker/SKILL.md",
+    "priority": 9,
+    "category": "INFRA",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T2110",
+    "title": "Verify that signed image enforcement is enabled (Docker)",
+    "domain": "container-security",
+    "skill_file": "skills/container-security/T2110-verify-that-signed-image-enforcement-is-enabled/SKILL.md",
+    "priority": 9,
+    "category": "INFRA",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T2115",
+    "title": "Enable image vulnerability scanning (Docker)",
+    "domain": "container-security",
+    "skill_file": "skills/container-security/T2115-enable-image-vulnerability-scanning-docker/SKILL.md",
+    "priority": 7,
+    "category": "INFRA",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T2116",
+    "title": "Verify that image vulnerability scanning is enabled (Docker)",
+    "domain": "container-security",
+    "skill_file": "skills/container-security/T2116-verify-that-image-vulnerability-scanning-is-enab/SKILL.md",
+    "priority": 7,
+    "category": "INFRA",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T2139",
+    "title": "Prevent information exposure through APIs",
+    "domain": "api-security",
+    "skill_file": "skills/api-security/T2139-python/SKILL.md",
+    "priority": 7,
+    "category": "CODE_FIX",
+    "source": "LIBRARY:TA9362"
+  },
+  {
+    "cm_id": "T214",
+    "title": "Protect confidential files on operating system or server",
+    "domain": "secrets-management",
+    "skill_file": "skills/secrets-management/T214-protect-confidential-files-on-operating-system-o/SKILL.md",
+    "priority": 9,
+    "category": "INFRA",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T2140",
+    "title": "Test that APIs do not expose sensitive information",
+    "domain": "api-security",
+    "skill_file": "skills/api-security/T2140-test-that-apis-do-not-expose-sensitive-informati/SKILL.md",
+    "priority": 7,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T2141",
+    "title": "Perform function level authorization in API",
+    "domain": "authorization",
+    "skill_file": "skills/authorization/T2141-python/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "LIBRARY:TA8555"
+  },
+  {
+    "cm_id": "T2142",
+    "title": "Verify that function level authorization is implemented in API",
+    "domain": "authorization",
+    "skill_file": "skills/authorization/T2142-python/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "LIBRARY:TA9512"
+  },
+  {
+    "cm_id": "T2256",
+    "title": "Authenticate and log all access to registries containing sensitive or proprietary images",
+    "domain": "container-security",
+    "skill_file": "skills/container-security/T2256-authenticate-and-log-all-access-to-registries-co/SKILL.md",
+    "priority": 8,
+    "category": "INFRA",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T2257",
+    "title": "Regularly update and patch containerization systems",
+    "domain": "container-security",
+    "skill_file": "skills/container-security/T2257-regularly-update-and-patch-containerization-syst/SKILL.md",
+    "priority": 10,
+    "category": "INFRA",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T2258",
+    "title": "Minimize host OS attack surface",
+    "domain": "infrastructure-hardening",
+    "skill_file": "skills/infrastructure-hardening/T2258-minimize-host-os-attack-surface/SKILL.md",
+    "priority": 7,
+    "category": "INFRA",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T226",
+    "title": "Verify that authorization is centralized",
+    "domain": "authorization",
+    "skill_file": "skills/authorization/T226-verify-that-authorization-is-centralized/SKILL.md",
+    "priority": 9,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T2276",
+    "title": "Test to confirm that authorization and authentication controls are in place for access to resources",
+    "domain": "authentication",
+    "skill_file": "skills/authentication/T2276-test-to-confirm-that-authorization-and-authentic/SKILL.md",
+    "priority": 7,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T2277",
+    "title": "Test to confirm the use of an account and identity management system",
+    "domain": "authentication",
+    "skill_file": "skills/authentication/T2277-test-to-confirm-the-use-of-an-account-and-identi/SKILL.md",
+    "priority": 7,
+    "category": "INFRA",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T228",
+    "title": "Test that application restricts HTTP message size",
+    "domain": "api-security",
+    "skill_file": "skills/api-security/T228-test-that-application-restricts-http-message-siz/SKILL.md",
+    "priority": 9,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T2282",
+    "title": "Test to confirm that unauthenticated parts of the application are accessible",
+    "domain": "authorization",
+    "skill_file": "skills/authorization/T2282-test-to-confirm-that-unauthenticated-parts-of-th/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T230",
+    "title": "Test that server-to-server system accounts meet minimum password requirements",
+    "domain": "authentication",
+    "skill_file": "skills/authentication/T230-test-that-server-to-server-system-accounts-meet/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T2349",
+    "title": "Configure software to have secure settings by default",
+    "domain": "infrastructure-hardening",
+    "skill_file": "skills/infrastructure-hardening/T2349-configure-software-to-have-secure-settings-by-de/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T2357",
+    "title": "Verify that software is configured to have secure settings by default",
+    "domain": "infrastructure-hardening",
+    "skill_file": "skills/infrastructure-hardening/T2357-verify-that-software-is-configured-to-have-secur/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T241",
+    "title": "Verify that third party libraries use secure settings and the latest patches",
+    "domain": "dependency-management",
+    "skill_file": "skills/dependency-management/T241-verify-that-third-party-libraries-use-secure-set/SKILL.md",
+    "priority": 10,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T2485",
+    "title": "Verify that remote code and updates are correctly encrypted and signed (server side)",
+    "domain": "cryptography",
+    "skill_file": "skills/cryptography/T2485-verify-that-remote-code-and-updates-are-correctl/SKILL.md",
+    "priority": 9,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T2486",
+    "title": "Encrypt and sign all remote code/updates (server side)",
+    "domain": "cryptography",
+    "skill_file": "skills/cryptography/T2486-encrypt-and-sign-all-remote-code-updates-server/SKILL.md",
+    "priority": 9,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T257",
+    "title": "Secure cross origin resource sharing (CORS)",
+    "domain": "api-security",
+    "skill_file": "skills/api-security/T257-python/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "LIBRARY:TA9522"
+  },
+  {
+    "cm_id": "T2596",
+    "title": "Prevent HTTP Request Smuggling",
+    "domain": "api-security",
+    "skill_file": "skills/api-security/T2596-prevent-http-request-smuggling/SKILL.md",
+    "priority": 9,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T2597",
+    "title": "Implement RBAC instead of individual accounts",
+    "domain": "authorization",
+    "skill_file": "skills/authorization/T2597-implement-rbac-instead-of-individual-accounts/SKILL.md",
+    "priority": 10,
+    "category": "INFRA",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T2598",
+    "title": "Implement query-level access control",
+    "domain": "authorization",
+    "skill_file": "skills/authorization/T2598-python/SKILL.md",
+    "priority": 8,
+    "category": "INFRA",
+    "source": "LIBRARY:TA9511"
+  },
+  {
+    "cm_id": "T2599",
+    "title": "Protect against connection string parameter pollution",
+    "domain": "input-validation",
+    "skill_file": "skills/input-validation/T2599-protect-against-connection-string-parameter-poll/SKILL.md",
+    "priority": 9,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T2600",
+    "title": "Control the result set size returned by a query",
+    "domain": "api-security",
+    "skill_file": "skills/api-security/T2600-control-the-result-set-size-returned-by-a-query/SKILL.md",
+    "priority": 7,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T2601",
+    "title": "Use Transparent Data Encryption with Enterprise Databases",
+    "domain": "cryptography",
+    "skill_file": "skills/cryptography/T2601-use-transparent-data-encryption-with-enterprise/SKILL.md",
+    "priority": 8,
+    "category": "INFRA",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T2602",
+    "title": "Log typical database and server activities and related metadata",
+    "domain": "database-security",
+    "skill_file": "skills/database-security/T2602-log-typical-database-and-server-activities-and-r/SKILL.md",
+    "priority": 8,
+    "category": "INFRA",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T2603",
+    "title": "Protect backup archive bits",
+    "domain": "cryptography",
+    "skill_file": "skills/cryptography/T2603-protect-backup-archive-bits/SKILL.md",
+    "priority": 7,
+    "category": "INFRA",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T2605",
+    "title": "Validate database traffic",
+    "domain": "database-security",
+    "skill_file": "skills/database-security/T2605-validate-database-traffic/SKILL.md",
+    "priority": 9,
+    "category": "INFRA",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T2606",
+    "title": "Verify RBAC implemented instead of individual accounts",
+    "domain": "authorization",
+    "skill_file": "skills/authorization/T2606-verify-rbac-implemented-instead-of-individual-ac/SKILL.md",
+    "priority": 10,
+    "category": "INFRA",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T2607",
+    "title": "Verify query-level access control is implemented",
+    "domain": "authorization",
+    "skill_file": "skills/authorization/T2607-verify-query-level-access-control-is-implemented/SKILL.md",
+    "priority": 8,
+    "category": "INFRA",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T2608",
+    "title": "Verify that the connection string is protected against connection string parameter pollution",
+    "domain": "input-validation",
+    "skill_file": "skills/input-validation/T2608-verify-that-the-connection-string-is-protected-a/SKILL.md",
+    "priority": 9,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T2609",
+    "title": "Verify that the result set size returned by queries are controlled",
+    "domain": "api-security",
+    "skill_file": "skills/api-security/T2609-python/SKILL.md",
+    "priority": 7,
+    "category": "CODE_FIX",
+    "source": "LIBRARY:TA8583"
+  },
+  {
+    "cm_id": "T2610",
+    "title": "Verify that Transparent Data Encryption is utilized with Enterprise Databases",
+    "domain": "cryptography",
+    "skill_file": "skills/cryptography/T2610-verify-that-transparent-data-encryption-is-utili/SKILL.md",
+    "priority": 8,
+    "category": "INFRA",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T2611",
+    "title": "Verify that typical database and server activities, along with related metadata, are logged",
+    "domain": "database-security",
+    "skill_file": "skills/database-security/T2611-verify-that-typical-database-and-server-activiti/SKILL.md",
+    "priority": 8,
+    "category": "INFRA",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T2612",
+    "title": "Verify backup archive bits are protected",
+    "domain": "cryptography",
+    "skill_file": "skills/cryptography/T2612-verify-backup-archive-bits-are-protected/SKILL.md",
+    "priority": 7,
+    "category": "INFRA",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T2614",
+    "title": "Verify database traffic is validated",
+    "domain": "database-security",
+    "skill_file": "skills/database-security/T2614-verify-database-traffic-is-validated/SKILL.md",
+    "priority": 9,
+    "category": "INFRA",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T2615",
+    "title": "Limit network access by blocking connections from unknown IP addresses (PostgreSQL)",
+    "domain": "database-security",
+    "skill_file": "skills/database-security/T2615-limit-network-access-by-blocking-connections-fro/SKILL.md",
+    "priority": 8,
+    "category": "INFRA",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T2616",
+    "title": "Use a secure authentication mechanism for database connections (PostgreSQL)",
+    "domain": "database-security",
+    "skill_file": "skills/database-security/T2616-use-a-secure-authentication-mechanism-for-databa/SKILL.md",
+    "priority": 9,
+    "category": "INFRA",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T2619",
+    "title": "Ensure that row-level security is correctly configured (PostgreSQL)",
+    "domain": "database-security",
+    "skill_file": "skills/database-security/T2619-ensure-that-row-level-security-is-correctly-conf/SKILL.md",
+    "priority": 7,
+    "category": "INFRA",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T2620",
+    "title": "Protect data in transit with TLS (PostgreSQL)",
+    "domain": "cryptography",
+    "skill_file": "skills/cryptography/T2620-protect-data-in-transit-with-tls-postgresql/SKILL.md",
+    "priority": 9,
+    "category": "INFRA",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T2621",
+    "title": "Use file volume encryption and consider in-database encryption with pgcrypto (PostgreSQL)",
+    "domain": "cryptography",
+    "skill_file": "skills/cryptography/T2621-use-file-volume-encryption-and-consider-in-datab/SKILL.md",
+    "priority": 8,
+    "category": "INFRA",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T2652",
+    "title": "Consider adding plugins for stronger authentication protocols and stricter password complexity rules (MariaDB)",
+    "domain": "database-security",
+    "skill_file": "skills/database-security/T2652-consider-adding-plugins-for-stronger-authenticat/SKILL.md",
+    "priority": 9,
+    "category": "INFRA",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T2661",
+    "title": "Change insecure configuration defaults and remove unnecessary features",
+    "domain": "database-security",
+    "skill_file": "skills/database-security/T2661-change-insecure-configuration-defaults-and-remov/SKILL.md",
+    "priority": 9,
+    "category": "INFRA",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T2662",
+    "title": "Restrict network access to the database server",
+    "domain": "database-security",
+    "skill_file": "skills/database-security/T2662-restrict-network-access-to-the-database-server/SKILL.md",
+    "priority": 10,
+    "category": "INFRA",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T2663",
+    "title": "Use a secure authentication mechanism for database connections",
+    "domain": "database-security",
+    "skill_file": "skills/database-security/T2663-use-a-secure-authentication-mechanism-for-databa/SKILL.md",
+    "priority": 9,
+    "category": "INFRA",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T2665",
+    "title": "Protect sensitive data at rest with encryption",
+    "domain": "cryptography",
+    "skill_file": "skills/cryptography/T2665-protect-sensitive-data-at-rest-with-encryption/SKILL.md",
+    "priority": 8,
+    "category": "INFRA",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T2666",
+    "title": "Protect data in transit with TLS (Database Server)",
+    "domain": "cryptography",
+    "skill_file": "skills/cryptography/T2666-protect-data-in-transit-with-tls-database-server/SKILL.md",
+    "priority": 8,
+    "category": "INFRA",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T279",
+    "title": "Avoid dynamically loading any code without proper security considerations",
+    "domain": "input-validation",
+    "skill_file": "skills/input-validation/T279-avoid-dynamically-loading-any-code-without-prope/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T281",
+    "title": "Follow best practices when handling access tokens (API tokens)",
+    "domain": "infrastructure-hardening",
+    "skill_file": "skills/infrastructure-hardening/T281-follow-best-practices-when-handling-access-token/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T284",
+    "title": "Generate secure access tokens (API tokens)",
+    "domain": "infrastructure-hardening",
+    "skill_file": "skills/infrastructure-hardening/T284-generate-secure-access-tokens-api-tokens/SKILL.md",
+    "priority": 7,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T29",
+    "title": "Use anti-Cross-Site Request Forgery (CSRF) tokens",
+    "domain": "api-security",
+    "skill_file": "skills/api-security/T29-python/SKILL.md",
+    "priority": 7,
+    "category": "CODE_FIX",
+    "source": "LIBRARY:TA9301"
+  },
+  {
+    "cm_id": "T295",
+    "title": "Avoid storing unencrypted confidential data without access control mechanisms",
+    "domain": "cryptography",
+    "skill_file": "skills/cryptography/T295-python/SKILL.md",
+    "priority": 7,
+    "category": "CODE_FIX",
+    "source": "LIBRARY:TA9517"
+  },
+  {
+    "cm_id": "T296",
+    "title": "Test that unencrypted confidential data is not stored without access control mechanisms",
+    "domain": "cryptography",
+    "skill_file": "skills/cryptography/T296-test-that-unencrypted-confidential-data-is-not-s/SKILL.md",
+    "priority": 7,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T305",
+    "title": "Verify that your application dynamically loads code only from secure locations",
+    "domain": "input-validation",
+    "skill_file": "skills/input-validation/T305-verify-that-your-application-dynamically-loads-c/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T318",
+    "title": "Verify security of cross origin resource sharing (CORS)",
+    "domain": "api-security",
+    "skill_file": "skills/api-security/T318-verify-security-of-cross-origin-resource-sharing/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T32",
+    "title": "Always perform input validation on a server",
+    "domain": "input-validation",
+    "skill_file": "skills/input-validation/T32-python/SKILL.md",
+    "priority": 7,
+    "category": "CODE_FIX",
+    "source": "LIBRARY:TA9302"
+  },
+  {
+    "cm_id": "T323",
+    "title": "Test that default accounts are disabled or default passwords are changed",
+    "domain": "authentication",
+    "skill_file": "skills/authentication/T323-test-that-default-accounts-are-disabled-or-defau/SKILL.md",
+    "priority": 9,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T338",
+    "title": "Control access to resources through user authentication and authorization",
+    "domain": "authentication",
+    "skill_file": "skills/authentication/T338-python/SKILL.md",
+    "priority": 7,
+    "category": "CODE_FIX",
+    "source": "LIBRARY:TA9312"
+  },
+  {
+    "cm_id": "T340",
+    "title": "Use an account and identity management system",
+    "domain": "authentication",
+    "skill_file": "skills/authentication/T340-use-an-account-and-identity-management-system/SKILL.md",
+    "priority": 7,
+    "category": "INFRA",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T349",
+    "title": "Protect audit information and logs against unauthorized access",
+    "domain": "logging-monitoring",
+    "skill_file": "skills/logging-monitoring/T349-protect-audit-information-and-logs-against-unaut/SKILL.md",
+    "priority": 7,
+    "category": "INFRA",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T35",
+    "title": "Fine-tune HTTP server settings",
+    "domain": "api-security",
+    "skill_file": "skills/api-security/T35-fine-tune-http-server-settings/SKILL.md",
+    "priority": 9,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T350",
+    "title": "Verify that audit information is sufficiently protected",
+    "domain": "logging-monitoring",
+    "skill_file": "skills/logging-monitoring/T350-verify-that-audit-information-is-sufficiently-pr/SKILL.md",
+    "priority": 7,
+    "category": "INFRA",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T36",
+    "title": "Escape untrusted data in HTML, HTML attributes, CSS, and JavaScript",
+    "domain": "input-validation",
+    "skill_file": "skills/input-validation/T36-python/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "LIBRARY:TA9293"
+  },
+  {
+    "cm_id": "T373",
+    "title": "Design and regulate access to unauthenticated parts of the application",
+    "domain": "authorization",
+    "skill_file": "skills/authorization/T373-design-and-regulate-access-to-unauthenticated-pa/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T374",
+    "title": "Offload HTTP request handling to dedicated modules",
+    "domain": "api-security",
+    "skill_file": "skills/api-security/T374-offload-http-request-handling-to-dedicated-modul/SKILL.md",
+    "priority": 7,
+    "category": "INFRA",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T378",
+    "title": "Authorize every request for data objects",
+    "domain": "authorization",
+    "skill_file": "skills/authorization/T378-authorize-every-request-for-data-objects/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T38",
+    "title": "Bind variables in SQL statements",
+    "domain": "input-validation",
+    "skill_file": "skills/input-validation/T38-python/SKILL.md",
+    "priority": 10,
+    "category": "CODE_FIX",
+    "source": "LIBRARY:TA9283"
+  },
+  {
+    "cm_id": "T3903",
+    "title": "Implement application and webhook security strategies (GitHub)",
+    "domain": "ci-cd-security",
+    "skill_file": "skills/ci-cd-security/T3903-implement-application-and-webhook-security-strat/SKILL.md",
+    "priority": 8,
+    "category": "INFRA",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T3905",
+    "title": "Ensure pipeline efficiency and security (GitHub)",
+    "domain": "ci-cd-security",
+    "skill_file": "skills/ci-cd-security/T3905-ensure-pipeline-efficiency-and-security-github/SKILL.md",
+    "priority": 8,
+    "category": "INFRA",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T3906",
+    "title": "Implement secure build worker management (GitHub)",
+    "domain": "ci-cd-security",
+    "skill_file": "skills/ci-cd-security/T3906-implement-secure-build-worker-management-github/SKILL.md",
+    "priority": 8,
+    "category": "INFRA",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T3907",
+    "title": "Ensure pipeline definition and security (GitHub)",
+    "domain": "ci-cd-security",
+    "skill_file": "skills/ci-cd-security/T3907-ensure-pipeline-definition-and-security-github/SKILL.md",
+    "priority": 8,
+    "category": "INFRA",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T3908",
+    "title": "Enforce artifact signing (GitHub)",
+    "domain": "ci-cd-security",
+    "skill_file": "skills/ci-cd-security/T3908-enforce-artifact-signing-github/SKILL.md",
+    "priority": 8,
+    "category": "INFRA",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T3913",
+    "title": "Implement package registry security (GitHub)",
+    "domain": "dependency-management",
+    "skill_file": "skills/dependency-management/T3913-implement-package-registry-security-github/SKILL.md",
+    "priority": 8,
+    "category": "INFRA",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T3915",
+    "title": "Enforce separation of deployment configuration files (GitHub)",
+    "domain": "ci-cd-security",
+    "skill_file": "skills/ci-cd-security/T3915-enforce-separation-of-deployment-configuration-f/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T3916",
+    "title": "Ensure automated and secure deployment (GitHub)",
+    "domain": "ci-cd-security",
+    "skill_file": "skills/ci-cd-security/T3916-ensure-automated-and-secure-deployment-github/SKILL.md",
+    "priority": 8,
+    "category": "INFRA",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T3920",
+    "title": "Test application and webhook security strategies (GitHub)",
+    "domain": "ci-cd-security",
+    "skill_file": "skills/ci-cd-security/T3920-test-application-and-webhook-security-strategies/SKILL.md",
+    "priority": 8,
+    "category": "INFRA",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T3922",
+    "title": "Test pipeline efficiency and security (GitHub)",
+    "domain": "ci-cd-security",
+    "skill_file": "skills/ci-cd-security/T3922-test-pipeline-efficiency-and-security-github/SKILL.md",
+    "priority": 8,
+    "category": "INFRA",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T3923",
+    "title": "Test secure build worker management (GitHub)",
+    "domain": "ci-cd-security",
+    "skill_file": "skills/ci-cd-security/T3923-test-secure-build-worker-management-github/SKILL.md",
+    "priority": 8,
+    "category": "INFRA",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T3924",
+    "title": "Test pipeline definition and security (GitHub)",
+    "domain": "ci-cd-security",
+    "skill_file": "skills/ci-cd-security/T3924-test-pipeline-definition-and-security-github/SKILL.md",
+    "priority": 8,
+    "category": "INFRA",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T3925",
+    "title": "Test artifact signing (GitHub)",
+    "domain": "ci-cd-security",
+    "skill_file": "skills/ci-cd-security/T3925-test-artifact-signing-github/SKILL.md",
+    "priority": 8,
+    "category": "INFRA",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T3930",
+    "title": "Test package registry security (GitHub)",
+    "domain": "dependency-management",
+    "skill_file": "skills/dependency-management/T3930-test-package-registry-security-github/SKILL.md",
+    "priority": 8,
+    "category": "INFRA",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T3932",
+    "title": "Test separation of deployment configuration files (GitHub)",
+    "domain": "ci-cd-security",
+    "skill_file": "skills/ci-cd-security/T3932-test-separation-of-deployment-configuration-file/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T3933",
+    "title": "Test automated and secure deployment (GitHub)",
+    "domain": "ci-cd-security",
+    "skill_file": "skills/ci-cd-security/T3933-test-automated-and-secure-deployment-github/SKILL.md",
+    "priority": 8,
+    "category": "INFRA",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T394",
+    "title": "Secure one-time passwords (OTP)",
+    "domain": "authentication",
+    "skill_file": "skills/authentication/T394-python/SKILL.md",
+    "priority": 7,
+    "category": "CODE_FIX",
+    "source": "LIBRARY:TA9351"
+  },
+  {
+    "cm_id": "T395",
+    "title": "Verify that one-time passwords (OTP) are securely used",
+    "domain": "authentication",
+    "skill_file": "skills/authentication/T395-verify-that-one-time-passwords-otp-are-securely/SKILL.md",
+    "priority": 7,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T406",
+    "title": "Secure symmetric-key authentication",
+    "domain": "authentication",
+    "skill_file": "skills/authentication/T406-secure-symmetric-key-authentication/SKILL.md",
+    "priority": 7,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T407",
+    "title": "Verify that symmetric-key authentication is secure",
+    "domain": "authentication",
+    "skill_file": "skills/authentication/T407-verify-that-symmetric-key-authentication-is-secu/SKILL.md",
+    "priority": 7,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T42",
+    "title": "Avoid relying on untrusted data for server-side selection",
+    "domain": "input-validation",
+    "skill_file": "skills/input-validation/T42-python/SKILL.md",
+    "priority": 10,
+    "category": "CODE_FIX",
+    "source": "LIBRARY:TA9489"
+  },
+  {
+    "cm_id": "T43",
+    "title": "Avoid unsafe operating system interaction",
+    "domain": "input-validation",
+    "skill_file": "skills/input-validation/T43-python/SKILL.md",
+    "priority": 10,
+    "category": "CODE_FIX",
+    "source": "LIBRARY:TA9320"
+  },
+  {
+    "cm_id": "T439",
+    "title": "Verify that the origin and integrity of remote code and updates are checked (client side)",
+    "domain": "cryptography",
+    "skill_file": "skills/cryptography/T439-verify-that-the-origin-and-integrity-of-remote-c/SKILL.md",
+    "priority": 9,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T4433",
+    "title": "Prevent path environment attacks (Bash/Shell)",
+    "domain": "input-validation",
+    "skill_file": "skills/input-validation/T4433-prevent-path-environment-attacks-bash-shell/SKILL.md",
+    "priority": 7,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T4434",
+    "title": "Prevent injection attacks (Bash/Shell)",
+    "domain": "input-validation",
+    "skill_file": "skills/input-validation/T4434-python/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "LIBRARY:TA8524"
+  },
+  {
+    "cm_id": "T4435",
+    "title": "Prevent path traversal and file path manipulation (Bash/Shell)",
+    "domain": "input-validation",
+    "skill_file": "skills/input-validation/T4435-python/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "LIBRARY:TA8554"
+  },
+  {
+    "cm_id": "T4436",
+    "title": "Protect directory writing and reading (Bash/Shell)",
+    "domain": "input-validation",
+    "skill_file": "skills/input-validation/T4436-protect-directory-writing-and-reading-bash-shell/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T4437",
+    "title": "Prevent input file attacks (Bash/Shell)",
+    "domain": "input-validation",
+    "skill_file": "skills/input-validation/T4437-prevent-input-file-attacks-bash-shell/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T4438",
+    "title": "Prevent file upload vulnerabilities (Bash/Shell)",
+    "domain": "input-validation",
+    "skill_file": "skills/input-validation/T4438-python/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "LIBRARY:TA8520"
+  },
+  {
+    "cm_id": "T4439",
+    "title": "Prevent authentication attacks (Bash/Shell)",
+    "domain": "authentication",
+    "skill_file": "skills/authentication/T4439-prevent-authentication-attacks-bash-shell/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T4440",
+    "title": "Enforce access controls (Bash/Shell)",
+    "domain": "authorization",
+    "skill_file": "skills/authorization/T4440-enforce-access-controls-bash-shell/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T4441",
+    "title": "Prevent attacks related to environmental vulnerabilities (Bash/Shell)",
+    "domain": "infrastructure-hardening",
+    "skill_file": "skills/infrastructure-hardening/T4441-prevent-attacks-related-to-environmental-vulnera/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T4442",
+    "title": "Manage and protect script processes (Bash/Shell)",
+    "domain": "infrastructure-hardening",
+    "skill_file": "skills/infrastructure-hardening/T4442-manage-and-protect-script-processes-bash-shell/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T4443",
+    "title": "Prevent cryptographic failures (Bash/Shell)",
+    "domain": "cryptography",
+    "skill_file": "skills/cryptography/T4443-prevent-cryptographic-failures-bash-shell/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T4444",
+    "title": "Test prevention of path environment attacks (Bash/Shell)",
+    "domain": "input-validation",
+    "skill_file": "skills/input-validation/T4444-test-prevention-of-path-environment-attacks-bash/SKILL.md",
+    "priority": 7,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T4445",
+    "title": "Test prevention of injection attacks (Bash/Shell)",
+    "domain": "input-validation",
+    "skill_file": "skills/input-validation/T4445-python/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "LIBRARY:TA8591"
+  },
+  {
+    "cm_id": "T4446",
+    "title": "Test prevention of path traversal and file path manipulation (Bash/Shell)",
+    "domain": "input-validation",
+    "skill_file": "skills/input-validation/T4446-python/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "LIBRARY:TA8593"
+  },
+  {
+    "cm_id": "T4447",
+    "title": "Test directory writing and reading (Bash/Shell)",
+    "domain": "input-validation",
+    "skill_file": "skills/input-validation/T4447-test-directory-writing-and-reading-bash-shell/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T4448",
+    "title": "Test prevention against input file attacks (Bash/Shell)",
+    "domain": "input-validation",
+    "skill_file": "skills/input-validation/T4448-test-prevention-against-input-file-attacks-bash/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T4449",
+    "title": "Test prevention of file upload vulnerabilities (Bash/Shell)",
+    "domain": "input-validation",
+    "skill_file": "skills/input-validation/T4449-test-prevention-of-file-upload-vulnerabilities-b/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T445",
+    "title": "Verify that only approved cryptographic algorithms and key lengths are used",
+    "domain": "cryptography",
+    "skill_file": "skills/cryptography/T445-verify-that-only-approved-cryptographic-algorith/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T4450",
+    "title": "Test authentication (Bash/Shell)",
+    "domain": "authentication",
+    "skill_file": "skills/authentication/T4450-test-authentication-bash-shell/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T4451",
+    "title": "Test access controls (Bash/Shell)",
+    "domain": "authorization",
+    "skill_file": "skills/authorization/T4451-test-access-controls-bash-shell/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T4452",
+    "title": "Test environmental vulnerabilities (Bash/Shell)",
+    "domain": "infrastructure-hardening",
+    "skill_file": "skills/infrastructure-hardening/T4452-test-environmental-vulnerabilities-bash-shell/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T4453",
+    "title": "Test protection of script processes (Bash/Shell)",
+    "domain": "infrastructure-hardening",
+    "skill_file": "skills/infrastructure-hardening/T4453-test-protection-of-script-processes-bash-shell/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T4454",
+    "title": "Test cryptographic functions (Bash/Shell)",
+    "domain": "cryptography",
+    "skill_file": "skills/cryptography/T4454-test-cryptographic-functions-bash-shell/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T446",
+    "title": "Verify that only standard libraries are used for cryptography",
+    "domain": "cryptography",
+    "skill_file": "skills/cryptography/T446-verify-that-only-standard-libraries-are-used-for/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T4601",
+    "title": "Prioritize static network configuration",
+    "domain": "infrastructure-hardening",
+    "skill_file": "skills/infrastructure-hardening/T4601-prioritize-static-network-configuration/SKILL.md",
+    "priority": 8,
+    "category": "INFRA",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T4746",
+    "title": "Ensure container images are secure",
+    "domain": "container-security",
+    "skill_file": "skills/container-security/T4746-ensure-container-images-are-secure/SKILL.md",
+    "priority": 10,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T4747",
+    "title": "Limit container privileges",
+    "domain": "container-security",
+    "skill_file": "skills/container-security/T4747-limit-container-privileges/SKILL.md",
+    "priority": 10,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T4748",
+    "title": "Implement Role-Based Access Control (RBAC) for container orchestration",
+    "domain": "authorization",
+    "skill_file": "skills/authorization/T4748-implement-role-based-access-control-rbac-for-con/SKILL.md",
+    "priority": 10,
+    "category": "INFRA",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T4749",
+    "title": "Monitor containers in real-time",
+    "domain": "container-security",
+    "skill_file": "skills/container-security/T4749-monitor-containers-in-real-time/SKILL.md",
+    "priority": 10,
+    "category": "INFRA",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T4750",
+    "title": "Isolate container networks",
+    "domain": "container-security",
+    "skill_file": "skills/container-security/T4750-isolate-container-networks/SKILL.md",
+    "priority": 10,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T4751",
+    "title": "Reduce the attack surface of container images",
+    "domain": "container-security",
+    "skill_file": "skills/container-security/T4751-reduce-the-attack-surface-of-container-images/SKILL.md",
+    "priority": 10,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T49",
+    "title": "Disable and remove debug capabilities and code/data, and prepare application for release",
+    "domain": "infrastructure-hardening",
+    "skill_file": "skills/infrastructure-hardening/T49-python/SKILL.md",
+    "priority": 7,
+    "category": "CODE_FIX",
+    "source": "LIBRARY:TA8625"
+  },
+  {
+    "cm_id": "T50",
+    "title": "Use indirect object reference maps if accessing files",
+    "domain": "authorization",
+    "skill_file": "skills/authorization/T50-python/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "LIBRARY:TA9304"
+  },
+  {
+    "cm_id": "T536",
+    "title": "Restrict the size of incoming messages in services",
+    "domain": "api-security",
+    "skill_file": "skills/api-security/T536-restrict-the-size-of-incoming-messages-in-servic/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T537",
+    "title": "Test that the size of incoming messages in services is restricted",
+    "domain": "api-security",
+    "skill_file": "skills/api-security/T537-test-that-the-size-of-incoming-messages-in-servi/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T558",
+    "title": "Authenticate all other components before any network communication with them",
+    "domain": "authentication",
+    "skill_file": "skills/authentication/T558-authenticate-all-other-components-before-any-net/SKILL.md",
+    "priority": 9,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T573",
+    "title": "Prevent UDDI/ebXML spoofing",
+    "domain": "input-validation",
+    "skill_file": "skills/input-validation/T573-prevent-uddi-ebxml-spoofing/SKILL.md",
+    "priority": 8,
+    "category": "INFRA",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T576",
+    "title": "Verify that UDDI/ebXML spoofing is prevented",
+    "domain": "input-validation",
+    "skill_file": "skills/input-validation/T576-verify-that-uddi-ebxml-spoofing-is-prevented/SKILL.md",
+    "priority": 8,
+    "category": "INFRA",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T587",
+    "title": "Verify that cryptographically secure algorithms are used for random number generation",
+    "domain": "cryptography",
+    "skill_file": "skills/cryptography/T587-verify-that-cryptographically-secure-algorithms/SKILL.md",
+    "priority": 7,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T589",
+    "title": "Verify that all the components are authenticated explicitly",
+    "domain": "authentication",
+    "skill_file": "skills/authentication/T589-verify-that-all-the-components-are-authenticated/SKILL.md",
+    "priority": 9,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T59",
+    "title": "Use standard libraries for cryptography",
+    "domain": "cryptography",
+    "skill_file": "skills/cryptography/T59-python/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "LIBRARY:TA8547"
+  },
+  {
+    "cm_id": "T60",
+    "title": "Use correct and approved cryptographic algorithms, parameters, and key lengths",
+    "domain": "cryptography",
+    "skill_file": "skills/cryptography/T60-python/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "LIBRARY:TA9492"
+  },
+  {
+    "cm_id": "T61",
+    "title": "Disable default accounts or change all default passwords",
+    "domain": "authentication",
+    "skill_file": "skills/authentication/T61-disable-default-accounts-or-change-all-default-p/SKILL.md",
+    "priority": 9,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T659",
+    "title": "Test that user-supplied inputs are validated before being passed to OS commands",
+    "domain": "input-validation",
+    "skill_file": "skills/input-validation/T659-test-that-user-supplied-inputs-are-validated-bef/SKILL.md",
+    "priority": 10,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T66",
+    "title": "Prevent web pages from being loaded inside iFrame",
+    "domain": "api-security",
+    "skill_file": "skills/api-security/T66-prevent-web-pages-from-being-loaded-inside-ifram/SKILL.md",
+    "priority": 7,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T69",
+    "title": "Strong password requirements for server-to-server system accounts",
+    "domain": "authentication",
+    "skill_file": "skills/authentication/T69-python/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "LIBRARY:TA8615"
+  },
+  {
+    "cm_id": "T70",
+    "title": "Implement account lockout or authentication throttling for system accounts",
+    "domain": "authentication",
+    "skill_file": "skills/authentication/T70-python/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "LIBRARY:TA9493"
+  },
+  {
+    "cm_id": "T7353",
+    "title": "Authenticate requests with signed JWTs and explicitly pinned algorithms (FastAPI)",
+    "domain": "authentication",
+    "skill_file": "skills/authentication/T7353-authenticate-requests-with-signed-jwts-and-expli/SKILL.md",
+    "priority": 9,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T7354",
+    "title": "Hash user passwords with Argon2 or bcrypt via a vetted library (FastAPI)",
+    "domain": "authentication",
+    "skill_file": "skills/authentication/T7354-hash-user-passwords-with-argon2-or-bcrypt-via-a/SKILL.md",
+    "priority": 10,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T7355",
+    "title": "Enforce endpoint authorization with dependencies and OAuth2 scopes (FastAPI)",
+    "domain": "authorization",
+    "skill_file": "skills/authorization/T7355-enforce-endpoint-authorization-with-dependencies/SKILL.md",
+    "priority": 10,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T7356",
+    "title": "Enforce object-level ownership checks on every resource access (FastAPI)",
+    "domain": "authorization",
+    "skill_file": "skills/authorization/T7356-enforce-object-level-ownership-checks-on-every-r/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T7357",
+    "title": "Drive request parsing with strict Pydantic models and forbid extra fields (FastAPI)",
+    "domain": "api-security",
+    "skill_file": "skills/api-security/T7357-drive-request-parsing-with-strict-pydantic-model/SKILL.md",
+    "priority": 10,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T7358",
+    "title": "Constrain responses with response_model to prevent sensitive-data exposure (FastAPI)",
+    "domain": "api-security",
+    "skill_file": "skills/api-security/T7358-constrain-responses-with-response-model-to-preve/SKILL.md",
+    "priority": 9,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T7359",
+    "title": "Prevent SQL injection with ORM queries and parameterized raw SQL (FastAPI)",
+    "domain": "input-validation",
+    "skill_file": "skills/input-validation/T7359-prevent-sql-injection-with-orm-queries-and-param/SKILL.md",
+    "priority": 10,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T7360",
+    "title": "Block server-side request forgery in outbound and background-task calls (FastAPI)",
+    "domain": "input-validation",
+    "skill_file": "skills/input-validation/T7360-block-server-side-request-forgery-in-outbound-an/SKILL.md",
+    "priority": 10,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T7361",
+    "title": "Configure CORS with explicit origins and never wildcard with credentials (FastAPI)",
+    "domain": "api-security",
+    "skill_file": "skills/api-security/T7361-configure-cors-with-explicit-origins-and-never-w/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T7362",
+    "title": "Enforce trusted hosts and HTTPS-only transport with Starlette middleware (FastAPI)",
+    "domain": "api-security",
+    "skill_file": "skills/api-security/T7362-enforce-trusted-hosts-and-https-only-transport-w/SKILL.md",
+    "priority": 10,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T7363",
+    "title": "Add security response headers via middleware (FastAPI)",
+    "domain": "api-security",
+    "skill_file": "skills/api-security/T7363-add-security-response-headers-via-middleware-fas/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T7364",
+    "title": "Enforce request-body and upload size limits to resist memory-exhaustion DoS (FastAPI)",
+    "domain": "api-security",
+    "skill_file": "skills/api-security/T7364-enforce-request-body-and-upload-size-limits-to-r/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T7365",
+    "title": "Rate-limit authentication and expensive endpoints (FastAPI)",
+    "domain": "api-security",
+    "skill_file": "skills/api-security/T7365-rate-limit-authentication-and-expensive-endpoint/SKILL.md",
+    "priority": 10,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T7366",
+    "title": "Validate and safely store uploaded files (FastAPI)",
+    "domain": "input-validation",
+    "skill_file": "skills/input-validation/T7366-validate-and-safely-store-uploaded-files-fastapi/SKILL.md",
+    "priority": 10,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T7367",
+    "title": "Validate the Origin and authenticate every WebSocket handshake (FastAPI)",
+    "domain": "authentication",
+    "skill_file": "skills/authentication/T7367-validate-the-origin-and-authenticate-every-webso/SKILL.md",
+    "priority": 9,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T7368",
+    "title": "Protect cookie-authenticated routes with SameSite cookies and CSRF tokens (FastAPI)",
+    "domain": "api-security",
+    "skill_file": "skills/api-security/T7368-protect-cookie-authenticated-routes-with-samesit/SKILL.md",
+    "priority": 7,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T7369",
+    "title": "Externalize the JWT signing key and other secrets from code (FastAPI)",
+    "domain": "secrets-management",
+    "skill_file": "skills/secrets-management/T7369-externalize-the-jwt-signing-key-and-other-secret/SKILL.md",
+    "priority": 10,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T7370",
+    "title": "Return generic errors and disable debug output in production (FastAPI)",
+    "domain": "api-security",
+    "skill_file": "skills/api-security/T7370-return-generic-errors-and-disable-debug-output-i/SKILL.md",
+    "priority": 7,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T7371",
+    "title": "Emit structured audit logs without leaking sensitive data (FastAPI)",
+    "domain": "logging-monitoring",
+    "skill_file": "skills/logging-monitoring/T7371-emit-structured-audit-logs-without-leaking-sensi/SKILL.md",
+    "priority": 10,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T7372",
+    "title": "Restrict interactive API documentation exposure in production (FastAPI)",
+    "domain": "api-security",
+    "skill_file": "skills/api-security/T7372-restrict-interactive-api-documentation-exposure/SKILL.md",
+    "priority": 7,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T7373",
+    "title": "Trust forwarded headers only from known proxies behind TLS (FastAPI)",
+    "domain": "api-security",
+    "skill_file": "skills/api-security/T7373-trust-forwarded-headers-only-from-known-proxies/SKILL.md",
+    "priority": 10,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T7374",
+    "title": "Pin, hash, and continuously audit Python dependencies (FastAPI)",
+    "domain": "dependency-management",
+    "skill_file": "skills/dependency-management/T7374-pin-hash-and-continuously-audit-python-dependenc/SKILL.md",
+    "priority": 10,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T7375",
+    "title": "Keep blocking work off the async event loop (FastAPI)",
+    "domain": "api-security",
+    "skill_file": "skills/api-security/T7375-keep-blocking-work-off-the-async-event-loop-fast/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T7376",
+    "title": "Add automated security regression tests for critical controls (FastAPI)",
+    "domain": "api-security",
+    "skill_file": "skills/api-security/T7376-add-automated-security-regression-tests-for-crit/SKILL.md",
+    "priority": 10,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T7377",
+    "title": "Escape and sanitize user content in server-rendered HTML (FastAPI)",
+    "domain": "input-validation",
+    "skill_file": "skills/input-validation/T7377-escape-and-sanitize-user-content-in-server-rende/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T7378",
+    "title": "Restrict redirect targets to relative paths or an allowlist (FastAPI)",
+    "domain": "input-validation",
+    "skill_file": "skills/input-validation/T7378-restrict-redirect-targets-to-relative-paths-or-a/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T7379",
+    "title": "Serve static files only from a dedicated non-sensitive directory (FastAPI)",
+    "domain": "api-security",
+    "skill_file": "skills/api-security/T7379-serve-static-files-only-from-a-dedicated-non-sen/SKILL.md",
+    "priority": 10,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T7380",
+    "title": "Avoid OS command and dynamic code execution on user input (FastAPI)",
+    "domain": "input-validation",
+    "skill_file": "skills/input-validation/T7380-avoid-os-command-and-dynamic-code-execution-on-u/SKILL.md",
+    "priority": 10,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T7381",
+    "title": "Use safe parsers and never deserialize untrusted binary data (FastAPI)",
+    "domain": "input-validation",
+    "skill_file": "skills/input-validation/T7381-use-safe-parsers-and-never-deserialize-untrusted/SKILL.md",
+    "priority": 10,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T7382",
+    "title": "Make critical state-changing operations replay-resistant (FastAPI)",
+    "domain": "api-security",
+    "skill_file": "skills/api-security/T7382-make-critical-state-changing-operations-replay-r/SKILL.md",
+    "priority": 7,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T7411",
+    "title": "Implement controls for content intended to be displayed as text",
+    "domain": "input-validation",
+    "skill_file": "skills/input-validation/T7411-implement-controls-for-content-intended-to-be-di/SKILL.md",
+    "priority": 7,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T7412",
+    "title": "Isolate dangerous functionality and risky third-party components using sandboxing or encapsulation",
+    "domain": "input-validation",
+    "skill_file": "skills/input-validation/T7412-isolate-dangerous-functionality-and-risky-third/SKILL.md",
+    "priority": 9,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T7414",
+    "title": "Verify that content intended as text is rendered safely without XSS injection risk",
+    "domain": "input-validation",
+    "skill_file": "skills/input-validation/T7414-verify-that-content-intended-as-text-is-rendered/SKILL.md",
+    "priority": 7,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T7415",
+    "title": "Verify that dangerous functionality and risky third-party components are isolated via sandboxing or encapsulation",
+    "domain": "input-validation",
+    "skill_file": "skills/input-validation/T7415-verify-that-dangerous-functionality-and-risky-th/SKILL.md",
+    "priority": 9,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T75",
+    "title": "Use regular expressions that are not vulnerable to Denial of Service",
+    "domain": "api-security",
+    "skill_file": "skills/api-security/T75-python/SKILL.md",
+    "priority": 7,
+    "category": "CODE_FIX",
+    "source": "LIBRARY:TA9350"
+  },
+  {
+    "cm_id": "T76",
+    "title": "Do not hardcode passwords",
+    "domain": "secrets-management",
+    "skill_file": "skills/secrets-management/T76-python/SKILL.md",
+    "priority": 10,
+    "category": "CODE_FIX",
+    "source": "LIBRARY:TA8509"
+  },
+  {
+    "cm_id": "T78",
+    "title": "Test strength of password reset mechanism",
+    "domain": "authentication",
+    "skill_file": "skills/authentication/T78-test-strength-of-password-reset-mechanism/SKILL.md",
+    "priority": 9,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T85",
+    "title": "Test server-side enforcement of authorization",
+    "domain": "authorization",
+    "skill_file": "skills/authorization/T85-test-server-side-enforcement-of-authorization/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T86",
+    "title": "Test session ID uniqueness and rotation after authentication",
+    "domain": "authentication",
+    "skill_file": "skills/authentication/T86-test-session-id-uniqueness-and-rotation-after-au/SKILL.md",
+    "priority": 9,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T87",
+    "title": "Verify that all data in transit is encrypted using a secure TLS channel",
+    "domain": "cryptography",
+    "skill_file": "skills/cryptography/T87-verify-that-all-data-in-transit-is-encrypted-usi/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T89",
+    "title": "Test that site is not vulnerable to XSS",
+    "domain": "input-validation",
+    "skill_file": "skills/input-validation/T89-test-that-site-is-not-vulnerable-to-xss/SKILL.md",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T96",
+    "title": "Test if your site is vulnerable to CSRF",
+    "domain": "api-security",
+    "skill_file": "skills/api-security/T96-test-if-your-site-is-vulnerable-to-csrf/SKILL.md",
+    "priority": 7,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  },
+  {
+    "cm_id": "T98",
+    "title": "Test for input validation on a server",
+    "domain": "input-validation",
+    "skill_file": "skills/input-validation/T98-test-for-input-validation-on-a-server/SKILL.md",
+    "priority": 7,
+    "category": "CODE_FIX",
+    "source": "TEMPLATE"
+  }
+]

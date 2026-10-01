@@ -1,0 +1,38 @@
+{
+  "full_cm_id": "4560-T2596",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/deploy/nginx.conf",
+      "line": 46,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Ambiguous framing is normalised and rejected at the front-end server: any request carrying a Transfer-Encoding header returns 400 before it reaches the application, and ignore_invalid_headers is on, so the CL/TE disagreement that smuggling depends on cannot be expressed | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/deploy/nginx.conf",
+      "line": 40,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] HTTP/2 is enabled at the edge ('http2 on'), and where the downgrade is unavoidable the upstream hop is pinned to a single parser pair with proxy_http_version 1.1 and Connection cleared, so the two hops can never disagree about where a request ends | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/docker-compose.yml",
+      "line": 4,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] The application server is reachable only through the proxy (expose, not ports, on the frontend network) and connection lifetime is bounded by uvicorn --timeout-keep-alive 5, --limit-concurrency 256 and --limit-max-requests 10000, limiting the reuse window a smuggled request would need | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] deploy/nginx.conf removes the front-end/back-end framing disagreement that smuggling depends on: HTTP/2 is enabled at the edge, any request carrying a Transfer-Encoding header is rejected with 400 before it reaches the application, ignore_invalid_headers is on, and the proxy speaks only pinned HTTP/1.1 upstream with Connection cleared, so the two hops cannot disagree about where a request ends | verdict=pass confidence=high",
+      "count": "1"
+    },
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] docker-compose.yml keeps the application server off the public network (expose only, reachable solely through the proxy) and bounds connection lifetime with uvicorn --timeout-keep-alive 5, --limit-concurrency and --limit-max-requests; the h11 floor in pyproject.toml covers the lenient chunked-encoding parsing advisory | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T2596 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

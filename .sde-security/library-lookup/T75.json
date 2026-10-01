@@ -1,0 +1,16 @@
+{
+  "cm_id": "T75",
+  "endpoint": "library/tasks/T75/amendments/",
+  "http_status": 200,
+  "result": "LIBRARY_SOURCED",
+  "retry_count": 0,
+  "queried_at": "2026-09-30T02:54:42.195582Z",
+  "matched_amendments": [
+    {
+      "amendment_id": "TA9350",
+      "technology": "Python",
+      "source_amendment_char_count": 3343
+    }
+  ],
+  "additional_requirements_count": 0
+}

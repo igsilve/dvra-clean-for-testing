@@ -1,0 +1,25 @@
+{
+  "cm_id": "T558",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Authenticate all other components before any network communication with them",
+    "priority": 9,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T558/",
+    "description": "Authenticate the remote endpoint before exchanging data with it, and restrict which endpoints may be contacted.",
+    "language": "python",
+    "file": "app/apis/menu/utils.py",
+    "start_line": 9,
+    "end_line": 11,
+    "finding": "The outbound HTTP call to an arbitrary image host presents no client credentials and performs no mutual authentication.",
+    "current_code": "def _image_url_to_base64(image_url: str):\n    response = requests.get(image_url, stream=True)\n    encoded_image = base64.b64encode(response.content).decode()",
+    "required_fix": "# app/apis/menu/utils.py\nALLOWED_IMAGE_HOSTS = {\"cdn.restaurant.com\"}\n\n\ndef _fetch_image(image_url: str) -> bytes:\n    parsed = urlparse(image_url)\n    if parsed.scheme != \"https\" or parsed.hostname not in ALLOWED_IMAGE_HOSTS:\n        raise HTTPException(status_code=400, detail=\"Image host not allowed\")\n\n    response = requests.get(\n        image_url,\n        timeout=5,\n        verify=certifi.where(),\n        headers={\"Authorization\": f\"Bearer {settings.CDN_TOKEN}\"},\n    )\n    response.raise_for_status()\n    return response.content",
+    "criteria": [
+      "Outbound calls go only to hosts on an allow-list over HTTPS.",
+      "The remote server's certificate is validated against a pinned trust store.",
+      "The service presents its own credential to the remote component."
+    ]
+  }
+}

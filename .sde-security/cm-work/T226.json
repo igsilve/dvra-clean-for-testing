@@ -1,0 +1,24 @@
+{
+  "cm_id": "T226",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Verify that authorization is centralized",
+    "priority": 9,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T226/",
+    "description": "Replace the inline role comparison in the handler with the shared authorization dependency.",
+    "language": "python",
+    "file": "app/apis/admin/services/get_disk_stats_service.py",
+    "start_line": 21,
+    "end_line": 24,
+    "finding": "The role check is written inline in the handler instead of going through the shared authorization dependency.",
+    "current_code": "    if current_user.role != UserRole.CHEF.value:\n        raise HTTPException(\n            status_code=403, detail=\"Only Chef is authorized to get current disk stats!\"\n        )",
+    "required_fix": "# app/apis/admin/services/get_disk_stats_service.py\n@router.get(\"/admin/stats/disk\", response_model=DiskUsage, status_code=status.HTTP_200_OK)\ndef get_disk_usage_stats(\n    _: Annotated[User, Depends(Requires(Permission.READ_DISK_STATS))],\n    mount_point: MountPoint = MountPoint.ROOT,\n):\n    return DiskUsage(output=get_disk_usage(mount_point.value))",
+    "criteria": [
+      "The handler contains no `if current_user.role != ...` comparison.",
+      "A repository-wide search finds role comparisons only inside the authorization module."
+    ]
+  }
+}

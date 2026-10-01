@@ -1,0 +1,28 @@
+{
+  "full_cm_id": "4560-T445",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/auth/utils/utils.py",
+      "line": 17,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: the CryptContext pins argon2id as the only scheme used for new hashes with explicit OWASP parameters (time_cost=3, memory_cost=65536, parallelism=4) so a passlib upgrade cannot silently weaken them, keeps bcrypt at rounds=12 for verification only, and migrates legacy hashes on successful login via verify_and_update. No MD5/SHA-1 and no ECB-mode or hand-rolled block cipher usage | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/config.py",
+      "line": 52,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: MIN_SECRET_LENGTH=32 enforces a 256-bit floor on every HMAC secret read through _required_secret, and DATABASE_URL refuses any POSTGRES_SSLMODE weaker than require, so no approved-algorithm choice is undermined by an undersized key or a silently unencrypted channel. Marker scan clean | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted (2 files): the algorithm and key-length inventory is approved throughout. app/apis/auth/utils/utils.py pins argon2id as the only scheme used for new hashes with explicit OWASP parameters (time_cost=3, memory_cost=65536, parallelism=4) so a passlib upgrade cannot silently weaken them, keeps bcrypt at rounds=12 for verification only, and migrates legacy hashes on successful login via verify_and_update. app/config.py enforces a 256-bit floor (MIN_SECRET_LENGTH=32) on every HMAC secret and refuses POSTGRES_SSLMODE values below require. No broken or risky primitive is used - no MD5/SHA-1, and no ECB-mode or hand-rolled block cipher usage exists to check an IV against; marker scan clean | verdict=pass confidence=high",
+      "count": "2"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T445 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

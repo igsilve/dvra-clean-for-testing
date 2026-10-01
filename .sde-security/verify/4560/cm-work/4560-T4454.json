@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T4454",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/start_app.sh",
+      "line": 59,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] The script performs no cryptographic operation at all - there is no weak digest or cipher invocation (md5sum, sha1sum, openssl enc with a legacy cipher, base64 used as encryption) and no hardcoded key, password or secret anywhere in the file. Key material is deliberately externalized: env -i at line 65 discards the inherited environment and the block at lines 56-61 records that secrets are supplied by the platform's deploy-time env file rather than by the invoking shell, while umask 077 at line 23 keeps anything the script creates owner-only. This satisfies ctx.text's requirement that cryptographic keys be stored in external configuration with proper permissions | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: start_app.sh performs no cryptographic operation and holds no key material - no weak digest or cipher invocation (md5sum/sha1sum/openssl enc/base64-as-encryption) and no hardcoded secret is present. Key material is deliberately externalized: env -i discards the inherited environment and the comment at the exec block records that secrets come from the platform-supplied deploy env file, while umask 077 keeps anything the script creates owner-only. This matches ctx.text's requirement that cryptographic keys live in external configuration with proper permissions | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T4454 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

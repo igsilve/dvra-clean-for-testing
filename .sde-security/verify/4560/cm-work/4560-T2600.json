@@ -1,0 +1,32 @@
+{
+  "full_cm_id": "4560-T2600",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/orders/services/get_orders_for_delivery_service.py",
+      "line": 33,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] The delivery-feed result set is bounded by server-controlled constants: MAX_PAGE_SIZE=100 and DEFAULT_PAGE_SIZE=50 are enforced through Query(DEFAULT_PAGE_SIZE, ge=1, le=MAX_PAGE_SIZE), so a caller cannot request the whole orders table | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/orders/services/get_orders_for_delivery_service.py",
+      "line": 49,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] The limit is applied in SQL via .offset(skip).limit(limit) rather than by slicing in Python, and an out-of-range page size is rejected with 422 before the query runs rather than quietly clamped, which is the error-on-overflow behaviour the CM requires | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] app/apis/orders/services/get_orders_for_delivery_service.py bounds the delivery-feed result set: MAX_PAGE_SIZE=100 and DEFAULT_PAGE_SIZE=50 are server-controlled constants enforced through Query(DEFAULT_PAGE_SIZE, ge=1, le=MAX_PAGE_SIZE), and offset/limit are applied in SQL so a caller cannot request the whole orders table | verdict=pass confidence=high",
+      "count": "1"
+    },
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] An over-limit request produces an error rather than a silently clamped or oversized response: the bounds are declared on the parameters so FastAPI rejects it with 422 before the query executes; the endpoint is additionally gated by Requires(Permission.READ_DELIVERY_FEED) since the rows carry customer address and phone | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T2600 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

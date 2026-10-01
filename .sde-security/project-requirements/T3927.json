@@ -1,0 +1,30 @@
+{
+  "cm_id": "T3927",
+  "additional_requirements": [
+    {
+      "id": "TA6744",
+      "title": "Test enforcement of an organization-wide dependency usage policy",
+      "text": "Verify that a policy for dependency usage is enforced across the organization.",
+      "ordinal": 10
+    },
+    {
+      "id": "TA6745",
+      "title": "Test automatic scanning of packages for known vulnerabilities",
+      "text": "Ensure automatic scanning of packages for vulnerabilities is enabled.",
+      "ordinal": 20
+    },
+    {
+      "id": "TA6746",
+      "title": "Test automatic scanning of packages for license implications",
+      "text": "Ensure license implication rules are configured and are scanned automatically.",
+      "ordinal": 30
+    },
+    {
+      "id": "TA6747",
+      "title": "Test automatic scanning of packages for ownership change",
+      "text": "Ensure automatic scanning of packages for ownership change is set.",
+      "ordinal": 40
+    }
+  ],
+  "count": 4
+}

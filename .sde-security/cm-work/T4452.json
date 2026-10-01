@@ -1,0 +1,25 @@
+{
+  "cm_id": "T4452",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Test environmental vulnerabilities (Bash/Shell)",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T4452/",
+    "description": "Resolve the script and its dependencies from absolute paths so the caller's environment cannot redirect them.",
+    "language": "bash",
+    "file": "start_game.sh",
+    "start_line": 1,
+    "end_line": 4,
+    "finding": "The script invokes a sibling script by relative path, resolving it from the caller's working directory and environment.",
+    "current_code": "#!/bin/bash\n\n./start_app.sh -d\ndocker compose exec web python3 game.py",
+    "required_fix": "#!/bin/bash\n# start_game.sh\nset -euo pipefail\nexport PATH=/usr/local/bin:/usr/bin:/bin\n\nSCRIPT_DIR=\"$(cd -- \"$(dirname -- \"${BASH_SOURCE[0]}\")\" && pwd -P)\"\n\n\"$SCRIPT_DIR/start_app.sh\" -d\ndocker compose exec -T web python3 /app/game.py",
+    "criteria": [
+      "Sibling scripts are invoked through an absolute, resolved path.",
+      "PATH is set before any external command runs.",
+      "The script does not depend on the caller's working directory."
+    ]
+  }
+}

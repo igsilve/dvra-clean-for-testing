@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T7359",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/orders/services/get_order_status.py",
+      "line": 26,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: the file contains no raw SQL at all. Both handlers reach the database only through the SQLAlchemy ORM expression API - _owned_order (lines 26-30) uses db.query(Order).filter(Order.id == order_id), which binds order_id as a parameter, and order_id is typed int in the signature so FastAPI rejects non-integers before any query runs. The refresh path (lines 73-87) takes an untrusted status string from the delivery service and resolves it through OrderStatus[delivery_data['status']] inside try/except KeyError -> 502, then assigns the enum via the ORM and commits, so the external value is never concatenated into SQL. No text() with an f-string, .format() or % substitution, and no hand-built IN list. A repository-wide grep for text(/execute( found only sa.text() with literal constant predicates in db/models.py:145-146 and the matching migration - no user input reaches either. | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: app/apis/orders/services/get_order_status.py contains no raw SQL at all. Both handlers reach the database only through the SQLAlchemy ORM expression API - _owned_order (lines 26-30) uses db.query(Order).filter(Order.id == order_id), which binds order_id as a parameter, and order_id is typed int in the signature so FastAPI rejects non-integers before any query runs. The refresh path (lines 73-87) takes an untrusted status string from the delivery service and resolves it through OrderStatus[delivery_data['status']] inside try/except KeyError -> 502, then assigns the enum via the ORM and commits, so the external value is never concatenated into SQL. No text() with an f-string, .format() or % substitution, and no hand-built IN list. A repository-wide grep for text(/execute( found only sa.text() with literal constant predicates in db/models.py:145-146 and the matching migration - no user input reaches either. | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T7359 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

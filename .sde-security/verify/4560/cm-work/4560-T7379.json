@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T7379",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/main.py",
+      "line": 17,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] STATIC_DIR is Path(__file__).resolve().parent / 'static', so the mount is anchored to the module location rather than the process working directory, and the single app.mount call at line 21 serves only that dedicated tree. Inspection of app/static shows three image assets and no dotfiles, configs, secrets or source. The project root and application package are never mounted, and no download path is built by concatenating a user-supplied filename onto a base directory | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] StaticFiles is mounted only on a dedicated app/static directory resolved from the module location rather than the process working directory; that tree holds three image assets and nothing sensitive, the project root and application package are never mounted, and no file path is built by concatenating user input | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T7379 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

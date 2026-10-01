@@ -1,0 +1,34 @@
+{
+  "full_cm_id": "4560-T1174",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/Dockerfile",
+      "line": 60,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Canonical mitigation from how-to I932 (Docker-How-to-Configure-container-users) confirmed: the Dockerfile carries an explicit USER 10001:10001 instruction as its final user directive, so the image does not run as root | verdict=pass confidence=high",
+      "category": "mitigation-confirmed"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/Dockerfile",
+      "line": 51,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Canonical mitigation from how-to I932 confirmed: the account referenced by USER is created in the same stage with groupadd --gid 10001 app and useradd --uid 10001 --gid 10001 --create-home --shell /usr/sbin/nologin app, matching the how-to's useradd-before-USER pattern. The UID is pinned high and non-system and the login shell is nologin | verdict=pass confidence=high",
+      "category": "mitigation-confirmed"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/Dockerfile",
+      "line": 55,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Supporting hardening: application code is copied with COPY --chown=10001:10001 and no instruction after USER returns the image to root, so the runtime user cannot rewrite the code it executes | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Canonical mitigation from how-to I920/Docker-How-to-Configure-container-users confirmed in the Dockerfile runtime stage: a dedicated account is created with groupadd --gid 10001 app and useradd --uid 10001 --gid 10001 --shell /usr/sbin/nologin app, and the image drops to it with USER 10001:10001 before the entrypoint. The UID is pinned high and non-system, application code is copied with --chown=10001:10001 while ownership of the code path stays outside the runtime user's write reach, and no later instruction returns the image to root | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T1174 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

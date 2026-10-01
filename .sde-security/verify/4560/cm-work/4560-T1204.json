@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T1204",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/docker-compose.yml",
+      "line": 21,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] docker-compose.yml: read_only: true declared on all three services (web L21, proxy L111, db L197); writes confined to sized tmpfs mounts and the pg_volume named volume, matching how-to I947 | verdict=pass confidence=high",
+      "category": "mitigation-confirmed"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] docker-compose.yml: read_only: true declared on all three services (web L21, proxy L111, db L197); writes confined to sized tmpfs mounts and the pg_volume named volume, matching how-to I947 | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T1204 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

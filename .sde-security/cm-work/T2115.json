@@ -1,0 +1,19 @@
+{
+  "cm_id": "T2115",
+  "category": "INFRA",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "documentation",
+    "title": "Enable image vulnerability scanning (Docker)",
+    "priority": 7,
+    "category": "INFRA",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T2115/",
+    "description": "Scan container images for known vulnerabilities before they are used.",
+    "guidance": "Image scanning should run on every build and on a schedule for images already in the registry, with results gated by severity so a high-severity finding blocks promotion.",
+    "searched": "Dockerfile, docker-compose.yml, .github/ (absent)",
+    "found": "There is no build pipeline and no scanning step; images are built locally.",
+    "missing": "A registry with scanning enabled and a pipeline to gate on the results.",
+    "conclusion": "Scanning is enabled in the registry and pipeline platform rather than in this repository.",
+    "action": "The container platform team should enable registry scanning and define the severity gate."
+  }
+}

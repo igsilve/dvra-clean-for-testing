@@ -1,0 +1,12 @@
+{
+  "cm_id": "T296",
+  "additional_requirements": [
+    {
+      "id": "TA276",
+      "title": "Test serialized objects",
+      "text": "Locate the folders that hold application data especially 'serialized objects' (consult the developers). Check the content of those files/streams to test that confidential data is not stored in serialized objects without encryption.",
+      "ordinal": 10
+    }
+  ],
+  "count": 1
+}

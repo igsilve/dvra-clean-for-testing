@@ -1,0 +1,25 @@
+{
+  "cm_id": "T85",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Test server-side enforcement of authorization",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T85/",
+    "description": "Enforce the role requirement server side on the role-update route instead of relying on a single negative check.",
+    "language": "python",
+    "file": "app/apis/users/services/update_user_role_service.py",
+    "start_line": 13,
+    "end_line": 25,
+    "finding": "The only server-side check rejects the Chef role; every other role change is applied to any username without verifying the caller's privileges.",
+    "current_code": "async def update_user_role(\n    user: UserRoleUpdate,\n    current_user: Annotated[models.User, Depends(get_current_user)],\n    db: Session = Depends(get_db),\n):\n    if user.role == models.UserRole.CHEF.value:\n        raise HTTPException(\n            status_code=status.HTTP_401_UNAUTHORIZED,\n            detail=\"Only Chef is authorized to add Chef role!\",\n        )\n\n    db_user = update_user(db, user.username, user)\n    return current_user",
+    "required_fix": "# app/apis/users/services/update_user_role_service.py\n@router.put(\"/users/update_role\", response_model=UserRead)\nasync def update_user_role(\n    payload: UserRoleUpdate,\n    _: Annotated[bool, Depends(RolesBasedAuthChecker([UserRole.CHEF]))],\n    db: Session = Depends(get_db),\n):\n    ...",
+    "criteria": [
+      "The route rejects any caller who is not a chef, before inspecting the body.",
+      "The set of assignable roles is an explicit allow-list.",
+      "A customer calling the route receives 403."
+    ]
+  }
+}

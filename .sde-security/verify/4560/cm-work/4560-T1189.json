@@ -1,0 +1,28 @@
+{
+  "full_cm_id": "4560-T1189",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/Dockerfile",
+      "line": 0,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] The Dockerfile contains nothing that disables AppArmor, and LSM confinement cannot be set from a Dockerfile, so no residual P1083 pattern exists in the analysed file | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/docker-compose.yml",
+      "line": 33,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] The value docker inspect --format '{{ .AppArmorProfile }}' would return is fixed statically by the compose file, which sets security_opt apparmor=docker-default for every service (web line 33, proxy line 109, db line 170); each container instance is therefore expected to report a valid non-empty profile, the compliant outcome this test defines | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: The Dockerfile contains nothing that disables AppArmor (LSM confinement cannot be set from a Dockerfile), and the value `docker inspect --format '{{ .AppArmorProfile }}'` would return is determined statically by the project's compose file, which sets security_opt apparmor=docker-default for every service (web line 33, proxy line 109, db line 170). Because the profile is stated rather than inherited, each container instance is expected to report a valid, non-empty AppArmor profile, which is the compliant outcome this test defines. No how-tos were applicable to this CM, so Q2 was skipped | verdict=pass confidence=high",
+      "count": "2"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T1189 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

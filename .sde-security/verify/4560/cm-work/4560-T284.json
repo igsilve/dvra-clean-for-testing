@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T284",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/config.py",
+      "line": 121,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] No weak or predictable token/key generation present. _required_secret enforces MIN_SECRET_LENGTH=32 (256 bits) on JWT_SECRET_KEY (line 121) and OTP_HMAC_KEY (line 140) and raises at import when either is absent or too short, so the former short fallback key can no longer apply; nothing is generated in-process from a non-CSPRNG source. JWT_ISSUER/JWT_AUDIENCE are pinned and validated on decode, there is deliberately no JWT_VERIFY_SIGNATURE toggle, and outbound credentials (CDN_TOKEN, DELIVERY_API_TOKEN) default to empty so the integration is off rather than open -- the entropy and non-guessability property ctx.text requires of generated access tokens | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] app/config.py: no weak or predictable token/key generation present. _required_secret enforces MIN_SECRET_LENGTH=32 (256 bits) on JWT_SECRET_KEY (line 121) and OTP_HMAC_KEY (line 140) and raises at import when either is absent or too short, so the former short fallback key can no longer apply; nothing is generated in-process from a non-CSPRNG source. JWT_ISSUER/JWT_AUDIENCE are pinned and validated on decode, there is deliberately no JWT_VERIFY_SIGNATURE toggle, and outbound credentials (CDN_TOKEN, DELIVERY_API_TOKEN) default to empty so the integration is off rather than open. This delivers the entropy and non-guessability property ctx.text requires of generated access tokens. | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T284 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

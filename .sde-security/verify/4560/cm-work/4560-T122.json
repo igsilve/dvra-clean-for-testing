@@ -1,0 +1,32 @@
+{
+  "full_cm_id": "4560-T122",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/menu/utils.py",
+      "line": 204,
+      "description": "No template rendering or dynamic include exists in the file, so there is no sink that would interpret an injected SSI directive. The sole remote-content path (_image_url_to_base64) enforces https-only plus a fail-closed host allow-list, rejects hosts resolving to private/loopback/link-local/reserved/multicast/unspecified addresses, disables redirects with an explicit refusal, requires a SHA-256 digest match and optional RSA-PSS signature, and requires Pillow to parse the bytes as one of four allow-listed formats within a pixel ceiling. Remote bytes are stored as a validated image, never evaluated as page content.",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/menu/utils.py",
+      "line": 0,
+      "description": "How-to I150 (\"Manually with browser\") is a runtime remote-file-include test procedure, not a code-level mitigation pattern matchable against Python source; skipped.",
+      "category": "not-applicable-how-to-skipped"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] app/apis/menu/utils.py renders no template and evaluates no dynamic include, so there is no sink where a submitted SSI directive could be interpreted. The one remote-content path, _image_url_to_base64 (lines 204-260), is constrained on every axis the weakness exploits: the scheme must be https and the host must appear in settings.ALLOWED_IMAGE_HOSTS, which fails closed when unset (lines 40-61); every resolved address is rejected if private, loopback, link-local, reserved, multicast or unspecified (lines 64-102); allow_redirects=False with an explicit redirect refusal; the bytes must match a caller-supplied SHA-256 and, when a key is configured, an RSA-PSS signature; and Pillow must parse them as one of four allow-listed image formats within a pixel ceiling. Fetched bytes are therefore only ever stored as a validated image, never evaluated as page content | verdict=pass confidence=high",
+      "count": "1"
+    },
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] how-to I150 (\"Manually with browser\") is a runtime remote-file-include test procedure driven through a browser, not a code-level mitigation pattern that can be matched against Python source; skipped (audit-only, no verdict impact)",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T122 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

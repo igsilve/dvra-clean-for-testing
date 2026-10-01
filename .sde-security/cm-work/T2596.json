@@ -1,0 +1,25 @@
+{
+  "cm_id": "T2596",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Prevent HTTP Request Smuggling",
+    "priority": 9,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T2596/",
+    "description": "Terminate client connections on a hardened reverse proxy that normalizes Content-Length and Transfer-Encoding before requests reach the application server.",
+    "language": "yaml",
+    "file": "docker-compose.yml",
+    "start_line": 2,
+    "end_line": 8,
+    "finding": "Uvicorn is published directly on port 8091 with no hardened reverse proxy in front, so conflicting Content-Length/Transfer-Encoding handling between hops is never normalized.",
+    "current_code": "  web:\n    build: .\n    command: bash -c \"alembic upgrade head && uvicorn main:app --host 0.0.0.0 --port 8091 --workers 1 --reload\"\n    volumes:\n      - ./app/:/app/\n    ports:\n      - 8091:8091",
+    "required_fix": "# docker-compose.yml\n  web:\n    build: .\n    command: uvicorn main:app --host 127.0.0.1 --port 8091 --workers 4\n    expose:\n      - 8091\n  proxy:\n    image: nginx:1.27-alpine\n    depends_on: [web]\n    ports:\n      - \"127.0.0.1:8443:8443\"\n    volumes:\n      - ./deploy/nginx.conf:/etc/nginx/nginx.conf:ro\n    # nginx.conf: proxy_http_version 1.1; drops requests carrying both\n    # Content-Length and Transfer-Encoding, and rejects malformed framing.",
+    "criteria": [
+      "The application server is not directly reachable from outside the container network.",
+      "A request carrying both Content-Length and Transfer-Encoding headers is rejected at the edge.",
+      "Front-end and back-end agree on HTTP version and keep-alive handling."
+    ]
+  }
+}

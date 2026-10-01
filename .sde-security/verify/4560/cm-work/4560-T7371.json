@@ -1,0 +1,32 @@
+{
+  "full_cm_id": "4560-T7371",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/apis/auth/services/get_token_service.py",
+      "line": 45,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] app/apis/auth/services/get_token_service.py: authentication outcomes are emitted as structured audit() events carrying actor, actor_role and a reason (locked_out / invalid_credentials); the submitted password is never passed to the logger and the audit_log field allow-list drops it regardless. No request object, Pydantic model or Authorization header is logged wholesale | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/app/init_app.py",
+      "line": 135,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] app/init_app.py: configure_logging() installs structured logging before the app is built, and AccessAuditMiddleware records every refusal (401/403/429), every 5xx and every state-changing method with method, path, status_code and client_ip. request.url.path is logged deliberately instead of the full URL so reset codes or tokens in a query string are not copied into the log - the same no-secrets-in-logs property as the recommended redaction step | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] app/apis/auth/services/get_token_service.py: authentication outcomes are emitted as structured audit() events carrying actor, actor_role and a reason (locked_out / invalid_credentials); the submitted password is never passed to the logger and the audit_log field allow-list drops it regardless. No request object, Pydantic model or Authorization header is logged wholesale | verdict=pass confidence=high",
+      "count": "1"
+    },
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] app/init_app.py: configure_logging() installs structured logging before the app is built, and AccessAuditMiddleware records every refusal (401/403/429), every 5xx and every state-changing method with method, path, status_code and client_ip. request.url.path is logged deliberately instead of the full URL so reset codes or tokens in a query string are not copied into the log - the same no-secrets-in-logs property as the recommended redaction step | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T7371 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

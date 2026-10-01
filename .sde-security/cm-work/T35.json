@@ -1,0 +1,25 @@
+{
+  "cm_id": "T35",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Fine-tune HTTP server settings",
+    "priority": 9,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T35/",
+    "description": "Run the application server with production settings: no auto-reload, multiple workers and explicit request timeouts and concurrency limits.",
+    "language": "yaml",
+    "file": "docker-compose.yml",
+    "start_line": 2,
+    "end_line": 8,
+    "finding": "The server is started with --reload and a single worker and no request/keep-alive timeouts or concurrency limits configured.",
+    "current_code": "  web:\n    build: .\n    command: bash -c \"alembic upgrade head && uvicorn main:app --host 0.0.0.0 --port 8091 --workers 1 --reload\"\n    volumes:\n      - ./app/:/app/\n    ports:\n      - 8091:8091",
+    "required_fix": "# docker-compose.yml\n  web:\n    command: >\n      uvicorn main:app --host 127.0.0.1 --port 8091\n      --workers 4\n      --timeout-keep-alive 5\n      --limit-concurrency 256\n      --limit-max-requests 10000\n      --proxy-headers --forwarded-allow-ips 10.0.0.0/8",
+    "criteria": [
+      "`--reload` does not appear in any non-development compose profile.",
+      "Keep-alive, concurrency and max-request limits are set explicitly.",
+      "The server binds to the internal interface only."
+    ]
+  }
+}

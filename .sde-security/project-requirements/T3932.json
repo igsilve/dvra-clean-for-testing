@@ -1,0 +1,48 @@
+{
+  "cm_id": "T3932",
+  "additional_requirements": [
+    {
+      "id": "TA6758",
+      "title": "Test auditing of changes in deployment configuration",
+      "text": "For each deployment configuration, ensure changes made to it are audited and tracked.",
+      "ordinal": 10
+    },
+    {
+      "id": "TA6759",
+      "title": "Test presence of scanners to identify and prevent sensitive data in deployment configuration",
+      "text": "For each deployment configuration file, verify that scanners are set to identify and prevent the existence of sensitive data within it.",
+      "ordinal": 20
+    },
+    {
+      "id": "TA6760",
+      "title": "Test limitation of access to deployment configurations",
+      "text": "Verify each deployment configuration is accessible only to known and authorized users.",
+      "ordinal": 30
+    },
+    {
+      "id": "TA6761",
+      "title": "Test verification of deployment configuration manifests",
+      "text": "For each deployment configuration manifest in use, ensure it has been verified.",
+      "ordinal": 40
+    },
+    {
+      "id": "TA6762",
+      "title": "Test pinning of deployment configuration manifests to a specific, verified version",
+      "text": "For every deployment configuration manifest in use, ensure it is pinned to a specific version or commit Secure Hash Algorithm (SHA).",
+      "ordinal": 50
+    },
+    {
+      "id": "TA6795",
+      "title": "Test separation of deployment configuration files from source code",
+      "text": "Ensure each deployment configuration file is stored separately from source code.",
+      "ordinal": 60
+    },
+    {
+      "id": "TA6796",
+      "title": "Test scanning of Infrastructure as Code (IaC)",
+      "text": "For every Infrastructure as Code (IaC) instructions file, verify that scanners are set to identify and prevent misconfigurations and insecure instructions.",
+      "ordinal": 70
+    }
+  ],
+  "count": 7
+}

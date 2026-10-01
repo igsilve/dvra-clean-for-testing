@@ -1,0 +1,28 @@
+{
+  "full_cm_id": "4560-T4453",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/start_app.sh",
+      "line": 65,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] require_operator at line 29 enforces the privilege check ctx.text requires, and the exec at line 65 replaces the shell rather than forking, so no unsupervised background process or orphaned shell survives the script. The per-container process and resource ceilings (pids_limit 256, nofile ulimits, cpus, mem_limit, memswap_limit) are enforced by the compose definition this script invokes. No unbounded spawn loop or untracked background job is present | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    },
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/start_game.sh",
+      "line": 66,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Every child is bounded: run_bounded 30 at line 60 and run_bounded 300 at line 66 cap the two container execs, the trap installed at line 51 kills the container's process group on INT/TERM so a detached child is not left running, -T prevents the child holding the terminal, the child's exit status is captured and propagated at line 71, and require_operator at line 23 enforces the privilege check. Dependency files are verified non-symlink and executable before invocation at lines 31-39 | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] alternative-mitigation-accepted: start_game.sh bounds every child with run_bounded timeouts (30s and 300s), installs an INT/TERM trap that kills the container process group, propagates the child's exit status, and refuses symlinked or non-executable dependencies; start_app.sh gates on require_operator and uses exec so no orphan shell survives, with per-container pids_limit, ulimits, cpus and mem_limit enforced by the compose definition it invokes. No unbounded spawn, untracked background process or unauthorized command-execution pattern remains | verdict=pass confidence=high",
+      "count": "2"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T4453 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}

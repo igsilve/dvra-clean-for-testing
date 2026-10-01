@@ -1,0 +1,126 @@
+{
+  "cm_id": "T3900",
+  "additional_requirements": [
+    {
+      "id": "TA6555",
+      "title": "Ensure any changes to code are tracked in a version control platform",
+      "text": "Upload existing code projects to a dedicated Github organization and repositories and create an identity for each active team member who might contribute or need access to it.",
+      "ordinal": 10
+    },
+    {
+      "id": "TA6556",
+      "title": "Ensure any change to code can be traced back to its associated task",
+      "text": "Use a task management system to manage tasks as the starting point for each code change. Whether it is a new feature, bug fix, or security fix - all should originate from a dedicated task (ticket) in your organization's task management system. These tasks should also be linked to the code changes themselves in a way that is easy to follow: from code to task, and from task back to code.",
+      "ordinal": 20
+    },
+    {
+      "id": "TA6557",
+      "title": "Ensure any change to code receives approval of two strongly authenticated users",
+      "text": "For every code repository in use, perform the next steps to require two approvals from the specific code repository team in order to push new code to the code base:\n\n1. On GitHub, navigate to the main page of the repository.\n2. Under your repository name, click **Settings**.\n3. In the \"Code and automation\" section of the sidebar, click **Branches**.\n4. Next to \"Branch protection rules\", verify that there is at least one rule for your main branch. If there is, click **Edit** to its right. If there isn't, click **Add rule**.\n5. If you added the rule, under \"Branch name pattern\", type the branch name or pattern you want to protect.\n6. Check **Require a pull request before merging** and **Require approvals**, and set **Required number of approvals before merging** to 2.\n5. Click **Create** or **Save changes**.",
+      "ordinal": 30
+    },
+    {
+      "id": "TA6558",
+      "title": "Ensure previous approvals are dismissed when updates are introduced to a code change proposal",
+      "text": "For each code repository in use, perform the next steps to enforce dismissal of given approvals to code change suggestions if those suggestions were updated:\n\n1. On GitHub, navigate to the main page of the repository.\n2. Under your repository name, click **Settings**.\n3. In the \"Code and automation\" section of the sidebar, click **Branches**.\n4. Next to \"Branch protection rules\", verify that there is at least one rule for your main branch. If there is, click **Edit** to its right. If there isn't, click **Add rule**.\n5. If you added the rule, under \"Branch name pattern\", type the branch name or pattern you want to protect.\n6. Select **Require pull request reviews before merging** and then **Dismiss stale pull request approvals when new commits are pushed**.\n5. Click **Create** or **Save changes**.",
+      "ordinal": 40
+    },
+    {
+      "id": "TA6559",
+      "title": "Ensure there are restrictions on who can dismiss code change reviews",
+      "text": "For each code repository in use, perform the next steps to restrict dismissal of code changes reviews unless it is necessary:\n\n1. On GitHub, navigate to the main page of the repository.\n2. Under your repository name, click **Settings**.\n3. In the \"Code and automation\" section of the sidebar, click **Branches**.\n4. Next to \"Branch protection rules\", verify that there is at least one rule for your main branch. If there is, click **Edit** to its right. If there isn't, click **Add rule**.\n5. If you added the rule, under \"Branch name pattern\", type the branch name or pattern you want to protect.\n4. Select **Require pull request reviews before merging** and **Restrict who can dismiss pull request reviews**.\n5. Do not add any user or team unless it is obligatory. If it is obligatory, carefully select the users or teams whom you trust with the ability to dismiss code change reviews.\n6. Click **Create** or **Save changes**.",
+      "ordinal": 50
+    },
+    {
+      "id": "TA6560",
+      "title": "Ensure code owners are set for extra sensitive code or configuration",
+      "text": "In every code repository create a CODEOWNERS file in the root, docs/, or .github/ directory of the repository.\nIn the file, specify codeowners for the .github/workflows/ directory atleast. Specify organization members you trust. For example:\n```\n.github/workflows/ @user1 @user2\n```",
+      "ordinal": 60
+    },
+    {
+      "id": "TA6561",
+      "title": "Ensure code owner's review is required when a change affects owned code",
+      "text": "For every code repository in use, perform the following steps to require code owners' approvals for each change proposal related to code they own:\n\n1. On GitHub, navigate to the main page of the repository.\n2. Under your repository name, click **Settings**.\n3. In the \"Code and automation\" section of the sidebar, click **Branches**.\n4. Next to \"Branch protection rules\", verify that there is at least one rule for your main branch. If there is, click **Edit** to its right. If there isn't, click **Add rule**.\n5. If you add the rule, under \"Branch name pattern\", type the branch name or pattern you want to protect.\n6. Select **Require pull request reviews before merging** and **Require review from Code Owners**.\n7. Click **Create** or **Save changes**.",
+      "ordinal": 70
+    },
+    {
+      "id": "TA6562",
+      "title": "Ensure inactive branches are periodically reviewed and removed",
+      "text": "For each code repository in use, review existing Git branches and remove those which have not been active for a period of time by performing the following:\n\n1. On GitHub.com, navigate to the main page of the repository.\n2. Above the list of files, click **Branches**.\n3. Use the navigation at the top of the page to view the Stale branches. The Stale view shows all branches that no one has committed to in the last three months, ordered by the branches with the oldest commits first.\n4. For each branch listed, either delete it by clicking the trash bin icon, or find the valid reason it still exists.\n\nYou can perform the next steps to prevent pull request branches from becoming stale branches:\n\n1. On GitHub.com, navigate to the main page of the repository.\n2. Under your repository name, click Settings.\n3. Under \"Pull Requests\", select **Automatically delete head branches**.",
+      "ordinal": 80
+    },
+    {
+      "id": "TA6563",
+      "title": "Ensure all checks have passed before merging new code",
+      "text": "For each code repository in use, require all status checks to pass before permitting a merge of new code by performing the following:\n\n1. On GitHub.com, navigate to the main page of the repository.\n2. Under your repository name, click **Settings**.\n3. In the \"Code and automation\" section of the sidebar, click **Branches**.\n4. Next to \"Branch protection rules\", check if there is a rule for your main branch. If there is, click **Edit** to its right. If there isn't, click **Add rule**.\n5. If you add the rule, under \"Branch name pattern\", type the branch name or pattern you want to protect.\n6. Select **Require status checks to pass before merging**.\n7. Click **Create** or **Save changes**.",
+      "ordinal": 90
+    },
+    {
+      "id": "TA6564",
+      "title": "Ensure open Git branches are up to date before they can be merged into code base",
+      "text": "For each code repository in use, enforce a policy to only allow merging open branches if they are current with the latest change from their original repository by performing the following:\n\n1. On GitHub.com, navigate to the main page of the repository.\n2. Under your repository name, click **Settings**.\n3. In the \"Code and automation\" section of the sidebar, click **Branches**.\n4. Next to \"Branch protection rules\", verify that there is at least one rule for your main branch. If there is, click **Edit** to its right. If there isn't, click **Add rule**.\n5. If you add the rule, under \"Branch name pattern\", type the branch name or pattern you want to protect.\n6. Select **Require status checks to pass before merging** and **Require branches to be up to date before merging**.\n7. Click **Create** or **Save changes**.",
+      "ordinal": 100
+    },
+    {
+      "id": "TA6565",
+      "title": "Ensure branch protection rules are enforced for administrators",
+      "text": "For every code repository in use, enforce branch protection rules on administrators as well, by performing the following:\n\n1. On GitHub, navigate to the main page of the repository.\n2. Under your repository name, click **Settings**.\n3. In the \"Code and automation\" section of the sidebar, click **Branches**.\n4. Next to \"Branch protection rules\", verify that there is at least one rule for your main branch. If there is, click **Edit** to its right. If there isn't, click **Add rule**.\n5. If you add the rule, under \"Branch name pattern\", type the branch name or pattern you want to protect.\n6. Select **Do not allow bypassing the above settings**.\n7. Click **Create** or **Save changes**.",
+      "ordinal": 110
+    },
+    {
+      "id": "TA6566",
+      "title": "Ensure force push code to branches is denied",
+      "text": "For each repository in use, block the option to \"Force Push\" code by performing the following: \n\n1. On GitHub, navigate to the main page of the repository.\n2. Under your repository name, click **Settings**.\n3. In the \"Code and automation\" section of the sidebar, click **Branches**.\n4. Next to \"Branch protection rules\", verify that there is at least one rule for your main branch. If there is, click **Edit** to its right. If there isn't, click **Add rule**.\n5. If you add the rule, under \"Branch name pattern\", type the branch name or pattern you want to protect.\n6. Uncheck **Allow force pushes**.\n7. Click **Create** or **Save changes**.",
+      "ordinal": 120
+    },
+    {
+      "id": "TA6567",
+      "title": "Ensure branch deletions are denied",
+      "text": "For each repository that is being used, block the option to delete protected branches by performing the following:\n\n1. On GitHub, navigate to the main page of the repository.\n2. Under your repository name, click **Settings**.\n3. In the \"Code and automation\" section of the sidebar, click **Branches**.\n4. Next to \"Branch protection rules\", verify that there is at least one rule for your main branch. If there is, click **Edit** to its right. If there isn't, click **Add rule**.\n5. If you add the rule, under \"Branch name pattern\", type the branch name or pattern you want to protect.\n6. Uncheck **Allow deletions**.\n7. Click **Create** or **Save changes**.",
+      "ordinal": 130
+    },
+    {
+      "id": "TA6568",
+      "title": "Ensure any merging of code is automatically scanned for risks",
+      "text": "For every repository in use, enforce risk scanning on every pull request by performing the following:\n\n1. On GitHub.com, navigate to the main page of the repository.\n2. Under your repository name, click **Actions**.\n3. If the repository already has at least one workflow set up and running, click **New workflow** and go to step 5. If there are currently no workflows configured for the repository, go to the next step.\n4. Scroll down to the \"Security\" category and click **Configure** under the workflow you want to configure or click **View all** to see all available security workflows.\n5. On the right pane of the workflow page, click **Documentation** and follow the on-screen instructions to tailor the workflow to your needs.",
+      "ordinal": 140
+    },
+    {
+      "id": "TA6569",
+      "title": "Ensure any changes to branch protection rules are audited",
+      "text": "Use the audit log to audit changes in branch protection rules by performing the following:\n\n1. In the top right corner of GitHub.com, click your profile photo, then click **Your organizations**.\n2. Next to the organization, click **Settings**.\n3. In the \"Archives\" section of the sidebar, click **Logs**, then click **Audit log**.\n4. Use the action qualifier in your query and look for **protected_branch** category. Ensure every action is reasonable and secure and investigate if not.",
+      "ordinal": 150
+    },
+    {
+      "id": "TA6570",
+      "title": "Ensure branch protection is enforced on the default branch",
+      "text": "Perform the following to enforce branch protection on the main branch:\n\n1. On GitHub.com, navigate to the main page of the repository.\n2. Under your repository name, click **Settings**.\n3. In the \"Code and automation\" section of the sidebar, click **Branches**.\n4. Next to \"Branch protection rules\", click **Add rule**.\n5. Under \"Branch name pattern\", type the branch name or pattern you want to protect. Ensure it applies to the main branch name.\n6. Configure policies you want.\n7. Click Create.",
+      "ordinal": 160
+    },
+    {
+      "id": "TA6646",
+      "title": "Ensure all open comments are resolved before allowing code change merging",
+      "text": "For each code repository in use, require open comments to be resolved before the relevant code change can be merged by performing the following:\n\n1. On GitHub.com, navigate to the main page of the repository.\n2. Under your repository name, click **Settings**.\n3. In the \"Code and automation\" section of the sidebar, click **Branches**.\n4. Next to \"Branch protection rules\", verify that there is at least one rule for your main branch. If there is, click **Edit** to its right. If there isn't, click **Add rule**.\n5. If you add the rule, under \"Branch name pattern\", type the branch name or pattern you want to protect.\n6. Select **Require conversation resolution before merging**.\n7. Click **Create** or **Save changes**.",
+      "ordinal": 170
+    },
+    {
+      "id": "TA6647",
+      "title": "Ensure verification of signed commits for new changes before merging",
+      "text": "For each repository in use, enforce the branch protection rule of requiring signed commits, and make sure only signed commits are capable of merging by performing the following:\n\n1. On GitHub.com, navigate to the main page of the repository.\n2. Under your repository name, click **Settings**.\n3. In the \"Code and automation\" section of the sidebar, click **Branches**.\n4. Next to \"Branch protection rules\", verify that there is at least one rule for your main branch. If there is, click **Edit** to its right. If there isn't, click **Add rule**.\n5. If you add the rule, under \"Branch name pattern\", type the branch name or pattern you want to protect.\n6. Select **Require signed commits**.\n7. Click **Create** or **Save changes**.",
+      "ordinal": 180
+    },
+    {
+      "id": "TA6648",
+      "title": "Ensure linear history is required",
+      "text": "For every code repository in use, perform the following steps to require linear history and/or allow only rebase merge and squash merge:\n\n1. On GitHub, navigate to the main page of the repository.\n2. Under your repository name, click **Settings**.\n3. In the \"Code and automation\" section of the sidebar, click **Branches**.\n4. Next to \"Branch protection rules\", verify that there is at least one rule for your main branch. If there is, click **Edit** to its right. If there isn't, click **Add rule**.\n5. If you add the rule, under \"Branch name pattern\", type the branch name or pattern you want to protect.\n6. Select **Require linear history**.\n7. Click **Create** or **Save changes**.",
+      "ordinal": 190
+    },
+    {
+      "id": "TA6649",
+      "title": "Ensure pushing or merging of new code is restricted to specific individuals or teams",
+      "text": "For every code repository in use, allow only trusted and responsible users to push or merge new code by performing the following:\n\n1. On GitHub, navigate to the main page of the repository.\n2. Under your repository name, click **Settings**.\n3. In the \"Code and automation\" section of the sidebar, click **Branches**.\n4.Next to \"Branch protection rules\", verify that there is at least one rule for your main branch. If there is, click **Edit** to its right. If there isn't, click **Add rule**.\n5. If you add the rule, under \"Branch name pattern\", type the branch name or pattern you want to protect.\n6. Select **Restrict who can push to matching branches** and choose trusted and responsible users and teams who will have the permission to do so. \n7. Click **Create** or **Save changes**.",
+      "ordinal": 200
+    }
+  ],
+  "count": 20
+}

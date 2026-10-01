@@ -1,0 +1,25 @@
+{
+  "cm_id": "T105",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Verify that your application does not have unnecessary debug capability or leftover test/debug code",
+    "priority": 7,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T105/",
+    "description": "Remove the diagnostic endpoint and its supporting code from the shipped application.",
+    "language": "python",
+    "file": "app/apis/debug/services/get_debug_info_service.py",
+    "start_line": 11,
+    "end_line": 12,
+    "finding": "A debug information endpoint ships in the application and is only hidden from the OpenAPI schema.",
+    "current_code": "@router.get(\"/debug\", status_code=status.HTTP_200_OK)\ndef get_debug_info_service():",
+    "required_fix": "# Delete app/apis/debug/ entirely and remove its registration:\n# app/apis/router.py\n- api_router.include_router(debug_router, prefix=\"\", tags=[\"debug\"], include_in_schema=False)\n\n# Anything genuinely needed for operations moves behind the authenticated\n# operator role and returns no environment or filesystem detail.",
+    "criteria": [
+      "The debug package no longer exists in the repository.",
+      "No route returns process, environment or filesystem introspection.",
+      "A test asserts GET /debug returns 404."
+    ]
+  }
+}

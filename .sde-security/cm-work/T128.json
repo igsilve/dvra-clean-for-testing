@@ -1,0 +1,25 @@
+{
+  "cm_id": "T128",
+  "category": "CODE_FIX",
+  "library_sourced": false,
+  "content_fields": {
+    "format": "code",
+    "title": "Test for access control bypass through user-controlled keys",
+    "priority": 8,
+    "category": "CODE_FIX",
+    "link": "https://staging.qa.sdelements.com/bunits/1101/projects/4560/tasks/4560-T128/",
+    "description": "Stop trusting a client-supplied username as the authorization key; resolve the subject from the authenticated principal and check the caller's privilege.",
+    "language": "python",
+    "file": "app/apis/users/services/update_user_role_service.py",
+    "start_line": 13,
+    "end_line": 25,
+    "finding": "The target account is selected by a client-supplied username and updated with no check that the caller may modify it.",
+    "current_code": "async def update_user_role(\n    user: UserRoleUpdate,\n    current_user: Annotated[models.User, Depends(get_current_user)],\n    db: Session = Depends(get_db),\n):\n    if user.role == models.UserRole.CHEF.value:\n        raise HTTPException(\n            status_code=status.HTTP_401_UNAUTHORIZED,\n            detail=\"Only Chef is authorized to add Chef role!\",\n        )\n\n    db_user = update_user(db, user.username, user)\n    return current_user",
+    "required_fix": "# app/apis/users/services/update_user_role_service.py\n@router.put(\"/users/update_role\", response_model=UserRead)\nasync def update_user_role(\n    payload: UserRoleUpdate,\n    _: Annotated[bool, Depends(RolesBasedAuthChecker([UserRole.CHEF]))],\n    db: Session = Depends(get_db),\n):\n    if payload.role not in {UserRole.CUSTOMER.value, UserRole.EMPLOYEE.value}:\n        raise HTTPException(status_code=400, detail=\"Unsupported role\")\n\n    target = get_user_by_username(db, payload.username)\n    if target is None:\n        raise HTTPException(status_code=404, detail=\"User not found\")\n\n    target.role = payload.role\n    db.add(target); db.commit(); db.refresh(target)\n    return target",
+    "criteria": [
+      "The caller's privilege is checked before any lookup driven by client input.",
+      "A customer calling the endpoint receives 403 regardless of the username supplied.",
+      "The response reflects the account that was actually modified."
+    ]
+  }
+}

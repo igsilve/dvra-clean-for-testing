@@ -1,0 +1,42 @@
+{
+ "full_cm_id": "4560-T21",
+ "status": "pass",
+ "confidence": "high",
+ "findings": [
+  {
+   "file": "/Users/isilveira/dvra-clean-for-testing/app/config.py",
+   "line": 216,
+   "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] I1004 canonical pattern present: POSTGRES_SSLMODE defaults to 'require' (:223) and DATABASE_URL (:246-265) raises RuntimeError for any value outside require/verify-ca/verify-full, so 'prefer'/'disable' cannot silently produce a cleartext connection; supplying POSTGRES_SSLROOTCERT forces verify-full and passes the CA, which authenticates the server rather than only encrypting to it | verdict=pass confidence=high",
+   "category": "mitigation-confirmed"
+  },
+  {
+   "file": "/Users/isilveira/dvra-clean-for-testing/app/init_app.py",
+   "line": 176,
+   "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] HTTPSRedirectMiddleware is registered whenever ENVIRONMENT is PRODUCTION (:176-178) and SecurityHeadersMiddleware sets Strict-Transport-Security max-age=63072000; includeSubDomains (:31-33), so cleartext HTTP requests are redirected and subsequent ones are not attempted at all. Same confidentiality-in-transit property as the recommended TLS enforcement | verdict=pass confidence=high",
+   "category": "alternative-mitigation-accepted"
+  },
+  {
+   "file": "/Users/isilveira/dvra-clean-for-testing/app/init_app.py",
+   "line": 0,
+   "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] How-to I1004 filtered out for this file: it covers database-engine SSL parameters and client certificate provisioning, which has no counterpart in an ASGI middleware module | (audit-only, no verdict impact)",
+   "category": "not-applicable-how-to-skipped"
+  }
+ ],
+ "findings_aggregated_for_sde": [
+  {
+   "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] How-to I1004 (enable encrypted connection to database engine) confirmed on the client side: app/config.py:216-265 defaults POSTGRES_SSLMODE to 'require', explicitly rejects any sslmode that can silently fall back to plaintext, and upgrades to 'verify-full' with sslrootcert when a CA is supplied, so the server certificate is authenticated rather than merely encrypted to | verdict=pass confidence=high",
+   "count": "1"
+  },
+  {
+   "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] Alternative mitigation accepted for inbound transport: app/init_app.py:176-178 installs HTTPSRedirectMiddleware in production and :31-33 sets Strict-Transport-Security max-age=63072000; includeSubDomains, which enforces the same confidentiality-in-transit property as the recommended fix for HTTP traffic. Connection URL is built with URL.create rather than string interpolation, so TLS parameters cannot be displaced by a credential value | verdict=pass confidence=high",
+   "count": "1"
+  },
+  {
+   "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] How-to I1004 skipped as not applicable to app/init_app.py (database-engine SSL configuration, not ASGI middleware) | (audit-only, no verdict impact)",
+   "count": "1"
+  }
+ ],
+ "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T21 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+ "note_post_status": "POSTED",
+ "reason": ""
+}

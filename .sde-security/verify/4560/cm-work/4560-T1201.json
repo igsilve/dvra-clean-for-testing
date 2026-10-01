@@ -1,0 +1,22 @@
+{
+  "full_cm_id": "4560-T1201",
+  "status": "pass",
+  "confidence": "high",
+  "findings": [
+    {
+      "file": "/Users/isilveira/dvra-clean-for-testing/docker-compose.yml",
+      "line": 47,
+      "description": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] docker-compose.yml: the two values the runtime audit reads (HostConfig.Memory and HostConfig.PidsLimit) are both set non-zero for every service by this file. Memory: web 1g (line 47), proxy 256m (line 117), db 1g (line 177), each paired with an equal memswap_limit. PidsLimit: web 256 (line 49), proxy 128 (line 119), db 256 (line 179) - none is 0 or -1. No how-tos on this CM, so Q2 skipped; Q3 alternative mitigation accepted - declarative compose limits plus ulimits nofile and cgroup_parent: restaurant.slice enforce the same exhaustion and fork-bomb ceilings the docker inspect audit confirms, with the aggregate slice adding a host-level bound per-service limits cannot express. Marker scan clean | verdict=pass confidence=high",
+      "category": "alternative-mitigation-accepted"
+    }
+  ],
+  "findings_aggregated_for_sde": [
+    {
+      "desc": "[AI-SAST via Code Scan Verification Validation | claude-opus-5] docker-compose.yml: the two values the runtime audit reads (HostConfig.Memory and HostConfig.PidsLimit) are both set non-zero for every service by this file. Memory: web 1g (line 47), proxy 256m (line 117), db 1g (line 177), each paired with an equal memswap_limit. PidsLimit: web 256 (line 49), proxy 128 (line 119), db 256 (line 179) - none is 0 or -1. No how-tos on this CM, so Q2 skipped; Q3 alternative mitigation accepted - declarative compose limits plus ulimits nofile and cgroup_parent: restaurant.slice enforce the same exhaustion and fork-bomb ceilings the docker inspect audit confirms, with the aggregate slice adding a host-level bound per-service limits cannot express. Marker scan clean | verdict=pass confidence=high",
+      "count": "1"
+    }
+  ],
+  "finding_ref": "Agent: code-scan-verification-validation | Model: claude-opus-5 | Repo: dvra-clean-for-testing | CM: 4560-T1201 | Run: 2026-10-01T00:39:31Z | Handoff: .sde-verification-handoff.json",
+  "note_post_status": "POSTED",
+  "reason": ""
+}
